@@ -21,16 +21,21 @@
  */
 
 /**
+ * @namespace
+ */
+namespace Zend\View\Helper\Placeholder\Container;
+
+/**
  * Abstract class representing container for placeholder values
  *
  * @uses       ArrayObject
- * @uses       Zend_View_Helper_Placeholder_Container_Exception
+ * @uses       \Zend\View\Helper\Placeholder\Container\Exception
  * @package    Zend_View
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObject
+abstract class AbstractContainer extends \ArrayObject
 {
     /**
      * Whether or not to override all contents of placeholder
@@ -149,7 +154,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
      * Set prefix for __toString() serialization
      *
      * @param  string $prefix
-     * @return Zend_View_Helper_Placeholder_Container
+     * @return \Zend\View\Helper\Placeholder\Container\Container
      */
     public function setPrefix($prefix)
     {
@@ -171,7 +176,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
      * Set postfix for __toString() serialization
      *
      * @param  string $postfix
-     * @return Zend_View_Helper_Placeholder_Container
+     * @return \Zend\View\Helper\Placeholder\Container\Container
      */
     public function setPostfix($postfix)
     {
@@ -195,7 +200,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
      * Used to implode elements in container
      *
      * @param  string $separator
-     * @return Zend_View_Helper_Placeholder_Container
+     * @return \Zend\View\Helper\Placeholder\Container\Container
      */
     public function setSeparator($separator)
     {
@@ -218,7 +223,7 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
      * optionally, if a number is passed, it will be the number of spaces
      *
      * @param  string|int $indent
-     * @return Zend_View_Helper_Placeholder_Container_Abstract
+     * @return \Zend\View\Helper\Placeholder\Container\AbstractContainer
      */
     public function setIndent($indent)
     {
@@ -258,10 +263,10 @@ abstract class Zend_View_Helper_Placeholder_Container_Abstract extends ArrayObje
      * @return void
      * @throws Zend_View_Helper_Placeholder_Exception if nested captures detected
      */
-    public function captureStart($type = Zend_View_Helper_Placeholder_Container_Abstract::APPEND, $key = null)
+    public function captureStart($type = AbstractContainer::APPEND, $key = null)
     {
         if ($this->_captureLock) {
-            $e = new Zend_View_Helper_Placeholder_Container_Exception('Cannot nest placeholder captures for the same placeholder');
+            $e = new Exception('Cannot nest placeholder captures for the same placeholder');
             $e->setView($this->view);
             throw $e;
         }
