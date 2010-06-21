@@ -19,6 +19,10 @@
  * @version    $Id$
  */
 
+/**
+ * @namespace
+ */
+namespace Zend\View;
 
 /**
  * Interface class for Zend_View compatible template engine implementations
@@ -28,7 +32,7 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Zend_View_Interface
+interface ViewInterface
 {
     /**
      * Return the template engine object, if any

@@ -21,26 +21,37 @@
  */
 
 /**
+ * @namespace
+ */
+namespace Zend\View\Helper;
+
+/**
+ * @uses       \Zend\View\Helper\HelperInterface
  * @category   Zend
  * @package    Zend_View
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Zend_View_Helper_Interface
+abstract class AbstractHelper implements HelperInterface
 {
+    /**
+     * View object
+     *
+     * @var \Zend\View\ViewInterface
+     */
+    public $view = null;
+
     /**
      * Set the View object
      *
-     * @param  Zend_View_Interface $view
-     * @return Zend_View_Helper_Interface
+     * @param  \Zend\View\ViewInterface $view
+     * @return \Zend\View\Helper\AbstractHelper
      */
-    public function setView(Zend_View_Interface $view);
+    public function setView(\Zend\View\ViewInterface $view)
+    {
+        $this->view = $view;
+        return $this;
+    }
 
-    /**
-     * Strategy pattern: helper method to invoke
-     *
-     * @return mixed
-     */
-    public function direct();
 }
