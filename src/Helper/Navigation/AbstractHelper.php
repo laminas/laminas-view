@@ -24,12 +24,11 @@
  * @namespace
  */
 namespace Zend\View\Helper\Navigation;
-use Zend\Navigation;
-use Zend;
-use Zend\Acl;
-use Zend\Acl;
-use Zend\View;
-use Zend\Navigation\Page;
+use Zend\Navigation,
+    Zend\Navigation\AbstractPage,
+    Zend,
+    Zend\Acl,
+    Zend\View;
 
 /**
  * Base class for navigational helpers
@@ -46,7 +45,7 @@ use Zend\Navigation\Page;
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class HelperAbstract
+abstract class AbstractHelper
     extends View\Helper\HtmlElement
     implements Helper
 {
@@ -81,7 +80,7 @@ abstract class HelperAbstract
     /**
      * Translator
      *
-     * @var \Zend\Translator\Adapter\Adapter
+     * @var \Zend\Translator\Adapter
      */
     protected $_translator;
 
@@ -148,7 +147,7 @@ abstract class HelperAbstract
      *                                                     Default is null,
      *                                                     meaning container
      *                                                     will be reset.
-     * @return \Zend\View\Helper\Navigation\HelperAbstract  fluent interface,
+     * @return \Zend\View\Helper\Navigation\AbstractHelper  fluent interface,
      *                                                     returns self
      */
     public function setContainer(Navigation\Container $container = null)
@@ -197,7 +196,7 @@ abstract class HelperAbstract
      *                                                     depth. Default is
      *                                                     null, which sets
      *                                                     no minimum depth.
-     * @return \Zend\View\Helper\Navigation\HelperAbstract  fluent interface,
+     * @return \Zend\View\Helper\Navigation\AbstractHelper  fluent interface,
      *                                                     returns self
      */
     public function setMinDepth($minDepth = null)
@@ -230,7 +229,7 @@ abstract class HelperAbstract
      *                                                     depth. Default is
      *                                                     null, which sets no
      *                                                     maximum depth.
-     * @return \Zend\View\Helper\Navigation\HelperAbstract  fluent interface,
+     * @return \Zend\View\Helper\Navigation\AbstractHelper  fluent interface,
      *                                                     returns self
      */
     public function setMaxDepth($maxDepth = null)
@@ -259,7 +258,7 @@ abstract class HelperAbstract
      *
      * @param  string|int $indent                          indentation string or
      *                                                     number of spaces
-     * @return \Zend\View\Helper\Navigation\HelperAbstract  fluent interface,
+     * @return \Zend\View\Helper\Navigation\AbstractHelper  fluent interface,
      *                                                     returns self
      */
     public function setIndent($indent)
@@ -281,7 +280,7 @@ abstract class HelperAbstract
     /**
      * Sets translator to use in helper
      *
-     * Implements {@link Zend_View_Helper_Navigation_Helper::setTranslator()}.
+     * Implements {@link Zend\View\Helper\Navigation\Helper::setTranslator()}.
      *
      * @param  mixed $translator                           [optional] translator.
      *                                                     Expects an object of
@@ -291,13 +290,13 @@ abstract class HelperAbstract
      *                                                     or null. Default is
      *                                                     null, which sets no
      *                                                     translator.
-     * @return \Zend\View\Helper\Navigation\HelperAbstract  fluent interface,
+     * @return \Zend\View\Helper\Navigation\AbstractHelper  fluent interface,
      *                                                     returns self
      */
     public function setTranslator($translator = null)
     {
         if (null == $translator ||
-            $translator instanceof \Zend\Translator\Adapter\Adapter) {
+            $translator instanceof \Zend\Translator\Adapter) {
             $this->_translator = $translator;
         } elseif ($translator instanceof \Zend\Translator\Translator) {
             $this->_translator = $translator->getAdapter();
@@ -309,7 +308,7 @@ abstract class HelperAbstract
     /**
      * Returns translator used in helper
      *
-     * Implements {@link Zend_View_Helper_Navigation_Helper::getTranslator()}.
+     * Implements {@link Zend\View\Helper\Navigation\Helper::getTranslator()}.
      *
      * @return \Zend\Translator\Adapter\Adapter|null  translator or null
      */
@@ -327,11 +326,11 @@ abstract class HelperAbstract
     /**
      * Sets ACL to use when iterating pages
      *
-     * Implements {@link Zend_View_Helper_Navigation_Helper::setAcl()}.
+     * Implements {@link Zend\View\Helper\Navigation\Helper::setAcl()}.
      *
      * @param  \Zend\Acl\Acl $acl                               [optional] ACL object.
      *                                                     Default is null.
-     * @return \Zend\View\Helper\Navigation\HelperAbstract  fluent interface,
+     * @return \Zend\View\Helper\Navigation\AbstractHelper  fluent interface,
      *                                                     returns self
      */
     public function setAcl(Acl\Acl $acl = null)
@@ -344,7 +343,7 @@ abstract class HelperAbstract
      * Returns ACL or null if it isn't set using {@link setAcl()} or
      * {@link setDefaultAcl()}
      *
-     * Implements {@link Zend_View_Helper_Navigation_Helper::getAcl()}.
+     * Implements {@link Zend\View\Helper\Navigation\Helper::getAcl()}.
      *
      * @return \Zend\Acl\Acl|null  ACL object or null
      */
@@ -360,7 +359,7 @@ abstract class HelperAbstract
     /**
      * Sets ACL role(s) to use when iterating pages
      *
-     * Implements {@link Zend_View_Helper_Navigation_Helper::setRole()}.
+     * Implements {@link Zend\View\Helper\Navigation\Helper::setRole()}.
      *
      * @param  mixed $role                                 [optional] role to
      *                                                     set. Expects a string,
@@ -370,7 +369,7 @@ abstract class HelperAbstract
      *                                                     null, which will set
      *                                                     no role.
      * @throws \Zend\View\Exception                         if $role is invalid
-     * @return \Zend\View\Helper\Navigation\HelperAbstract  fluent interface,
+     * @return \Zend\View\Helper\Navigation\AbstractHelper  fluent interface,
      *                                                     returns self
      */
     public function setRole($role = null)
@@ -395,7 +394,7 @@ abstract class HelperAbstract
      * Returns ACL role to use when iterating pages, or null if it isn't set
      * using {@link setRole()} or {@link setDefaultRole()}
      *
-     * Implements {@link Zend_View_Helper_Navigation_Helper::getRole()}.
+     * Implements {@link Zend\View\Helper\Navigation\Helper::getRole()}.
      *
      * @return string|\Zend\Acl\Role|null  role or null
      */
@@ -411,12 +410,12 @@ abstract class HelperAbstract
     /**
      * Sets whether ACL should be used
      *
-     * Implements {@link Zend_View_Helper_Navigation_Helper::setUseAcl()}.
+     * Implements {@link Zend\View\Helper\Navigation\Helper::setUseAcl()}.
      *
      * @param  bool $useAcl                                [optional] whether ACL
      *                                                     should be used.
      *                                                     Default is true.
-     * @return \Zend\View\Helper\Navigation\HelperAbstract  fluent interface,
+     * @return \Zend\View\Helper\Navigation\AbstractHelper  fluent interface,
      *                                                     returns self
      */
     public function setUseAcl($useAcl = true)
@@ -428,7 +427,7 @@ abstract class HelperAbstract
     /**
      * Returns whether ACL should be used
      *
-     * Implements {@link Zend_View_Helper_Navigation_Helper::getUseAcl()}.
+     * Implements {@link Zend\View\Helper\Navigation\Helper::getUseAcl()}.
      *
      * @return bool  whether ACL should be used
      */
@@ -451,7 +450,7 @@ abstract class HelperAbstract
      * Render invisible items?
      *
      * @param  bool $renderInvisible                       [optional] boolean flag
-     * @return \Zend\View\Helper\Navigation\HelperAbstract  fluent interface
+     * @return \Zend\View\Helper\Navigation\AbstractHelper  fluent interface
      *                                                     returns self
      */
     public function setRenderInvisible($renderInvisible = true)
@@ -463,12 +462,12 @@ abstract class HelperAbstract
     /**
      * Sets whether translator should be used
      *
-     * Implements {@link Zend_View_Helper_Navigation_Helper::setUseTranslator()}.
+     * Implements {@link Zend\View\Helper\Navigation\Helper::setUseTranslator()}.
      *
      * @param  bool $useTranslator                         [optional] whether
      *                                                     translator should be
      *                                                     used. Default is true.
-     * @return \Zend\View\Helper\Navigation\HelperAbstract  fluent interface,
+     * @return \Zend\View\Helper\Navigation\AbstractHelper  fluent interface,
      *                                                     returns self
      */
     public function setUseTranslator($useTranslator = true)
@@ -480,7 +479,7 @@ abstract class HelperAbstract
     /**
      * Returns whether translator should be used
      *
-     * Implements {@link Zend_View_Helper_Navigation_Helper::getUseTranslator()}.
+     * Implements {@link Zend\View\Helper\Navigation\Helper::getUseTranslator()}.
      *
      * @return bool  whether translator should be used
      */
@@ -512,7 +511,7 @@ abstract class HelperAbstract
      * This method will trigger an E_USER_ERROR if rendering the helper causes
      * an exception to be thrown.
      *
-     * Implements {@link Zend_View_Helper_Navigation_Helper::__toString()}.
+     * Implements {@link Zend\View\Helper\Navigation\Helper::__toString()}.
      *
      * @return string
      */
@@ -588,7 +587,7 @@ abstract class HelperAbstract
                 }
 
                 $found = $found->getParent();
-                if (!$found instanceof Page\Page) {
+                if (!$found instanceof AbstractPage) {
                     $found = null;
                     break;
                 }
@@ -605,7 +604,7 @@ abstract class HelperAbstract
     /**
      * Checks if the helper has a container
      *
-     * Implements {@link Zend_View_Helper_Navigation_Helper::hasContainer()}.
+     * Implements {@link Zend\View\Helper\Navigation\Helper::hasContainer()}.
      *
      * @return bool  whether the helper has a container or not
      */
@@ -617,7 +616,7 @@ abstract class HelperAbstract
     /**
      * Checks if the helper has an ACL instance
      *
-     * Implements {@link Zend_View_Helper_Navigation_Helper::hasAcl()}.
+     * Implements {@link Zend\View\Helper\Navigation\Helper::hasAcl()}.
      *
      * @return bool  whether the helper has a an ACL instance or not
      */
@@ -629,7 +628,7 @@ abstract class HelperAbstract
     /**
      * Checks if the helper has an ACL role
      *
-     * Implements {@link Zend_View_Helper_Navigation_Helper::hasRole()}.
+     * Implements {@link Zend\View\Helper\Navigation\Helper::hasRole()}.
      *
      * @return bool  whether the helper has a an ACL role or not
      */
@@ -641,7 +640,7 @@ abstract class HelperAbstract
     /**
      * Checks if the helper has a translator
      *
-     * Implements {@link Zend_View_Helper_Navigation_Helper::hasTranslator()}.
+     * Implements {@link Zend\View\Helper\Navigation\Helper::hasTranslator()}.
      *
      * @return bool  whether the helper has a translator or not
      */
@@ -653,10 +652,10 @@ abstract class HelperAbstract
     /**
      * Returns an HTML string containing an 'a' element for the given page
      *
-     * @param  \Zend\Navigation\Page\Page $page  page to generate HTML for
+     * @param  \Zend\Navigation\AbstractPage $page  page to generate HTML for
      * @return string                      HTML string for the given page
      */
-    public function htmlify(Page\Page $page)
+    public function htmlify(AbstractPage $page)
     {
         // get label and title for translating
         $label = $page->getLabel();
@@ -701,14 +700,14 @@ abstract class HelperAbstract
      * - If page is accepted by the rules above and $recursive is true, the page
      *   will not be accepted if it is the descendant of a non-accepted page.
      *
-     * @param  \Zend\Navigation\Page\Page $page      page to check
+     * @param  \Zend\Navigation\AbstractPage $page      page to check
      * @param  bool                $recursive  [optional] if true, page will not
      *                                         be accepted if it is the
      *                                         descendant of a page that is not
      *                                         accepted. Default is true.
      * @return bool                            whether page should be accepted
      */
-    public function accept(Page\Page $page, $recursive = true)
+    public function accept(AbstractPage $page, $recursive = true)
     {
         // accept by default
         $accept = true;
@@ -723,7 +722,7 @@ abstract class HelperAbstract
 
         if ($accept && $recursive) {
             $parent = $page->getParent();
-            if ($parent instanceof Page\Page) {
+            if ($parent instanceof AbstractPage) {
                 $accept = $this->accept($parent, true);
             }
         }
@@ -740,10 +739,10 @@ abstract class HelperAbstract
      *   if the ACL allows access to it using the helper's role
      * - If page has no resource or privilege, page is accepted
      *
-     * @param  \Zend\Navigation\Page\Page $page  page to check
+     * @param  \Zend\Navigation\AbstractPage $page  page to check
      * @return bool                        whether page is accepted by ACL
      */
-    protected function _acceptAcl(Page\Page $page)
+    protected function _acceptAcl(AbstractPage $page)
     {
         if (!$acl = $this->getAcl()) {
             // no acl registered means don't use acl
@@ -811,7 +810,7 @@ abstract class HelperAbstract
     protected function _normalizeId($value)
     {
         $prefix = get_class($this);
-        $prefix = strtolower(trim(substr($prefix, strrpos($prefix, '_')), '_'));
+        $prefix = strtolower(trim(substr($prefix, strrpos($prefix, '\\')), '\\'));
 
         return $prefix . '-' . $value;
     }
