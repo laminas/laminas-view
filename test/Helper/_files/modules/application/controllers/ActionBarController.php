@@ -28,25 +28,9 @@
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class ActionFooController extends \Zend\Controller\Action\Action
+class ActionBarController extends \Zend\Controller\Action
 {
-    public function barAction()
-    {
-    }
-
     public function bazAction()
     {
-        $this->view->message = $this->_getParam('bat', 'BOGUS');
-    }
-
-    public function forwardAction()
-    {
-        $this->_forward('bar');
-    }
-
-    public function redirectAction()
-    {
-        $this->_helper->redirector->setExit(false);
-        $this->_redirect('/foo/bar');
     }
 }

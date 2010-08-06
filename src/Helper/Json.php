@@ -30,7 +30,7 @@ use Zend\Layout\Layout as LayoutManager;
  * Helper for simplifying JSON responses
  *
  * @uses       \Zend\Controller\Front
- * @uses       \Zend\JSON\JSON
+ * @uses       \Zend\Json\Json
  * @uses       \Zend\Layout\Layout
  * @uses       \Zend\View\Helper\AbstractHelper
  * @package    Zend_View
@@ -38,7 +38,7 @@ use Zend\Layout\Layout as LayoutManager;
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class JSON extends AbstractHelper
+class Json extends AbstractHelper
 {
     /**
      * Encode data as JSON, disable layouts, and set response header
@@ -69,7 +69,7 @@ class JSON extends AbstractHelper
             unset($options['keepLayouts']);
         }
 
-        $data = \Zend\JSON\JSON::encode($data, null, $options);
+        $data = \Zend\Json\Json::encode($data, null, $options);
         if (!$keepLayouts) {
             $layout = LayoutManager::getMvcInstance();
             if ($layout instanceof LayoutManager) {

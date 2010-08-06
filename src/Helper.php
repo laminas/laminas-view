@@ -14,23 +14,38 @@
  *
  * @category   Zend
  * @package    Zend_View
- * @subpackage UnitTests
+ * @subpackage Helper
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
 
+/**
+ * @namespace
+ */
+namespace Zend\View;
 
 /**
  * @category   Zend
  * @package    Zend_View
- * @subpackage UnitTests
+ * @subpackage Helper
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class ActionBarController extends \Zend\Controller\Action\Action
+interface Helper
 {
-    public function bazAction()
-    {
-    }
+    /**
+     * Set the View object
+     *
+     * @param  \Zend\View\ViewEngine $view
+     * @return \Zend\View\Helper
+     */
+    public function setView(\Zend\View\ViewEngine $view);
+
+    /**
+     * Strategy pattern: helper method to invoke
+     *
+     * @return mixed
+     */
+    public function direct();
 }
