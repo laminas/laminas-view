@@ -14,40 +14,38 @@
  *
  * @category   Zend
  * @package    Zend_View
- * @subpackage UnitTests
+ * @subpackage Helper
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
 
-/** Zend_Controller_Action */
+/**
+ * @namespace
+ */
+namespace Zend\View;
 
 /**
  * @category   Zend
  * @package    Zend_View
- * @subpackage UnitTests
+ * @subpackage Helper
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class ActionFooController extends Zend_Controller_Action
+interface Helper
 {
-    public function barAction()
-    {
-    }
+    /**
+     * Set the View object
+     *
+     * @param  \Zend\View\ViewEngine $view
+     * @return \Zend\View\Helper
+     */
+    public function setView(\Zend\View\ViewEngine $view);
 
-    public function bazAction()
-    {
-        $this->view->message = $this->_getParam('bat', 'BOGUS');
-    }
-
-    public function forwardAction()
-    {
-        $this->_forward('bar');
-    }
-
-    public function redirectAction()
-    {
-        $this->_helper->redirector->setExit(false);
-        $this->_redirect('/foo/bar');
-    }
+    /**
+     * Strategy pattern: helper method to invoke
+     *
+     * @return mixed
+     */
+    public function direct();
 }
