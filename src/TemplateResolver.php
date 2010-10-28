@@ -13,9 +13,8 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Date
+ * @package    Zend_View
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id$
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -25,26 +24,20 @@
 namespace Zend\View;
 
 /**
- * Exception for Zend_View class.
+ * Interface describing a template resolver
  *
- * @uses       \Zend\Exception
  * @category   Zend
- * @package    Zend_Date
+ * @package    Zend_View
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Exception extends \Zend\Exception
+interface TemplateResolver
 {
-    protected $view = null;
-
-    public function setView(Renderer $view = null)
-    {
-        $this->view = $view;
-        return $this;
-    }
-
-    public function getView()
-    {
-        return $this->view;
-    }
+    /**
+     * Retrieve the filesystem path to a view script
+     * 
+     * @param  string $name 
+     * @return string
+     */
+    public function getScriptPath($name);
 }

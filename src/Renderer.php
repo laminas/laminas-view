@@ -13,10 +13,10 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend_Date
+ * @package    Zend_View
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
- * @version    $Id$
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id$
  */
 
 /**
@@ -25,26 +25,31 @@
 namespace Zend\View;
 
 /**
- * Exception for Zend_View class.
+ * Interface class for Zend_View compatible template engine implementations
  *
- * @uses       \Zend\Exception
  * @category   Zend
- * @package    Zend_Date
+ * @package    Zend_View
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Exception extends \Zend\Exception
+interface Renderer
 {
-    protected $view = null;
+    /**
+     * Return the template engine object, if any
+     *
+     * If using a third-party template engine, such as Smarty, patTemplate,
+     * phplib, etc, return the template engine object. Useful for calling
+     * methods on these objects, such as for setting filters, modifiers, etc.
+     *
+     * @return mixed
+     */
+    public function getEngine();
 
-    public function setView(Renderer $view = null)
-    {
-        $this->view = $view;
-        return $this;
-    }
-
-    public function getView()
-    {
-        return $this->view;
-    }
+    /**
+     * Processes a view script and returns the output.
+     *
+     * @param string $name The script name to process.
+     * @return string The script output.
+     */
+    public function render($name);
 }
