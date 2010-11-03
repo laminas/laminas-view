@@ -14,7 +14,6 @@
  *
  * @category   Zend
  * @package    Zend_View
- * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -22,19 +21,23 @@
 /**
  * @namespace
  */
-namespace ZendTest\View\_stubs\HelperDir2;
+namespace Zend\View;
 
 /**
+ * Interface describing a template resolver
+ *
  * @category   Zend
  * @package    Zend_View
- * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Datetime
+interface TemplateResolver
 {
-    public function datetime()
-    {
-        return $this;
-    }
+    /**
+     * Retrieve the filesystem path to a view script
+     * 
+     * @param  string $name 
+     * @return string
+     */
+    public function getScriptPath($name);
 }
