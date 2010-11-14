@@ -14,27 +14,42 @@
  *
  * @category   Zend
  * @package    Zend_View
- * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @version    $Id$
  */
 
 /**
  * @namespace
  */
-namespace ZendTest\View\_stubs\HelperDir2;
+namespace Zend\View;
 
 /**
+ * Interface class for Zend_View compatible template engine implementations
+ *
  * @category   Zend
  * @package    Zend_View
- * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Datetime
+interface Renderer
 {
-    public function datetime()
-    {
-        return $this;
-    }
+    /**
+     * Return the template engine object, if any
+     *
+     * If using a third-party template engine, such as Smarty, patTemplate,
+     * phplib, etc, return the template engine object. Useful for calling
+     * methods on these objects, such as for setting filters, modifiers, etc.
+     *
+     * @return mixed
+     */
+    public function getEngine();
+
+    /**
+     * Processes a view script and returns the output.
+     *
+     * @param string $name The script name to process.
+     * @return string The script output.
+     */
+    public function render($name);
 }
