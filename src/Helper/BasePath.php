@@ -24,56 +24,55 @@
  */
 namespace Zend\View\Helper;
 
-use Zend\Layout\Layout as BaseLayout;
+use Zend\View\Exception;
 
 /**
- * View helper for retrieving layout object
+ * Helper for retrieving the base path.
  *
- * @uses       \Zend\Layout\Layout
- * @uses       \Zend\View\Helper\AbstractHelper
  * @package    Zend_View
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class Layout extends AbstractHelper
+class BasePath extends AbstractHelper
 {
-    /** @var BaseLayout */
-    protected $_layout;
+    /**
+     * Base path.
+     *
+     * @var string
+     */
+    protected $basePath;
 
     /**
-     * Get layout object
+     * Returns site's base path, or file with base path prepended.
      *
-     * @return BaseLayout
+     * $file is appended to the base path for simplicity.
+     *
+     * @param  string|null $file
+     * @return string
      */
-    public function getLayout()
+    public function __invoke($file = null)
     {
-        if (null === $this->_layout) {
-            $this->_layout = new BaseLayout();
+        if (null === $this->basePath) {
+            throw new Exception\RuntimeException('No base path provided');
         }
 
-        return $this->_layout;
+        if (null !== $file) {
+            $file = '/' . ltrim($file, '/');
+        }
+
+        return $this->basePath . $file;
     }
 
     /**
-     * Set layout object
+     * Set the base path.
      *
-     * @param  BaseLayout $layout
-     * @return Layout
+     * @param  string $basePath
+     * @return self
      */
-    public function setLayout(BaseLayout $layout)
+    public function setBasePath($basePath)
     {
-        $this->_layout = $layout;
+        $this->basePath = $basePath;
         return $this;
-    }
-
-    /**
-     * Return layout object
-     *
-     * @return BaseLayout
-     */
-    public function __invoke()
-    {
-        return $this->getLayout();
     }
 }

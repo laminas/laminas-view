@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_View
- * @subpackage Helper
+ * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
@@ -22,58 +22,43 @@
 /**
  * @namespace
  */
-namespace Zend\View\Helper;
+namespace ZendTest\View\Helper;
 
-use Zend\Layout\Layout as BaseLayout;
+use PHPUnit_Framework_TestCase as TestCase,
+    Zend\View\Helper\BasePath;
 
 /**
- * View helper for retrieving layout object
- *
- * @uses       \Zend\Layout\Layout
- * @uses       \Zend\View\Helper\AbstractHelper
+ * @category   Zend
  * @package    Zend_View
- * @subpackage Helper
+ * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @group      Zend_View
+ * @group      Zend_View_Helper
  */
-class Layout extends AbstractHelper
+class BasePathTest extends TestCase
 {
-    /** @var BaseLayout */
-    protected $_layout;
-
-    /**
-     * Get layout object
-     *
-     * @return BaseLayout
-     */
-    public function getLayout()
+    public function testBasePathWithoutFile()
     {
-        if (null === $this->_layout) {
-            $this->_layout = new BaseLayout();
-        }
-
-        return $this->_layout;
+        $helper = new BasePath();
+        $helper->setBasePath('/foo');
+        
+        $this->assertEquals('/foo', $helper());
     }
-
-    /**
-     * Set layout object
-     *
-     * @param  BaseLayout $layout
-     * @return Layout
-     */
-    public function setLayout(BaseLayout $layout)
+    
+    public function testBasePathWithFile()
     {
-        $this->_layout = $layout;
-        return $this;
+        $helper = new BasePath();
+        $helper->setBasePath('/foo');
+        
+        $this->assertEquals('/foo/bar', $helper('bar'));
     }
-
-    /**
-     * Return layout object
-     *
-     * @return BaseLayout
-     */
-    public function __invoke()
+    
+    public function testBasePathWithFilePrefixedBySlash()
     {
-        return $this->getLayout();
+        $helper = new BasePath();
+        $helper->setBasePath('/foo');
+        
+        $this->assertEquals('/foo/bar', $helper('/bar'));
     }
 }
