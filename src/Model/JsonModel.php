@@ -14,30 +14,36 @@
  *
  * @category   Zend
  * @package    Zend_View
+ * @subpackage Model
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/**
- * @namespace
- */
-namespace Zend\View;
+namespace Zend\View\Model;
+
+use Traversable,
+    Zend\Stdlib\IteratorToArray;
 
 /**
- * Interface describing a template resolver
- *
  * @category   Zend
  * @package    Zend_View
+ * @subpackage Model
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface TemplateResolver
+class JsonModel extends ViewModel
 {
     /**
-     * Retrieve the filesystem path to a view script
+     * Serialize to JSON
      * 
-     * @param  string $name 
      * @return string
      */
-    public function getScriptPath($name);
+    public function serialize()
+    {
+        $variables = $this->getVariables();
+        if ($variables instanceof Traversable) {
+            $variables = IteratorToArray::convert($variables);
+        }
+        return json_encode($variables);
+    }
 }
