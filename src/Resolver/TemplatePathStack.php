@@ -14,32 +14,53 @@
  *
  * @category   Zend
  * @package    Zend_View
+ * @subpackage Resolver
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/**
- * @namespace
- */
-namespace Zend\View;
+namespace Zend\View\Resolver;
 
 use SplFileInfo,
-    Zend\Stdlib\SplStack;
+    Zend\Stdlib\SplStack,
+    Zend\View\Exception,
+    Zend\View\Renderer,
+    Zend\View\Resolver;
 
 /**
  * Resolves view scripts based on a stack of paths
  *
  * @category   Zend
  * @package    Zend_View
+ * @subpackage Resolver
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class TemplatePathStack implements TemplateResolver
+class TemplatePathStack implements Resolver
 {
+    const FAILURE_NO_PATHS  = 'TemplatePathStack_Failure_No_Paths';
+    const FAILURE_NOT_FOUND = 'TemplatePathStack_Failure_Not_Found';
+
+    /**
+     * Default suffix to use
+     *
+     * Appends this suffix if the template requested does not use it.
+     * 
+     * @var string
+     */
+    protected $defaultSuffix = 'phtml';
+
     /**
      * @var SplStack
      */
     protected $paths;
+
+    /**
+     * Reason for last lookup failure
+     * 
+     * @var false|string
+     */
+    protected $lastLookupFailure = false;
 
     /**
      * Flag indicating whether or not LFI protection for rendering view scripts is enabled
@@ -107,6 +128,29 @@ class TemplatePathStack implements TemplateResolver
                     break;
             }
         }
+    }
+
+    /**
+     * Set default file suffix
+     *
+     * @param  string $defaultSuffix
+     * @return TemplatePathStack
+     */
+    public function setDefaultSuffix($defaultSuffix)
+    {
+        $this->defaultSuffix = (string) $defaultSuffix;
+        $this->defaultSuffix = ltrim($this->defaultSuffix, '.');
+        return $this;
+    }
+    
+    /**
+     * Get default file suffix
+     *
+     * @return string
+     */
+    public function getDefaultSuffix()
+    {
+        return $this->defaultSuffix;
     }
 
     /**
@@ -250,11 +294,14 @@ class TemplatePathStack implements TemplateResolver
      * Retrieve the filesystem path to a view script
      *
      * @param  string $name
+     * @param  null|Renderer $renderer
      * @return string
      * @throws Exception\RuntimeException
      */
-    public function getScriptPath($name)
+    public function resolve($name, Renderer $renderer = null)
     {
+        $this->lastLookupFailure = false;
+
         if ($this->isLfiProtectionOn() && preg_match('#\.\.[\\\/]#', $name)) {
             throw new Exception\DomainException(
                 'Requested scripts may not include parent directory traversal ("../", "..\\" notation)'
@@ -262,12 +309,16 @@ class TemplatePathStack implements TemplateResolver
         }
 
         if (!count($this->paths)) {
-            throw new Exception\RuntimeException(
-                'No view script directory set; unable to determine location for view script'
-            );
+            $this->lastLookupFailure = static::FAILURE_NO_PATHS;
+            return false;
         }
 
-        $paths   = PATH_SEPARATOR;
+        // Ensure we have the expected file extension
+        $defaultSuffix = $this->getDefaultSuffix();
+        if (pathinfo($name, PATHINFO_EXTENSION) != $defaultSuffix) {;
+            $name .= '.' . $defaultSuffix;
+        }
+
         foreach ($this->paths as $path) {
             $file = new SplFileInfo($path . $name);
             if ($file->isReadable()) {
@@ -285,12 +336,19 @@ class TemplatePathStack implements TemplateResolver
                 }
                 return $filePath;
             }
-            $paths .= $path . PATH_SEPARATOR;
         }
 
-        throw new Exception\RuntimeException(sprintf(
-            'Script "%s" not found in path (%s)',
-            $name, trim($paths, PATH_SEPARATOR)
-        ));
+        $this->lastLookupFailure = static::FAILURE_NOT_FOUND;
+        return false;
+    }
+
+    /**
+     * Get the last lookup failure message, if any
+     * 
+     * @return false|string
+     */
+    public function getLastLookupFailure()
+    {
+        return $this->lastLookupFailure;
     }
 }

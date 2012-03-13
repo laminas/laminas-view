@@ -14,30 +14,51 @@
  *
  * @category   Zend
  * @package    Zend_View
+ * @subpackage Model
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/**
- * @namespace
- */
-namespace Zend\View;
+namespace Zend\View\Model;
+
+use Traversable,
+    Zend\Stdlib\ArrayUtils;
 
 /**
- * Interface describing a template resolver
- *
  * @category   Zend
  * @package    Zend_View
+ * @subpackage Model
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface TemplateResolver
+class JsonModel extends ViewModel
 {
     /**
-     * Retrieve the filesystem path to a view script
+     * JSON probably won't need to be captured into a 
+     * a parent container by default.
      * 
-     * @param  string $name 
+     * @var string
+     */
+    protected $captureTo = null;
+
+    /**
+     * JSON is usually terminal
+     * 
+     * @var bool
+     */
+    protected $terminate = true;
+
+    /**
+     * Serialize to JSON
+     * 
      * @return string
      */
-    public function getScriptPath($name);
+    public function serialize()
+    {
+        $variables = $this->getVariables();
+        if ($variables instanceof Traversable) {
+            $variables = ArrayUtils::iteratorToArray($variables);
+        }
+        return Json::encode($variables);
+    }
 }
