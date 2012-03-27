@@ -14,30 +14,26 @@
  *
  * @category   Zend
  * @package    Zend_View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @subpackage Renderer
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/**
- * @namespace
- */
-namespace Zend\View;
+namespace Zend\View\Renderer;
 
 /**
- * Interface describing a template resolver
- *
  * @category   Zend
  * @package    Zend_View
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @subpackage Renderer
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface TemplateResolver
+interface TreeRendererInterface
 {
     /**
-     * Retrieve the filesystem path to a view script
+     * Indicate whether the renderer is capable of rendering trees of view models
      * 
-     * @param  string $name 
-     * @return string
+     * @return bool
      */
-    public function getScriptPath($name);
+    public function canRenderTrees();
 }
