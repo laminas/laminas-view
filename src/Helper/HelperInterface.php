@@ -19,7 +19,9 @@
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Zend\View;
+namespace Zend\View\Helper;
+
+use Zend\View\Renderer\RendererInterface as Renderer;
 
 /**
  * @category   Zend
@@ -28,20 +30,20 @@ namespace Zend\View;
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Helper
+interface HelperInterface
 {
     /**
      * Set the View object
      *
-     * @param  \Zend\View\Renderer $view
-     * @return \Zend\View\Helper
+     * @param  Renderer $view
+     * @return HelperInterface
      */
     public function setView(Renderer $view);
 
     /**
      * Get the View object
      *
-     * @return \Zend\View\Renderer
+     * @return Renderer
      */
     public function getView();
 }

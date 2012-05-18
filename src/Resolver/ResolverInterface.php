@@ -14,17 +14,30 @@
  *
  * @category   Zend
  * @package    Zend_View
+ * @subpackage Resolver
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Zend\View;
+namespace Zend\View\Resolver;
+
+use Zend\View\Renderer\RendererInterface as Renderer;
 
 /**
  * @category   Zend
  * @package    Zend_View
+ * @subpackage Resolver
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Exception
-{}
+interface ResolverInterface
+{
+    /**
+     * Resolve a template/pattern name to a resource the renderer can consume
+     * 
+     * @param  string $name 
+     * @param  null|Renderer $renderer 
+     * @return mixed
+     */
+    public function resolve($name, Renderer $renderer = null);
+}
