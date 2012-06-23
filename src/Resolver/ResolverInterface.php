@@ -14,46 +14,30 @@
  *
  * @category   Zend
  * @package    Zend_View
- * @subpackage Helper
+ * @subpackage Resolver
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/**
- * @namespace
- */
-namespace Zend\View\Helper;
+namespace Zend\View\Resolver;
+
+use Zend\View\Renderer\RendererInterface as Renderer;
 
 /**
- * Helper to show an HTML note
- *
- * @uses       \Zend\View\Helper\FormElement
  * @category   Zend
  * @package    Zend_View
- * @subpackage Helper
+ * @subpackage Resolver
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class FormNote extends FormElement
+interface ResolverInterface
 {
     /**
-    * Helper to show a "note" based on a hidden value.
-     *
-     * @access public
-     *
-     * @param string|array $name If a string, the element name.  If an
-     * array, all other parameters are ignored, and the array elements
-     * are extracted in place of added parameters.
-     *
-     * @param array $value The note to display.  HTML is *not* escaped; the
-     * note is displayed as-is.
-     *
-     * @return string The element XHTML.
+     * Resolve a template/pattern name to a resource the renderer can consume
+     * 
+     * @param  string $name 
+     * @param  null|Renderer $renderer 
+     * @return mixed
      */
-    public function __invoke($name, $value = null)
-    {
-        $info = $this->_getInfo($name, $value);
-        extract($info); // name, value, attribs, options, listsep, disable
-        return $value;
-    }
+    public function resolve($name, Renderer $renderer = null);
 }

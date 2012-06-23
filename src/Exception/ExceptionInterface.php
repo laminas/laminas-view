@@ -14,37 +14,17 @@
  *
  * @category   Zend
  * @package    Zend_View
- * @subpackage Helper
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-/**
- * @namespace
- */
-namespace Zend\View;
+namespace Zend\View\Exception;
 
 /**
  * @category   Zend
  * @package    Zend_View
- * @subpackage Helper
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-interface Helper
-{
-    /**
-     * Set the View object
-     *
-     * @param  \Zend\View\Renderer $view
-     * @return \Zend\View\Helper
-     */
-    public function setView(Renderer $view);
-
-    /**
-     * Get the View object
-     *
-     * @return \Zend\View\Renderer
-     */
-    public function getView();
-}
+interface ExceptionInterface
+{}

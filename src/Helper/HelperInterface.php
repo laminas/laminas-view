@@ -13,7 +13,7 @@
  * to license@zend.com so we can send you a copy immediately.
  *
  * @category   Zend
- * @package    Zend\View
+ * @package    Zend_View
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
@@ -21,36 +21,29 @@
 
 namespace Zend\View\Helper;
 
-use Zend\Form\Element\Hash as HashElement;
+use Zend\View\Renderer\RendererInterface as Renderer;
 
 /**
- * Helper for rendering CSRF token elements outside of Zend\Form using 
- * Zend\Form\Element\Hash
- *
- * @package    Zend\View
+ * @category   Zend
+ * @package    Zend_View
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class FormCsrf extends AbstractHelper
+interface HelperInterface
 {
     /**
-     * @var array
+     * Set the View object
+     *
+     * @param  Renderer $view
+     * @return HelperInterface
      */
-    protected $hashElements;
+    public function setView(Renderer $view);
 
     /**
-     * __invoke 
-     * 
-     * @param string $name 
-     * @return string
+     * Get the View object
+     *
+     * @return Renderer
      */
-    public function __invoke($name = 'csrf')
-    {
-        if (!isset($this->hashElements[$name])) {
-            $this->hashElements[$name] = new HashElement($name);
-            $this->hashElements[$name]->setDecorators(array('ViewHelper'));
-        }
-        return trim($this->hashElements[$name]->render($this->getView()));
-    }
+    public function getView();
 }
