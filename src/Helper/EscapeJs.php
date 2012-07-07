@@ -21,37 +21,29 @@
 
 namespace Zend\View\Helper;
 
+use Zend\View\Helper\Escaper;
+use Zend\View\Exception;
+
 /**
- * @category   Zend
+ * Helper for escaping values
+ *
  * @package    Zend_View
  * @subpackage Helper
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class HtmlFlash extends AbstractHtmlElement
+class EscapeJs extends Escaper\AbstractHelper
 {
+    
     /**
-     * Default file type for a flash applet
+     * Escape a value for current escaping strategy
      *
-     */
-    const TYPE = 'application/x-shockwave-flash';
-
-    /**
-     * Output a flash movie object tag
-     *
-     * @param string $data The flash file
-     * @param array  $attribs Attribs for the object tag
-     * @param array  $params Params for in the object tag
-     * @param string $content Alternative content
+     * @param string $value
      * @return string
      */
-    public function __invoke($data, array $attribs = array(), array $params = array(), $content = null)
+    protected function escape($value)
     {
-        // Params
-        $params = array_merge(array('movie'   => $data,
-                                    'quality' => 'high'), $params);
-
-        $htmlObject = $this->getView()->plugin('htmlObject');
-        return $htmlObject($data, self::TYPE, $attribs, $params, $content);
+        return $this->getEscaper()->escapeJs($value);
     }
+
 }

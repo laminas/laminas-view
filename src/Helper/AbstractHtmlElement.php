@@ -28,12 +28,12 @@ namespace Zend\View\Helper;
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class HtmlElement extends AbstractHelper
+abstract class AbstractHtmlElement extends AbstractHelper
 {
     /**
      * EOL character
      */
-    const EOL = "\n";
+    const EOL = PHP_EOL;
 
     /**
      * The tag closing bracket
@@ -84,7 +84,7 @@ abstract class HtmlElement extends AbstractHelper
     protected function _htmlAttribs($attribs)
     {
         $xhtml   = '';
-        $escaper = $this->view->plugin('escape');
+        $escaper = $this->view->plugin('escapehtml');
         foreach ((array) $attribs as $key => $val) {
             $key = $escaper($key);
 
