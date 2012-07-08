@@ -14,42 +14,36 @@
  *
  * @category   Zend
  * @package    Zend_View
- * @subpackage UnitTests
+ * @subpackage Helper
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace Zend\View\Helper;
 
-use Zend\View\Renderer\PhpRenderer as View;
-use Zend\View\Helper\Placeholder as PlaceholderHelper;
+use Zend\View\Helper\Escaper;
+use Zend\View\Exception;
 
 /**
- * @category   Zend
+ * Helper for escaping values
+ *
  * @package    Zend_View
- * @subpackage UnitTests
+ * @subpackage Helper
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_View
- * @group      Zend_View_Helper
  */
-class RenderToPlaceholderTest extends \PHPUnit_Framework_TestCase
+class EscapeJs extends Escaper\AbstractHelper
 {
-
-    protected $_view = null;
-
-    public function setUp()
+    
+    /**
+     * Escape a value for current escaping strategy
+     *
+     * @param string $value
+     * @return string
+     */
+    protected function escape($value)
     {
-        $this->_view = new View();
-        $this->_view->resolver()->addPath(__DIR__.'/_files/scripts/');
-    }
-
-    public function testDefaultEmpty()
-    {
-        $this->_view->plugin('renderToPlaceholder')->__invoke('rendertoplaceholderscript.phtml', 'fooPlaceholder');
-        $placeholder = new PlaceholderHelper();
-        $this->assertEquals("Foo Bar" . "\n", $placeholder->__invoke('fooPlaceholder')->getValue());
+        return $this->getEscaper()->escapeJs($value);
     }
 
 }
-
