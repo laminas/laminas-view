@@ -8,17 +8,29 @@
  * @package   Zend_View
  */
 
-namespace ZendTest\View\Helper\TestAsset;
+namespace ZendTest\View\Model\TestAsset;
 
-use Zend\I18n\Translator;
+use Iterator;
 
-class ArrayTranslator implements Translator\Loader\FileLoaderInterface
+class Variable implements Iterator
 {
-    public $translations;
-
-    public function load($filename, $locale)
+    public function current()
     {
-        $textDomain =  new Translator\TextDomain($this->translations);
-        return $textDomain;
+    }
+
+    public function key()
+    {
+    }
+
+    public function next()
+    {
+    }
+
+    public function rewind()
+    {
+    }
+
+    public function valid()
+    {
     }
 }
