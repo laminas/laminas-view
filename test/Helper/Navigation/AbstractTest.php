@@ -1,33 +1,22 @@
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @package   Zend_View
  */
 
 namespace ZendTest\View\Helper\Navigation;
 
 use Zend\Navigation\Navigation;
-use Zend\Acl\Acl;
-use Zend\Acl\Role\GenericRole;
-use Zend\Acl\Resource\GenericResource;
 use Zend\Config\Factory as ConfigFactory;
 use Zend\Mvc\Router\RouteMatch;
-use Zend\Mvc\Service\ServiceManagerConfiguration;
+use Zend\Mvc\Service\ServiceManagerConfig;
+use Zend\Permissions\Acl\Acl;
+use Zend\Permissions\Acl\Role\GenericRole;
+use Zend\Permissions\Acl\Resource\GenericResource;
 use Zend\ServiceManager\ServiceManager;
 use Zend\I18n\Translator\Translator;
 use Zend\View\Renderer\PhpRenderer;
@@ -39,8 +28,6 @@ use ZendTest\View\Helper\TestAsset;
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
@@ -75,14 +62,14 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
     protected $_helper;
 
     /**
-     * The first container in the config file (_files/navigation.xml)
+     * The first container in the config file (files/navigation.xml)
      *
      * @var Zend_Navigation
      */
     protected $_nav1;
 
     /**
-     * The second container in the config file (_files/navigation.xml)
+     * The second container in the config file (files/navigation.xml)
      *
      * @var Navigation\Navigation
      */
@@ -127,7 +114,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
                 'extra_config'         => array(
                     'service_manager' => array(
                         'factories' => array(
-                            'Configuration' => function() use ($config) {
+                            'Config' => function() use ($config) {
                                 return array(
                                     'navigation' => array(
                                         'default' => $config->get('nav_test1'),
@@ -140,11 +127,14 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
             ),
         );
 
-        $sm = $this->serviceManager = new ServiceManager(new ServiceManagerConfiguration);
-        $sm->setService('ApplicationConfiguration', $smConfig);
+        $sm = $this->serviceManager = new ServiceManager(new ServiceManagerConfig);
+        $sm->setService('ApplicationConfig', $smConfig);
         $sm->get('ModuleManager')->loadModules();
         $sm->get('Application')->bootstrap();
         $sm->setFactory('Navigation', 'Zend\Navigation\Service\DefaultNavigationFactory');
+
+        $sm->setService('nav1', $this->_nav1);
+        $sm->setService('nav2', $this->_nav2);
 
         $app = $this->serviceManager->get('Application');
         $app->getMvcEvent()->setRouteMatch(new RouteMatch(array(

@@ -1,22 +1,11 @@
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @package   Zend_View
  */
 
 namespace ZendTest\View\Helper;
@@ -32,8 +21,6 @@ use Zend\View\Exception\ExceptionInterface as ViewException;
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
@@ -402,37 +389,37 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected, $test);
     }
 
-	/**
-	 * @issue ZF-7722
-	 */
-	public function testCharsetValidateFail()
-	{
-		$view = new View();
-		$view->plugin('doctype')->__invoke('HTML4_STRICT');
+    /**
+     * @issue ZF-7722
+     */
+    public function testCharsetValidateFail()
+    {
+        $view = new View();
+        $view->plugin('doctype')->__invoke('HTML4_STRICT');
 
         $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
         $view->plugin('headMeta')->setCharset('utf-8');
-	}
+    }
 
-	/**
-	 * @issue ZF-7722
-	 */
+    /**
+     * @issue ZF-7722
+     */
     public function testCharset()
     {
-		$view = new View();
-		$view->plugin('doctype')->__invoke('HTML5');
+        $view = new View();
+        $view->plugin('doctype')->__invoke('HTML5');
 
-		$view->plugin('headMeta')->setCharset('utf-8');
-		$this->assertEquals(
-			'<meta charset="utf-8">',
-			$view->plugin('headMeta')->toString());
+        $view->plugin('headMeta')->setCharset('utf-8');
+        $this->assertEquals(
+            '<meta charset="utf-8">',
+            $view->plugin('headMeta')->toString());
 
-		$view->plugin('doctype')->__invoke('XHTML5');
+        $view->plugin('doctype')->__invoke('XHTML5');
 
-		$this->assertEquals(
-			'<meta charset="utf-8"/>',
-			$view->plugin('headMeta')->toString());
-	}
+        $this->assertEquals(
+            '<meta charset="utf-8"/>',
+            $view->plugin('headMeta')->toString());
+    }
 
      /**
      * @group ZF-9743
@@ -501,4 +488,3 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
     }
 
 }
-

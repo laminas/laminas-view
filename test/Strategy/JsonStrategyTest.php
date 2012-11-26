@@ -1,44 +1,31 @@
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTest
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @package   Zend_View
  */
 
 namespace ZendTest\View\Strategy;
 
-use PHPUnit_Framework_TestCase as TestCase,
-    Zend\EventManager\EventManager,
-    Zend\Http\Request as HttpRequest,
-    Zend\Http\Response as HttpResponse,
-    Zend\View\Model\ModelInterface as Model,
-    Zend\View\Model\JsonModel,
-    Zend\View\Model\ViewModel,
-    Zend\View\Renderer\JsonRenderer,
-    Zend\View\Strategy\JsonStrategy,
-    Zend\View\ViewEvent,
-    Zend\Stdlib\Parameters;
+use PHPUnit_Framework_TestCase as TestCase;
+use Zend\EventManager\EventManager;
+use Zend\Http\Request as HttpRequest;
+use Zend\Http\Response as HttpResponse;
+use Zend\View\Model\ModelInterface as Model;
+use Zend\View\Model\JsonModel;
+use Zend\View\Model\ViewModel;
+use Zend\View\Renderer\JsonRenderer;
+use Zend\View\Strategy\JsonStrategy;
+use Zend\View\ViewEvent;
+use Zend\Stdlib\Parameters;
 
 /**
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTest
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class JsonStrategyTest extends TestCase
 {
@@ -57,37 +44,46 @@ class JsonStrategyTest extends TestCase
         $this->assertSame($this->renderer, $result);
     }
 
-    public function testJsonAcceptHeaderSelectsJsonStrategy()
+    /**
+     * @group #2410
+     */
+    public function testJsonAcceptHeaderDoesNotSelectJsonStrategy()
     {
         $request = new HttpRequest();
         $request->getHeaders()->addHeaderLine('Accept', 'application/json');
         $this->event->setRequest($request);
         $result = $this->strategy->selectRenderer($this->event);
-        $this->assertSame($this->renderer, $result);
+        $this->assertNotSame($this->renderer, $result);
     }
 
-    public function testJavascriptAcceptHeaderSelectsJsonStrategy()
+    /**
+     * @group #2410
+     */
+    public function testJavascriptAcceptHeaderDoesNotSelectJsonStrategy()
     {
         $request = new HttpRequest();
         $request->getHeaders()->addHeaderLine('Accept', 'application/javascript');
         $this->event->setRequest($request);
         $result = $this->strategy->selectRenderer($this->event);
-        $this->assertSame($this->renderer, $result);
-        $this->assertFalse($result->hasJsonpCallback());
+        $this->assertNotSame($this->renderer, $result);
     }
 
-    public function testJavascriptAcceptHeaderSelectsJsonStrategyAndSetsJsonpCallback()
+    /**
+     * @group #2410
+     */
+    public function testJsonModelJavascriptAcceptHeaderDoesNotSetJsonpCallback()
     {
+        $this->event->setModel(new JsonModel());
         $request = new HttpRequest();
         $request->getHeaders()->addHeaderLine('Accept', 'application/javascript');
         $request->setQuery(new Parameters(array('callback' => 'foo')));
         $this->event->setRequest($request);
         $result = $this->strategy->selectRenderer($this->event);
         $this->assertSame($this->renderer, $result);
-        $this->assertTrue($result->hasJsonpCallback());
+        $this->assertFalse($result->hasJsonpCallback());
     }
 
-    public function testLackOfJsonModelOrAcceptHeaderDoesNotSelectJsonStrategy()
+    public function testLackOfJsonModelDoesNotSelectJsonStrategy()
     {
         $result = $this->strategy->selectRenderer($this->event);
         $this->assertNotSame($this->renderer, $result);
@@ -190,7 +186,7 @@ class JsonStrategyTest extends TestCase
             $this->assertTrue($found, 'Listener not found');
         }
     }
-    
+
     public function testCanAttachListenersAtSpecifiedPriority()
     {
         $events = new EventManager();

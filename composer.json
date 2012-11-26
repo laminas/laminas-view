@@ -9,7 +9,7 @@
     "homepage": "https://github.com/zendframework/zend-view",
     "autoload": {
         "psr-4": {
-            "Zend\\View": "src/"
+            "Zend\\View\\": "src/"
         }
     },
     "require": {

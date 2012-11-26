@@ -1,22 +1,11 @@
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @package   Zend_View
  */
 
 namespace ZendTest\View\Helper;
@@ -32,8 +21,6 @@ use Zend\View\Exception\ExceptionInterface as ViewException;
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
@@ -394,6 +381,22 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
         $this->assertContains(' media="screen,print"', $test);
     }
 
+    public function testSetPrevRelationship()
+    {
+        $this->helper->appendPrev('/foo/bar');
+        $test = $this->helper->toString();
+        $this->assertContains('href="/foo/bar"', $test);
+        $this->assertContains('rel="prev"', $test);
+    }
+
+    public function testSetNextRelationship()
+    {
+        $this->helper->appendNext('/foo/bar');
+        $test = $this->helper->toString();
+        $this->assertContains('href="/foo/bar"', $test);
+        $this->assertContains('rel="next"', $test);
+    }
+
     /**
      * @issue ZF-5435
      */
@@ -406,10 +409,10 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
 
         $test = $this->helper->toString();
 
-        $expected = '<link href="/test1.css" media="screen" rel="stylesheet" type="text/css" >' . PHP_EOL
-                  . '<link href="/test4.css" media="screen" rel="stylesheet" type="text/css" >' . PHP_EOL
-                  . '<link href="/test2.css" media="screen" rel="stylesheet" type="text/css" >' . PHP_EOL
-                  . '<link href="/test3.css" media="screen" rel="stylesheet" type="text/css" >';
+        $expected = '<link href="/test1.css" media="screen" rel="stylesheet" type="text/css">' . PHP_EOL
+                  . '<link href="/test4.css" media="screen" rel="stylesheet" type="text/css">' . PHP_EOL
+                  . '<link href="/test2.css" media="screen" rel="stylesheet" type="text/css">' . PHP_EOL
+                  . '<link href="/test3.css" media="screen" rel="stylesheet" type="text/css">';
 
         $this->assertEquals($expected, $test);
     }
@@ -423,4 +426,3 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('id="foo"', $this->helper->toString());
     }
 }
-

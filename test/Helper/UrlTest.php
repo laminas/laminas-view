@@ -1,27 +1,19 @@
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @package   Zend_View
  */
 
 namespace ZendTest\View\Helper;
 
 use Zend\View\Helper\Url as UrlHelper;
+use Zend\Mvc\MvcEvent;
+use Zend\Mvc\ModuleRouteListener;
+use Zend\Mvc\Router\RouteMatch;
 use Zend\Mvc\Router\SimpleRouteStack as Router;
 
 /**
@@ -32,8 +24,6 @@ use Zend\Mvc\Router\SimpleRouteStack as Router;
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
@@ -58,6 +48,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
                     'route' => '/:controller[/:action]',
                 )
         ));
+        $this->router = $router;
 
         $this->url = new UrlHelper;
         $this->url->setRouter($router);
@@ -80,5 +71,112 @@ class UrlTest extends \PHPUnit_Framework_TestCase
     {
         $url = $this->url->__invoke('default', array('controller' => 'ctrl', 'action' => 'act'));
         $this->assertEquals('/ctrl/act', $url);
+    }
+
+    public function testPluginWithoutRouteMatchesInEventRaisesExceptionWhenNoRouteProvided()
+    {
+        $this->setExpectedException('Zend\View\Exception\RuntimeException', 'RouteMatch');
+        $url = $this->url->__invoke();
+    }
+
+    public function testPluginWithRouteMatchesReturningNoMatchedRouteNameRaisesExceptionWhenNoRouteProvided()
+    {
+        $this->url->setRouteMatch(new RouteMatch(array()));
+        $this->setExpectedException('Zend\View\Exception\RuntimeException', 'matched');
+        $url = $this->url->__invoke();
+    }
+
+    public function testPassingNoArgumentsWithValidRouteMatchGeneratesUrl()
+    {
+        $routeMatch = new RouteMatch(array());
+        $routeMatch->setMatchedRouteName('home');
+        $this->url->setRouteMatch($routeMatch);
+        $url = $this->url->__invoke();
+        $this->assertEquals('/', $url);
+    }
+
+    public function testCanReuseMatchedParameters()
+    {
+        $this->router->addRoute('replace', array(
+            'type'    => 'Zend\Mvc\Router\Http\Segment',
+            'options' => array(
+                'route'    => '/:controller/:action',
+                'defaults' => array(
+                    'controller' => 'ZendTest\Mvc\Controller\TestAsset\SampleController',
+                ),
+            ),
+        ));
+        $routeMatch = new RouteMatch(array(
+            'controller' => 'foo',
+        ));
+        $routeMatch->setMatchedRouteName('replace');
+        $this->url->setRouteMatch($routeMatch);
+        $url = $this->url->__invoke('replace', array('action' => 'bar'), array(), true);
+        $this->assertEquals('/foo/bar', $url);
+    }
+
+    public function testCanPassBooleanValueForThirdArgumentToAllowReusingRouteMatches()
+    {
+        $this->router->addRoute('replace', array(
+            'type' => 'Zend\Mvc\Router\Http\Segment',
+            'options' => array(
+                'route'    => '/:controller/:action',
+                'defaults' => array(
+                    'controller' => 'ZendTest\Mvc\Controller\TestAsset\SampleController',
+                ),
+            ),
+        ));
+        $routeMatch = new RouteMatch(array(
+            'controller' => 'foo',
+        ));
+        $routeMatch->setMatchedRouteName('replace');
+        $this->url->setRouteMatch($routeMatch);
+        $url = $this->url->__invoke('replace', array('action' => 'bar'), true);
+        $this->assertEquals('/foo/bar', $url);
+    }
+
+    public function testRemovesModuleRouteListenerParamsWhenReusingMatchedParameters()
+    {
+        $router = new \Zend\Mvc\Router\Http\TreeRouteStack;
+        $router->addRoute('default', array(
+            'type' => 'Zend\Mvc\Router\Http\Segment',
+            'options' => array(
+                'route'    => '/:controller/:action',
+                'defaults' => array(
+                    ModuleRouteListener::MODULE_NAMESPACE => 'ZendTest\Mvc\Controller\TestAsset',
+                    'controller' => 'SampleController',
+                    'action'     => 'Dash'
+                )
+            ),
+            'child_routes' => array(
+                'wildcard' => array(
+                    'type'    => 'Zend\Mvc\Router\Http\Wildcard',
+                    'options' => array(
+                        'param_delimiter'     => '=',
+                        'key_value_delimiter' => '%'
+                    )
+                )
+            )
+        ));
+
+        $routeMatch = new RouteMatch(array(
+            ModuleRouteListener::MODULE_NAMESPACE => 'ZendTest\Mvc\Controller\TestAsset',
+            'controller' => 'Rainbow'
+        ));
+        $routeMatch->setMatchedRouteName('default/wildcard');
+
+        $event = new MvcEvent();
+        $event->setRouter($router)
+              ->setRouteMatch($routeMatch);
+
+        $moduleRouteListener = new ModuleRouteListener();
+        $moduleRouteListener->onRoute($event);
+
+        $helper = new UrlHelper();
+        $helper->setRouter($router);
+        $helper->setRouteMatch($routeMatch);
+
+        $url = $helper->__invoke('default/wildcard', array('Twenty' => 'Cooler'), true);
+        $this->assertEquals('/Rainbow/Dash=Twenty%Cooler', $url);
     }
 }

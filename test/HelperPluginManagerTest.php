@@ -1,26 +1,16 @@
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @package   Zend_View
  */
 
 namespace ZendTest\View;
 
+use Zend\ServiceManager\ServiceManager;
 use Zend\View\HelperPluginManager;
 use Zend\View\Renderer\PhpRenderer;
 
@@ -28,8 +18,6 @@ use Zend\View\Renderer\PhpRenderer;
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_View
  */
 class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
@@ -76,5 +64,20 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
         $this->helpers->setInvokableClass('test', get_class($this));
         $this->setExpectedException('Zend\View\Exception\InvalidHelperException');
         $this->helpers->get('test');
+    }
+
+    public function testDefinesFactoryForIdentityPlugin()
+    {
+        $this->assertTrue($this->helpers->has('identity'));
+    }
+
+    public function testIdentityFactoryCanInjectAuthenticationServiceIfInParentServiceManager()
+    {
+        $services = new ServiceManager();
+        $services->setInvokableClass('Zend\Authentication\AuthenticationService', 'Zend\Authentication\AuthenticationService');
+        $this->helpers->setServiceLocator($services);
+        $identity = $this->helpers->get('identity');
+        $expected = $services->get('Zend\Authentication\AuthenticationService');
+        $this->assertSame($expected, $identity->getAuthenticationService());
     }
 }

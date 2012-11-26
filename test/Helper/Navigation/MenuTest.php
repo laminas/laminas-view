@@ -1,22 +1,11 @@
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @package   Zend_View
  */
 
 namespace ZendTest\View\Helper\Navigation;
@@ -27,8 +16,6 @@ namespace ZendTest\View\Helper\Navigation;
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
@@ -174,7 +161,7 @@ class MenuTest extends AbstractTest
     {
         $acl = $this->_getAcl();
         $this->_helper->setAcl($acl['acl']);
-        $this->_helper->setRole(new \Zend\Acl\Role\GenericRole('member'));
+        $this->_helper->setRole(new \Zend\Permissions\Acl\Role\GenericRole('member'));
 
         $expected = $this->_getExpected('menu/acl_role_interface.html');
         $this->assertEquals($expected, $this->_helper->render());
@@ -185,6 +172,42 @@ class MenuTest extends AbstractTest
         $this->_helper->setUlClass('My_Nav');
         $expected = $this->_getExpected('menu/css.html');
         $this->assertEquals($expected, $this->_helper->render($this->_nav2));
+    }
+
+    public function testOptionEscapeLabelsAsTrue()
+    {
+        $options = array(
+            'escapeLabels' => true
+        );
+
+        $container = new \Zend\Navigation\Navigation($this->_nav2->toArray());
+        $container->addPage(array(
+            'label' => 'Badges <span class="badge">1</span>',
+            'uri' => 'badges'
+        ));
+
+        $expected = $this->_getExpected('menu/escapelabels_as_true.html');
+        $actual = $this->_helper->renderMenu($container, $options);
+
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testOptionEscapeLabelsAsFalse()
+    {
+        $options = array(
+            'escapeLabels' => false
+        );
+
+        $container = new \Zend\Navigation\Navigation($this->_nav2->toArray());
+        $container->addPage(array(
+            'label' => 'Badges <span class="badge">1</span>',
+            'uri' => 'badges'
+        ));
+
+        $expected = $this->_getExpected('menu/escapelabels_as_false.html');
+        $actual = $this->_helper->renderMenu($container, $options);
+
+        $this->assertEquals($expected, $actual);
     }
 
     public function testTranslationUsingZendTranslate()
@@ -209,7 +232,7 @@ class MenuTest extends AbstractTest
     {
         $translator = $this->_getTranslator();
         $this->_helper->setTranslator($translator);
-        $this->_helper->setUseTranslator(false);
+        $this->_helper->setTranslatorEnabled(false);
 
         $expected = $this->_getExpected('menu/default1.html');
         $this->assertEquals($expected, $this->_helper->render());
@@ -496,7 +519,7 @@ class MenuTest extends AbstractTest
 
         $this->assertEquals($expected, $actual);
     }
-    
+
     /**
      * Returns the contens of the expected $file, normalizes newlines
      * @param  string $file

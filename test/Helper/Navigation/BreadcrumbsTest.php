@@ -1,22 +1,11 @@
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTests
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @package   Zend_View
  */
 
 namespace ZendTest\View\Helper\Navigation;
@@ -30,8 +19,6 @@ use Zend\View\Exception\ExceptionInterface;
  * @category   Zend_Tests
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
@@ -80,6 +67,17 @@ class BreadcrumbsTest extends AbstractTest
         $returned = $this->_helper->__invoke($this->_nav2);
         $this->assertEquals($this->_helper, $returned);
         $this->assertEquals($this->_nav2, $returned->getContainer());
+    }
+
+    public function testHelperEntryPointWithContainerStringParam()
+    {
+        $pm = new \Zend\View\HelperPluginManager;
+        $pm->setServiceLocator($this->serviceManager);
+        $this->_helper->setServiceLocator($pm);
+
+        $returned = $this->_helper->__invoke('nav1');
+        $this->assertEquals($this->_helper, $returned);
+        $this->assertEquals($this->_nav1, $returned->getContainer());
     }
 
     public function testNullOutContainer()
@@ -186,7 +184,7 @@ class BreadcrumbsTest extends AbstractTest
     {
         $translator = $this->_getTranslator();
         $this->_helper->setTranslator($translator);
-        $this->_helper->setUseTranslator(false);
+        $this->_helper->setTranslatorEnabled(false);
 
         $expected = $this->_getExpected('bc/default.html');
         $this->assertEquals($expected, $this->_helper->render());
