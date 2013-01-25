@@ -1,6 +1,6 @@
 {
     "name": "zendframework/zend-view",
-    "description": "Zend\\View component",
+    "description": "provides a system of helpers, output filters, and variable escaping",
     "license": "BSD-3-Clause",
     "keywords": [
         "zf2",
@@ -13,7 +13,7 @@
         }
     },
     "require": {
-        "php": ">=5.3.23",
+        "php": ">=5.3.3",
         "zendframework/zend-eventmanager": "self.version",
         "zendframework/zend-loader": "self.version",
         "zendframework/zend-stdlib": "self.version"

@@ -1,38 +1,26 @@
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage UnitTest
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @package   Zend_View
  */
 
 namespace ZendTest\View\Model;
 
-use ArrayObject,
-    stdClass,
-    PHPUnit_Framework_TestCase as TestCase,
-    Zend\View\Model\ViewModel,
-    Zend\View\Variables as ViewVariables;
+use ArrayObject;
+use stdClass;
+use PHPUnit_Framework_TestCase as TestCase;
+use Zend\View\Model\ViewModel;
+use Zend\View\Variables as ViewVariables;
+use ZendTest\View\Model\TestAsset\Variable;
 
 /**
  * @category   Zend
  * @package    Zend_View
  * @subpackage UnitTest
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class ViewModelTest extends TestCase
 {
@@ -66,6 +54,13 @@ class ViewModelTest extends TestCase
         $this->assertSame(iterator_to_array($options), $model->getOptions());
     }
 
+    public function testAllowsPassingNonArrayAccessObjectsAsArrayInConstructor()
+    {
+        $vars  = array('foo' => new Variable);
+        $model = new ViewModel($vars);
+        $this->assertSame($vars, $model->getVariables());
+    }
+
     public function testCanSetVariablesSingly()
     {
         $model = new ViewModel(array('foo' => 'bar'));
@@ -80,11 +75,18 @@ class ViewModelTest extends TestCase
         $this->assertEquals(array('foo' => 'baz'), $model->getVariables());
     }
 
-    public function testSetVariablesOverwritesAllPreviouslyStored()
+    public function testSetVariablesMergesWithPreviouslyStoredVariables()
     {
         $model = new ViewModel(array('foo' => 'bar', 'bar' => 'baz'));
         $model->setVariables(array('bar' => 'BAZBAT'));
-        $this->assertEquals(array('bar' => 'BAZBAT'), $model->getVariables());
+        $this->assertEquals(array('foo' => 'bar', 'bar' => 'BAZBAT'), $model->getVariables());
+    }
+
+    public function testCanUnsetVariable()
+    {
+        $model = new ViewModel(array('foo' => 'bar'));
+        $model->__unset('foo');
+        $this->assertEquals(array(), $model->getVariables());
     }
 
     public function testCanSetOptionsSingly()
@@ -225,12 +227,20 @@ class ViewModelTest extends TestCase
         $this->assertEquals('foo', $child->captureTo());
     }
 
-    public function testAllowsPassingViewVariablesContainerAsVariables()
+    public function testAllowsPassingViewVariablesContainerAsVariablesToConstructor()
     {
         $variables = new ViewVariables();
-        $model     = new ViewModel();
-        $model->setVariables($variables);
+        $model     = new ViewModel($variables);
         $this->assertSame($variables, $model->getVariables());
+    }
+
+    public function testPassingOverwriteFlagWhenSettingVariablesOverwritesContainer()
+    {
+        $variables = new ViewVariables(array('foo' => 'bar'));
+        $model     = new ViewModel($variables);
+        $overwrite = new ViewVariables(array('foo' => 'baz'));
+        $model->setVariables($overwrite, true);
+        $this->assertSame($overwrite, $model->getVariables());
     }
 
     public function testPropertyOverloadingGivesAccessToProperties()
@@ -245,5 +255,18 @@ class ViewModelTest extends TestCase
         unset($model->foo);
         $this->assertFalse(isset($model->foo));
         $this->assertFalse(isset($variables['foo']));
+    }
+
+    public function testPropertyOverloadingAllowsWritingPropertiesAfterSetVariablesHasBeenCalled()
+    {
+        $model = new ViewModel();
+        $model->setVariables(array('foo' => 'bar'));
+        $model->bar = 'baz';
+
+        $this->assertTrue(isset($model->bar));
+        $this->assertEquals('baz', $model->bar);
+        $variables = $model->getVariables();
+        $this->assertTrue(isset($variables['bar']));
+        $this->assertEquals('baz', $variables['bar']);
     }
 }

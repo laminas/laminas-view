@@ -1,73 +1,66 @@
 <?php
 /**
- * Zend Framework
+ * Zend Framework (http://framework.zend.com/)
  *
- * LICENSE
- *
- * This source file is subject to the new BSD license that is bundled
- * with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://framework.zend.com/license/new-bsd
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@zend.com so we can send you a copy immediately.
- *
- * @category   Zend
- * @package    Zend_View
- * @subpackage Helper
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
+ * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
+ * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @package   Zend_View
  */
 
 namespace Zend\View\Helper\Placeholder\Container;
 
-use Zend\View\Helper\Placeholder\Registry,
-    Zend\View\Exception;
+use Zend\Escaper\Escaper;
+use Zend\View\Exception;
+use Zend\View\Helper\Placeholder\Registry;
+use Zend\View\Renderer\RendererInterface;
 
 /**
- * Base class for targetted placeholder helpers
+ * Base class for targeted placeholder helpers
  *
  * @package    Zend_View
  * @subpackage Helper
- * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-abstract class Standalone
+abstract class AbstractStandalone
     extends \Zend\View\Helper\AbstractHelper
     implements \IteratorAggregate, \Countable, \ArrayAccess
 {
     /**
      * @var \Zend\View\Helper\Placeholder\Container\AbstractContainer
      */
-    protected $_container;
+    protected $container;
+
+    /**
+     * @var Escaper[]
+     */
+    protected $escapers = array();
 
     /**
      * @var \Zend\View\Helper\Placeholder\Registry
      */
-    protected $_registry;
+    protected $registry;
 
     /**
      * Registry key under which container registers itself
      * @var string
      */
-    protected $_regKey;
+    protected $regKey;
 
     /**
-     * Flag wheter to automatically escape output, must also be
-     * enforced in the child class if __toString/toString is overriden
-     * @var book
+     * Flag whether to automatically escape output, must also be
+     * enforced in the child class if __toString/toString is overridden
+     * @var bool
      */
-    protected $_autoEscape = true;
+    protected $autoEscape = true;
 
     /**
      * Constructor
      *
-     * @return void
      */
     public function __construct()
     {
         $this->setRegistry(Registry::getRegistry());
-        $this->setContainer($this->getRegistry()->getContainer($this->_regKey));
+        $this->setContainer($this->getRegistry()->getContainer($this->regKey));
     }
 
     /**
@@ -77,30 +70,59 @@ abstract class Standalone
      */
     public function getRegistry()
     {
-        return $this->_registry;
+        return $this->registry;
     }
 
     /**
      * Set registry object
      *
      * @param  \Zend\View\Helper\Placeholder\Registry $registry
-     * @return \Zend\View\Helper\Placeholder\Container\Standalone
+     * @return \Zend\View\Helper\Placeholder\Container\AbstractStandalone
      */
     public function setRegistry(Registry $registry)
     {
-        $this->_registry = $registry;
+        $this->registry = $registry;
         return $this;
+    }
+
+    /**
+     * Set Escaper instance
+     *
+     * @param  Escaper $escaper
+     * @return AbstractStandalone
+     */
+    public function setEscaper(Escaper $escaper)
+    {
+        $encoding = $escaper->getEncoding();
+        $this->escapers[$encoding] = $escaper;
+        return $this;
+    }
+
+    /**
+     * Get Escaper instance
+     *
+     * Lazy-loads one if none available
+     *
+     * @return mixed
+     */
+    public function getEscaper($enc = 'UTF-8')
+    {
+        $enc = strtolower($enc);
+        if (!isset($this->escapers[$enc])) {
+            $this->setEscaper(new Escaper($enc));
+        }
+        return $this->escapers[$enc];
     }
 
     /**
      * Set whether or not auto escaping should be used
      *
      * @param  bool $autoEscape whether or not to auto escape output
-     * @return \Zend\View\Helper\Placeholder\Container\Standalone
+     * @return \Zend\View\Helper\Placeholder\Container\AbstractStandalone
      */
     public function setAutoEscape($autoEscape = true)
     {
-        $this->_autoEscape = ($autoEscape) ? true : false;
+        $this->autoEscape = ($autoEscape) ? true : false;
         return $this;
     }
 
@@ -111,7 +133,7 @@ abstract class Standalone
      */
     public function getAutoEscape()
     {
-        return $this->_autoEscape;
+        return $this->autoEscape;
     }
 
     /**
@@ -120,27 +142,29 @@ abstract class Standalone
      * @param  string $string
      * @return string
      */
-    protected function _escape($string)
+    protected function escape($string)
     {
-        $enc = 'UTF-8';
-        if ($this->view instanceof \Zend\View\Renderer\RendererInterface
+        if ($this->view instanceof RendererInterface
             && method_exists($this->view, 'getEncoding')
         ) {
-            $enc = $this->view->getEncoding();
+            $enc     = $this->view->getEncoding();
+            $escaper = $this->view->plugin('escapeHtml');
+            return $escaper((string) $string);
         }
 
-        return htmlspecialchars((string) $string, ENT_COMPAT, $enc);
+        $escaper = $this->getEscaper();
+        return $escaper->escapeHtml((string) $string);
     }
 
     /**
      * Set container on which to operate
      *
      * @param  \Zend\View\Helper\Placeholder\Container\AbstractContainer $container
-     * @return \Zend\View\Helper\Placeholder\Container\Standalone
+     * @return \Zend\View\Helper\Placeholder\Container\AbstractStandalone
      */
     public function setContainer(AbstractContainer $container)
     {
-        $this->_container = $container;
+        $this->container = $container;
         return $this;
     }
 
@@ -151,7 +175,7 @@ abstract class Standalone
      */
     public function getContainer()
     {
-        return $this->_container;
+        return $this->container;
     }
 
     /**
@@ -313,7 +337,7 @@ abstract class Standalone
     /**
      * IteratorAggregate: get Iterator
      *
-     * @return Iterator
+     * @return \Iterator
      */
     public function getIterator()
     {
