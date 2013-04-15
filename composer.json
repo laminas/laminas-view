@@ -48,13 +48,13 @@
         "zendframework/zend-navigation": "Zend\\Navigation component",
         "zendframework/zend-paginator": "Zend\\Paginator component",
         "zendframework/zend-permissions-acl": "Zend\\Permissions\\Acl component",
-        "zendframework/zend-servicemanager": "Zend\\ServiceManager component",
+        "zendframework/zend-servicemanager": "self.version",
         "zendframework/zend-uri": "Zend\\Uri component"
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.4-dev",
-            "dev-develop": "2.5-dev"
+            "dev-master": "2.1-dev",
+            "dev-develop": "2.2-dev"
         }
     },
     "autoload-dev": {
