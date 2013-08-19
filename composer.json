@@ -48,7 +48,7 @@
         "zendframework/zend-navigation": "Zend\\Navigation component",
         "zendframework/zend-paginator": "Zend\\Paginator component",
         "zendframework/zend-permissions-acl": "Zend\\Permissions\\Acl component",
-        "zendframework/zend-servicemanager": "Zend\\ServiceManager component",
+        "zendframework/zend-servicemanager": "self.version",
         "zendframework/zend-uri": "Zend\\Uri component"
     },
     "extra": {
