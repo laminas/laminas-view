@@ -7,19 +7,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace ZendTest\View\TestAsset;
+namespace Zend\View\Exception;
 
-class VariableFunctor
+/**
+ * Unexpected value exception
+ */
+class UnexpectedValueException extends \UnexpectedValueException implements
+    ExceptionInterface
 {
-    public $value;
-
-    public function __construct($value = null)
-    {
-        $this->value = $value;
-    }
-
-    public function __invoke()
-    {
-        return $this->value;
-    }
 }
