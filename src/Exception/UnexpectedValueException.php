@@ -7,29 +7,12 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace ZendTest\View\Model\TestAsset;
+namespace Zend\View\Exception;
 
-use Iterator;
-
-class Variable implements Iterator
+/**
+ * Unexpected value exception
+ */
+class UnexpectedValueException extends \UnexpectedValueException implements
+    ExceptionInterface
 {
-    public function current()
-    {
-    }
-
-    public function key()
-    {
-    }
-
-    public function next()
-    {
-    }
-
-    public function rewind()
-    {
-    }
-
-    public function valid()
-    {
-    }
 }
