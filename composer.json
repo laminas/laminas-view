@@ -13,7 +13,7 @@
         }
     },
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=5.3.23",
         "zendframework/zend-eventmanager": "self.version",
         "zendframework/zend-loader": "self.version",
         "zendframework/zend-stdlib": "self.version"
@@ -48,7 +48,7 @@
         "zendframework/zend-navigation": "Zend\\Navigation component",
         "zendframework/zend-paginator": "Zend\\Paginator component",
         "zendframework/zend-permissions-acl": "Zend\\Permissions\\Acl component",
-        "zendframework/zend-servicemanager": "self.version",
+        "zendframework/zend-servicemanager": "Zend\\ServiceManager component",
         "zendframework/zend-uri": "Zend\\Uri component"
     },
     "extra": {
