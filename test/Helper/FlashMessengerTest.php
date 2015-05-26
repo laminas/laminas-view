@@ -16,7 +16,6 @@ use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
 use Zend\View\HelperPluginManager;
 use Zend\View\Helper\FlashMessenger;
-use ZendTest\Session\TestAsset\TestManager as SessionManager;
 
 /**
  * Test class for Zend\View\Helper\Cycle.
@@ -28,16 +27,13 @@ class FlashMessengerTest extends TestCase
 {
     public function setUp()
     {
-        $this->session = new SessionManager();
         $this->helper = new FlashMessenger();
-        $this->helper->setSessionManager($this->session);
         $this->plugin = $this->helper->getPluginFlashMessenger();
     }
 
     public function seedMessages()
     {
         $helper = new FlashMessenger();
-        $helper->setSessionManager($this->session);
         $helper->addMessage('foo');
         $helper->addMessage('bar');
         $helper->addInfoMessage('bar-info');
@@ -50,7 +46,6 @@ class FlashMessengerTest extends TestCase
     public function seedCurrentMessages()
     {
         $helper = new FlashMessenger();
-        $helper->setSessionManager($this->session);
         $helper->addMessage('foo');
         $helper->addMessage('bar');
         $helper->addInfoMessage('bar-info');
