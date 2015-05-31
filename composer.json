@@ -40,7 +40,6 @@
         "zendframework/zend-session": "dev-master",
         "zendframework/zend-uri": "~2.4",
         "fabpot/php-cs-fixer": "1.7.*",
-        "satooshi/php-coveralls": "dev-master",
         "phpunit/PHPUnit": "~4.0"
     },
     "suggest": {
