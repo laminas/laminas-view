@@ -85,6 +85,16 @@ class ServerUrl extends AbstractHelper
                     $this->setHost(substr($_SERVER['HTTP_HOST'], 0, 0-strlen($portStr)));
                     return;
                 }
+
+                // If the Host header contains a port, and it differs from the
+                // SERVER_PORT, use the port from the Host header. Typically
+                // this is a situation where port-forwarding is in use, and you
+                // want to present a URI using the public port.
+                if (preg_match('/^(?P<host>.*?):(?P<port>\d+)$/', $_SERVER['HTTP_HOST'], $matches)) {
+                    $this->setPort((int) $matches['port']);
+                    $this->setHost(rtrim($matches['host']));
+                    return;
+                }
             }
 
             $this->setHost($_SERVER['HTTP_HOST']);
