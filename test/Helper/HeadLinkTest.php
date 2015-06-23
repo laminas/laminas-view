@@ -445,7 +445,7 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
         $this->helper->appendStylesheet(['rel' => 'icon', 'href' => '/bar/baz', 'sizes' => '123x456']);
         $this->assertContains('sizes="123x456"', $this->helper->toString());
     }
-    
+
     public function testItempropAttributeIsSupported()
     {
         $this->helper->prependAlternate(['itemprop' => 'url', 'href' => '/bar/baz', 'rel' => 'canonical']);
