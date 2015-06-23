@@ -46,7 +46,8 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
         'sizes',
         'type',
         'title',
-        'extras'
+        'extras',
+        'itemprop'
     ];
 
     /**

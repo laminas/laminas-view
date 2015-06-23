@@ -6,7 +6,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- Nothing.
+- [#5](https://github.com/zendframework/zend-view/pull/5) adds support for the
+  `itemprop` attribute in the `headLink()` view helper.
 
 ### Deprecated
 
