@@ -13,7 +13,7 @@ use Zend\Navigation\Navigation;
 use Zend\View\Exception\ExceptionInterface;
 
 /**
- * Tests Zend\View\Helper\Navigation\Breadcrumbs
+ * Tests Zend\View\Helper\Navigation\Breadcrumbs.
  *
  * @group      Zend_View
  * @group      Zend_View_Helper
@@ -21,14 +21,14 @@ use Zend\View\Exception\ExceptionInterface;
 class BreadcrumbsTest extends AbstractTest
 {
     /**
-     * Class name for view helper to test
+     * Class name for view helper to test.
      *
      * @var string
      */
     protected $_helperName = 'Zend\View\Helper\Navigation\Breadcrumbs';
 
     /**
-     * View helper
+     * View helper.
      *
      * @var \Zend\View\Helper\Navigation\Breadcrumbs
      */
@@ -67,7 +67,7 @@ class BreadcrumbsTest extends AbstractTest
 
     public function testHelperEntryPointWithContainerStringParam()
     {
-        $pm = new \Zend\View\HelperPluginManager;
+        $pm = new \Zend\View\HelperPluginManager();
         $pm->setServiceLocator($this->serviceManager);
         $this->_helper->setServiceLocator($pm);
 
@@ -137,13 +137,13 @@ class BreadcrumbsTest extends AbstractTest
         $expected = [
             'registered'       => $rendered1,
             'supplied'         => $rendered2,
-            'registered_again' => $rendered1
+            'registered_again' => $rendered1,
         ];
 
         $actual = [
             'registered'       => $this->_helper->render(),
             'supplied'         => $this->_helper->render($this->_nav2),
-            'registered_again' => $this->_helper->render()
+            'registered_again' => $this->_helper->render(),
         ];
 
         $this->assertEquals($expected, $actual);
@@ -239,9 +239,18 @@ class BreadcrumbsTest extends AbstractTest
         try {
             $this->_helper->render();
             $this->fail(
-                '$partial was invalid, but no Zend\View\Exception\ExceptionInterface was thrown');
+                '$partial was invalid, but no Zend\View\Exception\ExceptionInterface was thrown'
+            );
         } catch (ExceptionInterface $e) {
         }
+    }
+
+    public function testRenderingPartialWithParams()
+    {
+        $this->_helper->setPartial('bc_with_partial_params.phtml')->setSeparator(' / ');
+        $expected = $this->_getExpected('bc/partial_with_params.html');
+        $actual = $this->_helper->renderPartialWithParams(['variable' => 'test value']);
+        $this->assertEquals($expected, $actual);
     }
 
     public function testLastBreadcrumbShouldBeEscaped()
@@ -250,8 +259,8 @@ class BreadcrumbsTest extends AbstractTest
             [
                 'label'  => 'Live & Learn',
                 'uri'    => '#',
-                'active' => true
-            ]
+                'active' => true,
+            ],
         ]);
 
         $expected = 'Live &amp; Learn';
