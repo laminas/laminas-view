@@ -637,7 +637,7 @@ class LinksTest extends AbstractTest
             $this->_helper->setRenderFlag($newFlag);
             $expectedOutput = '<link '
                               . 'rel="' . $type . '" '
-                              . 'href="http&#x3A;&#x2F;&#x2F;www.example.com&#x2F;">' . constant($this->_helperName.'::EOL')
+                              . 'href="http&#x3A;&#x2F;&#x2F;www.example.com&#x2F;">' . PHP_EOL
                             . '<link '
                               . 'rev="' . $type . '" '
                               . 'href="http&#x3A;&#x2F;&#x2F;www.example.com&#x2F;">';
@@ -664,7 +664,7 @@ class LinksTest extends AbstractTest
 
         // test data
         $expected = '<link rel="next" href="page2" title="Page&#x20;2">'
-                  . constant($this->_helperName.'::EOL')
+                  . PHP_EOL
                   . '<link rel="prev" href="page1" title="Page&#x20;1">';
         $actual = $this->_helper->render();
 
@@ -682,7 +682,7 @@ class LinksTest extends AbstractTest
 
         // build expected and actual result
         $expected = '  <link rel="next" href="page2" title="Page&#x20;2">'
-                  . constant($this->_helperName.'::EOL')
+                  . PHP_EOL
                   . '  <link rel="prev" href="page1" title="Page&#x20;1">';
         $actual = $this->_helper->render();
 
