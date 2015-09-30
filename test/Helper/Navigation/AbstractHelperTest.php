@@ -28,10 +28,13 @@ class AbstractHelperTest extends AbstractTest
     protected function tearDown()
     {
         parent::tearDown();
-        $this->_helper->setDefaultAcl(null);
-        $this->_helper->setAcl(null);
-        $this->_helper->setDefaultRole(null);
-        $this->_helper->setRole(null);
+
+        if ($this->_helper) {
+            $this->_helper->setDefaultAcl(null);
+            $this->_helper->setAcl(null);
+            $this->_helper->setDefaultRole(null);
+            $this->_helper->setRole(null);
+        }
     }
 
     public function testHasACLChecksDefaultACL()
