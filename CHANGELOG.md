@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.6.0 - TBD
+## 3.0.0 - TBD
 
 ### Added
 
@@ -22,7 +22,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#15](https://github.com/zendframework/zend-view/pull/15) updates the codebase
+  to work with the upcoming zend-eventmanager v3 release. Primarily, these are
+  changes to how events are triggered to ensure they continue working correctly.
 
 ## 2.5.3 - TBD
 
