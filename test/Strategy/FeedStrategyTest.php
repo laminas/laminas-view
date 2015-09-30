@@ -19,9 +19,12 @@ use Zend\View\Model\ViewModel;
 use Zend\View\Renderer\FeedRenderer;
 use Zend\View\Strategy\FeedStrategy;
 use Zend\View\ViewEvent;
+use ZendTest\View\EventManagerIntrospectionTrait;
 
 class FeedStrategyTest extends TestCase
 {
+    use EventManagerIntrospectionTrait;
+
     public function setUp()
     {
         $this->renderer = new FeedRenderer;
@@ -213,20 +216,19 @@ class FeedStrategyTest extends TestCase
     public function testAttachesListenersAtExpectedPriorities()
     {
         $events = new EventManager();
-        $events->attachAggregate($this->strategy);
+        $this->strategy->attach($events);
 
         foreach (['renderer' => 'selectRenderer', 'response' => 'injectResponse'] as $event => $method) {
-            $listeners        = $events->getListeners($event);
-            $expectedCallback = [$this->strategy, $method];
+            $listeners        = $this->getListenersForEvent($event, $events, true);
+            $expectedListener = [$this->strategy, $method];
             $expectedPriority = 1;
             $found            = false;
-            foreach ($listeners as $listener) {
-                $callback = $listener->getCallback();
-                if ($callback === $expectedCallback) {
-                    if ($listener->getMetadatum('priority') == $expectedPriority) {
-                        $found = true;
-                        break;
-                    }
+            foreach ($listeners as $priority => $listener) {
+                if ($listener === $expectedListener
+                    && $priority === $expectedPriority
+                ) {
+                    $found = true;
+                    break;
                 }
             }
             $this->assertTrue($found, 'Listener not found');
@@ -236,20 +238,19 @@ class FeedStrategyTest extends TestCase
     public function testCanAttachListenersAtSpecifiedPriority()
     {
         $events = new EventManager();
-        $events->attachAggregate($this->strategy, 100);
+        $this->strategy->attach($events, 100);
 
         foreach (['renderer' => 'selectRenderer', 'response' => 'injectResponse'] as $event => $method) {
-            $listeners        = $events->getListeners($event);
-            $expectedCallback = [$this->strategy, $method];
+            $listeners        = $this->getListenersForEvent($event, $events, true);
+            $expectedListener = [$this->strategy, $method];
             $expectedPriority = 100;
             $found            = false;
-            foreach ($listeners as $listener) {
-                $callback = $listener->getCallback();
-                if ($callback === $expectedCallback) {
-                    if ($listener->getMetadatum('priority') == $expectedPriority) {
-                        $found = true;
-                        break;
-                    }
+            foreach ($listeners as $priority => $listener) {
+                if ($listener === $expectedListener
+                    && $priority === $expectedPriority
+                ) {
+                    $found = true;
+                    break;
                 }
             }
             $this->assertTrue($found, 'Listener not found');
@@ -259,15 +260,17 @@ class FeedStrategyTest extends TestCase
     public function testDetachesListeners()
     {
         $events = new EventManager();
-        $events->attachAggregate($this->strategy);
-        $listeners = $events->getListeners('renderer');
-        $this->assertEquals(1, count($listeners));
-        $listeners = $events->getListeners('response');
-        $this->assertEquals(1, count($listeners));
-        $events->detachAggregate($this->strategy);
-        $listeners = $events->getListeners('renderer');
-        $this->assertEquals(0, count($listeners));
-        $listeners = $events->getListeners('response');
-        $this->assertEquals(0, count($listeners));
+        $this->strategy->attach($events, 100);
+
+        $listeners = iterator_to_array($this->getListenersForEvent('renderer', $events));
+        $this->assertCount(1, $listeners);
+        $listeners = iterator_to_array($this->getListenersForEvent('response', $events));
+        $this->assertCount(1, $listeners);
+
+        $this->strategy->detach($events, 100);
+        $listeners = iterator_to_array($this->getListenersForEvent('renderer', $events));
+        $this->assertCount(0, $listeners);
+        $listeners = iterator_to_array($this->getListenersForEvent('response', $events));
+        $this->assertCount(0, $listeners);
     }
 }
