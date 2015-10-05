@@ -9,9 +9,10 @@
 
 namespace Zend\View;
 
+use Interop\Container\ContainerInterface;
 use Zend\I18n\Translator\TranslatorAwareInterface;
 use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\ConfigInterface;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * Plugin manager implementation for view helpers
@@ -22,59 +23,117 @@ use Zend\ServiceManager\ConfigInterface;
  */
 class HelperPluginManager extends AbstractPluginManager
 {
-    /**
-     * Default set of helpers factories
-     *
-     * @var array
-     */
-    protected $factories = [
-        'flashmessenger' => 'Zend\View\Helper\Service\FlashMessengerFactory',
-        'identity'       => 'Zend\View\Helper\Service\IdentityFactory',
-    ];
+    protected $instanceOf = Helper\HelperInterface::class;
 
-    /**
-     * Default set of helpers
-     *
-     * @var array
-     */
-    protected $invokableClasses = [
-        // basepath, doctype, and url are set up as factories in the ViewHelperManagerFactory.
-        // basepath and url are not very useful without their factories, however the doctype
-        // helper works fine as an invokable. The factory for doctype simply checks for the
-        // config value from the merged config.
-        'basepath'            => 'Zend\View\Helper\BasePath',
-        'cycle'               => 'Zend\View\Helper\Cycle',
-        'declarevars'         => 'Zend\View\Helper\DeclareVars',
-        'doctype'             => 'Zend\View\Helper\Doctype', // overridden by a factory in ViewHelperManagerFactory
-        'escapehtml'          => 'Zend\View\Helper\EscapeHtml',
-        'escapehtmlattr'      => 'Zend\View\Helper\EscapeHtmlAttr',
-        'escapejs'            => 'Zend\View\Helper\EscapeJs',
-        'escapecss'           => 'Zend\View\Helper\EscapeCss',
-        'escapeurl'           => 'Zend\View\Helper\EscapeUrl',
-        'gravatar'            => 'Zend\View\Helper\Gravatar',
-        'htmltag'             => 'Zend\View\Helper\HtmlTag',
-        'headlink'            => 'Zend\View\Helper\HeadLink',
-        'headmeta'            => 'Zend\View\Helper\HeadMeta',
-        'headscript'          => 'Zend\View\Helper\HeadScript',
-        'headstyle'           => 'Zend\View\Helper\HeadStyle',
-        'headtitle'           => 'Zend\View\Helper\HeadTitle',
-        'htmlflash'           => 'Zend\View\Helper\HtmlFlash',
-        'htmllist'            => 'Zend\View\Helper\HtmlList',
-        'htmlobject'          => 'Zend\View\Helper\HtmlObject',
-        'htmlpage'            => 'Zend\View\Helper\HtmlPage',
-        'htmlquicktime'       => 'Zend\View\Helper\HtmlQuicktime',
-        'inlinescript'        => 'Zend\View\Helper\InlineScript',
-        'json'                => 'Zend\View\Helper\Json',
-        'layout'              => 'Zend\View\Helper\Layout',
-        'paginationcontrol'   => 'Zend\View\Helper\PaginationControl',
-        'partialloop'         => 'Zend\View\Helper\PartialLoop',
-        'partial'             => 'Zend\View\Helper\Partial',
-        'placeholder'         => 'Zend\View\Helper\Placeholder',
-        'renderchildmodel'    => 'Zend\View\Helper\RenderChildModel',
-        'rendertoplaceholder' => 'Zend\View\Helper\RenderToPlaceholder',
-        'serverurl'           => 'Zend\View\Helper\ServerUrl',
-        'url'                 => 'Zend\View\Helper\Url',
-        'viewmodel'           => 'Zend\View\Helper\ViewModel',
+    protected $config = [
+        'aliases' => [
+            'basePath'            => 'basepath',
+            'BasePath'            => 'basepath',
+            'Cycle'               => 'cycle',
+            'declareVars'         => 'declarevars',
+            'DeclareVars'         => 'declarevars',
+            'Doctype'             => 'doctype',
+            'flashMessenger'      => 'flashmessenger',
+            'FlashMessenger'      => 'flashmessenger',
+            'escapeHtml'          => 'escapehtml',
+            'EscapeHtml'          => 'escapehtml',
+            'escapeHtmlAttr'      => 'escapehtmlattr',
+            'EscapeHtmlAttr'      => 'escapehtmlattr',
+            'escapeJs'            => 'escapejs',
+            'EscapeJs'            => 'escapejs',
+            'escapeCss'           => 'escapecss',
+            'EscapeCss'           => 'escapecss',
+            'escapeUrl'           => 'escapeurl',
+            'EscapeUrl'           => 'escapeurl',
+            'Gravatar'            => 'gravatar',
+            'htmlTag'             => 'htmltag',
+            'HtmlTag'             => 'htmltag',
+            'headLink'            => 'headlink',
+            'HeadLink'            => 'headlink',
+            'headMeta'            => 'headmeta',
+            'HeadMeta'            => 'headmeta',
+            'headScript'          => 'headscript',
+            'HeadScript'          => 'headscript',
+            'headStyle'           => 'headstyle',
+            'HeadStyle'           => 'headstyle',
+            'headTitle'           => 'headtitle',
+            'HeadTitle'           => 'headtitle',
+            'htmlFlash'           => 'htmlflash',
+            'HtmlFlash'           => 'htmlflash',
+            'htmlList'            => 'htmllist',
+            'HtmlList'            => 'htmllist',
+            'htmlObject'          => 'htmlobject',
+            'HtmlObject'          => 'htmlobject',
+            'htmlPage'            => 'htmlpage',
+            'HtmlPage'            => 'htmlpage',
+            'htmlQuicktime'       => 'htmlquicktime',
+            'HtmlQuicktime'       => 'htmlquicktime',
+            'Identity'            => 'identity',
+            'inlineScript'        => 'inlinescript',
+            'InlineScript'        => 'inlinescript',
+            'Json'                => 'json',
+            'Layout'              => 'layout',
+            'paginationControl'   => 'paginationcontrol',
+            'PaginationControl'   => 'paginationcontrol',
+            'Partial'             => 'partial',
+            'partialLoop'         => 'partialloop',
+            'PartialLoop'         => 'partialloop',
+            'Placeholder'         => 'placeholder',
+            'renderChildModel'    => 'renderchildmodel',
+            'RenderChildModel'    => 'renderchildmodel',
+            'render_child_model'  => 'renderchildmodel',
+            'renderToPlaceholder' => 'rendertoplaceholder',
+            'RenderToPlaceholder' => 'rendertoplaceholder',
+            'serverUrl'           => 'serverurl',
+            'ServerUrl'           => 'serverurl',
+            'Url'                 => 'url',
+            'viewModel'           => 'viewmodel',
+            'ViewModel'           => 'viewmodel',
+            'view_model'          => 'viewmodel',
+        ],
+        'factories' => [
+            'flashmessenger' => Helper\Service\FlashMessengerFactory::class,
+            'identity'       => Helper\Service\IdentityFactory::class,
+        ],
+        'invokables' => [
+            // basepath, doctype, and url are set up as factories in the ViewHelperManagerFactory.
+            // basepath and url are not very useful without their factories, however the doctype
+            // helper works fine as an invokable. The factory for doctype simply checks for the
+            // config value from the merged config.
+            'basepath'            => Helper\BasePath::class,
+            'cycle'               => Helper\Cycle::class,
+            'declarevars'         => Helper\DeclareVars::class,
+            'doctype'             => Helper\Doctype::class, // overridden by a factory in ViewHelperManagerFactory
+            'escapehtml'          => Helper\EscapeHtml::class,
+            'escapehtmlattr'      => Helper\EscapeHtmlAttr::class,
+            'escapejs'            => Helper\EscapeJs::class,
+            'escapecss'           => Helper\EscapeCss::class,
+            'escapeurl'           => Helper\EscapeUrl::class,
+            'gravatar'            => Helper\Gravatar::class,
+            'htmltag'             => Helper\HtmlTag::class,
+            'headlink'            => Helper\HeadLink::class,
+            'headmeta'            => Helper\HeadMeta::class,
+            'headscript'          => Helper\HeadScript::class,
+            'headstyle'           => Helper\HeadStyle::class,
+            'headtitle'           => Helper\HeadTitle::class,
+            'htmlflash'           => Helper\HtmlFlash::class,
+            'htmllist'            => Helper\HtmlList::class,
+            'htmlobject'          => Helper\HtmlObject::class,
+            'htmlpage'            => Helper\HtmlPage::class,
+            'htmlquicktime'       => Helper\HtmlQuicktime::class,
+            'inlinescript'        => Helper\InlineScript::class,
+            'json'                => Helper\Json::class,
+            'layout'              => Helper\Layout::class,
+            'paginationcontrol'   => Helper\PaginationControl::class,
+            'partialloop'         => Helper\PartialLoop::class,
+            'partial'             => Helper\Partial::class,
+            'placeholder'         => Helper\Placeholder::class,
+            'renderchildmodel'    => Helper\RenderChildModel::class,
+            'rendertoplaceholder' => Helper\RenderToPlaceholder::class,
+            'serverurl'           => Helper\ServerUrl::class,
+            'url'                 => Helper\Url::class,
+            'viewmodel'           => Helper\ViewModel::class,
+        ],
     ];
 
     /**
@@ -85,17 +144,22 @@ class HelperPluginManager extends AbstractPluginManager
     /**
      * Constructor
      *
-     * After invoking parent constructor, add an initializer to inject the
-     * attached renderer and translator, if any, to the currently requested helper.
+     * Merges provided configuration with default configuration.
      *
-     * @param null|ConfigInterface $configuration
+     * Adds initializers to inject the attached renderer and translator, if
+     * any, to the currently requested helper.
+     *
+     * @param ContainerInterface $container
+     * @param array $config
      */
-    public function __construct(ConfigInterface $configuration = null)
+    public function __construct(ContainerInterface $container, array $config = [])
     {
-        parent::__construct($configuration);
-
-        $this->addInitializer([$this, 'injectRenderer'])
-             ->addInitializer([$this, 'injectTranslator']);
+        $this->config['initializers'] = [
+            [$this, 'injectRenderer'],
+            [$this, 'injectTranslator'],
+        ];
+        $config = ArrayUtils::merge($this->config, $config);
+        parent::__construct($container, $config);
     }
 
     /**
@@ -124,10 +188,11 @@ class HelperPluginManager extends AbstractPluginManager
     /**
      * Inject a helper instance with the registered renderer
      *
+     * @param  ContainerInterface $container
      * @param  Helper\HelperInterface $helper
      * @return void
      */
-    public function injectRenderer($helper)
+    public function injectRenderer(ContainerInterface $container, $helper)
     {
         $renderer = $this->getRenderer();
         if (null === $renderer) {
@@ -139,57 +204,29 @@ class HelperPluginManager extends AbstractPluginManager
     /**
      * Inject a helper instance with the registered translator
      *
+     * @param  ContainerInterface $container
      * @param  Helper\HelperInterface $helper
      * @return void
      */
-    public function injectTranslator($helper)
+    public function injectTranslator(ContainerInterface $container, $helper)
     {
-        if (!$helper instanceof TranslatorAwareInterface) {
+        if (! $helper instanceof TranslatorAwareInterface) {
             return;
         }
 
-        $locator = $this->getServiceLocator();
-
-        if (!$locator) {
+        if ($container->has('MvcTranslator')) {
+            $helper->setTranslator($container->get('MvcTranslator'));
             return;
         }
 
-        if ($locator->has('MvcTranslator')) {
-            $helper->setTranslator($locator->get('MvcTranslator'));
+        if ($container->has('Zend\I18n\Translator\TranslatorInterface')) {
+            $helper->setTranslator($container->get('Zend\I18n\Translator\TranslatorInterface'));
             return;
         }
 
-        if ($locator->has('Zend\I18n\Translator\TranslatorInterface')) {
-            $helper->setTranslator($locator->get('Zend\I18n\Translator\TranslatorInterface'));
+        if ($container->has('Translator')) {
+            $helper->setTranslator($container->get('Translator'));
             return;
         }
-
-        if ($locator->has('Translator')) {
-            $helper->setTranslator($locator->get('Translator'));
-            return;
-        }
-    }
-
-    /**
-     * Validate the plugin
-     *
-     * Checks that the helper loaded is an instance of Helper\HelperInterface.
-     *
-     * @param  mixed                            $plugin
-     * @return void
-     * @throws Exception\InvalidHelperException if invalid
-     */
-    public function validatePlugin($plugin)
-    {
-        if ($plugin instanceof Helper\HelperInterface) {
-            // we're okay
-            return;
-        }
-
-        throw new Exception\InvalidHelperException(sprintf(
-            'Plugin of type %s is invalid; must implement %s\Helper\HelperInterface',
-            (is_object($plugin) ? get_class($plugin) : gettype($plugin)),
-            __NAMESPACE__
-        ));
     }
 }

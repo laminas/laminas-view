@@ -10,14 +10,12 @@
 namespace Zend\View\Helper;
 
 use Zend\Mvc\Controller\Plugin\FlashMessenger as PluginFlashMessenger;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\I18n\View\Helper\AbstractTranslatorHelper;
 
 /**
  * Helper to proxy the plugin flash messenger
  */
-class FlashMessenger extends AbstractTranslatorHelper implements ServiceLocatorAwareInterface
+class FlashMessenger extends AbstractTranslatorHelper
 {
     /**
      * Default attributes for the open format tag
@@ -61,13 +59,6 @@ class FlashMessenger extends AbstractTranslatorHelper implements ServiceLocatorA
      * @var PluginFlashMessenger
      */
     protected $pluginFlashMessenger;
-
-    /**
-     * Service locator
-     *
-     * @var ServiceLocatorInterface
-     */
-    protected $serviceLocator;
 
     /**
      * Returns the flash messenger plugin controller
@@ -307,28 +298,6 @@ class FlashMessenger extends AbstractTranslatorHelper implements ServiceLocatorA
         }
 
         return $this->pluginFlashMessenger;
-    }
-
-    /**
-     * Set the service locator.
-     *
-     * @param  ServiceLocatorInterface $serviceLocator
-     * @return AbstractHelper
-     */
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
-    {
-        $this->serviceLocator = $serviceLocator;
-        return $this;
-    }
-
-    /**
-     * Get the service locator.
-     *
-     * @return ServiceLocatorInterface
-     */
-    public function getServiceLocator()
-    {
-        return $this->serviceLocator;
     }
 
     /**
