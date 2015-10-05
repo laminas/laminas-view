@@ -10,6 +10,7 @@
 namespace Zend\View\Helper\Navigation;
 
 use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\Factory\InvokableFactory;
 use Zend\View\HelperPluginManager;
 
 /**
@@ -27,17 +28,27 @@ class PluginManager extends HelperPluginManager
     protected $instanceOf = AbstractHelper::class;
 
     /**
-     * Default configuration.
+     * Default aliases
      *
-     * @var array
+     * @var string[]
      */
-    protected $config = [
-        'invokables' => [
-            'breadcrumbs' => Breadcrumbs::class,
-            'links'       => Links::class,
-            'menu'        => Menu::class,
-            'sitemap'     => Sitemap::class,
-        ],
+    protected $aliases = [
+        'breadcrumbs' => Breadcrumbs::class,
+        'links'       => Links::class,
+        'menu'        => Menu::class,
+        'sitemap'     => Sitemap::class,
+    ];
+
+    /**
+     * Default factories
+     *
+     * @var string[]
+     */
+    protected $factories = [
+        Breadcrumbs::class => InvokableFactory::class,
+        Links::class       => InvokableFactory::class,
+        Menu::class        => InvokableFactory::class,
+        Sitemap::class     => InvokableFactory::class,
     ];
 
     /**
@@ -46,15 +57,13 @@ class PluginManager extends HelperPluginManager
      */
     public function __construct(ContainerInterface $container, array $config = [])
     {
-        $this->config['initializers'] = [
-            function ($container, $instance) {
-                if (! $instance instanceof AbstractHelper) {
-                    continue;
-                }
+        $this->initializers[] = function ($container, $instance) {
+            if (! $instance instanceof AbstractHelper) {
+                continue;
+            }
 
-                $instance->setServiceLocator($container);
-            },
-        ];
+            $instance->setServiceLocator($container);
+        };
 
         parent::__construct($container, $config);
     }
