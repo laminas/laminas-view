@@ -9,7 +9,7 @@
 
 namespace Zend\View\Helper\Navigation;
 
-use Zend\View\Exception;
+use Interop\Container\ContainerInterface;
 use Zend\View\HelperPluginManager;
 
 /**
@@ -22,37 +22,40 @@ use Zend\View\HelperPluginManager;
 class PluginManager extends HelperPluginManager
 {
     /**
-     * Default set of helpers
+     * @var string Valid instance types.
+     */
+    protected $instanceOf = AbstractHelper::class;
+
+    /**
+     * Default configuration.
      *
      * @var array
      */
-    protected $invokableClasses = [
-        'breadcrumbs' => 'Zend\View\Helper\Navigation\Breadcrumbs',
-        'links'       => 'Zend\View\Helper\Navigation\Links',
-        'menu'        => 'Zend\View\Helper\Navigation\Menu',
-        'sitemap'     => 'Zend\View\Helper\Navigation\Sitemap',
+    protected $config = [
+        'invokables' => [
+            'breadcrumbs' => Breadcrumbs::class,
+            'links'       => Links::class,
+            'menu'        => Menu::class,
+            'sitemap'     => Sitemap::class,
+        ],
     ];
 
     /**
-     * Validate the plugin
-     *
-     * Checks that the helper loaded is an instance of AbstractHelper.
-     *
-     * @param  mixed $plugin
-     * @return void
-     * @throws Exception\InvalidArgumentException if invalid
+     * @param ContainerInterface $container
+     * @param array $config
      */
-    public function validatePlugin($plugin)
+    public function __construct(ContainerInterface $container, array $config = [])
     {
-        if ($plugin instanceof AbstractHelper) {
-            // we're okay
-            return;
-        }
+        $this->config['initializers'] = [
+            function ($container, $instance) {
+                if (! $instance instanceof AbstractHelper) {
+                    continue;
+                }
 
-        throw new Exception\InvalidArgumentException(sprintf(
-            'Plugin of type %s is invalid; must implement %s\AbstractHelper',
-            (is_object($plugin) ? get_class($plugin) : gettype($plugin)),
-            __NAMESPACE__
-        ));
+                $instance->setServiceLocator($container);
+            },
+        ];
+
+        parent::__construct($container, $config);
     }
 }

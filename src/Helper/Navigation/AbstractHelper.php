@@ -9,6 +9,7 @@
 
 namespace Zend\View\Helper\Navigation;
 
+use Interop\Container\ContainerInterface;
 use RecursiveIteratorIterator;
 use Zend\EventManager\EventManager;
 use Zend\EventManager\EventManagerAwareInterface;
@@ -18,8 +19,6 @@ use Zend\I18n\Translator\TranslatorAwareInterface;
 use Zend\Navigation;
 use Zend\Navigation\Page\AbstractPage;
 use Zend\Permissions\Acl;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View;
 use Zend\View\Exception;
 
@@ -29,18 +28,12 @@ use Zend\View\Exception;
 abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     EventManagerAwareInterface,
     HelperInterface,
-    ServiceLocatorAwareInterface,
     TranslatorAwareInterface
 {
     /**
      * @var EventManagerInterface
      */
     protected $events;
-
-    /**
-     * @var ServiceLocatorInterface
-     */
-    protected $serviceLocator;
 
     /**
      * AbstractContainer to operate on by default
@@ -90,6 +83,11 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      * @var string|Acl\Role\RoleInterface
      */
     protected $role;
+
+    /**
+     * @var ContainerInterface
+     */
+    protected $serviceLocator;
 
     /**
      * Whether ACL should be used for filtering out pages
@@ -260,7 +258,8 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
         }
 
         if (is_string($container)) {
-            if (!$this->getServiceLocator()) {
+            $services = $this->getServiceLocator();
+            if (! $services) {
                 throw new Exception\InvalidArgumentException(sprintf(
                     'Attempted to set container with alias "%s" but no ServiceLocator was set',
                     $container
@@ -269,16 +268,8 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
 
             /**
              * Load the navigation container from the root service locator
-             *
-             * The navigation container is probably located in Zend\ServiceManager\ServiceManager
-             * and not in the View\HelperPluginManager. If the set service locator is a
-             * HelperPluginManager, access the navigation container via the main service locator.
              */
-            $sl = $this->getServiceLocator();
-            if ($sl instanceof View\HelperPluginManager) {
-                $sl = $sl->getServiceLocator();
-            }
-            $container = $sl->get($container);
+            $container = $services->get($container);
             return;
         }
 
@@ -755,10 +746,12 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     /**
      * Set the service locator.
      *
-     * @param  ServiceLocatorInterface $serviceLocator
+     * Used internally to pull named navigation containers to render.
+     *
+     * @param  ContainerInterface $serviceLocator
      * @return AbstractHelper
      */
-    public function setServiceLocator(ServiceLocatorInterface $serviceLocator)
+    public function setServiceLocator(ContainerInterface $serviceLocator)
     {
         $this->serviceLocator = $serviceLocator;
         return $this;
@@ -767,7 +760,9 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     /**
      * Get the service locator.
      *
-     * @return ServiceLocatorInterface
+     * Used internally to pull named navigation containers to render.
+     *
+     * @return ContainerInterface
      */
     public function getServiceLocator()
     {

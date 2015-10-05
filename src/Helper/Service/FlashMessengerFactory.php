@@ -9,8 +9,8 @@
 
 namespace Zend\View\Helper\Service;
 
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\View\Helper\FlashMessenger;
 
 class FlashMessengerFactory implements FactoryInterface
@@ -18,17 +18,20 @@ class FlashMessengerFactory implements FactoryInterface
     /**
      * Create service
      *
-     * @param  ServiceLocatorInterface $serviceLocator
+     * @param ContainerInterface $container
+     * @param string $name
+     * @param null|array $options
      * @return FlashMessenger
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function __invoke(ContainerInterface $container, $name, array $options = null)
     {
-        $serviceLocator = $serviceLocator->getServiceLocator();
-        $helper = new FlashMessenger();
-        $controllerPluginManager = $serviceLocator->get('ControllerPluginManager');
-        $flashMessenger = $controllerPluginManager->get('flashmessenger');
+        $helper                  = new FlashMessenger();
+        $controllerPluginManager = $container->get('ControllerPluginManager');
+        $flashMessenger          = $controllerPluginManager->get('flashmessenger');
+
         $helper->setPluginFlashMessenger($flashMessenger);
-        $config = $serviceLocator->get('Config');
+
+        $config = $container->get('Config');
         if (isset($config['view_helper_config']['flashmessenger'])) {
             $configHelper = $config['view_helper_config']['flashmessenger'];
             if (isset($configHelper['message_open_format'])) {

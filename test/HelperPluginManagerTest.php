@@ -22,7 +22,7 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->helpers = new HelperPluginManager();
+        $this->helpers = new HelperPluginManager(new ServiceManager());
     }
 
     public function testViewIsNullByDefault()
@@ -53,15 +53,20 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testRegisteringInvalidHelperRaisesException()
     {
-        $this->setExpectedException('Zend\View\Exception\InvalidHelperException');
-        $this->helpers->setService('test', $this);
+        $helpers = new HelperPluginManager(new ServiceManager(), ['services' => [
+            'test' => $this,
+        ]]);
+        $this->setExpectedException('Zend\ServiceManager\Exception\InvalidServiceException');
+        $helpers->get('test');
     }
 
     public function testLoadingInvalidHelperRaisesException()
     {
-        $this->helpers->setInvokableClass('test', get_class($this));
-        $this->setExpectedException('Zend\View\Exception\InvalidHelperException');
-        $this->helpers->get('test');
+        $helpers = new HelperPluginManager(new ServiceManager(), ['invokables' => [
+            'test' => get_class($this),
+        ]]);
+        $this->setExpectedException('Zend\ServiceManager\Exception\InvalidServiceException');
+        $helpers->get('test');
     }
 
     public function testDefinesFactoryForIdentityPlugin()
@@ -71,10 +76,11 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testIdentityFactoryCanInjectAuthenticationServiceIfInParentServiceManager()
     {
-        $services = new ServiceManager();
-        $services->setInvokableClass('Zend\Authentication\AuthenticationService', 'Zend\Authentication\AuthenticationService');
-        $this->helpers->setServiceLocator($services);
-        $identity = $this->helpers->get('identity');
+        $services = new ServiceManager(['invokables' => [
+            'Zend\Authentication\AuthenticationService' =>  'Zend\Authentication\AuthenticationService',
+        ]]);
+        $helpers  = new HelperPluginManager($services);
+        $identity = $helpers->get('identity');
         $expected = $services->get('Zend\Authentication\AuthenticationService');
         $this->assertSame($expected, $identity->getAuthenticationService());
     }
@@ -82,33 +88,33 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
     public function testIfHelperIsTranslatorAwareAndMvcTranslatorIsAvailableItWillInjectTheMvcTranslator()
     {
         $translator = new MvcTranslator($this->getMock('Zend\I18n\Translator\TranslatorInterface'));
-        $services   = new ServiceManager();
-        $services->setService('MvcTranslator', $translator);
-        $this->helpers->setServiceLocator($services);
-
-        $helper = $this->helpers->get('HeadTitle');
+        $services   = new ServiceManager(['services' => [
+            'MvcTranslator' =>  $translator,
+        ]]);
+        $helpers = new HelperPluginManager($services);
+        $helper  = $helpers->get('HeadTitle');
         $this->assertSame($translator, $helper->getTranslator());
     }
 
     public function testIfHelperIsTranslatorAwareAndMvcTranslatorIsUnavailableAndTranslatorIsAvailableItWillInjectTheTranslator()
     {
         $translator = new Translator();
-        $services   = new ServiceManager();
-        $services->setService('Translator', $translator);
-        $this->helpers->setServiceLocator($services);
-
-        $helper = $this->helpers->get('HeadTitle');
+        $services   = new ServiceManager(['services' => [
+            'Translator' =>  $translator,
+        ]]);
+        $helpers = new HelperPluginManager($services);
+        $helper  = $helpers->get('HeadTitle');
         $this->assertSame($translator, $helper->getTranslator());
     }
 
     public function testIfHelperIsTranslatorAwareAndBothMvcTranslatorAndTranslatorAreUnavailableAndTranslatorInterfaceIsAvailableItWillInjectTheTranslator()
     {
         $translator = new Translator();
-        $services   = new ServiceManager();
-        $services->setService('Zend\I18n\Translator\TranslatorInterface', $translator);
-        $this->helpers->setServiceLocator($services);
-
-        $helper = $this->helpers->get('HeadTitle');
+        $services   = new ServiceManager(['services' => [
+            'Zend\I18n\Translator\TranslatorInterface' =>  $translator,
+        ]]);
+        $helpers = new HelperPluginManager($services);
+        $helper  = $helpers->get('HeadTitle');
         $this->assertSame($translator, $helper->getTranslator());
     }
 }

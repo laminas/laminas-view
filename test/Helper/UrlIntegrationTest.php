@@ -24,7 +24,7 @@ class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
-        $this->markTestIncomplete('Cannot test until zend-mvc v3 eventmanager integration is complete.');
+        $this->markTestIncomplete('Cannot test until zend-mvc v3 eventmanager and servicemanager integration is complete.');
 
         $config = [
             'router' => [

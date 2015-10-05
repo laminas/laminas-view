@@ -10,7 +10,6 @@
 namespace Zend\View\Helper;
 
 use Zend\Navigation\AbstractContainer;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
 use Zend\View\Exception;
 use Zend\View\Helper\Navigation\AbstractHelper as AbstractNavigationHelper;
 use Zend\View\Helper\Navigation\HelperInterface as NavigationHelper;
@@ -112,7 +111,7 @@ class Navigation extends AbstractNavigationHelper
         // check if call should proxy to another helper
         $helper = $this->findHelper($method, false);
         if ($helper) {
-            if ($helper instanceof ServiceLocatorAwareInterface && $this->getServiceLocator()) {
+            if (method_exists($helper, 'setServiceLocator') && $this->getServiceLocator()) {
                 $helper->setServiceLocator($this->getServiceLocator());
             }
             return call_user_func_array($helper, $arguments);
