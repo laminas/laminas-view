@@ -13,6 +13,8 @@ use Zend\I18n\Translator\Translator;
 use Zend\Mvc\I18n\Translator as MvcTranslator;
 use Zend\ServiceManager\ServiceManager;
 use Zend\View\HelperPluginManager;
+use Zend\View\Helper\HelperInterface;
+use Zend\View\Helper\Url;
 use Zend\View\Renderer\PhpRenderer;
 
 /**
@@ -116,5 +118,16 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
         $helpers = new HelperPluginManager($services);
         $helper  = $helpers->get('HeadTitle');
         $this->assertSame($translator, $helper->getTranslator());
+    }
+
+    public function testCanOverrideAFactoryViaConfigurationPassedToConstructor()
+    {
+        $helper  = $this->prophesize(HelperInterface::class)->reveal();
+        $helpers = new HelperPluginManager(new ServiceManager(), ['factories' => [
+            Url::class => function ($container, $name, array $options = null) use ($helper) {
+                return $helper;
+            },
+        ]]);
+        $this->assertSame($helper, $helpers->get('url'));
     }
 }
