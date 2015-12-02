@@ -40,7 +40,9 @@ class HeadScriptTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->basePath = __DIR__ . '/_files/modules';
+        $this->view   = new View();
         $this->helper = new Helper\HeadScript();
+        $this->helper->setView($this->view);
     }
 
     /**
@@ -474,6 +476,7 @@ document.write(bar.strlen());');
 
     public function testOmitsTypeAttributeIfEmptyValue()
     {
+        $this->view->plugin('doctype')->setDoctype('html5');
         $this->helper->__invoke()->appendScript('// some script' . PHP_EOL, '');
         $test = $this->helper->__invoke()->toString();
         $this->assertNotContains('type', $test);
