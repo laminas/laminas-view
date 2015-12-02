@@ -445,11 +445,16 @@ document.write(bar.strlen());');
 
     public function testNoEscapeDefaultsToFalse()
     {
+        // it only defaults to false if there is no view, respectively no doctype helper available
+        $oldview = $this->view;
+        $this->view = null;
         $this->helper->__invoke()->appendScript('// some script' . PHP_EOL, 'text/javascript', []);
         $test = $this->helper->__invoke()->toString();
 
         $this->assertContains('//<!--', $test);
         $this->assertContains('//-->', $test);
+    
+        $this->view = $oldview;
     }
 
     public function testNoEscapeTrue()
