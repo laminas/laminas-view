@@ -476,7 +476,7 @@ document.write(bar.strlen());');
 
     public function testOmitsTypeAttributeIfEmptyValue()
     {
-        $this->view->plugin('doctype')->setDoctype('html5');
+        $this->view->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5);
         $this->helper->__invoke()->appendScript('// some script' . PHP_EOL, '');
         $test = $this->helper->__invoke()->toString();
         $this->assertNotContains('type', $test);
