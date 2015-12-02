@@ -40,9 +40,7 @@ class HeadScriptTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->basePath = __DIR__ . '/_files/modules';
-        $this->view   = new \Zend\View\Renderer\PhpRenderer();
         $this->helper = new Helper\HeadScript();
-        $this->helper->setView($this->view);
     }
 
     /**
@@ -480,11 +478,12 @@ document.write(bar.strlen());');
 
     public function testOmitsTypeAttributeIfEmptyValue()
     {
-        $doctype = $this->view->plugin('doctype')->getDoctype();
-        $this->view->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5);
+        $view = new \Zend\View\Renderer\PhpRenderer();
+        $view->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5);
+        $this->helper->setView($view);
+
         $this->helper->__invoke()->appendScript('// some script' . PHP_EOL, '');
         $test = $this->helper->__invoke()->toString();
         $this->assertNotContains('type', $test);
-        $this->view->plugin('doctype')->setDoctype($doctype);
     }
 }
