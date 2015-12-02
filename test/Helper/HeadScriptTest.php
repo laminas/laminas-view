@@ -471,4 +471,11 @@ document.write(bar.strlen());');
 
         $this->assertContains('crossorigin="', $test);
     }
+    
+    public function testOmitsTypeAttributeIfEmptyValue()
+    {
+        $this->helper->__invoke()->appendScript('// some script' . PHP_EOL, '');
+        $test = $this->helper->__invoke()->toString();
+        $this->assertNotContains('type', $test);
+    }
 }
