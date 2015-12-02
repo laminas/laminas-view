@@ -400,11 +400,11 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
         $addScriptEscape = !(isset($item->attributes['noescape'])
             && filter_var($item->attributes['noescape'], FILTER_VALIDATE_BOOLEAN));
 
-        if ($item->type != '' || ($this->view && $this->view->plugin('doctype')->isXhtml())) {
+        if (empty($item->type) && $this->view && $this->view->plugin('doctype')->isHtml5()) {
+            $html = '<script ' . $attrString . '>';
+        } else {
             $type = ($this->autoEscape) ? $this->escape($item->type) : $item->type;
             $html = '<script type="' . $type . '"' . $attrString . '>';
-        } else {
-            $html = '<script ' . $attrString . '>';
         }
         if (!empty($item->source)) {
             $html .= PHP_EOL;
