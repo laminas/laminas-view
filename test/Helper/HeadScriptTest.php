@@ -40,7 +40,7 @@ class HeadScriptTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->basePath = __DIR__ . '/_files/modules';
-        $this->view   = new Zend\View\Renderer\PhpRenderer();
+        $this->view   = new \Zend\View\Renderer\PhpRenderer();
         $this->helper = new Helper\HeadScript();
         $this->helper->setView($this->view);
     }
