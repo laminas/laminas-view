@@ -442,4 +442,14 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(2, $this->renderer->sharedinstance());
         $this->assertEquals(3, $this->renderer->sharedinstance());
     }
+
+    public function testDoesNotCallFilterChainIfNoFilterChainWasSet()
+    {
+        $this->renderer->resolver()->addPath(__DIR__ . '/_templates');
+
+        $result = $this->renderer->render('empty.phtml');
+
+        $this->assertContains('Empty view', $result);
+        $this->assertAttributeEmpty('__filterChain', $this->renderer);
+    }
 }
