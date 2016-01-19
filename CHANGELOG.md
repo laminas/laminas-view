@@ -31,6 +31,24 @@ All notable changes to this project will be documented in this file, in reverse 
   and various helper factories are implemented, while leaving the functionality
   the same.
 
+## 2.5.4 - TBD
+
+### Added
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 2.5.3 - 2016-01-19
 
 ### Added
