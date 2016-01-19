@@ -19,7 +19,10 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#25](https://github.com/zendframework/zend-view/pull/25) updates
+  `PhpRenderer::render()` to no longer lazy-instantiate a `FilterChain`;
+  content filtering is now only done if a `FitlerChain` is already
+  injected in the renderer.
 
 ## 2.5.2 - 2015-06-16
 
