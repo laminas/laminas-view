@@ -1,0 +1,30 @@
+{
+    "title": "Zend\\View",
+    "target": "html/",
+    "content": [
+        "book/zend.view.quick-start.md",
+        "book/zend.view.renderer.php-renderer.md",
+        "book/zend.view.php-renderer.scripts.md",
+        "book/zend.view.view-event.md",
+        "book/zend.view.helpers.md",
+        "book/zend.view.helpers.base-path.md",
+        "book/zend.view.helpers.cycle.md",
+        "book/zend.view.helpers.doctype.md",
+        "book/zend.view.helpers.flash-messenger.md",
+        "book/zend.view.helpers.gravatar.md",
+        "book/zend.view.helpers.head-link.md",
+        "book/zend.view.helpers.head-meta.md",
+        "book/zend.view.helpers.head-script.md",
+        "book/zend.view.helpers.head-style.md",
+        "book/zend.view.helpers.head-title.md",
+        "book/zend.view.helpers.html-list.md",
+        "book/zend.view.helpers.html-object.md",
+        "book/zend.view.helpers.identity.md",
+        "book/zend.view.helpers.inline-script.md",
+        "book/zend.view.helpers.json.md",
+        "book/zend.view.helpers.partial.md",
+        "book/zend.view.helpers.placeholder.md",
+        "book/zend.view.helpers.url.md",
+        "book/zend.view.helpers.advanced-usage.md"
+    ]
+}
