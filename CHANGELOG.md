@@ -31,7 +31,7 @@ All notable changes to this project will be documented in this file, in reverse 
   and various helper factories are implemented, while leaving the functionality
   the same.
 
-## 2.5.3 - TBD
+## 2.5.3 - 2016-01-19
 
 ### Added
 
