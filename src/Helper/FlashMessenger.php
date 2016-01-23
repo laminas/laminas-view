@@ -143,6 +143,10 @@ class FlashMessenger extends AbstractTranslatorHelper implements ServiceLocatorA
         array $classes = [],
         $autoEscape = null
     ) {
+        if (empty($messages)) {
+            return '';
+        }
+        
         // Prepare classes for opening tag
         if (empty($classes)) {
             if (isset($this->classMessages[$namespace])) {
