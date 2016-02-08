@@ -10,7 +10,8 @@
 namespace Zend\View\Helper\Service;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Helper\Identity;
 
 class IdentityFactory implements FactoryInterface
@@ -30,5 +31,16 @@ class IdentityFactory implements FactoryInterface
             $helper->setAuthenticationService($container->get('Zend\Authentication\AuthenticationService'));
         }
         return $helper;
+    }
+
+    /**
+     * Create service
+     *
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return mixed
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+        return $this($serviceLocator);
     }
 }

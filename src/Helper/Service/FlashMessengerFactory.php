@@ -10,7 +10,8 @@
 namespace Zend\View\Helper\Service;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Zend\ServiceManager\FactoryInterface;
+use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\View\Helper\FlashMessenger;
 
 class FlashMessengerFactory implements FactoryInterface
@@ -46,5 +47,16 @@ class FlashMessengerFactory implements FactoryInterface
         }
 
         return $helper;
+    }
+
+    /**
+     * Create service
+     *
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return mixed
+     */
+    public function createService(ServiceLocatorInterface $serviceLocator)
+    {
+        return $this($serviceLocator);
     }
 }
