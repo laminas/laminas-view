@@ -26,8 +26,6 @@ use Zend\View\Exception\InvalidHelperException;
  */
 class HelperPluginManager extends AbstractPluginManager
 {
-    protected $instanceOf = Helper\HelperInterface::class;
-
     /**
      * Default helper aliases
      *
@@ -100,6 +98,7 @@ class HelperPluginManager extends AbstractPluginManager
         'htmltag'             => Helper\HtmlTag::class,
         'htmlTag'             => Helper\HtmlTag::class,
         'HtmlTag'             => Helper\HtmlTag::class,
+        'identity'            => Helper\Identity::class,
         'Identity'            => Helper\Identity::class,
         'inlinescript'        => Helper\InlineScript::class,
         'inlineScript'        => Helper\InlineScript::class,
@@ -134,6 +133,8 @@ class HelperPluginManager extends AbstractPluginManager
         'ViewModel'           => Helper\ViewModel::class,
     ];
 
+    protected $instanceOf = Helper\HelperInterface::class;
+
     /**
      * Default factories
      *
@@ -148,7 +149,8 @@ class HelperPluginManager extends AbstractPluginManager
         Helper\FlashMessenger::class      => Helper\Service\FlashMessengerFactory::class,
         'zendviewhelperflashmessenger'    => Helper\Service\FlashMessengerFactory::class,
 
-        'identity'                        => Helper\Service\IdentityFactory::class,
+        Helper\Identity::class            => Helper\Service\IdentityFactory::class,
+        'zendviewhelperidentity'          => Helper\Service\IdentityFactory::class,
 
         Helper\BasePath::class            => InvokableFactory::class,
         'zendviewhelperbasepath'          => InvokableFactory::class,
