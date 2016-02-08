@@ -62,9 +62,9 @@ class HelperPluginManager extends AbstractPluginManager
         'escapeUrl'           => Helper\EscapeUrl::class,
         'EscapeUrl'           => Helper\EscapeUrl::class,
         'escapeurl'           => Helper\EscapeUrl::class,
-        'flashmessenger'      => 'flashmessenger',
-        'flashMessenger'      => 'flashmessenger',
-        'FlashMessenger'      => 'flashmessenger',
+        'flashmessenger'      => Helper\FlashMessenger::class,
+        'flashMessenger'      => Helper\FlashMessenger::class,
+        'FlashMessenger'      => Helper\FlashMessenger::class,
         'Gravatar'            => Helper\Gravatar::class,
         'gravatar'            => Helper\Gravatar::class,
         'headLink'            => Helper\HeadLink::class,
@@ -145,8 +145,9 @@ class HelperPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $factories = [
-        // TODO: ??
-        'flashmessenger'                  => Helper\Service\FlashMessengerFactory::class,
+        Helper\FlashMessenger::class      => Helper\Service\FlashMessengerFactory::class,
+        'zendviewhelperflashmessenger'    => Helper\Service\FlashMessengerFactory::class,
+
         'identity'                        => Helper\Service\IdentityFactory::class,
 
         Helper\BasePath::class            => InvokableFactory::class,
@@ -267,12 +268,16 @@ class HelperPluginManager extends AbstractPluginManager
     /**
      * Inject a helper instance with the registered renderer
      *
-     * @param  ContainerInterface $container
-     * @param  Helper\HelperInterface $helper
-     * @return void
+     * @param $first
+     * @param $second
      */
-    public function injectRenderer($helper, ContainerInterface $container)
+    public function injectRenderer($first, $second)
     {
+        if ($first instanceof ContainerInterface) {
+            $helper = $second;
+        } else {
+            $helper = $first;
+        }
         $renderer = $this->getRenderer();
         if (null === $renderer) {
             return;
@@ -283,12 +288,18 @@ class HelperPluginManager extends AbstractPluginManager
     /**
      * Inject a helper instance with the registered translator
      *
-     * @param  ContainerInterface $container
-     * @param  Helper\HelperInterface $helper
-     * @return void
+     * @param $first
+     * @param $second
      */
-    public function injectTranslator($helper, ContainerInterface $container)
+    public function injectTranslator($first, $second)
     {
+        if ($first instanceof ContainerInterface) {
+            $container = $first;
+            $helper = $second;
+        } else {
+            $container = $second;
+            $helper = $first;
+        }
         if (! $helper instanceof TranslatorAwareInterface) {
             return;
         }

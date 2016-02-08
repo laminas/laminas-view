@@ -11,6 +11,7 @@ namespace ZendTest\View;
 
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\I18n\Translator as MvcTranslator;
+use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
 use Zend\View\HelperPluginManager;
 use Zend\View\Helper\HelperInterface;
@@ -55,10 +56,10 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testRegisteringInvalidHelperRaisesException()
     {
-        $helpers = new HelperPluginManager(new ServiceManager(), ['services' => [
-            'test' => $this,
+        $helpers = new HelperPluginManager(new ServiceManager(), ['factories' => [
+            'test' => function () { return $this; },
         ]]);
-        $this->setExpectedException('Zend\ServiceManager\Exception\InvalidServiceException');
+        $this->setExpectedException('Zend\View\Exception\InvalidHelperException');
         $helpers->get('test');
     }
 
@@ -67,7 +68,7 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
         $helpers = new HelperPluginManager(new ServiceManager(), ['invokables' => [
             'test' => get_class($this),
         ]]);
-        $this->setExpectedException('Zend\ServiceManager\Exception\InvalidServiceException');
+        $this->setExpectedException('Zend\View\Exception\InvalidHelperException');
         $helpers->get('test');
     }
 
@@ -78,9 +79,11 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testIdentityFactoryCanInjectAuthenticationServiceIfInParentServiceManager()
     {
-        $services = new ServiceManager(['invokables' => [
+        $config = new Config(['invokables' => [
             'Zend\Authentication\AuthenticationService' =>  'Zend\Authentication\AuthenticationService',
         ]]);
+        $services = new ServiceManager();
+        $config->configureServiceManager($services);
         $helpers  = new HelperPluginManager($services);
         $identity = $helpers->get('identity');
         $expected = $services->get('Zend\Authentication\AuthenticationService');
@@ -90,9 +93,11 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
     public function testIfHelperIsTranslatorAwareAndMvcTranslatorIsAvailableItWillInjectTheMvcTranslator()
     {
         $translator = new MvcTranslator($this->getMock('Zend\I18n\Translator\TranslatorInterface'));
-        $services   = new ServiceManager(['services' => [
+        $config = new Config(['services' => [
             'MvcTranslator' =>  $translator,
         ]]);
+        $services = new ServiceManager();
+        $config->configureServiceManager($services);
         $helpers = new HelperPluginManager($services);
         $helper  = $helpers->get('HeadTitle');
         $this->assertSame($translator, $helper->getTranslator());
@@ -101,9 +106,11 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
     public function testIfHelperIsTranslatorAwareAndMvcTranslatorIsUnavailableAndTranslatorIsAvailableItWillInjectTheTranslator()
     {
         $translator = new Translator();
-        $services   = new ServiceManager(['services' => [
+        $config = new Config(['services' => [
             'Translator' =>  $translator,
         ]]);
+        $services = new ServiceManager();
+        $config->configureServiceManager($services);
         $helpers = new HelperPluginManager($services);
         $helper  = $helpers->get('HeadTitle');
         $this->assertSame($translator, $helper->getTranslator());

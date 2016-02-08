@@ -26,6 +26,7 @@ class FlashMessengerFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $name, array $options = null)
     {
+        $container               = $container->getServiceLocator();
         $helper                  = new FlashMessenger();
         $controllerPluginManager = $container->get('ControllerPluginManager');
         $flashMessenger          = $controllerPluginManager->get('flashmessenger');
@@ -55,8 +56,8 @@ class FlashMessengerFactory implements FactoryInterface
      * @param ServiceLocatorInterface $serviceLocator
      * @return mixed
      */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+    public function createService(ServiceLocatorInterface $serviceLocator, $rName = null, $cName = null)
     {
-        return $this($serviceLocator);
+        return $this($serviceLocator, $cName);
     }
 }
