@@ -136,7 +136,7 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
         $config = new Config(
             [
                 'factories' => [
-                    Url::class => function ($container, $name, array $options = null) use ($helper) {
+                    Url::class => function ($container) use ($helper) {
                         return $helper;
                     },
                 ]
