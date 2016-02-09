@@ -119,9 +119,11 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
     public function testIfHelperIsTranslatorAwareAndBothMvcTranslatorAndTranslatorAreUnavailableAndTranslatorInterfaceIsAvailableItWillInjectTheTranslator()
     {
         $translator = new Translator();
-        $services   = new ServiceManager(['services' => [
+        $config = new Config(['services' => [
             'Zend\I18n\Translator\TranslatorInterface' =>  $translator,
         ]]);
+        $services = new ServiceManager();
+        $config->configureServiceManager($services);
         $helpers = new HelperPluginManager($services);
         $helper  = $helpers->get('HeadTitle');
         $this->assertSame($translator, $helper->getTranslator());
@@ -130,11 +132,17 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
     public function testCanOverrideAFactoryViaConfigurationPassedToConstructor()
     {
         $helper  = $this->prophesize(HelperInterface::class)->reveal();
-        $helpers = new HelperPluginManager(new ServiceManager(), ['factories' => [
-            Url::class => function ($container, $name, array $options = null) use ($helper) {
-                return $helper;
-            },
-        ]]);
+        $helpers = new HelperPluginManager(new ServiceManager());
+        $config = new Config(
+            [
+                'factories' => [
+                    Url::class => function ($container, $name, array $options = null) use ($helper) {
+                        return $helper;
+                    },
+                ]
+            ]
+        );
+        $config->configureServiceManager($helpers);
         $this->assertSame($helper, $helpers->get('url'));
     }
 }

@@ -181,7 +181,7 @@ class HelperPluginManager extends AbstractPluginManager
         Helper\HeadScript::class          => InvokableFactory::class,
         'zendviewhelperheadscript'        => InvokableFactory::class,
         Helper\HeadStyle::class           => InvokableFactory::class,
-        'zendviewhelperheadstype'         => InvokableFactory::class,
+        'zendviewhelperheadstyle'         => InvokableFactory::class,
         Helper\HeadTitle::class           => InvokableFactory::class,
         'zendviewhelperheadtitle'         => InvokableFactory::class,
         Helper\HtmlFlash::class           => InvokableFactory::class,
@@ -209,7 +209,7 @@ class HelperPluginManager extends AbstractPluginManager
         Helper\Placeholder::class         => InvokableFactory::class,
         'zendviewhelperplaceholder'       => InvokableFactory::class,
         Helper\RenderChildModel::class    => InvokableFactory::class,
-        'zendviewhelperchildmodel'        => InvokableFactory::class,
+        'zendviewhelperrenderchildmodel'  => InvokableFactory::class,
         Helper\RenderToPlaceholder::class => InvokableFactory::class,
         'zendviewhelperrendertoplaceholder' => InvokableFactory::class,
         Helper\ServerUrl::class           => InvokableFactory::class,
@@ -299,7 +299,7 @@ class HelperPluginManager extends AbstractPluginManager
             $container = $first;
             $helper = $second;
         } else {
-            $container = $second;
+            $container = $second->getServiceLocator();
             $helper = $first;
         }
         if (! $helper instanceof TranslatorAwareInterface) {
