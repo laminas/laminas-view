@@ -36,7 +36,7 @@
         "zendframework/zend-paginator": "~2.5",
         "zendframework/zend-permissions-acl": "~2.5",
         "zendframework/zend-serializer": "~2.5",
-        "zendframework/zend-servicemanager": "^2.7.4 || ^3.0.3",
+        "zendframework/zend-servicemanager": "^2.7.5 || ^3.0.3",
         "zendframework/zend-session": "dev-master",
         "zendframework/zend-uri": "~2.5",
         "fabpot/php-cs-fixer": "1.7.*",
