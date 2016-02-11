@@ -12,7 +12,9 @@ namespace ZendTest\View;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\I18n\Translator as MvcTranslator;
 use Zend\ServiceManager\Config;
+use Zend\ServiceManager\Exception\InvalidServiceException;
 use Zend\ServiceManager\ServiceManager;
+use Zend\View\Exception\InvalidHelperException;
 use Zend\View\HelperPluginManager;
 use Zend\View\Helper\HelperInterface;
 use Zend\View\Helper\Url;
@@ -59,7 +61,7 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
         $helpers = new HelperPluginManager(new ServiceManager(), ['factories' => [
             'test' => function () { return $this; },
         ]]);
-        $this->setExpectedException('Zend\View\Exception\InvalidHelperException');
+        $this->setExpectedException($this->getServiceNotFoundException($helpers));
         $helpers->get('test');
     }
 
@@ -68,7 +70,7 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
         $helpers = new HelperPluginManager(new ServiceManager(), ['invokables' => [
             'test' => get_class($this),
         ]]);
-        $this->setExpectedException('Zend\View\Exception\InvalidHelperException');
+        $this->setExpectedException($this->getServiceNotFoundException($helpers));
         $helpers->get('test');
     }
 
@@ -144,5 +146,13 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
         );
         $config->configureServiceManager($helpers);
         $this->assertSame($helper, $helpers->get('url'));
+    }
+
+    private function getServiceNotFoundException(HelperPluginManager $manager)
+    {
+        if (method_exists($manager, 'configure')) {
+            return InvalidServiceException::class;
+        }
+        return InvalidHelperException::class;
     }
 }
