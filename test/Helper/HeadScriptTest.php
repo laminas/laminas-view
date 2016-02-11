@@ -471,4 +471,13 @@ document.write(bar.strlen());');
 
         $this->assertContains('crossorigin="', $test);
     }
+
+    public function testSupportsAsyncAttribute()
+    {
+        $this->helper->__invoke()->appendScript(
+            '// some script' . PHP_EOL, 'text/javascript', ['async' => true]
+        );
+        $test = $this->helper->__invoke()->toString();
+        $this->assertContains('async="', $test);
+    }
 }
