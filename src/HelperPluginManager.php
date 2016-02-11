@@ -12,7 +12,6 @@ namespace Zend\View;
 use Interop\Container\ContainerInterface;
 use Zend\I18n\Translator\TranslatorAwareInterface;
 use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\Exception;
 use Zend\ServiceManager\Exception\InvalidServiceException;
 use Zend\ServiceManager\Factory\InvokableFactory;
 use Zend\View\Exception\InvalidHelperException;
