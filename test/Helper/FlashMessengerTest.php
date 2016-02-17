@@ -10,11 +10,12 @@
 namespace ZendTest\View\Helper;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Mvc\Controller\PluginManager;
 use Zend\Mvc\Controller\Plugin\FlashMessenger as PluginFlashMessenger;
+use Zend\Mvc\Controller\PluginManager;
+use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
-use Zend\View\HelperPluginManager;
 use Zend\View\Helper\FlashMessenger;
+use Zend\View\HelperPluginManager;
 
 /**
  * Test class for Zend\View\Helper\Cycle.
@@ -54,27 +55,28 @@ class FlashMessengerTest extends TestCase
 
     public function createServiceManager(array $config = [])
     {
-        return new ServiceManager([
-            'services' => [
-                'Config' => $config,
-            ],
-            'factories' => [
-                'ControllerPluginManager' => function ($services, $name, $options) {
-                    return new PluginManager($services, [
-                        'invokables' => [
-                            'flashmessenger' => 'Zend\Mvc\Controller\Plugin\FlashMessenger',
-                        ],
-                    ]);
-                },
-                'ViewHelperManager' => function ($services, $name, $options) {
-                    return new HelperPluginManager($services, [
-                        'factories' => [
-                            'flashmessenger' => 'Zend\View\Helper\Service\FlashMessengerFactory',
-                        ],
-                    ]);
-                },
-            ],
-        ]);
+        $config = new Config(
+            [
+                'services' => [
+                    'config' => $config,
+                ],
+                'factories' => [
+                    'ControllerPluginManager' => function ($services, $name, $options) {
+                        return new PluginManager($services, [
+                            'invokables' => [
+                                'flashmessenger' => 'Zend\Mvc\Controller\Plugin\FlashMessenger',
+                            ],
+                        ]);
+                    },
+                    'ViewHelperManager' => function ($services, $name, $options) {
+                        return new HelperPluginManager($services);
+                    },
+                ],
+            ]
+        );
+        $sm = new ServiceManager();
+        $config->configureServiceManager($sm);
+        return $sm;
     }
 
     public function testCanAssertPluginClass()
