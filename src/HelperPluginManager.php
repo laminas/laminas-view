@@ -182,6 +182,9 @@ class HelperPluginManager extends AbstractPluginManager
         Helper\ServerUrl::class           => InvokableFactory::class,
         Helper\Url::class                 => InvokableFactory::class,
         Helper\ViewModel::class           => InvokableFactory::class,
+
+        // v2 canonical FQCNs
+
         'zendviewhelperflashmessenger'    => Helper\Service\FlashMessengerFactory::class,
         'zendviewhelperidentity'          => Helper\Service\IdentityFactory::class,
         'zendviewhelperbasepath'          => InvokableFactory::class,
