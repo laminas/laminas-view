@@ -11,15 +11,15 @@ namespace ZendTest\View\Strategy;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\EventManager\EventManager;
+use Zend\EventManager\Test\EventListenerIntrospectionTrait;
 use Zend\Http\Response as HttpResponse;
 use Zend\View\Renderer\PhpRenderer;
 use Zend\View\Strategy\PhpRendererStrategy;
 use Zend\View\ViewEvent;
-use ZendTest\View\EventManagerIntrospectionTrait;
 
 class PhpRendererStrategyTest extends TestCase
 {
-    use EventManagerIntrospectionTrait;
+    use EventListenerIntrospectionTrait;
 
     public function setUp()
     {

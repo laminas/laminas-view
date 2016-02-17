@@ -11,6 +11,7 @@ namespace ZendTest\View\Strategy;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use Zend\EventManager\EventManager;
+use Zend\EventManager\Test\EventListenerIntrospectionTrait;
 use Zend\Http\Request as HttpRequest;
 use Zend\Http\Response as HttpResponse;
 use Zend\View\Model\JsonModel;
@@ -23,7 +24,7 @@ use ZendTest\View\EventManagerIntrospectionTrait;
 
 class JsonStrategyTest extends TestCase
 {
-    use EventManagerIntrospectionTrait;
+    use EventListenerIntrospectionTrait;
 
     public function setUp()
     {
