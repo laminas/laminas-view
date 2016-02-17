@@ -20,7 +20,6 @@ use Zend\View\Renderer\JsonRenderer;
 use Zend\View\Strategy\JsonStrategy;
 use Zend\View\ViewEvent;
 use Zend\Stdlib\Parameters;
-use ZendTest\View\EventManagerIntrospectionTrait;
 
 class JsonStrategyTest extends TestCase
 {

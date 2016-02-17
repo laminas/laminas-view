@@ -20,7 +20,6 @@ use Zend\View\Model\ViewModel;
 use Zend\View\Renderer\FeedRenderer;
 use Zend\View\Strategy\FeedStrategy;
 use Zend\View\ViewEvent;
-use ZendTest\View\EventManagerIntrospectionTrait;
 
 class FeedStrategyTest extends TestCase
 {
