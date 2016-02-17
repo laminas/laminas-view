@@ -41,7 +41,14 @@ class UrlTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->markTestIncomplete('Re-enable after zend-mvc has been updated to servicemanager v3');
+        if (! class_exists(PluginFlashMessenger::class)) {
+            $this->markTestSkipped(
+                'Skipping zend-mvc-related tests until that component is updated '
+                . 'to be forwards-compatible with zend-eventmanager, zend-stdlib, '
+                . 'and zend-servicemanager v3.'
+            );
+        }
+
         $router = new Router();
         $router->addRoute('home', [
             'type' => 'Zend\Mvc\Router\Http\Literal',

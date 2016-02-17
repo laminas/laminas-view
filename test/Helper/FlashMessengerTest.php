@@ -27,6 +27,14 @@ class FlashMessengerTest extends TestCase
 {
     public function setUp()
     {
+        if (! class_exists(PluginFlashMessenger::class)) {
+            $this->markTestSkipped(
+                'Skipping zend-mvc-related tests until that component is updated '
+                . 'to be forwards-compatible with zend-eventmanager, zend-stdlib, '
+                . 'and zend-servicemanager v3.'
+            );
+        }
+
         $this->helper = new FlashMessenger();
         $this->plugin = $this->helper->getPluginFlashMessenger();
     }
@@ -64,7 +72,7 @@ class FlashMessengerTest extends TestCase
                     'ControllerPluginManager' => function ($services, $name, $options) {
                         return new PluginManager($services, [
                             'invokables' => [
-                                'flashmessenger' => 'Zend\Mvc\Controller\Plugin\FlashMessenger',
+                                'flashmessenger' => PluginFlashMessenger::class,
                             ],
                         ]);
                     },
@@ -81,18 +89,9 @@ class FlashMessengerTest extends TestCase
 
     public function testCanAssertPluginClass()
     {
-        $this->assertEquals(
-            'Zend\Mvc\Controller\Plugin\FlashMessenger',
-            get_class($this->plugin)
-        );
-        $this->assertEquals(
-            'Zend\Mvc\Controller\Plugin\FlashMessenger',
-            get_class($this->helper->getPluginFlashMessenger())
-        );
-        $this->assertSame(
-            $this->plugin,
-            $this->helper->getPluginFlashMessenger()
-        );
+        $this->assertEquals(PluginFlashMessenger::class, get_class($this->plugin));
+        $this->assertEquals(PluginFlashMessenger::class, get_class($this->helper->getPluginFlashMessenger()));
+        $this->assertSame($this->plugin, $this->helper->getPluginFlashMessenger());
     }
 
     public function testCanRetrieveMessages()
