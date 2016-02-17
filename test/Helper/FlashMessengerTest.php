@@ -58,7 +58,7 @@ class FlashMessengerTest extends TestCase
         $config = new Config(
             [
                 'services' => [
-                    'Config' => $config,
+                    'config' => $config,
                 ],
                 'factories' => [
                     'ControllerPluginManager' => function ($services, $name, $options) {
