@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 3.0.0 - TBD
+## 2.6.0 - TBD
 
 ### Added
 
@@ -22,14 +22,15 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#15](https://github.com/zendframework/zend-view/pull/15) updates the codebase
-  to work with the upcoming zend-eventmanager v3 release. Primarily, these are
-  changes to how events are triggered to ensure they continue working correctly.
-- [#17](https://github.com/zendframework/zend-view/pull/17) updates the codebase
-  to work with the upcoming zend-servicemanager v3 release. This change is
-  transparent to the end user, as it mostly affects only how the plugin managers
-  and various helper factories are implemented, while leaving the functionality
-  the same.
+- [#15](https://github.com/zendframework/zend-view/pull/15),
+  [#17](https://github.com/zendframework/zend-view/pull/17),
+  [#35](https://github.com/zendframework/zend-view/pull/35), and
+  [#42](https://github.com/zendframework/zend-view/pull/42) update the component
+  to be forwards-compatible with the v3 releases of zend-eventmanager,
+  zend-servicemanager, and zend-stdlib. The changes include:
+  - changes to how events are triggered to ensure they continue working correctly.
+  - updates to the plugin manager to be forwards-compatible.
+  - updates to helper factories to be forwards-compatible.
 
 ## 2.5.4 - TBD
 
