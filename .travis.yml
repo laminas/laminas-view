@@ -53,7 +53,7 @@ before_install:
   - if [[ $ZEND_EVENTMANAGER_VERSION == '' ]]; then composer require --no-update "zendframework/zend-eventmanager:^3.0" ; fi
   - if [[ $ZEND_SERVICEMANAGER_VERSION != '' ]]; then composer require --dev --no-update "zendframework/zend-servicemanager:$ZEND_SERVICEMANAGER_VERSION" ; fi
   - if [[ $ZEND_SERVICEMANAGER_VERSION == '' ]]; then composer require --dev --no-update "zendframework/zend-servicemanager:^3.0.3" ; fi
-  - if [[ $ZEND_SERVICEMANAGER_VERSION == '' ]]; then composer remove --dev --no-update zendframework/zend-mvc ; fi
+  - if [[ $ZEND_SERVICEMANAGER_VERSION == '' ]]; then composer remove --dev --no-update zendframework/zend-mvc zendframework/zend-session ; fi
 
 install:
   - travis_retry composer install --no-interaction --ignore-platform-reqs
