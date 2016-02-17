@@ -163,6 +163,8 @@ class HeadTitleTest extends \PHPUnit_Framework_TestCase
 
     public function testCanTranslateTitle()
     {
+        $this->markTestIncomplete('Re-enable after zend-i18n is updated to zend-servicemanager v3');
+
         if (!extension_loaded('intl')) {
             $this->markTestSkipped('ext/intl not enabled');
         }

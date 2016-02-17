@@ -9,9 +9,12 @@
 
 namespace Zend\View;
 
+use Interop\Container\ContainerInterface;
 use Zend\I18n\Translator\TranslatorAwareInterface;
 use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\ConfigInterface;
+use Zend\ServiceManager\Exception\InvalidServiceException;
+use Zend\ServiceManager\Factory\InvokableFactory;
+use Zend\View\Exception\InvalidHelperException;
 
 /**
  * Plugin manager implementation for view helpers
@@ -23,58 +26,200 @@ use Zend\ServiceManager\ConfigInterface;
 class HelperPluginManager extends AbstractPluginManager
 {
     /**
-     * Default set of helpers factories
+     * Default helper aliases
+     *
+     * Most of these are present for legacy purposes, as v2 of the service
+     * manager normalized names when fetching services.
+     *
+     * @var string[]
+     */
+    protected $aliases = [
+        'basePath'            => Helper\BasePath::class,
+        'BasePath'            => Helper\BasePath::class,
+        'basepath'            => Helper\BasePath::class,
+        'Cycle'               => Helper\Cycle::class,
+        'cycle'               => Helper\Cycle::class,
+        'declareVars'         => Helper\DeclareVars::class,
+        'DeclareVars'         => Helper\DeclareVars::class,
+        'declarevars'         => Helper\DeclareVars::class,
+        'Doctype'             => Helper\Doctype::class,
+        'doctype'             => Helper\Doctype::class, // overridden by a factory in ViewHelperManagerFactory
+        'escapeCss'           => Helper\EscapeCss::class,
+        'EscapeCss'           => Helper\EscapeCss::class,
+        'escapecss'           => Helper\EscapeCss::class,
+        'escapeHtmlAttr'      => Helper\EscapeHtmlAttr::class,
+        'EscapeHtmlAttr'      => Helper\EscapeHtmlAttr::class,
+        'escapehtmlattr'      => Helper\EscapeHtmlAttr::class,
+        'escapeHtml'          => Helper\EscapeHtml::class,
+        'EscapeHtml'          => Helper\EscapeHtml::class,
+        'escapehtml'          => Helper\EscapeHtml::class,
+        'escapeJs'            => Helper\EscapeJs::class,
+        'EscapeJs'            => Helper\EscapeJs::class,
+        'escapejs'            => Helper\EscapeJs::class,
+        'escapeUrl'           => Helper\EscapeUrl::class,
+        'EscapeUrl'           => Helper\EscapeUrl::class,
+        'escapeurl'           => Helper\EscapeUrl::class,
+        'flashmessenger'      => Helper\FlashMessenger::class,
+        'flashMessenger'      => Helper\FlashMessenger::class,
+        'FlashMessenger'      => Helper\FlashMessenger::class,
+        'Gravatar'            => Helper\Gravatar::class,
+        'gravatar'            => Helper\Gravatar::class,
+        'headLink'            => Helper\HeadLink::class,
+        'HeadLink'            => Helper\HeadLink::class,
+        'headlink'            => Helper\HeadLink::class,
+        'headMeta'            => Helper\HeadMeta::class,
+        'HeadMeta'            => Helper\HeadMeta::class,
+        'headmeta'            => Helper\HeadMeta::class,
+        'headScript'          => Helper\HeadScript::class,
+        'HeadScript'          => Helper\HeadScript::class,
+        'headscript'          => Helper\HeadScript::class,
+        'headStyle'           => Helper\HeadStyle::class,
+        'HeadStyle'           => Helper\HeadStyle::class,
+        'headstyle'           => Helper\HeadStyle::class,
+        'headTitle'           => Helper\HeadTitle::class,
+        'HeadTitle'           => Helper\HeadTitle::class,
+        'headtitle'           => Helper\HeadTitle::class,
+        'htmlflash'           => Helper\HtmlFlash::class,
+        'htmlFlash'           => Helper\HtmlFlash::class,
+        'HtmlFlash'           => Helper\HtmlFlash::class,
+        'htmllist'            => Helper\HtmlList::class,
+        'htmlList'            => Helper\HtmlList::class,
+        'HtmlList'            => Helper\HtmlList::class,
+        'htmlobject'          => Helper\HtmlObject::class,
+        'htmlObject'          => Helper\HtmlObject::class,
+        'HtmlObject'          => Helper\HtmlObject::class,
+        'htmlpage'            => Helper\HtmlPage::class,
+        'htmlPage'            => Helper\HtmlPage::class,
+        'HtmlPage'            => Helper\HtmlPage::class,
+        'htmlquicktime'       => Helper\HtmlQuicktime::class,
+        'htmlQuicktime'       => Helper\HtmlQuicktime::class,
+        'HtmlQuicktime'       => Helper\HtmlQuicktime::class,
+        'htmltag'             => Helper\HtmlTag::class,
+        'htmlTag'             => Helper\HtmlTag::class,
+        'HtmlTag'             => Helper\HtmlTag::class,
+        'identity'            => Helper\Identity::class,
+        'Identity'            => Helper\Identity::class,
+        'inlinescript'        => Helper\InlineScript::class,
+        'inlineScript'        => Helper\InlineScript::class,
+        'InlineScript'        => Helper\InlineScript::class,
+        'json'                => Helper\Json::class,
+        'Json'                => Helper\Json::class,
+        'layout'              => Helper\Layout::class,
+        'Layout'              => Helper\Layout::class,
+        'paginationcontrol'   => Helper\PaginationControl::class,
+        'paginationControl'   => Helper\PaginationControl::class,
+        'PaginationControl'   => Helper\PaginationControl::class,
+        'partial'             => Helper\Partial::class,
+        'partialloop'         => Helper\PartialLoop::class,
+        'partialLoop'         => Helper\PartialLoop::class,
+        'PartialLoop'         => Helper\PartialLoop::class,
+        'Partial'             => Helper\Partial::class,
+        'placeholder'         => Helper\Placeholder::class,
+        'Placeholder'         => Helper\Placeholder::class,
+        'renderchildmodel'    => Helper\RenderChildModel::class,
+        'renderChildModel'    => Helper\RenderChildModel::class,
+        'RenderChildModel'    => Helper\RenderChildModel::class,
+        'render_child_model'  => Helper\RenderChildModel::class,
+        'rendertoplaceholder' => Helper\RenderToPlaceholder::class,
+        'renderToPlaceholder' => Helper\RenderToPlaceholder::class,
+        'RenderToPlaceholder' => Helper\RenderToPlaceholder::class,
+        'serverurl'           => Helper\ServerUrl::class,
+        'serverUrl'           => Helper\ServerUrl::class,
+        'ServerUrl'           => Helper\ServerUrl::class,
+        'url'                 => Helper\Url::class,
+        'Url'                 => Helper\Url::class,
+        'view_model'          => Helper\ViewModel::class,
+        'viewmodel'           => Helper\ViewModel::class,
+        'viewModel'           => Helper\ViewModel::class,
+        'ViewModel'           => Helper\ViewModel::class,
+    ];
+
+    protected $instanceOf = Helper\HelperInterface::class;
+
+    /**
+     * Default factories
+     *
+     * basepath, doctype, and url are set up as factories in the ViewHelperManagerFactory.
+     * basepath and url are not very useful without their factories, however the doctype
+     * helper works fine as an invokable. The factory for doctype simply checks for the
+     * config value from the merged config.
      *
      * @var array
      */
     protected $factories = [
-        'flashmessenger' => 'Zend\View\Helper\Service\FlashMessengerFactory',
-        'identity'       => 'Zend\View\Helper\Service\IdentityFactory',
-    ];
+        Helper\FlashMessenger::class      => Helper\Service\FlashMessengerFactory::class,
+        Helper\Identity::class            => Helper\Service\IdentityFactory::class,
+        Helper\BasePath::class            => InvokableFactory::class,
+        Helper\Cycle::class               => InvokableFactory::class,
+        Helper\DeclareVars::class         => InvokableFactory::class,
+        Helper\Doctype::class             => InvokableFactory::class, // overridden by a factory in ViewHelperManagerFactory
+        Helper\EscapeHtml::class          => InvokableFactory::class,
+        Helper\EscapeHtmlAttr::class      => InvokableFactory::class,
+        Helper\EscapeJs::class            => InvokableFactory::class,
+        Helper\EscapeCss::class           => InvokableFactory::class,
+        Helper\EscapeUrl::class           => InvokableFactory::class,
+        Helper\Gravatar::class            => InvokableFactory::class,
+        Helper\HtmlTag::class             => InvokableFactory::class,
+        Helper\HeadLink::class            => InvokableFactory::class,
+        Helper\HeadMeta::class            => InvokableFactory::class,
+        Helper\HeadScript::class          => InvokableFactory::class,
+        Helper\HeadStyle::class           => InvokableFactory::class,
+        Helper\HeadTitle::class           => InvokableFactory::class,
+        Helper\HtmlFlash::class           => InvokableFactory::class,
+        Helper\HtmlList::class            => InvokableFactory::class,
+        Helper\HtmlObject::class          => InvokableFactory::class,
+        Helper\HtmlPage::class            => InvokableFactory::class,
+        Helper\HtmlQuicktime::class       => InvokableFactory::class,
+        Helper\InlineScript::class        => InvokableFactory::class,
+        Helper\Json::class                => InvokableFactory::class,
+        Helper\Layout::class              => InvokableFactory::class,
+        Helper\PaginationControl::class   => InvokableFactory::class,
+        Helper\PartialLoop::class         => InvokableFactory::class,
+        Helper\Partial::class             => InvokableFactory::class,
+        Helper\Placeholder::class         => InvokableFactory::class,
+        Helper\RenderChildModel::class    => InvokableFactory::class,
+        Helper\RenderToPlaceholder::class => InvokableFactory::class,
+        Helper\ServerUrl::class           => InvokableFactory::class,
+        Helper\Url::class                 => InvokableFactory::class,
+        Helper\ViewModel::class           => InvokableFactory::class,
 
-    /**
-     * Default set of helpers
-     *
-     * @var array
-     */
-    protected $invokableClasses = [
-        // basepath, doctype, and url are set up as factories in the ViewHelperManagerFactory.
-        // basepath and url are not very useful without their factories, however the doctype
-        // helper works fine as an invokable. The factory for doctype simply checks for the
-        // config value from the merged config.
-        'basepath'            => 'Zend\View\Helper\BasePath',
-        'cycle'               => 'Zend\View\Helper\Cycle',
-        'declarevars'         => 'Zend\View\Helper\DeclareVars',
-        'doctype'             => 'Zend\View\Helper\Doctype', // overridden by a factory in ViewHelperManagerFactory
-        'escapehtml'          => 'Zend\View\Helper\EscapeHtml',
-        'escapehtmlattr'      => 'Zend\View\Helper\EscapeHtmlAttr',
-        'escapejs'            => 'Zend\View\Helper\EscapeJs',
-        'escapecss'           => 'Zend\View\Helper\EscapeCss',
-        'escapeurl'           => 'Zend\View\Helper\EscapeUrl',
-        'gravatar'            => 'Zend\View\Helper\Gravatar',
-        'htmltag'             => 'Zend\View\Helper\HtmlTag',
-        'headlink'            => 'Zend\View\Helper\HeadLink',
-        'headmeta'            => 'Zend\View\Helper\HeadMeta',
-        'headscript'          => 'Zend\View\Helper\HeadScript',
-        'headstyle'           => 'Zend\View\Helper\HeadStyle',
-        'headtitle'           => 'Zend\View\Helper\HeadTitle',
-        'htmlflash'           => 'Zend\View\Helper\HtmlFlash',
-        'htmllist'            => 'Zend\View\Helper\HtmlList',
-        'htmlobject'          => 'Zend\View\Helper\HtmlObject',
-        'htmlpage'            => 'Zend\View\Helper\HtmlPage',
-        'htmlquicktime'       => 'Zend\View\Helper\HtmlQuicktime',
-        'inlinescript'        => 'Zend\View\Helper\InlineScript',
-        'json'                => 'Zend\View\Helper\Json',
-        'layout'              => 'Zend\View\Helper\Layout',
-        'paginationcontrol'   => 'Zend\View\Helper\PaginationControl',
-        'partialloop'         => 'Zend\View\Helper\PartialLoop',
-        'partial'             => 'Zend\View\Helper\Partial',
-        'placeholder'         => 'Zend\View\Helper\Placeholder',
-        'renderchildmodel'    => 'Zend\View\Helper\RenderChildModel',
-        'rendertoplaceholder' => 'Zend\View\Helper\RenderToPlaceholder',
-        'serverurl'           => 'Zend\View\Helper\ServerUrl',
-        'url'                 => 'Zend\View\Helper\Url',
-        'viewmodel'           => 'Zend\View\Helper\ViewModel',
+        // v2 canonical FQCNs
+
+        'zendviewhelperflashmessenger'    => Helper\Service\FlashMessengerFactory::class,
+        'zendviewhelperidentity'          => Helper\Service\IdentityFactory::class,
+        'zendviewhelperbasepath'          => InvokableFactory::class,
+        'zendviewhelpercycle'             => InvokableFactory::class,
+        'zendviewhelperdeclarevars'       => InvokableFactory::class,
+        'zendviewhelperdoctype'           => InvokableFactory::class,
+        'zendviewhelperescapehtml'        => InvokableFactory::class,
+        'zendviewhelperescapehtmlattr'    => InvokableFactory::class,
+        'zendviewhelperescapejs'          => InvokableFactory::class,
+        'zendviewhelperescapecss'         => InvokableFactory::class,
+        'zendviewhelperescapeurl'         => InvokableFactory::class,
+        'zendviewhelpergravatar'          => InvokableFactory::class,
+        'zendviewhelperhtmltag'           => InvokableFactory::class,
+        'zendviewhelperheadlink'          => InvokableFactory::class,
+        'zendviewhelperheadmeta'          => InvokableFactory::class,
+        'zendviewhelperheadscript'        => InvokableFactory::class,
+        'zendviewhelperheadstyle'         => InvokableFactory::class,
+        'zendviewhelperheadtitle'         => InvokableFactory::class,
+        'zendviewhelperhtmlflash'         => InvokableFactory::class,
+        'zendviewhelperhtmllist'          => InvokableFactory::class,
+        'zendviewhelperhtmlobject'        => InvokableFactory::class,
+        'zendviewhelperhtmlpage'          => InvokableFactory::class,
+        'zendviewhelperhtmlquicktime'     => InvokableFactory::class,
+        'zendviewhelperinlinescript'      => InvokableFactory::class,
+        'zendviewhelperjson'              => InvokableFactory::class,
+        'zendviewhelperlayout'            => InvokableFactory::class,
+        'zendviewhelperpaginationcontrol' => InvokableFactory::class,
+        'zendviewhelperpartialloop'       => InvokableFactory::class,
+        'zendviewhelperpartial'           => InvokableFactory::class,
+        'zendviewhelperplaceholder'       => InvokableFactory::class,
+        'zendviewhelperrenderchildmodel'  => InvokableFactory::class,
+        'zendviewhelperrendertoplaceholder' => InvokableFactory::class,
+        'zendviewhelperserverurl'         => InvokableFactory::class,
+        'zendviewhelperurl'               => InvokableFactory::class,
+        'zendviewhelperviewmodel'         => InvokableFactory::class,
     ];
 
     /**
@@ -85,17 +230,20 @@ class HelperPluginManager extends AbstractPluginManager
     /**
      * Constructor
      *
-     * After invoking parent constructor, add an initializer to inject the
-     * attached renderer and translator, if any, to the currently requested helper.
+     * Merges provided configuration with default configuration.
      *
-     * @param null|ConfigInterface $configuration
+     * Adds initializers to inject the attached renderer and translator, if
+     * any, to the currently requested helper.
+     *
+     * @param ContainerInterface $container
+     * @param array $config
      */
-    public function __construct(ConfigInterface $configuration = null)
+    public function __construct(ContainerInterface $container, array $config = [])
     {
-        parent::__construct($configuration);
+        $this->initializers[] = [$this, 'injectRenderer'];
+        $this->initializers[] = [$this, 'injectTranslator'];
 
-        $this->addInitializer([$this, 'injectRenderer'])
-             ->addInitializer([$this, 'injectTranslator']);
+        parent::__construct($container, $config);
     }
 
     /**
@@ -124,11 +272,16 @@ class HelperPluginManager extends AbstractPluginManager
     /**
      * Inject a helper instance with the registered renderer
      *
-     * @param  Helper\HelperInterface $helper
-     * @return void
+     * @param $first
+     * @param $second
      */
-    public function injectRenderer($helper)
+    public function injectRenderer($first, $second)
     {
+        if ($first instanceof ContainerInterface) {
+            $helper = $second;
+        } else {
+            $helper = $first;
+        }
         $renderer = $this->getRenderer();
         if (null === $renderer) {
             return;
@@ -139,57 +292,74 @@ class HelperPluginManager extends AbstractPluginManager
     /**
      * Inject a helper instance with the registered translator
      *
-     * @param  Helper\HelperInterface $helper
-     * @return void
+     * @param $first
+     * @param $second
      */
-    public function injectTranslator($helper)
+    public function injectTranslator($first, $second)
     {
-        if (!$helper instanceof TranslatorAwareInterface) {
+        if ($first instanceof ContainerInterface) {
+            $container = $first;
+            $helper = $second;
+        } else {
+            $container = $second->getServiceLocator();
+            $helper = $first;
+        }
+        if (! $helper instanceof TranslatorAwareInterface) {
             return;
         }
 
-        $locator = $this->getServiceLocator();
-
-        if (!$locator) {
+        if ($container->has('MvcTranslator')) {
+            $helper->setTranslator($container->get('MvcTranslator'));
             return;
         }
 
-        if ($locator->has('MvcTranslator')) {
-            $helper->setTranslator($locator->get('MvcTranslator'));
+        if ($container->has('Zend\I18n\Translator\TranslatorInterface')) {
+            $helper->setTranslator($container->get('Zend\I18n\Translator\TranslatorInterface'));
             return;
         }
 
-        if ($locator->has('Zend\I18n\Translator\TranslatorInterface')) {
-            $helper->setTranslator($locator->get('Zend\I18n\Translator\TranslatorInterface'));
-            return;
-        }
-
-        if ($locator->has('Translator')) {
-            $helper->setTranslator($locator->get('Translator'));
+        if ($container->has('Translator')) {
+            $helper->setTranslator($container->get('Translator'));
             return;
         }
     }
 
     /**
-     * Validate the plugin
+     * Validate the plugin is of the expected type (v3).
      *
-     * Checks that the helper loaded is an instance of Helper\HelperInterface.
+     * Validates against `$instanceOf`.
      *
-     * @param  mixed                            $plugin
-     * @return void
-     * @throws Exception\InvalidHelperException if invalid
+     * @param mixed $instance
+     * @throws InvalidServiceException
      */
-    public function validatePlugin($plugin)
+    public function validate($instance)
     {
-        if ($plugin instanceof Helper\HelperInterface) {
-            // we're okay
-            return;
+        if (!$instance instanceof $this->instanceOf) {
+            throw new InvalidServiceException(
+                sprintf(
+                    '%s can only create instances of %s; %s is invalid',
+                    get_class($this),
+                    $this->instanceOf,
+                    (is_object($instance) ? get_class($instance) : gettype($instance))
+                )
+            );
         }
+    }
 
-        throw new Exception\InvalidHelperException(sprintf(
-            'Plugin of type %s is invalid; must implement %s\Helper\HelperInterface',
-            (is_object($plugin) ? get_class($plugin) : gettype($plugin)),
-            __NAMESPACE__
-        ));
+    /**
+     * Validate the plugin is of the expected type (v2).
+     *
+     * Proxies to `validate()`.
+     *
+     * @param mixed $instance
+     * @throws InvalidHelperException
+     */
+    public function validatePlugin($instance)
+    {
+        try {
+            $this->validate($instance);
+        } catch (InvalidServiceException $e) {
+            throw new InvalidHelperException($e->getMessage(), $e->getCode(), $e);
+        }
     }
 }

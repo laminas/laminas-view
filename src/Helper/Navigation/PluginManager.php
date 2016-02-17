@@ -9,7 +9,8 @@
 
 namespace Zend\View\Helper\Navigation;
 
-use Zend\View\Exception;
+use Interop\Container\ContainerInterface;
+use Zend\ServiceManager\Factory\InvokableFactory;
 use Zend\View\HelperPluginManager;
 
 /**
@@ -22,37 +23,48 @@ use Zend\View\HelperPluginManager;
 class PluginManager extends HelperPluginManager
 {
     /**
-     * Default set of helpers
-     *
-     * @var array
+     * @var string Valid instance types.
      */
-    protected $invokableClasses = [
-        'breadcrumbs' => 'Zend\View\Helper\Navigation\Breadcrumbs',
-        'links'       => 'Zend\View\Helper\Navigation\Links',
-        'menu'        => 'Zend\View\Helper\Navigation\Menu',
-        'sitemap'     => 'Zend\View\Helper\Navigation\Sitemap',
+    protected $instanceOf = AbstractHelper::class;
+
+    /**
+     * Default aliases
+     *
+     * @var string[]
+     */
+    protected $aliases = [
+        'breadcrumbs' => Breadcrumbs::class,
+        'links'       => Links::class,
+        'menu'        => Menu::class,
+        'sitemap'     => Sitemap::class,
     ];
 
     /**
-     * Validate the plugin
+     * Default factories
      *
-     * Checks that the helper loaded is an instance of AbstractHelper.
-     *
-     * @param  mixed $plugin
-     * @return void
-     * @throws Exception\InvalidArgumentException if invalid
+     * @var string[]
      */
-    public function validatePlugin($plugin)
-    {
-        if ($plugin instanceof AbstractHelper) {
-            // we're okay
-            return;
-        }
+    protected $factories = [
+        Breadcrumbs::class => InvokableFactory::class,
+        Links::class       => InvokableFactory::class,
+        Menu::class        => InvokableFactory::class,
+        Sitemap::class     => InvokableFactory::class,
+    ];
 
-        throw new Exception\InvalidArgumentException(sprintf(
-            'Plugin of type %s is invalid; must implement %s\AbstractHelper',
-            (is_object($plugin) ? get_class($plugin) : gettype($plugin)),
-            __NAMESPACE__
-        ));
+    /**
+     * @param ContainerInterface $container
+     * @param array $config
+     */
+    public function __construct(ContainerInterface $container, array $config = [])
+    {
+        $this->initializers[] = function ($container, $instance) {
+            if (! $instance instanceof AbstractHelper) {
+                continue;
+            }
+
+            $instance->setServiceLocator($container);
+        };
+
+        parent::__construct($container, $config);
     }
 }

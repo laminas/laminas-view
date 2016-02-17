@@ -10,12 +10,12 @@
 namespace ZendTest\View\Helper;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Mvc\Controller\PluginManager;
 use Zend\Mvc\Controller\Plugin\FlashMessenger as PluginFlashMessenger;
+use Zend\Mvc\Controller\PluginManager;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
-use Zend\View\HelperPluginManager;
 use Zend\View\Helper\FlashMessenger;
+use Zend\View\HelperPluginManager;
 
 /**
  * Test class for Zend\View\Helper\Cycle.
@@ -27,6 +27,14 @@ class FlashMessengerTest extends TestCase
 {
     public function setUp()
     {
+        if (! class_exists(PluginFlashMessenger::class)) {
+            $this->markTestSkipped(
+                'Skipping zend-mvc-related tests until that component is updated '
+                . 'to be forwards-compatible with zend-eventmanager, zend-stdlib, '
+                . 'and zend-servicemanager v3.'
+            );
+        }
+
         $this->helper = new FlashMessenger();
         $this->plugin = $this->helper->getPluginFlashMessenger();
     }
@@ -53,20 +61,37 @@ class FlashMessengerTest extends TestCase
         $helper->addErrorMessage('bar-error');
     }
 
+    public function createServiceManager(array $config = [])
+    {
+        $config = new Config(
+            [
+                'services' => [
+                    'config' => $config,
+                ],
+                'factories' => [
+                    'ControllerPluginManager' => function ($services, $name, $options) {
+                        return new PluginManager($services, [
+                            'invokables' => [
+                                'flashmessenger' => PluginFlashMessenger::class,
+                            ],
+                        ]);
+                    },
+                    'ViewHelperManager' => function ($services, $name, $options) {
+                        return new HelperPluginManager($services);
+                    },
+                ],
+            ]
+        );
+        $sm = new ServiceManager();
+        $config->configureServiceManager($sm);
+        return $sm;
+    }
+
     public function testCanAssertPluginClass()
     {
-        $this->assertEquals(
-            'Zend\Mvc\Controller\Plugin\FlashMessenger',
-            get_class($this->plugin)
-        );
-        $this->assertEquals(
-            'Zend\Mvc\Controller\Plugin\FlashMessenger',
-            get_class($this->helper->getPluginFlashMessenger())
-        );
-        $this->assertSame(
-            $this->plugin,
-            $this->helper->getPluginFlashMessenger()
-        );
+        $this->assertEquals(PluginFlashMessenger::class, get_class($this->plugin));
+        $this->assertEquals(PluginFlashMessenger::class, get_class($this->helper->getPluginFlashMessenger()));
+        $this->assertSame($this->plugin, $this->helper->getPluginFlashMessenger());
     }
 
     public function testCanRetrieveMessages()
@@ -279,22 +304,10 @@ class FlashMessengerTest extends TestCase
                 ],
             ],
         ];
-        $sm = new ServiceManager();
-        $sm->setService('Config', $config);
-        $helperPluginManager = new HelperPluginManager(new Config([
-            'factories' => [
-                'flashmessenger' => 'Zend\View\Helper\Service\FlashMessengerFactory',
-            ],
-        ]));
-        $controllerPluginManager = new PluginManager(new Config([
-            'invokables' => [
-                'flashmessenger' => 'Zend\Mvc\Controller\Plugin\FlashMessenger',
-            ],
-        ]));
-        $helperPluginManager->setServiceLocator($sm);
-        $controllerPluginManager->setServiceLocator($sm);
-        $sm->setService('ControllerPluginManager', $controllerPluginManager);
-        $helper = $helperPluginManager->get('flashmessenger');
+
+        $services            = $this->createServiceManager($config);
+        $helperPluginManager = $services->get('ViewHelperManager');
+        $helper              = $helperPluginManager->get('flashmessenger');
 
         $displayInfoAssertion = '<div class="info"><ul><li>bar-info</li></ul></div>';
         $displayInfo = $helper->render(PluginFlashMessenger::NAMESPACE_INFO);
@@ -313,22 +326,9 @@ class FlashMessengerTest extends TestCase
                 ],
             ],
         ];
-        $sm = new ServiceManager();
-        $sm->setService('Config', $config);
-        $helperPluginManager = new HelperPluginManager(new Config([
-            'factories' => [
-                'flashmessenger' => 'Zend\View\Helper\Service\FlashMessengerFactory',
-            ],
-        ]));
-        $controllerPluginManager = new PluginManager(new Config([
-            'invokables' => [
-                'flashmessenger' => 'Zend\Mvc\Controller\Plugin\FlashMessenger',
-            ],
-        ]));
-        $helperPluginManager->setServiceLocator($sm);
-        $controllerPluginManager->setServiceLocator($sm);
-        $sm->setService('ControllerPluginManager', $controllerPluginManager);
-        $helper = $helperPluginManager->get('flashmessenger');
+        $services            = $this->createServiceManager($config);
+        $helperPluginManager = $services->get('ViewHelperManager');
+        $helper              = $helperPluginManager->get('flashmessenger');
 
         $displayInfoAssertion = '<div class="info"><ul><li>bar-info</li></ul></div>';
         $displayInfo = $helper->renderCurrent(PluginFlashMessenger::NAMESPACE_INFO);
@@ -348,22 +348,9 @@ class FlashMessengerTest extends TestCase
                 ],
             ],
         ];
-        $sm = new ServiceManager();
-        $sm->setService('Config', $config);
-        $helperPluginManager = new HelperPluginManager(new Config([
-            'factories' => [
-                'flashmessenger' => 'Zend\View\Helper\Service\FlashMessengerFactory',
-            ],
-        ]));
-        $controllerPluginManager = new PluginManager(new Config([
-            'invokables' => [
-                'flashmessenger' => 'Zend\Mvc\Controller\Plugin\FlashMessenger',
-            ],
-        ]));
-        $helperPluginManager->setServiceLocator($sm);
-        $controllerPluginManager->setServiceLocator($sm);
-        $sm->setService('ControllerPluginManager', $controllerPluginManager);
-        $helper = $helperPluginManager->get('flashmessenger');
+        $services            = $this->createServiceManager($config);
+        $helperPluginManager = $services->get('ViewHelperManager');
+        $helper              = $helperPluginManager->get('flashmessenger');
 
         $displayInfoAssertion = '<div><ul><li class="foo-baz foo-bar">foo</li><li class="foo-baz foo-bar">bar</li></ul></div>';
         $displayInfo = $helper->render(PluginFlashMessenger::NAMESPACE_DEFAULT, ['foo-baz', 'foo-bar']);
@@ -383,22 +370,9 @@ class FlashMessengerTest extends TestCase
                 ],
             ],
         ];
-        $sm = new ServiceManager();
-        $sm->setService('Config', $config);
-        $helperPluginManager = new HelperPluginManager(new Config([
-            'factories' => [
-                'flashmessenger' => 'Zend\View\Helper\Service\FlashMessengerFactory',
-            ],
-        ]));
-        $controllerPluginManager = new PluginManager(new Config([
-            'invokables' => [
-                'flashmessenger' => 'Zend\Mvc\Controller\Plugin\FlashMessenger',
-            ],
-        ]));
-        $helperPluginManager->setServiceLocator($sm);
-        $controllerPluginManager->setServiceLocator($sm);
-        $sm->setService('ControllerPluginManager', $controllerPluginManager);
-        $helper = $helperPluginManager->get('flashmessenger');
+        $services            = $this->createServiceManager($config);
+        $helperPluginManager = $services->get('ViewHelperManager');
+        $helper              = $helperPluginManager->get('flashmessenger');
 
         $displayInfoAssertion = '<div><ul><li class="foo-baz foo-bar">foo</li><li class="foo-baz foo-bar">bar</li></ul></div>';
         $displayInfo = $helper->renderCurrent(PluginFlashMessenger::NAMESPACE_DEFAULT, ['foo-baz', 'foo-bar']);

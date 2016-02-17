@@ -9,6 +9,8 @@
 
 namespace ZendTest\View;
 
+use Zend\ServiceManager\ServiceManager;
+use Zend\View\HelperPluginManager;
 use Zend\View\Renderer\PhpRenderer;
 use Zend\View\Model\ViewModel;
 use Zend\View\Resolver\TemplateMapResolver;
@@ -211,8 +213,10 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
      */
     public function testMethodOverloadingShouldReturnHelperInstanceIfNotInvokable()
     {
-        $helpers = $this->renderer->getHelperPluginManager();
-        $helpers->setInvokableClass('uninvokable', 'ZendTest\View\TestAsset\Uninvokable');
+        $helpers = new HelperPluginManager(new ServiceManager(), ['invokables' => [
+            'uninvokable' => 'ZendTest\View\TestAsset\Uninvokable',
+        ]]);
+        $this->renderer->setHelperPluginManager($helpers);
         $helper = $this->renderer->uninvokable();
         $this->assertInstanceOf('ZendTest\View\TestAsset\Uninvokable', $helper);
     }
@@ -222,8 +226,10 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
      */
     public function testMethodOverloadingShouldInvokeHelperIfInvokable()
     {
-        $helpers = $this->renderer->getHelperPluginManager();
-        $helpers->setInvokableClass('invokable', 'ZendTest\View\TestAsset\Invokable');
+        $helpers = new HelperPluginManager(new ServiceManager(), ['invokables' => [
+            'invokable' => 'ZendTest\View\TestAsset\Invokable',
+        ]]);
+        $this->renderer->setHelperPluginManager($helpers);
         $return = $this->renderer->invokable('it works!');
         $this->assertEquals('ZendTest\View\TestAsset\Invokable::__invoke: it works!', $return);
     }
@@ -369,7 +375,9 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
             'invalid' => $template,
         ]);
 
+        // @codingStandardsIgnoreStart
         set_error_handler(function ($errno, $errstr) { return true; }, E_WARNING);
+        // @codingStandardsIgnoreEnd
 
         $this->renderer->setResolver($resolver);
 
@@ -427,16 +435,30 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
      */
     public function testSharedInstanceHelper()
     {
-        $helpers = $this->renderer->getHelperPluginManager();
-        $helpers->setInvokableClass('sharedinstance', 'ZendTest\View\TestAsset\SharedInstance');
+        $helpers = new HelperPluginManager(new ServiceManager(), [
+            'invokables' => [
+                'sharedinstance' => 'ZendTest\View\TestAsset\SharedInstance',
+            ],
+            'shared' => [
+                'sharedinstance' => false,
+            ],
+        ]);
+        $this->renderer->setHelperPluginManager($helpers);
 
-        $helpers->setShared('sharedinstance', false);
         // new instance always created when shared = false
         $this->assertEquals(1, $this->renderer->sharedinstance());
         $this->assertEquals(1, $this->renderer->sharedinstance());
         $this->assertEquals(1, $this->renderer->sharedinstance());
 
-        $helpers->setShared('sharedinstance', true);
+        $helpers = new HelperPluginManager(new ServiceManager(), [
+            'invokables' => [
+                'sharedinstance' => 'ZendTest\View\TestAsset\SharedInstance',
+            ],
+            'shared' => [
+                'sharedinstance' => true,
+            ],
+        ]);
+        $this->renderer->setHelperPluginManager($helpers);
         // use shared instance when shared = true
         $this->assertEquals(1, $this->renderer->sharedinstance());
         $this->assertEquals(2, $this->renderer->sharedinstance());
