@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.6.0 - TBD
+## 2.6.0 - 2016-02-17
 
 ### Added
 
@@ -31,24 +31,6 @@ All notable changes to this project will be documented in this file, in reverse 
   - changes to how events are triggered to ensure they continue working correctly.
   - updates to the plugin manager to be forwards-compatible.
   - updates to helper factories to be forwards-compatible.
-
-## 2.5.4 - TBD
-
-### Added
-
-- Nothing.
-
-### Deprecated
-
-- Nothing.
-
-### Removed
-
-- Nothing.
-
-### Fixed
-
-- Nothing.
 
 ## 2.5.3 - 2016-01-19
 
