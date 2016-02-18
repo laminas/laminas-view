@@ -49,6 +49,13 @@ class PluginManager extends HelperPluginManager
         Links::class       => InvokableFactory::class,
         Menu::class        => InvokableFactory::class,
         Sitemap::class     => InvokableFactory::class,
+
+        // v2 canonical FQCNs
+
+        'zendviewhelpernavigationbreadcrumbs' => InvokableFactory::class,
+        'zendviewhelpernavigationlinks'       => InvokableFactory::class,
+        'zendviewhelpernavigationmenu'        => InvokableFactory::class,
+        'zendviewhelpernavigationsitemap'     => InvokableFactory::class,
     ];
 
     /**

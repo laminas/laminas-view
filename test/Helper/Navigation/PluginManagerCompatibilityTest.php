@@ -7,10 +7,13 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace ZendTest\View;
+namespace ZendTest\View\Helper\Navigation;
 
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
+use Zend\ServiceManager\Test\CommonPluginManagerTrait;
+use Zend\View\Exception\InvalidHelperException;
+use Zend\View\Helper\Navigation\AbstractHelper;
 use Zend\View\Helper\Navigation\PluginManager;
 
 /**
@@ -18,9 +21,21 @@ use Zend\View\Helper\Navigation\PluginManager;
  */
 class PluginManagerCompatibilityTest extends \PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    use CommonPluginManagerTrait;
+
+    protected function getPluginManager()
     {
-        $this->helpers = new PluginManager(new ServiceManager());
+        return new PluginManager(new ServiceManager());
+    }
+
+    protected function getV2InvalidPluginException()
+    {
+        return InvalidHelperException::class;
+    }
+
+    protected function getInstanceOf()
+    {
+        return AbstractHelper::class;
     }
 
     /**
@@ -28,7 +43,8 @@ class PluginManagerCompatibilityTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorArgumentsAreOptionalUnderV2()
     {
-        if (method_exists($this->helpers, 'configure')) {
+        $helpers = $this->getPluginManager();
+        if (method_exists($helpers, 'configure')) {
             $this->markTestSkipped('zend-servicemanager v3 plugin managers require a container argument');
         }
 
@@ -41,7 +57,8 @@ class PluginManagerCompatibilityTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorAllowsConfigInstanceAsFirstArgumentUnderV2()
     {
-        if (method_exists($this->helpers, 'configure')) {
+        $helpers = $this->getPluginManager();
+        if (method_exists($helpers, 'configure')) {
             $this->markTestSkipped('zend-servicemanager v3 plugin managers require a container argument');
         }
 
