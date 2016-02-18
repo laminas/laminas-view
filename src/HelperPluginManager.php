@@ -235,15 +235,16 @@ class HelperPluginManager extends AbstractPluginManager
      * Adds initializers to inject the attached renderer and translator, if
      * any, to the currently requested helper.
      *
-     * @param ContainerInterface $container
-     * @param array $config
+     * @param null|ConfigInterface|ContainerInterface $configOrContainerInstance
+     * @param array $v3config If $configOrContainerInstance is a container, this
+     *     value will be passed to the parent constructor.
      */
-    public function __construct(ContainerInterface $container, array $config = [])
+    public function __construct($configOrContainerInstance = null, array $v3config = [])
     {
         $this->initializers[] = [$this, 'injectRenderer'];
         $this->initializers[] = [$this, 'injectTranslator'];
 
-        parent::__construct($container, $config);
+        parent::__construct($configOrContainerInstance, $v3config);
     }
 
     /**
