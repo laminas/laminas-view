@@ -181,6 +181,12 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
      */
     public function testInjectTranslatorWillReturnEarlyIfThePluginManagerDoesNotHaveAParentContainer()
     {
+        if (method_exists($this->helpers, 'configure')) {
+            $this->markTestSkipped(
+                'Skip test when testing against zend-servicemanager v3, as that implementation '
+                . 'guarantees a parent container in plugin managers'
+            );
+        }
         $helpers = new HelperPluginManager();
         $helper = new HeadTitle();
         $this->assertNull($helpers->injectTranslator($helper, $helpers));
