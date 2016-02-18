@@ -273,16 +273,18 @@ class HelperPluginManager extends AbstractPluginManager
     /**
      * Inject a helper instance with the registered renderer
      *
-     * @param $first
-     * @param $second
+     * @param ContainerInterface|Helper\HelperInterface $first helper instance
+     *     under zend-servicemanager v2, ContainerInterface under v3.
+     * @param ContainerInterface|Helper\HelperInterface $second
+     *     ContainerInterface under zend-servicemanager v3, helper instance
+     *     under v2. Ignored regardless.
      */
     public function injectRenderer($first, $second)
     {
-        if ($first instanceof ContainerInterface) {
-            $helper = $second;
-        } else {
-            $helper = $first;
-        }
+        $helper = ($first instanceof ContainerInterface)
+            ? $second
+            : $first;
+
         $renderer = $this->getRenderer();
         if (null === $renderer) {
             return;
@@ -293,19 +295,32 @@ class HelperPluginManager extends AbstractPluginManager
     /**
      * Inject a helper instance with the registered translator
      *
-     * @param $first
-     * @param $second
+     * @param ContainerInterface|Helper\HelperInterface $first helper instance
+     *     under zend-servicemanager v2, ContainerInterface under v3.
+     * @param ContainerInterface|Helper\HelperInterface $second
+     *     ContainerInterface under zend-servicemanager v3, helper instance
+     *     under v2. Ignored regardless.
      */
     public function injectTranslator($first, $second)
     {
         if ($first instanceof ContainerInterface) {
+            // v3 usage
             $container = $first;
             $helper = $second;
         } else {
+            // v2 usage; grab the parent container
             $container = $second->getServiceLocator();
             $helper = $first;
         }
+
         if (! $helper instanceof TranslatorAwareInterface) {
+            return;
+        }
+
+        if (! $container) {
+            // Under zend-navigation v2.5, the navigation PluginManager is
+            // always lazy-loaded, which means it never has a parent
+            // container.
             return;
         }
 

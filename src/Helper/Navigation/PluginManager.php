@@ -49,22 +49,30 @@ class PluginManager extends HelperPluginManager
         Links::class       => InvokableFactory::class,
         Menu::class        => InvokableFactory::class,
         Sitemap::class     => InvokableFactory::class,
+
+        // v2 canonical FQCNs
+
+        'zendviewhelpernavigationbreadcrumbs' => InvokableFactory::class,
+        'zendviewhelpernavigationlinks'       => InvokableFactory::class,
+        'zendviewhelpernavigationmenu'        => InvokableFactory::class,
+        'zendviewhelpernavigationsitemap'     => InvokableFactory::class,
     ];
 
     /**
-     * @param ContainerInterface $container
-     * @param array $config
+     * @param null|ConfigInterface|ContainerInterface $configOrContainerInstance
+     * @param array $v3config If $configOrContainerInstance is a container, this
+     *     value will be passed to the parent constructor.
      */
-    public function __construct(ContainerInterface $container, array $config = [])
+    public function __construct($configOrContainerInstance = null, array $v3config = [])
     {
         $this->initializers[] = function ($container, $instance) {
             if (! $instance instanceof AbstractHelper) {
-                continue;
+                return;
             }
 
             $instance->setServiceLocator($container);
         };
 
-        parent::__construct($container, $config);
+        parent::__construct($configOrContainerInstance, $v3config);
     }
 }
