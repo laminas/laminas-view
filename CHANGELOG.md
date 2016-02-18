@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.6.1 - TBD
+## 2.6.1 - 2016-02-18
 
 ### Added
 
@@ -18,7 +18,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#44](https://github.com/zendframework/zend-view/pull/44) fixes the
+  constructor of `HelperPluginManager` to ensure it is backwards compatible
+  with zend-servicemanager v2.
 
 ## 2.6.0 - 2016-02-17
 
