@@ -20,7 +20,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - Nothing.
 
-## 2.6.2 - TBD
+## 2.6.2 - 2016-02-18
 
 ### Added
 
@@ -36,7 +36,15 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#47](https://github.com/zendframework/zend-view/pull/47) fixes
+  `Navigation\PluginManager` to ensure it is backwards compatible
+  with zend-servicemanager v2, including:
+  - fixing the constructor to be BC with v2 and forwards-compatible with v3.
+  - adding additional, normalized alias/factory pairs.
+- [#47](https://github.com/zendframework/zend-view/pull/47) fixes
+  the behavior of `HelperPluginManager::injectTranslator()` to return
+  early if no container is provided (fixing an issue with navigation
+  helpers introduced in 2.6.0).
 
 ## 2.6.1 - 2016-02-18
 

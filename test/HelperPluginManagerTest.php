@@ -16,6 +16,7 @@ use Zend\ServiceManager\Exception\InvalidServiceException;
 use Zend\ServiceManager\ServiceManager;
 use Zend\View\Exception\InvalidHelperException;
 use Zend\View\HelperPluginManager;
+use Zend\View\Helper\HeadTitle;
 use Zend\View\Helper\HelperInterface;
 use Zend\View\Helper\Url;
 use Zend\View\Renderer\PhpRenderer;
@@ -173,6 +174,23 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
         $helpers = new HelperPluginManager($services);
         $helper  = $helpers->get('HeadTitle');
         $this->assertSame($translator, $helper->getTranslator());
+    }
+
+    /**
+     * @group 47
+     */
+    public function testInjectTranslatorWillReturnEarlyIfThePluginManagerDoesNotHaveAParentContainer()
+    {
+        if (method_exists($this->helpers, 'configure')) {
+            $this->markTestSkipped(
+                'Skip test when testing against zend-servicemanager v3, as that implementation '
+                . 'guarantees a parent container in plugin managers'
+            );
+        }
+        $helpers = new HelperPluginManager();
+        $helper = new HeadTitle();
+        $this->assertNull($helpers->injectTranslator($helper, $helpers));
+        $this->assertNull($helper->getTranslator());
     }
 
     public function testCanOverrideAFactoryViaConfigurationPassedToConstructor()

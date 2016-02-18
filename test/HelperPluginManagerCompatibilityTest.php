@@ -20,7 +20,7 @@ use Zend\View\HelperPluginManager;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\Test\CommonPluginManagerTrait;
 
-class PluginManagerCompatibilityTest extends TestCase
+class HelperPluginManagerCompatibilityTest extends TestCase
 {
     use CommonPluginManagerTrait;
 
