@@ -30,6 +30,32 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
         $this->helpers = new HelperPluginManager(new ServiceManager());
     }
 
+    /**
+     * @group 43
+     */
+    public function testConstructorArgumentsAreOptionalUnderV2()
+    {
+        if (method_exists($this->helpers, 'configure')) {
+            $this->markTestSkipped('zend-servicemanager v3 plugin managers require a container argument');
+        }
+
+        $helpers = new HelperPluginManager();
+        $this->assertInstanceOf(HelperPluginManager::class, $helpers);
+    }
+
+    /**
+     * @group 43
+     */
+    public function testConstructorAllowsConfigInstanceAsFirstArgumentUnderV2()
+    {
+        if (method_exists($this->helpers, 'configure')) {
+            $this->markTestSkipped('zend-servicemanager v3 plugin managers require a container argument');
+        }
+
+        $helpers = new HelperPluginManager(new Config([]));
+        $this->assertInstanceOf(HelperPluginManager::class, $helpers);
+    }
+
     public function testViewIsNullByDefault()
     {
         $this->assertNull($this->helpers->getRenderer());
