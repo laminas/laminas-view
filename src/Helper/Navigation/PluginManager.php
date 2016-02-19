@@ -65,9 +65,29 @@ class PluginManager extends HelperPluginManager
      */
     public function __construct($configOrContainerInstance = null, array $v3config = [])
     {
-        $this->initializers[] = function ($container, $instance) {
+        $this->initializers[] = function ($first, $second) {
+            // v2 vs v3 argument order
+            if ($first instanceof ContainerInterface) {
+                // v3
+                $container = $first;
+                $instance = $second;
+            } else {
+                // v2
+                $container = $second;
+                $instance = $first;
+            }
+
             if (! $instance instanceof AbstractHelper) {
                 return;
+            }
+
+            // This initializer was written with v2 functionality in mind; as such,
+            // we need to test and see if we're called in a v2 context, and, if so,
+            // set the service locator to the parent locator.
+            //
+            // Under v3, the parent locator is what is passed to the method already.
+            if (method_exists($container, 'getServiceLocator') && $container->getServiceLocator()) {
+                $container = $container->getServiceLocator();
             }
 
             $instance->setServiceLocator($container);
