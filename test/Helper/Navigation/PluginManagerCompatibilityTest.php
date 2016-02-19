@@ -67,13 +67,8 @@ class PluginManagerCompatibilityTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(PluginManager::class, $helpers);
     }
 
-    public function testInjectsParentContainerIntoHelpersUnderV2()
+    public function testInjectsParentContainerIntoHelpers()
     {
-        $helpers = $this->getPluginManager();
-        if (method_exists($helpers, 'configure')) {
-            $this->markTestSkipped('This test is specific to v2 functionality');
-        }
-
         $config = new Config([
             'navigation' => [
                 'default' => [],

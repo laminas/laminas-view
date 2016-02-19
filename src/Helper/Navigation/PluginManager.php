@@ -86,7 +86,7 @@ class PluginManager extends HelperPluginManager
             // set the service locator to the parent locator.
             //
             // Under v3, the parent locator is what is passed to the method already.
-            if (method_exists($container, 'getServiceLocator') && $container->getServiceLocator()) {
+            if (! method_exists($container, 'configure') && $container->getServiceLocator()) {
                 $container = $container->getServiceLocator();
             }
 
