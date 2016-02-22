@@ -11,6 +11,7 @@ namespace Zend\View\Helper\Navigation;
 
 use Interop\Container\ContainerInterface;
 use RecursiveIteratorIterator;
+use ReflectionProperty;
 use Zend\EventManager\EventManager;
 use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerInterface;
@@ -19,6 +20,7 @@ use Zend\I18n\Translator\TranslatorAwareInterface;
 use Zend\Navigation;
 use Zend\Navigation\Page\AbstractPage;
 use Zend\Permissions\Acl;
+use Zend\ServiceManager\AbstractPluginManager;
 use Zend\View;
 use Zend\View\Exception;
 
@@ -753,6 +755,26 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      */
     public function setServiceLocator(ContainerInterface $serviceLocator)
     {
+        // If we are provided a plugin manager, we should pull the parent
+        // context from it.
+        // @todo We should update tests and code to ensure that this situation
+        //       doesn't happen in the future.
+        if ($serviceLocator instanceof AbstractPluginManager
+            && ! method_exists($serviceLocator, 'configure')
+            && $serviceLocator->getServiceLocator()
+        ) {
+            $serviceLocator = $serviceLocator->getServiceLocator();
+        }
+
+        // v3 variant; likely won't be needed.
+        if ($serviceLocator instanceof AbstractPluginManager
+            && method_exists($serviceLocator, 'configure')
+        ) {
+            $r = new ReflectionProperty($serviceLocator, 'creationContext');
+            $r->setAccessible(true);
+            $serviceLocator = $r->getValue($serviceLocator);
+        }
+
         $this->serviceLocator = $serviceLocator;
         return $this;
     }

@@ -9,7 +9,9 @@
 
 namespace ZendTest\View\Helper\Navigation;
 
+use Interop\Container\ContainerInterface;
 use Zend\Navigation\Navigation as Container;
+use Zend\Navigation\Page;
 use Zend\Permissions\Acl;
 use Zend\Permissions\Acl\Role;
 use Zend\ServiceManager\ServiceManager;
@@ -61,11 +63,10 @@ class NavigationTest extends AbstractTest
         $this->_helper->setRole($acl['role']);
 
         $accepted = $this->_helper->accept(
-            new \Zend\Navigation\Page\Uri([
+            new Page\Uri([
                 'resource'  => 'unknownresource',
                 'privilege' => 'someprivilege'
-            ],
-            false)
+            ], false)
         );
 
         $this->assertEquals($accepted, false);
@@ -144,10 +145,9 @@ class NavigationTest extends AbstractTest
         $serviceManager = new ServiceManager;
         $serviceManager->setService('navigation', $container);
 
-        $pluginManager  = new View\HelperPluginManager;
-        $pluginManager->setServiceLocator($serviceManager);
+        $pluginManager  = new View\HelperPluginManager($serviceManager);
 
-        $this->_helper->setServiceLocator($pluginManager);
+        $this->_helper->setServiceLocator($serviceManager);
         $this->_helper->setContainer('navigation');
 
         $expected = $this->_helper->getContainer();
@@ -558,7 +558,7 @@ class NavigationTest extends AbstractTest
 
     public function testSetPluginManagerAndView()
     {
-        $pluginManager = new \Zend\View\Helper\Navigation\PluginManager();
+        $pluginManager = new Navigation\PluginManager();
         $view = new PhpRenderer();
 
         $helper = new $this->_helperName;
@@ -566,6 +566,27 @@ class NavigationTest extends AbstractTest
         $helper->setView($view);
 
         $this->assertEquals($view, $pluginManager->getRenderer());
+    }
+
+    /**
+     * @group 49
+     */
+    public function testInjectsLazyInstantiatedPluginManagerWithCurrentServiceLocator()
+    {
+        $services = $this->prophesize(ContainerInterface::class)->reveal();
+        $helper = new $this->_helperName;
+        $helper->setServiceLocator($services);
+
+        $plugins = $helper->getPluginManager();
+        $this->assertInstanceOf(Navigation\PluginManager::class, $plugins);
+
+        if (method_exists($plugins, 'configure')) {
+            // v3
+            $this->assertAttributeSame($services, 'creationContext', $plugins);
+        } else {
+            // v2
+            $this->assertSame($services, $plugins->getServiceLocator());
+        }
     }
 
     /**

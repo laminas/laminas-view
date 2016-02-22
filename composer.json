@@ -30,6 +30,7 @@
         "zendframework/zend-i18n": "^2.6",
         "zendframework/zend-json": "^2.6.1",
         "zendframework/zend-log": "^2.7",
+        "zendframework/zend-modulemanager": "^2.5",
         "zendframework/zend-mvc": "^2.6.1",
         "zendframework/zend-navigation": "^2.5",
         "zendframework/zend-paginator": "^2.5",

@@ -14,6 +14,7 @@ use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\Test\CommonPluginManagerTrait;
 use Zend\View\Exception\InvalidHelperException;
 use Zend\View\Helper\Navigation\AbstractHelper;
+use Zend\View\Helper\Navigation\Breadcrumbs;
 use Zend\View\Helper\Navigation\PluginManager;
 
 /**
@@ -64,5 +65,22 @@ class PluginManagerCompatibilityTest extends \PHPUnit_Framework_TestCase
 
         $helpers = new PluginManager(new Config([]));
         $this->assertInstanceOf(PluginManager::class, $helpers);
+    }
+
+    public function testInjectsParentContainerIntoHelpers()
+    {
+        $config = new Config([
+            'navigation' => [
+                'default' => [],
+            ],
+        ]);
+
+        $services = new ServiceManager();
+        $config->configureServiceManager($services);
+        $helpers = new PluginManager($services);
+
+        $helper = $helpers->get('breadcrumbs');
+        $this->assertInstanceOf(Breadcrumbs::class, $helper);
+        $this->assertSame($services, $helper->getServiceLocator());
     }
 }
