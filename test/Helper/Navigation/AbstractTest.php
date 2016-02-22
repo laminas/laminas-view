@@ -86,7 +86,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        if (! class_exists(PluginFlashMessenger::class)) {
+        if (! class_exists(ServiceManagerConfig::class)) {
             $this->markTestSkipped(
                 'Skipping zend-mvc-related tests until that component is updated '
                 . 'to be forwards-compatible with zend-eventmanager, zend-stdlib, '
@@ -139,7 +139,10 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
             ],
         ];
 
-        $sm = $this->serviceManager = new ServiceManager(new ServiceManagerConfig);
+        $sm = $this->serviceManager = new ServiceManager();
+        $sm->setAllowOverride(true);
+
+        (new ServiceManagerConfig())->configureServiceManager($sm);
         $sm->setService('ApplicationConfig', $smConfig);
         $sm->get('ModuleManager')->loadModules();
         $sm->get('Application')->bootstrap();
@@ -147,6 +150,8 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
 
         $sm->setService('nav1', $this->_nav1);
         $sm->setService('nav2', $this->_nav2);
+
+        $sm->setAllowOverride(false);
 
         $app = $this->serviceManager->get('Application');
         $app->getMvcEvent()->setRouteMatch(new RouteMatch([
