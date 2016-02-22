@@ -322,7 +322,7 @@ class Navigation extends AbstractNavigationHelper
     public function getPluginManager()
     {
         if (null === $this->plugins) {
-            $this->setPluginManager(new Navigation\PluginManager());
+            $this->setPluginManager(new Navigation\PluginManager($this->getServiceLocator()));
         }
 
         return $this->plugins;
