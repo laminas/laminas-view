@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.6.3 - 2016-02-19
+## 2.6.3 - 2016-02-22
 
 ### Added
 
@@ -22,7 +22,9 @@ All notable changes to this project will be documented in this file, in reverse 
   the initializer defined and registered in
   `Navigation\PluginManager::__construct()` to ensure it properly pulls and
   injects the application container into navigation helpers, under both
-  zend-servicemanager v2 and v3.
+  zend-servicemanager v2 and v3. Additionally, when lazy-instantiating the
+  `Navigation\PluginManager`, the `Navigation` helper now passes the composed
+  service manager instance to its constructor.
 
 ## 2.6.2 - 2016-02-18
 
