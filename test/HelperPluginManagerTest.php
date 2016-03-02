@@ -123,14 +123,6 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testIfHelperIsTranslatorAwareAndMvcTranslatorIsAvailableItWillInjectTheMvcTranslator()
     {
-        if (! class_exists(PluginFlashMessenger::class)) {
-            $this->markTestSkipped(
-                'Skipping zend-mvc-related tests until that component is updated '
-                . 'to be forwards-compatible with zend-eventmanager, zend-stdlib, '
-                . 'and zend-servicemanager v3.'
-            );
-        }
-
         $translator = new MvcTranslator($this->getMock('Zend\I18n\Translator\TranslatorInterface'));
         $config = new Config(['services' => [
             'MvcTranslator' =>  $translator,
@@ -144,14 +136,6 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testIfHelperIsTranslatorAwareAndMvcTranslatorIsUnavailableAndTranslatorIsAvailableItWillInjectTheTranslator()
     {
-        if (! class_exists(PluginFlashMessenger::class)) {
-            $this->markTestSkipped(
-                'Skipping zend-mvc-related tests until that component is updated '
-                . 'to be forwards-compatible with zend-eventmanager, zend-stdlib, '
-                . 'and zend-servicemanager v3.'
-            );
-        }
-
         $translator = new Translator();
         $config = new Config(['services' => [
             'Translator' =>  $translator,

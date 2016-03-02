@@ -67,8 +67,7 @@ class BreadcrumbsTest extends AbstractTest
 
     public function testHelperEntryPointWithContainerStringParam()
     {
-        $pm = new \Zend\View\HelperPluginManager();
-        $pm->setServiceLocator($this->serviceManager);
+        $pm = new \Zend\View\HelperPluginManager($this->serviceManager);
         $this->_helper->setServiceLocator($pm);
 
         $returned = $this->_helper->__invoke('nav1');
