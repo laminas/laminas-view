@@ -20,7 +20,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - Nothing.
 
-## 2.6.4 - TBD
+## 2.6.4 - 2016-03-02
 
 ### Added
 
@@ -36,7 +36,15 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#52](https://github.com/zendframework/zend-view/pull/52) fixes several issues
+  detected after re-enabling tests skipped when executed against
+  zend-servicemanager/zend-eventmanager v3:
+  - `HelperPluginManager` now implements an `EventManagerAware` initializer.
+  - `Zend\View\Helper\Navigation\AbstractHelper` now contains logic to ensure
+    that when an `EventManager` instance is lazy-loaded, it composes a
+    `SharedEventManager`.
+  - The `FlashMessenger` factory now correctly pulls the `config` service, not
+    the `Config` service (former is both backwards- and forwards compatible).
 
 ## 2.6.3 - 2016-02-22
 

@@ -10,6 +10,8 @@
 namespace Zend\View;
 
 use Interop\Container\ContainerInterface;
+use Zend\EventManager\EventManagerAwareInterface;
+use Zend\EventManager\SharedEventManagerInterface;
 use Zend\I18n\Translator\TranslatorAwareInterface;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\Exception\InvalidServiceException;
@@ -243,6 +245,7 @@ class HelperPluginManager extends AbstractPluginManager
     {
         $this->initializers[] = [$this, 'injectRenderer'];
         $this->initializers[] = [$this, 'injectTranslator'];
+        $this->initializers[] = [$this, 'injectEventManager'];
 
         parent::__construct($configOrContainerInstance, $v3config);
     }
@@ -337,6 +340,44 @@ class HelperPluginManager extends AbstractPluginManager
         if ($container->has('Translator')) {
             $helper->setTranslator($container->get('Translator'));
             return;
+        }
+    }
+
+    /**
+     * Inject a helper instance with the registered event manager
+     *
+     * @param ContainerInterface|Helper\HelperInterface $first helper instance
+     *     under zend-servicemanager v2, ContainerInterface under v3.
+     * @param ContainerInterface|Helper\HelperInterface $second
+     *     ContainerInterface under zend-servicemanager v3, helper instance
+     *     under v2. Ignored regardless.
+     */
+    public function injectEventManager($first, $second)
+    {
+        if ($first instanceof ContainerInterface) {
+            // v3 usage
+            $container = $first;
+            $helper = $second;
+        } else {
+            // v2 usage; grab the parent container
+            $container = $second->getServiceLocator();
+            $helper = $first;
+        }
+
+        if (! $container) {
+            // Under zend-navigation v2.5, the navigation PluginManager is
+            // always lazy-loaded, which means it never has a parent
+            // container.
+            return;
+        }
+
+        if (! $helper instanceof EventManagerAwareInterface) {
+            return;
+        }
+
+        $events = $helper->getEventManager();
+        if (! $events || ! $events->getSharedManager() instanceof SharedEventManagerInterface) {
+            $helper->setEventManager($container->get('EventManager'));
         }
     }
 

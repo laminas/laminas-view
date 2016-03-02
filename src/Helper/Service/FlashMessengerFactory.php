@@ -36,7 +36,7 @@ class FlashMessengerFactory implements FactoryInterface
 
         $helper->setPluginFlashMessenger($flashMessenger);
 
-        $config = $container->get('Config');
+        $config = $container->get('config');
         if (isset($config['view_helper_config']['flashmessenger'])) {
             $configHelper = $config['view_helper_config']['flashmessenger'];
             if (isset($configHelper['message_open_format'])) {
@@ -54,13 +54,15 @@ class FlashMessengerFactory implements FactoryInterface
     }
 
     /**
-     * Create service
+     * Create service (v2)
      *
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return mixed
+     * @param ServiceLocatorInterface $container
+     * @param string $normalizedName
+     * @param string $requestedName
+     * @return FlashMessenger
      */
-    public function createService(ServiceLocatorInterface $serviceLocator, $rName = null, $cName = null)
+    public function createService(ServiceLocatorInterface $container, $normalizedName = null, $requestedName = null)
     {
-        return $this($serviceLocator, $cName);
+        return $this($container, $requestedName);
     }
 }

@@ -24,15 +24,6 @@ class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
-        if (! class_exists(PluginFlashMessenger::class)) {
-            $this->markTestSkipped(
-                'Skipping zend-mvc-related tests until that component is updated '
-                . 'to be forwards-compatible with zend-eventmanager, zend-stdlib, '
-                . 'and zend-servicemanager v3.'
-            );
-        }
-
-
         $config = [
             'router' => [
                 'routes' => [
@@ -66,12 +57,12 @@ class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
 
         $serviceConfig = $this->readAttribute(new ServiceListenerFactory, 'defaultServiceConfig');
 
-        $this->serviceManager = new ServiceManager(new ServiceManagerConfig($serviceConfig));
-        $this->serviceManager
-            ->setAllowOverride(true)
-            ->setService('Config', $config)
-            ->setAlias('Configuration', 'Config')
-            ->setAllowOverride(false);
+        $this->serviceManager = new ServiceManager();
+        (new ServiceManagerConfig($serviceConfig))->configureServiceManager($this->serviceManager);
+        $this->serviceManager->setAllowOverride(true);
+        $this->serviceManager->setService('config', $config);
+        $this->serviceManager->setAlias('Configure', 'config');
+        $this->serviceManager->setAllowOverride(false);
     }
 
     public function testUrlHelperWorksUnderNormalHttpParadigms()
