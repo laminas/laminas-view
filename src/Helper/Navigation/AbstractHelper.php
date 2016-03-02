@@ -11,10 +11,12 @@ namespace Zend\View\Helper\Navigation;
 
 use Interop\Container\ContainerInterface;
 use RecursiveIteratorIterator;
+use ReflectionClass;
 use ReflectionProperty;
 use Zend\EventManager\EventManager;
 use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerInterface;
+use Zend\EventManager\SharedEventManager;
 use Zend\I18n\Translator\TranslatorInterface as Translator;
 use Zend\I18n\Translator\TranslatorAwareInterface;
 use Zend\Navigation;
@@ -524,7 +526,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     public function getEventManager()
     {
         if (null === $this->events) {
-            $this->setEventManager(new EventManager());
+            $this->setEventManager($this->createEventManager());
         }
 
         return $this->events;
@@ -959,5 +961,23 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
             'isAllowed',
             ['Zend\View\Helper\Navigation\Listener\AclListener', 'accept']
         );
+    }
+
+    /**
+     * Create and return an event manager instance.
+     *
+     * Ensures that the returned event manager has a shared manager
+     * composed.
+     *
+     * @return EventManager
+     */
+    private function createEventManager()
+    {
+        $r = new ReflectionClass(EventManager::class);
+        if ($r->hasMethod('setSharedManager')) {
+            return new EventManager();
+        }
+
+        return new EventManager(new SharedEventManager());
     }
 }

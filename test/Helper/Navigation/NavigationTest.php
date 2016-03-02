@@ -75,6 +75,7 @@ class NavigationTest extends AbstractTest
     public function testShouldProxyToMenuHelperByDefault()
     {
         $this->_helper->setContainer($this->_nav1);
+        $this->_helper->setServiceLocator(new ServiceManager());
 
         // result
         $expected = $this->_getExpected('menu/default1.html');
@@ -95,6 +96,7 @@ class NavigationTest extends AbstractTest
     {
         // setup
         $this->_helper->setContainer($this->_nav2);
+        $this->_helper->setServiceLocator(new ServiceManager());
         $expected = [
             'menu' => $this->_getExpected('menu/default2.html'),
             'breadcrumbs' => $this->_getExpected('bc/default.html')
@@ -112,6 +114,7 @@ class NavigationTest extends AbstractTest
     public function testDisablingContainerInjection()
     {
         // setup
+        $this->_helper->setServiceLocator(new ServiceManager());
         $this->_helper->setInjectContainer(false);
         $this->_helper->menu()->setContainer(null);
         $this->_helper->breadcrumbs()->setContainer(null);
@@ -132,6 +135,7 @@ class NavigationTest extends AbstractTest
 
     public function testMultipleNavigationsAndOneMenuDisplayedTwoTimes()
     {
+        $this->_helper->setServiceLocator(new ServiceManager());
         $expected = $this->_helper->setContainer($this->_nav1)->menu()->getContainer();
         $this->_helper->setContainer($this->_nav2)->menu()->getContainer();
         $actual = $this->_helper->setContainer($this->_nav1)->menu()->getContainer();
@@ -161,6 +165,7 @@ class NavigationTest extends AbstractTest
         $acl = $this->_getAcl();
         $this->_helper->setAcl($acl['acl']);
         $this->_helper->setRole($acl['role']);
+        $this->_helper->setServiceLocator(new ServiceManager());
 
         $expected = $this->_getExpected('menu/acl.html');
         $actual = $this->_helper->render();
@@ -175,6 +180,7 @@ class NavigationTest extends AbstractTest
         $this->_helper->setAcl($acl['acl']);
         $this->_helper->setRole($acl['role']);
         $this->_helper->setInjectAcl(false);
+        $this->_helper->setServiceLocator(new ServiceManager());
 
         $expected = $this->_getExpected('menu/default1.html');
         $actual = $this->_helper->render();
@@ -189,6 +195,7 @@ class NavigationTest extends AbstractTest
         }
 
         $this->_helper->setTranslator($this->_getTranslator());
+        $this->_helper->setServiceLocator(new ServiceManager());
 
         $expected = $this->_getExpected('menu/translated.html');
         $actual = $this->_helper->render();
@@ -200,6 +207,7 @@ class NavigationTest extends AbstractTest
     {
         $this->_helper->setTranslator($this->_getTranslator());
         $this->_helper->setInjectTranslator(false);
+        $this->_helper->setServiceLocator(new ServiceManager());
 
         $expected = $this->_getExpected('menu/default1.html');
         $actual = $this->_helper->render();
@@ -230,6 +238,7 @@ class NavigationTest extends AbstractTest
         $actual = [];
 
         // result
+        $this->_helper->setServiceLocator(new ServiceManager());
         $this->_helper->setDefaultProxy('breadcrumbs');
         $actual['breadcrumbs'] = $this->_helper->render($this->_nav1);
         $this->_helper->setDefaultProxy('menu');
@@ -416,6 +425,7 @@ class NavigationTest extends AbstractTest
                   . '    </li>' . $nl
                   . '</ul>';
 
+        $this->_helper->setServiceLocator(new ServiceManager());
         $actual = $this->_helper->render($container);
 
         $this->assertEquals($expected, $actual);
@@ -440,6 +450,7 @@ class NavigationTest extends AbstractTest
             ]
         ]);
 
+        $this->_helper->setServiceLocator(new ServiceManager());
         $render = $this->_helper->menu()->render($container);
 
         $this->assertNotContains('p2', $render);
@@ -558,7 +569,7 @@ class NavigationTest extends AbstractTest
 
     public function testSetPluginManagerAndView()
     {
-        $pluginManager = new Navigation\PluginManager();
+        $pluginManager = new Navigation\PluginManager(new ServiceManager());
         $view = new PhpRenderer();
 
         $helper = new $this->_helperName;
