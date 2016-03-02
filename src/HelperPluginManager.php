@@ -364,6 +364,13 @@ class HelperPluginManager extends AbstractPluginManager
             $helper = $first;
         }
 
+        if (! $container) {
+            // Under zend-navigation v2.5, the navigation PluginManager is
+            // always lazy-loaded, which means it never has a parent
+            // container.
+            return;
+        }
+
         if (! $helper instanceof EventManagerAwareInterface) {
             return;
         }
