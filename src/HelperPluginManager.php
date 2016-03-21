@@ -375,6 +375,11 @@ class HelperPluginManager extends AbstractPluginManager
             return;
         }
 
+        if (! $container->has('EventManager')) {
+            // If the container doesn't have an EM service, do nothing.
+            return;
+        }
+
         $events = $helper->getEventManager();
         if (! $events || ! $events->getSharedManager() instanceof SharedEventManagerInterface) {
             $helper->setEventManager($container->get('EventManager'));

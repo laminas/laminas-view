@@ -342,7 +342,8 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      */
     protected function isAllowed($params)
     {
-        $results = $this->getEventManager()->trigger(__FUNCTION__, $this, $params);
+        $events = $this->getEventManager() ?: $this->createEventManager();
+        $results = $events->trigger(__FUNCTION__, $this, $params);
         return $results->last();
     }
 
@@ -513,22 +514,23 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
 
         $this->events = $events;
 
-        $this->setDefaultListeners();
+        if ($events->getSharedManager()) {
+            $this->setDefaultListeners();
+        }
 
         return $this;
     }
 
     /**
-     * Get the event manager.
+     * Get the event manager, if present.
      *
-     * @return  EventManagerInterface
+     * Internally, the helper will lazy-load an EM instance the first time it
+     * requires one, but ideally it should be injected during instantiation.
+     *
+     * @return  null|EventManagerInterface
      */
     public function getEventManager()
     {
-        if (null === $this->events) {
-            $this->setEventManager($this->createEventManager());
-        }
-
         return $this->events;
     }
 
@@ -956,7 +958,13 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
             return;
         }
 
-        $this->getEventManager()->getSharedManager()->attach(
+        $events = $this->getEventManager() ?: $this->createEventManager();
+
+        if (! $events->getSharedManager()) {
+            return;
+        }
+
+        $events->getSharedManager()->attach(
             'Zend\View\Helper\Navigation\AbstractHelper',
             'isAllowed',
             ['Zend\View\Helper\Navigation\Listener\AclListener', 'accept']
@@ -975,9 +983,13 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     {
         $r = new ReflectionClass(EventManager::class);
         if ($r->hasMethod('setSharedManager')) {
-            return new EventManager();
+            $events = new EventManager();
+            $events->setSharedManager(new SharedEventManager());
+        } else {
+            $events = new EventManager(new SharedEventManager());
         }
 
-        return new EventManager(new SharedEventManager());
+        $this->setEventManager($events);
+        return $events;
     }
 }
