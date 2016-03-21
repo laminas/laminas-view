@@ -20,6 +20,24 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - Nothing.
 
+## 2.6.6 - TBD
+
+### Added
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 2.6.5 - 2016-03-21
 
 ### Added
