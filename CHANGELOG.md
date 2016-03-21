@@ -18,7 +18,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#55](https://github.com/zendframework/zend-view/pull/55) fixes a circular
+  dependency issue in the navigation helpers with regards to event manager
+  resolution.
 
 ## 2.6.4 - 2016-03-02
 
