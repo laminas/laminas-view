@@ -23,14 +23,9 @@ use ZendTest\View\Helper\TestAsset;
 
 /**
  * Base class for navigation view helper tests
- *
- * @group      Zend_View
- * @group      Zend_View_Helper
  */
 abstract class AbstractTest extends \PHPUnit_Framework_TestCase
 {
-    const REGISTRY_KEY = 'Zend_Navigation';
-
     /**
      * @var
      */

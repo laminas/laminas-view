@@ -76,4 +76,9 @@ class AbstractHelperTest extends AbstractTest
         $this->_helper->setRole($role);
         $this->assertEquals(true, $this->_helper->hasRole());
     }
+
+    public function testEventManagerIsNullByDefault()
+    {
+        $this->assertNull($this->_helper->getEventManager());
+    }
 }
