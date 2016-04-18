@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.6.7 - TBD
+## 2.6.7 - 2016-04-18
 
 ### Added
 
@@ -18,7 +18,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#58](https://github.com/zendframework/zend-view/pull/58) updates the `url()`
+  helper so that it can work with either the zend-mvc v2 router subcomponent or
+  zend-router.
 
 ## 2.6.6 - 2016-04-18
 
