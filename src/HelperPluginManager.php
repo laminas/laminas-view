@@ -13,6 +13,7 @@ use Interop\Container\ContainerInterface;
 use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\SharedEventManagerInterface;
 use Zend\I18n\Translator\TranslatorAwareInterface;
+use Zend\I18n\Translator\TranslatorInterface;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\Exception\InvalidServiceException;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -316,7 +317,10 @@ class HelperPluginManager extends AbstractPluginManager
             $helper = $first;
         }
 
-        if (! $helper instanceof TranslatorAwareInterface) {
+        // Allow either direct implementation or duck-typing.
+        if (! $helper instanceof TranslatorAwareInterface
+            && ! method_exists($helper, 'setTranslator')
+        ) {
             return;
         }
 
@@ -332,8 +336,8 @@ class HelperPluginManager extends AbstractPluginManager
             return;
         }
 
-        if ($container->has('Zend\I18n\Translator\TranslatorInterface')) {
-            $helper->setTranslator($container->get('Zend\I18n\Translator\TranslatorInterface'));
+        if ($container->has(TranslatorInterface::class)) {
+            $helper->setTranslator($container->get(TranslatorInterface::class));
             return;
         }
 
