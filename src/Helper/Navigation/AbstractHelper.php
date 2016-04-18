@@ -17,23 +17,25 @@ use Zend\EventManager\EventManager;
 use Zend\EventManager\EventManagerAwareInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\SharedEventManager;
-use Zend\I18n\Translator\TranslatorInterface as Translator;
-use Zend\I18n\Translator\TranslatorAwareInterface;
 use Zend\Navigation;
 use Zend\Navigation\Page\AbstractPage;
 use Zend\Permissions\Acl;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\View;
 use Zend\View\Exception;
+use Zend\View\Helper\TranslatorAwareTrait;
 
 /**
- * Base class for navigational helpers
+ * Base class for navigational helpers.
+ *
+ * Duck-types against Zend\I18n\Translator\TranslatorAwareInterface.
  */
 abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     EventManagerAwareInterface,
-    HelperInterface,
-    TranslatorAwareInterface
+    HelperInterface
 {
+    use TranslatorAwareTrait;
+
     /**
      * @var EventManagerInterface
      */
@@ -99,27 +101,6 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      * @var bool
      */
     protected $useAcl = true;
-
-    /**
-     * Translator (optional)
-     *
-     * @var Translator
-     */
-    protected $translator;
-
-    /**
-     * Translator text domain (optional)
-     *
-     * @var string
-     */
-    protected $translatorTextDomain = 'default';
-
-    /**
-     * Whether translator should be used
-     *
-     * @var bool
-     */
-    protected $translatorEnabled = true;
 
     /**
      * Default ACL to use when iterating pages if not explicitly set in the
@@ -421,17 +402,18 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      */
     protected function translate($message, $textDomain = null)
     {
-        if (is_string($message) && !empty($message)) {
-            if (null !== ($translator = $this->getTranslator())) {
-                if (null === $textDomain) {
-                    $textDomain = $this->getTranslatorTextDomain();
-                }
-
-                return $translator->translate($message, $textDomain);
-            }
+        if (! is_string($message) || empty($message)) {
+            return $message;
         }
 
-        return $message;
+        if (! $this->isTranslatorEnabled() || ! $this->hasTranslator()) {
+            return $message;
+        }
+
+        $translator = $this->getTranslator();
+        $textDomain = $textDomain ?: $this->getTranslatorTextDomain();
+
+        return $translator->translate($message, $textDomain);
     }
 
     /**
@@ -793,95 +775,6 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     public function getServiceLocator()
     {
         return $this->serviceLocator;
-    }
-
-    // Translator methods - Good candidate to refactor as a trait with PHP 5.4
-
-    /**
-     * Sets translator to use in helper
-     *
-     * @param  Translator $translator  [optional] translator.
-     *                                 Default is null, which sets no translator.
-     * @param  string     $textDomain  [optional] text domain
-     *                                 Default is null, which skips setTranslatorTextDomain
-     * @return AbstractHelper
-     */
-    public function setTranslator(Translator $translator = null, $textDomain = null)
-    {
-        $this->translator = $translator;
-        if (null !== $textDomain) {
-            $this->setTranslatorTextDomain($textDomain);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Returns translator used in helper
-     *
-     * @return Translator|null
-     */
-    public function getTranslator()
-    {
-        if (! $this->isTranslatorEnabled()) {
-            return;
-        }
-
-        return $this->translator;
-    }
-
-    /**
-     * Checks if the helper has a translator
-     *
-     * @return bool
-     */
-    public function hasTranslator()
-    {
-        return (bool) $this->getTranslator();
-    }
-
-    /**
-     * Sets whether translator is enabled and should be used
-     *
-     * @param  bool $enabled
-     * @return AbstractHelper
-     */
-    public function setTranslatorEnabled($enabled = true)
-    {
-        $this->translatorEnabled = (bool) $enabled;
-        return $this;
-    }
-
-    /**
-     * Returns whether translator is enabled and should be used
-     *
-     * @return bool
-     */
-    public function isTranslatorEnabled()
-    {
-        return $this->translatorEnabled;
-    }
-
-    /**
-     * Set translation text domain
-     *
-     * @param  string $textDomain
-     * @return AbstractHelper
-     */
-    public function setTranslatorTextDomain($textDomain = 'default')
-    {
-        $this->translatorTextDomain = $textDomain;
-        return $this;
-    }
-
-    /**
-     * Return the translation text domain
-     *
-     * @return string
-     */
-    public function getTranslatorTextDomain()
-    {
-        return $this->translatorTextDomain;
     }
 
     /**

@@ -20,11 +20,14 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - Nothing.
 
-## 2.6.6 - TBD
+## 2.6.6 - 2016-04-18
 
 ### Added
 
-- Nothing.
+- [#57](https://github.com/zendframework/zend-view/pull/57) adds
+  `Zend\View\Helper\TranslatorAwareTrait`, which provides implementation for
+  `Zend\I18n\Translator\TranslatorAwareInterface`, and allowed removal of
+  duplicated implementations in several helpers.
 
 ### Deprecated
 
@@ -36,7 +39,15 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#57](https://github.com/zendframework/zend-view/pull/57) removes the explicit
+  dependency on `Zend\I18n\Translator\TranslatorAwareInterface` by allowing
+  helpers to duck type the interface to receive a translator during
+  instantiation; this allows such helpers to work even when zend-i18n is not
+  installed. The following helpers were updated to duck type the interface
+  instead of implement it explicitly:
+  - `FlashMessenger`
+  - `HeadTitle`
+  - all `Navigation` helpers
 
 ## 2.6.5 - 2016-03-21
 
