@@ -14,6 +14,8 @@ use Zend\Mvc\MvcEvent;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Mvc\Router\SimpleRouteStack as Router;
+use Zend\Router\RouteMatch as NextGenRouteMatch;
+use Zend\Router\SimpleRouteStack as NextGenRouter;
 
 /**
  * Zend\View\Helper\Url Test
@@ -200,5 +202,21 @@ class UrlTest extends \PHPUnit_Framework_TestCase
 
         $url = $helper->__invoke('default/wildcard', ['Twenty' => 'Cooler'], true);
         $this->assertEquals('/Rainbow/Dash=Twenty%Cooler', $url);
+    }
+
+    public function testAcceptsNextGenRouterToSetRouter()
+    {
+        $router = new NextGenRouter();
+        $url = new UrlHelper();
+        $url->setRouter($router);
+        $this->assertAttributeSame($router, 'router', $url);
+    }
+
+    public function testAcceptsNextGenRouteMatche()
+    {
+        $routeMatch = new NextGenRouteMatch([]);
+        $url = new UrlHelper();
+        $url->setRouteMatch($routeMatch);
+        $this->assertAttributeSame($routeMatch, 'routeMatch', $url);
     }
 }
