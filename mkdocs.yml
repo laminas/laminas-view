@@ -3,8 +3,9 @@ site_dir: doc/html
 pages:
     - index.md
     - Intro: intro.md
-    - Reference:
-        - "Quick Start": quick-start.md
+    - "Quick Start": quick-start.md
+    - View Helpers:
+        - Intro: helpers.md
         - "The PhpRenderer": renderer.php-renderer.md
         - "PhpRenderer View Scripts": php-renderer.scripts.md
         - "The ViewEvent": view-event.md
