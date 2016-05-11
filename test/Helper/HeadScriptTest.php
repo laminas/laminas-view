@@ -471,4 +471,15 @@ document.write(bar.strlen());');
 
         $this->assertContains('crossorigin="', $test);
     }
+
+    public function testOmitsTypeAttributeIfEmptyValue()
+    {
+        $view = new \Zend\View\Renderer\PhpRenderer();
+        $view->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5);
+        $this->helper->setView($view);
+
+        $this->helper->__invoke()->appendScript('// some script' . PHP_EOL, '');
+        $test = $this->helper->__invoke()->toString();
+        $this->assertNotContains('type', $test);
+    }
 }
