@@ -491,4 +491,18 @@ document.write(bar.strlen());');
         $test = $this->helper->__invoke()->toString();
         $this->assertNotContains('type', $test);
     }
+
+    /**
+     * @group 22
+     */
+    public function testSupportsAsyncAttribute()
+    {
+        $this->helper->__invoke()->appendScript(
+            '// some script' . PHP_EOL,
+            'text/javascript',
+            ['async' => true]
+        );
+        $test = $this->helper->__invoke()->toString();
+        $this->assertContains('async="', $test);
+    }
 }

@@ -87,6 +87,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
         'charset',
         'crossorigin',
         'defer',
+        'async',
         'language',
         'src',
     ];
@@ -392,6 +393,9 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
                 }
                 if ('defer' == $key) {
                     $value = 'defer';
+                }
+                if ('async' == $key) {
+                    $value = 'async';
                 }
                 $attrString .= sprintf(' %s="%s"', $key, ($this->autoEscape) ? $this->escape($value) : $value);
             }
