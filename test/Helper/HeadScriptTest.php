@@ -382,7 +382,9 @@ document.write(bar.strlen());');
     {
         $this->helper->setAllowArbitraryAttributes(true);
         $this->helper->appendFile(
-            '/js/foo.js', 'text/javascript', ['conditional' => '!IE']
+            '/js/foo.js',
+            'text/javascript',
+            ['conditional' => '!IE']
         );
         $test = $this->helper->toString();
 
@@ -394,7 +396,9 @@ document.write(bar.strlen());');
     {
         $this->helper->setAllowArbitraryAttributes(true);
         $this->helper->appendFile(
-            '/js/foo.js', 'text/javascript', ['conditional' => '! IE']
+            '/js/foo.js',
+            'text/javascript',
+            ['conditional' => '! IE']
         );
         $test = $this->helper->toString();
 
@@ -465,14 +469,19 @@ document.write(bar.strlen());');
     public function testSupportsCrossOriginAttribute()
     {
         $this->helper->__invoke()->appendScript(
-            '// some script' . PHP_EOL, 'text/javascript', ['crossorigin' => true]
+            '// some script' . PHP_EOL,
+            'text/javascript',
+            ['crossorigin' => true]
         );
         $test = $this->helper->__invoke()->toString();
 
         $this->assertContains('crossorigin="', $test);
     }
 
-    public function testOmitsTypeAttributeIfEmptyValue()
+    /**
+     * @group 21
+     */
+    public function testOmitsTypeAttributeIfEmptyValueAndHtml5Doctype()
     {
         $view = new \Zend\View\Renderer\PhpRenderer();
         $view->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5);
