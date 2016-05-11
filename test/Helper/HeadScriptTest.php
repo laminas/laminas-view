@@ -492,6 +492,9 @@ document.write(bar.strlen());');
         $this->assertNotContains('type', $test);
     }
 
+    /**
+     * @group 22
+     */
     public function testSupportsAsyncAttribute()
     {
         $this->helper->__invoke()->appendScript(
