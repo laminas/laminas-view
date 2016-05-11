@@ -36,7 +36,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#21](https://github.com/zendframework/zend-view/pull/21) updates the
+  `headScript` helper to allow empty attribute types to render as keys only when
+  using an HTML5 doctype.
 
 ## 2.6.7 - 2016-04-18
 
