@@ -108,11 +108,11 @@ class HtmlListTest extends \PHPUnit_Framework_TestCase
 
         $list = $this->helper->__invoke($items);
 
-        $this->assertContains('<ul>' . Helper\HtmlList::EOL, $list);
-        $this->assertContains('</ul>' . Helper\HtmlList::EOL, $list);
-        $this->assertContains('one<ul>' . Helper\HtmlList::EOL.'<li>four', $list);
-        $this->assertContains('<li>six</li>' . Helper\HtmlList::EOL . '</ul>' .
-            Helper\HtmlList::EOL . '</li>' . Helper\HtmlList::EOL . '<li>two', $list);
+        $this->assertContains('<ul>' . PHP_EOL, $list);
+        $this->assertContains('</ul>' . PHP_EOL, $list);
+        $this->assertContains('one<ul>' . PHP_EOL.'<li>four', $list);
+        $this->assertContains('<li>six</li>' . PHP_EOL . '</ul>' .
+            PHP_EOL . '</li>' . PHP_EOL . '<li>two', $list);
     }
 
     /*
@@ -124,12 +124,12 @@ class HtmlListTest extends \PHPUnit_Framework_TestCase
 
         $list = $this->helper->__invoke($items);
 
-        $this->assertContains('<ul>' . Helper\HtmlList::EOL, $list);
-        $this->assertContains('</ul>' . Helper\HtmlList::EOL, $list);
-        $this->assertContains('one<ul>' . Helper\HtmlList::EOL . '<li>four', $list);
-        $this->assertContains('<li>four<ul>' . Helper\HtmlList::EOL . '<li>six', $list);
-        $this->assertContains('<li>five</li>' . Helper\HtmlList::EOL . '</ul>' .
-            Helper\HtmlList::EOL . '</li>' . Helper\HtmlList::EOL . '<li>two', $list);
+        $this->assertContains('<ul>' . PHP_EOL, $list);
+        $this->assertContains('</ul>' . PHP_EOL, $list);
+        $this->assertContains('one<ul>' . PHP_EOL . '<li>four', $list);
+        $this->assertContains('<li>four<ul>' . PHP_EOL . '<li>six', $list);
+        $this->assertContains('<li>five</li>' . PHP_EOL . '</ul>' .
+            PHP_EOL . '</li>' . PHP_EOL . '<li>two', $list);
     }
 
     public function testListWithValuesToEscapeForZF2283()
