@@ -194,6 +194,23 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($helper, $helpers->get('url'));
     }
 
+    public function testCanUseCallableAsHelper()
+    {
+        $helper = function () {};
+        $helpers = new HelperPluginManager(new ServiceManager());
+        $config = new Config(
+            [
+                'factories' => [
+                    'foo' => function ($container) use ($helper) {
+                        return $helper;
+                    },
+                ]
+            ]
+        );
+        $config->configureServiceManager($helpers);
+        $this->assertSame($helper, $helpers->get('foo'));
+    }
+
     private function getServiceNotFoundException(HelperPluginManager $manager)
     {
         if (method_exists($manager, 'configure')) {

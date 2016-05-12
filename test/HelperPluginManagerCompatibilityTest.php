@@ -11,14 +11,13 @@ namespace ZendTest\View;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use ReflectionProperty;
-use Zend\Mvc\Controller\PluginManager as ControllerPluginManager;
 use Zend\Mvc\Controller\Plugin\FlashMessenger;
+use Zend\Mvc\Controller\PluginManager as ControllerPluginManager;
 use Zend\ServiceManager\Config;
-use Zend\View\Exception\InvalidHelperException;
-use Zend\View\Helper\HelperInterface;
-use Zend\View\HelperPluginManager;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\Test\CommonPluginManagerTrait;
+use Zend\View\Exception\InvalidHelperException;
+use Zend\View\HelperPluginManager;
 
 class HelperPluginManagerCompatibilityTest extends TestCase
 {
@@ -58,7 +57,7 @@ class HelperPluginManagerCompatibilityTest extends TestCase
 
     protected function getInstanceOf()
     {
-        return HelperInterface::class;
+        return 'callable';
     }
 
     public function aliasProvider()
