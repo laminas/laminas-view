@@ -6,7 +6,10 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- Nothing.
+- [#1](https://github.com/zendframework/zend-view/pull/1) adds a new `loop()`
+  method to the `partialLoop()` helper, allowing the ability to chain setters
+  with rendering:
+  `$this->partialLoop()->setObjectKey('foo')->loop('partial', $data)`
 
 ### Deprecated
 
