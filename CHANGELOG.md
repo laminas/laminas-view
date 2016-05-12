@@ -10,6 +10,9 @@ All notable changes to this project will be documented in this file, in reverse 
   method to the `partialLoop()` helper, allowing the ability to chain setters
   with rendering:
   `$this->partialLoop()->setObjectKey('foo')->loop('partial', $data)`
+- [#60](https://github.com/zendframework/zend-view/pull/60) adds the ability to
+  register and consume arbitrary callables as view helpers within the
+  `HelperPluginManager`.
 
 ### Deprecated
 
