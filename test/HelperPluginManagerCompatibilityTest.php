@@ -11,14 +11,13 @@ namespace ZendTest\View;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use ReflectionProperty;
-use Zend\Mvc\Controller\PluginManager as ControllerPluginManager;
 use Zend\Mvc\Controller\Plugin\FlashMessenger;
+use Zend\Mvc\Controller\PluginManager as ControllerPluginManager;
 use Zend\ServiceManager\Config;
-use Zend\View\Exception\InvalidHelperException;
-use Zend\View\Helper\HelperInterface;
-use Zend\View\HelperPluginManager;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\Test\CommonPluginManagerTrait;
+use Zend\View\Exception\InvalidHelperException;
+use Zend\View\HelperPluginManager;
 
 class HelperPluginManagerCompatibilityTest extends TestCase
 {
@@ -56,11 +55,6 @@ class HelperPluginManagerCompatibilityTest extends TestCase
         return InvalidHelperException::class;
     }
 
-    protected function getInstanceOf()
-    {
-        return HelperInterface::class;
-    }
-
     public function aliasProvider()
     {
         $pluginManager = $this->getPluginManager();
@@ -81,5 +75,15 @@ class HelperPluginManagerCompatibilityTest extends TestCase
 
             yield $alias => [$alias, $target];
         }
+    }
+
+    public function getInstanceOf()
+    {
+        // no-op; instanceof is not used in this implementation
+    }
+
+    public function testInstanceOfMatches()
+    {
+        $this->markTestSkipped('instanceOf is not used with this implementation');
     }
 }

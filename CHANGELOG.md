@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 2.7.0 - TBD
+
+### Added
+
+- [#1](https://github.com/zendframework/zend-view/pull/1) adds a new `loop()`
+  method to the `partialLoop()` helper, allowing the ability to chain setters
+  with rendering:
+  `$this->partialLoop()->setObjectKey('foo')->loop('partial', $data)`
+- [#60](https://github.com/zendframework/zend-view/pull/60) adds the ability to
+  register and consume arbitrary callables as view helpers within the
+  `HelperPluginManager`.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 2.6.8 - 2016-05-12
 
 ### Added
