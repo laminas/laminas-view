@@ -1,36 +1,35 @@
-# View Helper - HtmlList
+# HtmlList
 
-## Introduction
-
-`htmlList($items, $ordered, $attribs, $escape)`: generates unordered and ordered lists based on the
-`$items` passed to it. If `$items` is a multidimensional array, a nested list will be built. If the
-`$escape` flag is `TRUE` (default), individual items will be escaped using the view objects
-registered escaping mechanisms; pass a `FALSE` value if you want to allow markup in your lists.
+`htmlList($items, $ordered, $attribs, $escape)` generates unordered and ordered
+lists based on the `$items` passed to it. If `$items` is a multidimensional
+array, a nested list will be built. If the `$escape` flag is `true` (default),
+individual items will be escaped using the view objects registered escaping
+mechanisms; pass a `false` value if you want to allow markup in your lists.
 
 ## Basic Usage
 
 ### Unordered list
 
 ```php
-$items = array(
+$items = [
     'Level one, number one',
-    array(
+    [
         'Level two, number one',
         'Level two, number two',
-        array(
+        [
             'Level three, number one'
-        ),
+        ],
         'Level two, number three',
-    ),
+    ],
     'Level one, number two',
- );
+];
 
 echo $this->htmlList($items);
 ```
 
 Output:
 
-```php
+```html
 <ul>
     <li>Level one, number one
         <ul>
@@ -55,7 +54,7 @@ echo $this->htmlList($items, true);
 
 Output:
 
-```php
+```html
 <ol>
     <li>Level one, number one
         <ol>
@@ -75,16 +74,14 @@ Output:
 ### HTML attributes
 
 ```php
-$attribs = array(
-    'class' => 'foo',
-);
+$attribs = ['class' => 'foo'];
 
 echo $this->htmlList($items, false, $attribs);
 ```
 
 Output:
 
-```php
+```html
 <ul class="foo">
     <li>Level one, number one
         <ul class="foo">
@@ -104,10 +101,10 @@ Output:
 ### Escape Output
 
 ```php
-$items = array(
+$items = [
     'Level one, number <strong>one</strong>',
     'Level one, number <em>two</em>',
- );
+];
 
 // Escape output (default)
 echo $this->htmlList($items);
@@ -118,7 +115,7 @@ echo $this->htmlList($items, false, false, false);
 
 Output:
 
-```php
+```html
 <!-- Escape output (default) -->
 <ul class="foo">
     <li>Level one, number &lt;strong&gt;one&lt;/strong&gt;</li>
