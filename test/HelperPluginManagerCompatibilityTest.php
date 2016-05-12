@@ -55,11 +55,6 @@ class HelperPluginManagerCompatibilityTest extends TestCase
         return InvalidHelperException::class;
     }
 
-    protected function getInstanceOf()
-    {
-        return 'callable';
-    }
-
     public function aliasProvider()
     {
         $pluginManager = $this->getPluginManager();
@@ -80,5 +75,15 @@ class HelperPluginManagerCompatibilityTest extends TestCase
 
             yield $alias => [$alias, $target];
         }
+    }
+
+    public function getInstanceOf()
+    {
+        // no-op; instanceof is not used in this implementation
+    }
+
+    public function testInstanceOfMatches()
+    {
+        $this->markTestSkipped('instanceOf is not used with this implementation');
     }
 }

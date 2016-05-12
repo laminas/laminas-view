@@ -137,8 +137,6 @@ class HelperPluginManager extends AbstractPluginManager
         'ViewModel'           => Helper\ViewModel::class,
     ];
 
-    protected $instanceOf = 'callable';
-
     /**
      * Default factories
      *
@@ -397,29 +395,19 @@ class HelperPluginManager extends AbstractPluginManager
     /**
      * Validate the plugin is of the expected type (v3).
      *
-     * Validates against `$instanceOf`.
+     * Validates against callables and HelperInterface implementations.
      *
      * @param mixed $instance
      * @throws InvalidServiceException
      */
     public function validate($instance)
     {
-        if ('callable' === $this->instanceOf) {
-            if (is_callable($instance)) {
-                return;
-            }
-
-            $instanceOf = Helper\HelperInterface::class;
-        } else {
-            $instanceOf = $this->instanceOf;
-        }
-
-        if (!$instance instanceof $instanceOf) {
+        if (! is_callable($instance) && ! $instance instanceof Helper\HelperInterface) {
             throw new InvalidServiceException(
                 sprintf(
-                    '%s can only create instances of %s; %s is invalid',
+                    '%s can only create instances of %s and/or callables; %s is invalid',
                     get_class($this),
-                    $this->instanceOf,
+                    Helper\HelperInterface::class,
                     (is_object($instance) ? get_class($instance) : gettype($instance))
                 )
             );
