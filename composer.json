@@ -70,5 +70,8 @@
         "psr-4": {
             "ZendTest\\View\\": "test/"
         }
-    }
+    },
+    "bin": [
+        "bin/templatemap_generator.php"
+    ]
 }
