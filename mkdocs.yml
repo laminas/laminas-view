@@ -9,6 +9,7 @@ pages:
         - "The ViewEvent": view-event.md
     - Helpers:
         - Intro: helpers/intro.md
+        - Asset: helpers/asset.md
         - BasePath: helpers/base-path.md
         - Cycle: helpers/cycle.md
         - Doctype: helpers/doctype.md
