@@ -129,7 +129,7 @@ only having different CSS classes applied.
 
 ## Alternative Configuration of the ViewHelper Layout
 
-`Zend\View\Helper\Service\FlashMessengerFactory` checks the applicaton
+`Zend\View\Helper\Service\FlashMessengerFactory` checks the application
 configuration, making it possible to set up the `FlashMessenger` strings through
 your `module.config.php`, too. The next example will set up the output to be
 identical with the above Twitter Bootstrap 3 Example

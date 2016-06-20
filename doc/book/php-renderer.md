@@ -85,7 +85,7 @@ application](https://github.com/zendframework/ZendSkeletonApplication), you can
 provide the above via configuration:
 
 ```php
-// In the Applicatoin module configuration
+// In the Application module configuration
 // (module/Application/config/module.config.php):
 return [
     'view_manager' => [
