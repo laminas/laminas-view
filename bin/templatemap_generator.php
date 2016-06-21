@@ -47,27 +47,27 @@ EOH;
 // Called without arguments
 if ($argc < 2) {
     fwrite(STDERR, 'No arguments provided.' . PHP_EOL . PHP_EOL);
-    fwrite(STDERR, $help);
+    fwrite(STDERR, $help . PHP_EOL);
     exit(2);
 }
 
 // Requested help
 if (in_array($argv[1], ['-h', '--help'], true)) {
-    echo $help, "\n";
+    echo $help, PHP_EOL;
     exit(0);
 }
 
 // Invalid path argument
 if (! is_dir($argv[1])) {
     fwrite(STDERR, 'templatepath argument is not a directory.' . PHP_EOL . PHP_EOL);
-    fwrite(STDERR, $help);
+    fwrite(STDERR, $help . PHP_EOL);
     exit(2);
 }
 
 // Not enough arguments
 if ($argc < 3) {
     fwrite(STDERR, 'No files specified.' . PHP_EOL . PHP_EOL);
-    fwrite(STDERR, $help);
+    fwrite(STDERR, $help . PHP_EOL);
     exit(2);
 }
 
