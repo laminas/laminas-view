@@ -98,7 +98,7 @@ $entries = array_map(function ($file) use ($basePath, $realPath) {
         : $template;
 
     $template = preg_replace('#^\.*/#', '', $template);
-    $file     = sprintf('__DIR__ . \'%s\'', $file);
+    $file     = sprintf('__DIR__ . \'/%s\'', $file);
 
     return sprintf("    '%s' => %s,\n", $template, $file);
 }, $files);
