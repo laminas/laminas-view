@@ -56,7 +56,7 @@ Examples:
   # config directory, relative to the view directory, and only containing
   # .phtml files; overwrite any existing files:
   $ cd module/Application/config/
-  $ ../../../vendor/bin/templatemap_generator.php ../view/**/*.phtml > template_map.config.php
+  $ ../../../vendor/bin/templatemap_generator.php ../view ../view/**/*.phtml > template_map.config.php
 EOH;
 
 // Called without arguments
@@ -97,7 +97,6 @@ $entries = array_map(function ($file) use ($basePath, $realPath) {
         ? $matches['template']
         : $template;
 
-    $template = str_replace('\\', '/', $template);
     $template = preg_replace('#^\.*/#', '', $template);
     $file     = sprintf('__DIR__ . \'%s\'', $file);
 
