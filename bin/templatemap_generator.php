@@ -134,15 +134,14 @@ exit(0);
 
 function findTemplateFilesInTemplatePath($templatePath)
 {
-    $rdi = new RecursiveDirectoryIterator($templatePath, RecursiveDirectoryIterator::FOLLOW_SYMLINKS);
+    $rdi = new RecursiveDirectoryIterator(
+        $templatePath,
+        RecursiveDirectoryIterator::FOLLOW_SYMLINKS | RecursiveDirectoryIterator::SKIP_DOTS
+    );
     $rii = new RecursiveIteratorIterator($rdi, RecursiveIteratorIterator::LEAVES_ONLY);
 
     $files = [];
     foreach ($rii as $file) {
-        if (! $file instanceof SplFileInfo) {
-            continue;
-        }
-
         if (! preg_match('#^phtml$#i', $file->getExtension())) {
             continue;
         }
