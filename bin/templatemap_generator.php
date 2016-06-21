@@ -141,7 +141,7 @@ function findTemplateFilesInTemplatePath($templatePath)
 
     $files = [];
     foreach ($rii as $file) {
-        if (! preg_match('#^phtml$#i', $file->getExtension())) {
+        if (strtolower($file->getExtension()) != 'phtml') {
             continue;
         }
 
