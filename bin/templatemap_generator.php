@@ -30,6 +30,17 @@ to a file (which may have unexpected and/or intended results; you will
 need to edit the file after generation to ensure it contains valid
 PHP).
 
+To provide a list of files, we recommend using one of the following.
+
+For any shell, you can pipe the results of `find`:
+
+    $(find ../view -name '*.phtml')
+
+For zsh, or bash where you have enabled globstar (`shopt  -s globstar` in
+either your bash profile or from within your terminal):
+
+    ../view/**/*.phtml
+
 We recommend you then include the generated file within your module
 configuration:
 
@@ -42,6 +53,11 @@ Examples:
   # .phtml files; overwrite any existing files:
   $ cd module/Application/config/
   $ ../../../vendor/bin/templatemap_generator.php ../view ../view/**/*.phtml > template_map.config.php
+
+  # OR using find:
+  $ ../../../vendor/bin/templatemap_generator.php \
+  > ../view \
+  > $(find ../view -name '*.phtml') > template_map.config.php
 EOH;
 
 // Called without arguments
