@@ -61,7 +61,7 @@ EOH;
 
 // Called without arguments
 if ($argc < 2) {
-    echo $help;
+    fwrite(STDERR, $help);
     exit(2);
 }
 
@@ -73,7 +73,7 @@ if (in_array($argv[1], ['-h', '--help'], true)) {
 
 // Not enough arguments
 if ($argc < 3) {
-    echo $help;
+    fwrite(STDERR, $help);
     exit(2);
 }
 
