@@ -31,7 +31,7 @@ templatemap_generator.php [-h|--help] templatepath files...
 --help|-h                    Print this usage message.
 templatepath                 Path to templates relative to current working
                              path; used to identify what to strip from
-                             template names.
+                             template names. Must be a directory.
 files...                     List of files to include in the template
                              map, relative to the current working path.
 
@@ -61,6 +61,7 @@ EOH;
 
 // Called without arguments
 if ($argc < 2) {
+    fwrite(STDERR, 'No arguments provided.' . PHP_EOL . PHP_EOL);
     fwrite(STDERR, $help);
     exit(2);
 }
@@ -71,8 +72,16 @@ if (in_array($argv[1], ['-h', '--help'], true)) {
     exit(0);
 }
 
+// Invalid path argument
+if (! is_dir($argv[1])) {
+    fwrite(STDERR, 'templatepath argument is not a directory.' . PHP_EOL . PHP_EOL);
+    fwrite(STDERR, $help);
+    exit(2);
+}
+
 // Not enough arguments
 if ($argc < 3) {
+    fwrite(STDERR, 'No files specified.' . PHP_EOL . PHP_EOL);
     fwrite(STDERR, $help);
     exit(2);
 }
