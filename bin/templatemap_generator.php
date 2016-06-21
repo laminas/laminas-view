@@ -6,21 +6,6 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-// Setup/verify autoloading
-if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
-    // Local install
-    require __DIR__ . '/../vendor/autoload.php';
-} elseif (file_exists(getcwd() . '/vendor/autoload.php')) {
-    // Root project is current working directory
-    require getcwd() . '/vendor/autoload.php';
-} elseif (file_exists(__DIR__ . '/../../../autoload.php')) {
-    // Relative to composer install
-    require __DIR__ . '/../../../autoload.php';
-} else {
-    fwrite(STDERR, "Unable to setup autoloading; aborting\n");
-    exit(2);
-}
-
 $help = <<< EOH
 Generate template maps.
 
