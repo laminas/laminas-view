@@ -30,6 +30,11 @@ to a file (which may have unexpected and/or intended results; you will
 need to edit the file after generation to ensure it contains valid
 PHP).
 
+We recommend you then include the generated file within your module
+configuration:
+
+  'template_map' => include __DIR__ . '/template_map.config.php',
+
 If only the templatepath argument is provided, the script will look for
 all .phtml files under that directory, creating a map for you.
 
@@ -45,11 +50,6 @@ For zsh, or bash where you have enabled globstar (`shopt  -s globstar` in
 either your bash profile or from within your terminal):
 
     ../view/**/*.phtml
-
-We recommend you then include the generated file within your module
-configuration:
-
-  'template_map' => include __DIR__ . '/template_map.config.php',
 
 Examples:
 
