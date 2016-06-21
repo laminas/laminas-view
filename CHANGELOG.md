@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.8.0 - TBD
+## 2.8.0 - 2016-06-21
 
 ### Added
 
@@ -21,24 +21,6 @@ All notable changes to this project will be documented in this file, in reverse 
   initial directory argument; if provided that list of files will be used to
   generate the map. (The directory argument is then used to strip the path
   information when generating the template name.)
-
-### Deprecated
-
-- Nothing.
-
-### Removed
-
-- Nothing.
-
-### Fixed
-
-- Nothing.
-
-## 2.7.1 - TBD
-
-### Added
-
-- Nothing.
 
 ### Deprecated
 
