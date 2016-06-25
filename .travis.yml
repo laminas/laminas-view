@@ -46,7 +46,7 @@ matrix:
         - PATH="$HOME/.local/bin:$PATH"
     - php: 5.6
       env:
-        - DEPS=lastest
+        - DEPS=latest
     - php: 7
       env:
         - DEPS=lowest
