@@ -11,11 +11,14 @@ namespace ZendTest\View\Helper\Navigation;
 
 use Zend\Navigation\Navigation;
 use Zend\Config\Factory as ConfigFactory;
-use Zend\Mvc\Router\RouteMatch;
+use Zend\Mvc\Router\RouteMatch as V2RouteMatch;
 use Zend\Mvc\Service\ServiceManagerConfig;
 use Zend\Permissions\Acl\Acl;
 use Zend\Permissions\Acl\Role\GenericRole;
 use Zend\Permissions\Acl\Resource\GenericResource;
+use Zend\Router\ConfigProvider as RouterConfigProvider;
+use Zend\Router\RouteMatch as V3RouteMatch;
+use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
 use Zend\I18n\Translator\Translator;
 use Zend\View\Renderer\PhpRenderer;
@@ -83,6 +86,10 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
     {
         $cwd = __DIR__;
 
+        $this->routeMatchType = class_exists(V2RouteMatch::class)
+            ? V2RouteMatch::class
+            : V3RouteMatch::class;
+
         // read navigation config
         $this->_files = $cwd . '/_files';
         $config = ConfigFactory::fromFile($this->_files . '/navigation.xml', true);
@@ -130,6 +137,12 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
         $sm->setAllowOverride(true);
 
         (new ServiceManagerConfig())->configureServiceManager($sm);
+
+        if (class_exists(RouterConfigProvider::class)) {
+            $routerConfig = new Config((new RouterConfigProvider())->getDependencyConfig());
+            $routerConfig->configureServiceManager($sm);
+        }
+
         $sm->setService('ApplicationConfig', $smConfig);
         $sm->get('ModuleManager')->loadModules();
         $sm->get('Application')->bootstrap();
@@ -141,7 +154,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
         $sm->setAllowOverride(false);
 
         $app = $this->serviceManager->get('Application');
-        $app->getMvcEvent()->setRouteMatch(new RouteMatch([
+        $app->getMvcEvent()->setRouteMatch(new $this->routeMatchType([
             'controller' => 'post',
             'action'     => 'view',
             'id'         => '1337',
