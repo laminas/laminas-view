@@ -68,7 +68,7 @@ class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
         $this->serviceManager = new ServiceManager();
         (new ServiceManagerConfig($serviceConfig))->configureServiceManager($this->serviceManager);
 
-        if (class_exists(RouterConfigProvider::class)) {
+        if (! class_exists(V2HttpRoute\Literal::class) && class_exists(RouterConfigProvider::class)) {
             $routerConfig = new Config((new RouterConfigProvider())->getDependencyConfig());
             $routerConfig->configureServiceManager($this->serviceManager);
         }

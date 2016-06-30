@@ -52,29 +52,30 @@ class UrlTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->routeMatchType = class_exists(NextGenRouteMatch::class)
-            ? NextGenRouteMatch::class
-            : RouteMatch::class;
+        $this->routeMatchType = class_exists(RouteMatch::class)
+            ? RouteMatch::class
+            : NextGenRouteMatch::class;
 
-        $this->literalRouteType = class_exists(NextGenLiteralRoute::class)
-            ? NextGenLiteralRoute::class
-            : LiteralRoute::class;
+        $this->literalRouteType = class_exists(LiteralRoute::class)
+            ? LiteralRoute::class
+            : NextGenLiteralRoute::class;
 
-        $this->segmentRouteType = class_exists(NextGenSegmentRoute::class)
-            ? NextGenSegmentRoute::class
-            : SegmentRoute::class;
+        $this->segmentRouteType = class_exists(SegmentRoute::class)
+            ? SegmentRoute::class
+            : NextGenSegmentRoute::class;
 
-        $this->treeRouteStackType = class_exists(NextGenTreeRouteStack::class)
-            ? NextGenTreeRouteStack::class
-            : TreeRouteStack::class;
+        $this->treeRouteStackType = class_exists(TreeRouteStack::class)
+            ? TreeRouteStack::class
+            : NextGenTreeRouteStack::class;
 
-        $this->wildcardRouteType = class_exists(NextGenWildcardRoute::class)
-            ? NextGenWildcardRoute::class
-            : WildcardRoute::class;
+        $this->wildcardRouteType = class_exists(WildcardRoute::class)
+            ? WildcardRoute::class
+            : NextGenWildcardRoute::class;
 
-        $routerClass = class_exists(NextGenRouter::class)
-            ? NextGenRouter::class
-            : Router::class;
+        $routerClass = class_exists(Router::class)
+            ? Router::class
+            : NextGenRouter::class;
+
         $router = new $routerClass();
         $router->addRoute('home', [
             'type' => $this->literalRouteType,

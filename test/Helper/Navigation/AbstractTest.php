@@ -138,7 +138,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
 
         (new ServiceManagerConfig())->configureServiceManager($sm);
 
-        if (class_exists(RouterConfigProvider::class)) {
+        if (! class_exists(V2RouteMatch::class) && class_exists(RouterConfigProvider::class)) {
             $routerConfig = new Config((new RouterConfigProvider())->getDependencyConfig());
             $routerConfig->configureServiceManager($sm);
         }
