@@ -11,8 +11,9 @@ namespace ZendTest\View;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use ReflectionProperty;
-use Zend\Mvc\Controller\Plugin\FlashMessenger;
+use Zend\Mvc\Controller\Plugin\FlashMessenger as V2FlashMessenger;
 use Zend\Mvc\Controller\PluginManager as ControllerPluginManager;
+use Zend\Mvc\Plugin\FlashMessenger\FlashMessenger;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\Test\CommonPluginManagerTrait;
@@ -31,7 +32,9 @@ class HelperPluginManagerCompatibilityTest extends TestCase
             $factories['ControllerPluginManager'] = function ($services, $name, $options) {
                 return new ControllerPluginManager($services, [
                     'invokables' => [
-                        'flashmessenger' => FlashMessenger::class,
+                        'flashmessenger' => class_exists(FlashMessenger::class)
+                            ? FlashMessenger::class
+                            : V2FlashMessenger::class,
                     ],
                 ]);
             };
