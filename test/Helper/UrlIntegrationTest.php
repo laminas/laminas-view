@@ -11,8 +11,13 @@ namespace ZendTest\View\Helper;
 
 use Zend\Console\Console;
 use Zend\ServiceManager\ServiceManager;
+use Zend\Mvc\Console\ConfigProvider as MvcConsoleConfigProvider;
+use Zend\Mvc\Router\Http as V2HttpRoute;
 use Zend\Mvc\Service\ServiceManagerConfig;
 use Zend\Mvc\Service\ServiceListenerFactory;
+use Zend\Router\ConfigProvider as RouterConfigProvider;
+use Zend\Router\Http as V3HttpRoute;
+use Zend\ServiceManager\Config;
 
 /**
  * url() helper test -- tests integration with MVC
@@ -24,11 +29,14 @@ class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
 {
     protected function setUp()
     {
+        $this->literalRouteType = class_exists(V2HttpRoute\Literal::class)
+            ? V2HttpRoute\Literal::class
+            : V3HttpRoute\Literal::class;
         $config = [
             'router' => [
                 'routes' => [
                     'test' => [
-                        'type' => 'Literal',
+                        'type' => $this->literalRouteType,
                         'options' => [
                             'route' => '/test',
                             'defaults' => [
@@ -59,6 +67,17 @@ class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
 
         $this->serviceManager = new ServiceManager();
         (new ServiceManagerConfig($serviceConfig))->configureServiceManager($this->serviceManager);
+
+        if (class_exists(RouterConfigProvider::class)) {
+            $routerConfig = new Config((new RouterConfigProvider())->getDependencyConfig());
+            $routerConfig->configureServiceManager($this->serviceManager);
+        }
+
+        if (class_exists(MvcConsoleConfigProvider::class)) {
+            $mvcConsoleConfig = new Config((new MvcConsoleConfigProvider())->getDependencyConfig());
+            $mvcConsoleConfig->configureServiceManager($this->serviceManager);
+        }
+
         $this->serviceManager->setAllowOverride(true);
         $this->serviceManager->setService('config', $config);
         $this->serviceManager->setAlias('Configure', 'config');

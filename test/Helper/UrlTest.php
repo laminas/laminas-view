@@ -9,13 +9,22 @@
 
 namespace ZendTest\View\Helper;
 
-use Zend\View\Helper\Url as UrlHelper;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\ModuleRouteListener;
+use Zend\Mvc\Router\Http\Literal as LiteralRoute;
+use Zend\Mvc\Router\Http\Segment as SegmentRoute;
+use Zend\Mvc\Router\Http\TreeRouteStack;
+use Zend\Mvc\Router\Http\Wildcard as WildcardRoute;
 use Zend\Mvc\Router\RouteMatch;
 use Zend\Mvc\Router\SimpleRouteStack as Router;
+use Zend\Router\Http\Literal as NextGenLiteralRoute;
+use Zend\Router\Http\Segment as NextGenSegmentRoute;
+use Zend\Router\Http\TreeRouteStack as NextGenTreeRouteStack;
+use Zend\Router\Http\Wildcard as NextGenWildcardRoute;
 use Zend\Router\RouteMatch as NextGenRouteMatch;
 use Zend\Router\SimpleRouteStack as NextGenRouter;
+use Zend\View\Exception;
+use Zend\View\Helper\Url as UrlHelper;
 
 /**
  * Zend\View\Helper\Url Test
@@ -43,15 +52,38 @@ class UrlTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $router = new Router();
+        $this->routeMatchType = class_exists(NextGenRouteMatch::class)
+            ? NextGenRouteMatch::class
+            : RouteMatch::class;
+
+        $this->literalRouteType = class_exists(NextGenLiteralRoute::class)
+            ? NextGenLiteralRoute::class
+            : LiteralRoute::class;
+
+        $this->segmentRouteType = class_exists(NextGenSegmentRoute::class)
+            ? NextGenSegmentRoute::class
+            : SegmentRoute::class;
+
+        $this->treeRouteStackType = class_exists(NextGenTreeRouteStack::class)
+            ? NextGenTreeRouteStack::class
+            : TreeRouteStack::class;
+
+        $this->wildcardRouteType = class_exists(NextGenWildcardRoute::class)
+            ? NextGenWildcardRoute::class
+            : WildcardRoute::class;
+
+        $routerClass = class_exists(NextGenRouter::class)
+            ? NextGenRouter::class
+            : Router::class;
+        $router = new $routerClass();
         $router->addRoute('home', [
-            'type' => 'Zend\Mvc\Router\Http\Literal',
+            'type' => $this->literalRouteType,
             'options' => [
                 'route' => '/',
             ]
         ]);
         $router->addRoute('default', [
-                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'type' => $this->segmentRouteType,
                 'options' => [
                     'route' => '/:controller[/:action]',
                 ]
@@ -64,7 +96,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
 
     public function testHelperHasHardDependencyWithRouter()
     {
-        $this->setExpectedException('Zend\View\Exception\RuntimeException', 'No RouteStackInterface instance provided');
+        $this->setExpectedException(Exception\RuntimeException::class, 'No RouteStackInterface instance provided');
         $url = new UrlHelper;
         $url('home');
     }
@@ -99,20 +131,20 @@ class UrlTest extends \PHPUnit_Framework_TestCase
 
     public function testPluginWithoutRouteMatchesInEventRaisesExceptionWhenNoRouteProvided()
     {
-        $this->setExpectedException('Zend\View\Exception\RuntimeException', 'RouteMatch');
+        $this->setExpectedException(Exception\RuntimeException::class, 'RouteMatch');
         $this->url->__invoke();
     }
 
     public function testPluginWithRouteMatchesReturningNoMatchedRouteNameRaisesExceptionWhenNoRouteProvided()
     {
-        $this->url->setRouteMatch(new RouteMatch([]));
-        $this->setExpectedException('Zend\View\Exception\RuntimeException', 'matched');
+        $this->url->setRouteMatch(new $this->routeMatchType([]));
+        $this->setExpectedException(Exception\RuntimeException::class, 'matched');
         $this->url->__invoke();
     }
 
     public function testPassingNoArgumentsWithValidRouteMatchGeneratesUrl()
     {
-        $routeMatch = new RouteMatch([]);
+        $routeMatch = new $this->routeMatchType([]);
         $routeMatch->setMatchedRouteName('home');
         $this->url->setRouteMatch($routeMatch);
         $url = $this->url->__invoke();
@@ -122,7 +154,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
     public function testCanReuseMatchedParameters()
     {
         $this->router->addRoute('replace', [
-            'type'    => 'Zend\Mvc\Router\Http\Segment',
+            'type'    => $this->segmentRouteType,
             'options' => [
                 'route'    => '/:controller/:action',
                 'defaults' => [
@@ -130,7 +162,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
                 ],
             ],
         ]);
-        $routeMatch = new RouteMatch([
+        $routeMatch = new $this->routeMatchType([
             'controller' => 'foo',
         ]);
         $routeMatch->setMatchedRouteName('replace');
@@ -142,7 +174,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
     public function testCanPassBooleanValueForThirdArgumentToAllowReusingRouteMatches()
     {
         $this->router->addRoute('replace', [
-            'type' => 'Zend\Mvc\Router\Http\Segment',
+            'type' => $this->segmentRouteType,
             'options' => [
                 'route'    => '/:controller/:action',
                 'defaults' => [
@@ -150,7 +182,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
                 ],
             ],
         ]);
-        $routeMatch = new RouteMatch([
+        $routeMatch = new $this->routeMatchType([
             'controller' => 'foo',
         ]);
         $routeMatch->setMatchedRouteName('replace');
@@ -161,9 +193,9 @@ class UrlTest extends \PHPUnit_Framework_TestCase
 
     public function testRemovesModuleRouteListenerParamsWhenReusingMatchedParameters()
     {
-        $router = new \Zend\Mvc\Router\Http\TreeRouteStack;
+        $router = new $this->treeRouteStackType;
         $router->addRoute('default', [
-            'type' => 'Zend\Mvc\Router\Http\Segment',
+            'type' => $this->segmentRouteType,
             'options' => [
                 'route'    => '/:controller/:action',
                 'defaults' => [
@@ -174,7 +206,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
             ],
             'child_routes' => [
                 'wildcard' => [
-                    'type'    => 'Zend\Mvc\Router\Http\Wildcard',
+                    'type'    => $this->wildcardRouteType,
                     'options' => [
                         'param_delimiter'     => '=',
                         'key_value_delimiter' => '%'
@@ -183,7 +215,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
             ]
         ]);
 
-        $routeMatch = new RouteMatch([
+        $routeMatch = new $this->routeMatchType([
             ModuleRouteListener::MODULE_NAMESPACE => 'ZendTest\Mvc\Controller\TestAsset',
             'controller' => 'Rainbow'
         ]);
