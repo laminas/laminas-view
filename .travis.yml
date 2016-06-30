@@ -78,6 +78,7 @@ before_install:
   - if [[ $EXECUTE_TEST_COVERALLS == 'true' ]]; then composer require --dev --no-update satooshi/php-coveralls ; fi
 
 install:
+  - if [[ $DEPS == 'latest' ]]; then travis_retry composer require --dev --no-update $COMPOSER_ARGS zendframework/zend-mvc-plugin-flashmessenger ; fi
   - if [[ $DEPS == 'latest' ]]; then travis_retry composer update $COMPOSER_ARGS ; fi
   - if [[ $DEPS == 'lowest' ]]; then travis_retry composer update --prefer-lowest --prefer-stable $COMPOSER_ARGS ; fi
   - travis_retry composer install $COMPOSER_ARGS
