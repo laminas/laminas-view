@@ -7,7 +7,7 @@
 
 namespace Zend\View\Helper;
 
-use Zend\Mvc\Controller\Plugin\FlashMessenger as PluginFlashMessenger;
+use Zend\Mvc\Plugin\FlashMessenger\FlashMessenger as PluginFlashMessenger;
 
 /**
  * Helper to proxy the plugin flash messenger
