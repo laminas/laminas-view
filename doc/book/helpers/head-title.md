@@ -56,7 +56,7 @@ class Module
         $siteName   = 'Zend Framework';
 
         // Getting the view helper manager from the application service manager
-        $viewHelperManager = $e->getApplication()->getServiceManager()->get('viewHelperManager');
+        $viewHelperManager = $e->getApplication()->getServiceManager()->get('ViewHelperManager');
 
         // Getting the headTitle helper from the view helper manager
         $headTitleHelper = $viewHelperManager->get('headTitle');
