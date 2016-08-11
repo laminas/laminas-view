@@ -583,16 +583,12 @@ within your application.
 - `Zend\View\Strategy\PhpRendererStrategy`. This strategy is a "catch-all" in
   that it will always return the `Zend\View\Renderer\PhpRenderer` and populate
   the Response body with the results of rendering.
-- `Zend\View\Strategy\JsonStrategy`. This strategy inspects the `Accept` HTTP
-  request header, if present, and determines if the client has indicated it
-  accepts an `application/json` response. If so, it will return the
+- `Zend\View\Strategy\JsonStrategy`. This strategy will return the
   `Zend\View\Renderer\JsonRenderer`, and populate the Response body with the
   JSON value returned, as well as set a `Content-Type` header with a value of
   `application/json`.
-- `Zend\View\Strategy\FeedStrategy`. This strategy inspects the `Accept` HTTP
-  header, if present, and determines if the client has indicated it accepts
-  either an `application/rss+xml` or `application/atom+xml` response. If so, it
-  will return the `Zend\View\Renderer\FeedRenderer`, setting the feed type to
+- `Zend\View\Strategy\FeedStrategy`. This strategy will return the 
+  `Zend\View\Renderer\FeedRenderer`, setting the feed type to
   either "rss" or "atom", based on what was matched. Its Response strategy will
   populate the Response body with the generated feed, as well as set a
   `Content-Type` header with the appropriate value based on feed type.

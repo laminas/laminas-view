@@ -81,8 +81,7 @@ class JsonStrategy extends AbstractListenerAggregate
     }
 
     /**
-     * Detect if we should use the JsonRenderer based on model type and/or
-     * Accept header
+     * Detect if we should use the JsonRenderer based on model type
      *
      * @param  ViewEvent $e
      * @return null|JsonRenderer
