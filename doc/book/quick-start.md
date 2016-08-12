@@ -635,7 +635,32 @@ class Module
 
 The above will register the `JsonStrategy` with the "render" event, such that it
 executes prior to the `PhpRendererStrategy`, and thus ensure that a JSON payload
-is created when requested.
+is created when the controller returns an `JsonModel`.
+
+You could also use the module configuration to add the strategies:
+```php
+namespace Application;
+
+class Module implements \Zend\ModuleManager\Feature\ConfigProviderInterface
+{
+    /**
+     * Returns configuration to merge with application configuration
+     *
+     * @return array
+     */
+    public function getConfig()
+    {
+        return [
+            // ...
+            'view_manager' => [
+                'strategies' => [
+                    'ViewJsonStrategy',
+                ],
+            ],
+        ];
+    }
+}
+```
 
 What if you want this to happen only in specific modules, or specific
 controllers? One way is similar to the last example in the
@@ -643,7 +668,7 @@ controllers? One way is similar to the last example in the
 the layout for a specific module:
 
 ```php
-namespace Content;
+namespace Application;
 
 class Module
 {
@@ -690,124 +715,46 @@ class Module
 While the above examples detail using the `JsonStrategy`, the same could be done
 for the `FeedStrategy`.
 
-What if you want to use a custom renderer? Or if your app might allow a
-combination of JSON, Atom feeds, and HTML? At this point, you'll need to create
-your own custom strategies. Below is an example that appropriately loops through
-the HTTP `Accept` header, and selects the appropriate Renderer based on what is
-matched first.
-
+If you successfully registered the Strategy you need to use the appropriate `ViewModel`:
 ```php
-namespace Content\View;
+namespace Application;
 
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateInterface;
-use Zend\EventManager\ListenerAggregateTrait;
-use Zend\Feed\Writer\Feed;
-use Zend\View\Renderer\FeedRenderer;
-use Zend\View\Renderer\JsonRenderer;
-use Zend\View\Renderer\PhpRenderer;
-
-class AcceptStrategy implements ListenerAggregateInterface
+class MyController extends \Zend\Mvc\Controller\AbstractActionController
 {
-    use ListenerAggregateTrait;
-
-    protected $feedRenderer;
-    protected $jsonRenderer;
-    protected $phpRenderer;
-
-    public function __construct(
-        PhpRenderer $phpRenderer,
-        JsonRenderer $jsonRenderer,
-        FeedRenderer $feedRenderer
-    ) {
-        $this->phpRenderer  = $phpRenderer;
-        $this->jsonRenderer = $jsonRenderer;
-        $this->feedRenderer = $feedRenderer;
-    }
-
-    public function attach(EventManagerInterface $events, $priority = 1)
-    {
-        $this->listeners[] = $events->attach('renderer', [$this, 'selectRenderer'], $priority);
-        $this->listeners[] = $events->attach('response', [$this, 'injectResponse'], $priority);
-    }
-
     /**
-     * @param  \Zend\Mvc\MvcEvent $e The MvcEvent instance
-     * @return \Zend\View\Renderer\RendererInterface
+     * Lists the items as HTML
      */
-    public function selectRenderer($e)
+    public function listAction()
     {
-        $request = $e->getRequest();
-        $headers = $request->getHeaders();
-
-        // No Accept header? return PhpRenderer
-        if (!$headers->has('accept')) {
-            return $this->phpRenderer;
-        }
-
-        $accept = $headers->get('accept');
-        foreach ($accept->getPrioritized() as $mediaType) {
-            if (0 === strpos($mediaType, 'application/json')) {
-                return $this->jsonRenderer;
-            }
-
-            if (0 === strpos($mediaType, 'application/rss+xml')) {
-                $this->feedRenderer->setFeedType('rss');
-                return $this->feedRenderer;
-            }
-
-            if (0 === strpos($mediaType, 'application/atom+xml')) {
-                $this->feedRenderer->setFeedType('atom');
-                return $this->feedRenderer;
-            }
-        }
-
-        // Nothing matched; return PhpRenderer. Technically, we should probably
-        // return an HTTP 415 Unsupported response.
-        return $this->phpRenderer;
+        $items = /* ... get items .. .*/;
+        $viewModel = new \Zend\View\Model\ViewModel();
+        $viewModel->setVariable('items', $items);
+        return $viewModel;
     }
-
+    
     /**
-     * @param  \Zend\Mvc\MvcEvent $e The MvcEvent instance
-     * @return void
+     * Lists the items as JSON
      */
-    public function injectResponse($e)
+    public function listJsonAction()
     {
-        $renderer = $e->getRenderer();
-        $response = $e->getResponse();
-        $result   = $e->getResult();
-
-        if ($renderer === $this->jsonRenderer) {
-            // JSON Renderer; set content-type header
-            $headers = $response->getHeaders();
-            $headers->addHeaderLine('content-type', 'application/json');
-            $response->setContent($result);
-            return
-        }
-        
-        if ($renderer === $this->feedRenderer) {
-            // Feed Renderer; set content-type header, and export the feed if
-            // necessary
-            $feedType  = $this->feedRenderer->getFeedType();
-            $headers   = $response->getHeaders();
-            $mediatype = 'application/'
-                       . (('rss' == $feedType) ? 'rss' : 'atom')
-                       . '+xml';
-            $headers->addHeaderLine('content-type', $mediatype);
-
-            // If the $result is a feed, export it
-            if ($result instanceof Feed) {
-                $result = $result->export($feedType);
-            }
-
-            $response->setContent($result);
-            return;
-        }
+        $items = /* ... get items .. .*/;
+        $viewModel = new \Zend\View\Model\JsonModel();
+        $viewModel->setVariable('items', $items);
+        return $viewModel;
+    }
+    
+    /**
+     * Lists the items as a Feed
+     */
+    public function listFeedAction()
+    {
+        $items = /* ... get items .. .*/;
+        $viewModel = new \Zend\View\Model\FeedModel();
+        $viewModel->setVariable('items', $items);
+        return $viewModel;
     }
 }
 ```
 
-This strategy would be registered just as we demonstrated registering the
-`JsonStrategy` earlier.  You would also need to define service manager
-configuration to ensure the various renderers are injected when you retrieve the
-strategy from the application's locator instance.
+Or you could switch the `ViewModel` dynamically based on the "Accept" HTTP Header: 
+[Zend-Mvc: AcceptableViewModelSelector Plugin](http://zendframework.github.io/zend-mvc/plugins/#acceptableviewmodelselector-plugin).
