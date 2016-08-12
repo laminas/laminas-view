@@ -635,7 +635,7 @@ class Module
 
 The above will register the `JsonStrategy` with the "render" event, such that it
 executes prior to the `PhpRendererStrategy`, and thus ensure that a JSON payload
-is created when the controller returns an `JsonModel`.
+is created when the controller returns a `JsonModel`.
 
 You could also use the module configuration to add the strategies:
 ```php
@@ -651,8 +651,9 @@ class Module implements \Zend\ModuleManager\Feature\ConfigProviderInterface
     public function getConfig()
     {
         return [
-            // ...
+            /* ... */
             'view_manager' => [
+                /* ... */
                 'strategies' => [
                     'ViewJsonStrategy',
                 ],
@@ -726,7 +727,7 @@ class MyController extends \Zend\Mvc\Controller\AbstractActionController
      */
     public function listAction()
     {
-        $items = /* ... get items .. .*/;
+        $items = /* ... get items ... */;
         $viewModel = new \Zend\View\Model\ViewModel();
         $viewModel->setVariable('items', $items);
         return $viewModel;
@@ -737,7 +738,7 @@ class MyController extends \Zend\Mvc\Controller\AbstractActionController
      */
     public function listJsonAction()
     {
-        $items = /* ... get items .. .*/;
+        $items = /* ... get items ... */;
         $viewModel = new \Zend\View\Model\JsonModel();
         $viewModel->setVariable('items', $items);
         return $viewModel;
@@ -748,7 +749,7 @@ class MyController extends \Zend\Mvc\Controller\AbstractActionController
      */
     public function listFeedAction()
     {
-        $items = /* ... get items .. .*/;
+        $items = /* ... get items ... */;
         $viewModel = new \Zend\View\Model\FeedModel();
         $viewModel->setVariable('items', $items);
         return $viewModel;
@@ -756,5 +757,5 @@ class MyController extends \Zend\Mvc\Controller\AbstractActionController
 }
 ```
 
-Or you could switch the `ViewModel` dynamically based on the "Accept" HTTP Header: 
-[Zend-Mvc: AcceptableViewModelSelector Plugin](http://zendframework.github.io/zend-mvc/plugins/#acceptableviewmodelselector-plugin).
+Or you could switch the `ViewModel` dynamically based on the "Accept" HTTP Header with the 
+[Zend-Mvc-Plugin AcceptableViewModelSelector](http://zendframework.github.io/zend-mvc/plugins/#acceptableviewmodelselector-plugin).
