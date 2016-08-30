@@ -534,13 +534,15 @@ priority. Typically, you will register this during the bootstrap event.
 ```php
 namespace Content;
 
+use Zend\Mvc\MvcEvent;
+
 class Module
 {
     /**
-     * @param  \Zend\Mvc\MvcEvent $e The MvcEvent instance
+     * @param  MvcEvent $e The MvcEvent instance
      * @return void
      */
-    public function onBootstrap($e)
+    public function onBootstrap(MvcEvent $e)
     {
         // Register a dispatch event
         $app = $e->getParam('application');
@@ -548,10 +550,10 @@ class Module
     }
 
     /**
-     * @param  \Zend\Mvc\MvcEvent $e The MvcEvent instance
+     * @param  MvcEvent $e The MvcEvent instance
      * @return void
      */
-    public function setLayout($e)
+    public function setLayout(MvcEvent $e)
     {
         $matches    = $e->getRouteMatch();
         $controller = $matches->getParam('controller');
@@ -602,13 +604,15 @@ register the `JsonStrategy`:
 ```php
 namespace Application;
 
+use Zend\Mvc\MvcEvent;
+
 class Module
 {
     /**
-     * @param  \Zend\Mvc\MvcEvent $e The MvcEvent instance
+     * @param  MvcEvent $e The MvcEvent instance
      * @return void
      */
-    public function onBootstrap($e)
+    public function onBootstrap(MvcEvent $e)
     {
         // Register a "render" event, at high priority (so it executes prior
         // to the view attempting to render)
@@ -617,10 +621,10 @@ class Module
     }
 
     /**
-     * @param  \Zend\Mvc\MvcEvent $e The MvcEvent instance
+     * @param  MvcEvent $e The MvcEvent instance
      * @return void
      */
-    public function registerJsonStrategy($e)
+    public function registerJsonStrategy(MvcEvent $e)
     {
         $app          = $e->getTarget();
         $locator      = $app->getServiceManager();
@@ -641,7 +645,9 @@ You could also use the module configuration to add the strategies:
 ```php
 namespace Application;
 
-class Module implements \Zend\ModuleManager\Feature\ConfigProviderInterface
+use Zend\ModuleManager\Feature\ConfigProviderInterface;
+
+class Module implements ConfigProviderInterface
 {
     /**
      * Returns configuration to merge with application configuration
@@ -671,13 +677,15 @@ the layout for a specific module:
 ```php
 namespace Application;
 
+use Zend\Mvc\MvcEvent;
+
 class Module
 {
     /**
-     * @param  \Zend\Mvc\MvcEvent $e The MvcEvent instance
+     * @param  MvcEvent $e The MvcEvent instance
      * @return void
      */
-    public function onBootstrap($e)
+    public function onBootstrap(MvcEvent $e)
     {
         // Register a render event
         $app = $e->getParam('application');
@@ -685,10 +693,10 @@ class Module
     }
 
     /**
-     * @param  \Zend\Mvc\MvcEvent $e The MvcEvent instance
+     * @param  MvcEvent $e The MvcEvent instance
      * @return void
      */
-    public function registerJsonStrategy($e)
+    public function registerJsonStrategy(MvcEvent $e)
     {
         $matches    = $e->getRouteMatch();
         $controller = $matches->getParam('controller');
@@ -720,7 +728,12 @@ If you successfully registered the Strategy you need to use the appropriate `Vie
 ```php
 namespace Application;
 
-class MyController extends \Zend\Mvc\Controller\AbstractActionController
+use Zend\Mvc\Controller\AbstractActionController;
+use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
+use Zend\View\Model\FeedModel;
+
+class MyController extends AbstractActionController
 {
     /**
      * Lists the items as HTML
@@ -728,7 +741,7 @@ class MyController extends \Zend\Mvc\Controller\AbstractActionController
     public function listAction()
     {
         $items = /* ... get items ... */;
-        $viewModel = new \Zend\View\Model\ViewModel();
+        $viewModel = new ViewModel();
         $viewModel->setVariable('items', $items);
         return $viewModel;
     }
@@ -739,7 +752,7 @@ class MyController extends \Zend\Mvc\Controller\AbstractActionController
     public function listJsonAction()
     {
         $items = /* ... get items ... */;
-        $viewModel = new \Zend\View\Model\JsonModel();
+        $viewModel = new JsonModel();
         $viewModel->setVariable('items', $items);
         return $viewModel;
     }
@@ -750,7 +763,7 @@ class MyController extends \Zend\Mvc\Controller\AbstractActionController
     public function listFeedAction()
     {
         $items = /* ... get items ... */;
-        $viewModel = new \Zend\View\Model\FeedModel();
+        $viewModel = new FeedModel();
         $viewModel->setVariable('items', $items);
         return $viewModel;
     }
