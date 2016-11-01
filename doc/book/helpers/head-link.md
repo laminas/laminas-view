@@ -8,10 +8,10 @@ elements for later retrieval and output in your layout script.
 The `HeadLink` helper has special methods for adding stylesheet links to its
 stack:
 
-- `appendStylesheet($href, $media, $conditionalStylesheet, $extras)`
-- `offsetSetStylesheet($index, $href, $media, $conditionalStylesheet, $extras)`
-- `prependStylesheet($href, $media, $conditionalStylesheet, $extras)`
-- `setStylesheet($href, $media, $conditionalStylesheet, $extras)`
+- `appendStylesheet($href, $media = 'screen', $conditionalStylesheet = '', $extras = array())`
+- `offsetSetStylesheet($index, $href, $media = 'screen', $conditionalStylesheet = '', $extras = array())`
+- `prependStylesheet($href, $media = 'screen', $conditionalStylesheet = '', $extras = array())`
+- `setStylesheet($href, $media = 'screen', $conditionalStylesheet = '', $extras = array())`
 
 The `$media` value defaults to 'screen', but may be any valid media value.
 `$conditionalStylesheet` is a string or boolean `false`, and will be used at
@@ -22,10 +22,10 @@ extra values that you want to be added to the tag.
 Additionally, the `HeadLink` helper has special methods for adding 'alternate'
 links to its stack:
 
-- `appendAlternate($href, $type, $title, $extras)`
-- `offsetSetAlternate($index, $href, $type, $title, $extras)`
-- `prependAlternate($href, $type, $title, $extras)`
-- `setAlternate($href, $type, $title, $extras)`
+- `appendAlternate($href, $type, $title, $extras = array())`
+- `offsetSetAlternate($index, $href, $type, $title, $extras = array())`
+- `prependAlternate($href, $type, $title, $extras = array())`
+- `setAlternate($href, $type, $title, $extras = array())`
 
 The `headLink()` helper method allows specifying all attributes necessary for a
 `<link>` element, and allows you to also specify placement: whether the
