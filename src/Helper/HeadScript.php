@@ -85,6 +85,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      */
     protected $optionalAttributes = [
         'charset',
+        'integrity',
         'crossorigin',
         'defer',
         'async',
