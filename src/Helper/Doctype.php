@@ -181,7 +181,7 @@ class Doctype extends AbstractHelper
      */
     public function getDoctype()
     {
-        if (!isset($this->registry['doctype'])) {
+        if (! isset($this->registry['doctype'])) {
             $this->setDoctype($this->defaultDoctype);
         }
 

@@ -51,7 +51,8 @@ class LinksTest extends AbstractTest
         $this->_doctypeHelper = $this->_helper->getView()->plugin('doctype');
         $this->_oldDoctype = $this->_doctypeHelper->getDoctype();
         $this->_doctypeHelper->setDoctype(
-                \Zend\View\Helper\Doctype::HTML4_LOOSE);
+            \Zend\View\Helper\Doctype::HTML4_LOOSE
+        );
 
         // disable all active pages
         foreach ($this->_helper->findAllByActive(true) as $page) {
@@ -484,7 +485,8 @@ class LinksTest extends AbstractTest
         $container = $this->_helper->getContainer();
         $iterator = new \RecursiveIteratorIterator(
             $container,
-            \RecursiveIteratorIterator::SELF_FIRST);
+            \RecursiveIteratorIterator::SELF_FIRST
+        );
         foreach ($iterator as $page) {
             $page->resource = 'protected';
         }

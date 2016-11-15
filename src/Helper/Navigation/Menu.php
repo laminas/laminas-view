@@ -133,16 +133,16 @@ class Menu extends AbstractHelper
         $addClassToListItem,
         $liActiveClass
     ) {
-        if (!$active = $this->findActive($container, $minDepth - 1, $maxDepth)) {
+        if (! $active = $this->findActive($container, $minDepth - 1, $maxDepth)) {
             return '';
         }
 
         // special case if active page is one below minDepth
         if ($active['depth'] < $minDepth) {
-            if (!$active['page']->hasPages(!$this->renderInvisible)) {
+            if (! $active['page']->hasPages(! $this->renderInvisible)) {
                 return '';
             }
-        } elseif (!$active['page']->hasPages(!$this->renderInvisible)) {
+        } elseif (! $active['page']->hasPages(! $this->renderInvisible)) {
             // found pages has no children; render siblings
             $active['page'] = $active['page']->getParent();
         } elseif (is_int($maxDepth) && $active['depth'] + 1 > $maxDepth) {
@@ -156,7 +156,7 @@ class Menu extends AbstractHelper
         $html    = $indent . '<ul' . $ulClass . '>' . PHP_EOL;
 
         foreach ($active['page'] as $subPage) {
-            if (!$this->accept($subPage)) {
+            if (! $this->accept($subPage)) {
                 continue;
             }
 
@@ -205,7 +205,7 @@ class Menu extends AbstractHelper
         }
 
         $options = $this->normalizeOptions($options);
-        if ($options['onlyActiveBranch'] && !$options['renderParents']) {
+        if ($options['onlyActiveBranch'] && ! $options['renderParents']) {
             return $this->renderDeepestMenu(
                 $container,
                 $options['ulClass'],
@@ -286,10 +286,10 @@ class Menu extends AbstractHelper
         foreach ($iterator as $page) {
             $depth = $iterator->getDepth();
             $isActive = $page->isActive(true);
-            if ($depth < $minDepth || !$this->accept($page)) {
+            if ($depth < $minDepth || ! $this->accept($page)) {
                 // page is below minDepth or not accepted by acl/visibility
                 continue;
-            } elseif ($onlyActive && !$isActive) {
+            } elseif ($onlyActive && ! $isActive) {
                 // page is not active itself, but might be in the active branch
                 $accept = false;
                 if ($foundPage) {
@@ -298,7 +298,7 @@ class Menu extends AbstractHelper
                         $accept = true;
                     } elseif ($foundPage->getParent()->hasPage($page)) {
                         // page is a sibling of the active page...
-                        if (!$foundPage->hasPages(!$this->renderInvisible)
+                        if (! $foundPage->hasPages(! $this->renderInvisible)
                             || is_int($maxDepth) && $foundDepth + 1 > $maxDepth
                         ) {
                             // accept if active page has no children, or the
@@ -307,7 +307,7 @@ class Menu extends AbstractHelper
                         }
                     }
                 }
-                if (!$accept) {
+                if (! $accept) {
                     continue;
                 }
             }
@@ -317,7 +317,7 @@ class Menu extends AbstractHelper
             $myIndent = $indent.str_repeat('        ', $depth);
             if ($depth > $prevDepth) {
                 // start new ul tag
-                if ($ulClass && $depth ==  0) {
+                if ($ulClass && $depth == 0) {
                     $ulClass = ' class="' . $escaper($ulClass) . '"';
                 } else {
                     $ulClass = '';
@@ -550,19 +550,19 @@ class Menu extends AbstractHelper
             $options['maxDepth'] = $this->getMaxDepth();
         }
 
-        if (!isset($options['onlyActiveBranch'])) {
+        if (! isset($options['onlyActiveBranch'])) {
             $options['onlyActiveBranch'] = $this->getOnlyActiveBranch();
         }
 
-        if (!isset($options['escapeLabels'])) {
+        if (! isset($options['escapeLabels'])) {
             $options['escapeLabels'] = $this->escapeLabels;
         }
 
-        if (!isset($options['renderParents'])) {
+        if (! isset($options['renderParents'])) {
             $options['renderParents'] = $this->getRenderParents();
         }
 
-        if (!isset($options['addClassToListItem'])) {
+        if (! isset($options['addClassToListItem'])) {
             $options['addClassToListItem'] = $this->getAddClassToListItem();
         }
 

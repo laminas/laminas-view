@@ -111,7 +111,7 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
     public function testIdentityFactoryCanInjectAuthenticationServiceIfInParentServiceManager()
     {
         $config = new Config(['invokables' => [
-            'Zend\Authentication\AuthenticationService' =>  'Zend\Authentication\AuthenticationService',
+            'Zend\Authentication\AuthenticationService' => 'Zend\Authentication\AuthenticationService',
         ]]);
         $services = new ServiceManager();
         $config->configureServiceManager($services);
@@ -125,7 +125,7 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
     {
         $translator = new MvcTranslator($this->getMock('Zend\I18n\Translator\TranslatorInterface'));
         $config = new Config(['services' => [
-            'MvcTranslator' =>  $translator,
+            'MvcTranslator' => $translator,
         ]]);
         $services = new ServiceManager();
         $config->configureServiceManager($services);
@@ -138,7 +138,7 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
     {
         $translator = new Translator();
         $config = new Config(['services' => [
-            'Translator' =>  $translator,
+            'Translator' => $translator,
         ]]);
         $services = new ServiceManager();
         $config->configureServiceManager($services);
@@ -151,7 +151,7 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
     {
         $translator = new Translator();
         $config = new Config(['services' => [
-            'Zend\I18n\Translator\TranslatorInterface' =>  $translator,
+            'Zend\I18n\Translator\TranslatorInterface' => $translator,
         ]]);
         $services = new ServiceManager();
         $config->configureServiceManager($services);
@@ -196,7 +196,8 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testCanUseCallableAsHelper()
     {
-        $helper = function () {};
+        $helper = function () {
+        };
         $helpers = new HelperPluginManager(new ServiceManager());
         $config = new Config(
             [

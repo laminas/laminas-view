@@ -190,7 +190,7 @@ class NavigationTest extends AbstractTest
 
     public function testInjectingTranslator()
     {
-        if (!extension_loaded('intl')) {
+        if (! extension_loaded('intl')) {
             $this->markTestSkipped('ext/intl not enabled');
         }
 

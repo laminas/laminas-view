@@ -213,7 +213,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      */
     public function itemToString(stdClass $item)
     {
-        if (!in_array($item->type, $this->typeKeys)) {
+        if (! in_array($item->type, $this->typeKeys)) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'Invalid type "%s" provided for meta',
                 $item->type
@@ -230,7 +230,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
                     'Invalid modifier "scheme" provided; not supported by HTML5'
                 );
             }
-            if (!in_array($key, $this->modifierKeys)) {
+            if (! in_array($key, $this->modifierKeys)) {
                 continue;
             }
             $modifiersString .= $key . '="' . $this->escape($value) . '" ';
@@ -267,7 +267,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
         );
 
         if (isset($item->modifiers['conditional'])
-            && !empty($item->modifiers['conditional'])
+            && ! empty($item->modifiers['conditional'])
             && is_string($item->modifiers['conditional'])
         ) {
             // inner wrap with comment end and start if !IE
@@ -314,14 +314,14 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      */
     protected function isValid($item)
     {
-        if ((!$item instanceof stdClass)
-            || !isset($item->type)
-            || !isset($item->modifiers)
+        if ((! $item instanceof stdClass)
+            || ! isset($item->type)
+            || ! isset($item->modifiers)
         ) {
             return false;
         }
 
-        if (!isset($item->content)
+        if (! isset($item->content)
             && (! $this->view->plugin('doctype')->isHtml5()
             || (! $this->view->plugin('doctype')->isHtml5() && $item->type !== 'charset'))
         ) {
@@ -336,7 +336,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
         }
 
         // <meta property= ... /> is only supported with doctype RDFa
-        if (!$this->view->plugin('doctype')->isRdfa()
+        if (! $this->view->plugin('doctype')->isRdfa()
             && $item->type === 'property'
         ) {
             return false;
@@ -354,7 +354,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      */
     public function append($value)
     {
-        if (!$this->isValid($value)) {
+        if (! $this->isValid($value)) {
             throw new Exception\InvalidArgumentException(
                 'Invalid value passed to append; please use appendMeta()'
             );
@@ -373,7 +373,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      */
     public function offsetSet($index, $value)
     {
-        if (!$this->isValid($value)) {
+        if (! $this->isValid($value)) {
             throw  new Exception\InvalidArgumentException(
                 'Invalid value passed to offsetSet; please use offsetSetName() or offsetSetHttpEquiv()'
             );
@@ -391,7 +391,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      */
     public function offsetUnset($index)
     {
-        if (!in_array($index, $this->getContainer()->getKeys())) {
+        if (! in_array($index, $this->getContainer()->getKeys())) {
             throw new Exception\InvalidArgumentException('Invalid index passed to offsetUnset()');
         }
 
@@ -407,7 +407,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      */
     public function prepend($value)
     {
-        if (!$this->isValid($value)) {
+        if (! $this->isValid($value)) {
             throw new Exception\InvalidArgumentException(
                 'Invalid value passed to prepend; please use prependMeta()'
             );
@@ -425,7 +425,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      */
     public function set($value)
     {
-        if (!$this->isValid($value)) {
+        if (! $this->isValid($value)) {
             throw new Exception\InvalidArgumentException('Invalid value passed to set; please use setMeta()');
         }
 

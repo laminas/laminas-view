@@ -27,7 +27,7 @@ class VarExportRenderer implements Renderer
 
     public function render($nameOrModel, $values = null)
     {
-        if (!$nameOrModel instanceof Model) {
+        if (! $nameOrModel instanceof Model) {
             return var_export($nameOrModel, true);
         }
 

@@ -314,7 +314,7 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             '<meta http-equiv="pragma" content="bar" />' . PHP_EOL . '<meta http-equiv="Cache-control" content="baz" />' . PHP_EOL . '<meta name="keywords" content="bat" />',
             $view->plugin('headMeta')->toString()
-            );
+        );
     }
 
     /**
@@ -332,7 +332,7 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             '<meta name="description" content="foo" />' . PHP_EOL . '<meta http-equiv="pragma" content="baz" />' . PHP_EOL . '<meta http-equiv="Cache-control" content="baz" />' . PHP_EOL . '<meta name="keywords" content="bar" />',
             $view->plugin('headMeta')->toString()
-            );
+        );
     }
 
     /**
@@ -348,7 +348,7 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             '<meta name="bar" content="some content" />' . PHP_EOL . '<meta name="keywords" content="foo" />',
             $view->plugin('headMeta')->toString()
-            );
+        );
     }
 
     /**
@@ -394,13 +394,15 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
         $view->plugin('headMeta')->setCharset('utf-8');
         $this->assertEquals(
             '<meta charset="utf-8">',
-            $view->plugin('headMeta')->toString());
+            $view->plugin('headMeta')->toString()
+        );
 
         $view->plugin('doctype')->__invoke('XHTML5');
 
         $this->assertEquals(
             '<meta charset="utf-8"/>',
-            $view->plugin('headMeta')->toString());
+            $view->plugin('headMeta')->toString()
+        );
     }
 
      /**
@@ -410,9 +412,10 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
     {
         $this->view->doctype('XHTML1_RDFA');
         $this->helper->__invoke('foo', 'og:title', 'property');
-        $this->assertEquals('<meta property="og:title" content="foo" />',
-                            $this->helper->toString()
-                           );
+        $this->assertEquals(
+            '<meta property="og:title" content="foo" />',
+            $this->helper->toString()
+        );
     }
 
     /**
@@ -465,9 +468,10 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
     {
         $this->view->doctype('HTML5');
         $this->helper->__invoke('HeadMeta with Microdata', 'description', 'itemprop');
-        $this->assertEquals('<meta itemprop="description" content="HeadMeta with Microdata">',
-                            $this->helper->toString()
-                           );
+        $this->assertEquals(
+            '<meta itemprop="description" content="HeadMeta with Microdata">',
+            $this->helper->toString()
+        );
     }
 
     /**

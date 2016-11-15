@@ -93,13 +93,13 @@ class Gravatar extends AbstractHtmlElement
      */
     public function __invoke($email = "", $options = [], $attribs = [])
     {
-        if (!empty($email)) {
+        if (! empty($email)) {
             $this->setEmail($email);
         }
-        if (!empty($options)) {
+        if (! empty($options)) {
             $this->setOptions($options);
         }
-        if (!empty($attribs)) {
+        if (! empty($attribs)) {
             $this->setAttribs($attribs);
         }
 

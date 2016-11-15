@@ -106,7 +106,7 @@ class ConsoleRenderer implements RendererInterface, TreeRendererInterface
      */
     public function render($model, $values = null)
     {
-        if (!$model instanceof ModelInterface) {
+        if (! $model instanceof ModelInterface) {
             return '';
         }
 

@@ -196,14 +196,14 @@ class Links extends AbstractHelper
      */
     public function renderLink(AbstractPage $page, $attrib, $relation)
     {
-        if (!in_array($attrib, ['rel', 'rev'])) {
+        if (! in_array($attrib, ['rel', 'rev'])) {
             throw new Exception\DomainException(sprintf(
                 'Invalid relation attribute "%s", must be "rel" or "rev"',
                 $attrib
             ));
         }
 
-        if (!$href = $page->getHref()) {
+        if (! $href = $page->getHref()) {
             return '';
         }
 
@@ -248,7 +248,7 @@ class Links extends AbstractHelper
      */
     public function findAllRelations(AbstractPage $page, $flag = null)
     {
-        if (!is_int($flag)) {
+        if (! is_int($flag)) {
             $flag = self::RENDER_ALL;
         }
 
@@ -260,16 +260,16 @@ class Links extends AbstractHelper
             $types = array_merge($native, array_diff($page->$meth(), $native));
 
             foreach ($types as $type) {
-                if (!$relFlag = array_search($type, static::$RELATIONS)) {
+                if (! $relFlag = array_search($type, static::$RELATIONS)) {
                     $relFlag = self::RENDER_CUSTOM;
                 }
-                if (!($flag & $relFlag)) {
+                if (! ($flag & $relFlag)) {
                     continue;
                 }
 
                 $found = $this->findRelation($page, $rel, $type);
                 if ($found) {
-                    if (!is_array($found)) {
+                    if (! is_array($found)) {
                         $found = [$found];
                     }
                     $result[$rel][$type] = $found;
@@ -294,14 +294,14 @@ class Links extends AbstractHelper
      */
     public function findRelation(AbstractPage $page, $rel, $type)
     {
-        if (!in_array($rel, ['rel', 'rev'])) {
+        if (! in_array($rel, ['rel', 'rev'])) {
             throw new Exception\DomainException(sprintf(
                 'Invalid argument: $rel must be "rel" or "rev"; "%s" given',
                 $rel
             ));
         }
 
-        if (!$result = $this->findFromProperty($page, $rel, $type)) {
+        if (! $result = $this->findFromProperty($page, $rel, $type)) {
             $result = $this->findFromSearch($page, $rel, $type);
         }
 
@@ -324,12 +324,12 @@ class Links extends AbstractHelper
         if ($result) {
             $result = $this->convertToPages($result);
             if ($result) {
-                if (!is_array($result)) {
+                if (! is_array($result)) {
                     $result = [$result];
                 }
 
                 foreach ($result as $key => $page) {
-                    if (!$this->accept($page)) {
+                    if (! $this->accept($page)) {
                         unset($result[$key]);
                     }
                 }
@@ -379,12 +379,12 @@ class Links extends AbstractHelper
     public function searchRelStart(AbstractPage $page)
     {
         $found = $this->findRoot($page);
-        if (!$found instanceof AbstractPage) {
+        if (! $found instanceof AbstractPage) {
             $found->rewind();
             $found = $found->current();
         }
 
-        if ($found === $page || !$this->accept($found)) {
+        if ($found === $page || ! $this->accept($found)) {
             $found = null;
         }
 
@@ -444,7 +444,7 @@ class Links extends AbstractHelper
             RecursiveIteratorIterator::SELF_FIRST
         );
         foreach ($iterator as $intermediate) {
-            if (!$this->accept($intermediate)) {
+            if (! $this->accept($intermediate)) {
                 continue;
             }
             if ($intermediate === $page) {
@@ -477,14 +477,14 @@ class Links extends AbstractHelper
 
         // find start page(s)
         $start = $this->findRelation($page, 'rel', 'start');
-        if (!is_array($start)) {
+        if (! is_array($start)) {
             $start = [$start];
         }
 
         foreach ($root as $chapter) {
             // exclude self and start page from chapters
             if ($chapter !== $page &&
-                !in_array($chapter, $start) &&
+                ! in_array($chapter, $start) &&
                 $this->accept($chapter)) {
                 $found[] = $chapter;
             }
@@ -689,7 +689,7 @@ class Links extends AbstractHelper
             ]);
         }
 
-        if (is_array($mixed) && !empty($mixed)) {
+        if (is_array($mixed) && ! empty($mixed)) {
             if ($recursive && is_numeric(key($mixed))) {
                 // first key is numeric; assume several pages
                 $pages = [];

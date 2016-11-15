@@ -94,7 +94,7 @@ class Placeholder extends AbstractHelper
     public function containerExists($key)
     {
         $key = (string) $key;
-        $return =  array_key_exists($key, $this->items);
+        $return = array_key_exists($key, $this->items);
         return $return;
     }
 }

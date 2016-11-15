@@ -191,7 +191,7 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
      */
     protected function isValid($value)
     {
-        if (!$value instanceof stdClass) {
+        if (! $value instanceof stdClass) {
             return false;
         }
 
@@ -214,7 +214,7 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
      */
     public function append($value)
     {
-        if (!$this->isValid($value)) {
+        if (! $this->isValid($value)) {
             throw new Exception\InvalidArgumentException(
                 'append() expects a data token; please use one of the custom append*() methods'
             );
@@ -233,7 +233,7 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
      */
     public function offsetSet($index, $value)
     {
-        if (!$this->isValid($value)) {
+        if (! $this->isValid($value)) {
             throw new Exception\InvalidArgumentException(
                 'offsetSet() expects a data token; please use one of the custom offsetSet*() methods'
             );
@@ -251,7 +251,7 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
      */
     public function prepend($value)
     {
-        if (!$this->isValid($value)) {
+        if (! $this->isValid($value)) {
             throw new Exception\InvalidArgumentException(
                 'prepend() expects a data token; please use one of the custom prepend*() methods'
             );
@@ -269,7 +269,7 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
      */
     public function set($value)
     {
-        if (!$this->isValid($value)) {
+        if (! $this->isValid($value)) {
             throw new Exception\InvalidArgumentException(
                 'set() expects a data token; please use one of the custom set*() methods'
             );
@@ -316,7 +316,7 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
         }
 
         if (isset($attributes['conditionalStylesheet'])
-            && !empty($attributes['conditionalStylesheet'])
+            && ! empty($attributes['conditionalStylesheet'])
             && is_string($attributes['conditionalStylesheet'])
         ) {
             // inner wrap with comment end and start if !IE
@@ -389,7 +389,7 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
         }
         if (0 < count($args)) {
             $conditionalStylesheet = array_shift($args);
-            if (!empty($conditionalStylesheet) && is_string($conditionalStylesheet)) {
+            if (! empty($conditionalStylesheet) && is_string($conditionalStylesheet)) {
                 $conditionalStylesheet = (string) $conditionalStylesheet;
             } else {
                 $conditionalStylesheet = null;

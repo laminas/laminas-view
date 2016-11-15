@@ -41,11 +41,11 @@ class JsonModelTest extends TestCase
     public function testPrettyPrint()
     {
         $array = [
-            'simple'=>'simple test string',
-            'stringwithjsonchars'=>'\"[1,2]',
-            'complex'=>[
-                'foo'=>'bar',
-                'far'=>'boo'
+            'simple' => 'simple test string',
+            'stringwithjsonchars' => '\"[1,2]',
+            'complex' => [
+                'foo' => 'bar',
+                'far' => 'boo'
             ]
         ];
         $model = new JsonModel($array, ['prettyPrint' => true]);

@@ -115,14 +115,14 @@ class ViewTest extends TestCase
     {
         $this->view->addRenderingStrategy(function ($e) {
             $model = $e->getModel();
-            if (!$model instanceof ViewModel) {
+            if (! $model instanceof ViewModel) {
                 return;
             }
             return new TestAsset\Renderer\VarExportRenderer();
         });
         $this->view->addRenderingStrategy(function ($e) {
             $model = $e->getModel();
-            if (!$model instanceof JsonModel) {
+            if (! $model instanceof JsonModel) {
                 return;
             }
             return new Renderer\JsonRenderer();
