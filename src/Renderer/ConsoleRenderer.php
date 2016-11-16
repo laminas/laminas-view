@@ -22,10 +22,12 @@ use Zend\View\Resolver\ResolverInterface;
  */
 class ConsoleRenderer implements RendererInterface, TreeRendererInterface
 {
+    // @codingStandardsIgnoreStart
     /**
      * @var FilterChain
      */
     protected $__filterChain;
+    // @codingStandardsIgnoreEnd
 
     /**
      * Constructor.

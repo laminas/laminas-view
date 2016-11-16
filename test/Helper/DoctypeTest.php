@@ -81,7 +81,9 @@ class DoctypeTest extends \PHPUnit_Framework_TestCase
             $this->assertTrue($doctype->isXhtml());
         }
 
+        // @codingStandardsIgnoreStart
         $doctype = $this->helper->__invoke('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://framework.zend.com/foo/DTD/xhtml1-custom.dtd">');
+        // @codingStandardsIgnoreEnd
         $this->assertEquals('CUSTOM_XHTML', $doctype->getDoctype());
         $this->assertTrue($doctype->isXhtml());
     }
@@ -100,7 +102,9 @@ class DoctypeTest extends \PHPUnit_Framework_TestCase
             $this->assertFalse($doctype->isXhtml());
         }
 
+        // @codingStandardsIgnoreStart
         $doctype = $this->helper->__invoke('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 10.0 Strict//EN" "http://framework.zend.com/foo/DTD/html10-custom.dtd">');
+        // @codingStandardsIgnoreEnd
         $this->assertEquals('CUSTOM', $doctype->getDoctype());
         $this->assertFalse($doctype->isXhtml());
     }
@@ -156,8 +160,10 @@ class DoctypeTest extends \PHPUnit_Framework_TestCase
             $this->assertFalse($this->helper->__invoke($type)->isRdfa());
         }
 
+        // @codingStandardsIgnoreStart
         // custom doctype
         $doctype = $this->helper->__invoke('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 10.0 Strict//EN" "http://framework.zend.com/foo/DTD/html10-custom.dtd">');
+        // @codingStandardsIgnoreEnd
         $this->assertFalse($doctype->isRdfa());
     }
 
@@ -170,14 +176,18 @@ class DoctypeTest extends \PHPUnit_Framework_TestCase
 
     public function testCanRegisterCustomXhtmlDoctype()
     {
+        // @codingStandardsIgnoreStart
         $doctype = $this->helper->__invoke('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://framework.zend.com/foo/DTD/xhtml1-custom.dtd">');
+        // @codingStandardsIgnoreEnd
         $this->assertEquals('CUSTOM_XHTML', $doctype->getDoctype());
         $this->assertTrue($doctype->isXhtml());
     }
 
     public function testCanRegisterCustomHtmlDoctype()
     {
+        // @codingStandardsIgnoreStart
         $doctype = $this->helper->__invoke('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 10.0 Strict//EN" "http://framework.zend.com/foo/DTD/html10-custom.dtd">');
+        // @codingStandardsIgnoreEnd
         $this->assertEquals('CUSTOM', $doctype->getDoctype());
         $this->assertFalse($doctype->isXhtml());
     }
@@ -195,6 +205,8 @@ class DoctypeTest extends \PHPUnit_Framework_TestCase
     {
         $doctype = $this->helper->__invoke(Helper\Doctype::XHTML1_STRICT);
         $string   = $doctype->__toString();
+        // @codingStandardsIgnoreStart
         $this->assertEquals('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">', $string);
+        // @codingStandardsIgnoreEnd
     }
 }

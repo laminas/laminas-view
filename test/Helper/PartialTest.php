@@ -13,6 +13,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Zend\View\Helper\Partial;
 use Zend\View\Model\ViewModel;
 use Zend\View\Renderer\PhpRenderer as View;
+use ZendTest\View\Helper\TestAsset\Aggregate;
 
 /**
  * Test class for Partial view helper.

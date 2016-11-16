@@ -134,8 +134,10 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($translator, $helper->getTranslator());
     }
 
+    // @codingStandardsIgnoreStart
     public function testIfHelperIsTranslatorAwareAndMvcTranslatorIsUnavailableAndTranslatorIsAvailableItWillInjectTheTranslator()
     {
+        // @codingStandardsIgnoreEnd
         $translator = new Translator();
         $config = new Config(['services' => [
             'Translator' => $translator,
@@ -147,8 +149,10 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($translator, $helper->getTranslator());
     }
 
+    // @codingStandardsIgnoreStart
     public function testIfHelperIsTranslatorAwareAndBothMvcTranslatorAndTranslatorAreUnavailableAndTranslatorInterfaceIsAvailableItWillInjectTheTranslator()
     {
+        // @codingStandardsIgnoreEnd
         $translator = new Translator();
         $config = new Config(['services' => [
             'Zend\I18n\Translator\TranslatorInterface' => $translator,

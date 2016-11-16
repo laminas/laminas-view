@@ -169,7 +169,11 @@ class GravatarTest extends TestCase
     {
         $this->assertRegExp(
             '/class="gravatar" title="Gravatar"/',
-            $this->helper->__invoke("example@example.com", [], ['class' => 'gravatar', 'title' => 'Gravatar'])->__toString()
+            $this->helper->__invoke(
+                "example@example.com",
+                [],
+                ['class' => 'gravatar', 'title' => 'Gravatar']
+            )->__toString()
         );
     }
 
@@ -179,8 +183,10 @@ class GravatarTest extends TestCase
     public function testGravatarOptions()
     {
         $this->assertRegExp(
+            // @codingStandardsIgnoreStart
             '#src="http\&\#x3A\;\&\#x2F\;\&\#x2F\;www.gravatar.com\&\#x2F\;avatar\&\#x2F\;[a-z0-9]{32}&\#x3F;s&\#x3D;125&amp;d&\#x3D;wavatar&amp;r&\#x3D;pg"#',
             $this->helper->__invoke("example@example.com", ['rating' => 'pg', 'imgSize' => 125, 'defaultImg' => 'wavatar', 'secure' => false])->__toString()
+            // @codingStandardsIgnoreEnd
         );
     }
 

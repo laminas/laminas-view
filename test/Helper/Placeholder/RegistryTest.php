@@ -102,14 +102,17 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
     public function testContainerClassAccessorsSetState()
     {
         $this->assertEquals('Zend\View\Helper\Placeholder\Container', $this->registry->getContainerClass());
-        $this->registry->setContainerClass('ZendTest\View\Helper\Placeholder\MockContainer');
-        $this->assertEquals('ZendTest\View\Helper\Placeholder\MockContainer', $this->registry->getContainerClass());
+        $this->registry->setContainerClass('ZendTest\View\Helper\TestAsset\MockContainer');
+        $this->assertEquals(
+            'ZendTest\View\Helper\TestAsset\MockContainer',
+            $this->registry->getContainerClass()
+        );
     }
 
     public function testSetContainerClassThrowsExceptionWithInvalidContainerClass()
     {
         try {
-            $this->registry->setContainerClass('ZendTest\View\Helper\Placeholder\BogusContainer');
+            $this->registry->setContainerClass('ZendTest\View\Helper\TestAsset\BogusContainer');
             $this->fail('Invalid container classes should not be accepted');
         } catch (\Exception $e) {
         }
@@ -132,9 +135,9 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
 
     public function testUsingCustomContainerClassCreatesContainersOfCustomClass()
     {
-        $this->registry->setContainerClass('ZendTest\View\Helper\Placeholder\MockContainer');
+        $this->registry->setContainerClass('ZendTest\View\Helper\TestAsset\MockContainer');
         $container = $this->registry->createContainer('foo');
-        $this->assertInstanceOf('ZendTest\View\Helper\Placeholder\MockContainer', $container);
+        $this->assertInstanceOf('ZendTest\View\Helper\TestAsset\MockContainer', $container);
     }
 
     /**
@@ -142,25 +145,11 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetValueCreateContainer()
     {
-        $this->registry->setContainerClass('ZendTest\View\Helper\Placeholder\MockContainer');
+        $this->registry->setContainerClass('ZendTest\View\Helper\TestAsset\MockContainer');
         $data = [
             'ZF-10793'
         ];
         $container = $this->registry->createContainer('foo', $data);
         $this->assertEquals(['ZF-10793'], $container->data);
     }
-}
-
-class MockContainer extends Container\AbstractContainer
-{
-    public $data = [];
-
-    public function __construct($data)
-    {
-        $this->data = $data;
-    }
-}
-
-class BogusContainer
-{
 }

@@ -116,7 +116,10 @@ class FeedRendererTest extends TestCase
 
     public function testSettingUnacceptableFeedTypeRaisesException()
     {
-        $this->setExpectedException('Zend\View\Exception\InvalidArgumentException', 'expects a string of either "rss" or "atom"');
+        $this->setExpectedException(
+            'Zend\View\Exception\InvalidArgumentException',
+            'expects a string of either "rss" or "atom"'
+        );
         $this->renderer->setFeedType('foobar');
     }
 

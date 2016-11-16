@@ -20,6 +20,7 @@ use Zend\View\Exception\ExceptionInterface;
  */
 class BreadcrumbsTest extends AbstractTest
 {
+    // @codingStandardsIgnoreStart
     /**
      * Class name for view helper to test.
      *
@@ -33,6 +34,7 @@ class BreadcrumbsTest extends AbstractTest
      * @var \Zend\View\Helper\Navigation\Breadcrumbs
      */
     protected $_helper;
+    // @codingStandardsIgnoreEnd
 
     public function testCanRenderStraightFromServiceAlias()
     {

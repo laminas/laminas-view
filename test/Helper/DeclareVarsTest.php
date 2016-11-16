@@ -31,9 +31,10 @@ class DeclareVarsTest extends \PHPUnit_Framework_TestCase
     {
         unset($this->view);
     }
-
+    // @codingStandardsIgnoreStart
     protected function _declareVars()
     {
+        // @codingStandardsIgnoreEnd
         $this->view->plugin('declareVars')->__invoke(
             'varName1',
             'varName2',

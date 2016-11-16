@@ -27,6 +27,7 @@ use Zend\View\Renderer\PhpRenderer;
  */
 class NavigationTest extends AbstractTest
 {
+    // @codingStandardsIgnoreStart
     /**
      * Class name for view helper to test
      *
@@ -40,6 +41,7 @@ class NavigationTest extends AbstractTest
      * @var \Zend\View\Helper\Navigation
      */
     protected $_helper;
+    // @codingStandardsIgnoreEnd
 
     public function testHelperEntryPointWithoutAnyParams()
     {
@@ -382,8 +384,9 @@ class NavigationTest extends AbstractTest
             $this->assertContains('$role must be', $e->getMessage());
         }
     }
-
+    // @codingStandardsIgnoreStart
     private $_errorMessage;
+    // @codingStandardsIgnoreEnd
     public function toStringErrorHandler($code, $msg, $file, $line, array $c)
     {
         $this->_errorMessage = $msg;
@@ -605,8 +608,10 @@ class NavigationTest extends AbstractTest
      * @param  string $file
      * @return string
      */
+    // @codingStandardsIgnoreStart
     protected function _getExpected($file)
     {
+        // @codingStandardsIgnoreEnd
         return str_replace("\n", PHP_EOL, parent::_getExpected($file));
     }
 }

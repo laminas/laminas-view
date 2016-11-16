@@ -13,6 +13,7 @@ use stdClass;
 use Zend\View;
 use Zend\View\Exception;
 
+// @codingStandardsIgnoreStart
 /**
  * Zend_Layout_View_Helper_HeadLink
  *
@@ -28,6 +29,7 @@ use Zend\View\Exception;
  * @method HeadLink prependAlternate($href, $type, $title, $extras = array())
  * @method HeadLink setAlternate($href, $type, $title, $extras = array())
  */
+// @codingStandardsIgnoreEnd
 class HeadLink extends Placeholder\Container\AbstractStandalone
 {
     /**
@@ -143,7 +145,11 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
      */
     public function __call($method, $args)
     {
-        if (preg_match('/^(?P<action>set|(ap|pre)pend|offsetSet)(?P<type>Stylesheet|Alternate|Prev|Next)$/', $method, $matches)) {
+        if (preg_match(
+            '/^(?P<action>set|(ap|pre)pend|offsetSet)(?P<type>Stylesheet|Alternate|Prev|Next)$/',
+            $method,
+            $matches
+        )) {
             $argc   = count($args);
             $action = $matches['action'];
             $type   = $matches['type'];

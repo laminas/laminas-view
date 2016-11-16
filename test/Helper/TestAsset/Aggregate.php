@@ -1,6 +1,6 @@
 <?php
 
-namespace ZendTest\View\Helper;
+namespace ZendTest\View\Helper\TestAsset;
 
 class Aggregate
 {

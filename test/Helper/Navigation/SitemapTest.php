@@ -20,6 +20,7 @@ use Zend\View;
  */
 class SitemapTest extends AbstractTest
 {
+    // @codingStandardsIgnoreStart
     protected $_oldServer = [];
 
     /**
@@ -41,6 +42,7 @@ class SitemapTest extends AbstractTest
      * @var string
      */
     private $_originaltimezone;
+    // @codingStandardsIgnoreEnd
 
     protected function setUp()
     {

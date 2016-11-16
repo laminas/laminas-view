@@ -22,6 +22,7 @@ use Zend\View\Resolver\ResolverInterface as Resolver;
 use Zend\View\Resolver\TemplatePathStack;
 use Zend\View\Variables;
 
+// @codingStandardsIgnoreStart
 /**
  * Class for Zend\View\Strategy\PhpRendererStrategy to help enforce private constructs.
  *
@@ -131,6 +132,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      * @var array Temporary variable stack; used when variables passed to render()
      */
     private $__varsCache = [];
+    // @codingStandardsIgnoreEnd
 
     /**
      * Constructor.

@@ -120,7 +120,11 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      */
     public function __call($method, $args)
     {
-        if (preg_match('/^(?P<action>set|(pre|ap)pend|offsetSet)(?P<type>Name|HttpEquiv|Property|Itemprop)$/', $method, $matches)) {
+        if (preg_match(
+            '/^(?P<action>set|(pre|ap)pend|offsetSet)(?P<type>Name|HttpEquiv|Property|Itemprop)$/',
+            $method,
+            $matches
+        )) {
             $action = $matches['action'];
             $type   = $this->normalizeType($matches['type']);
             $argc   = count($args);
