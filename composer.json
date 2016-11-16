@@ -40,7 +40,7 @@
         "zendframework/zend-session": "^2.6.2",
         "zendframework/zend-servicemanager": "^2.7.5 || ^3.0.3",
         "zendframework/zend-uri": "^2.5",
-        "phpunit/phpunit": "^4.5",
+        "phpunit/phpunit": "^4.6",
         "zendframework/zend-coding-standard": "~1.0.0"
     },
     "suggest": {
