@@ -60,7 +60,7 @@ use Zend\View\Variables;
  * @method string paginationControl(\Zend\Paginator\Paginator $paginator = null, $scrollingStyle = null, $partial = null, $params = null)
  * @method string|\Zend\View\Helper\Partial partial($name = null, $values = null)
  * @method string partialLoop($name = null, $values = null)
- * @method \Zend\View\Helper\Placeholder\Container\AbstractContainer placeHolder($name = null)
+ * @method \Zend\View\Helper\Placeholder\Container\AbstractContainer placeholder($name = null)
  * @method string renderChildModel($child)
  * @method void renderToPlaceholder($script, $placeholder)
  * @method string serverUrl($requestUri = null)
