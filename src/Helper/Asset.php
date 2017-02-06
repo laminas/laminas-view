@@ -35,6 +35,10 @@ class Asset extends AbstractHelper
         return $this->resourceMap[$asset];
     }
 
+    /**
+     * @param array $resourceMap
+     * @return $this
+     */
     public function setResourceMap($resourceMap)
     {
         $this->resourceMap = $resourceMap;
@@ -42,6 +46,9 @@ class Asset extends AbstractHelper
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getResourceMap()
     {
         return $this->resourceMap;
