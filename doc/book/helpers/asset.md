@@ -37,15 +37,15 @@ The first argument of the `asset` helper is the regular asset name,
 which will be replaced by versioned asset name defined in `resource_map`
 of the configuration.
 
-### Note
-
-When `asset` key is defined but `resource_map` is not provided or is not
-an array exception `Zend\View\Exception\RuntimeException` will be
+> ### Note
+>
+> When `asset` key is defined but `resource_map` is not provided or is not
+> an array exception `Zend\View\Exception\RuntimeException` will be
 thrown.
-
-When you call `asset` helper with parameter which is not defined on your
-`resource_map` exception `Zend\View\Exception\InvalidArgumentException`
-will be thrown.
+>
+> When you call `asset` helper with parameter which is not defined on your
+> `resource_map` exception `Zend\View\Exception\InvalidArgumentException`
+> will be thrown.
 
 ## Resource map in JSON file
 
