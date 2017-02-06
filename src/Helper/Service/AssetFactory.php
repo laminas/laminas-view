@@ -24,6 +24,7 @@ class AssetFactory implements FactoryInterface
      * @param string $name
      * @param null|array $options
      * @return Asset
+     * @throws Exception\RuntimeException
      */
     public function __invoke(ContainerInterface $container, $name, array $options = null)
     {

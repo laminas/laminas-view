@@ -24,6 +24,7 @@ class Asset extends AbstractHelper
     /**
      * @param string $asset
      * @return string
+     * @throws Exception\InvalidArgumentException
      */
     public function __invoke($asset)
     {
