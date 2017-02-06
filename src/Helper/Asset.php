@@ -28,7 +28,7 @@ class Asset extends AbstractHelper
      */
     public function __invoke($asset)
     {
-        if (!array_key_exists($asset, $this->resourceMap)) {
+        if (! array_key_exists($asset, $this->resourceMap)) {
             throw new Exception\InvalidArgumentException('Asset is not defined.');
         }
 
