@@ -39,7 +39,7 @@ class Asset extends AbstractHelper
      * @param array $resourceMap
      * @return $this
      */
-    public function setResourceMap($resourceMap)
+    public function setResourceMap(array $resourceMap)
     {
         $this->resourceMap = $resourceMap;
 
