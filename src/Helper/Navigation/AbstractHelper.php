@@ -251,6 +251,21 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
                 ));
             }
 
+            // Fallback
+            if (in_array($container, ['default', 'navigation'], true)) {
+                // Uses class name
+                if ($services->has(Navigation\Navigation::class)) {
+                    $container = $services->get(Navigation\Navigation::class);
+                    return;
+                }
+
+                // Uses old service name
+                if ($services->has('navigation')) {
+                    $container = $services->get('navigation');
+                    return;
+                }
+            }
+
             /**
              * Load the navigation container from the root service locator
              */
