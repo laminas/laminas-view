@@ -30,7 +30,7 @@ use ZendTest\View\Helper\TestAsset;
 abstract class AbstractTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var
+     * @var ServiceManager
      */
     protected $serviceManager;
 
