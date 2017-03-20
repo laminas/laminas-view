@@ -422,6 +422,21 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    public function testCharsetPosition()
+    {
+        $view = new View();
+        $view->plugin('doctype')->__invoke('HTML5');
+
+        $view->plugin('headMeta')
+            ->setProperty('description', 'foobar')
+            ->setCharset('utf-8');
+
+        $this->assertEquals(
+            '<meta charset="utf-8">' . PHP_EOL
+            . '<meta property="description" content="foobar">',
+            $view->plugin('headMeta')->toString());
+    }
+
      /**
      * @group ZF-9743
      */

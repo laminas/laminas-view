@@ -40,6 +40,11 @@ All notable changes to this project will be documented in this file, in reverse 
   and exception messages in the breadcrumbs and menu navigation helpers to
   remove references to 'module' keys for the `$partial` argument, as that key
   is no longer used.
+- [#98](https://github.com/zendframework/zend-view/pull/98) fixes how the
+  `HeadMeta` helper renders the `<meta charset>` tag, ensuring it is the first
+  rendered. As long as the `HeadMeta` helper is called early in your markup, this
+  should ensure it is within the first 1024 characters, ensuring your document
+  validates.
 
 ## 2.8.1 - 2016-06-30
 
