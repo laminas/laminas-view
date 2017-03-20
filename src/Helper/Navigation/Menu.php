@@ -381,8 +381,7 @@ class Menu extends AbstractHelper
      *     script. Default is to use the container registered in the helper.
      * @param  null|string|array $partial [optional] partial view script to use.
      *     Default is to use the partial registered in the helper. If an array
-     *     is given, it is expected to contain two values; the partial view
-     *     script to use, and the module where the script can be found.
+     *     is given, the first value is used for the partial view script.
      * @return string
      * @throws Exception\RuntimeException         if no partial provided
      * @throws Exception\InvalidArgumentException if partial is invalid array
@@ -405,8 +404,7 @@ class Menu extends AbstractHelper
      *     script. Default is to use the container registered in the helper.
      * @param  null|string|array $partial [optional] partial view script to use.
      *     Default is to use the partial registered in the helper. If an array
-     *     is given, it is expected to contain two values; the partial view
-     *     script to use, and the module where the script can be found.
+     *     is given, the first value is used for the partial view script.
      * @return string
      * @throws Exception\RuntimeException         if no partial provided
      * @throws Exception\InvalidArgumentException if partial is invalid array
@@ -641,8 +639,7 @@ class Menu extends AbstractHelper
      * Sets which partial view script to use for rendering menu.
      *
      * @param  string|array $partial partial view script or null. If an array
-     *     is given, it is expected to contain two values; the partial view script
-     *     to use, and the module where the script can be found.
+     *     is given, the first value is used for the partial view script.
      * @return self
      */
     public function setPartial($partial)
@@ -773,8 +770,7 @@ class Menu extends AbstractHelper
             if (count($partial) != 2) {
                 throw new Exception\InvalidArgumentException(
                     'Unable to render menu: A view partial supplied as '
-                    . 'an array must contain two values: partial view '
-                    . 'script and module where script can be found'
+                    . 'an array must contain one value: the partial view script'
                 );
             }
 
