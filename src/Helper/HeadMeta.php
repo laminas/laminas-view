@@ -176,9 +176,18 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
         $items = [];
         $this->getContainer()->ksort();
 
+        $isHtml5 = $this->view->plugin('doctype')->isHtml5();
+
         try {
             foreach ($this as $item) {
-                $items[] = $this->itemToString($item);
+                $content = $this->itemToString($item);
+
+                if ($isHtml5 && $item->type == 'charset') {
+                    array_unshift($items, $content);
+                    continue;
+                }
+
+                $items[] = $content;
             }
         } catch (Exception\InvalidArgumentException $e) {
             trigger_error($e->getMessage(), E_USER_WARNING);
