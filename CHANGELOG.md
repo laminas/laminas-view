@@ -18,7 +18,10 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#92](https://github.com/zendframework/zend-view/pull/92) fixes the docblocks
+  and exception messages in the breadcrumbs and menu navigation helpers to
+  remove references to 'module' keys for the `$partial` argument, as that key
+  is no longer used.
 
 ## 2.8.1 - 2016-06-30
 
