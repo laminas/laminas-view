@@ -45,6 +45,9 @@ All notable changes to this project will be documented in this file, in reverse 
   rendered. As long as the `HeadMeta` helper is called early in your markup, this
   should ensure it is within the first 1024 characters, ensuring your document
   validates.
+- [#104](https://github.com/zendframework/zend-view/pull/104) fixes the
+  `@method` annotation for the `Placeholder` view helper to use the correct case,
+  fixing issues with method completion in IDEs.
 
 ## 2.8.1 - 2016-06-30
 
