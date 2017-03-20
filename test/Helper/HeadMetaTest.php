@@ -434,7 +434,8 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(
             '<meta charset="utf-8">' . PHP_EOL
             . '<meta property="description" content="foobar">',
-            $view->plugin('headMeta')->toString());
+            $view->plugin('headMeta')->toString()
+        );
     }
 
      /**
