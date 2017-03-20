@@ -9,7 +9,9 @@ namespace ZendTest\View\Helper\TestAsset;
 
 class IteratorWithToArrayTestContainer
 {
+    // @codingStandardsIgnoreStart
     protected $_info;
+    // @codingStandardsIgnoreEnd
 
     public function __construct(array $info)
     {

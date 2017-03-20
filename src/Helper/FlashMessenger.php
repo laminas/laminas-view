@@ -344,7 +344,7 @@ class FlashMessenger extends AbstractHelper
             $this->escapeHtmlHelper = $this->view->plugin('escapehtml');
         }
 
-        if (!$this->escapeHtmlHelper instanceof EscapeHtml) {
+        if (! $this->escapeHtmlHelper instanceof EscapeHtml) {
             $this->escapeHtmlHelper = new EscapeHtml();
         }
 

@@ -84,13 +84,17 @@ class HeadScriptTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    // @codingStandardsIgnoreStart
     protected function _inflectAction($type)
     {
+        // @codingStandardsIgnoreEnd
         return ucfirst(strtolower($type));
     }
 
+    // @codingStandardsIgnoreStart
     protected function _testOverloadAppend($type)
     {
+        // @codingStandardsIgnoreEnd
         $action = 'append' . $this->_inflectAction($type);
         $string = 'foo';
         for ($i = 0; $i < 3; ++$i) {
@@ -107,8 +111,10 @@ class HeadScriptTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    // @codingStandardsIgnoreStart
     protected function _testOverloadPrepend($type)
     {
+        // @codingStandardsIgnoreEnd
         $action = 'prepend' . $this->_inflectAction($type);
         $string = 'foo';
         for ($i = 0; $i < 3; ++$i) {
@@ -126,8 +132,10 @@ class HeadScriptTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    // @codingStandardsIgnoreStart
     protected function _testOverloadSet($type)
     {
+        // @codingStandardsIgnoreEnd
         $action = 'set' . $this->_inflectAction($type);
         $string = 'foo';
         for ($i = 0; $i < 3; ++$i) {
@@ -145,8 +153,10 @@ class HeadScriptTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('text/javascript', $values[0]->type);
     }
 
+    // @codingStandardsIgnoreStart
     protected function _testOverloadOffsetSet($type)
     {
+        // @codingStandardsIgnoreEnd
         $action = 'offsetSet' . $this->_inflectAction($type);
         $string = 'foo';
         $this->helper->$action(5, $string);
@@ -360,7 +370,10 @@ document.write(bar.strlen());');
     public function testTurnOffAutoEscapeDoesNotEncodeAmpersand()
     {
         $this->helper->setAutoEscape(false)->appendFile('test.js?id=123&foo=bar');
-        $this->assertEquals('<script type="text/javascript" src="test.js?id=123&foo=bar"></script>', $this->helper->toString());
+        $this->assertEquals(
+            '<script type="text/javascript" src="test.js?id=123&foo=bar"></script>',
+            $this->helper->toString()
+        );
     }
 
     public function testConditionalScript()

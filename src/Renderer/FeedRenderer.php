@@ -70,7 +70,7 @@ class FeedRenderer implements RendererInterface
         if ($nameOrModel instanceof Model) {
             // Use case 1: View Model provided
             // Non-FeedModel: cast to FeedModel
-            if (!$nameOrModel instanceof FeedModel) {
+            if (! $nameOrModel instanceof FeedModel) {
                 $vars    = $nameOrModel->getVariables();
                 $options = $nameOrModel->getOptions();
                 $type    = $this->getFeedType();
@@ -96,7 +96,7 @@ class FeedRenderer implements RendererInterface
         // Get feed and type
         $feed = $nameOrModel->getFeed();
         $type = $nameOrModel->getFeedType();
-        if (!$type) {
+        if (! $type) {
             $type = $this->getFeedType();
         } else {
             $this->setFeedType($type);
@@ -116,7 +116,7 @@ class FeedRenderer implements RendererInterface
     public function setFeedType($feedType)
     {
         $feedType = strtolower($feedType);
-        if (!in_array($feedType, ['rss', 'atom'])) {
+        if (! in_array($feedType, ['rss', 'atom'])) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s expects a string of either "rss" or "atom"',
                 __METHOD__

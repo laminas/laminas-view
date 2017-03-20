@@ -11,6 +11,7 @@ namespace ZendTest\View\Helper\Navigation;
 
 class AbstractHelperTest extends AbstractTest
 {
+    // @codingStandardsIgnoreStart
     /**
      * Class name for view helper to test
      *
@@ -24,6 +25,7 @@ class AbstractHelperTest extends AbstractTest
      * @var \Zend\View\Helper\Navigation\Breadcrumbs
      */
     protected $_helper;
+    // @codingStandardsIgnoreEnd
 
     protected function tearDown()
     {

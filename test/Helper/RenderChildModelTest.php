@@ -114,7 +114,11 @@ class RenderChildModelTest extends TestCase
         $child1->addChild($nested);
 
         $result = $this->renderer->render($this->parent);
-        $this->assertRegExp('/Content:\s+Layout start\s+Content for layout\s+Layout end\s+Sidebar:\s+Second child/s', $result, $result);
+        $this->assertRegExp(
+            '/Content:\s+Layout start\s+Content for layout\s+Layout end\s+Sidebar:\s+Second child/s',
+            $result,
+            $result
+        );
     }
 
     public function testAttemptingToRenderWithNoCurrentModelRaisesException()

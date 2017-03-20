@@ -104,7 +104,7 @@ class View implements EventManagerAwareInterface
      */
     public function getEventManager()
     {
-        if (!$this->events instanceof EventManagerInterface) {
+        if (! $this->events instanceof EventManagerInterface) {
             $this->setEventManager(new EventManager());
         }
         return $this->events;
@@ -175,7 +175,7 @@ class View implements EventManagerAwareInterface
             return ($result instanceof Renderer);
         }, $event);
         $renderer = $results->last();
-        if (!$renderer instanceof Renderer) {
+        if (! $renderer instanceof Renderer) {
             throw new Exception\RuntimeException(sprintf(
                 '%s: no renderer selected!',
                 __METHOD__
@@ -194,8 +194,8 @@ class View implements EventManagerAwareInterface
         // a) the renderer does not implement TreeRendererInterface, or
         // b) it does, but canRenderTrees() returns false
         if ($model->hasChildren()
-            && (!$renderer instanceof TreeRendererInterface
-                || !$renderer->canRenderTrees())
+            && (! $renderer instanceof TreeRendererInterface
+                || ! $renderer->canRenderTrees())
         ) {
             $this->renderChildren($model);
         }
@@ -236,9 +236,9 @@ class View implements EventManagerAwareInterface
             $result  = $this->render($child);
             $child->setOption('has_parent', null);
             $capture = $child->captureTo();
-            if (!empty($capture)) {
+            if (! empty($capture)) {
                 if ($child->isAppend()) {
-                    $oldResult=$model->{$capture};
+                    $oldResult = $model->{$capture};
                     $model->setVariable($capture, $oldResult . $result);
                 } else {
                     $model->setVariable($capture, $result);

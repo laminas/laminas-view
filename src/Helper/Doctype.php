@@ -131,6 +131,7 @@ class Doctype extends AbstractHelper
      */
     protected static function registerDefaultDoctypes()
     {
+        // @codingStandardsIgnoreStart
         static::$registeredDoctypes = new ArrayObject([
             'doctypes' => [
                 self::XHTML11             => '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">',
@@ -147,6 +148,7 @@ class Doctype extends AbstractHelper
                 self::HTML5               => '<!DOCTYPE html>',
             ],
         ]);
+        // @codingStandardsIgnoreEnd
     }
 
     /**
@@ -181,7 +183,7 @@ class Doctype extends AbstractHelper
      */
     public function getDoctype()
     {
-        if (!isset($this->registry['doctype'])) {
+        if (! isset($this->registry['doctype'])) {
             $this->setDoctype($this->defaultDoctype);
         }
 

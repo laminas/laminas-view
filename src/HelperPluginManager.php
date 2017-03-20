@@ -153,7 +153,7 @@ class HelperPluginManager extends AbstractPluginManager
         Helper\BasePath::class            => InvokableFactory::class,
         Helper\Cycle::class               => InvokableFactory::class,
         Helper\DeclareVars::class         => InvokableFactory::class,
-        Helper\Doctype::class             => InvokableFactory::class, // overridden by a factory in ViewHelperManagerFactory
+        Helper\Doctype::class             => InvokableFactory::class, // overridden in ViewHelperManagerFactory
         Helper\EscapeHtml::class          => InvokableFactory::class,
         Helper\EscapeHtmlAttr::class      => InvokableFactory::class,
         Helper\EscapeJs::class            => InvokableFactory::class,

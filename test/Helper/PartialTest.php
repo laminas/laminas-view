@@ -13,6 +13,7 @@ use PHPUnit_Framework_TestCase as TestCase;
 use Zend\View\Helper\Partial;
 use Zend\View\Model\ViewModel;
 use Zend\View\Renderer\PhpRenderer as View;
+use ZendTest\View\Helper\TestAsset\Aggregate;
 
 /**
  * Test class for Partial view helper.
@@ -164,18 +165,5 @@ class PartialTest extends TestCase
             $string = sprintf('%s: %s', $key, $value);
             $this->assertContains($string, $return);
         }
-    }
-}
-
-class Aggregate
-{
-    public $vars = [
-        'foo' => 'bar',
-        'bar' => 'baz'
-    ];
-
-    public function toArray()
-    {
-        return $this->vars;
     }
 }
