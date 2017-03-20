@@ -43,8 +43,7 @@ class FeedStrategy extends AbstractListenerAggregate
     }
 
     /**
-     * Detect if we should use the FeedRenderer based on model type and/or
-     * Accept header
+     * Detect if we should use the FeedRenderer based on model type
      *
      * @param  ViewEvent $e
      * @return null|FeedRenderer
