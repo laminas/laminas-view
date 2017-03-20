@@ -83,4 +83,24 @@ class PluginManagerCompatibilityTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(Breadcrumbs::class, $helper);
         $this->assertSame($services, $helper->getServiceLocator());
     }
+
+    /**
+     * @todo Remove when package has upgraded to PHPUnit 5.7/6.0 series.
+     */
+    public function testRegisteringInvalidElementRaisesException()
+    {
+        $this->setExpectedException($this->getServiceNotFoundException());
+        $this->getPluginManager()->setService('test', $this);
+    }
+
+    /**
+     * @todo Remove when package has upgraded to PHPUnit 5.7/6.0 series.
+     */
+    public function testLoadingInvalidElementRaisesException()
+    {
+        $manager = $this->getPluginManager();
+        $manager->setInvokableClass('test', get_class($this));
+        $this->setExpectedException($this->getServiceNotFoundException());
+        $manager->get('test');
+    }
 }

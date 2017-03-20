@@ -89,4 +89,24 @@ class HelperPluginManagerCompatibilityTest extends TestCase
     {
         $this->markTestSkipped('instanceOf is not used with this implementation');
     }
+
+    /**
+     * @todo Remove when package has upgraded to PHPUnit 5.7/6.0 series.
+     */
+    public function testRegisteringInvalidElementRaisesException()
+    {
+        $this->setExpectedException($this->getServiceNotFoundException());
+        $this->getPluginManager()->setService('test', $this);
+    }
+
+    /**
+     * @todo Remove when package has upgraded to PHPUnit 5.7/6.0 series.
+     */
+    public function testLoadingInvalidElementRaisesException()
+    {
+        $manager = $this->getPluginManager();
+        $manager->setInvokableClass('test', get_class($this));
+        $this->setExpectedException($this->getServiceNotFoundException());
+        $manager->get('test');
+    }
 }
