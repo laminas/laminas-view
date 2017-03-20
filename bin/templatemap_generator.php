@@ -121,29 +121,27 @@ $entries = array_map(function ($file) use ($basePath, $realPath) {
         : $template;
 
     $template = preg_replace('#^\.*/#', '', $template);
-    $file     = sprintf('__DIR__ . \'/%s\'', $file);
 
-    return sprintf("    '%s' => %s,\n", $template, $file);
+    return sprintf("    '%s' => __DIR__ . '/%s',", $template, $file);
 }, $files);
 
 echo '<' . "?php\nreturn [\n"
-    . implode('', $entries)
+    . implode("\n", $entries) . "\n"
     . '];';
 
 exit(0);
 
 function findTemplateFilesInTemplatePath($templatePath)
 {
-    $rdi = new RecursiveDirectoryIterator($templatePath, RecursiveDirectoryIterator::FOLLOW_SYMLINKS);
+    $rdi = new RecursiveDirectoryIterator(
+        $templatePath,
+        RecursiveDirectoryIterator::FOLLOW_SYMLINKS | RecursiveDirectoryIterator::SKIP_DOTS
+    );
     $rii = new RecursiveIteratorIterator($rdi, RecursiveIteratorIterator::LEAVES_ONLY);
 
     $files = [];
     foreach ($rii as $file) {
-        if (! $file instanceof SplFileInfo) {
-            continue;
-        }
-
-        if (! preg_match('#^phtml$#i', $file->getExtension())) {
+        if (strtolower($file->getExtension()) != 'phtml') {
             continue;
         }
 
