@@ -15,7 +15,7 @@ use Zend\Config\Config;
 /**
  * @group      Zend_View
  */
-class VariablesTest extends \PHPUnit_Framework_TestCase
+class VariablesTest extends \PHPUnit\Framework\TestCase
 {
     public function setup()
     {

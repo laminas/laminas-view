@@ -16,7 +16,7 @@ use Zend\View\Helper\DeclareVars;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class DeclareVarsTest extends \PHPUnit_Framework_TestCase
+class DeclareVarsTest extends \PHPUnit\Framework\TestCase
 {
     public function setUp()
     {

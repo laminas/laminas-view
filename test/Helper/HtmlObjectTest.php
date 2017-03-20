@@ -17,7 +17,7 @@ use Zend\View\Helper\HtmlObject;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class HtmlObjectTest extends \PHPUnit_Framework_TestCase
+class HtmlObjectTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var HtmlObject

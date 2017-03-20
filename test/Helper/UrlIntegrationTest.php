@@ -25,7 +25,7 @@ use Zend\ServiceManager\Config;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
+class UrlIntegrationTest extends \PHPUnit\Framework\TestCase
 {
     protected function setUp()
     {

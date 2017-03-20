@@ -21,7 +21,7 @@ use Zend\View\Helper\Identity as IdentityHelper;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class IdentityTest extends \PHPUnit_Framework_TestCase
+class IdentityTest extends \PHPUnit\Framework\TestCase
 {
     public function testGetIdentity()
     {

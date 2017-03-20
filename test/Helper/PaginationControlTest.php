@@ -9,7 +9,9 @@
 
 namespace ZendTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Paginator;
+use Zend\View\Exception;
 use Zend\View\Helper;
 use Zend\View\Renderer\PhpRenderer as View;
 use Zend\View\Resolver;
@@ -18,7 +20,7 @@ use Zend\View\Resolver;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class PaginationControlTest extends \PHPUnit_Framework_TestCase
+class PaginationControlTest extends TestCase
 {
     // @codingStandardsIgnoreStart
     /**
@@ -131,10 +133,8 @@ class PaginationControlTest extends \PHPUnit_Framework_TestCase
     {
         Helper\PaginationControl::setDefaultViewPartial('testPagination.phtml');
 
-        $this->setExpectedException(
-            'Zend\View\Exception\ExceptionInterface',
-            'No paginator instance provided or incorrect type'
-        );
+        $this->expectException(Exception\ExceptionInterface::class);
+        $this->expectExceptionMessage('No paginator instance provided or incorrect type');
         $this->_viewHelper->__invoke();
     }
 

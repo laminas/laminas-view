@@ -9,6 +9,8 @@
 
 namespace ZendTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
+use Zend\View\Exception;
 use Zend\View\Renderer\PhpRenderer as View;
 use Zend\View\Helper;
 use Zend\View\Exception\ExceptionInterface as ViewException;
@@ -19,7 +21,7 @@ use Zend\View\Exception\ExceptionInterface as ViewException;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class HeadMetaTest extends \PHPUnit_Framework_TestCase
+class HeadMetaTest extends TestCase
 {
     /**
      * @var Helper\HeadMeta
@@ -204,13 +206,13 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
 
     public function testOverloadingThrowsExceptionWithFewerThanTwoArgs()
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->expectException(Exception\ExceptionInterface::class);
         $this->helper->setName('foo');
     }
 
     public function testOverloadingThrowsExceptionWithInvalidMethodType()
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->expectException(Exception\ExceptionInterface::class);
         $this->helper->setFoo('foo');
     }
 
@@ -396,7 +398,7 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
         $view = new View();
         $view->plugin('doctype')->__invoke('HTML4_STRICT');
 
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->expectException(Exception\ExceptionInterface::class);
         $view->plugin('headMeta')->setCharset('utf-8');
     }
 

@@ -18,7 +18,7 @@ use Zend\View\Helper;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class PlaceholderTest extends \PHPUnit_Framework_TestCase
+class PlaceholderTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Helper\Placeholder

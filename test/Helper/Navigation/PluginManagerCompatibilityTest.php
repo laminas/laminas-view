@@ -9,6 +9,7 @@
 
 namespace ZendTest\View\Helper\Navigation;
 
+use PHPUnit\Framework\TestCase;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
 use Zend\ServiceManager\Test\CommonPluginManagerTrait;
@@ -20,7 +21,7 @@ use Zend\View\Helper\Navigation\PluginManager;
 /**
  * @group      Zend_View
  */
-class PluginManagerCompatibilityTest extends \PHPUnit_Framework_TestCase
+class PluginManagerCompatibilityTest extends TestCase
 {
     use CommonPluginManagerTrait;
 
@@ -85,22 +86,22 @@ class PluginManagerCompatibilityTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @todo Remove when package has upgraded to PHPUnit 5.7/6.0 series.
+     * @todo remove this test once we set the minimum zend-servicemanager version to 3
      */
     public function testRegisteringInvalidElementRaisesException()
     {
-        $this->setExpectedException($this->getServiceNotFoundException());
+        $this->expectException($this->getServiceNotFoundException());
         $this->getPluginManager()->setService('test', $this);
     }
 
     /**
-     * @todo Remove when package has upgraded to PHPUnit 5.7/6.0 series.
+     * @todo remove this test once we set the minimum zend-servicemanager version to 3
      */
     public function testLoadingInvalidElementRaisesException()
     {
         $manager = $this->getPluginManager();
         $manager->setInvokableClass('test', get_class($this));
-        $this->setExpectedException($this->getServiceNotFoundException());
+        $this->expectException($this->getServiceNotFoundException());
         $manager->get('test');
     }
 }

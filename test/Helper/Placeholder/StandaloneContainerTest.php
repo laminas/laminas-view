@@ -19,7 +19,7 @@ use ZendTest\View\Helper\TestAsset\Foo;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class StandaloneContainerTest extends \PHPUnit_Framework_TestCase
+class StandaloneContainerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Foo

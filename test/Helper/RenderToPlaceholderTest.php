@@ -15,7 +15,7 @@ use Zend\View\Renderer\PhpRenderer as View;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class RenderToPlaceholderTest extends \PHPUnit_Framework_TestCase
+class RenderToPlaceholderTest extends \PHPUnit\Framework\TestCase
 {
     // @codingStandardsIgnoreStart
     protected $_view = null;

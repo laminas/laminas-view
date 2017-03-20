@@ -9,7 +9,7 @@
 
 namespace ZendTest\View\Helper;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use stdClass;
 use Zend\View\Helper\EscapeJs as EscapeHelper;
 
@@ -66,7 +66,7 @@ class EscapeJsTest extends TestCase
 
     public function testEscapehtmlCalledOnEscaperObject()
     {
-        $escaper = $this->getMock('\\Zend\\Escaper\\Escaper');
+        $escaper = $this->getMockBuilder('\\Zend\\Escaper\\Escaper')->getMock();
         $escaper->expects($this->any())->method('escapeJs');
         $this->helper->setEscaper($escaper);
         $this->helper->__invoke('foo');

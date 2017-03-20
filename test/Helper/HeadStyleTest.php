@@ -18,7 +18,7 @@ use Zend\View;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class HeadStyleTest extends \PHPUnit_Framework_TestCase
+class HeadStyleTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Helper\HeadStyle

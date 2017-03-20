@@ -9,7 +9,7 @@
 
 namespace ZendTest\View\Model;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\View\Model\JsonModel;
 use Zend\Json\Json;
 

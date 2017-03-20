@@ -9,7 +9,9 @@
 
 namespace ZendTest\View;
 
+use PHPUnit\Framework\TestCase;
 use Zend\ServiceManager\ServiceManager;
+use Zend\View\Exception;
 use Zend\View\HelperPluginManager;
 use Zend\View\Renderer\PhpRenderer;
 use Zend\View\Model\ViewModel;
@@ -21,7 +23,7 @@ use Zend\Filter\FilterChain;
 /**
  * @group      Zend_View
  */
-class PhpRendererTest extends \PHPUnit_Framework_TestCase
+class PhpRendererTest extends TestCase
 {
     public function setUp()
     {
@@ -90,7 +92,8 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
 
     public function testPassingStringOfUndefinedClassToSetHelperPluginManagerRaisesException()
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface', 'Invalid');
+        $this->expectException(Exception\ExceptionInterface::class);
+        $this->expectExceptionMessage('Invalid');
         $this->renderer->setHelperPluginManager('__foo__');
     }
 
@@ -116,7 +119,8 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
      */
     public function testPassingInvalidArgumentToSetHelperPluginManagerRaisesException($plugins)
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface', 'must extend');
+        $this->expectException(Exception\ExceptionInterface::class);
+        $this->expectExceptionMessage('must extend');
         $this->renderer->setHelperPluginManager($plugins);
     }
 
@@ -291,7 +295,7 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
     public function testViewModelWithoutTemplateRaisesException()
     {
         $model = new ViewModel();
-        $this->setExpectedException('Zend\View\Exception\DomainException');
+        $this->expectException(Exception\DomainException::class);
         $content = $this->renderer->render($model);
     }
 
@@ -354,7 +358,8 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
     {
         $expected = '10 &gt; 9';
         $this->renderer->vars()->assign(['foo' => '10 > 9']);
-        $this->setExpectedException('Zend\View\Exception\RuntimeException', 'could not resolve');
+        $this->expectException(Exception\RuntimeException::class);
+        $this->expectExceptionMessage('could not resolve');
         $test = $this->renderer->render('should-not-find-this');
     }
 

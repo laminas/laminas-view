@@ -18,7 +18,7 @@ use Zend\View;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class HeadScriptTest extends \PHPUnit_Framework_TestCase
+class HeadScriptTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Helper\HeadScript

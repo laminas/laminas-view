@@ -16,7 +16,7 @@ use Zend\View\Helper\HtmlTag;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class HtmlTagTest extends \PHPUnit_Framework_TestCase
+class HtmlTagTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var HtmlTag

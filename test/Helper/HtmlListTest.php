@@ -9,6 +9,8 @@
 
 namespace ZendTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
+use Zend\View\Exception;
 use Zend\View\Helper;
 use Zend\View\Renderer\PhpRenderer as View;
 
@@ -16,7 +18,7 @@ use Zend\View\Renderer\PhpRenderer as View;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class HtmlListTest extends \PHPUnit_Framework_TestCase
+class HtmlListTest extends TestCase
 {
     /**
      * @var Helper\HtmlList
@@ -223,7 +225,7 @@ class HtmlListTest extends \PHPUnit_Framework_TestCase
      */
     public function testEmptyItems()
     {
-        $this->setExpectedException('Zend\View\Exception\InvalidArgumentException');
+        $this->expectException(Exception\InvalidArgumentException::class);
         $this->helper->__invoke([]);
     }
 }

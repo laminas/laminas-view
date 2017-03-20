@@ -9,7 +9,7 @@
 
 namespace ZendTest\View;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\Http\Request;
 use Zend\Http\Response;
 use Zend\View\Model\ViewModel;

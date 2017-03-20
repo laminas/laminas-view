@@ -16,7 +16,7 @@ use Zend\View\Resolver\PrefixPathStackResolver;
  *
  * @covers \Zend\View\Resolver\PrefixPathStackResolver
  */
-class PrefixPathStackResolverTest extends \PHPUnit_Framework_TestCase
+class PrefixPathStackResolverTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var string
@@ -67,7 +67,7 @@ class PrefixPathStackResolverTest extends \PHPUnit_Framework_TestCase
 
     public function testSetCustomPathStackResolver()
     {
-        $mockResolver = $this->getMock('Zend\View\Resolver\ResolverInterface');
+        $mockResolver = $this->getMockBuilder('Zend\View\Resolver\ResolverInterface')->getMock();
 
         $resolver = new PrefixPathStackResolver([
             'foo' => $mockResolver,

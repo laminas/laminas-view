@@ -16,7 +16,7 @@ use Zend\View\Helper\HtmlFlash;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class HtmlFlashTest extends \PHPUnit_Framework_TestCase
+class HtmlFlashTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var HtmlFlash

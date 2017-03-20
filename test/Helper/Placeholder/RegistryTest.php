@@ -18,7 +18,7 @@ use Zend\View\Helper\Placeholder\Container;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class RegistryTest extends \PHPUnit_Framework_TestCase
+class RegistryTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Registry

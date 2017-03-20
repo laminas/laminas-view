@@ -16,7 +16,7 @@ use Zend\View\Helper\HtmlQuicktime;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class HtmlQuicktimeTest extends \PHPUnit_Framework_TestCase
+class HtmlQuicktimeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var HtmlQuicktime
