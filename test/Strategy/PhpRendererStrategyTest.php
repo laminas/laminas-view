@@ -21,6 +21,9 @@ class PhpRendererStrategyTest extends TestCase
 {
     use EventListenerIntrospectionTrait;
 
+    /** @var PhpRendererStrategy */
+    private $strategy;
+
     public function setUp()
     {
         $this->renderer = new PhpRenderer;
@@ -167,5 +170,15 @@ class PhpRendererStrategyTest extends TestCase
         $this->assertCount(0, $listeners);
         $listeners = iterator_to_array($this->getListenersForEvent('response', $events));
         $this->assertCount(0, $listeners);
+    }
+
+    public function testInjectResponseWorksWithAnEventWithNoResponse()
+    {
+        $e = new ViewEvent();
+        $e->setRenderer($this->strategy->getRenderer());
+
+        $this->strategy->injectResponse($e);
+
+        $this->assertNull($e->getResponse());
     }
 }
