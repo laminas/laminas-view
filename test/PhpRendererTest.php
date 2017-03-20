@@ -459,7 +459,7 @@ class PhpRendererTest extends TestCase
 
         $helpers = new HelperPluginManager(new ServiceManager(), [
             'invokables' => [
-                'sharedinstance' => SharedInstance::class,
+                'sharedinstance' => TestAsset\SharedInstance::class,
             ],
             'shared' => [
                 'sharedinstance' => true,
