@@ -30,6 +30,9 @@ All notable changes to this project will be documented in this file, in reverse 
 - [#104](https://github.com/zendframework/zend-view/pull/104) fixes the
   `@method` annotation for the `Placeholder` view helper to use the correct case,
   fixing issues with method completion in IDEs.
+- [#112](https://github.com/zendframework/zend-view/pull/112) fixes an issue in
+  the `PhpRendererStrategy` whereby absence of a response instance in the
+  `ViewEvent` would lead to a fatal error.
 
 ## 2.8.1 - 2016-06-30
 
