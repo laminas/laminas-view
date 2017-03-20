@@ -399,7 +399,7 @@ class NavigationTest extends AbstractTest
         $this->_helper->__toString();
         restore_error_handler();
 
-        $this->assertContains('array must contain two values', $this->_errorMessage);
+        $this->assertContains('array must contain', $this->_errorMessage);
     }
 
     public function testPageIdShouldBeNormalized()
