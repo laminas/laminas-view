@@ -9,6 +9,7 @@
 
 namespace ZendTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
 use Zend\View\Helper;
 use Zend\View;
 
@@ -18,7 +19,7 @@ use Zend\View;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class HeadStyleTest extends \PHPUnit\Framework\TestCase
+class HeadStyleTest extends TestCase
 {
     /**
      * @var Helper\HeadStyle

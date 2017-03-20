@@ -9,6 +9,7 @@
 
 namespace ZendTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
 use Zend\View\Renderer\PhpRenderer as View;
 use Zend\View\Helper;
 
@@ -18,7 +19,7 @@ use Zend\View\Helper;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class PlaceholderTest extends \PHPUnit\Framework\TestCase
+class PlaceholderTest extends TestCase
 {
     /**
      * @var Helper\Placeholder
