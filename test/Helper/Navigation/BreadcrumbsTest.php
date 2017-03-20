@@ -20,6 +20,7 @@ use Zend\View\Exception\ExceptionInterface;
  */
 class BreadcrumbsTest extends AbstractTest
 {
+    // @codingStandardsIgnoreStart
     /**
      * Class name for view helper to test.
      *
@@ -33,6 +34,7 @@ class BreadcrumbsTest extends AbstractTest
      * @var \Zend\View\Helper\Navigation\Breadcrumbs
      */
     protected $_helper;
+    // @codingStandardsIgnoreEnd
 
     public function testCanRenderStraightFromServiceAlias()
     {
@@ -160,7 +162,7 @@ class BreadcrumbsTest extends AbstractTest
 
     public function testTranslationUsingZendTranslate()
     {
-        if (!extension_loaded('intl')) {
+        if (! extension_loaded('intl')) {
             $this->markTestSkipped('ext/intl not enabled');
         }
 
@@ -172,7 +174,7 @@ class BreadcrumbsTest extends AbstractTest
 
     public function testTranslationUsingZendTranslateAndCustomTextDomain()
     {
-        if (!extension_loaded('intl')) {
+        if (! extension_loaded('intl')) {
             $this->markTestSkipped('ext/intl not enabled');
         }
 
@@ -186,7 +188,7 @@ class BreadcrumbsTest extends AbstractTest
 
     public function testTranslationUsingZendTranslateAdapter()
     {
-        if (!extension_loaded('intl')) {
+        if (! extension_loaded('intl')) {
             $this->markTestSkipped('ext/intl not enabled');
         }
 

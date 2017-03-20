@@ -121,7 +121,7 @@ class HeadTitle extends Placeholder\Container\AbstractStandalone
      */
     public function setDefaultAttachOrder($setType)
     {
-        if (!in_array($setType, [
+        if (! in_array($setType, [
             Placeholder\Container\AbstractContainer::APPEND,
             Placeholder\Container\AbstractContainer::SET,
             Placeholder\Container\AbstractContainer::PREPEND

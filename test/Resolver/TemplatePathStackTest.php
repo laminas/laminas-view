@@ -115,7 +115,7 @@ class TemplatePathStackTest extends \PHPUnit_Framework_TestCase
     public function testMayEnableStreamWrapper()
     {
         $flag = (bool) ini_get('short_open_tag');
-        if (!$flag) {
+        if (! $flag) {
             $this->markTestSkipped('Short tags are disabled; cannot test');
         }
         $this->stack->setUseStreamWrapper(true);
@@ -163,7 +163,7 @@ class TemplatePathStackTest extends \PHPUnit_Framework_TestCase
     public function testReturnsPathWithStreamProtocolWhenStreamWrapperEnabled()
     {
         $flag = (bool) ini_get('short_open_tag');
-        if (!$flag) {
+        if (! $flag) {
             $this->markTestSkipped('Short tags are disabled; cannot test');
         }
         $this->stack->setUseStreamWrapper(true)

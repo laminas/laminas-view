@@ -11,6 +11,7 @@ namespace ZendTest\View\Helper\Placeholder;
 
 use Zend\View\Helper\Placeholder\Container;
 use Zend\View\Renderer\PhpRenderer as View;
+use ZendTest\View\Helper\TestAsset\Foo;
 
 /**
  * Test class for Zend\View\Helper\Placeholder\Container.
@@ -99,8 +100,8 @@ class StandaloneContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetGetContainerClass()
     {
-        $this->helper->setContainerClass('ZendTest\View\Helper\Placeholder\Bar');
-        $this->assertEquals('ZendTest\View\Helper\Placeholder\Bar', $this->helper->getContainerClass());
+        $this->helper->setContainerClass('ZendTest\View\Helper\TestAsset\Bar');
+        $this->assertEquals('ZendTest\View\Helper\TestAsset\Bar', $this->helper->getContainerClass());
     }
 
     /**
@@ -130,16 +131,4 @@ class StandaloneContainerTest extends \PHPUnit_Framework_TestCase
         $this->assertNotContains(' - ', $test);
         $this->assertContains('Bar', $test);
     }
-}
-
-class Foo extends \Zend\View\Helper\Placeholder\Container\AbstractStandalone
-{
-    protected $_regKey = 'foo';
-    public function direct()
-    {
-    }
-}
-
-class Bar extends \Zend\View\Helper\Placeholder\Container\AbstractContainer
-{
 }

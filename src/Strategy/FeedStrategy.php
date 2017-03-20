@@ -52,7 +52,7 @@ class FeedStrategy extends AbstractListenerAggregate
     {
         $model = $e->getModel();
 
-        if (!$model instanceof Model\FeedModel) {
+        if (! $model instanceof Model\FeedModel) {
             // no FeedModel present; do nothing
             return;
         }
@@ -76,7 +76,7 @@ class FeedStrategy extends AbstractListenerAggregate
         }
 
         $result   = $e->getResult();
-        if (!is_string($result) && !$result instanceof Feed) {
+        if (! is_string($result) && ! $result instanceof Feed) {
             // We don't have a string, and thus, no feed
             return;
         }

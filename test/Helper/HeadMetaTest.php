@@ -94,16 +94,20 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    // @codingStandardsIgnoreStart
     protected function _inflectAction($type)
     {
+        // @codingStandardsIgnoreEnd
         $type = str_replace('-', ' ', $type);
         $type = ucwords($type);
         $type = str_replace(' ', '', $type);
         return $type;
     }
 
+    // @codingStandardsIgnoreStart
     protected function _testOverloadAppend($type)
     {
+        // @codingStandardsIgnoreEnd
         $action = 'append' . $this->_inflectAction($type);
         $string = 'foo';
         for ($i = 0; $i < 3; ++$i) {
@@ -122,8 +126,10 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    // @codingStandardsIgnoreStart
     protected function _testOverloadPrepend($type)
     {
+        // @codingStandardsIgnoreEnd
         $action = 'prepend' . $this->_inflectAction($type);
         $string = 'foo';
         for ($i = 0; $i < 3; ++$i) {
@@ -142,8 +148,10 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    // @codingStandardsIgnoreStart
     protected function _testOverloadSet($type)
     {
+        // @codingStandardsIgnoreEnd
         $setAction = 'set' . $this->_inflectAction($type);
         $appendAction = 'append' . $this->_inflectAction($type);
         $string = 'foo';
@@ -312,9 +320,10 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
         $view->plugin('headMeta')->setName('keywords', 'bat');
 
         $this->assertEquals(
-            '<meta http-equiv="pragma" content="bar" />' . PHP_EOL . '<meta http-equiv="Cache-control" content="baz" />' . PHP_EOL . '<meta name="keywords" content="bat" />',
+            '<meta http-equiv="pragma" content="bar" />' . PHP_EOL . '<meta http-equiv="Cache-control" content="baz" />'
+            . PHP_EOL . '<meta name="keywords" content="bat" />',
             $view->plugin('headMeta')->toString()
-            );
+        );
     }
 
     /**
@@ -330,9 +339,11 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
         $view->plugin('headMeta')->setName('keywords', 'bar');
 
         $this->assertEquals(
-            '<meta name="description" content="foo" />' . PHP_EOL . '<meta http-equiv="pragma" content="baz" />' . PHP_EOL . '<meta http-equiv="Cache-control" content="baz" />' . PHP_EOL . '<meta name="keywords" content="bar" />',
+            '<meta name="description" content="foo" />' . PHP_EOL . '<meta http-equiv="pragma" content="baz" />'
+            . PHP_EOL . '<meta http-equiv="Cache-control" content="baz" />' . PHP_EOL
+            . '<meta name="keywords" content="bar" />',
             $view->plugin('headMeta')->toString()
-            );
+        );
     }
 
     /**
@@ -343,12 +354,18 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
     {
         $view = new View();
         $view->plugin('headMeta')->setName('keywords', 'foo');
-        $view->plugin('headMeta')->__invoke('some content', 'bar', 'name', [], \Zend\View\Helper\Placeholder\Container\AbstractContainer::PREPEND);
+        $view->plugin('headMeta')->__invoke(
+            'some content',
+            'bar',
+            'name',
+            [],
+            \Zend\View\Helper\Placeholder\Container\AbstractContainer::PREPEND
+        );
 
         $this->assertEquals(
             '<meta name="bar" content="some content" />' . PHP_EOL . '<meta name="keywords" content="foo" />',
             $view->plugin('headMeta')->toString()
-            );
+        );
     }
 
     /**
@@ -394,13 +411,15 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
         $view->plugin('headMeta')->setCharset('utf-8');
         $this->assertEquals(
             '<meta charset="utf-8">',
-            $view->plugin('headMeta')->toString());
+            $view->plugin('headMeta')->toString()
+        );
 
         $view->plugin('doctype')->__invoke('XHTML5');
 
         $this->assertEquals(
             '<meta charset="utf-8"/>',
-            $view->plugin('headMeta')->toString());
+            $view->plugin('headMeta')->toString()
+        );
     }
 
      /**
@@ -410,9 +429,10 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
     {
         $this->view->doctype('XHTML1_RDFA');
         $this->helper->__invoke('foo', 'og:title', 'property');
-        $this->assertEquals('<meta property="og:title" content="foo" />',
-                            $this->helper->toString()
-                           );
+        $this->assertEquals(
+            '<meta property="og:title" content="foo" />',
+            $this->helper->toString()
+        );
     }
 
     /**
@@ -465,9 +485,10 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
     {
         $this->view->doctype('HTML5');
         $this->helper->__invoke('HeadMeta with Microdata', 'description', 'itemprop');
-        $this->assertEquals('<meta itemprop="description" content="HeadMeta with Microdata">',
-                            $this->helper->toString()
-                           );
+        $this->assertEquals(
+            '<meta itemprop="description" content="HeadMeta with Microdata">',
+            $this->helper->toString()
+        );
     }
 
     /**

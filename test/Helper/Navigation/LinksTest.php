@@ -26,6 +26,7 @@ use Zend\View\Helper\Navigation;
  */
 class LinksTest extends AbstractTest
 {
+    // @codingStandardsIgnoreStart
     /**
      * Class name for view helper to test
      *
@@ -42,6 +43,7 @@ class LinksTest extends AbstractTest
 
     private $_doctypeHelper;
     private $_oldDoctype;
+    // @codingStandardsIgnoreEnd
 
     public function setUp()
     {
@@ -51,7 +53,8 @@ class LinksTest extends AbstractTest
         $this->_doctypeHelper = $this->_helper->getView()->plugin('doctype');
         $this->_oldDoctype = $this->_doctypeHelper->getDoctype();
         $this->_doctypeHelper->setDoctype(
-                \Zend\View\Helper\Doctype::HTML4_LOOSE);
+            \Zend\View\Helper\Doctype::HTML4_LOOSE
+        );
 
         // disable all active pages
         foreach ($this->_helper->findAllByActive(true) as $page) {
@@ -484,7 +487,8 @@ class LinksTest extends AbstractTest
         $container = $this->_helper->getContainer();
         $iterator = new \RecursiveIteratorIterator(
             $container,
-            \RecursiveIteratorIterator::SELF_FIRST);
+            \RecursiveIteratorIterator::SELF_FIRST
+        );
         foreach ($iterator as $page) {
             $page->resource = 'protected';
         }
@@ -599,8 +603,10 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
+    // @codingStandardsIgnoreStart
     private function _getFlags()
     {
+        // @codingStandardsIgnoreEnd
         return [
             Navigation\Links::RENDER_ALTERNATE  => 'alternate',
             Navigation\Links::RENDER_STYLESHEET => 'stylesheet',
@@ -718,8 +724,10 @@ class LinksTest extends AbstractTest
      * @param  string $file
      * @return string
      */
+    // @codingStandardsIgnoreStart
     protected function _getExpected($file)
     {
+        // @codingStandardsIgnoreEnd
         return str_replace("\n", PHP_EOL, parent::_getExpected($file));
     }
 }

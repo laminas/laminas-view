@@ -62,7 +62,10 @@ class HtmlObjectTest extends \PHPUnit_Framework_TestCase
 
         $htmlObject = $this->helper->__invoke('datastring', 'typestring', $attribs);
 
-        $this->assertContains('<object data="datastring" type="typestring" attribkey1="attribvalue1" attribkey2="attribvalue2">', $htmlObject);
+        $this->assertContains(
+            '<object data="datastring" type="typestring" attribkey1="attribvalue1" attribkey2="attribvalue2">',
+            $htmlObject
+        );
         $this->assertContains('</object>', $htmlObject);
     }
 

@@ -90,7 +90,7 @@ class JsonStrategy extends AbstractListenerAggregate
     {
         $model = $e->getModel();
 
-        if (!$model instanceof Model\JsonModel) {
+        if (! $model instanceof Model\JsonModel) {
             // no JsonModel; do nothing
             return;
         }
@@ -114,7 +114,7 @@ class JsonStrategy extends AbstractListenerAggregate
         }
 
         $result   = $e->getResult();
-        if (!is_string($result)) {
+        if (! is_string($result)) {
             // We don't have a string, and thus, no JSON
             return;
         }

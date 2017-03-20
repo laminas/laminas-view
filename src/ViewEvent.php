@@ -211,7 +211,7 @@ class ViewEvent extends Event
     public function setParams($params)
     {
         parent::setParams($params);
-        if (!is_array($params) && !$params instanceof ArrayAccess) {
+        if (! is_array($params) && ! $params instanceof ArrayAccess) {
             return $this;
         }
 
