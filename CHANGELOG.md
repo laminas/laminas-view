@@ -14,7 +14,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Removed
 
-- Nothing.
+- [#114](https://github.com/zendframework/zend-view/pull/114) removes support
+  for PHP 5.5.
 
 ### Fixed
 
