@@ -46,7 +46,7 @@ matrix:
         - PATH="$HOME/.local/bin:$PATH"
     - php: 5.6
       env:
-        - DEPS=lastest
+        - DEPS=latest
         - EXECUTE_TEST_COVERALLS=true
     - php: 7
       env:
