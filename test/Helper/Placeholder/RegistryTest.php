@@ -12,6 +12,7 @@ namespace ZendTest\View\Helper\Placeholder;
 use PHPUnit\Framework\TestCase;
 use Zend\View\Helper\Placeholder\Registry;
 use Zend\View\Helper\Placeholder\Container;
+use ZendTest\View\Helper\TestAsset;
 
 /**
  * Test class for Zend\View\Helper\Placeholder\Registry.
@@ -103,9 +104,9 @@ class RegistryTest extends TestCase
     public function testContainerClassAccessorsSetState()
     {
         $this->assertEquals(Container::class, $this->registry->getContainerClass());
-        $this->registry->setContainerClass('ZendTest\View\Helper\TestAsset\MockContainer');
+        $this->registry->setContainerClass(TestAsset\MockContainer::class);
         $this->assertEquals(
-            'ZendTest\View\Helper\TestAsset\MockContainer',
+            TestAsset\MockContainer::class,
             $this->registry->getContainerClass()
         );
     }
@@ -113,7 +114,7 @@ class RegistryTest extends TestCase
     public function testSetContainerClassThrowsExceptionWithInvalidContainerClass()
     {
         try {
-            $this->registry->setContainerClass('ZendTest\View\Helper\TestAsset\BogusContainer');
+            $this->registry->setContainerClass(TestAsset\BogusContainer::class);
             $this->fail('Invalid container classes should not be accepted');
         } catch (\Exception $e) {
         }
@@ -136,9 +137,9 @@ class RegistryTest extends TestCase
 
     public function testUsingCustomContainerClassCreatesContainersOfCustomClass()
     {
-        $this->registry->setContainerClass('ZendTest\View\Helper\TestAsset\MockContainer');
+        $this->registry->setContainerClass(TestAsset\MockContainer::class);
         $container = $this->registry->createContainer('foo');
-        $this->assertInstanceOf('ZendTest\View\Helper\TestAsset\MockContainer', $container);
+        $this->assertInstanceOf(TestAsset\MockContainer::class, $container);
     }
 
     /**
@@ -146,7 +147,7 @@ class RegistryTest extends TestCase
      */
     public function testSetValueCreateContainer()
     {
-        $this->registry->setContainerClass('ZendTest\View\Helper\TestAsset\MockContainer');
+        $this->registry->setContainerClass(TestAsset\MockContainer::class);
         $data = [
             'ZF-10793'
         ];

@@ -20,6 +20,8 @@ use Zend\View\Resolver\TemplateMapResolver;
 use Zend\View\Resolver\TemplatePathStack;
 use Zend\View\Variables;
 use Zend\Filter\FilterChain;
+use ZendTest\View\TestAsset\SharedInstance;
+use ZendTest\View\TestAsset\Uninvokable;
 
 /**
  * @group      Zend_View
@@ -219,11 +221,11 @@ class PhpRendererTest extends TestCase
     public function testMethodOverloadingShouldReturnHelperInstanceIfNotInvokable()
     {
         $helpers = new HelperPluginManager(new ServiceManager(), ['invokables' => [
-            'uninvokable' => 'ZendTest\View\TestAsset\Uninvokable',
+            'uninvokable' => Uninvokable::class,
         ]]);
         $this->renderer->setHelperPluginManager($helpers);
         $helper = $this->renderer->uninvokable();
-        $this->assertInstanceOf('ZendTest\View\TestAsset\Uninvokable', $helper);
+        $this->assertInstanceOf(Uninvokable::class, $helper);
     }
 
     /**
@@ -232,7 +234,7 @@ class PhpRendererTest extends TestCase
     public function testMethodOverloadingShouldInvokeHelperIfInvokable()
     {
         $helpers = new HelperPluginManager(new ServiceManager(), ['invokables' => [
-            'invokable' => 'ZendTest\View\TestAsset\Invokable',
+            'invokable' => Uninvokable::class,
         ]]);
         $this->renderer->setHelperPluginManager($helpers);
         $return = $this->renderer->invokable('it works!');
@@ -443,7 +445,7 @@ class PhpRendererTest extends TestCase
     {
         $helpers = new HelperPluginManager(new ServiceManager(), [
             'invokables' => [
-                'sharedinstance' => 'ZendTest\View\TestAsset\SharedInstance',
+                'sharedinstance' => SharedInstance::class,
             ],
             'shared' => [
                 'sharedinstance' => false,
@@ -458,7 +460,7 @@ class PhpRendererTest extends TestCase
 
         $helpers = new HelperPluginManager(new ServiceManager(), [
             'invokables' => [
-                'sharedinstance' => 'ZendTest\View\TestAsset\SharedInstance',
+                'sharedinstance' => SharedInstance::class,
             ],
             'shared' => [
                 'sharedinstance' => true,
