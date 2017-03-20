@@ -9,12 +9,14 @@
 
 namespace ZendTest\View\Resolver;
 
+use PHPUnit\Framework\TestCase;
+use Zend\View\Exception;
 use Zend\View\Resolver\TemplatePathStack;
 
 /**
  * @group      Zend_View
  */
-class TemplatePathStackTest extends \PHPUnit_Framework_TestCase
+class TemplatePathStackTest extends TestCase
 {
     /**
      * @var TemplatePathStack
@@ -126,7 +128,8 @@ class TemplatePathStackTest extends \PHPUnit_Framework_TestCase
     {
         $this->stack->addPath($this->baseDir . '/_templates');
 
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface', 'parent directory traversal');
+        $this->expectException(Exception\ExceptionInterface::class);
+        $this->expectExceptionMessage('parent directory traversal');
         $this->stack->resolve('../_stubs/scripts/LfiProtectionCheck.phtml');
     }
 
@@ -191,7 +194,7 @@ class TemplatePathStackTest extends \PHPUnit_Framework_TestCase
      */
     public function testSettingOptionsWithInvalidArgumentRaisesException($options)
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->expectException(Exception\ExceptionInterface::class);
         $this->stack->setOptions($options);
     }
 

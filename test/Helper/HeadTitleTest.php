@@ -18,7 +18,7 @@ use Zend\View\Helper;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class HeadTitleTest extends \PHPUnit_Framework_TestCase
+class HeadTitleTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Helper\HeadTitle
@@ -185,7 +185,7 @@ class HeadTitleTest extends \PHPUnit_Framework_TestCase
 
     public function testTranslatorMethods()
     {
-        $translatorMock = $this->getMock('Zend\I18n\Translator\Translator');
+        $translatorMock = $this->getMockBuilder('Zend\I18n\Translator\Translator')->getMock();
         $this->helper->setTranslator($translatorMock, 'foo');
 
         $this->assertEquals($translatorMock, $this->helper->getTranslator());

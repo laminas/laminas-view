@@ -10,11 +10,12 @@
 namespace ZendTest\View\Renderer;
 
 use ArrayObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use stdClass;
-use Zend\View\Renderer\JsonRenderer;
+use Zend\View\Exception;
 use Zend\View\Model\JsonModel;
 use Zend\View\Model\ViewModel;
+use Zend\View\Renderer\JsonRenderer;
 
 /**
  * @group      Zend_View
@@ -158,7 +159,7 @@ class JsonRendererTest extends TestCase
 
     public function testNonViewModelInitialArgumentWithValuesRaisesException()
     {
-        $this->setExpectedException('Zend\View\Exception\DomainException');
+        $this->expectException(Exception\DomainException::class);
         $this->renderer->render('foo', ['bar' => 'baz']);
     }
 

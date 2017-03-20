@@ -17,7 +17,7 @@ use Zend\View\Helper;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class DoctypeTest extends \PHPUnit_Framework_TestCase
+class DoctypeTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var Helper\Doctype

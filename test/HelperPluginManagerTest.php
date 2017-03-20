@@ -9,6 +9,7 @@
 
 namespace ZendTest\View;
 
+use PHPUnit\Framework\TestCase;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\I18n\Translator as MvcTranslator;
 use Zend\ServiceManager\Config;
@@ -24,7 +25,7 @@ use Zend\View\Renderer\PhpRenderer;
 /**
  * @group      Zend_View
  */
-class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
+class HelperPluginManagerTest extends TestCase
 {
     public function setUp()
     {
@@ -90,7 +91,7 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
                 return $this;
             },
         ]]);
-        $this->setExpectedException($this->getServiceNotFoundException($helpers));
+        $this->expectException($this->getServiceNotFoundException($helpers));
         $helpers->get('test');
     }
 
@@ -99,7 +100,7 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
         $helpers = new HelperPluginManager(new ServiceManager(), ['invokables' => [
             'test' => get_class($this),
         ]]);
-        $this->setExpectedException($this->getServiceNotFoundException($helpers));
+        $this->expectException($this->getServiceNotFoundException($helpers));
         $helpers->get('test');
     }
 
@@ -123,7 +124,9 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testIfHelperIsTranslatorAwareAndMvcTranslatorIsAvailableItWillInjectTheMvcTranslator()
     {
-        $translator = new MvcTranslator($this->getMock('Zend\I18n\Translator\TranslatorInterface'));
+        $translator = new MvcTranslator(
+            $this->getMockBuilder('Zend\I18n\Translator\TranslatorInterface')->getMock()
+        );
         $config = new Config(['services' => [
             'MvcTranslator' => $translator,
         ]]);

@@ -27,7 +27,7 @@ use ZendTest\View\Helper\TestAsset;
 /**
  * Base class for navigation view helper tests
  */
-abstract class AbstractTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var

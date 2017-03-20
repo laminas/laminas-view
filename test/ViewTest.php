@@ -10,10 +10,11 @@
 namespace ZendTest\View;
 
 use ArrayObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use stdClass;
 use Zend\Http\Request;
 use Zend\Http\Response;
+use Zend\View\Exception;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use Zend\View\Renderer\PhpRenderer;
@@ -164,7 +165,7 @@ class ViewTest extends TestCase
         $this->model->setVariable('parent', 'node');
         $this->model->addChild($child1);
 
-        $this->setExpectedException('Zend\View\Exception\DomainException');
+        $this->expectException(Exception\DomainException::class);
         $this->view->render($this->model);
     }
 
@@ -314,7 +315,9 @@ class ViewTest extends TestCase
      */
     public function testModelFromEventIsUsedByRenderer()
     {
-        $renderer = $this->getMock('Zend\View\Renderer\PhpRenderer', ['render']);
+        $renderer = $this->getMockBuilder('Zend\View\Renderer\PhpRenderer')
+            ->setMethods(['render'])
+            ->getMock();
 
         $model1 = new ViewModel;
         $model2 = new ViewModel;

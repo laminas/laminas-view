@@ -9,7 +9,7 @@
 
 namespace ZendTest\View\Helper;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\View\Helper\Partial;
 use Zend\View\Model\ViewModel;
 use Zend\View\Renderer\PhpRenderer as View;

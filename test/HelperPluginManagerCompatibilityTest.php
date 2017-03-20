@@ -9,7 +9,7 @@
 
 namespace ZendTest\View;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
 use Zend\Mvc\Controller\Plugin\FlashMessenger as V2FlashMessenger;
 use Zend\Mvc\Controller\PluginManager as ControllerPluginManager;
@@ -91,22 +91,22 @@ class HelperPluginManagerCompatibilityTest extends TestCase
     }
 
     /**
-     * @todo Remove when package has upgraded to PHPUnit 5.7/6.0 series.
+     * @todo remove this test once we set the minimum zend-servicemanager version to 3
      */
     public function testRegisteringInvalidElementRaisesException()
     {
-        $this->setExpectedException($this->getServiceNotFoundException());
+        $this->expectException($this->getServiceNotFoundException());
         $this->getPluginManager()->setService('test', $this);
     }
 
     /**
-     * @todo Remove when package has upgraded to PHPUnit 5.7/6.0 series.
+     * @todo remove this test once we set the minimum zend-servicemanager version to 3
      */
     public function testLoadingInvalidElementRaisesException()
     {
         $manager = $this->getPluginManager();
         $manager->setInvokableClass('test', get_class($this));
-        $this->setExpectedException($this->getServiceNotFoundException());
+        $this->expectException($this->getServiceNotFoundException());
         $manager->get('test');
     }
 }

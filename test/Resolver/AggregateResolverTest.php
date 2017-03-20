@@ -9,7 +9,7 @@
 
 namespace ZendTest\View\Resolver;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\View\Resolver;
 
 class AggregateResolverTest extends TestCase

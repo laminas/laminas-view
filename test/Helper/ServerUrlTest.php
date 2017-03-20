@@ -17,7 +17,7 @@ use Zend\View\Helper;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class ServerUrlTest extends \PHPUnit_Framework_TestCase
+class ServerUrlTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * Back up of $_SERVER

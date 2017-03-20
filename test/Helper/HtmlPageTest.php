@@ -16,7 +16,7 @@ use Zend\View\Helper\HtmlPage;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class HtmlPageTest extends \PHPUnit_Framework_TestCase
+class HtmlPageTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var HtmlPage

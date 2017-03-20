@@ -9,6 +9,8 @@
 
 namespace ZendTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
+use Zend\View\Exception;
 use Zend\View\Helper;
 use Zend\View\Renderer\PhpRenderer as View;
 use Zend\View\Exception\ExceptionInterface as ViewException;
@@ -19,7 +21,7 @@ use Zend\View\Exception\ExceptionInterface as ViewException;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class HeadLinkTest extends \PHPUnit_Framework_TestCase
+class HeadLinkTest extends TestCase
 {
     /**
      * @var Helper\HeadLink
@@ -65,25 +67,25 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
 
     public function testPrependThrowsExceptionWithoutArrayArgument()
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->expectException(Exception\ExceptionInterface::class);
         $this->helper->prepend('foo');
     }
 
     public function testAppendThrowsExceptionWithoutArrayArgument()
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->expectException(Exception\ExceptionInterface::class);
         $this->helper->append('foo');
     }
 
     public function testSetThrowsExceptionWithoutArrayArgument()
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->expectException(Exception\ExceptionInterface::class);
         $this->helper->set('foo');
     }
 
     public function testOffsetSetThrowsExceptionWithoutArrayArgument()
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->expectException(Exception\ExceptionInterface::class);
         $this->helper->offsetSet(1, 'foo');
     }
 
@@ -202,7 +204,7 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
 
     public function testOverloadingThrowsExceptionWithNoArguments()
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->expectException(Exception\ExceptionInterface::class);
         $this->helper->appendStylesheet();
     }
 
@@ -215,7 +217,7 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
 
     public function testOverloadingUsingSingleArrayArgumentWithInvalidValuesThrowsException()
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->expectException(Exception\ExceptionInterface::class);
         $this->helper->setStylesheet(['bogus' => 'unused']);
     }
 
@@ -230,7 +232,7 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
 
     public function testOverloadingThrowsExceptionWithInvalidMethod()
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->expectException(Exception\ExceptionInterface::class);
         $this->helper->bogusMethod();
     }
 

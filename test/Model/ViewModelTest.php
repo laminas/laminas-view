@@ -11,7 +11,8 @@ namespace ZendTest\View\Model;
 
 use ArrayObject;
 use stdClass;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
+use Zend\View\Exception;
 use Zend\View\Model\ViewModel;
 use Zend\View\Variables as ViewVariables;
 use ZendTest\View\Model\TestAsset\Variable;
@@ -148,14 +149,16 @@ class ViewModelTest extends TestCase
     public function testPassingAnInvalidArgumentToSetVariablesRaisesAnException()
     {
         $model = new ViewModel();
-        $this->setExpectedException('Zend\View\Exception\InvalidArgumentException', 'expects an array');
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('expects an array');
         $model->setVariables(new stdClass);
     }
 
     public function testPassingAnInvalidArgumentToSetOptionsRaisesAnException()
     {
         $model = new ViewModel();
-        $this->setExpectedException('Zend\View\Exception\InvalidArgumentException', 'expects an array');
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('expects an array');
         $model->setOptions(new stdClass);
     }
 

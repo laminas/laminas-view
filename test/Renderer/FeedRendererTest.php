@@ -9,7 +9,8 @@
 
 namespace ZendTest\View\Renderer;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
+use Zend\View\Exception;
 use Zend\View\Model\FeedModel;
 use Zend\View\Model\ViewModel;
 use Zend\View\Renderer\FeedRenderer;
@@ -19,7 +20,6 @@ class FeedRendererTest extends TestCase
 {
     public function setUp()
     {
-        $this->markTestIncomplete('Re-enable tests after zend-feed has been updated to zend-servicemanager v3');
         $this->renderer = new FeedRenderer();
     }
 
@@ -110,16 +110,15 @@ class FeedRendererTest extends TestCase
 
     public function testNonStringNonModelArgumentRaisesException()
     {
-        $this->setExpectedException('Zend\View\Exception\InvalidArgumentException', 'expects');
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('expects');
         $this->renderer->render(['foo']);
     }
 
     public function testSettingUnacceptableFeedTypeRaisesException()
     {
-        $this->setExpectedException(
-            'Zend\View\Exception\InvalidArgumentException',
-            'expects a string of either "rss" or "atom"'
-        );
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('expects a string of either "rss" or "atom"');
         $this->renderer->setFeedType('foobar');
     }
 

@@ -9,6 +9,7 @@
 
 namespace ZendTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Mvc\MvcEvent;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\Router\Http\Literal as LiteralRoute;
@@ -34,7 +35,7 @@ use Zend\View\Helper\Url as UrlHelper;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class UrlTest extends \PHPUnit_Framework_TestCase
+class UrlTest extends TestCase
 {
     /**
      * @var Router
@@ -97,7 +98,8 @@ class UrlTest extends \PHPUnit_Framework_TestCase
 
     public function testHelperHasHardDependencyWithRouter()
     {
-        $this->setExpectedException(Exception\RuntimeException::class, 'No RouteStackInterface instance provided');
+        $this->expectException(Exception\RuntimeException::class);
+        $this->expectExceptionMessage('No RouteStackInterface instance provided');
         $url = new UrlHelper;
         $url('home');
     }
@@ -132,14 +134,16 @@ class UrlTest extends \PHPUnit_Framework_TestCase
 
     public function testPluginWithoutRouteMatchesInEventRaisesExceptionWhenNoRouteProvided()
     {
-        $this->setExpectedException(Exception\RuntimeException::class, 'RouteMatch');
+        $this->expectException(Exception\RuntimeException::class);
+        $this->expectExceptionMessage('RouteMatch');
         $this->url->__invoke();
     }
 
     public function testPluginWithRouteMatchesReturningNoMatchedRouteNameRaisesExceptionWhenNoRouteProvided()
     {
         $this->url->setRouteMatch(new $this->routeMatchType([]));
-        $this->setExpectedException(Exception\RuntimeException::class, 'matched');
+        $this->expectException(Exception\RuntimeException::class);
+        $this->expectExceptionMessage('matched');
         $this->url->__invoke();
     }
 
