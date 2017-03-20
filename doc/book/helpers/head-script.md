@@ -6,14 +6,14 @@ code. The `HeadScript` helper allows you to manage both.
 
 The `HeadScript` helper supports the following methods for setting and adding scripts:
 
-- `appendFile($src, $type = 'text/javascript', $attrs = array())`
-- `offsetSetFile($index, $src, $type = 'text/javascript', $attrs = array())`
-- `prependFile($src, $type = 'text/javascript', $attrs = array())`
-- `setFile($src, $type = 'text/javascript', $attrs = array())`
-- `appendScript($script, $type = 'text/javascript', $attrs = array())`
-- `offsetSetScript($index, $script, $type = 'text/javascript', $attrs = array())`
-- `prependScript($script, $type = 'text/javascript', $attrs = array())`
-- `setScript($script, $type = 'text/javascript', $attrs = array())`
+- `appendFile($src, $type = 'text/javascript', $attrs = [])`
+- `offsetSetFile($index, $src, $type = 'text/javascript', $attrs = [])`
+- `prependFile($src, $type = 'text/javascript', $attrs = [])`
+- `setFile($src, $type = 'text/javascript', $attrs = [])`
+- `appendScript($script, $type = 'text/javascript', $attrs = [])`
+- `offsetSetScript($index, $script, $type = 'text/javascript', $attrs = [])`
+- `prependScript($script, $type = 'text/javascript', $attrs = [])`
+- `setScript($script, $type = 'text/javascript', $attrs = [])`
 
 In the case of the `*File()` methods, `$src` is the remote location of the
 script to load; this is usually in the form of a URL or a path. For the
