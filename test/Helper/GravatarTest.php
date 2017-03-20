@@ -267,7 +267,7 @@ class GravatarTest extends TestCase
 
     public function testReturnThisObject()
     {
-        $this->assertInstanceOf('Zend\View\Helper\Gravatar', $this->helper->__invoke());
+        $this->assertInstanceOf(Gravatar::class, $this->helper->__invoke());
     }
 
     public function testInvalidKeyPassedToSetOptionsMethod()

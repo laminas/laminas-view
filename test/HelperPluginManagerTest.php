@@ -10,7 +10,9 @@
 namespace ZendTest\View;
 
 use PHPUnit\Framework\TestCase;
+use Zend\Authentication\AuthenticationService;
 use Zend\I18n\Translator\Translator;
+use Zend\I18n\Translator\TranslatorInterface;
 use Zend\Mvc\I18n\Translator as MvcTranslator;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\Exception\InvalidServiceException;
@@ -112,20 +114,20 @@ class HelperPluginManagerTest extends TestCase
     public function testIdentityFactoryCanInjectAuthenticationServiceIfInParentServiceManager()
     {
         $config = new Config(['invokables' => [
-            'Zend\Authentication\AuthenticationService' => 'Zend\Authentication\AuthenticationService',
+            AuthenticationService::class => AuthenticationService::class,
         ]]);
         $services = new ServiceManager();
         $config->configureServiceManager($services);
         $helpers  = new HelperPluginManager($services);
         $identity = $helpers->get('identity');
-        $expected = $services->get('Zend\Authentication\AuthenticationService');
+        $expected = $services->get(AuthenticationService::class);
         $this->assertSame($expected, $identity->getAuthenticationService());
     }
 
     public function testIfHelperIsTranslatorAwareAndMvcTranslatorIsAvailableItWillInjectTheMvcTranslator()
     {
         $translator = new MvcTranslator(
-            $this->getMockBuilder('Zend\I18n\Translator\TranslatorInterface')->getMock()
+            $this->getMockBuilder(TranslatorInterface::class)->getMock()
         );
         $config = new Config(['services' => [
             'MvcTranslator' => $translator,
@@ -158,7 +160,7 @@ class HelperPluginManagerTest extends TestCase
         // @codingStandardsIgnoreEnd
         $translator = new Translator();
         $config = new Config(['services' => [
-            'Zend\I18n\Translator\TranslatorInterface' => $translator,
+            TranslatorInterface::class => $translator,
         ]]);
         $services = new ServiceManager();
         $config->configureServiceManager($services);

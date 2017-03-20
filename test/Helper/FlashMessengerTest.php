@@ -10,6 +10,7 @@
 namespace ZendTest\View\Helper;
 
 use PHPUnit\Framework\TestCase;
+use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\Plugin\FlashMessenger as V2PluginFlashMessenger;
 use Zend\Mvc\Controller\PluginManager;
 use Zend\Mvc\Plugin\FlashMessenger\FlashMessenger as V3PluginFlashMessenger;
@@ -397,7 +398,7 @@ class FlashMessengerTest extends TestCase
 
     public function testCanTranslateMessages()
     {
-        $mockTranslator = $this->getMockBuilder('Zend\I18n\Translator\Translator')->getMock();
+        $mockTranslator = $this->getMockBuilder(Translator::class)->getMock();
         $mockTranslator->expects($this->exactly(1))
         ->method('translate')
         ->will($this->returnValue('translated message'));
@@ -414,7 +415,7 @@ class FlashMessengerTest extends TestCase
 
     public function testCanTranslateCurrentMessages()
     {
-        $mockTranslator = $this->getMockBuilder('Zend\I18n\Translator\Translator')->getMock();
+        $mockTranslator = $this->getMockBuilder(Translator::class)->getMock();
         $mockTranslator->expects($this->exactly(1))
         ->method('translate')
         ->will($this->returnValue('translated message'));

@@ -9,6 +9,8 @@
 
 namespace ZendTest\View\Helper\Navigation;
 
+use Zend\View\Helper\Navigation\Menu;
+
 /**
  * Tests Zend\View\Helper\Navigation\Menu.
  *
@@ -23,12 +25,12 @@ class MenuTest extends AbstractTest
      *
      * @var string
      */
-    protected $_helperName = 'Zend\View\Helper\Navigation\Menu';
+    protected $_helperName = Menu::class;
 
     /**
      * View helper.
      *
-     * @var \Zend\View\Helper\Navigation\Menu
+     * @var Menu
      */
     protected $_helper;
     // @codingStandardsIgnoreEnd

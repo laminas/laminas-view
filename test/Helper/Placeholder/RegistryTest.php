@@ -66,7 +66,7 @@ class RegistryTest extends TestCase
     {
         $this->assertFalse($this->registry->containerExists('foo'));
         $container = $this->registry->createContainer('foo');
-        $this->assertInstanceOf('Zend\View\Helper\Placeholder\Container', $container);
+        $this->assertInstanceOf(Container::class, $container);
     }
 
     /**
@@ -76,7 +76,7 @@ class RegistryTest extends TestCase
     {
         $this->assertFalse($this->registry->containerExists('foo'));
         $container = $this->registry->getContainer('foo');
-        $this->assertInstanceOf('Zend\View\Helper\Placeholder\Container\AbstractContainer', $container);
+        $this->assertInstanceOf(Container\AbstractContainer::class, $container);
         $this->assertTrue($this->registry->containerExists('foo'));
     }
 
@@ -102,7 +102,7 @@ class RegistryTest extends TestCase
 
     public function testContainerClassAccessorsSetState()
     {
-        $this->assertEquals('Zend\View\Helper\Placeholder\Container', $this->registry->getContainerClass());
+        $this->assertEquals(Container::class, $this->registry->getContainerClass());
         $this->registry->setContainerClass('ZendTest\View\Helper\TestAsset\MockContainer');
         $this->assertEquals(
             'ZendTest\View\Helper\TestAsset\MockContainer',

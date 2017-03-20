@@ -32,12 +32,12 @@ class LinksTest extends AbstractTest
      *
      * @var string
      */
-    protected $_helperName = 'Zend\View\Helper\Navigation\Links';
+    protected $_helperName = Navigation\Links::class;
 
     /**
      * View helper
      *
-     * @var \Zend\View\Helper\Navigation\Links
+     * @var Navigation\Links
      */
     protected $_helper;
 
@@ -103,7 +103,7 @@ class LinksTest extends AbstractTest
         $found = $this->_helper->findRelation($active, 'rel', 'example');
 
         $expected = [
-            'type'  => 'Zend\Navigation\Page\Uri',
+            'type'  => UriPage::class,
             'href'  => 'http://www.example.com/',
             'label' => null
         ];
@@ -127,7 +127,7 @@ class LinksTest extends AbstractTest
         $found = $this->_helper->findRelExample($active);
 
         $expected = [
-            'type'  => 'Zend\Navigation\Page\Uri',
+            'type'  => UriPage::class,
             'href'  => 'http://www.example.com/',
             'label' => 'An example page'
         ];
@@ -151,7 +151,7 @@ class LinksTest extends AbstractTest
         $found = $this->_helper->findRelExample($active);
 
         $expected = [
-            'type'  => 'Zend\Navigation\Page\Uri',
+            'type'  => UriPage::class,
             'href'  => 'http://www.example.com/',
             'label' => 'An example page'
         ];
@@ -175,7 +175,7 @@ class LinksTest extends AbstractTest
         $found = $this->_helper->findRelExample($active);
 
         $expected = [
-            'type'  => 'Zend\Navigation\Page\Uri',
+            'type'  => UriPage::class,
             'href'  => 'http://www.example.com/',
             'label' => 'An example page'
         ];

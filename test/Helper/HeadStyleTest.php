@@ -57,7 +57,7 @@ class HeadStyleTest extends TestCase
     public function testHeadStyleReturnsObjectInstance()
     {
         $placeholder = $this->helper->__invoke();
-        $this->assertInstanceOf('Zend\View\Helper\HeadStyle', $placeholder);
+        $this->assertInstanceOf(Helper\HeadStyle::class, $placeholder);
     }
 
     public function testAppendPrependAndSetThrowExceptionsWhenNonStyleValueProvided()

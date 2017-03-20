@@ -9,6 +9,8 @@
 
 namespace ZendTest\View\Helper\Navigation;
 
+use Zend\View\Helper\Navigation;
+
 class AbstractHelperTest extends AbstractTest
 {
     // @codingStandardsIgnoreStart
@@ -17,7 +19,7 @@ class AbstractHelperTest extends AbstractTest
      *
      * @var string
      */
-    protected $_helperName = 'Zend\View\Helper\Navigation';
+    protected $_helperName = Navigation::class;
 
     /**
      * View helper

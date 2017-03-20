@@ -58,7 +58,7 @@ class HeadScriptTest extends TestCase
     public function testHeadScriptReturnsObjectInstance()
     {
         $placeholder = $this->helper->__invoke();
-        $this->assertInstanceOf('Zend\View\Helper\HeadScript', $placeholder);
+        $this->assertInstanceOf(Helper\HeadScript::class, $placeholder);
     }
 
     public function testSetPrependAppendAndOffsetSetThrowExceptionsOnInvalidItems()
