@@ -59,7 +59,7 @@ news entry. For this task, the optional parameters `action` and `id` need to
 have values assigned. This is how you do that:
 
 ```php
-<a href="<?= $this->url('news', ['action' => 'details', 'id' =>42]); ?>">
+<a href="<?= $this->url('news', ['action' => 'details', 'id' => 42]); ?>">
     Details of News #42
 </a>
 ```
@@ -112,7 +112,7 @@ $url = $this->url(
     [
         'query' => [
             'page' => 13,
-        ].
+        ],
     ]
 );
 ?>
