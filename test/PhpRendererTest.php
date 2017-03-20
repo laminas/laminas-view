@@ -20,8 +20,7 @@ use Zend\View\Resolver\TemplateMapResolver;
 use Zend\View\Resolver\TemplatePathStack;
 use Zend\View\Variables;
 use Zend\Filter\FilterChain;
-use ZendTest\View\TestAsset\SharedInstance;
-use ZendTest\View\TestAsset\Uninvokable;
+use ZendTest\View\TestAsset;
 
 /**
  * @group      Zend_View
@@ -221,11 +220,11 @@ class PhpRendererTest extends TestCase
     public function testMethodOverloadingShouldReturnHelperInstanceIfNotInvokable()
     {
         $helpers = new HelperPluginManager(new ServiceManager(), ['invokables' => [
-            'uninvokable' => Uninvokable::class,
+            'uninvokable' => TestAsset\Uninvokable::class,
         ]]);
         $this->renderer->setHelperPluginManager($helpers);
         $helper = $this->renderer->uninvokable();
-        $this->assertInstanceOf(Uninvokable::class, $helper);
+        $this->assertInstanceOf(TestAsset\Uninvokable::class, $helper);
     }
 
     /**
@@ -234,7 +233,7 @@ class PhpRendererTest extends TestCase
     public function testMethodOverloadingShouldInvokeHelperIfInvokable()
     {
         $helpers = new HelperPluginManager(new ServiceManager(), ['invokables' => [
-            'invokable' => Uninvokable::class,
+            'invokable' => TestAsset\Invokable::class,
         ]]);
         $this->renderer->setHelperPluginManager($helpers);
         $return = $this->renderer->invokable('it works!');
@@ -445,7 +444,7 @@ class PhpRendererTest extends TestCase
     {
         $helpers = new HelperPluginManager(new ServiceManager(), [
             'invokables' => [
-                'sharedinstance' => SharedInstance::class,
+                'sharedinstance' => TestAsset\SharedInstance::class,
             ],
             'shared' => [
                 'sharedinstance' => false,
