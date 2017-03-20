@@ -103,12 +103,12 @@ class PhpRendererStrategy extends AbstractListenerAggregate
     public function injectResponse(ViewEvent $e)
     {
         $renderer = $e->getRenderer();
-        if ($renderer !== $this->renderer) {
+        $response = $e->getResponse();
+        if ($renderer !== $this->renderer || $response === null) {
             return;
         }
 
         $result   = $e->getResult();
-        $response = $e->getResponse();
 
         // Set content
         // If content is empty, check common placeholders to determine if they are
