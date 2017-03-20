@@ -34,6 +34,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
      */
     protected $serviceManager;
 
+    // @codingStandardsIgnoreStart
     /**
      * Path to files needed for test
      *
@@ -77,6 +78,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
     protected $_nav3;
 
     private $_oldControllerDir;
+    // @codingStandardsIgnoreEnd
 
     /**
      * Prepares the environment before running a test
@@ -166,8 +168,10 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
      * @param  string $file
      * @return string
      */
+    // @codingStandardsIgnoreStart
     protected function _getExpected($file)
     {
+        // @codingStandardsIgnoreEnd
         return file_get_contents($this->_files . '/expected/' . $file);
     }
 
@@ -176,8 +180,10 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
      *
      * @return Acl
      */
+    // @codingStandardsIgnoreStart
     protected function _getAcl()
     {
+        // @codingStandardsIgnoreEnd
         $acl = new Acl();
 
         $acl->addRole(new GenericRole('guest'));
@@ -204,8 +210,10 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
      *
      * @return Translator
      */
+    // @codingStandardsIgnoreStart
     protected function _getTranslator()
     {
+        // @codingStandardsIgnoreEnd
         $loader = new TestAsset\ArrayTranslator();
         $loader->translations = [
             'Page 1'       => 'Side 1',
@@ -227,8 +235,10 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
      *
      * @return Translator
      */
+    // @codingStandardsIgnoreStart
     protected function _getTranslatorWithTextDomain()
     {
+        // @codingStandardsIgnoreEnd
         $loader1 = new TestAsset\ArrayTranslator();
         $loader1->translations = [
             'Page 1'       => 'TextDomain1 1',

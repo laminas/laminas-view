@@ -389,7 +389,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
     /**
      * @return void
      */
-    public function test__toStringProxiesToToString()
+    public function testToStringProxiesToToString()
     {
         $this->container[] = 'foo';
         $this->container[] = 'bar';

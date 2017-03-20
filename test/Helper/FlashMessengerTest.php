@@ -346,7 +346,9 @@ class FlashMessengerTest extends TestCase
         $helperPluginManager = $services->get('ViewHelperManager');
         $helper              = $helperPluginManager->get('flashmessenger');
 
+        // @codingStandardsIgnoreStart
         $displayInfoAssertion = '<div><ul><li class="foo-baz foo-bar">foo</li><li class="foo-baz foo-bar">bar</li></ul></div>';
+        // @codingStandardsIgnoreEnd
         $displayInfo = $helper->render('default', ['foo-baz', 'foo-bar']);
         $this->assertEquals($displayInfoAssertion, $displayInfo);
     }
@@ -368,7 +370,9 @@ class FlashMessengerTest extends TestCase
         $helperPluginManager = $services->get('ViewHelperManager');
         $helper              = $helperPluginManager->get('flashmessenger');
 
+        // @codingStandardsIgnoreStart
         $displayInfoAssertion = '<div><ul><li class="foo-baz foo-bar">foo</li><li class="foo-baz foo-bar">bar</li></ul></div>';
+        // @codingStandardsIgnoreEnd
         $displayInfo = $helper->renderCurrent('default', ['foo-baz', 'foo-bar']);
         $this->assertEquals($displayInfoAssertion, $displayInfo);
     }

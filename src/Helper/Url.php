@@ -77,8 +77,8 @@ class Url extends AbstractHelper
             }
         }
 
-        if (!is_array($params)) {
-            if (!$params instanceof Traversable) {
+        if (! is_array($params)) {
+            if (! $params instanceof Traversable) {
                 throw new Exception\InvalidArgumentException(
                     'Params is expected to be an array or a Traversable object'
                 );

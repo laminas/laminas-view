@@ -179,10 +179,10 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     public function findActive($container, $minDepth = null, $maxDepth = -1)
     {
         $this->parseContainer($container);
-        if (!is_int($minDepth)) {
+        if (! is_int($minDepth)) {
             $minDepth = $this->getMinDepth();
         }
-        if ((!is_int($maxDepth) || $maxDepth < 0) && null !== $maxDepth) {
+        if ((! is_int($maxDepth) || $maxDepth < 0) && null !== $maxDepth) {
             $maxDepth = $this->getMaxDepth();
         }
 
@@ -196,7 +196,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
         /** @var \Zend\Navigation\Page\AbstractPage $page */
         foreach ($iterator as $page) {
             $currDepth = $iterator->getDepth();
-            if ($currDepth < $minDepth || !$this->accept($page)) {
+            if ($currDepth < $minDepth || ! $this->accept($page)) {
                 // page is not accepted
                 continue;
             }
@@ -216,7 +216,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
                 }
 
                 $found = $found->getParent();
-                if (!$found instanceof AbstractPage) {
+                if (! $found instanceof AbstractPage) {
                     $found = null;
                     break;
                 }
@@ -258,7 +258,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
             return;
         }
 
-        if (!$container instanceof Navigation\AbstractContainer) {
+        if (! $container instanceof Navigation\AbstractContainer) {
             throw new  Exception\InvalidArgumentException(
                 'Container must be a string alias or an instance of '
                 . 'Zend\Navigation\AbstractContainer'
@@ -295,7 +295,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     {
         $accept = true;
 
-        if (!$page->isVisible(false) && !$this->getRenderInvisible()) {
+        if (! $page->isVisible(false) && ! $this->getRenderInvisible()) {
             $accept = false;
         } elseif ($this->getUseAcl()) {
             $acl = $this->getAcl();
@@ -358,7 +358,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     {
         // filter out null values and empty string values
         foreach ($attribs as $key => $value) {
-            if ($value === null || (is_string($value) && !strlen($value))) {
+            if ($value === null || (is_string($value) && ! strlen($value))) {
                 unset($attribs[$key]);
             }
         }
@@ -637,7 +637,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      */
     public function getMinDepth()
     {
-        if (!is_int($this->minDepth) || $this->minDepth < 0) {
+        if (! is_int($this->minDepth) || $this->minDepth < 0) {
             return 0;
         }
 
@@ -847,7 +847,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      */
     protected function setDefaultListeners()
     {
-        if (!$this->getUseAcl()) {
+        if (! $this->getUseAcl()) {
             return;
         }
 

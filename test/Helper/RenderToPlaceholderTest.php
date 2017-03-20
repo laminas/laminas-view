@@ -17,7 +17,9 @@ use Zend\View\Renderer\PhpRenderer as View;
  */
 class RenderToPlaceholderTest extends \PHPUnit_Framework_TestCase
 {
+    // @codingStandardsIgnoreStart
     protected $_view = null;
+    // @codingStandardsIgnoreEnd
 
     public function setUp()
     {

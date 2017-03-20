@@ -20,12 +20,14 @@ use Zend\View\Resolver;
  */
 class PaginationControlTest extends \PHPUnit_Framework_TestCase
 {
+    // @codingStandardsIgnoreStart
     /**
      * @var Helper\PaginationControl
      */
     private $_viewHelper;
 
     private $_paginator;
+    // @codingStandardsIgnoreEnd
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -150,7 +152,11 @@ class PaginationControlTest extends \PHPUnit_Framework_TestCase
             $this->assertInstanceOf(
                 'Zend\View\Exception\RuntimeException',
                 $e,
-                sprintf('Expected View RuntimeException; received "%s" with message: %s', get_class($e), $e->getMessage())
+                sprintf(
+                    'Expected View RuntimeException; received "%s" with message: %s',
+                    get_class($e),
+                    $e->getMessage()
+                )
             );
             $this->assertContains('could not resolve', $e->getMessage());
         }

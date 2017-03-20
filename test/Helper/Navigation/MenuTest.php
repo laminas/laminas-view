@@ -17,6 +17,7 @@ namespace ZendTest\View\Helper\Navigation;
  */
 class MenuTest extends AbstractTest
 {
+    // @codingStandardsIgnoreStart
     /**
      * Class name for view helper to test.
      *
@@ -30,6 +31,7 @@ class MenuTest extends AbstractTest
      * @var \Zend\View\Helper\Navigation\Menu
      */
     protected $_helper;
+    // @codingStandardsIgnoreEnd
 
     public function testCanRenderMenuFromServiceAlias()
     {
@@ -215,7 +217,7 @@ class MenuTest extends AbstractTest
 
     public function testTranslationUsingZendTranslate()
     {
-        if (!extension_loaded('intl')) {
+        if (! extension_loaded('intl')) {
             $this->markTestSkipped('ext/intl not enabled');
         }
 
@@ -228,7 +230,7 @@ class MenuTest extends AbstractTest
 
     public function testTranslationUsingZendTranslateWithTextDomain()
     {
-        if (!extension_loaded('intl')) {
+        if (! extension_loaded('intl')) {
             $this->markTestSkipped('ext/intl not enabled');
         }
 
@@ -242,7 +244,7 @@ class MenuTest extends AbstractTest
 
     public function testTranslationUsingZendTranslateAdapter()
     {
-        if (!extension_loaded('intl')) {
+        if (! extension_loaded('intl')) {
             $this->markTestSkipped('ext/intl not enabled');
         }
 
@@ -395,8 +397,10 @@ class MenuTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
+    // @codingStandardsIgnoreStart
     private function _setActive($label)
     {
+        // @codingStandardsIgnoreEnd
         $container = $this->_helper->getContainer();
 
         foreach ($container->findAllByActive(true) as $page) {
@@ -612,8 +616,10 @@ class MenuTest extends AbstractTest
      *
      * @return string
      */
+    // @codingStandardsIgnoreStart
     protected function _getExpected($file)
     {
+        // @codingStandardsIgnoreEnd
         return str_replace("\n", PHP_EOL, parent::_getExpected($file));
     }
 }

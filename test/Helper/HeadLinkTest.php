@@ -380,7 +380,11 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
 
     public function testAppendStylesheetWithExtras()
     {
-        $this->helper->appendStylesheet(['href' => '/bar/baz', 'conditionalStylesheet' => false, 'extras' => ['id' => 'my_link_tag']]);
+        $this->helper->appendStylesheet([
+            'href' => '/bar/baz',
+            'conditionalStylesheet' => false,
+            'extras' => ['id' => 'my_link_tag']
+        ]);
         $test = $this->helper->toString();
         $this->assertContains('id="my_link_tag"', $test);
     }

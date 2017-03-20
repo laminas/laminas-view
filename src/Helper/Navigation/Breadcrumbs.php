@@ -97,7 +97,7 @@ class Breadcrumbs extends AbstractHelper
         }
 
         // find deepest active
-        if (!$active = $this->findActive($container)) {
+        if (! $active = $this->findActive($container)) {
             return '';
         }
 
