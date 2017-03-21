@@ -32,6 +32,7 @@ use Zend\View\Variables;
  *
  * Convenience methods for build in helpers (@see __call):
  *
+ * @method string asset($asset)
  * @method string|null basePath($file = null)
  * @method \Zend\View\Helper\Cycle cycle(array $data = array(), $name = \Zend\View\Helper\Cycle::DEFAULT_NAME)
  * @method \Zend\View\Helper\DeclareVars declareVars()
