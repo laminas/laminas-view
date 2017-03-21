@@ -90,6 +90,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
         'async',
         'language',
         'src',
+        'id',
     ];
 
     /**
