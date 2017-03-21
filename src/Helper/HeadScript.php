@@ -17,14 +17,14 @@ use Zend\View\Exception;
  * Helper for setting and retrieving script elements for HTML head section
  *
  * Allows the following method calls:
- * @method HeadScript appendFile($src, $type = 'text/javascript', $attrs = array())
- * @method HeadScript offsetSetFile($index, $src, $type = 'text/javascript', $attrs = array())
- * @method HeadScript prependFile($src, $type = 'text/javascript', $attrs = array())
- * @method HeadScript setFile($src, $type = 'text/javascript', $attrs = array())
- * @method HeadScript appendScript($script, $type = 'text/javascript', $attrs = array())
- * @method HeadScript offsetSetScript($index, $src, $type = 'text/javascript', $attrs = array())
- * @method HeadScript prependScript($script, $type = 'text/javascript', $attrs = array())
- * @method HeadScript setScript($script, $type = 'text/javascript', $attrs = array())
+ * @method HeadScript appendFile($src, $type = 'text/javascript', $attrs = [])
+ * @method HeadScript offsetSetFile($index, $src, $type = 'text/javascript', $attrs = [])
+ * @method HeadScript prependFile($src, $type = 'text/javascript', $attrs = [])
+ * @method HeadScript setFile($src, $type = 'text/javascript', $attrs = [])
+ * @method HeadScript appendScript($script, $type = 'text/javascript', $attrs = [])
+ * @method HeadScript offsetSetScript($index, $src, $type = 'text/javascript', $attrs = [])
+ * @method HeadScript prependScript($script, $type = 'text/javascript', $attrs = [])
+ * @method HeadScript setScript($script, $type = 'text/javascript', $attrs = [])
  */
 class HeadScript extends Placeholder\Container\AbstractStandalone
 {
@@ -85,11 +85,13 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      */
     protected $optionalAttributes = [
         'charset',
+        'integrity',
         'crossorigin',
         'defer',
         'async',
         'language',
         'src',
+        'id',
     ];
 
     /**

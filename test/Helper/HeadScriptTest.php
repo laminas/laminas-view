@@ -9,6 +9,7 @@
 
 namespace ZendTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
 use Zend\View\Helper;
 use Zend\View;
 
@@ -18,7 +19,7 @@ use Zend\View;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class HeadScriptTest extends \PHPUnit_Framework_TestCase
+class HeadScriptTest extends TestCase
 {
     /**
      * @var Helper\HeadScript
@@ -57,7 +58,7 @@ class HeadScriptTest extends \PHPUnit_Framework_TestCase
     public function testHeadScriptReturnsObjectInstance()
     {
         $placeholder = $this->helper->__invoke();
-        $this->assertInstanceOf('Zend\View\Helper\HeadScript', $placeholder);
+        $this->assertInstanceOf(Helper\HeadScript::class, $placeholder);
     }
 
     public function testSetPrependAppendAndOffsetSetThrowExceptionsOnInvalidItems()

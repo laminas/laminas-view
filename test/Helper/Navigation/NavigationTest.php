@@ -33,12 +33,12 @@ class NavigationTest extends AbstractTest
      *
      * @var string
      */
-    protected $_helperName = 'Zend\View\Helper\Navigation';
+    protected $_helperName = Navigation::class;
 
     /**
      * View helper
      *
-     * @var \Zend\View\Helper\Navigation
+     * @var Navigation
      */
     protected $_helper;
     // @codingStandardsIgnoreEnd
@@ -219,7 +219,7 @@ class NavigationTest extends AbstractTest
 
     public function testTranslatorMethods()
     {
-        $translatorMock = $this->getMock('Zend\I18n\Translator\Translator');
+        $translatorMock = $this->getMockBuilder('Zend\I18n\Translator\Translator')->getMock();
         $this->_helper->setTranslator($translatorMock, 'foo');
 
         $this->assertEquals($translatorMock, $this->_helper->getTranslator());

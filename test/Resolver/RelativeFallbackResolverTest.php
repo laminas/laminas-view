@@ -9,12 +9,14 @@
 
 namespace ZendTest\View\Resolver;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use stdClass;
 use Zend\View\Helper\ViewModel as ViewModelHelper;
 use Zend\View\Model\ViewModel;
 use Zend\View\Renderer\PhpRenderer;
+use Zend\View\Renderer\RendererInterface;
 use Zend\View\Resolver\RelativeFallbackResolver;
+use Zend\View\Resolver\ResolverInterface;
 use Zend\View\Resolver\TemplateMapResolver;
 use Zend\View\Resolver\TemplatePathStack;
 use Zend\View\Resolver\AggregateResolver;
@@ -79,11 +81,11 @@ class RelativeFallbackResolverTest extends TestCase
 
     public function testSkipsResolutionOnViewRendererWithoutPlugins()
     {
-        /* @var $baseResolver \Zend\View\Resolver\ResolverInterface|\PHPUnit_Framework_MockObject_MockObject */
-        $baseResolver = $this->getMock('Zend\View\Resolver\ResolverInterface');
+        /* @var $baseResolver ResolverInterface|\PHPUnit_Framework_MockObject_MockObject */
+        $baseResolver = $this->getMockBuilder(ResolverInterface::class)->getMock();
         $fallback     = new RelativeFallbackResolver($baseResolver);
-        /* @var $renderer \Zend\View\Renderer\RendererInterface|\PHPUnit_Framework_MockObject_MockObject */
-        $renderer     = $this->getMock('Zend\View\Renderer\RendererInterface');
+        /* @var $renderer RendererInterface|\PHPUnit_Framework_MockObject_MockObject */
+        $renderer     = $this->getMockBuilder(RendererInterface::class)->getMock();
 
         $baseResolver->expects($this->never())->method('resolve');
 
@@ -92,14 +94,13 @@ class RelativeFallbackResolverTest extends TestCase
 
     public function testSkipsResolutionOnViewRendererWithoutCorrectCurrentPlugin()
     {
-        /* @var $baseResolver \Zend\View\Resolver\ResolverInterface|\PHPUnit_Framework_MockObject_MockObject */
-        $baseResolver = $this->getMock('Zend\View\Resolver\ResolverInterface');
+        /* @var $baseResolver ResolverInterface|\PHPUnit_Framework_MockObject_MockObject */
+        $baseResolver = $this->getMockBuilder(ResolverInterface::class)->getMock();
         $fallback     = new RelativeFallbackResolver($baseResolver);
-        /* @var $renderer \Zend\View\Renderer\RendererInterface|\PHPUnit_Framework_MockObject_MockObject */
-        $renderer     = $this->getMock(
-            'Zend\View\Renderer\RendererInterface',
-            ['getEngine', 'setResolver', 'plugin', 'render']
-        );
+        /* @var $renderer RendererInterface|\PHPUnit_Framework_MockObject_MockObject */
+        $renderer     = $this->getMockBuilder(RendererInterface::class)
+            ->setMethods(['getEngine', 'setResolver', 'plugin', 'render'])
+            ->getMock();
 
         $baseResolver->expects($this->never())->method('resolve');
         $renderer->expects($this->once())->method('plugin')->will($this->returnValue(new stdClass()));
@@ -109,15 +110,14 @@ class RelativeFallbackResolverTest extends TestCase
 
     public function testSkipsResolutionOnNonExistingCurrentViewModel()
     {
-        /* @var $baseResolver \Zend\View\Resolver\ResolverInterface|\PHPUnit_Framework_MockObject_MockObject */
-        $baseResolver = $this->getMock('Zend\View\Resolver\ResolverInterface');
+        /* @var $baseResolver ResolverInterface|\PHPUnit_Framework_MockObject_MockObject */
+        $baseResolver = $this->getMockBuilder(ResolverInterface::class)->getMock();
         $fallback     = new RelativeFallbackResolver($baseResolver);
         $viewModel    = new ViewModelHelper();
-        /* @var $renderer \Zend\View\Renderer\RendererInterface|\PHPUnit_Framework_MockObject_MockObject */
-        $renderer     = $this->getMock(
-            'Zend\View\Renderer\RendererInterface',
-            ['getEngine', 'setResolver', 'plugin', 'render']
-        );
+        /* @var $renderer RendererInterface|\PHPUnit_Framework_MockObject_MockObject */
+        $renderer     = $this->getMockBuilder(RendererInterface::class)
+            ->setMethods(['getEngine', 'setResolver', 'plugin', 'render'])
+            ->getMock();
 
         $baseResolver->expects($this->never())->method('resolve');
         $renderer->expects($this->once())->method('plugin')->will($this->returnValue($viewModel));

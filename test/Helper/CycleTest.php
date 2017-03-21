@@ -9,6 +9,7 @@
 
 namespace ZendTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
 use Zend\View\Helper;
 
 /**
@@ -17,7 +18,7 @@ use Zend\View\Helper;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class CycleTest extends \PHPUnit_Framework_TestCase
+class CycleTest extends TestCase
 {
     /**
      * @var Helper\Cycle
@@ -49,7 +50,7 @@ class CycleTest extends \PHPUnit_Framework_TestCase
     public function testCycleMethodReturnsObjectInstance()
     {
         $cycle = $this->helper->__invoke();
-        $this->assertInstanceOf('Zend\View\Helper\Cycle', $cycle);
+        $this->assertInstanceOf(Helper\Cycle::class, $cycle);
     }
 
     public function testAssignAndGetValues()

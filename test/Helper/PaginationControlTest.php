@@ -9,16 +9,19 @@
 
 namespace ZendTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Paginator;
+use Zend\View\Exception;
 use Zend\View\Helper;
 use Zend\View\Renderer\PhpRenderer as View;
+use Zend\View\Renderer\RendererInterface;
 use Zend\View\Resolver;
 
 /**
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class PaginationControlTest extends \PHPUnit_Framework_TestCase
+class PaginationControlTest extends TestCase
 {
     // @codingStandardsIgnoreStart
     /**
@@ -64,7 +67,7 @@ class PaginationControlTest extends \PHPUnit_Framework_TestCase
         $helper = new Helper\PaginationControl();
         $this->assertNull($helper->getView());
         $helper->setView($view);
-        $this->assertInstanceOf('Zend\View\Renderer\RendererInterface', $helper->getView());
+        $this->assertInstanceOf(RendererInterface::class, $helper->getView());
     }
 
     public function testGetsAndSetsDefaultViewPartial()
@@ -88,7 +91,7 @@ class PaginationControlTest extends \PHPUnit_Framework_TestCase
         try {
             $this->_viewHelper->__invoke($this->_paginator);
         } catch (\Exception $e) {
-            $this->assertInstanceOf('Zend\View\Exception\ExceptionInterface', $e);
+            $this->assertInstanceOf(Exception\ExceptionInterface::class, $e);
             $this->assertEquals('No view partial provided and no default set', $e->getMessage());
         }
     }
@@ -131,10 +134,8 @@ class PaginationControlTest extends \PHPUnit_Framework_TestCase
     {
         Helper\PaginationControl::setDefaultViewPartial('testPagination.phtml');
 
-        $this->setExpectedException(
-            'Zend\View\Exception\ExceptionInterface',
-            'No paginator instance provided or incorrect type'
-        );
+        $this->expectException(Exception\ExceptionInterface::class);
+        $this->expectExceptionMessage('No paginator instance provided or incorrect type');
         $this->_viewHelper->__invoke();
     }
 
@@ -150,7 +151,7 @@ class PaginationControlTest extends \PHPUnit_Framework_TestCase
              * make sure it gets to Zend_View_Helper_Partial and it's recognized
              * as a module. */
             $this->assertInstanceOf(
-                'Zend\View\Exception\RuntimeException',
+                Exception\RuntimeException::class,
                 $e,
                 sprintf(
                     'Expected View RuntimeException; received "%s" with message: %s',

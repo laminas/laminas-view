@@ -9,6 +9,7 @@
 
 namespace ZendTest\View\Helper\Placeholder;
 
+use PHPUnit\Framework\TestCase;
 use Zend\View\Helper\Placeholder\Container;
 use Zend\View\Renderer\PhpRenderer as View;
 use ZendTest\View\Helper\TestAsset\Foo;
@@ -19,7 +20,7 @@ use ZendTest\View\Helper\TestAsset\Foo;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class StandaloneContainerTest extends \PHPUnit_Framework_TestCase
+class StandaloneContainerTest extends TestCase
 {
     /**
      * @var Foo
@@ -54,7 +55,7 @@ class StandaloneContainerTest extends \PHPUnit_Framework_TestCase
     public function testGetContainer()
     {
         $container = $this->helper->getContainer();
-        $this->assertInstanceOf('Zend\View\Helper\Placeholder\Container', $container);
+        $this->assertInstanceOf(Container::class, $container);
     }
 
     /**
@@ -64,7 +65,7 @@ class StandaloneContainerTest extends \PHPUnit_Framework_TestCase
     {
         $this->helper->deleteContainer();
         $container = $this->helper->getContainer();
-        $this->assertInstanceOf('Zend\View\Helper\Placeholder\Container', $container);
+        $this->assertInstanceOf(Container::class, $container);
     }
 
     /**

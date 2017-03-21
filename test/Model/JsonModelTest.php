@@ -9,16 +9,17 @@
 
 namespace ZendTest\View\Model;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\View\Model\JsonModel;
 use Zend\Json\Json;
+use Zend\View\Variables;
 
 class JsonModelTest extends TestCase
 {
     public function testAllowsEmptyConstructor()
     {
         $model = new JsonModel();
-        $this->assertInstanceOf('Zend\View\Variables', $model->getVariables());
+        $this->assertInstanceOf(Variables::class, $model->getVariables());
         $this->assertEquals([], $model->getOptions());
     }
 

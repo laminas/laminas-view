@@ -9,7 +9,8 @@
 
 namespace ZendTest\View\Helper;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
+use Zend\View\Exception;
 use Zend\View\Model\ViewModel;
 use Zend\View\Renderer\PhpRenderer;
 use Zend\View\Resolver\TemplateMapResolver;
@@ -125,7 +126,8 @@ class RenderChildModelTest extends TestCase
     {
         $renderer = new PhpRenderer();
         $renderer->setResolver($this->resolver);
-        $this->setExpectedException('Zend\View\Exception\RuntimeException', 'no view model');
+        $this->expectException(Exception\RuntimeException::class);
+        $this->expectExceptionMessage('no view model');
         $renderer->render('layout');
     }
 }

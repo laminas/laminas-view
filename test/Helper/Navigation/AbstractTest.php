@@ -9,10 +9,12 @@
 
 namespace ZendTest\View\Helper\Navigation;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Navigation\Navigation;
 use Zend\Config\Factory as ConfigFactory;
 use Zend\Mvc\Router\RouteMatch as V2RouteMatch;
 use Zend\Mvc\Service\ServiceManagerConfig;
+use Zend\Navigation\Service\DefaultNavigationFactory;
 use Zend\Permissions\Acl\Acl;
 use Zend\Permissions\Acl\Role\GenericRole;
 use Zend\Permissions\Acl\Resource\GenericResource;
@@ -27,10 +29,10 @@ use ZendTest\View\Helper\TestAsset;
 /**
  * Base class for navigation view helper tests
  */
-abstract class AbstractTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractTest extends TestCase
 {
     /**
-     * @var
+     * @var ServiceManager
      */
     protected $serviceManager;
 
@@ -148,7 +150,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
         $sm->setService('ApplicationConfig', $smConfig);
         $sm->get('ModuleManager')->loadModules();
         $sm->get('Application')->bootstrap();
-        $sm->setFactory('Navigation', 'Zend\Navigation\Service\DefaultNavigationFactory');
+        $sm->setFactory('Navigation', DefaultNavigationFactory::class);
 
         $sm->setService('nav1', $this->_nav1);
         $sm->setService('nav2', $this->_nav2);

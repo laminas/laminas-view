@@ -9,7 +9,7 @@
 
 namespace ZendTest\View\Helper;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\Http\Response;
 use Zend\Json\Json as JsonFormatter;
 use Zend\View\Helper\Json as JsonHelper;

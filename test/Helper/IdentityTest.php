@@ -9,6 +9,7 @@
 
 namespace ZendTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\Storage\NonPersistent as NonPersistentStorage;
 use Zend\View\Helper\Identity as IdentityHelper;
@@ -21,7 +22,7 @@ use Zend\View\Helper\Identity as IdentityHelper;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class IdentityTest extends \PHPUnit_Framework_TestCase
+class IdentityTest extends TestCase
 {
     public function testGetIdentity()
     {

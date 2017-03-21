@@ -10,7 +10,7 @@
 namespace ZendTest\View\Resolver;
 
 use ArrayObject;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\View\Resolver\TemplateMapResolver;
 
 class TemplateMapResolverTest extends TestCase

@@ -11,7 +11,8 @@ namespace ZendTest\View\Helper;
 
 use ArrayObject;
 use stdClass;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
+use Zend\View\Exception;
 use Zend\View\Helper\PartialLoop;
 use Zend\View\Renderer\PhpRenderer as View;
 
@@ -146,7 +147,7 @@ class PartialLoopTest extends TestCase
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
         $this->helper->setView($view);
 
-        $this->setExpectedException('Zend\View\Exception\InvalidArgumentException');
+        $this->expectException(Exception\InvalidArgumentException::class);
         $result = $this->helper->__invoke('partialLoop.phtml', null);
     }
 
@@ -359,20 +360,16 @@ class PartialLoopTest extends TestCase
 
     public function testPartialLoopWithInvalidValuesWillRaiseException()
     {
-        $this->setExpectedException(
-            'Zend\View\Exception\InvalidArgumentException',
-            'PartialLoop helper requires iterable data, string given'
-        );
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('PartialLoop helper requires iterable data, string given');
 
         $this->helper->__invoke('partialLoopParentObject.phtml', 'foo');
     }
 
     public function testPartialLoopWithInvalidObjectValuesWillRaiseException()
     {
-        $this->setExpectedException(
-            'Zend\View\Exception\InvalidArgumentException',
-            'PartialLoop helper requires iterable data, stdClass given'
-        );
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('PartialLoop helper requires iterable data, stdClass given');
 
         $this->helper->__invoke('partialLoopParentObject.phtml', new stdClass());
     }
@@ -467,7 +464,7 @@ class PartialLoopTest extends TestCase
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
         $this->helper->setView($view);
 
-        $this->setExpectedException('Zend\View\Exception\InvalidArgumentException');
+        $this->expectException(Exception\InvalidArgumentException::class);
         $result = $this->helper->loop('partialLoop.phtml', null);
     }
 
@@ -674,20 +671,16 @@ class PartialLoopTest extends TestCase
 
     public function testPartialLoopWithInvalidValuesWillRaiseExceptionInLoopMethod()
     {
-        $this->setExpectedException(
-            'Zend\View\Exception\InvalidArgumentException',
-            'PartialLoop helper requires iterable data, string given'
-        );
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('PartialLoop helper requires iterable data, string given');
 
         $this->helper->loop('partialLoopParentObject.phtml', 'foo');
     }
 
     public function testPartialLoopWithInvalidObjectValuesWillRaiseExceptionInLoopMethod()
     {
-        $this->setExpectedException(
-            'Zend\View\Exception\InvalidArgumentException',
-            'PartialLoop helper requires iterable data, stdClass given'
-        );
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('PartialLoop helper requires iterable data, stdClass given');
 
         $this->helper->loop('partialLoopParentObject.phtml', new stdClass());
     }

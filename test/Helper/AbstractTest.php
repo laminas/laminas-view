@@ -9,7 +9,8 @@
 
 namespace ZendTest\View\Helper;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
+use Zend\View\Renderer\RendererInterface;
 use ZendTest\View\Helper\TestAsset\ConcreteHelper;
 
 /**
@@ -30,7 +31,7 @@ class AbstractTest extends TestCase
 
     public function testViewSettersGetters()
     {
-        $viewMock = $this->getMock('Zend\View\Renderer\RendererInterface');
+        $viewMock = $this->getMockBuilder(RendererInterface::class)->getMock();
 
         $this->helper->setView($viewMock);
         $this->assertEquals($viewMock, $this->helper->getView());

@@ -9,7 +9,8 @@
 
 namespace ZendTest\View\Helper;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
+use Zend\View\Helper\AbstractHtmlElement;
 use Zend\View\Renderer\PhpRenderer;
 
 /**
@@ -20,7 +21,7 @@ use Zend\View\Renderer\PhpRenderer;
 class AbstractHtmlElementTest extends TestCase
 {
     /**
-     * @var \Zend\View\Helper\AbstractHtmlElement|\PHPUnit_Framework_MockObject_MockObject
+     * @var AbstractHtmlElement|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $helper;
 
@@ -29,7 +30,7 @@ class AbstractHtmlElementTest extends TestCase
      */
     public function setUp()
     {
-        $this->helper = $this->getMockForAbstractClass('Zend\View\Helper\AbstractHtmlElement');
+        $this->helper = $this->getMockForAbstractClass(AbstractHtmlElement::class);
 
         $this->helper->setView(new PhpRenderer());
     }

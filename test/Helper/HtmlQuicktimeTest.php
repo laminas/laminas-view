@@ -9,6 +9,7 @@
 
 namespace ZendTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
 use Zend\View\Renderer\PhpRenderer as View;
 use Zend\View\Helper\HtmlQuicktime;
 
@@ -16,7 +17,7 @@ use Zend\View\Helper\HtmlQuicktime;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class HtmlQuicktimeTest extends \PHPUnit_Framework_TestCase
+class HtmlQuicktimeTest extends TestCase
 {
     /**
      * @var HtmlQuicktime

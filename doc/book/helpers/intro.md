@@ -55,6 +55,7 @@ variables. Additionally, there are a rich set of helpers for providing values
 for, and rendering, the various HTML `<head>` tags, such as `HeadTitle`,
 `HeadLink`, and `HeadScript`. The currently shipped helpers include:
 
+- [Asset](asset.md)
 - [BasePath](base-path.md)
 - [Cycle](cycle.md)
 - [Doctype](doctype.md)

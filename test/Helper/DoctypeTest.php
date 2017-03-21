@@ -9,6 +9,7 @@
 
 namespace ZendTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
 use Zend\View\Helper;
 
 /**
@@ -17,7 +18,7 @@ use Zend\View\Helper;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class DoctypeTest extends \PHPUnit_Framework_TestCase
+class DoctypeTest extends TestCase
 {
     /**
      * @var Helper\Doctype
@@ -55,7 +56,7 @@ class DoctypeTest extends \PHPUnit_Framework_TestCase
     public function testDoctypeMethodReturnsObjectInstance()
     {
         $doctype = $this->helper->__invoke();
-        $this->assertInstanceOf('Zend\View\Helper\Doctype', $doctype);
+        $this->assertInstanceOf(Helper\Doctype::class, $doctype);
     }
 
     public function testPassingDoctypeSetsDoctype()

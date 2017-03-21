@@ -9,6 +9,8 @@
 
 namespace ZendTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
+use Zend\View\Exception;
 use Zend\View\Helper\Layout;
 use Zend\View\Model\ViewModel;
 use Zend\View\Renderer\PhpRenderer;
@@ -19,7 +21,7 @@ use Zend\View\Renderer\PhpRenderer;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class LayoutTest extends \PHPUnit_Framework_TestCase
+class LayoutTest extends TestCase
 {
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -69,7 +71,8 @@ class LayoutTest extends \PHPUnit_Framework_TestCase
         $viewModelHelper = $renderer->plugin('view_model');
         $helper          = $renderer->plugin('layout');
 
-        $this->setExpectedException('Zend\View\Exception\RuntimeException', 'view model');
+        $this->expectException(Exception\RuntimeException::class);
+        $this->expectExceptionMessage('view model');
         $helper->setTemplate('foo/bar');
     }
 }

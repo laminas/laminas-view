@@ -9,6 +9,7 @@
 
 namespace ZendTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
 use Zend\View\Helper;
 
 /**
@@ -17,7 +18,7 @@ use Zend\View\Helper;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class InlineScriptTest extends \PHPUnit_Framework_TestCase
+class InlineScriptTest extends TestCase
 {
     /**
      * @var Helper\InlineScript
@@ -55,6 +56,6 @@ class InlineScriptTest extends \PHPUnit_Framework_TestCase
     public function testInlineScriptReturnsObjectInstance()
     {
         $placeholder = $this->helper->__invoke();
-        $this->assertInstanceOf('Zend\View\Helper\InlineScript', $placeholder);
+        $this->assertInstanceOf(Helper\InlineScript::class, $placeholder);
     }
 }

@@ -9,7 +9,10 @@
 
 namespace ZendTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Console\Console;
+use Zend\Console\Request;
+use Zend\Http\Request as HttpRequest;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Mvc\Console\ConfigProvider as MvcConsoleConfigProvider;
 use Zend\Mvc\Router\Http as V2HttpRoute;
@@ -25,7 +28,7 @@ use Zend\ServiceManager\Config;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
+class UrlIntegrationTest extends TestCase
 {
     protected function setUp()
     {
@@ -89,7 +92,7 @@ class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
         Console::overrideIsConsole(false);
         $this->serviceManager->get('Application')->bootstrap();
         $request = $this->serviceManager->get('Request');
-        $this->assertInstanceOf('Zend\Http\Request', $request);
+        $this->assertInstanceOf(HttpRequest::class, $request);
         $viewHelpers = $this->serviceManager->get('ViewHelperManager');
         $urlHelper   = $viewHelpers->get('url');
         $test        = $urlHelper('test');
@@ -101,7 +104,7 @@ class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
         Console::overrideIsConsole(false);
         $this->serviceManager->get('Application')->bootstrap();
         $request = $this->serviceManager->get('Request');
-        $this->assertInstanceOf('Zend\Http\Request', $request);
+        $this->assertInstanceOf(HttpRequest::class, $request);
         $router = $this->serviceManager->get('Router');
         $router->setRequestUri($request->getUri());
         $request->setUri('http://example.com/test');
@@ -116,7 +119,7 @@ class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
         Console::overrideIsConsole(true);
         $this->serviceManager->get('Application')->bootstrap();
         $request = $this->serviceManager->get('Request');
-        $this->assertInstanceOf('Zend\Console\Request', $request);
+        $this->assertInstanceOf(Request::class, $request);
         $viewHelpers = $this->serviceManager->get('ViewHelperManager');
         $urlHelper   = $viewHelpers->get('url');
         $test        = $urlHelper('test');

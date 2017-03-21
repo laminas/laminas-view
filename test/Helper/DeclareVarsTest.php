@@ -9,6 +9,7 @@
 
 namespace ZendTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
 use Zend\View\Renderer\PhpRenderer as View;
 use Zend\View\Helper\DeclareVars;
 
@@ -16,7 +17,7 @@ use Zend\View\Helper\DeclareVars;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class DeclareVarsTest extends \PHPUnit_Framework_TestCase
+class DeclareVarsTest extends TestCase
 {
     public function setUp()
     {

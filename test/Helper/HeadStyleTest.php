@@ -9,6 +9,7 @@
 
 namespace ZendTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
 use Zend\View\Helper;
 use Zend\View;
 
@@ -18,7 +19,7 @@ use Zend\View;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class HeadStyleTest extends \PHPUnit_Framework_TestCase
+class HeadStyleTest extends TestCase
 {
     /**
      * @var Helper\HeadStyle
@@ -56,7 +57,7 @@ class HeadStyleTest extends \PHPUnit_Framework_TestCase
     public function testHeadStyleReturnsObjectInstance()
     {
         $placeholder = $this->helper->__invoke();
-        $this->assertInstanceOf('Zend\View\Helper\HeadStyle', $placeholder);
+        $this->assertInstanceOf(Helper\HeadStyle::class, $placeholder);
     }
 
     public function testAppendPrependAndSetThrowExceptionsWhenNonStyleValueProvided()

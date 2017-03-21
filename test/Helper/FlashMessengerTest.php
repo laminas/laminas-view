@@ -9,7 +9,8 @@
 
 namespace ZendTest\View\Helper;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
+use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\Plugin\FlashMessenger as V2PluginFlashMessenger;
 use Zend\Mvc\Controller\PluginManager;
 use Zend\Mvc\Plugin\FlashMessenger\FlashMessenger as V3PluginFlashMessenger;
@@ -169,17 +170,35 @@ class FlashMessengerTest extends TestCase
 
     public function testCanDisplayListOfMessages()
     {
+        $plugin = $this->prophesize($this->mvcPluginClass);
+        $plugin->getMessagesFromNamespace('info')->will(function () {
+            return [];
+        });
+        $plugin->addInfoMessage('bar-info')->will(function ($args) {
+            $this->getMessagesFromNamespace('info')->willReturn([$args[0]]);
+            return null;
+        });
+
+        $this->helper->setPluginFlashMessenger($plugin->reveal());
+
         $displayInfoAssertion = '';
         $displayInfo = $this->helper->render('info');
         $this->assertEquals($displayInfoAssertion, $displayInfo);
 
-        $this->seedMessages();
+        $helper = new FlashMessenger();
+        $helper->setPluginFlashMessenger($plugin->reveal());
+        $helper->addInfoMessage('bar-info');
+        unset($helper);
 
         $displayInfoAssertion = '<ul class="info"><li>bar-info</li></ul>';
         $displayInfo = $this->helper->render('info');
         $this->assertEquals($displayInfoAssertion, $displayInfo);
     }
 
+    /**
+     * @runInSeparateProcess
+     * @preserveGlobalState disabled
+     */
     public function testCanDisplayListOfCurrentMessages()
     {
         $displayInfoAssertion = '';
@@ -379,7 +398,7 @@ class FlashMessengerTest extends TestCase
 
     public function testCanTranslateMessages()
     {
-        $mockTranslator = $this->getMock('Zend\I18n\Translator\Translator');
+        $mockTranslator = $this->getMockBuilder(Translator::class)->getMock();
         $mockTranslator->expects($this->exactly(1))
         ->method('translate')
         ->will($this->returnValue('translated message'));
@@ -396,7 +415,7 @@ class FlashMessengerTest extends TestCase
 
     public function testCanTranslateCurrentMessages()
     {
-        $mockTranslator = $this->getMock('Zend\I18n\Translator\Translator');
+        $mockTranslator = $this->getMockBuilder(Translator::class)->getMock();
         $mockTranslator->expects($this->exactly(1))
         ->method('translate')
         ->will($this->returnValue('translated message'));

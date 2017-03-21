@@ -9,7 +9,8 @@
 
 namespace ZendTest\View\Helper;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
+use Zend\View\Exception;
 use Zend\View\Renderer\PhpRenderer as View;
 use Zend\View\Helper\Gravatar;
 
@@ -127,7 +128,7 @@ class GravatarTest extends TestCase
     public function testInvalidRatingParametr()
     {
         $ratingsWrong = [ 'a', 'cs', 456];
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->expectException(Exception\ExceptionInterface::class);
         foreach ($ratingsWrong as $value) {
             $this->helper->setRating($value);
         }
@@ -266,7 +267,7 @@ class GravatarTest extends TestCase
 
     public function testReturnThisObject()
     {
-        $this->assertInstanceOf('Zend\View\Helper\Gravatar', $this->helper->__invoke());
+        $this->assertInstanceOf(Gravatar::class, $this->helper->__invoke());
     }
 
     public function testInvalidKeyPassedToSetOptionsMethod()
