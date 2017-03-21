@@ -6,7 +6,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- Nothing.
+- [#89](https://github.com/zendframework/zend-view/pull/89) updates the
+  `HeadScript` view helper to whitelist the `id` attribute as an optional
+  attribute.
 
 ### Deprecated
 
