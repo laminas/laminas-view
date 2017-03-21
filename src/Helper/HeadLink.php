@@ -20,14 +20,14 @@ use Zend\View\Exception;
  * @see http://www.w3.org/TR/xhtml1/dtds.html
  *
  * Creates the following virtual methods:
- * @method HeadLink appendStylesheet($href, $media = 'screen', $conditionalStylesheet = '', $extras = array())
- * @method HeadLink offsetSetStylesheet($index, $href, $media = 'screen', $conditionalStylesheet = '', $extras = array())
- * @method HeadLink prependStylesheet($href, $media = 'screen', $conditionalStylesheet = '', $extras = array())
- * @method HeadLink setStylesheet($href, $media = 'screen', $conditionalStylesheet = '', $extras = array())
- * @method HeadLink appendAlternate($href, $type, $title, $extras = array())
- * @method HeadLink offsetSetAlternate($index, $href, $type, $title, $extras = array())
- * @method HeadLink prependAlternate($href, $type, $title, $extras = array())
- * @method HeadLink setAlternate($href, $type, $title, $extras = array())
+ * @method HeadLink appendStylesheet($href, $media = 'screen', $conditionalStylesheet = '', $extras = [])
+ * @method HeadLink offsetSetStylesheet($index, $href, $media = 'screen', $conditionalStylesheet = '', $extras = [])
+ * @method HeadLink prependStylesheet($href, $media = 'screen', $conditionalStylesheet = '', $extras = [])
+ * @method HeadLink setStylesheet($href, $media = 'screen', $conditionalStylesheet = '', $extras = [])
+ * @method HeadLink appendAlternate($href, $type, $title, $extras = [])
+ * @method HeadLink offsetSetAlternate($index, $href, $type, $title, $extras = [])
+ * @method HeadLink prependAlternate($href, $type, $title, $extras = [])
+ * @method HeadLink setAlternate($href, $type, $title, $extras = [])
  */
 // @codingStandardsIgnoreEnd
 class HeadLink extends Placeholder\Container\AbstractStandalone
@@ -49,7 +49,9 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
         'type',
         'title',
         'extras',
-        'itemprop'
+        'itemprop',
+        'crossorigin',
+        'integrity'
     ];
 
     /**

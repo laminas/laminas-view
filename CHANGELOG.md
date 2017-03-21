@@ -7,8 +7,12 @@ All notable changes to this project will be documented in this file, in reverse 
 ### Added
 
 - [#89](https://github.com/zendframework/zend-view/pull/89) updates the
-  `HeadScript` view helper to whitelist the `id` attribute as an optional
-  attribute.
+  `HeadScript` and `InlineScript` view helpers to whitelist the `id` attribute
+  as an optional attribute.
+
+- [#96](https://github.com/zendframework/zend-view/pull/96) updates the
+  `HeadScript`, `HeadLink`, and `InlineScript` view helpers to whitelist the
+  `crossorigin` and `integrity` attributes as optional attributes.
 
 ### Deprecated
 
