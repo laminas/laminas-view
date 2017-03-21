@@ -12,10 +12,10 @@ The HTML `<style>` element is used to include CSS stylesheets inline in the HTML
 The `HeadStyle` helper supports the following methods for setting and adding stylesheet
 declarations:
 
-- `appendStyle($content, $attributes = array())`
-- `offsetSetStyle($index, $content, $attributes = array())`
-- `prependStyle($content, $attributes = array())`
-- `setStyle($content, $attributes = array())`
+- `appendStyle($content, $attributes = [])`
+- `offsetSetStyle($index, $content, $attributes = [])`
+- `prependStyle($content, $attributes = [])`
+- `setStyle($content, $attributes = [])`
 
 In all cases, `$content` is the actual CSS declarations. `$attributes` are any
 additional attributes you wish to provide to the `style` tag: lang, title,
