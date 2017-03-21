@@ -32,7 +32,7 @@ use ZendTest\View\Helper\TestAsset;
 abstract class AbstractTest extends TestCase
 {
     /**
-     * @var
+     * @var ServiceManager
      */
     protected $serviceManager;
 
