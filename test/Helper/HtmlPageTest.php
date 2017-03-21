@@ -9,6 +9,7 @@
 
 namespace ZendTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
 use Zend\View\Renderer\PhpRenderer as View;
 use Zend\View\Helper\HtmlPage;
 
@@ -16,7 +17,7 @@ use Zend\View\Helper\HtmlPage;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class HtmlPageTest extends \PHPUnit\Framework\TestCase
+class HtmlPageTest extends TestCase
 {
     /**
      * @var HtmlPage

@@ -9,6 +9,7 @@
 
 namespace ZendTest\View\Helper\Placeholder;
 
+use PHPUnit\Framework\TestCase;
 use Zend\View\Helper\Placeholder\Container;
 use Zend\View\Renderer\PhpRenderer as View;
 use ZendTest\View\Helper\TestAsset\Foo;
@@ -19,7 +20,7 @@ use ZendTest\View\Helper\TestAsset\Foo;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class StandaloneContainerTest extends \PHPUnit\Framework\TestCase
+class StandaloneContainerTest extends TestCase
 {
     /**
      * @var Foo

@@ -9,6 +9,7 @@
 
 namespace ZendTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
 use Zend\View\Renderer\PhpRenderer as View;
 use Zend\View\Helper\HtmlTag;
 
@@ -16,7 +17,7 @@ use Zend\View\Helper\HtmlTag;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class HtmlTagTest extends \PHPUnit\Framework\TestCase
+class HtmlTagTest extends TestCase
 {
     /**
      * @var HtmlTag

@@ -9,6 +9,7 @@
 
 namespace ZendTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
 use Zend\View\Renderer\PhpRenderer as View;
 use Zend\View\Helper\HtmlFlash;
 
@@ -16,7 +17,7 @@ use Zend\View\Helper\HtmlFlash;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class HtmlFlashTest extends \PHPUnit\Framework\TestCase
+class HtmlFlashTest extends TestCase
 {
     /**
      * @var HtmlFlash

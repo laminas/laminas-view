@@ -9,6 +9,7 @@
 
 namespace ZendTest\View\Helper\Navigation;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Navigation\Navigation;
 use Zend\Config\Factory as ConfigFactory;
 use Zend\Mvc\Router\RouteMatch as V2RouteMatch;
@@ -27,7 +28,7 @@ use ZendTest\View\Helper\TestAsset;
 /**
  * Base class for navigation view helper tests
  */
-abstract class AbstractTest extends \PHPUnit\Framework\TestCase
+abstract class AbstractTest extends TestCase
 {
     /**
      * @var

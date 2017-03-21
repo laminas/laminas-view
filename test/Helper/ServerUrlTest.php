@@ -9,6 +9,7 @@
 
 namespace ZendTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
 use Zend\View\Helper;
 
 /**
@@ -17,7 +18,7 @@ use Zend\View\Helper;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class ServerUrlTest extends \PHPUnit\Framework\TestCase
+class ServerUrlTest extends TestCase
 {
     /**
      * Back up of $_SERVER

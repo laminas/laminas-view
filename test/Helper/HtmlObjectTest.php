@@ -9,6 +9,7 @@
 
 namespace ZendTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
 use Zend\View\Renderer\PhpRenderer as View;
 use Zend\View\Helper\Doctype;
 use Zend\View\Helper\HtmlObject;
@@ -17,7 +18,7 @@ use Zend\View\Helper\HtmlObject;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class HtmlObjectTest extends \PHPUnit\Framework\TestCase
+class HtmlObjectTest extends TestCase
 {
     /**
      * @var HtmlObject
