@@ -10,6 +10,7 @@
 namespace ZendTest\View\Helper;
 
 use PHPUnit\Framework\TestCase;
+use Zend\View\Helper\Placeholder\Container\AbstractContainer;
 use Zend\View\Renderer\PhpRenderer as View;
 use Zend\View\Helper;
 
@@ -64,7 +65,7 @@ class PlaceholderTest extends TestCase
     public function testPlaceholderRetrievesContainer()
     {
         $container = $this->placeholder->__invoke('foo');
-        $this->assertInstanceOf('Zend\View\Helper\Placeholder\Container\AbstractContainer', $container);
+        $this->assertInstanceOf(AbstractContainer::class, $container);
     }
 
     /**

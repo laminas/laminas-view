@@ -56,7 +56,7 @@ class DoctypeTest extends TestCase
     public function testDoctypeMethodReturnsObjectInstance()
     {
         $doctype = $this->helper->__invoke();
-        $this->assertInstanceOf('Zend\View\Helper\Doctype', $doctype);
+        $this->assertInstanceOf(Helper\Doctype::class, $doctype);
     }
 
     public function testPassingDoctypeSetsDoctype()

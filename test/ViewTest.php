@@ -315,7 +315,7 @@ class ViewTest extends TestCase
      */
     public function testModelFromEventIsUsedByRenderer()
     {
-        $renderer = $this->getMockBuilder('Zend\View\Renderer\PhpRenderer')
+        $renderer = $this->getMockBuilder(PhpRenderer::class)
             ->setMethods(['render'])
             ->getMock();
 

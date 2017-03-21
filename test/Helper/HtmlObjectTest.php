@@ -13,6 +13,7 @@ use PHPUnit\Framework\TestCase;
 use Zend\View\Renderer\PhpRenderer as View;
 use Zend\View\Helper\Doctype;
 use Zend\View\Helper\HtmlObject;
+use Zend\View\Renderer\RendererInterface;
 
 /**
  * @group      Zend_View
@@ -45,7 +46,7 @@ class HtmlObjectTest extends TestCase
 
     public function testViewObjectIsSet()
     {
-        $this->assertInstanceof('Zend\View\Renderer\RendererInterface', $this->helper->getView());
+        $this->assertInstanceof(RendererInterface::class, $this->helper->getView());
     }
 
     public function testMakeHtmlObjectWithoutAttribsWithoutParams()

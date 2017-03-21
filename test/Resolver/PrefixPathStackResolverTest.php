@@ -11,6 +11,7 @@ namespace ZendTest\View\Resolver;
 
 use PHPUnit\Framework\TestCase;
 use Zend\View\Resolver\PrefixPathStackResolver;
+use Zend\View\Resolver\ResolverInterface;
 
 /**
  * Tests for {@see \Zend\View\Resolver\PrefixPathStackResolver}
@@ -68,7 +69,7 @@ class PrefixPathStackResolverTest extends TestCase
 
     public function testSetCustomPathStackResolver()
     {
-        $mockResolver = $this->getMockBuilder('Zend\View\Resolver\ResolverInterface')->getMock();
+        $mockResolver = $this->getMockBuilder(ResolverInterface::class)->getMock();
 
         $resolver = new PrefixPathStackResolver([
             'foo' => $mockResolver,

@@ -33,12 +33,12 @@ class NavigationTest extends AbstractTest
      *
      * @var string
      */
-    protected $_helperName = 'Zend\View\Helper\Navigation';
+    protected $_helperName = Navigation::class;
 
     /**
      * View helper
      *
-     * @var \Zend\View\Helper\Navigation
+     * @var Navigation
      */
     protected $_helper;
     // @codingStandardsIgnoreEnd

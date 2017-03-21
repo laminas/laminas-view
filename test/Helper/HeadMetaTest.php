@@ -69,7 +69,7 @@ class HeadMetaTest extends TestCase
     public function testHeadMetaReturnsObjectInstance()
     {
         $placeholder = $this->helper->__invoke();
-        $this->assertInstanceOf('Zend\View\Helper\HeadMeta', $placeholder);
+        $this->assertInstanceOf(Helper\HeadMeta::class, $placeholder);
     }
 
     public function testAppendPrependAndSetThrowExceptionsWhenNonMetaValueProvided()

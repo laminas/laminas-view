@@ -14,6 +14,7 @@ use Zend\Paginator;
 use Zend\View\Exception;
 use Zend\View\Helper;
 use Zend\View\Renderer\PhpRenderer as View;
+use Zend\View\Renderer\RendererInterface;
 use Zend\View\Resolver;
 
 /**
@@ -66,7 +67,7 @@ class PaginationControlTest extends TestCase
         $helper = new Helper\PaginationControl();
         $this->assertNull($helper->getView());
         $helper->setView($view);
-        $this->assertInstanceOf('Zend\View\Renderer\RendererInterface', $helper->getView());
+        $this->assertInstanceOf(RendererInterface::class, $helper->getView());
     }
 
     public function testGetsAndSetsDefaultViewPartial()
@@ -90,7 +91,7 @@ class PaginationControlTest extends TestCase
         try {
             $this->_viewHelper->__invoke($this->_paginator);
         } catch (\Exception $e) {
-            $this->assertInstanceOf('Zend\View\Exception\ExceptionInterface', $e);
+            $this->assertInstanceOf(Exception\ExceptionInterface::class, $e);
             $this->assertEquals('No view partial provided and no default set', $e->getMessage());
         }
     }
@@ -150,7 +151,7 @@ class PaginationControlTest extends TestCase
              * make sure it gets to Zend_View_Helper_Partial and it's recognized
              * as a module. */
             $this->assertInstanceOf(
-                'Zend\View\Exception\RuntimeException',
+                Exception\RuntimeException::class,
                 $e,
                 sprintf(
                     'Expected View RuntimeException; received "%s" with message: %s',

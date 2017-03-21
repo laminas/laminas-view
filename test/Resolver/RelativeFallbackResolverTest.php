@@ -14,7 +14,9 @@ use stdClass;
 use Zend\View\Helper\ViewModel as ViewModelHelper;
 use Zend\View\Model\ViewModel;
 use Zend\View\Renderer\PhpRenderer;
+use Zend\View\Renderer\RendererInterface;
 use Zend\View\Resolver\RelativeFallbackResolver;
+use Zend\View\Resolver\ResolverInterface;
 use Zend\View\Resolver\TemplateMapResolver;
 use Zend\View\Resolver\TemplatePathStack;
 use Zend\View\Resolver\AggregateResolver;
@@ -79,11 +81,11 @@ class RelativeFallbackResolverTest extends TestCase
 
     public function testSkipsResolutionOnViewRendererWithoutPlugins()
     {
-        /* @var $baseResolver \Zend\View\Resolver\ResolverInterface|\PHPUnit_Framework_MockObject_MockObject */
-        $baseResolver = $this->getMockBuilder('Zend\View\Resolver\ResolverInterface')->getMock();
+        /* @var $baseResolver ResolverInterface|\PHPUnit_Framework_MockObject_MockObject */
+        $baseResolver = $this->getMockBuilder(ResolverInterface::class)->getMock();
         $fallback     = new RelativeFallbackResolver($baseResolver);
-        /* @var $renderer \Zend\View\Renderer\RendererInterface|\PHPUnit_Framework_MockObject_MockObject */
-        $renderer     = $this->getMockBuilder('Zend\View\Renderer\RendererInterface')->getMock();
+        /* @var $renderer RendererInterface|\PHPUnit_Framework_MockObject_MockObject */
+        $renderer     = $this->getMockBuilder(RendererInterface::class)->getMock();
 
         $baseResolver->expects($this->never())->method('resolve');
 
@@ -92,11 +94,11 @@ class RelativeFallbackResolverTest extends TestCase
 
     public function testSkipsResolutionOnViewRendererWithoutCorrectCurrentPlugin()
     {
-        /* @var $baseResolver \Zend\View\Resolver\ResolverInterface|\PHPUnit_Framework_MockObject_MockObject */
-        $baseResolver = $this->getMockBuilder('Zend\View\Resolver\ResolverInterface')->getMock();
+        /* @var $baseResolver ResolverInterface|\PHPUnit_Framework_MockObject_MockObject */
+        $baseResolver = $this->getMockBuilder(ResolverInterface::class)->getMock();
         $fallback     = new RelativeFallbackResolver($baseResolver);
-        /* @var $renderer \Zend\View\Renderer\RendererInterface|\PHPUnit_Framework_MockObject_MockObject */
-        $renderer     = $this->getMockBuilder('Zend\View\Renderer\RendererInterface')
+        /* @var $renderer RendererInterface|\PHPUnit_Framework_MockObject_MockObject */
+        $renderer     = $this->getMockBuilder(RendererInterface::class)
             ->setMethods(['getEngine', 'setResolver', 'plugin', 'render'])
             ->getMock();
 
@@ -108,12 +110,12 @@ class RelativeFallbackResolverTest extends TestCase
 
     public function testSkipsResolutionOnNonExistingCurrentViewModel()
     {
-        /* @var $baseResolver \Zend\View\Resolver\ResolverInterface|\PHPUnit_Framework_MockObject_MockObject */
-        $baseResolver = $this->getMockBuilder('Zend\View\Resolver\ResolverInterface')->getMock();
+        /* @var $baseResolver ResolverInterface|\PHPUnit_Framework_MockObject_MockObject */
+        $baseResolver = $this->getMockBuilder(ResolverInterface::class)->getMock();
         $fallback     = new RelativeFallbackResolver($baseResolver);
         $viewModel    = new ViewModelHelper();
-        /* @var $renderer \Zend\View\Renderer\RendererInterface|\PHPUnit_Framework_MockObject_MockObject */
-        $renderer     = $this->getMockBuilder('Zend\View\Renderer\RendererInterface')
+        /* @var $renderer RendererInterface|\PHPUnit_Framework_MockObject_MockObject */
+        $renderer     = $this->getMockBuilder(RendererInterface::class)
             ->setMethods(['getEngine', 'setResolver', 'plugin', 'render'])
             ->getMock();
 
