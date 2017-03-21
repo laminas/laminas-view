@@ -37,6 +37,8 @@ class HelperPluginManager extends AbstractPluginManager
      * @var string[]
      */
     protected $aliases = [
+        'asset'               => Helper\Asset::class,
+        'Asset'               => Helper\Asset::class,
         'basePath'            => Helper\BasePath::class,
         'BasePath'            => Helper\BasePath::class,
         'basepath'            => Helper\BasePath::class,
@@ -148,6 +150,7 @@ class HelperPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $factories = [
+        Helper\Asset::class               => Helper\Service\AssetFactory::class,
         Helper\FlashMessenger::class      => Helper\Service\FlashMessengerFactory::class,
         Helper\Identity::class            => Helper\Service\IdentityFactory::class,
         Helper\BasePath::class            => InvokableFactory::class,
@@ -186,6 +189,7 @@ class HelperPluginManager extends AbstractPluginManager
 
         // v2 canonical FQCNs
 
+        'zendviewhelperasset'             => Helper\Service\AssetFactory::class,
         'zendviewhelperflashmessenger'    => Helper\Service\FlashMessengerFactory::class,
         'zendviewhelperidentity'          => Helper\Service\IdentityFactory::class,
         'zendviewhelperbasepath'          => InvokableFactory::class,
