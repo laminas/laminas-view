@@ -9,7 +9,9 @@
 
 namespace ZendTest\View\Helper\Navigation;
 
-use Zend\View\Helper\Navigation;
+use Zend\Navigation\Navigation;
+use Zend\ServiceManager\ServiceManager;
+use Zend\View\Helper\Navigation as NavigationHelper;
 
 class AbstractHelperTest extends AbstractTest
 {
@@ -19,12 +21,12 @@ class AbstractHelperTest extends AbstractTest
      *
      * @var string
      */
-    protected $_helperName = Navigation::class;
+    protected $_helperName = NavigationHelper::class;
 
     /**
      * View helper
      *
-     * @var \Zend\View\Helper\Navigation\Breadcrumbs
+     * @var NavigationHelper\Breadcrumbs
      */
     protected $_helper;
     // @codingStandardsIgnoreEnd
@@ -84,5 +86,30 @@ class AbstractHelperTest extends AbstractTest
     public function testEventManagerIsNullByDefault()
     {
         $this->assertNull($this->_helper->getEventManager());
+    }
+
+    public function testFallBackForContainerNames()
+    {
+        // Register navigation service with name equal to the documentation
+        $this->serviceManager->setAllowOverride(true);
+        $this->serviceManager->setService(
+            'navigation',
+            $this->serviceManager->get('Navigation')
+        );
+        $this->serviceManager->setAllowOverride(false);
+
+        $this->_helper->setServiceLocator($this->serviceManager);
+
+        $this->_helper->setContainer('navigation');
+        $this->assertInstanceOf(
+            Navigation::class,
+            $this->_helper->getContainer()
+        );
+
+        $this->_helper->setContainer('default');
+        $this->assertInstanceOf(
+            Navigation::class,
+            $this->_helper->getContainer()
+        );
     }
 }

@@ -25,7 +25,13 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#110](https://github.com/zendframework/zend-view/pull/110) provides a fix
+  for the navigation helpers to ensure that usage of either the `default` or
+  `navigation` containers (documentation specified `default`, but usage only
+  allowed `navigation` previously). When `default` is specified, the
+  `Zend\Navigation\Navigation` service will be used for the container; if
+  `navigation` is used, that service will be pulled instead (which is usually an
+  alias for the `Zend\Navigation\Navigation` service anyways).
 
 ## 2.8.2 - 2017-03-20
 
