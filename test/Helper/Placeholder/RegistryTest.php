@@ -9,6 +9,7 @@
 
 namespace ZendTest\View\Helper\Placeholder;
 
+use PHPUnit\Framework\TestCase;
 use Zend\View\Helper\Placeholder\Registry;
 use Zend\View\Helper\Placeholder\Container;
 
@@ -18,7 +19,7 @@ use Zend\View\Helper\Placeholder\Container;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class RegistryTest extends \PHPUnit\Framework\TestCase
+class RegistryTest extends TestCase
 {
     /**
      * @var Registry

@@ -9,6 +9,7 @@
 
 namespace ZendTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Console\Console;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Mvc\Console\ConfigProvider as MvcConsoleConfigProvider;
@@ -25,7 +26,7 @@ use Zend\ServiceManager\Config;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class UrlIntegrationTest extends \PHPUnit\Framework\TestCase
+class UrlIntegrationTest extends TestCase
 {
     protected function setUp()
     {

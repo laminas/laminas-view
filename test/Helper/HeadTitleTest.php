@@ -9,6 +9,7 @@
 
 namespace ZendTest\View\Helper;
 
+use PHPUnit\Framework\TestCase;
 use Zend\I18n\Translator\Translator;
 use Zend\View\Helper;
 
@@ -18,7 +19,7 @@ use Zend\View\Helper;
  * @group      Zend_View
  * @group      Zend_View_Helper
  */
-class HeadTitleTest extends \PHPUnit\Framework\TestCase
+class HeadTitleTest extends TestCase
 {
     /**
      * @var Helper\HeadTitle

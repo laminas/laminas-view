@@ -9,6 +9,7 @@
 
 namespace ZendTest\View\Resolver;
 
+use PHPUnit\Framework\TestCase;
 use Zend\View\Resolver\PrefixPathStackResolver;
 
 /**
@@ -16,7 +17,7 @@ use Zend\View\Resolver\PrefixPathStackResolver;
  *
  * @covers \Zend\View\Resolver\PrefixPathStackResolver
  */
-class PrefixPathStackResolverTest extends \PHPUnit\Framework\TestCase
+class PrefixPathStackResolverTest extends TestCase
 {
     /**
      * @var string
