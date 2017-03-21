@@ -11,6 +11,7 @@ namespace ZendTest\View\Helper\Navigation;
 
 use DOMDocument;
 use Zend\View;
+use Zend\View\Helper\Navigation\Sitemap;
 
 /**
  * Tests Zend\View\Helper\Navigation\Sitemap
@@ -28,12 +29,12 @@ class SitemapTest extends AbstractTest
      *
      * @var string
      */
-    protected $_helperName = 'Zend\View\Helper\Navigation\Sitemap';
+    protected $_helperName = Sitemap::class;
 
     /**
      * View helper
      *
-     * @var \Zend\View\Helper\Navigation\Sitemap
+     * @var Sitemap
      */
     protected $_helper;
 
@@ -257,7 +258,7 @@ class SitemapTest extends AbstractTest
         } catch (View\Exception\ExceptionInterface $e) {
             $expected = sprintf(
                 'Sitemap is invalid according to XML Schema at "%s"',
-                \Zend\View\Helper\Navigation\Sitemap::SITEMAP_XSD
+                Sitemap::SITEMAP_XSD
             );
             $actual = $e->getMessage();
             $this->assertEquals($expected, $actual);

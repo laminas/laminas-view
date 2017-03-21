@@ -14,6 +14,7 @@ use Zend\Navigation\Navigation;
 use Zend\Config\Factory as ConfigFactory;
 use Zend\Mvc\Router\RouteMatch as V2RouteMatch;
 use Zend\Mvc\Service\ServiceManagerConfig;
+use Zend\Navigation\Service\DefaultNavigationFactory;
 use Zend\Permissions\Acl\Acl;
 use Zend\Permissions\Acl\Role\GenericRole;
 use Zend\Permissions\Acl\Resource\GenericResource;
@@ -149,7 +150,7 @@ abstract class AbstractTest extends TestCase
         $sm->setService('ApplicationConfig', $smConfig);
         $sm->get('ModuleManager')->loadModules();
         $sm->get('Application')->bootstrap();
-        $sm->setFactory('Navigation', 'Zend\Navigation\Service\DefaultNavigationFactory');
+        $sm->setFactory('Navigation', DefaultNavigationFactory::class);
 
         $sm->setService('nav1', $this->_nav1);
         $sm->setService('nav2', $this->_nav2);

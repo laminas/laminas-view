@@ -56,6 +56,6 @@ class InlineScriptTest extends TestCase
     public function testInlineScriptReturnsObjectInstance()
     {
         $placeholder = $this->helper->__invoke();
-        $this->assertInstanceOf('Zend\View\Helper\InlineScript', $placeholder);
+        $this->assertInstanceOf(Helper\InlineScript::class, $placeholder);
     }
 }

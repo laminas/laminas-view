@@ -11,6 +11,7 @@ namespace ZendTest\View\Helper;
 
 use PHPUnit\Framework\TestCase;
 use stdClass;
+use Zend\Escaper\Escaper;
 use Zend\View\Helper\EscapeHtml as EscapeHelper;
 
 class EscapeHtmlTest extends TestCase
@@ -51,22 +52,22 @@ class EscapeHtmlTest extends TestCase
     {
         $this->helper->setEncoding('BIG5-HKSCS');
         $escaper = $this->helper->getEscaper();
-        $this->assertInstanceOf('Zend\Escaper\Escaper', $escaper);
+        $this->assertInstanceOf(Escaper::class, $escaper);
         $this->assertEquals('big5-hkscs', $escaper->getEncoding());
     }
 
     public function testSettingEscaperObjectAlsoSetsEncoding()
     {
-        $escaper = new \Zend\Escaper\Escaper('big5-hkscs');
+        $escaper = new Escaper('big5-hkscs');
         $this->helper->setEscaper($escaper);
         $escaper = $this->helper->getEscaper();
-        $this->assertInstanceOf('Zend\Escaper\Escaper', $escaper);
+        $this->assertInstanceOf(Escaper::class, $escaper);
         $this->assertEquals('big5-hkscs', $escaper->getEncoding());
     }
 
     public function testEscapehtmlCalledOnEscaperObject()
     {
-        $escaper = $this->getMockBuilder('\\Zend\\Escaper\\Escaper')->getMock();
+        $escaper = $this->getMockBuilder(Escaper::class)->getMock();
         $escaper->expects($this->any())->method('escapeHtml');
         $this->helper->setEscaper($escaper);
         $this->helper->__invoke('foo');

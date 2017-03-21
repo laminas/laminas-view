@@ -11,6 +11,7 @@ namespace ZendTest\View\Helper\Navigation;
 
 use Zend\Navigation\Navigation;
 use Zend\View\Exception\ExceptionInterface;
+use Zend\View\Helper\Navigation\Breadcrumbs;
 
 /**
  * Tests Zend\View\Helper\Navigation\Breadcrumbs.
@@ -26,12 +27,12 @@ class BreadcrumbsTest extends AbstractTest
      *
      * @var string
      */
-    protected $_helperName = 'Zend\View\Helper\Navigation\Breadcrumbs';
+    protected $_helperName = Breadcrumbs::class;
 
     /**
      * View helper.
      *
-     * @var \Zend\View\Helper\Navigation\Breadcrumbs
+     * @var Breadcrumbs
      */
     protected $_helper;
     // @codingStandardsIgnoreEnd

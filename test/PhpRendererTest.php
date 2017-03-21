@@ -12,6 +12,7 @@ namespace ZendTest\View;
 use PHPUnit\Framework\TestCase;
 use Zend\ServiceManager\ServiceManager;
 use Zend\View\Exception;
+use Zend\View\Helper\Doctype;
 use Zend\View\HelperPluginManager;
 use Zend\View\Renderer\PhpRenderer;
 use Zend\View\Model\ViewModel;
@@ -19,6 +20,7 @@ use Zend\View\Resolver\TemplateMapResolver;
 use Zend\View\Resolver\TemplatePathStack;
 use Zend\View\Variables;
 use Zend\Filter\FilterChain;
+use ZendTest\View\TestAsset;
 
 /**
  * @group      Zend_View
@@ -37,7 +39,7 @@ class PhpRendererTest extends TestCase
 
     public function testUsesTemplatePathStackAsDefaultResolver()
     {
-        $this->assertInstanceOf('Zend\View\Resolver\TemplatePathStack', $this->renderer->resolver());
+        $this->assertInstanceOf(TemplatePathStack::class, $this->renderer->resolver());
     }
 
     public function testCanSetResolverInstance()
@@ -56,7 +58,7 @@ class PhpRendererTest extends TestCase
 
     public function testUsesVariablesObjectForVarsByDefault()
     {
-        $this->assertInstanceOf('Zend\View\Variables', $this->renderer->vars());
+        $this->assertInstanceOf(Variables::class, $this->renderer->vars());
     }
 
     public function testCanSpecifyArrayAccessForVars()
@@ -81,13 +83,13 @@ class PhpRendererTest extends TestCase
 
     public function testUsesHelperPluginManagerByDefault()
     {
-        $this->assertInstanceOf('Zend\View\HelperPluginManager', $this->renderer->getHelperPluginManager());
+        $this->assertInstanceOf(HelperPluginManager::class, $this->renderer->getHelperPluginManager());
     }
 
     public function testPassingArgumentToPluginReturnsHelperByThatName()
     {
         $helper = $this->renderer->plugin('doctype');
-        $this->assertInstanceOf('Zend\View\Helper\Doctype', $helper);
+        $this->assertInstanceOf(Doctype::class, $helper);
     }
 
     public function testPassingStringOfUndefinedClassToSetHelperPluginManagerRaisesException()
@@ -99,8 +101,8 @@ class PhpRendererTest extends TestCase
 
     public function testPassingValidStringClassToSetHelperPluginManagerCreatesIt()
     {
-        $this->renderer->setHelperPluginManager('Zend\View\HelperPluginManager');
-        $this->assertInstanceOf('Zend\View\HelperPluginManager', $this->renderer->getHelperPluginManager());
+        $this->renderer->setHelperPluginManager(HelperPluginManager::class);
+        $this->assertInstanceOf(HelperPluginManager::class, $this->renderer->getHelperPluginManager());
     }
 
     public function invalidPluginManagers()
@@ -132,7 +134,7 @@ class PhpRendererTest extends TestCase
 
     public function testUsesFilterChainByDefault()
     {
-        $this->assertInstanceOf('Zend\Filter\FilterChain', $this->renderer->getFilterChain());
+        $this->assertInstanceOf(FilterChain::class, $this->renderer->getFilterChain());
     }
 
     public function testMaySetExplicitFilterChainInstance()
@@ -179,7 +181,7 @@ class PhpRendererTest extends TestCase
     {
         $vars = ['foo' => 'bar'];
         $this->renderer->setVars($vars);
-        $this->assertInstanceOf('Zend\View\Variables', $this->renderer->vars());
+        $this->assertInstanceOf(Variables::class, $this->renderer->vars());
     }
 
     /**
@@ -218,11 +220,11 @@ class PhpRendererTest extends TestCase
     public function testMethodOverloadingShouldReturnHelperInstanceIfNotInvokable()
     {
         $helpers = new HelperPluginManager(new ServiceManager(), ['invokables' => [
-            'uninvokable' => 'ZendTest\View\TestAsset\Uninvokable',
+            'uninvokable' => TestAsset\Uninvokable::class,
         ]]);
         $this->renderer->setHelperPluginManager($helpers);
         $helper = $this->renderer->uninvokable();
-        $this->assertInstanceOf('ZendTest\View\TestAsset\Uninvokable', $helper);
+        $this->assertInstanceOf(TestAsset\Uninvokable::class, $helper);
     }
 
     /**
@@ -231,7 +233,7 @@ class PhpRendererTest extends TestCase
     public function testMethodOverloadingShouldInvokeHelperIfInvokable()
     {
         $helpers = new HelperPluginManager(new ServiceManager(), ['invokables' => [
-            'invokable' => 'ZendTest\View\TestAsset\Invokable',
+            'invokable' => TestAsset\Invokable::class,
         ]]);
         $this->renderer->setHelperPluginManager($helpers);
         $return = $this->renderer->invokable('it works!');
@@ -394,7 +396,7 @@ class PhpRendererTest extends TestCase
         }
 
         restore_error_handler();
-        $this->assertInstanceOf('Zend\View\Exception\UnexpectedValueException', $caught);
+        $this->assertInstanceOf(Exception\UnexpectedValueException::class, $caught);
         $this->assertContains('file include failed', $caught->getMessage());
     }
 
@@ -442,7 +444,7 @@ class PhpRendererTest extends TestCase
     {
         $helpers = new HelperPluginManager(new ServiceManager(), [
             'invokables' => [
-                'sharedinstance' => 'ZendTest\View\TestAsset\SharedInstance',
+                'sharedinstance' => TestAsset\SharedInstance::class,
             ],
             'shared' => [
                 'sharedinstance' => false,
@@ -457,7 +459,7 @@ class PhpRendererTest extends TestCase
 
         $helpers = new HelperPluginManager(new ServiceManager(), [
             'invokables' => [
-                'sharedinstance' => 'ZendTest\View\TestAsset\SharedInstance',
+                'sharedinstance' => TestAsset\SharedInstance::class,
             ],
             'shared' => [
                 'sharedinstance' => true,

@@ -55,7 +55,7 @@ class StandaloneContainerTest extends TestCase
     public function testGetContainer()
     {
         $container = $this->helper->getContainer();
-        $this->assertInstanceOf('Zend\View\Helper\Placeholder\Container', $container);
+        $this->assertInstanceOf(Container::class, $container);
     }
 
     /**
@@ -65,7 +65,7 @@ class StandaloneContainerTest extends TestCase
     {
         $this->helper->deleteContainer();
         $container = $this->helper->getContainer();
-        $this->assertInstanceOf('Zend\View\Helper\Placeholder\Container', $container);
+        $this->assertInstanceOf(Container::class, $container);
     }
 
     /**

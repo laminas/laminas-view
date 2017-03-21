@@ -57,7 +57,7 @@ class HeadTitleTest extends TestCase
     public function testHeadTitleReturnsObjectInstance()
     {
         $placeholder = $this->helper->__invoke();
-        $this->assertInstanceOf('Zend\View\Helper\HeadTitle', $placeholder);
+        $this->assertInstanceOf(Helper\HeadTitle::class, $placeholder);
     }
 
     public function testCanSetTitleViaHeadTitle()
@@ -186,7 +186,7 @@ class HeadTitleTest extends TestCase
 
     public function testTranslatorMethods()
     {
-        $translatorMock = $this->getMockBuilder('Zend\I18n\Translator\Translator')->getMock();
+        $translatorMock = $this->getMockBuilder(Translator::class)->getMock();
         $this->helper->setTranslator($translatorMock, 'foo');
 
         $this->assertEquals($translatorMock, $this->helper->getTranslator());
@@ -221,7 +221,7 @@ class HeadTitleTest extends TestCase
      */
     public function testReturnTypeDefaultAttachOrder()
     {
-        $this->assertInstanceOf('Zend\View\Helper\HeadTitle', $this->helper->setDefaultAttachOrder('PREPEND'));
+        $this->assertInstanceOf(Helper\HeadTitle::class, $this->helper->setDefaultAttachOrder('PREPEND'));
         $this->assertEquals('PREPEND', $this->helper->getDefaultAttachOrder());
     }
 }

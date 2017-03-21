@@ -50,7 +50,7 @@ class CycleTest extends TestCase
     public function testCycleMethodReturnsObjectInstance()
     {
         $cycle = $this->helper->__invoke();
-        $this->assertInstanceOf('Zend\View\Helper\Cycle', $cycle);
+        $this->assertInstanceOf(Helper\Cycle::class, $cycle);
     }
 
     public function testAssignAndGetValues()

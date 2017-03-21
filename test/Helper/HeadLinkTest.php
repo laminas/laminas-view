@@ -62,7 +62,7 @@ class HeadLinkTest extends TestCase
     public function testHeadLinkReturnsObjectInstance()
     {
         $placeholder = $this->helper->__invoke();
-        $this->assertInstanceOf('Zend\View\Helper\HeadLink', $placeholder);
+        $this->assertInstanceOf(Helper\HeadLink::class, $placeholder);
     }
 
     public function testPrependThrowsExceptionWithoutArrayArgument()
