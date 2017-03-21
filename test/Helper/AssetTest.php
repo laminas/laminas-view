@@ -7,7 +7,7 @@
 
 namespace ZendTest\View\Helper;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\ServiceManager\ServiceManager;
 use Zend\View\Exception;
 use Zend\View\Helper\Asset;
@@ -50,7 +50,8 @@ class AssetTest extends TestCase
 
     public function testInvalidAssetName()
     {
-        $this->setExpectedException(Exception\InvalidArgumentException::class, 'Asset is not defined.');
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Asset is not defined');
 
         $this->asset->__invoke('unknown');
     }

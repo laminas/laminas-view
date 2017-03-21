@@ -7,7 +7,7 @@
 
 namespace ZendTest\View\Helper\Service;
 
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
 use Zend\ServiceManager\ServiceManager;
 use Zend\View\Exception;
 use Zend\View\Helper\Asset;
@@ -68,7 +68,8 @@ class AssetFactoryTest extends TestCase
 
         $assetFactory = new AssetFactory();
 
-        $this->setExpectedException(Exception\RuntimeException::class, 'Invalid resource map configuration.');
+        $this->expectException(Exception\RuntimeException::class);
+        $this->expectExceptionMessage('Invalid resource map configuration');
         $assetFactory($services, '');
     }
 
