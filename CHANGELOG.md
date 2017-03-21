@@ -14,6 +14,35 @@ All notable changes to this project will be documented in this file, in reverse 
   `HeadScript`, `HeadLink`, and `InlineScript` view helpers to whitelist the
   `crossorigin` and `integrity` attributes as optional attributes.
 
+- [#64](https://github.com/zendframework/zend-view/pull/64) adds a new `Asset`
+  view helper. This helper uses the following configuration to map a named asset
+  to the actual file to serve:
+
+  ```php
+  'view_helper_config' => [
+      'asset' => [
+          'resource_map' => [
+              'css/style.css' => 'css/style-3a97ff4ee3.css',
+              'js/vendor.js' => 'js/vendor-a507086eba.js',
+          ],
+      ],
+  ],
+  ```
+
+  This can also be automated via tools such as gulp-rev and grunt-rev by using
+  the `rev-manifest.json` each creates directly within your configuration:
+
+  ```php
+  'view_helper_config' => [
+      'asset' => [
+          'resource_map' => json_decode(file_get_contents('path/to/rev-manifest.json'), true),
+      ],
+  ],
+  ```
+
+  The benefit of this approach is that it allows your view scripts to reference
+  a static asset name, while integrating with your JS and CSS build tools.
+
 ### Deprecated
 
 - Nothing.
