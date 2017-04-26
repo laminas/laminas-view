@@ -481,4 +481,32 @@ class PhpRendererTest extends TestCase
         $this->assertContains('Empty view', $result);
         $this->assertAttributeEmpty('__filterChain', $this->renderer);
     }
+
+    /**
+     * @group zend-view-120
+     */
+    public function testRendererDoesntUsePreviousRenderedOutputWhenInvokedWithEmptyString()
+    {
+        $this->renderer->resolver()->addPath(__DIR__ . '/_templates');
+
+        $previousOutput = $this->renderer->render('empty.phtml');
+
+        $actual = $this->renderer->render('');
+
+        $this->assertNotSame($previousOutput, $actual);
+    }
+
+    /**
+     * @group zend-view-120
+     */
+    public function testRendererDoesntUsePreviousRenderedOutputWhenInvokedWithFalse()
+    {
+        $this->renderer->resolver()->addPath(__DIR__ . '/_templates');
+
+        $previousOutput = $this->renderer->render('empty.phtml');
+
+        $actual = $this->renderer->render(false);
+
+        $this->assertNotSame($previousOutput, $actual);
+    }
 }
