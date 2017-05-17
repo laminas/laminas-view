@@ -337,6 +337,10 @@ class HelperPluginManager extends AbstractPluginManager
             return;
         }
 
+        if (method_exists($helper, 'hasTranslator') && $helper->hasTranslator()) {
+            return;
+        }
+
         if ($container->has('MvcTranslator')) {
             $helper->setTranslator($container->get('MvcTranslator'));
             return;
