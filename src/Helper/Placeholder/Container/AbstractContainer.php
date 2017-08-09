@@ -291,7 +291,7 @@ abstract class AbstractContainer extends ArrayObject
     public function nextIndex()
     {
         $keys = $this->getKeys();
-        if (0 == count($keys)) {
+        if (empty($keys)) {
             return 0;
         }
 
