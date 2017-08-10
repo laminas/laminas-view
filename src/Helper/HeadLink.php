@@ -387,7 +387,7 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
             return false;
         }
 
-        if (! empty($args)) {
+        if ($args) {
             $media = array_shift($args);
             if (is_array($media)) {
                 $media = implode(',', $media);
@@ -395,7 +395,7 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
                 $media = (string) $media;
             }
         }
-        if (! empty($args)) {
+        if ($args) {
             $conditionalStylesheet = array_shift($args);
             if (! empty($conditionalStylesheet) && is_string($conditionalStylesheet)) {
                 $conditionalStylesheet = (string) $conditionalStylesheet;
@@ -404,7 +404,7 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
             }
         }
 
-        if (! empty($args) && is_array($args[0])) {
+        if ($args && is_array($args[0])) {
             $extras = array_shift($args);
             $extras = (array) $extras;
         }
@@ -452,7 +452,7 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
         $type  = array_shift($args);
         $title = array_shift($args);
 
-        if (! empty($args) && is_array($args[0])) {
+        if ($args && is_array($args[0])) {
             $extras = array_shift($args);
             $extras = (array) $extras;
 

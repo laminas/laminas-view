@@ -365,7 +365,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
      */
     public function hasChildren()
     {
-        return (! empty($this->children));
+        return (bool) $this->children;
     }
 
     /**
