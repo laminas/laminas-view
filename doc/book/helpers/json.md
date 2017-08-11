@@ -29,5 +29,5 @@ determine how to handle the content.
 > `enableJsonExprFinder` key of the options array:
 >
 > ```php
-> <?= $this-json($this-data, ['enableJsonExprFinder' = true]) ?>
+> <?= $this->json($this->data, ['enableJsonExprFinder' => true]) ?>
 > ```
