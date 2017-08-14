@@ -118,6 +118,10 @@ abstract class AbstractContainer extends ArrayObject
             : $this->getIndent();
 
         $items  = $this->getArrayCopy();
+        // If we don't have items - do not show prefix and postfix
+        if (!count($items)) {
+            return '';
+        }
         $return = $indent
             . $this->getPrefix()
             . implode($this->getSeparator(), $items)
