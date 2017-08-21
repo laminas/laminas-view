@@ -117,14 +117,17 @@ abstract class AbstractContainer extends ArrayObject
             ? $this->getWhitespace($indent)
             : $this->getIndent();
 
-        $items  = $this->getArrayCopy();
         // If we don't have items - do not show prefix and postfix
-        if (!count($items)) {
+        if (!$this->count()) {
             return '';
         }
+
+        $itemsToString = implode($this->getSeparator(), $this->getArrayCopy());
+        // todo check empty $itemsToString after trim() to return ''
+
         $return = $indent
             . $this->getPrefix()
-            . implode($this->getSeparator(), $items)
+            . $itemsToString
             . $this->getPostfix();
         $return = preg_replace("/(\r\n?|\n)/", '$1' . $indent, $return);
 
