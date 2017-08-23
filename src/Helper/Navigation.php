@@ -17,6 +17,11 @@ use Zend\View\Renderer\RendererInterface as Renderer;
 
 /**
  * Proxy helper for retrieving navigational helpers and forwarding calls
+ *
+ * @method \Zend\View\Helper\Navigation\Breadcrumbs breadcrumbs($container = null)
+ * @method \Zend\View\Helper\Navigation\Links links($container = null)
+ * @method \Zend\View\Helper\Navigation\Menu menu($container = null)
+ * @method \Zend\View\Helper\Navigation\Sitemap sitemap($container = null)
  */
 class Navigation extends AbstractNavigationHelper
 {
