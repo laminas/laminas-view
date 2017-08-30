@@ -463,7 +463,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      * Not valid in a non-HTML5 doctype
      *
      * @param  string $charset
-     * @param  Exception\RuntimeException
+     * @param  Exception\InvalidArgumentException
      * @return HeadMeta Provides a fluent interface
      */
     public function setCharset($charset)
@@ -475,7 +475,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
         $item->modifiers = [];
 
         if (! $this->isValid($item)) {
-            throw new Exception\RuntimeException('XHTML* doctype has no attribute charset; please use appendHttpEquiv()');
+            throw new Exception\InvalidArgumentException('XHTML* doctype has no attribute charset; please use appendHttpEquiv()');
         }
 
         $this->set($item);

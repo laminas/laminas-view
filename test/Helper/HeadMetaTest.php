@@ -442,7 +442,7 @@ class HeadMetaTest extends TestCase
 
     public function testCarsetWithXhtmlDoctypeGotException()
     {
-        $this->expectException(Exception\RuntimeException::class);
+        $this->expectException(Exception\InvalidArgumentException::class);
         $this->expectExceptionMessage('XHTML* doctype has no attribute charset; please use appendHttpEquiv()');
 
         $view = new View();
