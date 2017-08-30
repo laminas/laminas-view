@@ -458,10 +458,15 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      * Not valid in a non-HTML5 doctype
      *
      * @param  string $charset
+     * @throws Exception\RuntimeException
      * @return HeadMeta Provides a fluent interface
      */
     public function setCharset($charset)
     {
+        if ($this->view->plugin('doctype')->isXhtml()) {
+            throw new Exception\RuntimeException('XHTML* doctype has no attribute charset');
+        }
+
         $item = new stdClass;
         $item->type = 'charset';
         $item->charset = $charset;

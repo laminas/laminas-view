@@ -440,6 +440,18 @@ class HeadMetaTest extends TestCase
         );
     }
 
+    public function testCarsetWithXhtmlDoctypeGotException()
+    {
+        $this->expectException(Exception\RuntimeException::class);
+        $this->expectExceptionMessage('XHTML* doctype has no attribute charset');
+
+        $view = new View();
+        $view->plugin('doctype')->__invoke('XHTML1_RDFA');
+
+        $view->plugin('headMeta')
+             ->setCharset('utf-8');
+    }
+
      /**
      * @group ZF-9743
      */
