@@ -323,7 +323,6 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      * Determine if item is valid
      *
      * @param  mixed $item
-     * @throws Exception\RuntimeException
      * @return bool
      */
     protected function isValid($item)
@@ -337,7 +336,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
 
         $doctype = $this->view->plugin('doctype');
         if ($item->type === 'charset' && $doctype->isXhtml()) {
-            throw new Exception\RuntimeException('XHTML* doctype has no attribute charset; please use appendHttpEquiv()');
+            return false;
         }
 
         if (! isset($item->content)
@@ -474,7 +473,11 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
         $item->charset = $charset;
         $item->content = null;
         $item->modifiers = [];
-        $this->isValid($item);
+
+        if (! $this->isValid($item)) {
+            throw new Exception\RuntimeException('XHTML* doctype has no attribute charset; please use appendHttpEquiv()');
+        }
+
         $this->set($item);
 
         return $this;
