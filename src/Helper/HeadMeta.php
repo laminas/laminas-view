@@ -367,7 +367,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
     /**
      * Append
      *
-     * @param  string $value
+     * @param  object $value
      * @return void
      * @throws Exception\InvalidArgumentException
      */
@@ -375,7 +375,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
     {
         if (! $this->isValid($value)) {
             throw new Exception\InvalidArgumentException(
-                'Invalid value passed to append; please use appendMeta()'
+                'Invalid value passed to append'
             );
         }
 
@@ -420,7 +420,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
     /**
      * Prepend
      *
-     * @param  string $value
+     * @param  object $value
      * @throws Exception\InvalidArgumentException
      * @return void
      */
@@ -428,7 +428,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
     {
         if (! $this->isValid($value)) {
             throw new Exception\InvalidArgumentException(
-                'Invalid value passed to prepend; please use prependMeta()'
+                'Invalid value passed to prepend'
             );
         }
 
@@ -438,14 +438,14 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
     /**
      * Set
      *
-     * @param  string $value
+     * @param  object $value
      * @throws Exception\InvalidArgumentException
      * @return void
      */
     public function set($value)
     {
         if (! $this->isValid($value)) {
-            throw new Exception\InvalidArgumentException('Invalid value passed to set; please use setMeta()');
+            throw new Exception\InvalidArgumentException('Invalid value passed to set');
         }
 
         $container = $this->getContainer();
