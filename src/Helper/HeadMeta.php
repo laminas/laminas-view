@@ -323,6 +323,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      * Determine if item is valid
      *
      * @param  mixed $item
+     * @throws Exception\RuntimeException
      * @return bool
      */
     protected function isValid($item)
@@ -334,22 +335,27 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
             return false;
         }
 
+        $doctype = $this->view->plugin('doctype');
+        if ($item->type === 'charset' && $doctype->isXhtml()) {
+            throw new Exception\RuntimeException('XHTML* doctype has no attribute charset; please use appendHttpEquiv()');
+        }
+
         if (! isset($item->content)
-            && (! $this->view->plugin('doctype')->isHtml5()
-            || (! $this->view->plugin('doctype')->isHtml5() && $item->type !== 'charset'))
+            && (! $doctype->isHtml5()
+            || (! $doctype->isHtml5() && $item->type !== 'charset'))
         ) {
             return false;
         }
 
         // <meta itemprop= ... /> is only supported with doctype html
-        if (! $this->view->plugin('doctype')->isHtml5()
+        if (! $doctype->isHtml5()
             && $item->type === 'itemprop'
         ) {
             return false;
         }
 
         // <meta property= ... /> is only supported with doctype RDFa
-        if (! $this->view->plugin('doctype')->isRdfa()
+        if (! $doctype->isRdfa()
             && $item->type === 'property'
         ) {
             return false;
@@ -458,20 +464,17 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      * Not valid in a non-HTML5 doctype
      *
      * @param  string $charset
-     * @throws Exception\RuntimeException
+     * @param  Exception\RuntimeException
      * @return HeadMeta Provides a fluent interface
      */
     public function setCharset($charset)
     {
-        if ($this->view->plugin('doctype')->isXhtml()) {
-            throw new Exception\RuntimeException('XHTML* doctype has no attribute charset');
-        }
-
         $item = new stdClass;
         $item->type = 'charset';
         $item->charset = $charset;
         $item->content = null;
         $item->modifiers = [];
+        $this->isValid($item);
         $this->set($item);
 
         return $this;
