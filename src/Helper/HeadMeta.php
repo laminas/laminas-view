@@ -322,7 +322,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
     /**
      * Determine if item is valid
      *
-     * @param  mixed $item
+     * @param  stdClass $item
      * @return bool
      */
     protected function isValid($item)
@@ -366,8 +366,8 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
     /**
      * Append
      *
-     * @param  object $value
-     * @return void
+     * @param  stdClass $value
+     * @return View\Helper\Placeholder\Container\AbstractContainer
      * @throws Exception\InvalidArgumentException
      */
     public function append($value)
@@ -387,7 +387,6 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      * @param  string|int $index
      * @param  string     $value
      * @throws Exception\InvalidArgumentException
-     * @return void
      */
     public function offsetSet($index, $value)
     {
@@ -405,7 +404,6 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      *
      * @param  string|int $index
      * @throws Exception\InvalidArgumentException
-     * @return void
      */
     public function offsetUnset($index)
     {
@@ -419,9 +417,9 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
     /**
      * Prepend
      *
-     * @param  object $value
+     * @param  stdClass $value
      * @throws Exception\InvalidArgumentException
-     * @return void
+     * @return View\Helper\Placeholder\Container\AbstractContainer
      */
     public function prepend($value)
     {
@@ -437,9 +435,9 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
     /**
      * Set
      *
-     * @param  object $value
+     * @param  stdClass $value
      * @throws Exception\InvalidArgumentException
-     * @return void
+     * @return View\Helper\Placeholder\Container\AbstractContainer
      */
     public function set($value)
     {
