@@ -334,22 +334,27 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
             return false;
         }
 
+        $doctype = $this->view->plugin('doctype');
+        if ($item->type === 'charset' && $doctype->isXhtml()) {
+            return false;
+        }
+
         if (! isset($item->content)
-            && (! $this->view->plugin('doctype')->isHtml5()
-            || (! $this->view->plugin('doctype')->isHtml5() && $item->type !== 'charset'))
+            && (! $doctype->isHtml5()
+            || (! $doctype->isHtml5() && $item->type !== 'charset'))
         ) {
             return false;
         }
 
         // <meta itemprop= ... /> is only supported with doctype html
-        if (! $this->view->plugin('doctype')->isHtml5()
+        if (! $doctype->isHtml5()
             && $item->type === 'itemprop'
         ) {
             return false;
         }
 
         // <meta property= ... /> is only supported with doctype RDFa
-        if (! $this->view->plugin('doctype')->isRdfa()
+        if (! $doctype->isRdfa()
             && $item->type === 'property'
         ) {
             return false;
@@ -361,7 +366,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
     /**
      * Append
      *
-     * @param  string $value
+     * @param  object $value
      * @return void
      * @throws Exception\InvalidArgumentException
      */
@@ -369,7 +374,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
     {
         if (! $this->isValid($value)) {
             throw new Exception\InvalidArgumentException(
-                'Invalid value passed to append; please use appendMeta()'
+                'Invalid value passed to append'
             );
         }
 
@@ -414,7 +419,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
     /**
      * Prepend
      *
-     * @param  string $value
+     * @param  object $value
      * @throws Exception\InvalidArgumentException
      * @return void
      */
@@ -422,7 +427,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
     {
         if (! $this->isValid($value)) {
             throw new Exception\InvalidArgumentException(
-                'Invalid value passed to prepend; please use prependMeta()'
+                'Invalid value passed to prepend'
             );
         }
 
@@ -432,14 +437,14 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
     /**
      * Set
      *
-     * @param  string $value
+     * @param  object $value
      * @throws Exception\InvalidArgumentException
      * @return void
      */
     public function set($value)
     {
         if (! $this->isValid($value)) {
-            throw new Exception\InvalidArgumentException('Invalid value passed to set; please use setMeta()');
+            throw new Exception\InvalidArgumentException('Invalid value passed to set');
         }
 
         $container = $this->getContainer();
@@ -458,6 +463,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      * Not valid in a non-HTML5 doctype
      *
      * @param  string $charset
+     * @param  Exception\InvalidArgumentException
      * @return HeadMeta Provides a fluent interface
      */
     public function setCharset($charset)
@@ -467,6 +473,11 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
         $item->charset = $charset;
         $item->content = null;
         $item->modifiers = [];
+
+        if (! $this->isValid($item)) {
+            throw new Exception\InvalidArgumentException('XHTML* doctype has no attribute charset; please use appendHttpEquiv()');
+        }
+
         $this->set($item);
 
         return $this;
