@@ -441,4 +441,13 @@ class ContainerTest extends TestCase
         $this->assertEquals('', $string);
     }
 
+    public function testUsePrefixPostfixIfEmptyItems()
+    {
+        $this->container->setPrefix("<h1>")
+            ->setPostfix("</h1>");
+        $this->container->set('');
+        $string = $this->container->toString();
+        $this->assertEquals('<h1></h1>', $string);
+    }
+
 }
