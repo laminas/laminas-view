@@ -114,13 +114,13 @@ abstract class AbstractContainer extends ArrayObject
     public function toString($indent = null)
     {
         // If we don't have items - do not show prefix and postfix
-        if (!$this->count()) {
+        if (! $this->count()) {
             return '';
         }
 
-        $indent = ($indent !== null)
-            ? $this->getWhitespace($indent)
-            : $this->getIndent();
+        $indent = ($indent === null)
+            ? $this->getIndent()
+            : $this->getWhitespace($indent);
 
         $items  = $this->getArrayCopy();
         $return = $indent
