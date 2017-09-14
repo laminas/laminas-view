@@ -51,7 +51,8 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
         'extras',
         'itemprop',
         'crossorigin',
-        'integrity'
+        'integrity',
+        'as'
     ];
 
     /**
