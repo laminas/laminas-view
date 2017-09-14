@@ -457,4 +457,10 @@ class HeadLinkTest extends TestCase
         $this->helper->prependAlternate(['itemprop' => 'url', 'href' => '/bar/baz', 'rel' => 'canonical']);
         $this->assertContains('itemprop="url"', $this->helper->toString());
     }
+
+    public function testAsAttributeIsSupported()
+    {
+        $this->helper->headLink(['as' => 'style', 'href' => '/foo/bar.css', 'rel' => 'preload']);
+        $this->assertContains('as="style"', $this->helper->toString());
+    }
 }
