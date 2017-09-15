@@ -113,6 +113,7 @@ abstract class AbstractContainer extends ArrayObject
      */
     public function toString($indent = null)
     {
+        // If we don't have items - do not show prefix and postfix
         if (! count($this)) {
             return '';
         }
