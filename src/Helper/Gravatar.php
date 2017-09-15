@@ -234,6 +234,8 @@ class Gravatar extends AbstractHtmlElement
      * value!
      *
      * @return array
+     *
+     * @deprecated Please use Zend\View\Helper\Gravatar::getAttributes
      */
     public function getAttribs()
     {

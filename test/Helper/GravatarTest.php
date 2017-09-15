@@ -309,4 +309,12 @@ class GravatarTest extends TestCase
 
         $this->helper->getAttribs();
     }
+
+    public function testGetAttribsDocCommentHasDeprecated()
+    {
+        $method  = new ReflectionMethod($this->helper, 'getAttribs');
+        $comment = $method->getDocComment();
+
+        $this->assertContains('@deprecated', $comment);
+    }
 }
