@@ -47,7 +47,7 @@ class Gravatar extends AbstractHtmlElement
      *
      * @var array
      */
-    protected $attribs;
+    protected $attributes;
 
     /**
      * Email Address
@@ -86,12 +86,12 @@ class Gravatar extends AbstractHtmlElement
      *
      * @see    http://pl.gravatar.com/site/implement/url
      * @see    http://pl.gravatar.com/site/implement/url More information about gravatar's service.
-     * @param  string|null $email   Email address.
-     * @param  null|array  $options Options
-     * @param  array       $attribs Attributes for image tag (title, alt etc.)
+     * @param  string|null $email      Email address.
+     * @param  null|array  $options    Options
+     * @param  array       $attributes Attributes for image tag (title, alt etc.)
      * @return Gravatar
      */
-    public function __invoke($email = "", $options = [], $attribs = [])
+    public function __invoke($email = "", $options = [], $attributes = [])
     {
         if (! empty($email)) {
             $this->setEmail($email);
@@ -99,8 +99,8 @@ class Gravatar extends AbstractHtmlElement
         if (! empty($options)) {
             $this->setOptions($options);
         }
-        if (! empty($attribs)) {
-            $this->setAttributes($attribs);
+        if (! empty($attributes)) {
+            $this->setAttributes($attributes);
         }
 
         return $this;
@@ -186,7 +186,7 @@ class Gravatar extends AbstractHtmlElement
      */
     public function setAttributes(array $attributes)
     {
-        $this->attribs = $attributes;
+        $this->attributes = $attributes;
         return $this;
     }
 
@@ -222,7 +222,7 @@ class Gravatar extends AbstractHtmlElement
      */
     public function getAttributes()
     {
-        return $this->attribs;
+        return $this->attributes;
     }
 
     /**
@@ -395,8 +395,8 @@ class Gravatar extends AbstractHtmlElement
      */
     protected function setSrcAttribForImg()
     {
-        $attribs        = $this->getAttributes();
-        $attribs['src'] = $this->getAvatarUrl();
-        $this->setAttributes($attribs);
+        $attributes        = $this->getAttributes();
+        $attributes['src'] = $this->getAvatarUrl();
+        $this->setAttributes($attributes);
     }
 }

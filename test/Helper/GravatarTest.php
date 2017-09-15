@@ -87,17 +87,17 @@ class GravatarTest extends TestCase
      */
     public function testGetAndSetMethods()
     {
-        $attribs = ['class' => 'gravatar', 'title' => 'avatar', 'id' => 'gravatar-1'];
+        $attributes = ['class' => 'gravatar', 'title' => 'avatar', 'id' => 'gravatar-1'];
         $this->helper->setDefaultImg('monsterid')
                      ->setImgSize(150)
                      ->setSecure(true)
                      ->setEmail("example@example.com")
-                     ->setAttributes($attribs)
+                     ->setAttributes($attributes)
                      ->setRating('pg');
         $this->assertEquals("monsterid", $this->helper->getDefaultImg());
         $this->assertEquals("pg", $this->helper->getRating());
         $this->assertEquals("example@example.com", $this->helper->getEmail());
-        $this->assertEquals($attribs, $this->helper->getAttributes());
+        $this->assertEquals($attributes, $this->helper->getAttributes());
         $this->assertEquals(150, $this->helper->getImgSize());
         $this->assertTrue($this->helper->getSecure());
     }
@@ -166,9 +166,9 @@ class GravatarTest extends TestCase
     }
 
     /**
-     * Test HTML attribs
+     * Test HTML attributes
      */
-    public function testImgAttribs()
+    public function testImgAttributes()
     {
         $this->assertRegExp(
             '/class="gravatar" title="Gravatar"/',
@@ -235,7 +235,7 @@ class GravatarTest extends TestCase
         );
     }
 
-    public function testSetAttribsWithSrcKey()
+    public function testSetAttributesWithSrcKey()
     {
         $email = 'example@example.com';
         $this->helper->setEmail($email);
