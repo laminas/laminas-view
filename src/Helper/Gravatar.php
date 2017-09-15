@@ -168,7 +168,7 @@ class Gravatar extends AbstractHtmlElement
     {
         $this->setSrcAttribForImg();
         $html = '<img'
-            . $this->htmlAttribs($this->getAttribs())
+            . $this->htmlAttribs($this->getAttributes())
             . $this->getClosingBracket();
 
         return $html;
@@ -245,7 +245,7 @@ class Gravatar extends AbstractHtmlElement
             __CLASS__
         ), E_USER_DEPRECATED);
 
-        return $this->attribs;
+        return $this->getAttributes();
     }
 
     /**
@@ -395,7 +395,7 @@ class Gravatar extends AbstractHtmlElement
      */
     protected function setSrcAttribForImg()
     {
-        $attribs        = $this->getAttribs();
+        $attribs        = $this->getAttributes();
         $attribs['src'] = $this->getAvatarUrl();
         $this->setAttributes($attribs);
     }

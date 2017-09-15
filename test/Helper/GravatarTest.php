@@ -97,7 +97,7 @@ class GravatarTest extends TestCase
         $this->assertEquals("monsterid", $this->helper->getDefaultImg());
         $this->assertEquals("pg", $this->helper->getRating());
         $this->assertEquals("example@example.com", $this->helper->getEmail());
-        $this->assertEquals($attribs, $this->helper->getAttribs());
+        $this->assertEquals($attribs, $this->helper->getAttributes());
         $this->assertEquals(150, $this->helper->getImgSize());
         $this->assertTrue($this->helper->getSecure());
     }
