@@ -92,7 +92,7 @@ class GravatarTest extends TestCase
                      ->setImgSize(150)
                      ->setSecure(true)
                      ->setEmail("example@example.com")
-                     ->setAttribs($attribs)
+                     ->setAttributes($attribs)
                      ->setRating('pg');
         $this->assertEquals("monsterid", $this->helper->getDefaultImg());
         $this->assertEquals("pg", $this->helper->getRating());
@@ -239,7 +239,7 @@ class GravatarTest extends TestCase
     {
         $email = 'example@example.com';
         $this->helper->setEmail($email);
-        $this->helper->setAttribs([
+        $this->helper->setAttributes([
             'class' => 'gravatar',
             'src'   => 'http://example.com',
             'id'    => 'gravatarID',
