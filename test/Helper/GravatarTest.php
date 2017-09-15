@@ -9,10 +9,11 @@
 
 namespace ZendTest\View\Helper;
 
+use PHPUnit\Framework\Error\Deprecated as DeprecatedError;
 use PHPUnit\Framework\TestCase;
 use Zend\View\Exception;
-use Zend\View\Renderer\PhpRenderer as View;
 use Zend\View\Helper\Gravatar;
+use Zend\View\Renderer\PhpRenderer as View;
 
 /**
  * @group      Zendview
@@ -284,5 +285,12 @@ class GravatarTest extends TestCase
             'example@example.com',
             $this->helper->__invoke('Example@Example.com ')->getEmail()
         );
+    }
+
+    public function testSetAttribsIsDeprecated()
+    {
+        $this->expectException(DeprecatedError::class);
+
+        $this->helper->setAttribs([]);
     }
 }

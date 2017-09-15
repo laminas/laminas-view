@@ -186,6 +186,12 @@ class Gravatar extends AbstractHtmlElement
      */
     public function setAttribs(array $attribs)
     {
+        trigger_error(sprintf(
+            '%s is deprecated; please use %s::setAttributes',
+            __METHOD__,
+            __CLASS__
+        ), E_USER_DEPRECATED);
+
         $this->attribs = $attribs;
         return $this;
     }
