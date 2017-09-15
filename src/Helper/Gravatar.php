@@ -211,6 +211,21 @@ class Gravatar extends AbstractHtmlElement
     }
 
     /**
+     * Get attributes of image
+     *
+     * Warning!
+     * If you set src attribute, you get it, but this value will be overwritten in
+     * protected method setSrcAttribForImg(). And finally your get other src
+     * value!
+     *
+     * @return array
+     */
+    public function getAttributes()
+    {
+        return $this->attribs;
+    }
+
+    /**
      * Get attribs of image
      *
      * Warning!
@@ -222,6 +237,12 @@ class Gravatar extends AbstractHtmlElement
      */
     public function getAttribs()
     {
+        trigger_error(sprintf(
+            '%s is deprecated; please use %s::getAttributes',
+            __METHOD__,
+            __CLASS__
+        ), E_USER_DEPRECATED);
+
         return $this->attribs;
     }
 

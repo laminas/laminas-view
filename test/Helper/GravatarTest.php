@@ -302,4 +302,11 @@ class GravatarTest extends TestCase
 
         $this->assertContains('@deprecated', $comment);
     }
+
+    public function testGetAttribsIsDeprecated()
+    {
+        $this->expectException(DeprecatedError::class);
+
+        $this->helper->getAttribs();
+    }
 }
