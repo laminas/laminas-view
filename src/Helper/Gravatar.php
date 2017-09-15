@@ -183,6 +183,8 @@ class Gravatar extends AbstractHtmlElement
      *
      * @param  array $attribs
      * @return Gravatar
+     *
+     * @deprecated Please use Zend\View\Helper\Gravatar::setAttributes
      */
     public function setAttribs(array $attribs)
     {

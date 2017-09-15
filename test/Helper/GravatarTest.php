@@ -11,6 +11,7 @@ namespace ZendTest\View\Helper;
 
 use PHPUnit\Framework\Error\Deprecated as DeprecatedError;
 use PHPUnit\Framework\TestCase;
+use ReflectionMethod;
 use Zend\View\Exception;
 use Zend\View\Helper\Gravatar;
 use Zend\View\Renderer\PhpRenderer as View;
@@ -292,5 +293,13 @@ class GravatarTest extends TestCase
         $this->expectException(DeprecatedError::class);
 
         $this->helper->setAttribs([]);
+    }
+
+    public function testSetAttribsDocCommentHasDeprecated()
+    {
+        $method  = new ReflectionMethod($this->helper, 'setAttribs');
+        $comment = $method->getDocComment();
+
+        $this->assertContains('@deprecated', $comment);
     }
 }
