@@ -70,6 +70,9 @@
         }
     },
     "autoload-dev": {
+        "files": [
+            "test/autoload.php"
+        ],
         "psr-4": {
             "ZendTest\\View\\": "test/"
         }
