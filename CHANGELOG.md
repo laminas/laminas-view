@@ -24,6 +24,11 @@ All notable changes to this project will be documented in this file, in reverse 
   `HelperPluginManager` such that it no longer injects a translator in a helper
   if one is already present.
 
+- [#125](https://github.com/zendframework/zend-view/pull/125) provides an update
+  to the `PhpRenderer:render()` method such that it will now catch not only
+  `Exception` instances, but also PHP 7 `Throwable` instances, and properly
+  cleanup the output buffers when it does.
+
 ## 2.9.0 - 2017-03-21
 
 ### Added
