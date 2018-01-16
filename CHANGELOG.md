@@ -24,7 +24,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- Nothing.
+- [#136](https://github.com/zendframework/zend-view/pull/136) updates the
+  `Navigation` helper class to document the various proxy methods it allows via
+  method overloading via `@method` annotations.
 
 ### Deprecated
 
