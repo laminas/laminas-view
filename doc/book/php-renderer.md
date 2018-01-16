@@ -72,8 +72,8 @@ $stack = new Resolver\TemplatePathStack([
 $resolver
     ->attach($map)    // this will be consulted first, and is the fastest lookup
     ->attach($stack)  // filesystem-based lookup
-    ->attach(new Resolver\RelativeFallbackResolver($map) // allow short template names
-    ->attach(new Resolver\RelativeFallbackResolver($stack);
+    ->attach(new Resolver\RelativeFallbackResolver($map)) // allow short template names
+    ->attach(new Resolver\RelativeFallbackResolver($stack));
 ```
 
 You can also specify a specific priority value when registering resolvers, with
