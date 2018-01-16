@@ -137,7 +137,7 @@ class DoctypeTest extends TestCase
 
     public function testIsRdfa()
     {
-        // ensure default registerd Doctype is false
+        // ensure default registered Doctype is false
         $this->assertFalse($this->helper->isRdfa());
 
         $this->assertTrue($this->helper->__invoke(Helper\Doctype::XHTML1_RDFA)->isRdfa());
