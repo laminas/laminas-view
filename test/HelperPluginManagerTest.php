@@ -186,6 +186,28 @@ class HelperPluginManagerTest extends TestCase
         $this->assertNull($helper->getTranslator());
     }
 
+    public function testInjectTranslatorWillReturnEarlyIfTheHelperHasTranslatorAlready()
+    {
+        $translatorA = new Translator();
+        $translatorB = new Translator();
+        $config = new Config(['services' => [
+            'Translator' => $translatorB,
+        ]]);
+        $services = new ServiceManager();
+        $config->configureServiceManager($services);
+        $helpers = new HelperPluginManager($services);
+        $helpers->setFactory(
+            'TestHelper',
+            function () use ($translatorA) {
+                $helper = new HeadTitle();
+                $helper->setTranslator($translatorA);
+                return $helper;
+            }
+        );
+        $helperB = $helpers->get('TestHelper');
+        $this->assertSame($translatorA, $helperB->getTranslator());
+    }
+
     public function testCanOverrideAFactoryViaConfigurationPassedToConstructor()
     {
         $helper  = $this->prophesize(HelperInterface::class)->reveal();

@@ -38,7 +38,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#123](https://github.com/zendframework/zend-view/pull/123) updates the
+  `HelperPluginManager` such that it no longer injects a translator in a helper
+  if one is already present.
 
 ## 2.9.0 - 2017-03-21
 
