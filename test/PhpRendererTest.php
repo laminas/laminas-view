@@ -484,6 +484,7 @@ class PhpRendererTest extends TestCase
 
     /**
      * @group zend-view-120
+     * @see https://github.com/zendframework/zend-view/issues/120
      */
     public function testRendererDoesntUsePreviousRenderedOutputWhenInvokedWithEmptyString()
     {
@@ -498,6 +499,7 @@ class PhpRendererTest extends TestCase
 
     /**
      * @group zend-view-120
+     * @see https://github.com/zendframework/zend-view/issues/120
      */
     public function testRendererDoesntUsePreviousRenderedOutputWhenInvokedWithFalse()
     {
