@@ -65,8 +65,8 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.9-dev",
-            "dev-develop": "2.10-dev"
+            "dev-master": "2.9.x-dev",
+            "dev-develop": "2.10.x-dev"
         }
     },
     "autoload-dev": {
