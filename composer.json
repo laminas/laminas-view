@@ -39,8 +39,8 @@
         "zendframework/zend-permissions-acl": "^2.6",
         "zendframework/zend-router": "^3.0.1",
         "zendframework/zend-serializer": "^2.6.1",
-        "zendframework/zend-session": "^2.6.2",
         "zendframework/zend-servicemanager": "^2.7.5 || ^3.0.3",
+        "zendframework/zend-session": "^2.8.1",
         "zendframework/zend-uri": "^2.5"
     },
     "suggest": {
