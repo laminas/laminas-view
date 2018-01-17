@@ -17,7 +17,7 @@ env:
   global:
     - COMPOSER_PROCESS_TIMEOUT=600
     - COMPOSER_ARGS="--no-interaction"
-    - COVERAGE_DEPS="satooshi/php-coveralls"
+    - COVERAGE_DEPS="php-coveralls/php-coveralls"
     - LEGACY_DEPS="phpunit/phpunit"
     - LATEST_DEPS="zendframework/zend-mvc-plugin-flashmessenger zendframework/zend-mvc-i18n zendframework/zend-mvc-console"
     - SITE_URL=https://zendframework.github.io/zend-view
@@ -96,4 +96,4 @@ after_success:
   - if [[ $DEPLOY_DOCS == "true" ]]; then echo "Preparing to build and deploy documentation" ; ./zf-mkdoc-theme/deploy.sh ; echo "Completed deploying documentation" ; fi
 
 after_script:
-  - if [[ $TEST_COVERAGE == 'true' ]]; then composer upload-coverage ; fi
+  - if [[ $TEST_COVERAGE == 'true' ]]; then travis_retry php vendor/bin/php-coveralls -v ; fi
