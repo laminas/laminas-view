@@ -47,6 +47,10 @@ All notable changes to this project will be documented in this file, in reverse 
   `Exception` instances, but also PHP 7 `Throwable` instances, and properly
   cleanup the output buffers when it does.
 
+- [#121](https://github.com/zendframework/zend-view/pull/121) provides a fix to
+  ensure that content generated on a previous execution of `PhpRenderer::render()`
+  is never re-used.
+
 ## 2.9.0 - 2017-03-21
 
 ### Added

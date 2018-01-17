@@ -491,6 +491,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
         extract($__vars);
         unset($__vars); // remove $__vars from local scope
 
+        $this->__content = '';
         while ($this->__template = array_pop($this->__templates)) {
             $this->__file = $this->resolver($this->__template);
             if (! $this->__file) {
