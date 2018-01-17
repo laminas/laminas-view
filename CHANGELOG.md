@@ -11,7 +11,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Changed
 
-- Nothing.
+- [#133](https://github.com/zendframework/zend-view/pull/133) modifies the
+  behavior the `placeholder()` helper to no longer render a prefix or postfix if
+  no items are available in the container.
 
 ### Deprecated
 
