@@ -9,10 +9,12 @@
 
 namespace ZendTest\View\Helper;
 
+use PHPUnit\Framework\Error\Deprecated as DeprecatedError;
 use PHPUnit\Framework\TestCase;
+use ReflectionMethod;
 use Zend\View\Exception;
-use Zend\View\Renderer\PhpRenderer as View;
 use Zend\View\Helper\Gravatar;
+use Zend\View\Renderer\PhpRenderer as View;
 
 /**
  * @group      Zendview
@@ -85,17 +87,17 @@ class GravatarTest extends TestCase
      */
     public function testGetAndSetMethods()
     {
-        $attribs = ['class' => 'gravatar', 'title' => 'avatar', 'id' => 'gravatar-1'];
+        $attributes = ['class' => 'gravatar', 'title' => 'avatar', 'id' => 'gravatar-1'];
         $this->helper->setDefaultImg('monsterid')
                      ->setImgSize(150)
                      ->setSecure(true)
                      ->setEmail("example@example.com")
-                     ->setAttribs($attribs)
+                     ->setAttributes($attributes)
                      ->setRating('pg');
         $this->assertEquals("monsterid", $this->helper->getDefaultImg());
         $this->assertEquals("pg", $this->helper->getRating());
         $this->assertEquals("example@example.com", $this->helper->getEmail());
-        $this->assertEquals($attribs, $this->helper->getAttribs());
+        $this->assertEquals($attributes, $this->helper->getAttributes());
         $this->assertEquals(150, $this->helper->getImgSize());
         $this->assertTrue($this->helper->getSecure());
     }
@@ -164,9 +166,9 @@ class GravatarTest extends TestCase
     }
 
     /**
-     * Test HTML attribs
+     * Test HTML attributes
      */
-    public function testImgAttribs()
+    public function testImgAttributes()
     {
         $this->assertRegExp(
             '/class="gravatar" title="Gravatar"/',
@@ -233,11 +235,11 @@ class GravatarTest extends TestCase
         );
     }
 
-    public function testSetAttribsWithSrcKey()
+    public function testSetAttributesWithSrcKey()
     {
         $email = 'example@example.com';
         $this->helper->setEmail($email);
-        $this->helper->setAttribs([
+        $this->helper->setAttributes([
             'class' => 'gravatar',
             'src'   => 'http://example.com',
             'id'    => 'gravatarID',
@@ -284,5 +286,35 @@ class GravatarTest extends TestCase
             'example@example.com',
             $this->helper->__invoke('Example@Example.com ')->getEmail()
         );
+    }
+
+    public function testSetAttribsIsDeprecated()
+    {
+        $this->expectException(DeprecatedError::class);
+
+        $this->helper->setAttribs([]);
+    }
+
+    public function testSetAttribsDocCommentHasDeprecated()
+    {
+        $method  = new ReflectionMethod($this->helper, 'setAttribs');
+        $comment = $method->getDocComment();
+
+        $this->assertContains('@deprecated', $comment);
+    }
+
+    public function testGetAttribsIsDeprecated()
+    {
+        $this->expectException(DeprecatedError::class);
+
+        $this->helper->getAttribs();
+    }
+
+    public function testGetAttribsDocCommentHasDeprecated()
+    {
+        $method  = new ReflectionMethod($this->helper, 'getAttribs');
+        $comment = $method->getDocComment();
+
+        $this->assertContains('@deprecated', $comment);
     }
 }

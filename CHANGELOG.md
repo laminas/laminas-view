@@ -13,6 +13,10 @@ All notable changes to this project will be documented in this file, in reverse 
   the HTML5 "as" attribute to the `HeadLink` helper. This can be used to help
   prioritize resource loading.
 
+- [#139](https://github.com/zendframework/zend-view/pull/139) adds two new
+  methods to the `Zend\View\Helper\Gravatar` class: `setAttributes()` and
+  `getAttributes()`.
+
 ### Changed
 
 - [#133](https://github.com/zendframework/zend-view/pull/133) modifies the
@@ -21,7 +25,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Deprecated
 
-- Nothing.
+- [#139](https://github.com/zendframework/zend-view/pull/139) deprecates the
+  `Zend\View\Helper\Gravatar` methods `setAttribs()` and `getAttribs()` in favor
+  of the new methods `setAttributes()` and `getAttributes()`, respectively.
 
 ### Removed
 
