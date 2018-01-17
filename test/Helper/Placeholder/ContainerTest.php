@@ -432,4 +432,17 @@ class ContainerTest extends TestCase
         $this->assertContains("    <ul>\n", $string, $string);
         $this->assertContains("\n    </ul>", $string, $string);
     }
+
+    public function testNoUsePrefixPostfixIfNoItems()
+    {
+        $this->container->setPrefix("<h1>")
+                        ->setPostfix("</h1>");
+        $string = $this->container->toString();
+        $this->assertEquals('', $string);
+
+        $this->container->set('');
+        $string = $this->container->toString();
+        $this->assertEquals('<h1></h1>', $string);
+    }
+
 }
