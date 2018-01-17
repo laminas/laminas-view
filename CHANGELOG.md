@@ -9,6 +9,10 @@ All notable changes to this project will be documented in this file, in reverse 
 - [#135](https://github.com/zendframework/zend-view/pull/135) adds support
   for PHP 7.2.
 
+- [#138](https://github.com/zendframework/zend-view/pull/138) adds support for
+  the HTML5 "as" attribute to the `HeadLink` helper. This can be used to help
+  prioritize resource loading.
+
 ### Changed
 
 - [#133](https://github.com/zendframework/zend-view/pull/133) modifies the
