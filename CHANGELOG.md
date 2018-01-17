@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 3.0.0 - TBD
+
+### Added
+
+- [#135](https://github.com/zendframework/zend-view/pull/135) adds support
+  for PHP 7.2.
+
+- [#138](https://github.com/zendframework/zend-view/pull/138) adds support for
+  the HTML5 "as" attribute to the `HeadLink` helper. This can be used to help
+  prioritize resource loading.
+
+- [#139](https://github.com/zendframework/zend-view/pull/139) adds two new
+  methods to the `Zend\View\Helper\Gravatar` class: `setAttributes()` and
+  `getAttributes()`.
+
+### Changed
+
+- [#133](https://github.com/zendframework/zend-view/pull/133) modifies the
+  behavior the `placeholder()` helper to no longer render a prefix or postfix if
+  no items are available in the container.
+
+### Deprecated
+
+- [#139](https://github.com/zendframework/zend-view/pull/139) deprecates the
+  `Zend\View\Helper\Gravatar` methods `setAttribs()` and `getAttribs()` in favor
+  of the new methods `setAttributes()` and `getAttributes()`, respectively.
+
+### Removed
+
+- [#135](https://github.com/zendframework/zend-view/pull/135) removes support
+  for HHVM.
+
+### Fixed
+
+- Nothing.
+
 ## 2.9.1 - 2018-01-17
 
 ### Added

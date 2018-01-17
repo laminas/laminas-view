@@ -473,7 +473,9 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
         $item->modifiers = [];
 
         if (! $this->isValid($item)) {
-            throw new Exception\InvalidArgumentException('XHTML* doctype has no attribute charset; please use appendHttpEquiv()');
+            throw new Exception\InvalidArgumentException(
+                'XHTML* doctype has no attribute charset; please use appendHttpEquiv()'
+            );
         }
 
         $this->set($item);
