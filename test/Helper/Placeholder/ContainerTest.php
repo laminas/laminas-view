@@ -433,10 +433,14 @@ class ContainerTest extends TestCase
         $this->assertContains("\n    </ul>", $string, $string);
     }
 
-    public function testNoUsePrefixPostfixIfNoItems()
+    /**
+     * @see https://github.com/zendframework/zend-view/pull/133
+     */
+    public function testNoPrefixOrPostfixAreRenderedIfNoItemsArePresentInTheContainer()
     {
-        $this->container->setPrefix("<h1>")
-                        ->setPostfix("</h1>");
+        $this->container
+            ->setPrefix("<h1>")
+            ->setPostfix("</h1>");
         $string = $this->container->toString();
         $this->assertEquals('', $string);
 
@@ -444,5 +448,4 @@ class ContainerTest extends TestCase
         $string = $this->container->toString();
         $this->assertEquals('<h1></h1>', $string);
     }
-
 }
