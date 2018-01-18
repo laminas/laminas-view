@@ -56,13 +56,6 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
     protected $modifierKeys = ['lang', 'scheme'];
 
     /**
-     * Registry key for placeholder
-     *
-     * @var string
-     */
-    protected $regKey = 'Zend_View_Helper_HeadMeta';
-
-    /**
      * Constructor
      *
      * Set separator to PHP_EOL

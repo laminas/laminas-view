@@ -56,13 +56,6 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
     ];
 
     /**
-     * Registry key for placeholder
-     *
-     * @var string
-     */
-    protected $regKey = 'Zend_View_Helper_HeadLink';
-
-    /**
      * Constructor
      *
      * Use PHP_EOL as separator
