@@ -108,7 +108,7 @@ abstract class AbstractHtmlElement extends AbstractHelper
      */
     protected function normalizeId($value)
     {
-        if (strpos($value, '[')) {
+        if (false !== strpos($value, '[')) {
             if ('[]' == substr($value, -2)) {
                 $value = substr($value, 0, strlen($value) - 2);
             }
