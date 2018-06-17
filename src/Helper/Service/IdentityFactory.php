@@ -33,6 +33,8 @@ class IdentityFactory implements FactoryInterface
         $helper = new Identity();
         if ($container->has('Zend\Authentication\AuthenticationService')) {
             $helper->setAuthenticationService($container->get('Zend\Authentication\AuthenticationService'));
+        } elseif ($container->has('Zend\Authentication\AuthenticationServiceInterface')) {
+            $helper->setAuthenticationService($container->get('Zend\Authentication\AuthenticationServiceInterface'));
         }
         return $helper;
     }
