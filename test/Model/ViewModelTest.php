@@ -340,4 +340,25 @@ class ViewModelTest extends TestCase
 
         $this->assertEmpty($model->getChildrenByCaptureTo('bar', false));
     }
+
+    public function testCloneCopiesVariables()
+    {
+        $model1 = new ViewModel();
+        $model1->setVariables(['a' => 'foo']);
+        $model2 = clone $model1;
+        $model2->setVariables(['a' => 'bar']);
+
+        $this->assertEquals('foo', $model1->getVariable('a'));
+        $this->assertEquals('bar', $model2->getVariable('a'));
+    }
+
+    public function testCloneWithArray()
+    {
+        $model1 = new ViewModel(['a' => 'foo']);
+        $model2 = clone $model1;
+        $model2->setVariables(['a' => 'bar']);
+
+        $this->assertEquals('foo', $model1->getVariable('a'));
+        $this->assertEquals('bar', $model2->getVariable('a'));
+    }
 }

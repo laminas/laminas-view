@@ -141,6 +141,19 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
     }
 
     /**
+     * Called after this view model is cloned.
+     * Clones variables property so variables changes done in the new instance don't change the old one.
+     *
+     * @return void
+     */
+    public function __clone()
+    {
+        if (is_object($this->variables)) {
+            $this->variables = clone $this->variables;
+        }
+    }
+
+    /**
      * Set a single option
      *
      * @param  string $name
