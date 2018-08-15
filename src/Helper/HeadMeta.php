@@ -243,7 +243,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
             if (! in_array($key, $this->modifierKeys)) {
                 continue;
             }
-            $modifiersString .= $key . '="' . $this->escape($value) . '" ';
+            $modifiersString .= $key . '="' . $this->escapeAttribute($value) . '" ';
         }
 
         $modifiersString = rtrim($modifiersString);
@@ -271,8 +271,8 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
         $meta = sprintf(
             $tpl,
             $type,
-            $this->escape($item->$type),
-            $this->escape($item->content),
+            $this->escapeAttribute($item->$type),
+            $this->escapeAttribute($item->content),
             $modifiersString
         );
 
