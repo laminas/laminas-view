@@ -10,8 +10,8 @@
 namespace ZendTest\View\Helper;
 
 use PHPUnit\Framework\TestCase;
-use Zend\View\Helper;
 use Zend\View;
+use Zend\View\Helper;
 
 /**
  * Test class for Zend\View\Helper\HeadScript.
@@ -25,6 +25,11 @@ class HeadScriptTest extends TestCase
      * @var Helper\HeadScript
      */
     public $helper;
+
+    /**
+     * @var Helper\EscapeHtmlAttr
+     */
+    public $attributeEscaper;
 
     /**
      * @var string
@@ -42,6 +47,7 @@ class HeadScriptTest extends TestCase
     {
         $this->basePath = __DIR__ . '/_files/modules';
         $this->helper = new Helper\HeadScript();
+        $this->attributeEscaper  = new Helper\EscapeHtmlAttr();
     }
 
     /**
@@ -433,10 +439,19 @@ document.write(bar.strlen());');
 
         $test = $this->helper->toString();
 
-        $expected = '<script type="text/javascript" src="test1.js"></script>' . PHP_EOL
-                  . '<script type="text/javascript" src="test4.js"></script>' . PHP_EOL
-                  . '<script type="text/javascript" src="test3.js"></script>' . PHP_EOL
-                  . '<script type="text/javascript" src="test2.js"></script>';
+        $attributeEscaper = $this->attributeEscaper;
+
+        $expected = '<script type="' . $attributeEscaper('text/javascript')
+                  . '" src="' . $attributeEscaper('test1.js') . '"></script>' . PHP_EOL
+
+                  . '<script type="' . $attributeEscaper('text/javascript')
+                  . '" src="' . $attributeEscaper('test4.js') . '"></script>' . PHP_EOL
+
+                  . '<script type="' . $attributeEscaper('text/javascript')
+                  . '" src="' . $attributeEscaper('test3.js') . '"></script>' . PHP_EOL
+
+                  . '<script type="' . $attributeEscaper('text/javascript')
+                  . '" src="' . $attributeEscaper('test2.js') . '"></script>';
 
         $this->assertEquals($expected, $test);
     }
