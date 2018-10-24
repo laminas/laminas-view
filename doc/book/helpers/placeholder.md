@@ -63,7 +63,7 @@ $this->placeholder('foo')
 <?= $this->placeholder('foo') ?>
 ```
 
-The above results in an unodered list with pretty indentation.
+The above results in an unordered list with pretty indentation.
 
 Because the `Placeholder` container objects extend `ArrayObject`, you can also
 assign content to a specific key in the container easily, instead of simply
@@ -129,6 +129,21 @@ foreach ($this->data as $datum): ?>
 <?php $this->placeholder('foo')->captureEnd() ?>
 
 <?= $this->placeholder('foo')->data ?>
+```
+
+## Clearing Content
+
+In certain situations it is desirable to remove or clear containers and aggregated content. The placeholder view helper
+provides two methods to either delete a specific container or clear all containers at once:
+
+```php
+<?php
+// Delete a single Container
+$placeholderHelper = $this->plugin('placeholder');
+$placeholderHelper->deleteContainer('myNamedContainer');
+// Clear all containers at once
+$placeholderHelper->clearContainers();
+?>
 ```
 
 ## Concrete Implementations
