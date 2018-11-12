@@ -408,6 +408,8 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
         if ($args && is_array($args[0])) {
             $extras = array_shift($args);
             $extras = (array) $extras;
+        } else {
+            $extras = array();
         }
 
         $attributes = compact('rel', 'type', 'href', 'media', 'conditionalStylesheet', 'extras');
@@ -460,6 +462,8 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
             if (isset($extras['media']) && is_array($extras['media'])) {
                 $extras['media'] = implode(',', $extras['media']);
             }
+        } else {
+            $extras = array();
         }
 
         $href  = (string) $href;
