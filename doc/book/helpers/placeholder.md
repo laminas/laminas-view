@@ -136,14 +136,14 @@ foreach ($this->data as $datum): ?>
 In certain situations it is desirable to remove or clear containers and aggregated content. The placeholder view helper
 provides two methods to either delete a specific container or clear all containers at once:
 
+### Delete a single container
 ```php
-<?php
-// Delete a single Container
-$placeholderHelper = $this->plugin('placeholder');
-$placeholderHelper->deleteContainer('myNamedContainer');
-// Clear all containers at once
-$placeholderHelper->clearContainers();
-?>
+$this->plugin('placeholder')->deleteContainer('myNamedContainer');
+```
+
+### Clear all containers
+```php
+$this->plugin('placeholder')->clearContainers();
 ```
 
 ## Concrete Implementations
