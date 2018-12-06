@@ -10,6 +10,12 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Changed
 
+- [#155](https://github.com/zendframework/zend-view/pull/155) modifies the `Zend\View\Helper\Service\IdentifyFactory` such that it will
+  now also look for the service `Zend\Authentication\AuthenticationServiceInterface`
+  if the service `Zend\Authentication\AuthenticationService` is not found. This
+  allows using a service named after the interface instead of the
+  implementation if desired.
+
 - [#158](https://github.com/zendframework/zend-view/pull/158) modifies how a `ViewModel` (and all extensions) is cloned; the `$variables`
   property, if it is an object, is now cloned as well to ensure changes in the
   new instance do not affect the current one.
