@@ -44,7 +44,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#156](https://github.com/zendframework/zend-view/pull/156) adds missing `@method` annotations to the `HeadMeta` helper.
 
 ## 2.10.0 - 2018-01-17
 
