@@ -73,11 +73,11 @@ class UrlTest extends TestCase
             ? WildcardRoute::class
             : NextGenWildcardRoute::class;
 
-        $routerClass = class_exists(Router::class)
+        $this->routerClass = class_exists(Router::class)
             ? Router::class
             : NextGenRouter::class;
 
-        $router = new $routerClass();
+        $router = new $this->routerClass();
         $router->addRoute('home', [
             'type' => $this->literalRouteType,
             'options' => [
@@ -243,7 +243,7 @@ class UrlTest extends TestCase
 
     public function testAcceptsNextGenRouterToSetRouter()
     {
-        $router = new NextGenRouter();
+        $router = new $this->routerClass();
         $url = new UrlHelper();
         $url->setRouter($router);
         $this->assertAttributeSame($router, 'router', $url);
@@ -251,7 +251,7 @@ class UrlTest extends TestCase
 
     public function testAcceptsNextGenRouteMatche()
     {
-        $routeMatch = new NextGenRouteMatch([]);
+        $routeMatch = new $this->routeMatchType([]);
         $url = new UrlHelper();
         $url->setRouteMatch($routeMatch);
         $this->assertAttributeSame($routeMatch, 'routeMatch', $url);

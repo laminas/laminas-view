@@ -11,8 +11,8 @@ env:
     - COMPOSER_PROCESS_TIMEOUT=600
     - COMPOSER_ARGS="--no-interaction"
     - COVERAGE_DEPS="php-coveralls/php-coveralls"
-    - LEGACY_DEPS="phpunit/phpunit"
-    - LATEST_DEPS="zendframework/zend-mvc-plugin-flashmessenger zendframework/zend-mvc-i18n zendframework/zend-mvc-console"
+    - LOWEST_DEPS_REMOVE="zendframework/zend-router"
+    - LATEST_DEPS_REQUIRE="zendframework/zend-mvc-plugin-flashmessenger zendframework/zend-mvc-i18n zendframework/zend-mvc-console"
 
 matrix:
   include:
@@ -21,49 +21,39 @@ matrix:
         - DEPS=lowest
     - php: 5.6
       env:
-        - DEPS=locked
-    - php: 5.6
-      env:
         - DEPS=latest
     - php: 7
       env:
         - DEPS=lowest
     - php: 7
       env:
-        - DEPS=locked
+        - DEPS=latest
+    - php: 7.1
+      env:
+        - DEPS=lowest
+    - php: 7.1
+      env:
+        - DEPS=latest
         - CS_CHECK=true
         - TEST_COVERAGE=true
-    - php: 7
-      env:
-        - DEPS=latest
-    - php: 7.1
-      env:
-        - DEPS=lowest
-    - php: 7.1
-      env:
-        - DEPS=locked
-    - php: 7.1
-      env:
-        - DEPS=latest
     - php: 7.2
       env:
         - DEPS=lowest
     - php: 7.2
       env:
-        - DEPS=locked
-    - php: 7.2
+        - DEPS=latest
+    - php: 7.3
       env:
         - DEPS=latest
 
 before_install:
   - if [[ $TEST_COVERAGE != 'true' ]]; then phpenv config-rm xdebug.ini || return 0 ; fi
+  - if [[ $DEPS == 'lowest' ]]; then travis_retry composer remove $COMPOSER_ARGS --no-update --dev $LOWEST_DEPS_REMOVE ; fi
+  - if [[ $DEPS == 'latest' ]]; then travis_retry composer require $COMPOSER_ARGS --no-update --dev $LATEST_DEPS_REQUIRE ; fi
 
 install:
-  - travis_retry composer install $COMPOSER_ARGS --ignore-platform-reqs
-  - if [[ $TRAVIS_PHP_VERSION =~ ^5.6 ]]; then travis_retry composer update $COMPOSER_ARGS --with-dependencies $LEGACY_DEPS ; fi
-  - if [[ $DEPS == 'latest' ]]; then travis_retry composer require --dev --no-update $COMPOSER_ARGS $LATEST_DEPS ; fi
-  - if [[ $DEPS == 'latest' ]]; then travis_retry composer update $COMPOSER_ARGS ; fi
-  - if [[ $DEPS == 'lowest' ]]; then travis_retry composer update --prefer-lowest --prefer-stable $COMPOSER_ARGS ; fi
+  - if [[ $DEPS == 'lowest' ]]; then travis_retry composer update $COMPOSER_ARGS --prefer-lowest --prefer-stable ; fi
+  - if [[ $DEPS == 'latest' ]]; then travis_retry composer install ; fi
   - if [[ $TEST_COVERAGE == 'true' ]]; then travis_retry composer require --dev $COMPOSER_ARGS $COVERAGE_DEPS ; fi
   - stty cols 120 && composer show
 

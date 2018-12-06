@@ -409,7 +409,7 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
             $extras = array_shift($args);
             $extras = (array) $extras;
         } else {
-            $extras = array();
+            $extras = [];
         }
 
         $attributes = compact('rel', 'type', 'href', 'media', 'conditionalStylesheet', 'extras');
@@ -463,7 +463,7 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
                 $extras['media'] = implode(',', $extras['media']);
             }
         } else {
-            $extras = array();
+            $extras = [];
         }
 
         $href  = (string) $href;
