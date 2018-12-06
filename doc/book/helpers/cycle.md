@@ -1,4 +1,4 @@
-# View Helper - Cycle
+# Cycle
 
 The `Cycle` helper is used to alternate a set of values.
 
