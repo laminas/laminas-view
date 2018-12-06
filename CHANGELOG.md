@@ -10,6 +10,10 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Changed
 
+- [#158](https://github.com/zendframework/zend-view/pull/158) modifies how a `ViewModel` (and all extensions) is cloned; the `$variables`
+  property, if it is an object, is now cloned as well to ensure changes in the
+  new instance do not affect the current one.
+
 - [#153](https://github.com/zendframework/zend-view/pull/153) updates the `ConsoleModel::setErrorLevel()` method to implement a fluent
   interface.
 
