@@ -33,8 +33,8 @@ Additionally, zend-mvc integrates with zend-view via a number of event listeners
 in the `Zend\Mvc\View` namespace.
 
 This section of the manual is designed to show you typical usage patterns of the
-view layer when using it with [zend-mvc](https://zendframework.github.io/zend-mvc/).
-The assumption is that you are using the [service manager](https://zendframework.github.io/zend-servicemanager/)
+view layer when using it with [zend-mvc](https://docs.zendframework.com/zend-mvc/).
+The assumption is that you are using the [service manager](https://docs.zendframework.com/zend-servicemanager/)
 and the default MVC view strategies.
 
 ## Configuration
@@ -159,7 +159,7 @@ The MVC registers a couple of listeners for controllers to automate this. The
 first will look to see if you returned an associative array from your
 controller; if so, it will create a View Model and make this associative array
 the Variables Container; this View Model then replaces the
-[MvcEvent](http://zendframework.github.io/zend-mvc/mvc-event/)'s result. It will
+[MvcEvent](https://docs.zendframework.com/zend-mvc/mvc-event/)'s result. It will
 also look to see if you returned nothing or `null`; if so, it will create a View
 Model without any variables attached; this View Model also replaces the
 `MvcEvent`'s result.
@@ -771,4 +771,4 @@ class MyController extends AbstractActionController
 ```
 
 Or you could switch the `ViewModel` dynamically based on the "Accept" HTTP Header with the 
-[Zend-Mvc-Plugin AcceptableViewModelSelector](http://zendframework.github.io/zend-mvc/plugins/#acceptableviewmodelselector-plugin).
+[Zend-Mvc-Plugin AcceptableViewModelSelector](https://docs.zendframework.com/zend-mvc/plugins/#acceptableviewmodelselector-plugin).

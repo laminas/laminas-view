@@ -7,7 +7,7 @@ helpers, specifically an instance of `Zend\View\HelperPluginManager`, which
 extends `Zend\ServiceManager\AbstractPluginManager`, which is itself an
 extension of `Zend\ServiceManager\ServiceManager`.  `HelperPluginManager` is a
 specialized service manager, so you can register a helper/plugin like any other
-service (see the [Service Manager documentation](http://zendframework.github.io/zend-servicemanager/configuring-the-service-manager/)
+service (see the [Service Manager documentation](https://docs.zendframework.com/zend-servicemanager/configuring-the-service-manager/)
 for more information).
 
 Programmatically, this is done as follows:
