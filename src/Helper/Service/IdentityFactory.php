@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2018 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -32,12 +32,13 @@ class IdentityFactory implements FactoryInterface
         if (! method_exists($container, 'configure')) {
             $container = $container->getServiceLocator();
         }
+
         $helper = new Identity();
-        if ($container->has(AuthenticationService::class)) {
-            $helper->setAuthenticationService($container->get(AuthenticationService::class));
-        } elseif ($container->has(AuthenticationServiceInterface::class)) {
-            $helper->setAuthenticationService($container->get(AuthenticationServiceInterface::class));
+
+        if (null !== ($authenticationService = $this->discoverAuthenticationService($container))) {
+            $helper->setAuthenticationService($authenticationService);
         }
+
         return $helper;
     }
 
@@ -50,5 +51,19 @@ class IdentityFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator, $rName = null, $cName = null)
     {
         return $this($serviceLocator, $cName);
+    }
+
+    /**
+     * @return null|AuthenticationServiceInterface
+     */
+    private function discoverAuthenticationService(ContainerInterface $container)
+    {
+        if ($container->has(AuthenticationService::class)) {
+            return $container->get(AuthenticationService::class);
+        }
+
+        return $container->has(AuthenticationServiceInterface::class)
+            ? $container->get(AuthenticationServiceInterface::class)
+            : null;
     }
 }
