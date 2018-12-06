@@ -6,7 +6,15 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- Nothing.
+- [#168](https://github.com/zendframework/zend-view/pull/168) adds two new methods to `Zend\View\Helper\Placeholder` (and thus any
+  helper extending it):
+
+  - `deleteContainer(string $name)` can be used to delete a placeholder container.
+  - `clearContainers()` can be used to clear all placeholder containers.
+
+  These new features are particularly useful when in long-running server
+  environments, such as Swoole, where you may need to clear the contents on each
+  request.
 
 ### Changed
 
