@@ -29,7 +29,8 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#164](https://github.com/zendframework/zend-view/pull/164) fixes the various `Head*` view helpers such that they will now properly
+  escape attributes as HTML attributes (instead of as HTML content).
 
 ## 2.10.1 - 2018-12-06
 
