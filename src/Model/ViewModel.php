@@ -142,7 +142,9 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
 
     /**
      * Called after this view model is cloned.
-     * Clones variables property so variables changes done in the new instance don't change the old one.
+     *
+     * Clones $variables property so changes done to variables in the new
+     * instance don't change the current one.
      *
      * @return void
      */
