@@ -37,13 +37,6 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
     const SCRIPT = 'SCRIPT';
 
     /**
-     * Registry key for placeholder
-     *
-     * @var string
-     */
-    protected $regKey = 'Zend_View_Helper_HeadScript';
-
-    /**
      * Are arbitrary attributes allowed?
      *
      * @var bool

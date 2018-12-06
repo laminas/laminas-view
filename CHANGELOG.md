@@ -18,7 +18,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Removed
 
-- Nothing.
+- [#147](https://github.com/zendframework/zend-view/pull/147) removes the property `$regKey` from a number of helpers; these were a
+  remnant of ZF1, and have not been used internally since the initial 2.0.0
+  release.
 
 ### Fixed
 
