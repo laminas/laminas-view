@@ -31,6 +31,10 @@ use Zend\View\Exception;
  * @method HeadMeta offsetGetProperty($index, $keyValue, $content, $modifiers = array())
  * @method HeadMeta prependProperty($keyValue, $content, $modifiers = array())
  * @method HeadMeta setProperty($keyValue, $content, $modifiers = array())
+ * @method HeadMeta appendItemprop($keyValue, $content, $modifiers = array())
+ * @method HeadMeta offsetGetItemprop($index, $keyValue, $content, $modifiers = array())
+ * @method HeadMeta prependItemprop($keyValue, $content, $modifiers = array())
+ * @method HeadMeta setItemprop($keyValue, $content, $modifiers = array())
  */
 class HeadMeta extends Placeholder\Container\AbstractStandalone
 {

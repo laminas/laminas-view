@@ -125,3 +125,21 @@ echo $this->headMeta();
 //   <meta property="og:title" content="my article title" />
 //   <meta property="og:type" content="article" />
 ```
+
+## Usage with HTML5 doctype
+
+Enabling the HTML5 doctype with the [Doctype helper](doctype.md) enables the use
+of the `itemprop` attribute (in addition to the standard `name` and
+`http-equiv`) with `HeadMeta`.  This is typically used to add
+[Microdata](https://schema.org) to the head of your document.
+
+```php
+$this->doctype(Zend\View\Helper\Doctype::HTML5);
+$this->headMeta()->setItemprop('headline', 'My Article Headline');
+$this->headMeta()->setItemprop('dateCreated', $date->format('c'));
+echo $this->headMeta();
+
+// output is:
+//   <meta itemprop="headline" content="My Article Headline">
+//   <meta itemprop="dateCreated" content="2018-07-12T22:19:06+00:00">
+``` 
