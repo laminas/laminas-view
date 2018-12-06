@@ -25,6 +25,7 @@ pages:
         - Identity: helpers/identity.md
         - InlineScript: helpers/inline-script.md
         - Json: helpers/json.md
+        - Layout: helpers/layout.md
         - Partial: helpers/partial.md
         - Placeholder: helpers/placeholder.md
         - Url: helpers/url.md
