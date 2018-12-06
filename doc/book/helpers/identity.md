@@ -45,5 +45,5 @@ return [
 ];
 ```
 
-If such service is not found, the plugin will look for a service named
-`Zend\Authentication\AuthenticationService` in the `ServiceManager`.
+If that service is not registered, the plugin will then look for a service named
+`Zend\Authentication\AuthenticationServiceInterface`, and use that if found.
