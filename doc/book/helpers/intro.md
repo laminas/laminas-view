@@ -71,6 +71,7 @@ for, and rendering, the various HTML `<head>` tags, such as `HeadTitle`,
 - [Identity](identity.md)
 - [InlineScript](inline-script.md)
 - [JSON](json.md)
+- [Layout](layout.md)
 - [Partial](partial.md)
 - [Placeholder](placeholder.md)
 - [Url](url.md)
