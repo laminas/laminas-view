@@ -25,13 +25,6 @@ use Zend\View\Exception;
 class HeadStyle extends Placeholder\Container\AbstractStandalone
 {
     /**
-     * Registry key for placeholder
-     *
-     * @var string
-     */
-    protected $regKey = 'Zend_View_Helper_HeadStyle';
-
-    /**
      * Allowed optional attributes
      *
      * @var array
