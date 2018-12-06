@@ -12,20 +12,35 @@ use Zend\Authentication\AuthenticationService;
 use Zend\Authentication\AuthenticationServiceInterface;
 use Zend\ServiceManager\ServiceManager;
 use Zend\View\Helper\Identity;
+use Zend\View\HelperPluginManager;
 use Zend\View\Helper\Service\IdentityFactory;
 
 class IdentityFactoryTest extends TestCase
 {
+    public function setUp()
+    {
+        $this->services = $this->prophesize(ServiceManager::class);
+        $this->helpers  = new HelperPluginManager($this->services->reveal());
+    }
+
+    public function getContainerForFactory()
+    {
+        if (method_exists($this->helpers, 'configure')) {
+            return $this->services->reveal();
+        }
+        return $this->helpers;
+    }
+
     public function testFactoryReturnsEmptyIdentityIfNoAuthenticationServicePresent()
     {
-        $container = $this->prophesize(ServiceManager::class);
-        $container->has(AuthenticationService::class)->willReturn(false);
-        $container->get(AuthenticationService::class)->shouldNotBeCalled();
-        $container->has(AuthenticationServiceInterface::class)->willReturn(false);
-        $container->get(AuthenticationServiceInterface::class)->shouldNotBeCalled();
+        $this->services->has(AuthenticationService::class)->willReturn(false);
+        $this->services->get(AuthenticationService::class)->shouldNotBeCalled();
+        $this->services->has(AuthenticationServiceInterface::class)->willReturn(false);
+        $this->services->get(AuthenticationServiceInterface::class)->shouldNotBeCalled();
 
         $factory = new IdentityFactory();
-        $plugin = $factory($container->reveal(), Identity::class);
+
+        $plugin = $factory($this->getContainerForFactory(), Identity::class);
 
         $this->assertInstanceOf(Identity::class, $plugin);
         $this->assertNull($plugin->getAuthenticationService());
@@ -33,16 +48,16 @@ class IdentityFactoryTest extends TestCase
 
     public function testFactoryReturnsIdentityWithConfiguredAuthenticationServiceWhenPresent()
     {
-        $container = $this->prophesize(ServiceManager::class);
         $authentication = $this->prophesize(AuthenticationService::class);
 
-        $container->has(AuthenticationService::class)->willReturn(true);
-        $container->get(AuthenticationService::class)->will([$authentication, 'reveal']);
-        $container->has(AuthenticationServiceInterface::class)->willReturn(false);
-        $container->get(AuthenticationServiceInterface::class)->shouldNotBeCalled();
+        $this->services->has(AuthenticationService::class)->willReturn(true);
+        $this->services->get(AuthenticationService::class)->will([$authentication, 'reveal']);
+        $this->services->has(AuthenticationServiceInterface::class)->willReturn(false);
+        $this->services->get(AuthenticationServiceInterface::class)->shouldNotBeCalled();
 
         $factory = new IdentityFactory();
-        $plugin = $factory($container->reveal(), Identity::class);
+
+        $plugin = $factory($this->getContainerForFactory(), Identity::class);
 
         $this->assertInstanceOf(Identity::class, $plugin);
         $this->assertSame($authentication->reveal(), $plugin->getAuthenticationService());
@@ -50,16 +65,16 @@ class IdentityFactoryTest extends TestCase
 
     public function testFactoryReturnsIdentityWithConfiguredAuthenticationServiceInterfaceWhenPresent()
     {
-        $container = $this->prophesize(ServiceManager::class);
         $authentication = $this->prophesize(AuthenticationServiceInterface::class);
 
-        $container->has(AuthenticationService::class)->willReturn(false);
-        $container->get(AuthenticationService::class)->shouldNotBeCalled();
-        $container->has(AuthenticationServiceInterface::class)->willReturn(true);
-        $container->get(AuthenticationServiceInterface::class)->will([$authentication, 'reveal']);
+        $this->services->has(AuthenticationService::class)->willReturn(false);
+        $this->services->get(AuthenticationService::class)->shouldNotBeCalled();
+        $this->services->has(AuthenticationServiceInterface::class)->willReturn(true);
+        $this->services->get(AuthenticationServiceInterface::class)->will([$authentication, 'reveal']);
 
         $factory = new IdentityFactory();
-        $plugin = $factory($container->reveal(), Identity::class);
+
+        $plugin = $factory($this->getContainerForFactory(), Identity::class);
 
         $this->assertInstanceOf(Identity::class, $plugin);
         $this->assertSame($authentication->reveal(), $plugin->getAuthenticationService());
