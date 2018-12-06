@@ -101,24 +101,22 @@ class Placeholder extends AbstractHelper
     /**
      * Delete a specific container by name
      *
-     * @param string $key
-     * @return self
+     * @param  string $key
+     * @return void
      */
     public function deleteContainer($key)
     {
         $key = (string) $key;
         unset($this->items[$key]);
-        return $this;
     }
 
     /**
      * Remove all containers
      *
-     * @return self
+     * @return void
      */
     public function clearContainers()
     {
         $this->items = [];
-        return $this;
     }
 }
