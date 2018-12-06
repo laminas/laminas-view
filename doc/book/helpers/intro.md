@@ -85,25 +85,25 @@ for, and rendering, the various HTML `<head>` tags, such as `HeadTitle`,
 > ### i18n helpers
 >
 > View helpers related to **Internationalization** are documented in the
-> [I18n View Helpers](http://zendframework.github.io/zend-i18n/view-helpers/)
+> [I18n View Helpers](https://docs.zendframework.com/zend-i18n/view-helpers/)
 > documentation.
 
 > ### Form helpers
 >
 > View helpers related to **form** are documented in the
-> [Form View Helpers](https://zendframework.github.io/zend-form/helper/intro/)
+> [Form View Helpers](https://docs.zendframework.com/zend-form/helper/intro/)
 > documentation.
 
 > ### Navigation helpers
 >
 > View helpers related to **navigation** are documented in the
-> [Navigation View Helpers](https://zendframework.github.io/zend-navigation/helpers/intro/)
+> [Navigation View Helpers](https://docs.zendframework.com/zend-navigation/helpers/intro/)
 > documentation.
 
 > ### Pagination helpers
 >
 > View helpers related to **paginator** are documented in the
-> [Paginator Usage](https://zendframework.github.io/zend-paginator/usage/#rendering-pages-with-view-scripts)
+> [Paginator Usage](https://docs.zendframework.com/zend-paginator/usage/#rendering-pages-with-view-scripts)
 > documentation.
 
 > ### Custom helpers

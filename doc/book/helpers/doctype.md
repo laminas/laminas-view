@@ -132,4 +132,4 @@ Here is how you check if the doctype is set to `XHTML1_RDFA`:
 ## Zend MVC View Manager
 
 If you're running a ZendMvc application, you should specify doctype via the
-[ViewManager](https://zendframework.github.io/zend-mvc/services/#viewmanager) service.
+[ViewManager](https://docs.zendframework.com/zend-mvc/services/#viewmanager) service.

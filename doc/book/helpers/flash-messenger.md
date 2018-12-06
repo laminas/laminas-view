@@ -1,7 +1,7 @@
 # FlashMessenger
 
 The `FlashMessenger` helper is used to render the messages of the
-[FlashMessenger MVC plugin](http://zendframework.github.io/zend-mvc-plugin-flashmessenger/).
+[FlashMessenger MVC plugin](https://docs.zendframework.com/zend-mvc-plugin-flashmessenger/).
 
 ## Basic Usage
 
