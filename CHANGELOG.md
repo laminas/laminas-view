@@ -44,6 +44,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
+- [#169](https://github.com/zendframework/zend-view/pull/169) adds zendframework/zend-json as a required dependency, as it is referenced
+  in multiple locations within the package.
+
 - [#156](https://github.com/zendframework/zend-view/pull/156) adds missing `@method` annotations to the `HeadMeta` helper.
 
 ## 2.10.0 - 2018-01-17
