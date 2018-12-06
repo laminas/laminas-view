@@ -10,7 +10,6 @@
 namespace Zend\View\Helper;
 
 use stdClass;
-use Zend\View;
 use Zend\View\Exception;
 
 /**
@@ -35,13 +34,6 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      */
     const FILE   = 'FILE';
     const SCRIPT = 'SCRIPT';
-
-    /**
-     * Registry key for placeholder
-     *
-     * @var string
-     */
-    protected $regKey = 'Zend_View_Helper_HeadScript';
 
     /**
      * Are arbitrary attributes allowed?
@@ -399,7 +391,11 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
                 if ('async' == $key) {
                     $value = 'async';
                 }
-                $attrString .= sprintf(' %s="%s"', $key, ($this->autoEscape) ? $this->escape($value) : $value);
+                $attrString .= sprintf(
+                    ' %s="%s"',
+                    $key,
+                    ($this->autoEscape) ? $this->escapeAttribute($value) : $value
+                );
             }
         }
 
@@ -409,7 +405,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
         if (empty($item->type) && $this->view && $this->view->plugin('doctype')->isHtml5()) {
             $html = '<script ' . $attrString . '>';
         } else {
-            $type = ($this->autoEscape) ? $this->escape($item->type) : $item->type;
+            $type = ($this->autoEscape) ? $this->escapeAttribute($item->type) : $item->type;
             $html = '<script type="' . $type . '"' . $attrString . '>';
         }
         if (! empty($item->source)) {

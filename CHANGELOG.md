@@ -2,6 +2,50 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 2.11.0 - 2018-12-06
+
+### Added
+
+- [#168](https://github.com/zendframework/zend-view/pull/168) adds two new methods to `Zend\View\Helper\Placeholder` (and thus any
+  helper extending it):
+
+  - `deleteContainer(string $name)` can be used to delete a placeholder container.
+  - `clearContainers()` can be used to clear all placeholder containers.
+
+  These new features are particularly useful when in long-running server
+  environments, such as Swoole, where you may need to clear the contents on each
+  request.
+
+### Changed
+
+- [#155](https://github.com/zendframework/zend-view/pull/155) modifies the `Zend\View\Helper\Service\IdentifyFactory` such that it will
+  now also look for the service `Zend\Authentication\AuthenticationServiceInterface`
+  if the service `Zend\Authentication\AuthenticationService` is not found. This
+  allows using a service named after the interface instead of the
+  implementation if desired.
+
+- [#158](https://github.com/zendframework/zend-view/pull/158) modifies how a `ViewModel` (and all extensions) is cloned; the `$variables`
+  property, if it is an object, is now cloned as well to ensure changes in the
+  new instance do not affect the current one.
+
+- [#153](https://github.com/zendframework/zend-view/pull/153) updates the `ConsoleModel::setErrorLevel()` method to implement a fluent
+  interface.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- [#147](https://github.com/zendframework/zend-view/pull/147) removes the property `$regKey` from a number of helpers; these were a
+  remnant of ZF1, and have not been used internally since the initial 2.0.0
+  release.
+
+### Fixed
+
+- [#164](https://github.com/zendframework/zend-view/pull/164) fixes the various `Head*` view helpers such that they will now properly
+  escape attributes as HTML attributes (instead of as HTML content).
+
 ## 2.10.1 - 2018-12-06
 
 ### Added

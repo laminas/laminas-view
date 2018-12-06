@@ -4,7 +4,8 @@ The `Identity` helper allows retrieving the identity from the
 `AuthenticationService`.
 
 For the `Identity` helper to work, a `Zend\Authentication\AuthenticationService`
-name or alias must be defined and recognized by the `ServiceManager`.
+or `Zend\Authentication\AuthenticationServiceInterface` name or alias must be
+defined and recognized by the `ServiceManager`.
 
 `Identity` returns the identity discovered in the `AuthenticationService`, or
 `null` if no identity is available.
@@ -43,3 +44,6 @@ return [
     ],
 ];
 ```
+
+If that service is not registered, the plugin will then look for a service named
+`Zend\Authentication\AuthenticationServiceInterface`, and use that if found.

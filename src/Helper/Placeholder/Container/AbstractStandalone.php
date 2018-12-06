@@ -166,14 +166,18 @@ abstract class AbstractStandalone extends AbstractHelper implements
      */
     protected function escape($string)
     {
-        if ($this->getView() instanceof RendererInterface
-            && method_exists($this->getView(), 'getEncoding')
-        ) {
-            $escaper = $this->getView()->plugin('escapeHtml');
-            return $escaper((string) $string);
-        }
-
         return $this->getEscaper()->escapeHtml((string) $string);
+    }
+
+    /**
+     * Escape an attribute value
+     *
+     * @param  string $string
+     * @return string
+     */
+    protected function escapeAttribute($string)
+    {
+        return $this->getEscaper()->escapeHtmlAttr((string) $string);
     }
 
     /**

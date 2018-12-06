@@ -77,4 +77,29 @@ class PlaceholderTest extends TestCase
         $container2 = $this->placeholder->__invoke('foo');
         $this->assertSame($container1, $container2);
     }
+
+    public function testContainersCanBeDeleted()
+    {
+        $container = $this->placeholder->__invoke('foo');
+        $container->set('Value');
+        $this->assertTrue($this->placeholder->containerExists('foo'));
+        $this->assertSame('Value', (string) $this->placeholder->__invoke('foo'));
+        $this->placeholder->deleteContainer('foo');
+        $this->assertFalse($this->placeholder->containerExists('foo'));
+        $this->assertSame('', (string) $this->placeholder->__invoke('foo'));
+    }
+
+    public function testClearContainersRemovesAllContainers()
+    {
+        $this->placeholder->__invoke('foo');
+        $this->placeholder->__invoke('bar');
+
+        $this->assertTrue($this->placeholder->containerExists('foo'));
+        $this->assertTrue($this->placeholder->containerExists('bar'));
+
+        $this->placeholder->clearContainers();
+
+        $this->assertFalse($this->placeholder->containerExists('foo'));
+        $this->assertFalse($this->placeholder->containerExists('bar'));
+    }
 }

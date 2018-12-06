@@ -29,6 +29,11 @@ class HeadMetaTest extends TestCase
     public $helper;
 
     /**
+     * @var Helper\EscapeHtmlAttr
+     */
+    public $attributeEscaper;
+
+    /**
      * @var string
      */
     public $basePath;
@@ -48,6 +53,7 @@ class HeadMetaTest extends TestCase
         $this->view->plugin('doctype')->__invoke('XHTML1_STRICT');
         $this->helper   = new Helper\HeadMeta();
         $this->helper->setView($this->view);
+        $this->attributeEscaper  = new Helper\EscapeHtmlAttr();
     }
 
     /**
@@ -245,13 +251,15 @@ class HeadMetaTest extends TestCase
         $metas = substr_count($string, 'http-equiv="');
         $this->assertEquals(1, $metas);
 
+        $attributeEscaper = $this->attributeEscaper;
+
         $this->assertContains('http-equiv="screen" content="projection"', $string);
-        $this->assertContains('name="keywords" content="foo bar"', $string);
+        $this->assertContains('name="keywords" content="' . $attributeEscaper('foo bar') . '"', $string);
         $this->assertContains('lang="us_en"', $string);
         $this->assertContains('scheme="foo"', $string);
         $this->assertNotContains('bogus', $string);
         $this->assertNotContains('unused', $string);
-        $this->assertContains('name="title" content="boo bah"', $string);
+        $this->assertContains('name="title" content="' . $attributeEscaper('boo bah') . '"', $string);
     }
 
     /**
@@ -304,9 +312,13 @@ class HeadMetaTest extends TestCase
     {
         $this->view->plugin('doctype')->__invoke('HTML4_STRICT');
         $this->helper->__invoke('some content', 'foo');
+
         $test = $this->helper->toString();
+
+        $attributeEscaper = $this->attributeEscaper;
+
         $this->assertNotContains('/>', $test);
-        $this->assertContains('some content', $test);
+        $this->assertContains($attributeEscaper('some content'), $test);
         $this->assertContains('foo', $test);
     }
 
@@ -340,12 +352,15 @@ class HeadMetaTest extends TestCase
         $view->plugin('headMeta')->appendHttpEquiv('Cache-control', 'baz');
         $view->plugin('headMeta')->setName('keywords', 'bar');
 
-        $this->assertEquals(
-            '<meta name="description" content="foo" />' . PHP_EOL . '<meta http-equiv="pragma" content="baz" />'
-            . PHP_EOL . '<meta http-equiv="Cache-control" content="baz" />' . PHP_EOL
+        $expected = sprintf(
+            '<meta name="description" content="foo" />%1$s'
+            . '<meta http-equiv="pragma" content="baz" />%1$s'
+            . '<meta http-equiv="Cache-control" content="baz" />%1$s'
             . '<meta name="keywords" content="bar" />',
-            $view->plugin('headMeta')->toString()
+            PHP_EOL
         );
+
+        $this->assertEquals($expected, $view->plugin('headMeta')->toString());
     }
 
     /**
@@ -364,10 +379,15 @@ class HeadMetaTest extends TestCase
             \Zend\View\Helper\Placeholder\Container\AbstractContainer::PREPEND
         );
 
-        $this->assertEquals(
-            '<meta name="bar" content="some content" />' . PHP_EOL . '<meta name="keywords" content="foo" />',
-            $view->plugin('headMeta')->toString()
+        $attributeEscaper = $this->attributeEscaper;
+
+        $expected = sprintf(
+            '<meta name="bar" content="%s" />%s'
+            . '<meta name="keywords" content="foo" />',
+            $attributeEscaper('some content'),
+            PHP_EOL
         );
+        $this->assertEquals($expected, $view->plugin('headMeta')->toString());
     }
 
     /**
@@ -382,10 +402,13 @@ class HeadMetaTest extends TestCase
 
         $test = $this->helper->toString();
 
-        $expected = '<meta name="keywords" content="foo" />' . PHP_EOL
-                  . '<meta http-equiv="Cache-control" content="baz" />' . PHP_EOL
-                  . '<meta name="description" content="foo" />' . PHP_EOL
-                  . '<meta http-equiv="pragma" content="baz" />';
+        $expected = sprintf(
+            '<meta name="keywords" content="foo" />%1$s'
+            . '<meta http-equiv="Cache-control" content="baz" />%1$s'
+            . '<meta name="description" content="foo" />%1$s'
+            . '<meta http-equiv="pragma" content="baz" />',
+            PHP_EOL
+        );
 
         $this->assertEquals($expected, $test);
     }
@@ -459,10 +482,11 @@ class HeadMetaTest extends TestCase
     {
         $this->view->doctype('XHTML1_RDFA');
         $this->helper->__invoke('foo', 'og:title', 'property');
-        $this->assertEquals(
-            '<meta property="og:title" content="foo" />',
-            $this->helper->toString()
-        );
+
+        $attributeEscaper = $this->attributeEscaper;
+
+        $expected = sprintf('<meta property="%s" content="foo" />', $attributeEscaper('og:title'));
+        $this->assertEquals($expected, $this->helper->toString());
     }
 
     /**
@@ -515,10 +539,11 @@ class HeadMetaTest extends TestCase
     {
         $this->view->doctype('HTML5');
         $this->helper->__invoke('HeadMeta with Microdata', 'description', 'itemprop');
-        $this->assertEquals(
-            '<meta itemprop="description" content="HeadMeta with Microdata">',
-            $this->helper->toString()
-        );
+
+        $attributeEscaper = $this->attributeEscaper;
+
+        $expected = sprintf('<meta itemprop="description" content="%s">', $attributeEscaper('HeadMeta with Microdata'));
+        $this->assertEquals($expected, $this->helper->toString());
     }
 
     /**

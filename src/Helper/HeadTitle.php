@@ -19,13 +19,6 @@ class HeadTitle extends Placeholder\Container\AbstractStandalone
     use TranslatorAwareTrait;
 
     /**
-     * Registry key for placeholder
-     *
-     * @var string
-     */
-    protected $regKey = 'Zend_View_Helper_HeadTitle';
-
-    /**
      * Default title rendering order (i.e. order in which each title attached)
      *
      * @var string

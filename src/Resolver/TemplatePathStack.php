@@ -307,7 +307,7 @@ class TemplatePathStack implements ResolverInterface
             $file = new SplFileInfo($path . $name);
             if ($file->isReadable()) {
                 // Found! Return it.
-                if (($filePath = $file->getRealPath()) === false && substr($path, 0, 7) === 'phar://') {
+                if (($filePath = $file->getRealPath()) === false && 0 === strpos($path, 'phar://')) {
                     // Do not try to expand phar paths (realpath + phars == fail)
                     $filePath = $path . $name;
                     if (! file_exists($filePath)) {

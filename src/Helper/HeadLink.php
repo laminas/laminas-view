@@ -10,7 +10,6 @@
 namespace Zend\View\Helper;
 
 use stdClass;
-use Zend\View;
 use Zend\View\Exception;
 
 // @codingStandardsIgnoreStart
@@ -54,13 +53,6 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
         'integrity',
         'as',
     ];
-
-    /**
-     * Registry key for placeholder
-     *
-     * @var string
-     */
-    protected $regKey = 'Zend_View_Helper_HeadLink';
 
     /**
      * Constructor
@@ -302,13 +294,17 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
             if (isset($attributes[$itemKey])) {
                 if (is_array($attributes[$itemKey])) {
                     foreach ($attributes[$itemKey] as $key => $value) {
-                        $link .= sprintf(' %s="%s"', $key, ($this->autoEscape) ? $this->escape($value) : $value);
+                        $link .= sprintf(
+                            ' %s="%s"',
+                            $key,
+                            ($this->autoEscape) ? $this->escapeAttribute($value) : $value
+                        );
                     }
                 } else {
                     $link .= sprintf(
                         ' %s="%s"',
                         $itemKey,
-                        ($this->autoEscape) ? $this->escape($attributes[$itemKey]) : $attributes[$itemKey]
+                        ($this->autoEscape) ? $this->escapeAttribute($attributes[$itemKey]) : $attributes[$itemKey]
                     );
                 }
             }

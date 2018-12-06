@@ -23,7 +23,7 @@ class Placeholder extends AbstractHelper
     /**
      * Placeholder items
      *
-     * @var array
+     * @var Container\AbstractContainer[]
      */
     protected $items = [];
 
@@ -96,5 +96,27 @@ class Placeholder extends AbstractHelper
         $key = (string) $key;
         $return = array_key_exists($key, $this->items);
         return $return;
+    }
+
+    /**
+     * Delete a specific container by name
+     *
+     * @param  string $key
+     * @return void
+     */
+    public function deleteContainer($key)
+    {
+        $key = (string) $key;
+        unset($this->items[$key]);
+    }
+
+    /**
+     * Remove all containers
+     *
+     * @return void
+     */
+    public function clearContainers()
+    {
+        $this->items = [];
     }
 }
