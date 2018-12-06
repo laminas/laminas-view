@@ -44,6 +44,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
+- [#170](https://github.com/zendframework/zend-view/pull/170) ensures that variables referenced in `compact()` operations are properly
+  initialized, fixing an error that occures in PHP 7.3.
+
 - [#169](https://github.com/zendframework/zend-view/pull/169) adds zendframework/zend-json as a required dependency, as it is referenced
   in multiple locations within the package.
 
