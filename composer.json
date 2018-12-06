@@ -15,6 +15,7 @@
     "require": {
         "php": "^5.6 || ^7.0",
         "zendframework/zend-eventmanager": "^2.6.2 || ^3.0",
+        "zendframework/zend-json": "^2.6.1",
         "zendframework/zend-loader": "^2.5",
         "zendframework/zend-stdlib": "^2.7 || ^3.0"
     },
@@ -30,7 +31,6 @@
         "zendframework/zend-filter": "^2.6.1",
         "zendframework/zend-http": "^2.5.4",
         "zendframework/zend-i18n": "^2.6",
-        "zendframework/zend-json": "^2.6.1",
         "zendframework/zend-log": "^2.7",
         "zendframework/zend-modulemanager": "^2.7.1",
         "zendframework/zend-mvc": "^2.7 || ^3.0",
@@ -50,7 +50,6 @@
         "zendframework/zend-filter": "Zend\\Filter component",
         "zendframework/zend-http": "Zend\\Http component",
         "zendframework/zend-i18n": "Zend\\I18n component",
-        "zendframework/zend-json": "Zend\\Json component",
         "zendframework/zend-mvc": "Zend\\Mvc component",
         "zendframework/zend-navigation": "Zend\\Navigation component",
         "zendframework/zend-paginator": "Zend\\Paginator component",
