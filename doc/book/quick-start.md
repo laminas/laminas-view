@@ -632,7 +632,7 @@ class Module
         $jsonStrategy = $locator->get('ViewJsonStrategy');
 
         // Attach strategy, which is a listener aggregate, at high priority
-        $view->getEventManager()->attach($jsonStrategy, 100);
+        $jsonStrategy->attach($view->getEventManager(), 100);
     }
 }
 ```
