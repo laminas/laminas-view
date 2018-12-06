@@ -454,17 +454,18 @@ class HeadLinkTest extends TestCase
 
         $test = $this->helper->toString();
 
-        $expected = '<link href="' . $attributeEscaper('/test1.css') . '" media="screen" rel="stylesheet" '
-                  .'type="' . $attributeEscaper('text/css') . '">' . PHP_EOL
-
-                  . '<link href="' . $attributeEscaper('/test4.css') . '" media="screen" rel="stylesheet" '
-                  .'type="' . $attributeEscaper('text/css') . '">' . PHP_EOL
-
-                  . '<link href="' . $attributeEscaper('/test2.css') . '" media="screen" rel="stylesheet" '
-                  .'type="' . $attributeEscaper('text/css') . '">' . PHP_EOL
-
-                  . '<link href="' . $attributeEscaper('/test3.css') . '" media="screen" rel="stylesheet" '
-                  . 'type="' . $attributeEscaper('text/css') . '">';
+        $expected = sprintf(
+            '<link href="%3$s" media="screen" rel="stylesheet" type="%2$s">%1$s'
+            . '<link href="%4$s" media="screen" rel="stylesheet" type="%2$s">%1$s'
+            . '<link href="%5$s" media="screen" rel="stylesheet" type="%2$s">%1$s'
+            . '<link href="%6$s" media="screen" rel="stylesheet" type="%2$s">',
+            PHP_EOL,
+            $attributeEscaper('text/css'),
+            $attributeEscaper('/test1.css'),
+            $attributeEscaper('/test4.css'),
+            $attributeEscaper('/test2.css'),
+            $attributeEscaper('/test3.css')
+        );
 
         $this->assertEquals($expected, $test);
     }

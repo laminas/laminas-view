@@ -441,17 +441,18 @@ document.write(bar.strlen());');
 
         $attributeEscaper = $this->attributeEscaper;
 
-        $expected = '<script type="' . $attributeEscaper('text/javascript')
-                  . '" src="' . $attributeEscaper('test1.js') . '"></script>' . PHP_EOL
-
-                  . '<script type="' . $attributeEscaper('text/javascript')
-                  . '" src="' . $attributeEscaper('test4.js') . '"></script>' . PHP_EOL
-
-                  . '<script type="' . $attributeEscaper('text/javascript')
-                  . '" src="' . $attributeEscaper('test3.js') . '"></script>' . PHP_EOL
-
-                  . '<script type="' . $attributeEscaper('text/javascript')
-                  . '" src="' . $attributeEscaper('test2.js') . '"></script>';
+        $expected = sprintf(
+            '<script type="%2$s" src="%3$s"></script>%1$s'
+            . '<script type="%2$s" src="%4$s"></script>%1$s'
+            . '<script type="%2$s" src="%5$s"></script>%1$s'
+            . '<script type="%2$s" src="%6$s"></script>',
+            PHP_EOL,
+            $attributeEscaper('text/javascript'),
+            $attributeEscaper('test1.js'),
+            $attributeEscaper('test4.js'),
+            $attributeEscaper('test3.js'),
+            $attributeEscaper('test2.js')
+        );
 
         $this->assertEquals($expected, $test);
     }
