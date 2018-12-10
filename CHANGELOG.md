@@ -2,11 +2,12 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.11.1 - TBD
+## 2.11.1 - 2018-12-10
 
 ### Added
 
-- Nothing.
+- [#179](https://github.com/zendframework/zend-view/pull/179) adds `^3.0` to the zendframework/zend-json constraints, allowing v3
+  releases to be used with zend-view.
 
 ### Changed
 
