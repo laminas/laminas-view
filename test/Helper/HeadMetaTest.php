@@ -622,7 +622,7 @@ class HeadMetaTest extends TestCase
         $this->helper->setAutoEscape(false)->appendHttpEquiv('foo', 'bar=baz');
         $this->assertEquals(
             '<meta http-equiv="foo" content="bar=baz" />',
-            $this->helper->toString()															  
+            $this->helper->toString()
         );
     }
 }
