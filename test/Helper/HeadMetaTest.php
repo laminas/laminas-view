@@ -615,7 +615,6 @@ class HeadMetaTest extends TestCase
         $this->assertContains('<!--[if ! IE]><!--><', $html);
         $this->assertContains('<!--<![endif]-->', $html);
     }
-	
 
     public function testTurnOffAutoEscapeDoesNotEncode()
     {
