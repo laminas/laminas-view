@@ -4,7 +4,7 @@ The HTML `<script>` element is used to either provide inline client-side
 scripting elements or link to a remote resource containing client-side scripting
 code. The `InlineScript` helper allows you to manage both. It is derived from
 [HeadScript](head-script.md), and any method of that helper is available;
-replce the usage of `headScript()` in those examples with `inlineScript()`.
+replace the usage of `headScript()` in those examples with `inlineScript()`.
 
 > ### Use InlineScript for HTML body scripts
 >
