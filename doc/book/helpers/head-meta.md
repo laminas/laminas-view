@@ -26,6 +26,18 @@ The following methods are also supported with `XHTML1_RDFA` doctype set with the
 - `prependProperty($property, $content, $modifiers)`
 - `setProperty($property, $content, $modifiers)`
 
+Finally, starting in 2.11.2, you can call the following method to determine
+whether or not to autoescape values used in meta tags:
+
+- `setAutoEscape(bool $autoEscape = true)` (enabled by default)
+
+> ### AutoEscape
+>
+> **Disable this flag at your own risk.** The one documented case where it is
+> necessary to disable the flag is when setting the `X-UA-Compatible`
+> `http-equiv` value to switch behavior for Internet Explorer, as escaped values
+> will not trigger correct representation.
+
 The `$keyValue` item is used to define a value for the `name` or `http-equiv`
 key; `$content` is the value for the 'content' key, and `$modifiers` is an
 optional associative array that can contain keys for `lang` and/or `scheme`.
