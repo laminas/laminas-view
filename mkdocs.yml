@@ -31,5 +31,5 @@ pages:
         - Url: helpers/url.md
         - "Advanced usage of helpers": helpers/advanced-usage.md
 site_name: zend-view
-site_description: zend-view
+site_description: 'Flexible view layer supporting and providing multiple view layers, helpers, and more.Flexible view layer supporting and providing multiple view layers, helpers, and more.'
 repo_url: 'https://github.com/zendframework/zend-view'
