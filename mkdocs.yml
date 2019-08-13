@@ -30,6 +30,8 @@ pages:
         - Placeholder: helpers/placeholder.md
         - Url: helpers/url.md
         - "Advanced usage of helpers": helpers/advanced-usage.md
+    - Cookbook:
+        - "Setting module-specific Layout": cookbook\setting-module-specific-layout.md
 site_name: zend-view
 site_description: zend-view
 repo_url: 'https://github.com/zendframework/zend-view'
