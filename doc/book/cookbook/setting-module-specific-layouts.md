@@ -117,3 +117,38 @@ class Module
 
 > More informations on registering module-specific listeners can be found in the 
 > [documentation of zend-mvc](https://docs.zendframework.com/zend-mvc/examples/#registering-module-specific-listeners).
+
+## Add Template Scripts to the Configuration
+
+Extend the configuration of a module to add the specific layout script, e.g.
+`module/Admin/config/module.config.php`:
+
+```php
+return [
+    // Add the following array
+    'view_manager' => [
+        'template_map' => [
+            'layout/admin' => __DIR__ . '/../view/layout/admin.phtml',
+        ],
+    ],
+    // …
+];
+```
+
+And in another module, e.g. `module/Album/config/module.config.php`:
+
+```php
+return [
+    // Add the following array
+    'view_manager' => [
+        'template_map' => [
+            'layout/album' => __DIR__ . '/../view/layout/layout-of-album.phtml',
+        ],
+    ],
+    // …
+];
+```
+
+The name of the array key must follow the format `layout/{module-name}` and the
+value must contain the path to the layout file. The path and the filename can be
+freely chosen.
