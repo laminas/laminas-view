@@ -48,7 +48,7 @@ class LayoutListener extends AbstractListenerAggregate
             [$this, 'setLayout']
         );
     }
-    
+
     public function setLayout(MvcEvent $event) : void
     {
         // Get and check the route match object
