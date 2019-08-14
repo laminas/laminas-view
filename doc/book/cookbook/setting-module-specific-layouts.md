@@ -18,10 +18,29 @@ namespace Admin\Listener;
 
 use Zend\EventManager\AbstractListenerAggregate;
 use Zend\EventManager\EventManagerInterface;
+use Zend\Filter\FilterChain;
+use Zend\Filter\FilterInterface;
+use Zend\Filter\StringToLower;
+use Zend\Filter\Word\CamelCaseToDash;
 use Zend\Mvc\MvcEvent;
+use Zend\View\Resolver\TemplateMapResolver;
 
 class LayoutListener extends AbstractListenerAggregate
 {
+    /** @var TemplateMapResolver */
+    private $templateMapResolver;
+
+    /** @var FilterInterface */
+    private $filter;
+
+    public function __construct(TemplateMapResolver $templateMapResolver)
+    {
+        $this->templateMapResolver = $templateMapResolver;
+        $this->filter              = (new FilterChain())
+            ->attach(new CamelCaseToDash())
+            ->attach(new StringToLower());
+    }
+
     public function attach(EventManagerInterface $events, $priority = 1)
     {
         $this->listeners[] = $events->attach(
@@ -29,22 +48,37 @@ class LayoutListener extends AbstractListenerAggregate
             [$this, 'setLayout']
         );
     }
-
+    
     public function setLayout(MvcEvent $event) : void
     {
-        // Get route match object
+        // Get and check the route match object
         $routeMatch = $event->getRouteMatch();
-
-        // Check route match and parameter for current module
-        if ($routeMatch
-            && $routeMatch->getParam('module') === 'Admin'
-        ) {
-            // Get root view model
-            $layoutViewModel = $event->getViewModel();
-
-            // Change template
-            $layoutViewModel->setTemplate('layout/backend');
+        if (! $routeMatch) {
+            return;
         }
+
+        // Get and check the parameter for current controller
+        $controller = $routeMatch->getParam('controller');
+        if (! $controller) {
+            return;
+        }
+    
+        // Extract module name
+        $module = substr($controller, 0, strpos($controller, '\\'));
+
+        // Convert the module name from camel case to a lower string with dashes
+        $name = 'layout/' . $this->filter->filter($module);
+
+        // Has the resolver an entry / layout with the given name?
+        if (! $this->templateMapResolver->has($name)) {
+            return;
+        }
+
+        // Get root view model
+        $layoutViewModel = $event->getViewModel();
+
+        // Change template
+        $layoutViewModel->setTemplate($name);
     }
 }
 ```
@@ -59,16 +93,22 @@ namespace Admin;
 
 use Application\Listener\LayoutListener;
 use Zend\Mvc\MvcEvent;
+use Zend\View\Resolver\TemplateMapResolver;
 
 class Module
 {
-    public function onBootstrap(MvcEvent $e) : void
+    public function onBootstrap(MvcEvent $event) : void
     {
-        $application = $e->getApplication();
+        $application = $event->getApplication();
+
+        /** @var TemplateMapResolver $templateMapResolver */
+        $templateMapResolver = $application->getServiceManager()->get(
+            'ViewTemplateMapResolver'
+        );
         
         // Create and register layout listener
-        $layoutAggregate = new LayoutListener();
-        $layoutAggregate->attach($application->getEventManager());
+        $listener = new LayoutListener($templateMapResolver);
+        $listener->attach($application->getEventManager());
     }
 
     // …
