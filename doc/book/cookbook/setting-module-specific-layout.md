@@ -26,10 +26,7 @@ class LayoutListener extends AbstractListenerAggregate
     {
         $this->listeners[] = $events->attach(
             MvcEvent::EVENT_RENDER,
-            [
-                $this,
-                'setLayout',
-            ]
+            [$this, 'setLayout']
         );
     }
 
