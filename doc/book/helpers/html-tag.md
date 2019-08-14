@@ -1,7 +1,7 @@
 # HtmlTag
 
-The `HtmlTag` helper is used to **create the root of a HTML document**, the open
-and close tags for the `<html>` element.
+The `HtmlTag` helper is used to **create the root of an HTML document**, the
+open and close tags for the `<html>` element.
 
 ## Basic Usage
 
