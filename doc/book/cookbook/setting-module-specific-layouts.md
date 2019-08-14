@@ -6,7 +6,7 @@ listens on the
 [`Zend\Mvc\MvcEvent::EVENT_RENDER` event](https://docs.zendframework.com/zend-mvc/mvc-event/#mvceventevent_render-render)
 and uses the
 [`Zend\Router\RouteMatch` object](https://docs.zendframework.com/zend-mvc/routing/#routing)
-to get the called module from the current request.
+to get the called controller from the current request.
 
 ## Create Listener
 
