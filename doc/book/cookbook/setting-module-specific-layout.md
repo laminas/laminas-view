@@ -61,15 +61,12 @@ Extend the module class to register the listener, e.g.
 namespace Admin;
 
 use Application\Listener\LayoutListener;
-use Zend\EventManager\EventInterface;
-use Zend\ModuleManager\Feature\BootstrapListenerInterface;
+use Zend\Mvc\MvcEvent;
 
-class Module implements BootstrapListenerInterface
+class Module
 {
-    public function onBootstrap(EventInterface $e)
+    public function onBootstrap(MvcEvent $e) : void
     {
-        /** @var \Zend\Mvc\MvcEvent $e */
-
         $application = $e->getApplication();
         
         // Create and register layout listener
