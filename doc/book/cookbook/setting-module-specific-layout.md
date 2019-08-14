@@ -1,16 +1,16 @@
-# Setting module-specific Layout
+# Setting module-specific Layouts
 
 The following example shows how to set a template for the layout based on a
 module name in a zend-mvc based application. The example uses a listener that
-listen on the
+listens on the
 [`Zend\Mvc\MvcEvent::EVENT_RENDER` event](https://docs.zendframework.com/zend-mvc/mvc-event/#mvceventevent_render-render)
 and uses the
 [`Zend\Router\RouteMatch` object](https://docs.zendframework.com/zend-mvc/routing/#routing)
-to get the called module from current request.
+to get the called module from the current request.
 
 ## Create Listener
 
-Create a listener as separate class, e.g.
+Create a listener as a separate class, e.g.
 `module/Admin/src/Listener/LayoutListener.php`:
 
 ```php
