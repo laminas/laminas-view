@@ -150,7 +150,7 @@ method.
 ```php
 $this->headTitle()->setDefaultAttachOrder('PREPEND');
 
-echo $this->getDefaultAttachOrder(); // PREPEND
+echo $this->headTitle()->getDefaultAttachOrder(); // PREPEND
 ```
 
 #### Default Value
@@ -177,7 +177,7 @@ method.
 ```php
 $this->headTitle()->setSeparator(' | ');
 
-echo $this->getSeparator(); //  | 
+echo $this->headTitle()->getSeparator(); //  | 
 ```
 
 ### Default Value
