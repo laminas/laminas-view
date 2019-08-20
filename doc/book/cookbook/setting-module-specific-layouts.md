@@ -91,7 +91,7 @@ Extend the module class to register the listener, e.g.
 ```php
 namespace Admin;
 
-use Application\Listener\LayoutListener;
+use Admin\Listener\LayoutListener;
 use Zend\Mvc\MvcEvent;
 use Zend\View\Resolver\TemplateMapResolver;
 
