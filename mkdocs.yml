@@ -13,6 +13,7 @@ pages:
         - BasePath: helpers/base-path.md
         - Cycle: helpers/cycle.md
         - Doctype: helpers/doctype.md
+        - Escape: helpers/escape.md
         - FlashMessenger: helpers/flash-messenger.md
         - Gravatar: helpers/gravatar.md
         - HeadLink: helpers/head-link.md
