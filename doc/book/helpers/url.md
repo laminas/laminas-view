@@ -1,4 +1,4 @@
-# URL
+# Url
 
 The URL view helper is used to create a string representation of the routes that
 you define within your application. The syntax for the view helper is

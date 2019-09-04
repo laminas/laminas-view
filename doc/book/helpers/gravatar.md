@@ -1,4 +1,4 @@
-# Gravatar Helper
+# Gravatar
 
 The `Gravatar` helper is useful for rendering image HTML markup returned from
 the [gravatar.com](http://gravatar.com) service.
