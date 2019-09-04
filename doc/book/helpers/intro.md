@@ -1,4 +1,4 @@
-# View Helpers
+# Introduction
 
 In your view scripts, you'll perform certain complex functions over and over:
 e.g., formatting a date, generating form elements, or displaying action links.

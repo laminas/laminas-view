@@ -1,4 +1,4 @@
-# JSON
+# Json
 
 When creating views that return JSON, it's important to also set the appropriate
 response header.  The JSON view helper does exactly that. In addition, by
