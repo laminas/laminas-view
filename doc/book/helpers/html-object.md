@@ -1,4 +1,4 @@
-# HTML Object
+# HtmlObject
 
 The HTML `<object>` element is used for embedding media like Flash or QuickTime
 in web pages. The object view helpers take care of embedding media with minimum
