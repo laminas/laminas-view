@@ -22,6 +22,7 @@ pages:
         - HeadTitle: helpers/head-title.md
         - HtmlList: helpers/html-list.md
         - HtmlObject: helpers/html-object.md
+        - HtmlTag: helpers/html-tag.md
         - Identity: helpers/identity.md
         - InlineScript: helpers/inline-script.md
         - Json: helpers/json.md
