@@ -2,7 +2,7 @@
 
 The following helpers can **escape output in view scripts and defend from XSS
 and related vulnerabilities**. To escape different contexts of a HTML document,
-zend-view provides 5 helpers:
+zend-view provides the following helpers:
 
 * [`EscapeCss`](#escapecss)
 * [`EscapeHtml`](#escapehtml)
