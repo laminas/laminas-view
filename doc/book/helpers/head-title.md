@@ -1,8 +1,8 @@
 # HeadTitle
 
-The HTML `<title>` element is used to provide a title for an HTML document. The
-`HeadTitle` helper allows you to programmatically create and store the title for
-later retrieval and output.
+The HTML `<title>` element is used to **provide a title for an HTML document**.
+The `HeadTitle` helper allows you to programmatically create and store the title
+for later retrieval and output.
 
 The `HeadTitle` helper is a concrete implementation of the [Placeholder helper](placeholder.md).
 It overrides the `toString()` method to enforce generating a `<title>` element,
@@ -19,62 +19,15 @@ explicitly pass a different attach order as the second parameter.
 
 ## Basic Usage
 
-You may specify a title tag at any time. A typical usage would have you setting
-title segments for each level of depth in your application: site, module,
-controller, action, and potentially resource. This could be achieved in the
-module class.
+Specify a title tag in a view script, e.g. 
+`module/Album/view/album/album/index.phtml`:
 
 ```php
-// module/MyModule/Module.php
-<?php
-
-namespace MyModule;
-
-class Module
-{
-    /**
-     * @param  \Zend\Mvc\MvcEvent $e The MvcEvent instance
-     * @return void
-     */
-    public function onBootstrap($e)
-    {
-        // Register a render event
-        $app = $e->getParam('application');
-        $app->getEventManager()->attach('render', [$this, 'setLayoutTitle']);
-    }
-
-    /**
-     * @param  \Zend\Mvc\MvcEvent $e The MvcEvent instance
-     * @return void
-     */
-    public function setLayoutTitle($e)
-    {
-        $matches    = $e->getRouteMatch();
-        $action     = $matches->getParam('action');
-        $controller = $matches->getParam('controller');
-        $module     = __NAMESPACE__;
-        $siteName   = 'Zend Framework';
-
-        // Getting the view helper manager from the application service manager
-        $viewHelperManager = $e->getApplication()->getServiceManager()->get('ViewHelperManager');
-
-        // Getting the headTitle helper from the view helper manager
-        $headTitleHelper = $viewHelperManager->get('headTitle');
-
-        // Setting a separator string for segments
-        $headTitleHelper->setSeparator(' - ');
-
-        // Setting the action, controller, module and site name as title segments
-        $headTitleHelper->append($action);
-        $headTitleHelper->append($controller);
-        $headTitleHelper->append($module);
-        $headTitleHelper->append($siteName);
-    }
-}
+$this->headTitle('My albums');
 ```
 
-When you're finally ready to render the title in your layout script, echo the
-helper:
+Render the title in the layout script, e.g.
+`module/Application/view/layout/layout.phtml`
 
 ```php
 <?= $this->headTitle() ?>
@@ -83,18 +36,173 @@ helper:
 Output:
 
 ```html
-<title>action - controller - module - Zend Framework</title>
+<title>My albums</title>
 ```
 
-In case you want the title without the `<title>` and `</title>` tags you can use
-the `renderTitle()` method:
+### Add the Website Name
+
+A typical usage includes the website name in the title. Add the name and [set a 
+separator](#using-separator) in the layout script, e.g.
+`module/Application/view/layout/layout.phtml`
 
 ```php
-<?= $this->headTitle()->renderTitle() ?>
+<?= $this->headTitle('Music')->setSeparator(' - ') ?>
 ```
 
 Output:
 
 ```html
-action - controller - module - Zend Framework
+<title>My albums - Music</title>
+```
+
+## Set Content
+
+The normal behaviour is to append the content to the title (container).
+
+```php
+$this->headTitle('My albums')
+$this->headTitle('Music');
+
+echo $this->headTitle(); // <title>My albumsMusic</title>
+```
+
+### Append Content
+
+To explicitly append content, the second paramater `$setType` or the concrete
+method `append()` of the helper can be used:
+
+```php fct_label="Invoke Usage"
+$this->headTitle('My albums')
+$this->headTitle('Music', 'APPEND');
+
+echo $this->headTitle(); // <title>My albumsMusic</title>
+```
+
+```php fct_label="Setter Usage"
+$this->headTitle('My albums')
+$this->headTitle()->append('Music');
+
+echo $this->headTitle(); // <title>My albumsMusic</title>
+```
+
+The constant `Zend\View\Helper\Placeholder\Container\AbstractContainer::APPEND`
+can also be used as value for the second parameter `$setType`.
+
+### Prepend Content
+
+To prepend content, the second paramater `$setType` or the concrete method
+`prepend()` of the helper can be used:
+
+```php fct_label="Invoke Usage"
+$this->headTitle('My albums')
+$this->headTitle('Music', 'PREPEND');
+
+echo $this->headTitle(); // <title>MusicMy albums</title>
+```
+
+```php fct_label="Setter Usage"
+$this->headTitle('My albums')
+$this->headTitle()->prepend('Music');
+
+echo $this->headTitle(); // <title>MusicMy albums</title>
+```
+
+The constant `Zend\View\Helper\Placeholder\Container\AbstractContainer::PREPEND`
+can also be used as value for the second parameter `$setType`.
+
+### Overwrite existing Content
+
+To overwrite the entire content of title helper, the second parameter `$setType`
+or the concrete method `set()` of the helper can be used:
+
+```php fct_label="Invoke Usage"
+$this->headTitle('My albums')
+$this->headTitle('Music', 'SET');
+
+echo $this->headTitle(); // <title>Music</title>
+```
+
+```php fct_label="Setter Usage"
+$this->headTitle('My albums')
+$this->headTitle()->set('Music');
+
+echo $this->headTitle(); // <title>Music</title>
+```
+
+The constant `Zend\View\Helper\Placeholder\Container\AbstractContainer::SET`
+can also be used as value for the second parameter `$setType`.
+
+### Set a default Order to add Content
+
+```php
+$this->headTitle()->setDefaultAttachOrder('PREPEND');
+$this->headTitle('My albums');
+$this->headTitle('Music');
+
+echo $this->headTitle(); // <title>MusicMy albums</title>
+```
+
+#### Get Current Value
+
+To get the current value of this option, use the `getDefaultAttachOrder()`
+method.
+
+```php
+$this->headTitle()->setDefaultAttachOrder('PREPEND');
+
+echo $this->headTitle()->getDefaultAttachOrder(); // PREPEND
+```
+
+#### Default Value
+
+The default value is
+`Zend\View\Helper\Placeholder\Container\AbstractContainer::APPEND` which
+corresponds to the value `APPEND`.
+
+## Using Separator
+
+```php
+$this->headTitle()->setSeparator(' | ');
+$this->headTitle('My albums');
+$this->headTitle('Music');
+
+echo $this->headTitle(); // <title>My albums | Music</title>
+```
+
+### Get Current Value
+
+To get the current value of this option, use the `getSeparator()`
+method.
+
+```php
+$this->headTitle()->setSeparator(' | ');
+
+echo $this->headTitle()->getSeparator(); //  | 
+```
+
+### Default Value
+
+The default value is an empty `string` that means no extra content is added
+between the titles on rendering.
+
+## Add Prefix and Postfix
+
+The content of the helper can be formatted with a prefix and a postfix.
+
+```php
+$this->headTitle('My albums')->setPrefix('Music: ')->setPostfix('𝄞');
+
+echo $this->headTitle(); // <title>Music: My albums 𝄞</title>
+```
+
+More descriptions and another example of usage can be found at the 
+[`Placeholder` helper](placeholder.md#aggregate-content). 
+
+## Render without Tags
+
+In case the title is needed without the `<title>` and `</title>` tags the
+`renderTitle()` method can be used.
+
+```php
+echo $this->headTitle('My albums')->renderTitle(); // My albums 
 ```
