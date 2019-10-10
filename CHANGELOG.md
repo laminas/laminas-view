@@ -22,7 +22,9 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#192](https://github.com/zendframework/zend-view/pull/192) changes
+  curly braces in array and string offset access to square brackets
+  in order to prevent issues under the upcoming PHP 7.4 release.
 
 ## 2.11.2 - 2019-02-19
 
