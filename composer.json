@@ -1,16 +1,19 @@
 {
     "name": "zendframework/zend-view",
-    "description": "provides a system of helpers, output filters, and variable escaping",
+    "description": "Flexible view layer supporting and providing multiple view layers, helpers, and more",
     "license": "BSD-3-Clause",
     "keywords": [
-        "zf2",
+        "zendframework",
+        "zf",
         "view"
     ],
-    "homepage": "https://github.com/zendframework/zend-view",
-    "autoload": {
-        "psr-4": {
-            "Zend\\View\\": "src/"
-        }
+    "support": {
+        "docs": "https://docs.zendframework.com/zend-view/",
+        "issues": "https://github.com/zendframework/zend-view/issues",
+        "source": "https://github.com/zendframework/zend-view",
+        "rss": "https://github.com/zendframework/zend-view/releases.atom",
+        "chat": "https://zendframework-slack.herokuapp.com",
+        "forum": "https://discourse.zendframework.com/c/questions/components"
     },
     "require": {
         "php": "^5.6 || ^7.0",
@@ -58,15 +61,9 @@
         "zendframework/zend-servicemanager": "Zend\\ServiceManager component",
         "zendframework/zend-uri": "Zend\\Uri component"
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "config": {
-        "sort-packages": true
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "2.11.x-dev",
-            "dev-develop": "2.12.x-dev"
+    "autoload": {
+        "psr-4": {
+            "Zend\\View\\": "src/"
         }
     },
     "autoload-dev": {
@@ -75,6 +72,15 @@
         ],
         "psr-4": {
             "ZendTest\\View\\": "test/"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.11.x-dev",
+            "dev-develop": "2.12.x-dev"
         }
     },
     "bin": [
