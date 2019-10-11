@@ -239,8 +239,13 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
     public function getVariable($name, $default = null)
     {
         $name = (string) $name;
-        if (array_key_exists($name, $this->variables)) {
-            return $this->variables[$name];
+
+        if (is_array($this->variables)) {
+            if (array_key_exists($name, $this->variables)) {
+                return $this->variables[$name];
+            }
+        } elseif ($this->variables->offsetExists($name)) {
+            return $this->variables->offsetGet($name);
         }
 
         return $default;
