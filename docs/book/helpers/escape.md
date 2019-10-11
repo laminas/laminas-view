@@ -38,7 +38,7 @@ echo $this->escapeCss($css);
 Output:
 
 ```css
-body\20 \7B \D \A \20 \20 \20 \20 background\2D image\3A \20 url\28 \27 http\3A \2F \2F example\2E com\2F foo\2E jpg\3F \3C \2F style\3E \3C script\3E alert\28 1\29 \3C \2F script\3E \27 \29 \3B \D \A \7D 
+body\20 \7B \D \A \20 \20 \20 \20 background\2D image\3A \20 url\28 \27 http\3A \2F \2F example\2E com\2F foo\2E jpg\3F \3C \2F style\3E \3C script\3E alert\28 1\29 \3C \2F script\3E \27 \29 \3B \D \A \7D
 ```
 
 ## EscapeHtml
@@ -127,12 +127,12 @@ The default value for all escape helpers is `utf-8`.
 ## Using Recursion
 
 All escape helpers can use recursion for the given values during the escape
-operation. This allows the escaping of the datatypes `array` and `object`. 
+operation. This allows the escaping of the datatypes `array` and `object`.
 
 ### Escape an Array
 
 To escape an `array`, the second parameter `$recurse` must be use the constant
-`RECURSE_ARRAY` of an escape helper: 
+`RECURSE_ARRAY` of an escape helper:
 
 ```php
 $html = [
@@ -177,7 +177,7 @@ echo $this->escapeHtml($object); // "&lt;h1&gt;Foo&lt;/h1&gt;"
 
 An escape helper can also use the `toArray()` method of an object. The second
 parameter `$recurse` must be use the constant `RECURSE_OBJECT` of an escape
-helper: 
+helper:
 
 ```php
 $object = new class {

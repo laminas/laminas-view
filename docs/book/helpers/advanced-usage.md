@@ -211,20 +211,20 @@ class SpecialPurpose extends AbstractHelper
 >
 > ```php
 > namespace MyModule\View\Helper;
-> 
+>
 > use Zend\View\Helper\EscapeHtml;
-> 
+>
 > class SpecialPurpose
 > {
 >     private $count = 0;
-> 
+>
 >     private $escaper;
-> 
+>
 >     public function __construct(EscapeHtml $escaper)
 >     {
 >         $this->escaper = $escaper;
 >     }
-> 
+>
 >     public function __invoke()
 >     {
 >         $this->count++;
@@ -234,12 +234,12 @@ class SpecialPurpose extends AbstractHelper
 >     }
 > }
 > ```
-> 
+>
 > Then we would write a factory like the following:
-> 
+>
 > ```php
 > use Zend\ServiceManager\AbstractPluginManager;
-> 
+>
 > class SpecialPurposeFactory
 > {
 >     public function __invoke($container)
@@ -248,7 +248,7 @@ class SpecialPurpose extends AbstractHelper
 >             // zend-servicemanager v3. v2 passes the helper manager directly.
 >             $container = $container->get('ViewHelperManager');
 >         }
-> 
+>
 >         return new SpecialPurpose($container->get('escapeHtml'));
 >     }
 > }

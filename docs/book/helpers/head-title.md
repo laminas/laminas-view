@@ -19,7 +19,7 @@ explicitly pass a different attach order as the second parameter.
 
 ## Basic Usage
 
-Specify a title tag in a view script, e.g. 
+Specify a title tag in a view script, e.g.
 `module/Album/view/album/album/index.phtml`:
 
 ```php
@@ -41,7 +41,7 @@ Output:
 
 ### Add the Website Name
 
-A typical usage includes the website name in the title. Add the name and [set a 
+A typical usage includes the website name in the title. Add the name and [set a
 separator](#using-separator) in the layout script, e.g.
 `module/Application/view/layout/layout.phtml`
 
@@ -177,7 +177,7 @@ method.
 ```php
 $this->headTitle()->setSeparator(' | ');
 
-echo $this->headTitle()->getSeparator(); //  | 
+echo $this->headTitle()->getSeparator(); //  |
 ```
 
 ### Default Value
@@ -195,8 +195,8 @@ $this->headTitle('My albums')->setPrefix('Music: ')->setPostfix('𝄞');
 echo $this->headTitle(); // <title>Music: My albums 𝄞</title>
 ```
 
-More descriptions and another example of usage can be found at the 
-[`Placeholder` helper](placeholder.md#aggregate-content). 
+More descriptions and another example of usage can be found at the
+[`Placeholder` helper](placeholder.md#aggregate-content).
 
 ## Render without Tags
 
@@ -204,5 +204,5 @@ In case the title is needed without the `<title>` and `</title>` tags the
 `renderTitle()` method can be used.
 
 ```php
-echo $this->headTitle('My albums')->renderTitle(); // My albums 
+echo $this->headTitle('My albums')->renderTitle(); // My albums
 ```
