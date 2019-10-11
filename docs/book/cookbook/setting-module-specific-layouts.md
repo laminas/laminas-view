@@ -62,7 +62,7 @@ class LayoutListener extends AbstractListenerAggregate
         if (! $controller) {
             return;
         }
-    
+
         // Extract module name
         $module = substr($controller, 0, strpos($controller, '\\'));
 
@@ -105,7 +105,7 @@ class Module
         $templateMapResolver = $application->getServiceManager()->get(
             'ViewTemplateMapResolver'
         );
-        
+
         // Create and register layout listener
         $listener = new LayoutListener($templateMapResolver);
         $listener->attach($application->getEventManager());
@@ -115,7 +115,7 @@ class Module
 }
 ```
 
-> More informations on registering module-specific listeners can be found in the 
+> More informations on registering module-specific listeners can be found in the
 > [documentation of zend-mvc](https://docs.zendframework.com/zend-mvc/examples/#registering-module-specific-listeners).
 
 ## Add Template Scripts to the Configuration

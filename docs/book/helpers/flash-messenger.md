@@ -22,7 +22,7 @@ which translates to `default`.
 // Usable in any of your .phtml files
 echo $this->flashMessenger()->render('error');
 
-// Alternatively use one of the pre-defined namespaces 
+// Alternatively use one of the pre-defined namespaces
 // (aka: use Zend\Mvc\Controller\Plugin\FlashMessenger;)
 echo $this->flashMessenger()->render(FlashMessenger::NAMESPACE_SUCCESS);
 ```

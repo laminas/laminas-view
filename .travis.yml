@@ -1,5 +1,3 @@
-sudo: false
-
 language: php
 
 cache:
@@ -52,8 +50,8 @@ before_install:
   - if [[ $DEPS == 'latest' ]]; then travis_retry composer require $COMPOSER_ARGS --no-update --dev $LATEST_DEPS_REQUIRE ; fi
 
 install:
-  - if [[ $DEPS == 'lowest' ]]; then travis_retry composer update $COMPOSER_ARGS --prefer-lowest --prefer-stable ; fi
-  - if [[ $DEPS == 'latest' ]]; then travis_retry composer install ; fi
+  - if [[ $DEPS == 'lowest' ]]; then travis_retry composer update $COMPOSER_ARGS --prefer-lowest ; fi
+  - if [[ $DEPS == 'latest' ]]; then travis_retry composer update $COMPOSER_ARGS ; fi
   - if [[ $TEST_COVERAGE == 'true' ]]; then travis_retry composer require --dev $COMPOSER_ARGS $COVERAGE_DEPS ; fi
   - stty cols 120 && composer show
 

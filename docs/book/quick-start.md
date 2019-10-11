@@ -589,7 +589,7 @@ within your application.
   `Zend\View\Renderer\JsonRenderer`, and populate the Response body with the
   JSON value returned, as well as set a `Content-Type` header with a value of
   `application/json`.
-- `Zend\View\Strategy\FeedStrategy`. This strategy will return the 
+- `Zend\View\Strategy\FeedStrategy`. This strategy will return the
   `Zend\View\Renderer\FeedRenderer`, setting the feed type to
   either "rss" or "atom", based on what was matched. Its Response strategy will
   populate the Response body with the generated feed, as well as set a
@@ -745,7 +745,7 @@ class MyController extends AbstractActionController
         $viewModel->setVariable('items', $items);
         return $viewModel;
     }
-    
+
     /**
      * Lists the items as JSON
      */
@@ -756,7 +756,7 @@ class MyController extends AbstractActionController
         $viewModel->setVariable('items', $items);
         return $viewModel;
     }
-    
+
     /**
      * Lists the items as a Feed
      */
@@ -770,5 +770,5 @@ class MyController extends AbstractActionController
 }
 ```
 
-Or you could switch the `ViewModel` dynamically based on the "Accept" HTTP Header with the 
+Or you could switch the `ViewModel` dynamically based on the "Accept" HTTP Header with the
 [Zend-Mvc-Plugin AcceptableViewModelSelector](https://docs.zendframework.com/zend-mvc/plugins/#acceptableviewmodelselector-plugin).
