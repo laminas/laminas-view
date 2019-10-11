@@ -48,6 +48,8 @@ All notable changes to this project will be documented in this file, in reverse 
   curly braces in array and string offset access to square brackets
   in order to prevent issues under the upcoming PHP 7.4 release.
 
+- [#195](https://github.com/zendframework/zend-view/pull/195) fixes PHP 7.4 compatibility.
+
 ## 2.11.2 - 2019-02-19
 
 ### Added

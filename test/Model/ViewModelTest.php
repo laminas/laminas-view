@@ -361,4 +361,56 @@ class ViewModelTest extends TestCase
         $this->assertEquals('foo', $model1->getVariable('a'));
         $this->assertEquals('bar', $model2->getVariable('a'));
     }
+
+    public function variableValue()
+    {
+        return [
+            // variables                     default   expected
+
+            // if it is set always get the value
+            [['foo' => 'bar'],                  'baz', 'bar'],
+            [['foo' => 'bar'],                  null,  'bar'],
+            [new ArrayObject(['foo' => 'bar']), 'baz', 'bar'],
+            [new ArrayObject(['foo' => 'bar']), null,  'bar'],
+
+            // if it is null always get null value
+            [['foo' => null],                   null,  null],
+            [['foo' => null],                   'baz', null],
+            [new ArrayObject(['foo' => null]),  null,  null],
+            [new ArrayObject(['foo' => null]),  'baz', null],
+
+            // when it is not set always get default value
+            [[],                                'baz', 'baz'],
+            [new ArrayObject(),                 'baz', 'baz'],
+        ];
+    }
+
+    /**
+     * @dataProvider variableValue
+     *
+     * @param array|ArrayObject $variables
+     * @param string|null $default
+     * @param string|null $expected
+     */
+    public function testGetVariableSetByConstruct($variables, $default, $expected)
+    {
+        $model = new ViewModel($variables);
+
+        self::assertSame($expected, $model->getVariable('foo', $default));
+    }
+
+    /**
+     * @dataProvider variableValue
+     *
+     * @param array|ArrayObject $variables
+     * @param string|null $default
+     * @param string|null $expected
+     */
+    public function testGetVariableSetBySetter($variables, $default, $expected)
+    {
+        $model = new ViewModel();
+        $model->setVariables($variables);
+
+        self::assertSame($expected, $model->getVariable('foo', $default));
+    }
 }
