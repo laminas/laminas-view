@@ -154,4 +154,4 @@ echo $this->headMeta();
 // output is:
 //   <meta itemprop="headline" content="My Article Headline">
 //   <meta itemprop="dateCreated" content="2018-07-12T22:19:06+00:00">
-``` 
+```

@@ -80,7 +80,7 @@ The Gravatar helper defines the following constants for ratings:
 - `RATING_R`
 - `RATING_X`
 
-The helper defines the following constants for the default image: 
+The helper defines the following constants for the default image:
 
 - `DEFAULT_404`
 - `DEFAULT_MM`
@@ -99,7 +99,7 @@ $gravatar = $this->gravatar('email@example.com');
 $attr = [
     'class' => 'gravatarcls',
 ];
-echo $gravatar->setAttributes($attr)->getImgTag(); 
+echo $gravatar->setAttributes($attr)->getImgTag();
 ```
 
 Alternately, you can pass this array as the third argument during helper

@@ -61,21 +61,21 @@ The `HeadStyle` helper is a concrete implementation of the
 > 3. Attach the custom strategy in the `ViewEvent`.
 >
 > First we have to write the custom renderer:
-> 
+>
 > ```php
 > // module/MyModule/View/Renderer/MyRenderer.php
 > namespace MyModule\View\Renderer;
-> 
+>
 > // Since we just want to implement the getEncoding() method, we can extend the Zend native renderer
 > use Zend\View\Renderer\PhpRenderer;
-> 
+>
 > class MyRenderer extends PhpRenderer
 > {
 >    /**
 >     * @var string
 >     */
 >    protected $encoding;
-> 
+>
 >    /**
 >     * Constructor
 >     *
@@ -86,7 +86,7 @@ The `HeadStyle` helper is a concrete implementation of the
 >       parent::__construct();
 >       $this->encoding = $encoding;
 >    }
-> 
+>
 >    /**
 >     * Sets the encoding
 >     *
@@ -96,7 +96,7 @@ The `HeadStyle` helper is a concrete implementation of the
 >    {
 >       $this->encoding = $encoding;
 >    }
-> 
+>
 >    /**
 >     * Gets the encoding
 >     *
@@ -108,23 +108,23 @@ The `HeadStyle` helper is a concrete implementation of the
 >    }
 > }
 > ```
-> 
+>
 > Now we make some configuration in the module class:
-> 
+>
 > ```php
 > // module/MyModule.php
 > namespace MyModule;
-> 
+>
 > use MyModule\View\Renderer\MyRenderer;
 > use Zend\Mvc\MvcEvent;
 > use Zend\View\Strategy\PhpRendererStrategy;
-> 
+>
 > class Module
 > {
 >    public function getConfig(){/* ... */}
-> 
+>
 >    public function getAutoloaderConfig(){/* ... */}
-> 
+>
 >    public function getServiceConfig()
 >    {
 >       return [
@@ -143,27 +143,27 @@ The `HeadStyle` helper is a concrete implementation of the
 >          ],
 >       ];
 >    }
-> 
+>
 >    public function onBootstrap(MvcEvent $e)
 >    {
 >       // Register a render event
 >       $app = $e->getParam('application');
 >       $app->getEventManager()->attach('render', [$this, 'registerMyStrategy'], 100);
 >    }
-> 
+>
 >     public function registerMyStrategy(MvcEvent $e)
 >     {
 >         $app        = $e->getTarget();
 >         $locator    = $app->getServiceManager();
 >         $view       = $locator->get('Zend\View\View');
 >         $myStrategy = $locator->get('MyCustomStrategy');
-> 
+>
 >         // Attach strategy, which is a listener aggregate, at high priority
 >         $view->getEventManager()->attach($myStrategy, 100);
 >     }
 > }
 > ```
-> 
+>
 > See the quick start [Creating and Registering Alternate Rendering and Response Strategies](../quick-start.md#creating-and-registering-alternate-rendering-and-response-strategies)
 > chapter for more information on how to create and register custom strategies
 > to your view.

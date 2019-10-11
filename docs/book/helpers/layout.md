@@ -1,6 +1,6 @@
 # Layout
 
-The `Layout` helper is used to get and set the template for the layout or to 
+The `Layout` helper is used to get and set the template for the layout or to
 retrieving the root view model.
 
 ## Basic Usage
@@ -24,7 +24,7 @@ $this->layout()->setTemplate('layout/backend');
 
 ### Set View Variable on Layout Model
 
-The `Layout` helper can also retrieve the view model for the layout (root): 
+The `Layout` helper can also retrieve the view model for the layout (root):
 
 ```php
 /** @var \Zend\View\Model\ViewModel $rootViewModel */

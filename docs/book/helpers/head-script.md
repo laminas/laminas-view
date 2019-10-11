@@ -43,7 +43,7 @@ to use in the element.
 > use the script tag in an alternative way by setting the type to something
 > other then `text/javascript`. To prevent such escaping, pass an `noescape`
 > with a value of true as part of the `$attrs` parameter in the method calls.
-> 
+>
 > ```php
 > // jquery template
 > $template = '<div class="book"{{:title}}</div';
