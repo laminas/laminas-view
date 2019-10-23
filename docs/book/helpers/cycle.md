@@ -64,7 +64,7 @@ The output of the two previous examples combined becomes:
 
 If you are nesting cycles, you must provide all but one of them with a name; do
 this by providing a second parameter to the `cycle()` invocation:
-`$this->cycle(array('odd', 'even'), 'cycle2')`
+`$this->cycle(['odd', 'even'], 'cycle2')`
 
 ```php
 <table>

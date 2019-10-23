@@ -105,10 +105,10 @@ $flash->setMessageOpenFormat('<div%s>
     ->setMessageSeparatorString('</li><li>')
     ->setMessageCloseString('</li></ul></div>');
 
-echo $flash->render('error',   array('alert', 'alert-dismissible', 'alert-danger'));
-echo $flash->render('info',    array('alert', 'alert-dismissible', 'alert-info'));
-echo $flash->render('default', array('alert', 'alert-dismissible', 'alert-warning'));
-echo $flash->render('success', array('alert', 'alert-dismissible', 'alert-success'));
+echo $flash->render('error',   ['alert', 'alert-dismissible', 'alert-danger']);
+echo $flash->render('info',    ['alert', 'alert-dismissible', 'alert-info']);
+echo $flash->render('default', ['alert', 'alert-dismissible', 'alert-warning']);
+echo $flash->render('success', ['alert', 'alert-dismissible', 'alert-success']);
 ```
 
 The output of the above example would create dismissable `FlashMessages` with
