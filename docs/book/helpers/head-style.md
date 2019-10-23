@@ -39,7 +39,7 @@ The usage for this will be showed in an example below.
 
 Finally, you can also use the `headStyle()` method to quickly add declarations
 elements; the signature for this is `headStyle($content = null, $placement =
-'APPEND', $attributes = array())`.  `$placement` should be either `APPEND`,
+'APPEND', $attributes = [])`.  `$placement` should be either `APPEND`,
 `PREPEND`, or `SET`.
 
 `HeadStyle` overrides each of `append()`, `offsetSet()`, `prepend()`, and
