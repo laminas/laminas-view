@@ -44,7 +44,7 @@ optional associative array that can contain keys for `lang` and/or `scheme`.
 
 You may also set meta tags using the `headMeta()` helper method, which has the
 following signature: `headMeta($content, $keyValue, $keyType = 'name',
-$modifiers = array(), $placement = 'APPEND')`.  `$keyValue` is the content for
+$modifiers = [], $placement = 'APPEND')`.  `$keyValue` is the content for
 the key specified in `$keyType`, which should be either `name` or `http-equiv`.
 `$keyType` may also be specified as `property` if the doctype has been set to
 `XHTML1_RDFA`. `$placement` can be `SET` (overwrites all previously stored
