@@ -260,10 +260,11 @@ additional View Model, `$sidebarBlockView`, which will be captured to its
 To better visualize this, let's look at what the final content might look like,
 with comments detailing where each nested view model is injected.
 
-Here are the templates, rendered based on a 12-column grid:
+Here are the templates, rendered based on a 12-column grid.
+
+The `content/article/view` template:
 
 ```php
-<?php // "content/article/view" template ?>
 <!-- This is from the $view View Model, and the "content/article/view" template -->
 <div class="row content">
     <?= $this->article ?>
@@ -274,8 +275,9 @@ Here are the templates, rendered based on a 12-column grid:
 </div>
 ```
 
+The `content/article` template:
+
 ```php
-<?php // "content/article" template ?>
     <!-- This is from the $articleView View Model, and the "content/article"
          template -->
     <article class="span8">
@@ -283,8 +285,9 @@ Here are the templates, rendered based on a 12-column grid:
     </article>
 ```
 
+The `content/main-sidebar` template:
+
 ```php
-<?php // "content/main-sidebar" template ?>
     <!-- This is from the $primarySidebarView View Model, and the
          "content/main-sidebar" template -->
     <div class="span2 sidebar">
@@ -292,8 +295,9 @@ Here are the templates, rendered based on a 12-column grid:
     </div>
 ```
 
+The `content/secondary-sidebar` template:
+
 ```php
-<?php // "content/secondary-sidebar template ?>
     <!-- This is from the $secondarySidebarView View Model, and the
          "content/secondary-sidebar" template -->
     <div class="span2 sidebar pull-right">
@@ -301,8 +305,9 @@ Here are the templates, rendered based on a 12-column grid:
     </div>
 ```
 
+The `content/block` template:
+
 ```php
-<?php // "content/block template ?>
         <!-- This is from the $sidebarBlockView View Model, and the
             "content/block" template -->
         <div class="block">
