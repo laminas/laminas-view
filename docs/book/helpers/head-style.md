@@ -71,41 +71,41 @@ The `HeadStyle` helper is a concrete implementation of the
 >
 > class MyRenderer extends PhpRenderer
 > {
->    /**
->     * @var string
->     */
->    protected $encoding;
+>     /**
+>      * @var string
+>      */
+>     protected $encoding;
 >
->    /**
->     * Constructor
->     *
->     * @param  string $encoding The encoding to be used
->     */
->    public function __construct($encoding)
->    {
->       parent::__construct();
->       $this->encoding = $encoding;
->    }
+>     /**
+>      * Constructor
+>      *
+>      * @param  string $encoding The encoding to be used
+>      */
+>     public function __construct($encoding)
+>     {
+>         parent::__construct();
+>         $this->encoding = $encoding;
+>     }
 >
->    /**
->     * Sets the encoding
->     *
->     * @param string $encoding The encoding to be used
->     */
->    public function setEncoding($encoding)
->    {
->       $this->encoding = $encoding;
->    }
+>     /**
+>      * Sets the encoding
+>      *
+>      * @param string $encoding The encoding to be used
+>      */
+>     public function setEncoding($encoding)
+>     {
+>         $this->encoding = $encoding;
+>     }
 >
->    /**
->     * Gets the encoding
->     *
->     * @return string The encoding being used
->     */
->    public function getEncoding()
->    {
->       return $this->encoding;
->    }
+>     /**
+>      * Gets the encoding
+>      *
+>      * @return string The encoding being used
+>      */
+>     public function getEncoding()
+>     {
+>         return $this->encoding;
+>     }
 > }
 > ```
 >
@@ -121,35 +121,35 @@ The `HeadStyle` helper is a concrete implementation of the
 >
 > class Module
 > {
->    public function getConfig(){/* ... */}
+>     public function getConfig(){/* ... */}
 >
->    public function getAutoloaderConfig(){/* ... */}
+>     public function getAutoloaderConfig(){/* ... */}
 >
->    public function getServiceConfig()
->    {
->       return [
->          'factories' => [
->             // Register our custom renderer in the container
->             'MyCustomRenderer' => function ($container) {
->                return new MyRenderer('ISO-8859-1');
->             },
->             'MyCustomStrategy' => function ($container) {
->                // As stated before, we just want to implement the
->                // getEncoding() method, so we can use the base PhpRendererStrategy
->                // and provide our custom renderer to it.
->                $myRenderer = $container->get('MyCustomRenderer');
->                return new PhpRendererStrategy($myRenderer);
->             },
->          ],
->       ];
->    }
+>     public function getServiceConfig()
+>     {
+>         return [
+>             'factories' => [
+>                 // Register our custom renderer in the container
+>                 'MyCustomRenderer' => function ($container) {
+>                     return new MyRenderer('ISO-8859-1');
+>                 },
+>                 'MyCustomStrategy' => function ($container) {
+>                     // As stated before, we just want to implement the
+>                     // getEncoding() method, so we can use the base PhpRendererStrategy
+>                     // and provide our custom renderer to it.
+>                     $myRenderer = $container->get('MyCustomRenderer');
+>                     return new PhpRendererStrategy($myRenderer);
+>                 },
+>             ],
+>         ];
+>     }
 >
->    public function onBootstrap(MvcEvent $e)
->    {
->       // Register a render event
->       $app = $e->getParam('application');
->       $app->getEventManager()->attach('render', [$this, 'registerMyStrategy'], 100);
->    }
+>     public function onBootstrap(MvcEvent $e)
+>     {
+>         // Register a render event
+>         $app = $e->getParam('application');
+>         $app->getEventManager()->attach('render', [$this, 'registerMyStrategy'], 100);
+>     }
 >
 >     public function registerMyStrategy(MvcEvent $e)
 >     {
