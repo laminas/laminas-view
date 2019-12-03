@@ -186,7 +186,7 @@ class HeadTitleTest extends TestCase
 
     public function testTranslatorMethods()
     {
-        $translatorMock = $this->getMockBuilder(Translator::class)->getMock();
+        $translatorMock = $this->prophesize(Translator::class)->reveal();
         $this->helper->setTranslator($translatorMock, 'foo');
 
         $this->assertEquals($translatorMock, $this->helper->getTranslator());

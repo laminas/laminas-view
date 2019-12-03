@@ -10,6 +10,7 @@
 namespace ZendTest\View\Helper;
 
 use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
 use Zend\I18n\Translator\Translator;
 use Zend\Mvc\Controller\Plugin\FlashMessenger as V2PluginFlashMessenger;
 use Zend\Mvc\Controller\PluginManager;
@@ -398,12 +399,10 @@ class FlashMessengerTest extends TestCase
 
     public function testCanTranslateMessages()
     {
-        $mockTranslator = $this->getMockBuilder(Translator::class)->getMock();
-        $mockTranslator->expects($this->exactly(1))
-        ->method('translate')
-        ->will($this->returnValue('translated message'));
+        $mockTranslator = $this->prophesize(Translator::class);
+        $mockTranslator->translate('bar-info', 'default')->willReturn('translated message')->shouldBeCalledTimes(1);
 
-        $this->helper->setTranslator($mockTranslator);
+        $this->helper->setTranslator($mockTranslator->reveal());
         $this->assertTrue($this->helper->hasTranslator());
 
         $this->seedMessages();
@@ -415,12 +414,10 @@ class FlashMessengerTest extends TestCase
 
     public function testCanTranslateCurrentMessages()
     {
-        $mockTranslator = $this->getMockBuilder(Translator::class)->getMock();
-        $mockTranslator->expects($this->exactly(1))
-        ->method('translate')
-        ->will($this->returnValue('translated message'));
+        $mockTranslator = $this->prophesize(Translator::class);
+        $mockTranslator->translate('bar-info', 'default')->willReturn('translated message')->shouldBeCalledTimes(1);
 
-        $this->helper->setTranslator($mockTranslator);
+        $this->helper->setTranslator($mockTranslator->reveal());
         $this->assertTrue($this->helper->hasTranslator());
 
         $this->seedCurrentMessages();

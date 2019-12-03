@@ -69,15 +69,14 @@ class PrefixPathStackResolverTest extends TestCase
 
     public function testSetCustomPathStackResolver()
     {
-        $mockResolver = $this->getMockBuilder(ResolverInterface::class)->getMock();
+        $mockResolver = $this->prophesize(ResolverInterface::class);
+        $mockResolver->resolve('/bar', null)->willReturn('1111');
+        $mockResolver->resolve('/baz', null)->willReturn('2222');
+        $mockResolver->resolve('/tab', null)->willReturn(false);
 
         $resolver = new PrefixPathStackResolver([
-            'foo' => $mockResolver,
+            'foo' => $mockResolver->reveal(),
         ]);
-
-        $mockResolver->expects($this->at(0))->method('resolve')->with('/bar')->will($this->returnValue('1111'));
-        $mockResolver->expects($this->at(1))->method('resolve')->with('/baz')->will($this->returnValue('2222'));
-        $mockResolver->expects($this->at(2))->method('resolve')->with('/tab')->will($this->returnValue(false));
 
         $this->assertSame('1111', $resolver->resolve('foo/bar'));
         $this->assertSame('2222', $resolver->resolve('foo/baz'));

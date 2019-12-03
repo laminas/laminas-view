@@ -10,11 +10,11 @@
 namespace ZendTest\View\Resolver;
 
 use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
 use stdClass;
 use Zend\View\Helper\ViewModel as ViewModelHelper;
 use Zend\View\Model\ViewModel;
 use Zend\View\Renderer\PhpRenderer;
-use Zend\View\Renderer\RendererInterface;
 use Zend\View\Resolver\RelativeFallbackResolver;
 use Zend\View\Resolver\ResolverInterface;
 use Zend\View\Resolver\TemplateMapResolver;
@@ -81,47 +81,39 @@ class RelativeFallbackResolverTest extends TestCase
 
     public function testSkipsResolutionOnViewRendererWithoutPlugins()
     {
-        /* @var $baseResolver ResolverInterface|\PHPUnit_Framework_MockObject_MockObject */
-        $baseResolver = $this->getMockBuilder(ResolverInterface::class)->getMock();
-        $fallback     = new RelativeFallbackResolver($baseResolver);
-        /* @var $renderer RendererInterface|\PHPUnit_Framework_MockObject_MockObject */
-        $renderer     = $this->getMockBuilder(RendererInterface::class)->getMock();
+        $baseResolver = $this->prophesize(ResolverInterface::class);
+        $baseResolver->resolve()->shouldNotBeCalled();
+        $fallback = new RelativeFallbackResolver($baseResolver->reveal());
 
-        $baseResolver->expects($this->never())->method('resolve');
+        $renderer = $this->prophesize(PhpRenderer::class)->reveal();
 
         $this->assertFalse($fallback->resolve('foo/bar', $renderer));
     }
 
     public function testSkipsResolutionOnViewRendererWithoutCorrectCurrentPlugin()
     {
-        /* @var $baseResolver ResolverInterface|\PHPUnit_Framework_MockObject_MockObject */
-        $baseResolver = $this->getMockBuilder(ResolverInterface::class)->getMock();
-        $fallback     = new RelativeFallbackResolver($baseResolver);
-        /* @var $renderer RendererInterface|\PHPUnit_Framework_MockObject_MockObject */
-        $renderer     = $this->getMockBuilder(RendererInterface::class)
-            ->setMethods(['getEngine', 'setResolver', 'plugin', 'render'])
-            ->getMock();
+        $baseResolver = $this->prophesize(ResolverInterface::class);
+        $baseResolver->resolve()->shouldNotBeCalled();
 
-        $baseResolver->expects($this->never())->method('resolve');
-        $renderer->expects($this->once())->method('plugin')->will($this->returnValue(new stdClass()));
+        $fallback = new RelativeFallbackResolver($baseResolver->reveal());
 
-        $this->assertFalse($fallback->resolve('foo/bar', $renderer));
+        $renderer = $this->prophesize(PhpRenderer::class);
+        $renderer->plugin(Argument::any())->willReturn(new stdClass())->shouldBeCalledTimes(1);
+
+        $this->assertFalse($fallback->resolve('foo/bar', $renderer->reveal()));
     }
 
     public function testSkipsResolutionOnNonExistingCurrentViewModel()
     {
-        /* @var $baseResolver ResolverInterface|\PHPUnit_Framework_MockObject_MockObject */
-        $baseResolver = $this->getMockBuilder(ResolverInterface::class)->getMock();
-        $fallback     = new RelativeFallbackResolver($baseResolver);
-        $viewModel    = new ViewModelHelper();
-        /* @var $renderer RendererInterface|\PHPUnit_Framework_MockObject_MockObject */
-        $renderer     = $this->getMockBuilder(RendererInterface::class)
-            ->setMethods(['getEngine', 'setResolver', 'plugin', 'render'])
-            ->getMock();
+        $baseResolver = $this->prophesize(ResolverInterface::class);
+        $baseResolver->resolve()->shouldNotBeCalled();
 
-        $baseResolver->expects($this->never())->method('resolve');
-        $renderer->expects($this->once())->method('plugin')->will($this->returnValue($viewModel));
+        $fallback  = new RelativeFallbackResolver($baseResolver->reveal());
+        $viewModel = new ViewModelHelper();
 
-        $this->assertFalse($fallback->resolve('foo/bar', $renderer));
+        $renderer = $this->prophesize(PhpRenderer::class);
+        $renderer->plugin(Argument::any())->willReturn($viewModel)->shouldBeCalledTimes(1);
+
+        $this->assertFalse($fallback->resolve('foo/bar', $renderer->reveal()));
     }
 }

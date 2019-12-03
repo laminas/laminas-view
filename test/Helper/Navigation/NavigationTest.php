@@ -18,6 +18,7 @@ use Zend\ServiceManager\ServiceManager;
 use Zend\View;
 use Zend\View\Helper\Navigation;
 use Zend\View\Renderer\PhpRenderer;
+use Zend\I18n\Translator\Translator;
 
 /**
  * Tests Zend\View\Helper\Navigation
@@ -219,7 +220,7 @@ class NavigationTest extends AbstractTest
 
     public function testTranslatorMethods()
     {
-        $translatorMock = $this->getMockBuilder('Zend\I18n\Translator\Translator')->getMock();
+        $translatorMock = $this->prophesize(Translator::class)->reveal();
         $this->_helper->setTranslator($translatorMock, 'foo');
 
         $this->assertEquals($translatorMock, $this->_helper->getTranslator());
