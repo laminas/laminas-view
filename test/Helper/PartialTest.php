@@ -9,6 +9,7 @@
 
 namespace ZendTest\View\Helper;
 
+use ArrayObject;
 use PHPUnit\Framework\TestCase;
 use Zend\View\Helper\Partial;
 use Zend\View\Model\ViewModel;
@@ -143,6 +144,24 @@ class PartialTest extends TestCase
         $return = $this->helper->__invoke('partialVars.phtml', $model);
 
         foreach ($model->getVariables() as $key => $value) {
+            $string = sprintf('%s: %s', $key, $value);
+            $this->assertContains($string, $return);
+        }
+    }
+
+    public function testCanPassArrayObjectAsSecondArgument()
+    {
+        $model = new ArrayObject([
+            'foo' => 'bar',
+            'bar' => 'baz',
+        ]);
+
+        $view = new View();
+        $view->resolver()->addPath($this->basePath . '/application/views/scripts');
+        $this->helper->setView($view);
+        $return = $this->helper->__invoke('partialVars.phtml', $model);
+
+        foreach ($model as $key => $value) {
             $string = sprintf('%s: %s', $key, $value);
             $this->assertContains($string, $return);
         }

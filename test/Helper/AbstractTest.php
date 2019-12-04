@@ -31,7 +31,7 @@ class AbstractTest extends TestCase
 
     public function testViewSettersGetters()
     {
-        $viewMock = $this->getMockBuilder(RendererInterface::class)->getMock();
+        $viewMock = $this->prophesize(RendererInterface::class)->reveal();
 
         $this->helper->setView($viewMock);
         $this->assertEquals($viewMock, $this->helper->getView());
