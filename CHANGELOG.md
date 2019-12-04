@@ -22,7 +22,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#203](https://github.com/zendframework/zend-view/pull/203) fixes PHP 7.4 compatibility.
 
 ## 2.11.3 - 2019-10-11
 
