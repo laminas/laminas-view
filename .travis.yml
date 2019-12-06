@@ -43,7 +43,7 @@ matrix:
     - php: 7.3
       env:
         - DEPS=latest
-    - php: 7.4snapshot
+    - php: 7.4
       env:
         - DEPS=latest
 
