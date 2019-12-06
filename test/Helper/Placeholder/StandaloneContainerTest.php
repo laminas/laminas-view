@@ -33,7 +33,7 @@ class StandaloneContainerTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->helper = new Foo();
     }

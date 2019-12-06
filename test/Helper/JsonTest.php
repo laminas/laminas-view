@@ -28,7 +28,7 @@ class JsonTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->response = new Response();
         $this->helper   = new JsonHelper();

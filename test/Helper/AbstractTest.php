@@ -24,7 +24,7 @@ class AbstractTest extends TestCase
      */
     protected $helper;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->helper = new ConcreteHelper();
     }

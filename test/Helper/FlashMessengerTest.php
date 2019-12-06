@@ -28,7 +28,7 @@ use Zend\View\HelperPluginManager;
  */
 class FlashMessengerTest extends TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->mvcPluginClass = class_exists(V2PluginFlashMessenger::class)
             ? V2PluginFlashMessenger::class
@@ -442,7 +442,7 @@ class FlashMessengerTest extends TestCase
     }
 
     /**
-     * @covers Zend\View\Helper\FlashMessenger::render
+     * @covers \Zend\View\Helper\FlashMessenger::render
      */
     public function testMessageIsEscapedByDefault()
     {
@@ -456,7 +456,7 @@ class FlashMessengerTest extends TestCase
     }
 
     /**
-     * @covers Zend\View\Helper\FlashMessenger::render
+     * @covers \Zend\View\Helper\FlashMessenger::render
      */
     public function testMessageIsNotEscapedWhenAutoEscapeIsFalse()
     {
@@ -471,7 +471,7 @@ class FlashMessengerTest extends TestCase
     }
 
     /**
-     * @covers Zend\View\Helper\FlashMessenger::render
+     * @covers \Zend\View\Helper\FlashMessenger::render
      */
     public function testCanSetAutoEscapeOnRender()
     {
@@ -485,7 +485,7 @@ class FlashMessengerTest extends TestCase
     }
 
     /**
-     * @covers Zend\View\Helper\FlashMessenger::render
+     * @covers \Zend\View\Helper\FlashMessenger::render
      */
     public function testRenderUsesCurrentAutoEscapeByDefault()
     {
@@ -509,7 +509,7 @@ class FlashMessengerTest extends TestCase
     }
 
     /**
-     * @covers Zend\View\Helper\FlashMessenger::renderCurrent
+     * @covers \Zend\View\Helper\FlashMessenger::renderCurrent
      */
     public function testCurrentMessageIsEscapedByDefault()
     {
@@ -521,7 +521,7 @@ class FlashMessengerTest extends TestCase
     }
 
     /**
-     * @covers Zend\View\Helper\FlashMessenger::renderCurrent
+     * @covers \Zend\View\Helper\FlashMessenger::renderCurrent
      */
     public function testCurrentMessageIsNotEscapedWhenAutoEscapeIsFalse()
     {
@@ -534,7 +534,7 @@ class FlashMessengerTest extends TestCase
     }
 
     /**
-     * @covers Zend\View\Helper\FlashMessenger::renderCurrent
+     * @covers \Zend\View\Helper\FlashMessenger::renderCurrent
      */
     public function testCanSetAutoEscapeOnRenderCurrent()
     {
@@ -546,7 +546,7 @@ class FlashMessengerTest extends TestCase
     }
 
     /**
-     * @covers Zend\View\Helper\FlashMessenger::renderCurrent
+     * @covers \Zend\View\Helper\FlashMessenger::renderCurrent
      */
     public function testRenderCurrentUsesCurrentAutoEscapeByDefault()
     {

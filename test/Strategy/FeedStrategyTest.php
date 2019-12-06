@@ -25,7 +25,7 @@ class FeedStrategyTest extends TestCase
 {
     use EventListenerIntrospectionTrait;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->markTestIncomplete('Re-enable tests after zend-feed has been updated to zend-servicemanager v3');
         $this->renderer = new FeedRenderer;

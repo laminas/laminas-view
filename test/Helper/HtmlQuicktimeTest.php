@@ -37,7 +37,7 @@ class HtmlQuicktimeTest extends TestCase
         $this->helper->setView($this->view);
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         unset($this->helper);
     }

@@ -33,7 +33,7 @@ class PlaceholderTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->placeholder = new Helper\Placeholder();
     }
@@ -44,7 +44,7 @@ class PlaceholderTest extends TestCase
      *
      * @return void
      */
-    public function tearDown()
+    protected function tearDown()
     {
         unset($this->placeholder);
     }

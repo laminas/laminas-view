@@ -45,7 +45,7 @@ class LinksTest extends AbstractTest
     private $_oldDoctype;
     // @codingStandardsIgnoreEnd
 
-    public function setUp()
+    protected function setUp()
     {
         parent::setUp();
 
@@ -62,7 +62,7 @@ class LinksTest extends AbstractTest
         }
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         return;
         $this->_doctypeHelper->setDoctype($this->_oldDoctype);
