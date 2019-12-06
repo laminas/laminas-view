@@ -21,7 +21,7 @@ use Zend\View\Resolver\TemplateMapResolver;
  */
 class RenderChildModelTest extends TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->resolver = new TemplateMapResolver([
             'layout'  => __DIR__ . '/../_templates/nested-view-model-layout.phtml',

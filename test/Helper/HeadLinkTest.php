@@ -44,7 +44,7 @@ class HeadLinkTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    protected function setUp()
     {
         Helper\Doctype::unsetDoctypeRegistry();
         $this->basePath = __DIR__ . '/_files/modules';
@@ -60,7 +60,7 @@ class HeadLinkTest extends TestCase
      *
      * @return void
      */
-    public function tearDown()
+    protected function tearDown()
     {
         unset($this->helper);
     }

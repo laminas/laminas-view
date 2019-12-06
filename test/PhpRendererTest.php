@@ -27,7 +27,7 @@ use ZendTest\View\TestAsset;
  */
 class PhpRendererTest extends TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->renderer = new PhpRenderer();
     }

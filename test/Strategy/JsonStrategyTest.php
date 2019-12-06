@@ -25,7 +25,7 @@ class JsonStrategyTest extends TestCase
 {
     use EventListenerIntrospectionTrait;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->renderer = new JsonRenderer;
         $this->strategy = new JsonStrategy($this->renderer);

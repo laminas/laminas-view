@@ -29,7 +29,7 @@ use Zend\View\Renderer\PhpRenderer;
  */
 class HelperPluginManagerTest extends TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->helpers = new HelperPluginManager(new ServiceManager());
     }
