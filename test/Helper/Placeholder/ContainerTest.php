@@ -30,7 +30,7 @@ class ContainerTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->container = new \Zend\View\Helper\Placeholder\Container([]);
     }
@@ -41,7 +41,7 @@ class ContainerTest extends TestCase
      *
      * @return void
      */
-    public function tearDown()
+    protected function tearDown()
     {
         unset($this->container);
     }

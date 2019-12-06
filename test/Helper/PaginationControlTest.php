@@ -55,7 +55,7 @@ class PaginationControlTest extends TestCase
         $this->_paginator = new Paginator\Paginator($adapter);
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         unset($this->_viewHelper);
         unset($this->_paginator);

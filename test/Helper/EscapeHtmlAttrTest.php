@@ -28,7 +28,7 @@ class EscapeHtmlAttrTest extends TestCase
         'eucjp-win',    'macroman'
     ];
 
-    public function setUp()
+    protected function setUp()
     {
         $this->helper = new EscapeHelper;
     }

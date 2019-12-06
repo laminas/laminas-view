@@ -29,7 +29,7 @@ class LayoutTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->renderer = $renderer = new PhpRenderer();
         $this->viewModelHelper = $renderer->plugin('view_model');

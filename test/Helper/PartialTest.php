@@ -40,7 +40,7 @@ class PartialTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->basePath = __DIR__ . '/_files/modules';
         $this->helper   = new Partial();
@@ -52,7 +52,7 @@ class PartialTest extends TestCase
      *
      * @return void
      */
-    public function tearDown()
+    protected function tearDown()
     {
         unset($this->helper);
     }

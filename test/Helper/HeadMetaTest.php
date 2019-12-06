@@ -44,7 +44,7 @@ class HeadMetaTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->error = false;
         Helper\Doctype::unsetDoctypeRegistry();
@@ -62,7 +62,7 @@ class HeadMetaTest extends TestCase
      *
      * @return void
      */
-    public function tearDown()
+    protected function tearDown()
     {
         unset($this->helper);
     }

@@ -36,7 +36,7 @@ class DoctypeTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    protected function setUp()
     {
         Helper\Doctype::unsetDoctypeRegistry();
         $this->helper = new Helper\Doctype();
@@ -48,7 +48,7 @@ class DoctypeTest extends TestCase
      *
      * @return void
      */
-    public function tearDown()
+    protected function tearDown()
     {
         unset($this->helper);
     }

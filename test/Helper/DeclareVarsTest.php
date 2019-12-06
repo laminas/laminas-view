@@ -19,7 +19,7 @@ use Zend\View\Helper\DeclareVars;
  */
 class DeclareVarsTest extends TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $view = new View();
         $base = str_replace('/', DIRECTORY_SEPARATOR, '/../_templates');
@@ -28,7 +28,7 @@ class DeclareVarsTest extends TestCase
         $this->view = $view;
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         unset($this->view);
     }
