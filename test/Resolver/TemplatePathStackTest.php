@@ -33,7 +33,7 @@ class TemplatePathStackTest extends TestCase
      */
     private $baseDir;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->baseDir = realpath(__DIR__ . '/..');
         $this->stack   = new TemplatePathStack();

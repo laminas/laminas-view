@@ -18,7 +18,7 @@ use Zend\View\Resolver\PrefixPathStackResolver;
 
 class FeedRendererTest extends TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->renderer = new FeedRenderer();
     }

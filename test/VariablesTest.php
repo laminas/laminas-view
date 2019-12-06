@@ -18,7 +18,7 @@ use Zend\Config\Config;
  */
 class VariablesTest extends TestCase
 {
-    public function setup()
+    protected function setUp()
     {
         $this->error = false;
         $this->vars = new Variables;

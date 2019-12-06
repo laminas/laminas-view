@@ -22,7 +22,7 @@ class RenderToPlaceholderTest extends TestCase
     protected $_view = null;
     // @codingStandardsIgnoreEnd
 
-    public function setUp()
+    protected function setUp()
     {
         $this->_view = new View();
         $this->_view->resolver()->addPath(__DIR__.'/_files/scripts/');

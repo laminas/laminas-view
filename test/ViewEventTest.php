@@ -20,7 +20,7 @@ class ViewEventTest extends TestCase
 {
     protected $event;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->event = new ViewEvent;
     }

@@ -17,7 +17,7 @@ use Zend\View\Helper\Service\IdentityFactory;
 
 class IdentityFactoryTest extends TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->services = $this->prophesize(ServiceManager::class);
         $this->helpers  = new HelperPluginManager($this->services->reveal());

@@ -31,7 +31,7 @@ class CycleTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    protected function setUp()
     {
         $this->helper = new Helper\Cycle();
     }
@@ -42,7 +42,7 @@ class CycleTest extends TestCase
      *
      * @return void
      */
-    public function tearDown()
+    protected function tearDown()
     {
         unset($this->helper);
     }

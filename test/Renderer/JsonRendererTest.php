@@ -27,7 +27,7 @@ class JsonRendererTest extends TestCase
      */
     protected $renderer;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->renderer = new JsonRenderer();
     }

@@ -26,7 +26,7 @@ use Zend\View\ViewEvent;
 
 class ViewTest extends TestCase
 {
-    public function setUp()
+    protected function setUp()
     {
         $this->request  = new Request;
         $this->response = new Response;
