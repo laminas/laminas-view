@@ -1,31 +1,29 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper\Navigation;
+namespace Laminas\View\Helper\Navigation;
 
 use DOMDocument;
+use Laminas\Navigation\AbstractContainer;
+use Laminas\Navigation\Page\AbstractPage;
+use Laminas\Stdlib\ErrorHandler;
+use Laminas\Uri;
+use Laminas\View;
+use Laminas\View\Exception;
 use RecursiveIteratorIterator;
-use Zend\Navigation\AbstractContainer;
-use Zend\Navigation\Page\AbstractPage;
-use Zend\Stdlib\ErrorHandler;
-use Zend\Uri;
-use Zend\View;
-use Zend\View\Exception;
 
 /**
  * Helper for printing sitemaps
  *
  * @link http://www.sitemaps.org/protocol.php
  *
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage Helper
  */
 class Sitemap extends AbstractHelper
@@ -59,7 +57,7 @@ class Sitemap extends AbstractHelper
     protected $useXmlDeclaration = true;
 
     /**
-     * Whether sitemap should be validated using Zend\Validate\Sitemap\*
+     * Whether sitemap should be validated using Laminas\Validate\Sitemap\*
      *
      * @var bool
      */
@@ -146,7 +144,7 @@ class Sitemap extends AbstractHelper
     }
 
     /**
-     * Sets whether sitemap should be validated using Zend\Validate\Sitemap_*
+     * Sets whether sitemap should be validated using Laminas\Validate\Sitemap_*
      *
      * @param  bool $useSitemapValidators whether sitemap validators should be used
      * @return Sitemap  fluent interface, returns self
@@ -158,7 +156,7 @@ class Sitemap extends AbstractHelper
     }
 
     /**
-     * Returns whether sitemap should be validated using Zend\Validate\Sitemap_*
+     * Returns whether sitemap should be validated using Laminas\Validate\Sitemap_*
      *
      * @return bool  whether sitemap should be validated using validators
      */
@@ -314,10 +312,10 @@ class Sitemap extends AbstractHelper
         // check if we should validate using our own validators
         if ($this->getUseSitemapValidators()) {
             // create validators
-            $locValidator        = new \Zend\Validator\Sitemap\Loc();
-            $lastmodValidator    = new \Zend\Validator\Sitemap\Lastmod();
-            $changefreqValidator = new \Zend\Validator\Sitemap\Changefreq();
-            $priorityValidator   = new \Zend\Validator\Sitemap\Priority();
+            $locValidator        = new \Laminas\Validator\Sitemap\Loc();
+            $lastmodValidator    = new \Laminas\Validator\Sitemap\Lastmod();
+            $changefreqValidator = new \Laminas\Validator\Sitemap\Changefreq();
+            $priorityValidator   = new \Laminas\Validator\Sitemap\Priority();
         }
 
         // create document
@@ -431,7 +429,7 @@ class Sitemap extends AbstractHelper
         return $dom;
     }
 
-    // Zend_View_Helper_Navigation_Helper:
+    // Laminas_View_Helper_Navigation_Helper:
 
     /**
      * Renders helper

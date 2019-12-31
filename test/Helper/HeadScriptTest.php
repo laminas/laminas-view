@@ -1,32 +1,30 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\View\Helper\Placeholder\Registry;
-use Zend\View\Helper;
-use Zend\View;
+use Laminas\View;
+use Laminas\View\Helper;
+use Laminas\View\Helper\Placeholder\Registry;
 
 /**
- * Test class for Zend_View_Helper_HeadScript.
+ * Test class for Laminas_View_Helper_HeadScript.
  *
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class HeadScriptTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Zend_View_Helper_HeadScript
+     * @var Laminas_View_Helper_HeadScript
      */
     public $helper;
 
@@ -63,12 +61,12 @@ class HeadScriptTest extends \PHPUnit_Framework_TestCase
     public function testNamespaceRegisteredInPlaceholderRegistryAfterInstantiation()
     {
         $registry = Registry::getRegistry();
-        if ($registry->containerExists('Zend_View_Helper_HeadScript')) {
-            $registry->deleteContainer('Zend_View_Helper_HeadScript');
+        if ($registry->containerExists('Laminas_View_Helper_HeadScript')) {
+            $registry->deleteContainer('Laminas_View_Helper_HeadScript');
         }
-        $this->assertFalse($registry->containerExists('Zend_View_Helper_HeadScript'));
+        $this->assertFalse($registry->containerExists('Laminas_View_Helper_HeadScript'));
         $helper = new Helper\HeadScript();
-        $this->assertTrue($registry->containerExists('Zend_View_Helper_HeadScript'));
+        $this->assertTrue($registry->containerExists('Laminas_View_Helper_HeadScript'));
     }
 
     public function testHeadScriptReturnsObjectInstance()
@@ -367,8 +365,8 @@ document.write(bar.strlen());');
     }
 
     /**
-     * @issue ZF-3928
-     * @link http://framework.zend.com/issues/browse/ZF-3928
+     * @issue Laminas-3928
+     * @link https://getlaminas.org/issues/browse/Laminas-3928
      */
     public function testTurnOffAutoEscapeDoesNotEncodeAmpersand()
     {
@@ -392,7 +390,7 @@ document.write(bar.strlen());');
     }
 
     /**
-     * @issue ZF-5435
+     * @issue Laminas-5435
      */
     public function testContainerMaintainsCorrectOrderOfItems()
     {

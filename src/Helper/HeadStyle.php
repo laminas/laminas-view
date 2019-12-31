@@ -1,23 +1,21 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
+use Laminas\View;
+use Laminas\View\Exception;
 use stdClass;
-use Zend\View;
-use Zend\View\Exception;
 
 /**
  * Helper for setting and retrieving stylesheets
  *
- * @package    Zend_View
+ * @package    Laminas_View
  * @subpackage Helper
  */
 class HeadStyle extends Placeholder\Container\AbstractStandalone
@@ -26,7 +24,7 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
      * Registry key for placeholder
      * @var string
      */
-    protected $regKey = 'Zend_View_Helper_HeadStyle';
+    protected $regKey = 'Laminas_View_Helper_HeadStyle';
 
     /**
      * Allowed optional attributes
@@ -81,7 +79,7 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
      * @param  string $content Stylesheet contents
      * @param  string $placement Append, prepend, or set
      * @param  string|array $attributes Optional attributes to utilize
-     * @return \Zend\View\Helper\HeadStyle
+     * @return \Laminas\View\Helper\HeadStyle
      */
     public function __invoke($content = null, $placement = 'APPEND', $attributes = array())
     {

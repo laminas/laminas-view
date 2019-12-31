@@ -1,16 +1,14 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
-use Zend\View\Exception\InvalidArgumentException;
+use Laminas\View\Exception\InvalidArgumentException;
 
 /**
  * Helper for passing data between otherwise segregated Views. It's called
@@ -18,7 +16,7 @@ use Zend\View\Exception\InvalidArgumentException;
  * for non-Placeholder things. That said, the support for this is only
  * guaranteed to effect subsequently rendered templates, and of course Layouts.
  *
- * @package    Zend_View
+ * @package    Laminas_View
  * @subpackage Helper
  */
 class Placeholder extends AbstractHelper
@@ -30,7 +28,7 @@ class Placeholder extends AbstractHelper
     protected $items = array();
 
     /**
-     * @var \Zend\View\Helper\Placeholder\Registry
+     * @var \Laminas\View\Helper\Placeholder\Registry
      */
     protected $registry;
 
@@ -49,7 +47,7 @@ class Placeholder extends AbstractHelper
      * Placeholder helper
      *
      * @param  string $name
-     * @return \Zend\View\Helper\Placeholder\Container\AbstractContainer
+     * @return \Laminas\View\Helper\Placeholder\Container\AbstractContainer
      * @throws InvalidArgumentException
      */
     public function __invoke($name = null)
@@ -65,7 +63,7 @@ class Placeholder extends AbstractHelper
     /**
      * Retrieve the registry
      *
-     * @return \Zend\View\Helper\Placeholder\Registry
+     * @return \Laminas\View\Helper\Placeholder\Registry
      */
     public function getRegistry()
     {

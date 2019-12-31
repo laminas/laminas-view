@@ -1,27 +1,25 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View;
+namespace LaminasTest\View;
 
 use ArrayObject;
+use Laminas\Http\Request;
+use Laminas\Http\Response;
+use Laminas\View\Model\JsonModel;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Renderer;
+use Laminas\View\Renderer\PhpRenderer;
+use Laminas\View\Resolver;
+use Laminas\View\Variables as ViewVariables;
+use Laminas\View\View;
 use PHPUnit_Framework_TestCase as TestCase;
 use stdClass;
-use Zend\Http\Request;
-use Zend\Http\Response;
-use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
-use Zend\View\Renderer\PhpRenderer;
-use Zend\View\Renderer;
-use Zend\View\Resolver;
-use Zend\View\Variables as ViewVariables;
-use Zend\View\View;
 
 class ViewTest extends TestCase
 {
@@ -164,7 +162,7 @@ class ViewTest extends TestCase
         $this->model->setVariable('parent', 'node');
         $this->model->addChild($child1);
 
-        $this->setExpectedException('Zend\View\Exception\DomainException');
+        $this->setExpectedException('Laminas\View\Exception\DomainException');
         $this->view->render($this->model);
     }
 
