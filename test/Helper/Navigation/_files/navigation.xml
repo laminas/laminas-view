@@ -219,7 +219,7 @@
                 <page1_1>
                     <label>Page 1.1</label>
                     <uri>page1/page1_1</uri>
-                    <textdomain>ZendTest_1</textdomain>
+                    <textdomain>LaminasTest_1</textdomain>
                 </page1_1>
 
             </pages>
@@ -228,7 +228,7 @@
         <page2>
             <label>Page 2</label>
             <uri>page2</uri>
-            <textdomain>ZendTest_1</textdomain>
+            <textdomain>LaminasTest_1</textdomain>
             <pages>
 
                 <page2_1>
@@ -258,7 +258,7 @@
                 <page2_3>
                     <label>Page 2.3</label>
                     <uri>page2/page2_3</uri>
-                    <textdomain>ZendTest_No</textdomain>
+                    <textdomain>LaminasTest_No</textdomain>
                     <pages>
 
                         <page2_3_1>
@@ -299,14 +299,14 @@
                             <label>Page 2.3.3</label>
                             <uri>page2/page2_3/page2_3_3</uri>
                             <resource>admin_foo</resource>
-                            <textdomain>ZendTest_1</textdomain>
+                            <textdomain>LaminasTest_1</textdomain>
                             <pages>
 
                                     <page2_3_3_1>
                                         <label>Page 2.3.3.1</label>
                                         <uri>page2/page2_3/page2_3_3/1</uri>
                                         <active>1</active>
-                                        <textdomain>ZendTest_2</textdomain>
+                                        <textdomain>LaminasTest_2</textdomain>
                                     </page2_3_3_1>
 
                                     <page2_3_3_2>

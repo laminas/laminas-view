@@ -1,15 +1,14 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper\Placeholder;
+namespace Laminas\View\Helper\Placeholder;
 
-use Zend\View\Exception;
+use Laminas\View\Exception;
 
 /**
  * Registry for placeholder containers
@@ -28,7 +27,7 @@ class Registry
      *
      * @var string
      */
-    protected $containerClass = 'Zend\View\Helper\Placeholder\Container';
+    protected $containerClass = 'Laminas\View\Helper\Placeholder\Container';
 
     /**
      * Placeholder containers
@@ -164,7 +163,7 @@ class Registry
             );
         }
 
-        if (! in_array('Zend\View\Helper\Placeholder\Container\AbstractContainer', class_parents($name))) {
+        if (! in_array('Laminas\View\Helper\Placeholder\Container\AbstractContainer', class_parents($name))) {
             throw new Exception\InvalidArgumentException('Invalid Container class specified');
         }
 
