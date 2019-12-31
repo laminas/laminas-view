@@ -1,8 +1,8 @@
 <?php
 
-namespace ZendTest\View\Helper\TestAsset;
+namespace LaminasTest\View\Helper\TestAsset;
 
-use Zend\View\Helper\Placeholder\Container\AbstractContainer;
+use Laminas\View\Helper\Placeholder\Container\AbstractContainer;
 
 class MockContainer extends AbstractContainer
 {

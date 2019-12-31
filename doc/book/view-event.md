@@ -1,8 +1,8 @@
 # The ViewEvent
 
-zend-view incorporates and utilizes a custom [zend-eventmanager
-Event](https://zendframework.github.com/zend-eventmanager) implementation,
-`Zend\View\ViewEvent`. This event is created during `Zend\View\View::getEvent()`
+laminas-view incorporates and utilizes a custom [laminas-eventmanager
+Event](https://laminas.github.com/laminas-eventmanager) implementation,
+`Laminas\View\ViewEvent`. This event is created during `Laminas\View\View::getEvent()`
 and is passed directly to all the events the `View` class triggers.
 
 The `ViewEvent` adds accessors and mutators for the following:
@@ -51,7 +51,7 @@ This listener is added when the strategy used for rendering is `PhpStrategy`:
 
 Class                            | Priority | Method called    | Description
 -------------------------------- | -------- | ---------------- | -----------
-`Zend\View\Strategy\PhpStrategy` | 1        | `selectRenderer` | Return a `PhpRenderer`
+`Laminas\View\Strategy\PhpStrategy` | 1        | `selectRenderer` | Return a `PhpRenderer`
 
 #### For JsonStrategy
 
@@ -59,7 +59,7 @@ This listener is added when the strategy used for rendering is `JsonStrategy`:
 
 Class                             | Priority | Method called    | Description
 --------------------------------- | -------- | ---------------- | -----------
-`Zend\View\Strategy\JsonStrategy` | 1        | `selectRenderer` | Return a `JsonRenderer`
+`Laminas\View\Strategy\JsonStrategy` | 1        | `selectRenderer` | Return a `JsonRenderer`
 
 #### For FeedStrategy
 
@@ -67,7 +67,7 @@ This listener is added when the strategy used for rendering is `FeedStrategy`:
 
 Class                             | Priority | Method called    | Description
 --------------------------------- | -------- | ---------------- | -----------
-`Zend\View\Strategy\FeedStrategy` | 1        | `selectRenderer` | Return a `FeedRenderer`
+`Laminas\View\Strategy\FeedStrategy` | 1        | `selectRenderer` | Return a `FeedRenderer`
 
 ### Triggerers
 
@@ -75,7 +75,7 @@ This event is triggered by the following classes:
 
 Class            | In method | Description
 ---------------- | --------- | -----------
-`Zend\View\View` | `render`  | It has a short circuit callback that stops propagation once one result return an instance of a Renderer.
+`Laminas\View\View` | `render`  | It has a short circuit callback that stops propagation once one result return an instance of a Renderer.
 
 ## ViewEvent::EVENT\_RENDERER\_POST
 
@@ -89,7 +89,7 @@ This event is triggered by the following classes:
 
 Class            | In method | Description
 ---------------- | --------- | -----------
-`Zend\View\View` | `render`  | This event is triggered after `ViewEvent::EVENT_RENDERER` and before `ViewEvent::EVENT_RESPONSE`.
+`Laminas\View\View` | `render`  | This event is triggered after `ViewEvent::EVENT_RENDERER` and before `ViewEvent::EVENT_RESPONSE`.
 
 ## ViewEvent::EVENT\_RESPONSE
 
@@ -104,7 +104,7 @@ This listener is added when the strategy used for rendering is `PhpStrategy`:
 
 Class                            | Priority | Method called    | Description
 -------------------------------- | -------- | ---------------- | -----------
-`Zend\View\Strategy\PhpStrategy` | 1        | `injectResponse` | Populate the `Response` object from the rendered view.
+`Laminas\View\Strategy\PhpStrategy` | 1        | `injectResponse` | Populate the `Response` object from the rendered view.
 
 #### For JsonStrategy
 
@@ -112,7 +112,7 @@ This listener is added when the strategy used for rendering is `JsonStrategy`:
 
 Class                             | Priority | Method called    | Description
 --------------------------------- | -------- | ---------------- | -----------
-`Zend\View\Strategy\JsonStrategy` | 1        | `injectResponse` | Populate the `Response` object with the serialized JSON content.
+`Laminas\View\Strategy\JsonStrategy` | 1        | `injectResponse` | Populate the `Response` object with the serialized JSON content.
 
 #### For FeedStrategy
 
@@ -120,7 +120,7 @@ This listener is added when the strategy used for rendering is `FeedStrategy`:
 
 Class                             | Priority | Method called    | Description
 --------------------------------- | -------- | ---------------- | -----------
-`Zend\View\Strategy\FeedStrategy` | 1        | `injectResponse` | Populate the `Response` object with the rendered feed.
+`Laminas\View\Strategy\FeedStrategy` | 1        | `injectResponse` | Populate the `Response` object with the rendered feed.
 
 ### Triggerers
 
@@ -128,4 +128,4 @@ This event is triggered by the following classes:
 
 Class            | In method | Description
 ---------------- | --------- | -----------
-`Zend\View\View` | `render`  | This event is triggered after `ViewEvent::EVENT_RENDERER` and `ViewEvent::EVENT_RENDERER_POST`.
+`Laminas\View\View` | `render`  | This event is triggered after `ViewEvent::EVENT_RENDERER` and `ViewEvent::EVENT_RENDERER_POST`.

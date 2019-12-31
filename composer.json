@@ -1,74 +1,84 @@
 {
-    "name": "zendframework/zend-view",
+    "name": "laminas/laminas-view",
     "description": "provides a system of helpers, output filters, and variable escaping",
     "license": "BSD-3-Clause",
     "keywords": [
-        "zf2",
+        "laminas",
         "view"
     ],
-    "homepage": "https://github.com/zendframework/zend-view",
-    "autoload": {
-        "psr-4": {
-            "Zend\\View\\": "src/"
-        }
+    "homepage": "https://laminas.dev",
+    "support": {
+        "docs": "https://docs.laminas.dev/laminas-view/",
+        "issues": "https://github.com/laminas/laminas-view/issues",
+        "source": "https://github.com/laminas/laminas-view",
+        "rss": "https://github.com/laminas/laminas-view/releases.atom",
+        "chat": "https://laminas.dev/chat",
+        "forum": "https://discourse.laminas.dev"
     },
-    "require": {
-        "php": "^5.5 || ^7.0",
-        "zendframework/zend-eventmanager": "^2.6.2 || ^3.0",
-        "zendframework/zend-loader": "^2.5",
-        "zendframework/zend-stdlib": "^2.7 || ^3.0"
+    "config": {
+        "sort-packages": true
     },
-    "require-dev": {
-        "zendframework/zend-authentication": "^2.5",
-        "zendframework/zend-cache": "^2.6.1",
-        "zendframework/zend-config": "^2.6",
-        "zendframework/zend-console": "^2.6",
-        "zendframework/zend-escaper": "^2.5",
-        "zendframework/zend-feed": "^2.7",
-        "zendframework/zend-filter": "^2.6.1",
-        "zendframework/zend-http": "^2.5.4",
-        "zendframework/zend-i18n": "^2.6",
-        "zendframework/zend-json": "^2.6.1",
-        "zendframework/zend-log": "^2.7",
-        "zendframework/zend-modulemanager": "^2.7.1",
-        "zendframework/zend-mvc": "^2.7 || ^3.0",
-        "zendframework/zend-navigation": "^2.5",
-        "zendframework/zend-paginator": "^2.5",
-        "zendframework/zend-permissions-acl": "^2.6",
-        "zendframework/zend-router": "^3.0.1",
-        "zendframework/zend-serializer": "^2.6.1",
-        "zendframework/zend-session": "^2.6.2",
-        "zendframework/zend-servicemanager": "^2.7.5 || ^3.0.3",
-        "zendframework/zend-uri": "^2.5",
-        "phpunit/phpunit": "^4.6",
-        "zendframework/zend-coding-standard": "~1.0.0"
-    },
-    "suggest": {
-        "zendframework/zend-authentication": "Zend\\Authentication component",
-        "zendframework/zend-escaper": "Zend\\Escaper component",
-        "zendframework/zend-feed": "Zend\\Feed component",
-        "zendframework/zend-filter": "Zend\\Filter component",
-        "zendframework/zend-http": "Zend\\Http component",
-        "zendframework/zend-i18n": "Zend\\I18n component",
-        "zendframework/zend-json": "Zend\\Json component",
-        "zendframework/zend-mvc": "Zend\\Mvc component",
-        "zendframework/zend-navigation": "Zend\\Navigation component",
-        "zendframework/zend-paginator": "Zend\\Paginator component",
-        "zendframework/zend-permissions-acl": "Zend\\Permissions\\Acl component",
-        "zendframework/zend-servicemanager": "Zend\\ServiceManager component",
-        "zendframework/zend-uri": "Zend\\Uri component"
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "extra": {
         "branch-alias": {
             "dev-master": "2.8-dev",
             "dev-develop": "2.9-dev"
         }
     },
+    "require": {
+        "php": "^5.5 || ^7.0",
+        "laminas/laminas-eventmanager": "^2.6.2 || ^3.0",
+        "laminas/laminas-loader": "^2.5",
+        "laminas/laminas-stdlib": "^2.7 || ^3.0",
+        "laminas/laminas-zendframework-bridge": "^1.0"
+    },
+    "require-dev": {
+        "laminas/laminas-authentication": "^2.5",
+        "laminas/laminas-cache": "^2.6.1",
+        "laminas/laminas-coding-standard": "~1.0.0",
+        "laminas/laminas-config": "^2.6",
+        "laminas/laminas-console": "^2.6",
+        "laminas/laminas-escaper": "^2.5",
+        "laminas/laminas-feed": "^2.7",
+        "laminas/laminas-filter": "^2.6.1",
+        "laminas/laminas-http": "^2.5.4",
+        "laminas/laminas-i18n": "^2.6",
+        "laminas/laminas-json": "^2.6.1",
+        "laminas/laminas-log": "^2.7",
+        "laminas/laminas-modulemanager": "^2.7.1",
+        "laminas/laminas-mvc": "^2.7 || ^3.0",
+        "laminas/laminas-navigation": "^2.5",
+        "laminas/laminas-paginator": "^2.5",
+        "laminas/laminas-permissions-acl": "^2.6",
+        "laminas/laminas-router": "^3.0.1",
+        "laminas/laminas-serializer": "^2.6.1",
+        "laminas/laminas-servicemanager": "^2.7.5 || ^3.0.3",
+        "laminas/laminas-session": "^2.6.2",
+        "laminas/laminas-uri": "^2.5",
+        "phpunit/phpunit": "^4.6"
+    },
+    "suggest": {
+        "laminas/laminas-authentication": "Laminas\\Authentication component",
+        "laminas/laminas-escaper": "Laminas\\Escaper component",
+        "laminas/laminas-feed": "Laminas\\Feed component",
+        "laminas/laminas-filter": "Laminas\\Filter component",
+        "laminas/laminas-http": "Laminas\\Http component",
+        "laminas/laminas-i18n": "Laminas\\I18n component",
+        "laminas/laminas-json": "Laminas\\Json component",
+        "laminas/laminas-mvc": "Laminas\\Mvc component",
+        "laminas/laminas-navigation": "Laminas\\Navigation component",
+        "laminas/laminas-paginator": "Laminas\\Paginator component",
+        "laminas/laminas-permissions-acl": "Laminas\\Permissions\\Acl component",
+        "laminas/laminas-servicemanager": "Laminas\\ServiceManager component",
+        "laminas/laminas-uri": "Laminas\\Uri component"
+    },
+    "autoload": {
+        "psr-4": {
+            "Laminas\\View\\": "src/"
+        }
+    },
     "autoload-dev": {
         "psr-4": {
-            "ZendTest\\View\\": "test/"
+            "LaminasTest\\View\\": "test/"
         }
     },
     "bin": [
@@ -84,5 +94,8 @@
         "test": "phpunit --colors=always",
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml",
         "upload-coverage": "coveralls -v"
+    },
+    "replace": {
+        "zendframework/zend-view": "self.version"
     }
 }

@@ -1,28 +1,27 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper\Navigation;
+namespace LaminasTest\View\Helper\Navigation;
 
-use Zend\Navigation\Navigation;
-use Zend\Config\Factory as ConfigFactory;
-use Zend\Mvc\Router\RouteMatch as V2RouteMatch;
-use Zend\Mvc\Service\ServiceManagerConfig;
-use Zend\Permissions\Acl\Acl;
-use Zend\Permissions\Acl\Role\GenericRole;
-use Zend\Permissions\Acl\Resource\GenericResource;
-use Zend\Router\ConfigProvider as RouterConfigProvider;
-use Zend\Router\RouteMatch as V3RouteMatch;
-use Zend\ServiceManager\Config;
-use Zend\ServiceManager\ServiceManager;
-use Zend\I18n\Translator\Translator;
-use Zend\View\Renderer\PhpRenderer;
-use ZendTest\View\Helper\TestAsset;
+use Laminas\Config\Factory as ConfigFactory;
+use Laminas\I18n\Translator\Translator;
+use Laminas\Mvc\Router\RouteMatch as V2RouteMatch;
+use Laminas\Mvc\Service\ServiceManagerConfig;
+use Laminas\Navigation\Navigation;
+use Laminas\Permissions\Acl\Acl;
+use Laminas\Permissions\Acl\Resource\GenericResource;
+use Laminas\Permissions\Acl\Role\GenericRole;
+use Laminas\Router\ConfigProvider as RouterConfigProvider;
+use Laminas\Router\RouteMatch as V3RouteMatch;
+use Laminas\ServiceManager\Config;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\Renderer\PhpRenderer;
+use LaminasTest\View\Helper\TestAsset;
 
 /**
  * Base class for navigation view helper tests
@@ -52,7 +51,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
     /**
      * View helper
      *
-     * @var \Zend\View\Helper\Navigation\AbstractHelper
+     * @var \Laminas\View\Helper\Navigation\AbstractHelper
      */
     protected $_helper;
 
@@ -148,7 +147,7 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
         $sm->setService('ApplicationConfig', $smConfig);
         $sm->get('ModuleManager')->loadModules();
         $sm->get('Application')->bootstrap();
-        $sm->setFactory('Navigation', 'Zend\Navigation\Service\DefaultNavigationFactory');
+        $sm->setFactory('Navigation', 'Laminas\Navigation\Service\DefaultNavigationFactory');
 
         $sm->setService('nav1', $this->_nav1);
         $sm->setService('nav2', $this->_nav2);
@@ -262,8 +261,8 @@ abstract class AbstractTest extends \PHPUnit_Framework_TestCase
         $translator = new Translator();
         $translator->getPluginManager()->setService('default1', $loader1);
         $translator->getPluginManager()->setService('default2', $loader2);
-        $translator->addTranslationFile('default1', null, 'ZendTest_1');
-        $translator->addTranslationFile('default2', null, 'ZendTest_2');
+        $translator->addTranslationFile('default1', null, 'LaminasTest_1');
+        $translator->addTranslationFile('default2', null, 'LaminasTest_2');
         return $translator;
     }
 }

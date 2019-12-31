@@ -18,19 +18,19 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#92](https://github.com/zendframework/zend-view/pull/92) fixes the docblocks
+- [zendframework/zend-view#92](https://github.com/zendframework/zend-view/pull/92) fixes the docblocks
   and exception messages in the breadcrumbs and menu navigation helpers to
   remove references to 'module' keys for the `$partial` argument, as that key
   is no longer used.
-- [#98](https://github.com/zendframework/zend-view/pull/98) fixes how the
+- [zendframework/zend-view#98](https://github.com/zendframework/zend-view/pull/98) fixes how the
   `HeadMeta` helper renders the `<meta charset>` tag, ensuring it is the first
   rendered. As long as the `HeadMeta` helper is called early in your markup, this
   should ensure it is within the first 1024 characters, ensuring your document
   validates.
-- [#104](https://github.com/zendframework/zend-view/pull/104) fixes the
+- [zendframework/zend-view#104](https://github.com/zendframework/zend-view/pull/104) fixes the
   `@method` annotation for the `Placeholder` view helper to use the correct case,
   fixing issues with method completion in IDEs.
-- [#112](https://github.com/zendframework/zend-view/pull/112) fixes an issue in
+- [zendframework/zend-view#112](https://github.com/zendframework/zend-view/pull/112) fixes an issue in
   the `PhpRendererStrategy` whereby absence of a response instance in the
   `ViewEvent` would lead to a fatal error.
 
@@ -50,18 +50,18 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#78](https://github.com/zendframework/zend-view/pull/78) and
-  [#79](https://github.com/zendframework/zend-view/pull/79) ensure that all
-  helpers work with both version 2 and version 3 of zend-mvc.
+- [zendframework/zend-view#78](https://github.com/zendframework/zend-view/pull/78) and
+  [zendframework/zend-view#79](https://github.com/zendframework/zend-view/pull/79) ensure that all
+  helpers work with both version 2 and version 3 of laminas-mvc.
 
 ## 2.8.0 - 2016-06-21
 
 ### Added
 
-- [#67](https://github.com/zendframework/zend-view/pull/67) adds a script,
+- [zendframework/zend-view#67](https://github.com/zendframework/zend-view/pull/67) adds a script,
   `templatemap_generator.php`, which is available in
   `vendor/bin/templatemap_generator.php` once installed. This script replaces
-  the original present in the zendframework/zendframework package, and
+  the original present in the laminas/laminas package, and
   simplifies it for the most common use case. Usage is:
 
   ```bash
@@ -90,11 +90,11 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- [#1](https://github.com/zendframework/zend-view/pull/1) adds a new `loop()`
+- [zendframework/zend-view#1](https://github.com/zendframework/zend-view/pull/1) adds a new `loop()`
   method to the `partialLoop()` helper, allowing the ability to chain setters
   with rendering:
   `$this->partialLoop()->setObjectKey('foo')->loop('partial', $data)`
-- [#60](https://github.com/zendframework/zend-view/pull/60) adds the ability to
+- [zendframework/zend-view#60](https://github.com/zendframework/zend-view/pull/60) adds the ability to
   register and consume arbitrary callables as view helpers within the
   `HelperPluginManager`.
 
@@ -114,10 +114,10 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- [#22](https://github.com/zendframework/zend-view/pull/22) adds support for the
+- [zendframework/zend-view#22](https://github.com/zendframework/zend-view/pull/22) adds support for the
   `async` attribute within the `headScript` helper.
-- [#59](https://github.com/zendframework/zend-view/pull/59) adds and publishes
-  the documentation to https://zendframework.github.io/zend-view/
+- [zendframework/zend-view#59](https://github.com/zendframework/zend-view/pull/59) adds and publishes
+  the documentation to https://docs.laminas.dev/laminas-view/
 
 ### Deprecated
 
@@ -129,7 +129,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#21](https://github.com/zendframework/zend-view/pull/21) updates the
+- [zendframework/zend-view#21](https://github.com/zendframework/zend-view/pull/21) updates the
   `headScript` helper to allow empty attribute types to render as keys only when
   using an HTML5 doctype.
 
@@ -149,17 +149,17 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#58](https://github.com/zendframework/zend-view/pull/58) updates the `url()`
-  helper so that it can work with either the zend-mvc v2 router subcomponent or
-  zend-router.
+- [zendframework/zend-view#58](https://github.com/zendframework/zend-view/pull/58) updates the `url()`
+  helper so that it can work with either the laminas-mvc v2 router subcomponent or
+  laminas-router.
 
 ## 2.6.6 - 2016-04-18
 
 ### Added
 
-- [#57](https://github.com/zendframework/zend-view/pull/57) adds
-  `Zend\View\Helper\TranslatorAwareTrait`, which provides implementation for
-  `Zend\I18n\Translator\TranslatorAwareInterface`, and allowed removal of
+- [zendframework/zend-view#57](https://github.com/zendframework/zend-view/pull/57) adds
+  `Laminas\View\Helper\TranslatorAwareTrait`, which provides implementation for
+  `Laminas\I18n\Translator\TranslatorAwareInterface`, and allowed removal of
   duplicated implementations in several helpers.
 
 ### Deprecated
@@ -172,10 +172,10 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#57](https://github.com/zendframework/zend-view/pull/57) removes the explicit
-  dependency on `Zend\I18n\Translator\TranslatorAwareInterface` by allowing
+- [zendframework/zend-view#57](https://github.com/zendframework/zend-view/pull/57) removes the explicit
+  dependency on `Laminas\I18n\Translator\TranslatorAwareInterface` by allowing
   helpers to duck type the interface to receive a translator during
-  instantiation; this allows such helpers to work even when zend-i18n is not
+  instantiation; this allows such helpers to work even when laminas-i18n is not
   installed. The following helpers were updated to duck type the interface
   instead of implement it explicitly:
   - `FlashMessenger`
@@ -198,7 +198,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#55](https://github.com/zendframework/zend-view/pull/55) fixes a circular
+- [zendframework/zend-view#55](https://github.com/zendframework/zend-view/pull/55) fixes a circular
   dependency issue in the navigation helpers with regards to event manager
   resolution.
 
@@ -218,11 +218,11 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#52](https://github.com/zendframework/zend-view/pull/52) fixes several issues
+- [zendframework/zend-view#52](https://github.com/zendframework/zend-view/pull/52) fixes several issues
   detected after re-enabling tests skipped when executed against
-  zend-servicemanager/zend-eventmanager v3:
+  laminas-servicemanager/laminas-eventmanager v3:
   - `HelperPluginManager` now implements an `EventManagerAware` initializer.
-  - `Zend\View\Helper\Navigation\AbstractHelper` now contains logic to ensure
+  - `Laminas\View\Helper\Navigation\AbstractHelper` now contains logic to ensure
     that when an `EventManager` instance is lazy-loaded, it composes a
     `SharedEventManager`.
   - The `FlashMessenger` factory now correctly pulls the `config` service, not
@@ -244,11 +244,11 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#50](https://github.com/zendframework/zend-view/pull/50) fixes
+- [zendframework/zend-view#50](https://github.com/zendframework/zend-view/pull/50) fixes
   the initializer defined and registered in
   `Navigation\PluginManager::__construct()` to ensure it properly pulls and
   injects the application container into navigation helpers, under both
-  zend-servicemanager v2 and v3. Additionally, when lazy-instantiating the
+  laminas-servicemanager v2 and v3. Additionally, when lazy-instantiating the
   `Navigation\PluginManager`, the `Navigation` helper now passes the composed
   service manager instance to its constructor.
 
@@ -268,12 +268,12 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#47](https://github.com/zendframework/zend-view/pull/47) fixes
+- [zendframework/zend-view#47](https://github.com/zendframework/zend-view/pull/47) fixes
   `Navigation\PluginManager` to ensure it is backwards compatible
-  with zend-servicemanager v2, including:
+  with laminas-servicemanager v2, including:
   - fixing the constructor to be BC with v2 and forwards-compatible with v3.
   - adding additional, normalized alias/factory pairs.
-- [#47](https://github.com/zendframework/zend-view/pull/47) fixes
+- [zendframework/zend-view#47](https://github.com/zendframework/zend-view/pull/47) fixes
   the behavior of `HelperPluginManager::injectTranslator()` to return
   early if no container is provided (fixing an issue with navigation
   helpers introduced in 2.6.0).
@@ -294,15 +294,15 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#44](https://github.com/zendframework/zend-view/pull/44) fixes the
+- [zendframework/zend-view#44](https://github.com/zendframework/zend-view/pull/44) fixes the
   constructor of `HelperPluginManager` to ensure it is backwards compatible
-  with zend-servicemanager v2.
+  with laminas-servicemanager v2.
 
 ## 2.6.0 - 2016-02-17
 
 ### Added
 
-- [#8](https://github.com/zendframework/zend-view/pull/8) adds a new method to
+- [zendframework/zend-view#8](https://github.com/zendframework/zend-view/pull/8) adds a new method to
   each of the `Breadcrumbs` and `Menu` navigation helpers, 
   `renderPartialWithParams(array $params = [], $container = null, $partial = null)`.
   This method allows passing parameters to the navigation partial to render,
@@ -318,12 +318,12 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#15](https://github.com/zendframework/zend-view/pull/15),
-  [#17](https://github.com/zendframework/zend-view/pull/17),
-  [#35](https://github.com/zendframework/zend-view/pull/35), and
-  [#42](https://github.com/zendframework/zend-view/pull/42) update the component
-  to be forwards-compatible with the v3 releases of zend-eventmanager,
-  zend-servicemanager, and zend-stdlib. The changes include:
+- [zendframework/zend-view#15](https://github.com/zendframework/zend-view/pull/15),
+  [zendframework/zend-view#17](https://github.com/zendframework/zend-view/pull/17),
+  [zendframework/zend-view#35](https://github.com/zendframework/zend-view/pull/35), and
+  [zendframework/zend-view#42](https://github.com/zendframework/zend-view/pull/42) update the component
+  to be forwards-compatible with the v3 releases of laminas-eventmanager,
+  laminas-servicemanager, and laminas-stdlib. The changes include:
   - changes to how events are triggered to ensure they continue working correctly.
   - updates to the plugin manager to be forwards-compatible.
   - updates to helper factories to be forwards-compatible.
@@ -332,7 +332,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- [#5](https://github.com/zendframework/zend-view/pull/5) adds support for the
+- [zendframework/zend-view#5](https://github.com/zendframework/zend-view/pull/5) adds support for the
   `itemprop` attribute in the `headLink()` view helper.
 
 ### Deprecated
@@ -345,7 +345,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#25](https://github.com/zendframework/zend-view/pull/25) updates
+- [zendframework/zend-view#25](https://github.com/zendframework/zend-view/pull/25) updates
   `PhpRenderer::render()` to no longer lazy-instantiate a `FilterChain`;
   content filtering is now only done if a `FitlerChain` is already
   injected in the renderer.
@@ -366,7 +366,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#4](https://github.com/zendframework/zend-view/pull/4) fixes an issue with
+- [zendframework/zend-view#4](https://github.com/zendframework/zend-view/pull/4) fixes an issue with
   how the `ServerUrl` detects and emits the port when port-forwarding is in
   effect.
 
@@ -386,6 +386,6 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#4](https://github.com/zendframework/zend-view/pull/4) fixes an issue with
+- [zendframework/zend-view#4](https://github.com/zendframework/zend-view/pull/4) fixes an issue with
   how the `ServerUrl` detects and emits the port when port-forwarding is in
   effect.

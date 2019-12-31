@@ -1,13 +1,12 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper\Navigation;
+namespace LaminasTest\View\Helper\Navigation;
 
 class AbstractHelperTest extends AbstractTest
 {
@@ -17,12 +16,12 @@ class AbstractHelperTest extends AbstractTest
      *
      * @var string
      */
-    protected $_helperName = 'Zend\View\Helper\Navigation';
+    protected $_helperName = 'Laminas\View\Helper\Navigation';
 
     /**
      * View helper
      *
-     * @var \Zend\View\Helper\Navigation\Breadcrumbs
+     * @var \Laminas\View\Helper\Navigation\Breadcrumbs
      */
     protected $_helper;
     // @codingStandardsIgnoreEnd

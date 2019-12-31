@@ -1,22 +1,21 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\I18n\Translator\Translator;
-use Zend\View\Helper;
+use Laminas\I18n\Translator\Translator;
+use Laminas\View\Helper;
 
 /**
- * Test class for Zend\View\Helper\HeadTitle.
+ * Test class for Laminas\View\Helper\HeadTitle.
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class HeadTitleTest extends \PHPUnit_Framework_TestCase
 {
@@ -56,7 +55,7 @@ class HeadTitleTest extends \PHPUnit_Framework_TestCase
     public function testHeadTitleReturnsObjectInstance()
     {
         $placeholder = $this->helper->__invoke();
-        $this->assertInstanceOf('Zend\View\Helper\HeadTitle', $placeholder);
+        $this->assertInstanceOf('Laminas\View\Helper\HeadTitle', $placeholder);
     }
 
     public function testCanSetTitleViaHeadTitle()
@@ -135,10 +134,10 @@ class HeadTitleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @issue ZF-2918
-     * @link http://framework.zend.com/issues/browse/ZF-2918
+     * @issue Laminas-2918
+     * @link https://getlaminas.org/issues/browse/Laminas-2918
      */
-    public function testZF2918()
+    public function testLaminas918()
     {
         $this->helper->__invoke('Some Title');
         $this->helper->setPrefix('Prefix: ');
@@ -148,10 +147,10 @@ class HeadTitleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @issue ZF-3577
-     * @link http://framework.zend.com/issues/browse/ZF-3577
+     * @issue Laminas-3577
+     * @link https://getlaminas.org/issues/browse/Laminas-3577
      */
-    public function testZF3577()
+    public function testLaminas577()
     {
         $this->helper->setAutoEscape(true);
         $this->helper->__invoke('Some Title');
@@ -163,7 +162,7 @@ class HeadTitleTest extends \PHPUnit_Framework_TestCase
 
     public function testCanTranslateTitle()
     {
-        $this->markTestIncomplete('Re-enable after zend-i18n is updated to zend-servicemanager v3');
+        $this->markTestIncomplete('Re-enable after laminas-i18n is updated to laminas-servicemanager v3');
 
         if (! extension_loaded('intl')) {
             $this->markTestSkipped('ext/intl not enabled');
@@ -185,7 +184,7 @@ class HeadTitleTest extends \PHPUnit_Framework_TestCase
 
     public function testTranslatorMethods()
     {
-        $translatorMock = $this->getMock('Zend\I18n\Translator\Translator');
+        $translatorMock = $this->getMock('Laminas\I18n\Translator\Translator');
         $this->helper->setTranslator($translatorMock, 'foo');
 
         $this->assertEquals($translatorMock, $this->helper->getTranslator());
@@ -198,7 +197,7 @@ class HeadTitleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group ZF-8036
+     * @group Laminas-8036
      */
     public function testHeadTitleZero()
     {
@@ -216,11 +215,11 @@ class HeadTitleTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     *  @group ZF-10284
+     *  @group Laminas-10284
      */
     public function testReturnTypeDefaultAttachOrder()
     {
-        $this->assertInstanceOf('Zend\View\Helper\HeadTitle', $this->helper->setDefaultAttachOrder('PREPEND'));
+        $this->assertInstanceOf('Laminas\View\Helper\HeadTitle', $this->helper->setDefaultAttachOrder('PREPEND'));
         $this->assertEquals('PREPEND', $this->helper->getDefaultAttachOrder());
     }
 }

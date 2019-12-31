@@ -33,7 +33,7 @@ namespace MyModule;
 class Module
 {
     /**
-     * @param  \Zend\Mvc\MvcEvent $e The MvcEvent instance
+     * @param  \Laminas\Mvc\MvcEvent $e The MvcEvent instance
      * @return void
      */
     public function onBootstrap($e)
@@ -44,7 +44,7 @@ class Module
     }
 
     /**
-     * @param  \Zend\Mvc\MvcEvent $e The MvcEvent instance
+     * @param  \Laminas\Mvc\MvcEvent $e The MvcEvent instance
      * @return void
      */
     public function setLayoutTitle($e)
@@ -53,7 +53,7 @@ class Module
         $action     = $matches->getParam('action');
         $controller = $matches->getParam('controller');
         $module     = __NAMESPACE__;
-        $siteName   = 'Zend Framework';
+        $siteName   = 'Laminas';
 
         // Getting the view helper manager from the application service manager
         $viewHelperManager = $e->getApplication()->getServiceManager()->get('ViewHelperManager');
@@ -83,7 +83,7 @@ helper:
 Output:
 
 ```html
-<title>action - controller - module - Zend Framework</title>
+<title>action - controller - module - Laminas</title>
 ```
 
 In case you want the title without the `<title>` and `</title>` tags you can use
@@ -96,5 +96,5 @@ the `renderTitle()` method:
 Output:
 
 ```html
-action - controller - module - Zend Framework
+action - controller - module - Laminas
 ```

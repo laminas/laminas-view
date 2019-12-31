@@ -1,23 +1,22 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\View\Helper;
-use Zend\View\Renderer\PhpRenderer as View;
-use Zend\View\Exception\ExceptionInterface as ViewException;
+use Laminas\View\Exception\ExceptionInterface as ViewException;
+use Laminas\View\Helper;
+use Laminas\View\Renderer\PhpRenderer as View;
 
 /**
- * Test class for Zend\View\Helper\HeadLink.
+ * Test class for Laminas\View\Helper\HeadLink.
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class HeadLinkTest extends \PHPUnit_Framework_TestCase
 {
@@ -60,30 +59,30 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
     public function testHeadLinkReturnsObjectInstance()
     {
         $placeholder = $this->helper->__invoke();
-        $this->assertInstanceOf('Zend\View\Helper\HeadLink', $placeholder);
+        $this->assertInstanceOf('Laminas\View\Helper\HeadLink', $placeholder);
     }
 
     public function testPrependThrowsExceptionWithoutArrayArgument()
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->setExpectedException('Laminas\View\Exception\ExceptionInterface');
         $this->helper->prepend('foo');
     }
 
     public function testAppendThrowsExceptionWithoutArrayArgument()
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->setExpectedException('Laminas\View\Exception\ExceptionInterface');
         $this->helper->append('foo');
     }
 
     public function testSetThrowsExceptionWithoutArrayArgument()
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->setExpectedException('Laminas\View\Exception\ExceptionInterface');
         $this->helper->set('foo');
     }
 
     public function testOffsetSetThrowsExceptionWithoutArrayArgument()
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->setExpectedException('Laminas\View\Exception\ExceptionInterface');
         $this->helper->offsetSet(1, 'foo');
     }
 
@@ -202,7 +201,7 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
 
     public function testOverloadingThrowsExceptionWithNoArguments()
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->setExpectedException('Laminas\View\Exception\ExceptionInterface');
         $this->helper->appendStylesheet();
     }
 
@@ -215,7 +214,7 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
 
     public function testOverloadingUsingSingleArrayArgumentWithInvalidValuesThrowsException()
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->setExpectedException('Laminas\View\Exception\ExceptionInterface');
         $this->helper->setStylesheet(['bogus' => 'unused']);
     }
 
@@ -230,7 +229,7 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
 
     public function testOverloadingThrowsExceptionWithInvalidMethod()
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->setExpectedException('Laminas\View\Exception\ExceptionInterface');
         $this->helper->bogusMethod();
     }
 
@@ -340,7 +339,7 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * test for ZF-2889
+     * test for Laminas-2889
      */
     public function testBooleanStylesheet()
     {
@@ -350,7 +349,7 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * test for ZF-3271
+     * test for Laminas-3271
      *
      */
     public function testBooleanTrueConditionalStylesheet()
@@ -362,8 +361,8 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @issue ZF-3928
-     * @link http://framework.zend.com/issues/browse/ZF-3928
+     * @issue Laminas-3928
+     * @link https://getlaminas.org/issues/browse/Laminas-3928
      */
     public function testTurnOffAutoEscapeDoesNotEncodeAmpersand()
     {
@@ -413,7 +412,7 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @issue ZF-5435
+     * @issue Laminas-5435
      */
     public function testContainerMaintainsCorrectOrderOfItems()
     {
@@ -433,7 +432,7 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @issue ZF-10345
+     * @issue Laminas-10345
      */
     public function testIdAttributeIsSupported()
     {

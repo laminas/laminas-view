@@ -1,25 +1,24 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Renderer;
+namespace LaminasTest\View\Renderer;
 
+use Laminas\View\Model\FeedModel;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Renderer\FeedRenderer;
+use Laminas\View\Resolver\PrefixPathStackResolver;
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\View\Model\FeedModel;
-use Zend\View\Model\ViewModel;
-use Zend\View\Renderer\FeedRenderer;
-use Zend\View\Resolver\PrefixPathStackResolver;
 
 class FeedRendererTest extends TestCase
 {
     public function setUp()
     {
-        $this->markTestIncomplete('Re-enable tests after zend-feed has been updated to zend-servicemanager v3');
+        $this->markTestIncomplete('Re-enable tests after laminas-feed has been updated to laminas-servicemanager v3');
         $this->renderer = new FeedRenderer();
     }
 
@@ -31,24 +30,24 @@ class FeedRendererTest extends TestCase
             'date_modified' => time(),
             'last_build_date' => time(),
             'description' => __CLASS__,
-            'id' => 'http://framework.zend.com/',
+            'id' => 'https://getlaminas.org/',
             'language' => 'en_US',
             'feed_link' => [
-                'link' => 'http://framework.zend.com/feed.xml',
+                'link' => 'https://getlaminas.org/feed.xml',
                 'type' => $type,
             ],
-            'link' => 'http://framework.zend.com/feed.xml',
+            'link' => 'https://getlaminas.org/feed.xml',
             'title' => 'Testing',
             'encoding' => 'UTF-8',
-            'base_url' => 'http://framework.zend.com/',
+            'base_url' => 'https://getlaminas.org/',
             'entries' => [
                 [
                     'content' => 'test content',
                     'date_created' => time(),
                     'date_modified' => time(),
                     'description' => __CLASS__,
-                    'id' => 'http://framework.zend.com/1',
-                    'link' => 'http://framework.zend.com/1',
+                    'id' => 'https://getlaminas.org/1',
+                    'link' => 'https://getlaminas.org/1',
                     'title' => 'Test 1',
                 ],
                 [
@@ -56,8 +55,8 @@ class FeedRendererTest extends TestCase
                     'date_created' => time(),
                     'date_modified' => time(),
                     'description' => __CLASS__,
-                    'id' => 'http://framework.zend.com/2',
-                    'link' => 'http://framework.zend.com/2',
+                    'id' => 'https://getlaminas.org/2',
+                    'link' => 'https://getlaminas.org/2',
                     'title' => 'Test 2',
                 ],
             ],
@@ -110,14 +109,14 @@ class FeedRendererTest extends TestCase
 
     public function testNonStringNonModelArgumentRaisesException()
     {
-        $this->setExpectedException('Zend\View\Exception\InvalidArgumentException', 'expects');
+        $this->setExpectedException('Laminas\View\Exception\InvalidArgumentException', 'expects');
         $this->renderer->render(['foo']);
     }
 
     public function testSettingUnacceptableFeedTypeRaisesException()
     {
         $this->setExpectedException(
-            'Zend\View\Exception\InvalidArgumentException',
+            'Laminas\View\Exception\InvalidArgumentException',
             'expects a string of either "rss" or "atom"'
         );
         $this->renderer->setFeedType('foobar');
