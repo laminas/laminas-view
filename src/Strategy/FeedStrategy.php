@@ -1,20 +1,19 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Strategy;
+namespace Laminas\View\Strategy;
 
-use Zend\EventManager\AbstractListenerAggregate;
-use Zend\EventManager\EventManagerInterface;
-use Zend\Feed\Writer\Feed;
-use Zend\View\Model;
-use Zend\View\Renderer\FeedRenderer;
-use Zend\View\ViewEvent;
+use Laminas\EventManager\AbstractListenerAggregate;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\Feed\Writer\Feed;
+use Laminas\View\Model;
+use Laminas\View\Renderer\FeedRenderer;
+use Laminas\View\ViewEvent;
 
 class FeedStrategy extends AbstractListenerAggregate
 {

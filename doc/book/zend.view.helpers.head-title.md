@@ -7,7 +7,7 @@ The *HTML* **&lt;title&gt;** element is used to provide a title for an *HTML* do
 output.
 
 The `HeadTitle` helper is a concrete implementation of the Placeholder helper
-&lt;zend.view.helpers.initial.placeholder&gt;. It overrides the `toString()` method to enforce
+&lt;laminas.view.helpers.initial.placeholder&gt;. It overrides the `toString()` method to enforce
 generating a **&lt;title&gt;** element, and adds a `headTitle()` method for quick and easy setting
 and aggregation of title elements. The signature for that method is `headTitle($title, $setType =
 null)`; by default, the value is appended to the stack (aggregating title segments) if left at null,
@@ -32,7 +32,7 @@ namespace MyModule;
 class Module
 {
     /**
-     * @param  \Zend\Mvc\MvcEvent $e The MvcEvent instance
+     * @param  \Laminas\Mvc\MvcEvent $e The MvcEvent instance
      * @return void
      */
     public function onBootstrap($e)
@@ -43,7 +43,7 @@ class Module
     }
 
     /**
-     * @param  \Zend\Mvc\MvcEvent $e The MvcEvent instance
+     * @param  \Laminas\Mvc\MvcEvent $e The MvcEvent instance
      * @return void
      */
     public function setLayoutTitle($e)
@@ -52,7 +52,7 @@ class Module
         $action     = $matches->getParam('action');
         $controller = $matches->getParam('controller');
         $module     = __NAMESPACE__;
-        $siteName   = 'Zend Framework';
+        $siteName   = 'Laminas';
 
         // Getting the view helper manager from the application service manager
         $viewHelperManager = $e->getApplication()->getServiceManager()->get('viewHelperManager');
@@ -81,7 +81,7 @@ When you're finally ready to render the title in your layout script, simply echo
 Output:
 
 ```php
-<title>action - controller - module - Zend Framework</title>
+<title>action - controller - module - Laminas</title>
 ```
 
 In case you want the title without the `<title>` and `</title>` tags you can use the `renderTitle()`
@@ -94,5 +94,5 @@ method:
 Output:
 
 ```php
-action - controller - module - Zend Framework
+action - controller - module - Laminas
 ```

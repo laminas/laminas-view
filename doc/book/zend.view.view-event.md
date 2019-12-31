@@ -1,7 +1,7 @@
 # The ViewEvent
 
-The view layer of Zend Framework 2 incorporates and utilizes a custom `Zend\EventManager\Event`
-implementation -`Zend\View\ViewEvent`. This event is created during `Zend\View\View::getEvent()` and
+The view layer of Laminas incorporates and utilizes a custom `Laminas\EventManager\Event`
+implementation -`Laminas\View\ViewEvent`. This event is created during `Laminas\View\View::getEvent()` and
 is passed directly to all the events that method triggers.
 
 The `ViewEvent` adds accessors and mutators for the following:

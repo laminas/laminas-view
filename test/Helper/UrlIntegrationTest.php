@@ -1,24 +1,23 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\Console\Console;
-use Zend\ServiceManager\ServiceManager;
-use Zend\Mvc\Service\ServiceManagerConfig;
-use Zend\Mvc\Service\ServiceListenerFactory;
+use Laminas\Console\Console;
+use Laminas\Mvc\Service\ServiceListenerFactory;
+use Laminas\Mvc\Service\ServiceManagerConfig;
+use Laminas\ServiceManager\ServiceManager;
 
 /**
  * url() helper test -- tests integration with MVC
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
 {
@@ -26,9 +25,9 @@ class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
     {
         if (! class_exists(PluginFlashMessenger::class)) {
             $this->markTestSkipped(
-                'Skipping zend-mvc-related tests until that component is updated '
-                . 'to be forwards-compatible with zend-eventmanager, zend-stdlib, '
-                . 'and zend-servicemanager v3.'
+                'Skipping laminas-mvc-related tests until that component is updated '
+                . 'to be forwards-compatible with laminas-eventmanager, laminas-stdlib, '
+                . 'and laminas-servicemanager v3.'
             );
         }
 
@@ -79,7 +78,7 @@ class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
         Console::overrideIsConsole(false);
         $this->serviceManager->get('Application')->bootstrap();
         $request = $this->serviceManager->get('Request');
-        $this->assertInstanceOf('Zend\Http\Request', $request);
+        $this->assertInstanceOf('Laminas\Http\Request', $request);
         $viewHelpers = $this->serviceManager->get('ViewHelperManager');
         $urlHelper   = $viewHelpers->get('url');
         $test        = $urlHelper('test');
@@ -91,7 +90,7 @@ class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
         Console::overrideIsConsole(false);
         $this->serviceManager->get('Application')->bootstrap();
         $request = $this->serviceManager->get('Request');
-        $this->assertInstanceOf('Zend\Http\Request', $request);
+        $this->assertInstanceOf('Laminas\Http\Request', $request);
         $router = $this->serviceManager->get('Router');
         $router->setRequestUri($request->getUri());
         $request->setUri('http://example.com/test');
@@ -106,7 +105,7 @@ class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
         Console::overrideIsConsole(true);
         $this->serviceManager->get('Application')->bootstrap();
         $request = $this->serviceManager->get('Request');
-        $this->assertInstanceOf('Zend\Console\Request', $request);
+        $this->assertInstanceOf('Laminas\Console\Request', $request);
         $viewHelpers = $this->serviceManager->get('ViewHelperManager');
         $urlHelper   = $viewHelpers->get('url');
         $test        = $urlHelper('test');

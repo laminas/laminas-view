@@ -7,7 +7,7 @@ The *HTML* **&lt;style&gt;** element is used to include *CSS* stylesheets inline
 
 > ## Note
 #### Use HeadLink to link CSS files
-\[HeadLink\](zend.view.helpers.initial.headlink) should be used to create **&lt;link&gt;** elements
+\[HeadLink\](laminas.view.helpers.initial.headlink) should be used to create **&lt;link&gt;** elements
 for including external stylesheets. `HeadStyle` is used when you wish to define your stylesheets
 inline.
 
@@ -46,12 +46,12 @@ it later serializes using the `itemToString()` method. This allows you to perfor
 items in the stack, and optionally modify these items by simply modifying the object returned.
 
 The `HeadStyle` helper is a concrete implementation of the Placeholder helper
-&lt;zend.view.helpers.initial.placeholder&gt;.
+&lt;laminas.view.helpers.initial.placeholder&gt;.
 
 > ## Note
 #### UTF-8 encoding used by default
-By default, Zend Framework uses *UTF-8* as its default encoding, and, specific to this case,
-`Zend\View` does as well. So if you want to use another encoding with `headStyle`, you will have do
+By default, Laminas uses *UTF-8* as its default encoding, and, specific to this case,
+`Laminas\View` does as well. So if you want to use another encoding with `headStyle`, you will have do
 three things:
 1.  Create a custom renderer and implement a `getEncoding()` method;
 2.  Create a custom rendering strategy that will return an instance of your custom renderer;
@@ -66,8 +66,8 @@ First we have to write the custom renderer:
 
 namespace MyModule\View\Renderer;
 
-// Since we just want to implement the getEncoding() method, we can extend the Zend native renderer
-use Zend\View\Renderer\PhpRenderer;
+// Since we just want to implement the getEncoding() method, we can extend the Laminas native renderer
+use Laminas\View\Renderer\PhpRenderer;
 
 class MyRenderer extends PhpRenderer
 {
@@ -118,8 +118,8 @@ Now we make some configuration in the module class:
 namespace MyModule;
 
 use MyModule\View\Renderer\MyRenderer;
-use Zend\Mvc\MvcEvent;
-use Zend\View\Strategy\PhpRendererStrategy;
+use Laminas\Mvc\MvcEvent;
+use Laminas\View\Strategy\PhpRendererStrategy;
 
 class Module
 {
@@ -139,7 +139,7 @@ class Module
             'MyCustomStrategy' => function ($serviceManager) {
                // As stated before, we just want to implement the getEncoding() method, so we can
 use
-               // Zend\View\Strategy\PhpRendererStrategy and just provide our custom renderer to it.
+               // Laminas\View\Strategy\PhpRendererStrategy and just provide our custom renderer to it.
                $myRenderer = $serviceManager->get('MyCustomRenderer');
                $strategy = new PhpRendererStrategy($myRenderer);
                return $strategy;
@@ -159,7 +159,7 @@ use
     {
         $app          = $e->getTarget();
         $locator      = $app->getServiceManager();
-        $view         = $locator->get('Zend\View\View');
+        $view         = $locator->get('Laminas\View\View');
         $myStrategy = $locator->get('MyCustomStrategy');
 
         // Attach strategy, which is a listener aggregate, at high priority
@@ -169,7 +169,7 @@ use
 ```
 
 See the quick start Creating and Registering Alternate Rendering and Response Strategies
-&lt;zend.view.quick-start.usage.strategies&gt; chapter for more information on how to create and
+&lt;laminas.view.quick-start.usage.strategies&gt; chapter for more information on how to create and
 register custom strategies to your view.
 
 ## Basic Usage

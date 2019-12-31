@@ -1,20 +1,19 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\View\Helper;
-use Zend\View\Renderer\PhpRenderer as View;
+use Laminas\View\Helper;
+use Laminas\View\Renderer\PhpRenderer as View;
 
 /**
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class HtmlListTest extends \PHPUnit_Framework_TestCase
 {
@@ -100,7 +99,7 @@ class HtmlListTest extends \PHPUnit_Framework_TestCase
     }
 
     /*
-     * @group ZF-5018
+     * @group Laminas-5018
      */
     public function testMakeNestedUnorderedList()
     {
@@ -116,7 +115,7 @@ class HtmlListTest extends \PHPUnit_Framework_TestCase
     }
 
     /*
-     * @group ZF-5018
+     * @group Laminas-5018
      */
     public function testMakeNestedDeepUnorderedList()
     {
@@ -132,7 +131,7 @@ class HtmlListTest extends \PHPUnit_Framework_TestCase
             Helper\HtmlList::EOL . '</li>' . Helper\HtmlList::EOL . '<li>two', $list);
     }
 
-    public function testListWithValuesToEscapeForZF2283()
+    public function testListWithValuesToEscapeForLaminas2283()
     {
         $items = ['one <small> test', 'second & third', 'And \'some\' "final" test'];
 
@@ -146,7 +145,7 @@ class HtmlListTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('<li>And &#039;some&#039; &quot;final&quot; test</li>', $list);
     }
 
-    public function testListEscapeSwitchedOffForZF2283()
+    public function testListEscapeSwitchedOffForLaminas2283()
     {
         $items = ['one <b>small</b> test'];
 
@@ -159,7 +158,7 @@ class HtmlListTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group ZF-2527
+     * @group Laminas-2527
      */
     public function testEscapeFlagHonoredForMultidimensionalLists()
     {
@@ -173,8 +172,8 @@ class HtmlListTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group ZF-2527
-     * Added the s modifier to match newlines after ZF-5018
+     * @group Laminas-2527
+     * Added the s modifier to match newlines after Laminas-5018
      */
     public function testAttribsPassedIntoMultidimensionalLists()
     {
@@ -188,7 +187,7 @@ class HtmlListTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group ZF-2870
+     * @group Laminas-2870
      */
     public function testEscapeFlagShouldBePassedRecursively()
     {
@@ -219,11 +218,11 @@ class HtmlListTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group ZF2-6063
+     * @group Laminas-6063
      */
     public function testEmptyItems()
     {
-        $this->setExpectedException('Zend\View\Exception\InvalidArgumentException');
+        $this->setExpectedException('Laminas\View\Exception\InvalidArgumentException');
         $this->helper->__invoke([]);
     }
 }
