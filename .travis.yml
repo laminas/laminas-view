@@ -1,5 +1,3 @@
-sudo: false
-
 language: php
 
 cache:
@@ -11,10 +9,11 @@ env:
     - COMPOSER_PROCESS_TIMEOUT=600
     - COMPOSER_ARGS="--no-interaction"
     - COVERAGE_DEPS="php-coveralls/php-coveralls"
-    - LOWEST_DEPS_REMOVE="zendframework/zend-router"
-    - LATEST_DEPS_REQUIRE="zendframework/zend-mvc-plugin-flashmessenger zendframework/zend-mvc-i18n zendframework/zend-mvc-console"
+    - LOWEST_DEPS_REMOVE="laminas/laminas-router"
+    - LATEST_DEPS_REQUIRE="laminas/laminas-mvc-plugin-flashmessenger laminas/laminas-mvc-i18n laminas/laminas-mvc-console"
 
 matrix:
+  fast_finish: true
   include:
     - php: 5.6
       env:

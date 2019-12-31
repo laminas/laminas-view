@@ -128,7 +128,7 @@ Graph Protocol](http://opengraphprotocol.org/).
 For instance, you may specify an open graph page title and type as follows:
 
 ```php
-$this->doctype(Zend\View\Helper\Doctype::XHTML1_RDFA);
+$this->doctype(Laminas\View\Helper\Doctype::XHTML1_RDFA);
 $this->headMeta()->setProperty('og:title', 'my article title');
 $this->headMeta()->setProperty('og:type', 'article');
 echo $this->headMeta();
@@ -146,7 +146,7 @@ of the `itemprop` attribute (in addition to the standard `name` and
 [Microdata](https://schema.org) to the head of your document.
 
 ```php
-$this->doctype(Zend\View\Helper\Doctype::HTML5);
+$this->doctype(Laminas\View\Helper\Doctype::HTML5);
 $this->headMeta()->setItemprop('headline', 'My Article Headline');
 $this->headMeta()->setItemprop('dateCreated', $date->format('c'));
 echo $this->headMeta();

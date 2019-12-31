@@ -4,10 +4,10 @@ In your view scripts, you'll perform certain complex functions over and over:
 e.g., formatting a date, generating form elements, or displaying action links.
 You can use helper, or plugin, classes to perform these behaviors for you.
 
-A helper is a class that implements `Zend\View\Helper\HelperInterface`, which
+A helper is a class that implements `Laminas\View\Helper\HelperInterface`, which
 defines two methods, `setView()`, which accepts a
-`Zend\View\Renderer\RendererInterface` instance/implementation, and `getView()`,
-used to retrieve that instance.  `Zend\View\Renderer\PhpRenderer` composes a
+`Laminas\View\Renderer\RendererInterface` instance/implementation, and `getView()`,
+used to retrieve that instance.  `Laminas\View\Renderer\PhpRenderer` composes a
 *plugin manager*, allowing you to retrieve helpers, and also provides some
 method overloading capabilities that allow proxying method calls to helpers.
 
@@ -44,12 +44,12 @@ The last two examples demonstrate how the `PhpRenderer` uses method overloading
 to retrieve and/or invoke helpers directly, offering a convenience API for end
 users.
 
-A large number of helpers are provided by default with zend-view.  You can also
+A large number of helpers are provided by default with laminas-view.  You can also
 register helpers by adding them to the plugin manager.
 
 ## Included Helpers
 
-Zend Framework comes with an initial set of helper classes. In particular, there
+Laminas comes with an initial set of helper classes. In particular, there
 are helpers for creating route-based URLs and HTML lists, as well as declaring
 variables. Additionally, there are a rich set of helpers for providing values
 for, and rendering, the various HTML `<head>` tags, such as `HeadTitle`,
@@ -86,25 +86,25 @@ for, and rendering, the various HTML `<head>` tags, such as `HeadTitle`,
 > ### i18n helpers
 >
 > View helpers related to **Internationalization** are documented in the
-> [I18n View Helpers](https://docs.zendframework.com/zend-i18n/view-helpers/)
+> [I18n View Helpers](https://docs.laminas.dev/laminas-i18n/view-helpers/)
 > documentation.
 
 > ### Form helpers
 >
 > View helpers related to **form** are documented in the
-> [Form View Helpers](https://docs.zendframework.com/zend-form/helper/intro/)
+> [Form View Helpers](https://docs.laminas.dev/laminas-form/helper/intro/)
 > documentation.
 
 > ### Navigation helpers
 >
 > View helpers related to **navigation** are documented in the
-> [Navigation View Helpers](https://docs.zendframework.com/zend-navigation/helpers/intro/)
+> [Navigation View Helpers](https://docs.laminas.dev/laminas-navigation/helpers/intro/)
 > documentation.
 
 > ### Pagination helpers
 >
 > View helpers related to **paginator** are documented in the
-> [Paginator Usage](https://docs.zendframework.com/zend-paginator/usage/#rendering-pages-with-view-scripts)
+> [Paginator Usage](https://docs.laminas.dev/laminas-paginator/usage/#rendering-pages-with-view-scripts)
 > documentation.
 
 > ### Custom helpers

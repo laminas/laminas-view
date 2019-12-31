@@ -1,16 +1,17 @@
 <?php
+
 /**
- * @link      http://github.com/zendframework/zend-view for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
-use Zend\I18n\Translator\TranslatorInterface as Translator;
+use Laminas\I18n\Translator\TranslatorInterface as Translator;
 
 /**
- * Trait for implementing Zend\I18n\Translator\TranslatorAwareInterface.
+ * Trait for implementing Laminas\I18n\Translator\TranslatorAwareInterface.
  *
  * This can be used by helpers that need to implement the interface,
  * whether via explicit implementation or duck typing.

@@ -1,13 +1,12 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View;
+namespace Laminas\View;
 
 /**
  * Stream wrapper to convert markup of mostly-PHP templates into PHP prior to
@@ -59,7 +58,7 @@ class Stream
     {
         // @codingStandardsIgnoreEnd
         // get the view script source
-        $path        = str_replace('zend.view://', '', $path);
+        $path        = str_replace('laminas.view://', '', $path);
         $this->data = file_get_contents($path);
 
         /**

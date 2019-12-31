@@ -1,21 +1,20 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Model;
+namespace Laminas\View\Model;
 
 use ArrayAccess;
 use ArrayIterator;
+use Laminas\Stdlib\ArrayUtils;
+use Laminas\View\Exception;
+use Laminas\View\Model;
+use Laminas\View\Variables as ViewVariables;
 use Traversable;
-use Zend\Stdlib\ArrayUtils;
-use Zend\View\Exception;
-use Zend\View\Model;
-use Zend\View\Variables as ViewVariables;
 
 class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableChildrenInterface
 {
@@ -185,7 +184,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
      * Set renderer options/hints en masse
      *
      * @param array|Traversable $options
-     * @throws \Zend\View\Exception\InvalidArgumentException
+     * @throws \Laminas\View\Exception\InvalidArgumentException
      * @return ViewModel
      */
     public function setOptions($options)
