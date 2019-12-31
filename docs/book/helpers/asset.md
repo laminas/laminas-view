@@ -10,7 +10,7 @@ your view scripts, while having that map to:
 
 ## Configuration and Basic Usage
 
-`Zend\View\Helper\Service\AssetFactory` checks the application configuration,
+`Laminas\View\Helper\Service\AssetFactory` checks the application configuration,
 making it possible to set up the resource map through your `module.config.php`
 or application configuration. As an example:
 
@@ -45,10 +45,10 @@ configuration.
 > ### Exceptions
 >
 > When an `asset` key is specified but the `resource_map` is not provided or is not
-> an array, the helper will raise a `Zend\View\Exception\RuntimeException`.
+> an array, the helper will raise a `Laminas\View\Exception\RuntimeException`.
 >
 > When you call the `asset` helper with a parameter not defined in your
-> `resource_map`, the helper will raise a `Zend\View\Exception\InvalidArgumentException`.
+> `resource_map`, the helper will raise a `Laminas\View\Exception\InvalidArgumentException`.
 
 ## Resource map in JSON file
 
