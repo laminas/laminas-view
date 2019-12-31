@@ -5,7 +5,7 @@ automatically, developers will need to prepend the base URL to their own URLs
 (usually inside an `href` attribute) in order for paths to resources to be
 correct.
 
-If you're running a zend-mvc application, `basePath()` will point to the
+If you're running a laminas-mvc application, `basePath()` will point to the
 `public` folder of the application's root.
 
 ## Basic Usage

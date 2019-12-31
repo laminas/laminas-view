@@ -1,5 +1,3 @@
-sudo: false
-
 language: php
 
 branches:
@@ -11,49 +9,41 @@ cache:
   directories:
     - $HOME/.composer/cache
     - $HOME/.local
-    - zf-mkdoc-theme
+    - laminas-mkdoc-theme
 
 env:
   global:
     - COMPOSER_ARGS="--no-interaction"
     - COVERAGE_DEPS="satooshi/php-coveralls"
     - LEGACY_DEPS="phpunit/phpunit"
-    - LATEST_DEPS="zendframework/zend-mvc-plugin-flashmessenger zendframework/zend-mvc-i18n zendframework/zend-mvc-console"
-    - SITE_URL=https://zendframework.github.io/zend-view
+    - LATEST_DEPS="laminas/laminas-mvc-plugin-flashmessenger laminas/laminas-mvc-i18n laminas/laminas-mvc-console"
+    - SITE_URL=https://docs.laminas.dev/laminas-view
     - GH_USER_NAME="Matthew Weier O'Phinney"
     - GH_USER_EMAIL=matthew@weierophinney.net
-    - GH_REF=github.com/zendframework/zend-view.git
+    - GH_REF=github.com/laminas/laminas-view.git
     - secure: "kF7z5CxnrD/lsX9sP1+SYLKm1HdT/u1F0xovlyT9fDWrz+X4DBe8Oybzk6UX5HKXQvdhVTfAbHoWhFxFrkcRKrtaEOltk68bYFgnSOYhrK5EhZz6CHqN2j1MtT6FRfdlSOi6OECvCE3wd8nYHixxEviIZyB3L5+H39FOiu5Zi+eJT/myp6IuBO6lQfnSgqKdvuQXlfWSn9VGQJztX6ea2U89eM/TAVWEwbhLAJOsOejkvAy2lvYhIZpvSEkFm9jSp3/JOw8MFljG8UEDZUkpj+zba5/vqzM8thTTbybhAIBF7wNeMNrAeFBnrPz5KDPEQYYG8NG4we6F7GvbevvBz+ej5OJPXx/ulhMiEWKN1qEmQHZ3Gl0kG0O+TgXfqLErbCNn4MLP/K0Avar03m9bvXtaTA5Yqde0rIdspjwdxmKi0OI76UnGETMDyWuXbHkRfhs54sUEOBUdM3dz5lXhlSWPCTlQCgzkVqlgTL5b8b1u7YKpkwJAFSXMhhJBycFCNCfqAy10l2wjgvhXhLgPHle7sSwYR6SMVzkjj59P1UKc2yrxkwl/S7cqrbaeGSGjDv/QVMLtBL3OLqXwIaKy3POF2gQJhFXdrmGzDOADyCbEXVUYve5pQOmT1RdVHaHiT7AmZXEQibR1DW2zzU9eX94XpK9LKzlSzUOtYT8LNNA="
 
 matrix:
+  fast_finish: true
   include:
     - php: 5.6
       env:
         - DEPS=lowest
     - php: 5.6
       env:
-        - DEPS=locked
+        - DEPS=latest
         - TEST_COVERAGE=true
         - DEPLOY_DOCS="$(if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then echo -n 'true' ; else echo -n 'false' ; fi)"
         - PATH="$HOME/.local/bin:$PATH"
-    - php: 5.6
-      env:
-        - DEPS=latest
     - php: 7
       env:
         - DEPS=lowest
-    - php: 7
-      env:
-        - DEPS=locked
     - php: 7
       env:
         - DEPS=latest
     - php: 7.1
       env:
         - DEPS=lowest
-    - php: 7.1
-      env:
-        - DEPS=locked
     - php: 7.1
       env:
         - DEPS=latest
@@ -70,7 +60,6 @@ matrix:
     - php: hhvm
 
 notifications:
-  irc: "irc.freenode.org#zftalk.dev"
   email: false
 
 before_install:
@@ -89,10 +78,10 @@ install:
 script:
   - if [[ $TEST_COVERAGE == 'true' ]]; then composer test-coverage ; else composer test ; fi
   - if [[ $CS_CHECK == 'true' ]]; then composer cs-check ; fi
-  - if [[ $DEPLOY_DOCS == "true" && "$TRAVIS_TEST_RESULT" == "0" ]]; then wget -O theme-installer.sh "https://raw.githubusercontent.com/zendframework/zf-mkdoc-theme/master/theme-installer.sh" ; chmod 755 theme-installer.sh ; ./theme-installer.sh ; fi
+  - if [[ $DEPLOY_DOCS == "true" && "$TRAVIS_TEST_RESULT" == "0" ]]; then wget -O theme-installer.sh "https://raw.githubusercontent.com/laminas/laminas-mkdoc-theme/master/theme-installer.sh" ; chmod 755 theme-installer.sh ; ./theme-installer.sh ; fi
 
 after_success:
-  - if [[ $DEPLOY_DOCS == "true" ]]; then echo "Preparing to build and deploy documentation" ; ./zf-mkdoc-theme/deploy.sh ; echo "Completed deploying documentation" ; fi
+  - if [[ $DEPLOY_DOCS == "true" ]]; then echo "Preparing to build and deploy documentation" ; ./laminas-mkdoc-theme/deploy.sh ; echo "Completed deploying documentation" ; fi
 
 after_script:
   - if [[ $TEST_COVERAGE == 'true' ]]; then composer upload-coverage ; fi

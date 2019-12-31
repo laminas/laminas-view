@@ -1,24 +1,23 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper\Placeholder;
+namespace LaminasTest\View\Helper\Placeholder;
 
+use Laminas\View\Helper\Placeholder\Container;
+use Laminas\View\Helper\Placeholder\Registry;
+use LaminasTest\View\Helper\TestAsset;
 use PHPUnit\Framework\TestCase;
-use Zend\View\Helper\Placeholder\Registry;
-use Zend\View\Helper\Placeholder\Container;
-use ZendTest\View\Helper\TestAsset;
 
 /**
- * Test class for Zend\View\Helper\Placeholder\Registry.
+ * Test class for Laminas\View\Helper\Placeholder\Registry.
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class RegistryTest extends TestCase
 {
@@ -143,15 +142,15 @@ class RegistryTest extends TestCase
     }
 
     /**
-     * @group ZF-10793
+     * @group Laminas-10793
      */
     public function testSetValueCreateContainer()
     {
         $this->registry->setContainerClass(TestAsset\MockContainer::class);
         $data = [
-            'ZF-10793'
+            'Laminas-10793'
         ];
         $container = $this->registry->createContainer('foo', $data);
-        $this->assertEquals(['ZF-10793'], $container->data);
+        $this->assertEquals(['Laminas-10793'], $container->data);
     }
 }

@@ -1,24 +1,23 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zend-view for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View;
+namespace LaminasTest\View;
 
+use Laminas\Mvc\Controller\Plugin\FlashMessenger as V2FlashMessenger;
+use Laminas\Mvc\Controller\PluginManager as ControllerPluginManager;
+use Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger;
+use Laminas\ServiceManager\Config;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\ServiceManager\Test\CommonPluginManagerTrait;
+use Laminas\View\Exception\InvalidHelperException;
+use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
-use Zend\Mvc\Controller\Plugin\FlashMessenger as V2FlashMessenger;
-use Zend\Mvc\Controller\PluginManager as ControllerPluginManager;
-use Zend\Mvc\Plugin\FlashMessenger\FlashMessenger;
-use Zend\ServiceManager\Config;
-use Zend\ServiceManager\ServiceManager;
-use Zend\ServiceManager\Test\CommonPluginManagerTrait;
-use Zend\View\Exception\InvalidHelperException;
-use Zend\View\HelperPluginManager;
 
 class HelperPluginManagerCompatibilityTest extends TestCase
 {
@@ -66,12 +65,12 @@ class HelperPluginManagerCompatibilityTest extends TestCase
         $aliases = $r->getValue($pluginManager);
 
         foreach ($aliases as $alias => $target) {
-            // Skipping conditionally since it depends on zend-mvc
+            // Skipping conditionally since it depends on laminas-mvc
             if (! class_exists(ControllerPluginManager::class) && strpos($target, '\\FlashMessenger')) {
                 continue;
             }
 
-            // Skipping conditionally since it depends on zend-mvc
+            // Skipping conditionally since it depends on laminas-mvc
             if (! class_exists(ControllerPluginManager::class) && strpos($target, '\\Url')) {
                 continue;
             }
@@ -91,7 +90,7 @@ class HelperPluginManagerCompatibilityTest extends TestCase
     }
 
     /**
-     * @todo remove this test once we set the minimum zend-servicemanager version to 3
+     * @todo remove this test once we set the minimum laminas-servicemanager version to 3
      */
     public function testRegisteringInvalidElementRaisesException()
     {
@@ -100,7 +99,7 @@ class HelperPluginManagerCompatibilityTest extends TestCase
     }
 
     /**
-     * @todo remove this test once we set the minimum zend-servicemanager version to 3
+     * @todo remove this test once we set the minimum laminas-servicemanager version to 3
      */
     public function testLoadingInvalidElementRaisesException()
     {

@@ -1,18 +1,17 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
+use Laminas\Escaper\Escaper;
+use Laminas\View\Helper\EscapeHtml as EscapeHelper;
 use PHPUnit\Framework\TestCase;
 use stdClass;
-use Zend\Escaper\Escaper;
-use Zend\View\Helper\EscapeHtml as EscapeHelper;
 
 class EscapeHtmlTest extends TestCase
 {
@@ -39,7 +38,7 @@ class EscapeHtmlTest extends TestCase
     }
 
     /**
-     * @expectedException \Zend\View\Exception\InvalidArgumentException
+     * @expectedException \Laminas\View\Exception\InvalidArgumentException
      */
     public function testEncodingIsImmutable()
     {
@@ -161,7 +160,7 @@ class EscapeHtmlTest extends TestCase
     }
 
     /**
-     * @expectedException \Zend\Escaper\Exception\InvalidArgumentException
+     * @expectedException \Laminas\Escaper\Exception\InvalidArgumentException
      *
      * PHP 5.3 instates default encoding on empty string instead of the expected
      * warning level error for htmlspecialchars() encoding param. PHP 5.4 attempts
@@ -184,7 +183,7 @@ class EscapeHtmlTest extends TestCase
     }
 
     /**
-     * @expectedException \Zend\Escaper\Exception\InvalidArgumentException
+     * @expectedException \Laminas\Escaper\Exception\InvalidArgumentException
      *
      * All versions of PHP - when an invalid encoding is set on htmlspecialchars()
      * a warning level error is issued and escaping continues with the default encoding

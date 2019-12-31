@@ -1,6 +1,6 @@
 docs_dir: doc/book
 site_dir: doc/html
-pages:
+nav:
     - index.md
     - "Quick Start": quick-start.md
     - "Rendering Views":
@@ -29,7 +29,6 @@ pages:
         - Placeholder: helpers/placeholder.md
         - Url: helpers/url.md
         - "Advanced usage of helpers": helpers/advanced-usage.md
-site_name: zend-view
-site_description: zend-view
-repo_url: 'https://github.com/zendframework/zend-view'
-copyright: 'Copyright (c) 2016 <a href="http://www.zend.com/">Zend Technologies USA Inc.</a>'
+site_name: laminas-view
+site_description: laminas-view
+repo_url: 'https://github.com/laminas/laminas-view'
