@@ -1,25 +1,24 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
+use Laminas\View\Exception;
+use Laminas\View\Exception\ExceptionInterface as ViewException;
+use Laminas\View\Helper;
+use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
-use Zend\View\Exception;
-use Zend\View\Renderer\PhpRenderer as View;
-use Zend\View\Helper;
-use Zend\View\Exception\ExceptionInterface as ViewException;
 
 /**
- * Test class for Zend\View\Helper\HeadMeta.
+ * Test class for Laminas\View\Helper\HeadMeta.
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class HeadMetaTest extends TestCase
 {
@@ -263,7 +262,7 @@ class HeadMetaTest extends TestCase
     }
 
     /**
-     * @group ZF-6637
+     * @group Laminas-6637
      */
     public function testToStringWhenInvalidKeyProvidedShouldConvertThrownException()
     {
@@ -323,7 +322,7 @@ class HeadMetaTest extends TestCase
     }
 
     /**
-     * @issue ZF-2663
+     * @issue Laminas-2663
      */
     public function testSetNameDoesntClobber()
     {
@@ -341,7 +340,7 @@ class HeadMetaTest extends TestCase
     }
 
     /**
-     * @issue ZF-2663
+     * @issue Laminas-2663
      */
     public function testSetNameDoesntClobberPart2()
     {
@@ -364,8 +363,8 @@ class HeadMetaTest extends TestCase
     }
 
     /**
-     * @issue ZF-3780
-     * @link http://framework.zend.com/issues/browse/ZF-3780
+     * @issue Laminas-3780
+     * @link https://getlaminas.org/issues/browse/Laminas-3780
      */
     public function testPlacesMetaTagsInProperOrder()
     {
@@ -376,7 +375,7 @@ class HeadMetaTest extends TestCase
             'bar',
             'name',
             [],
-            \Zend\View\Helper\Placeholder\Container\AbstractContainer::PREPEND
+            \Laminas\View\Helper\Placeholder\Container\AbstractContainer::PREPEND
         );
 
         $attributeEscaper = $this->attributeEscaper;
@@ -391,7 +390,7 @@ class HeadMetaTest extends TestCase
     }
 
     /**
-     * @issue ZF-5435
+     * @issue Laminas-5435
      */
     public function testContainerMaintainsCorrectOrderOfItems()
     {
@@ -414,7 +413,7 @@ class HeadMetaTest extends TestCase
     }
 
     /**
-     * @issue ZF-7722
+     * @issue Laminas-7722
      */
     public function testCharsetValidateFail()
     {
@@ -426,7 +425,7 @@ class HeadMetaTest extends TestCase
     }
 
     /**
-     * @issue ZF-7722
+     * @issue Laminas-7722
      */
     public function testCharset()
     {
@@ -476,7 +475,7 @@ class HeadMetaTest extends TestCase
     }
 
      /**
-     * @group ZF-9743
+     * @group Laminas-9743
      */
     public function testPropertyIsSupportedWithRdfaDoctype()
     {
@@ -490,7 +489,7 @@ class HeadMetaTest extends TestCase
     }
 
     /**
-     * @group ZF-9743
+     * @group Laminas-9743
      */
     public function testPropertyIsNotSupportedByDefaultDoctype()
     {
@@ -503,7 +502,7 @@ class HeadMetaTest extends TestCase
     }
 
     /**
-     * @group ZF-9743
+     * @group Laminas-9743
      * @depends testPropertyIsSupportedWithRdfaDoctype
      */
     public function testOverloadingAppendPropertyAppendsMetaTagToStack()
@@ -513,7 +512,7 @@ class HeadMetaTest extends TestCase
     }
 
     /**
-     * @group ZF-9743
+     * @group Laminas-9743
      * @depends testPropertyIsSupportedWithRdfaDoctype
      */
     public function testOverloadingPrependPropertyPrependsMetaTagToStack()
@@ -523,7 +522,7 @@ class HeadMetaTest extends TestCase
     }
 
     /**
-     * @group ZF-9743
+     * @group Laminas-9743
      * @depends testPropertyIsSupportedWithRdfaDoctype
      */
     public function testOverloadingSetPropertyOverwritesMetaTagStack()
@@ -590,7 +589,7 @@ class HeadMetaTest extends TestCase
     }
 
     /**
-     * @group ZF-11835
+     * @group Laminas-11835
      */
     public function testConditional()
     {

@@ -71,7 +71,7 @@ Which would then render:
 > ```
 >
 > This technique is particularly useful when passing
-> `Zend\Db\ResultSet\ResultSet`s to `partialLoop()`, as you then have full
+> `Laminas\Db\ResultSet\ResultSet`s to `partialLoop()`, as you then have full
 > access to your row objects within the view scripts, allowing you to call
 > methods on them (such as retrieving values from parent or dependent rows).
 
