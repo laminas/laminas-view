@@ -1,7 +1,7 @@
 # FlashMessenger
 
 The `FlashMessenger` helper is used to render the messages of the
-[FlashMessenger MVC plugin](http://zendframework.github.io/zend-mvc-plugin-flashmessenger/).
+[FlashMessenger MVC plugin](http://docs.laminas.dev/laminas-mvc-plugin-flashmessenger/).
 
 ## Basic Usage
 
@@ -15,7 +15,7 @@ echo $this->flashMessenger()->render();
 
 The first argument of the `render()` function is the `namespace`. If no
 `namespace` is defined, the default
-`Zend\Mvc\Controller\Plugin\FlashMessenger::NAMESPACE_DEFAULT` will be used,
+`Laminas\Mvc\Controller\Plugin\FlashMessenger::NAMESPACE_DEFAULT` will be used,
 which translates to `default`.
 
 ```php
@@ -23,7 +23,7 @@ which translates to `default`.
 echo $this->flashMessenger()->render('error');
 
 // Alternatively use one of the pre-defined namespaces 
-// (aka: use Zend\Mvc\Controller\Plugin\FlashMessenger;)
+// (aka: use Laminas\Mvc\Controller\Plugin\FlashMessenger;)
 echo $this->flashMessenger()->render(FlashMessenger::NAMESPACE_SUCCESS);
 ```
 
@@ -58,7 +58,7 @@ distinct visuals for your flash messages. The default output format is defined
 within the source code of the `FlashMessenger` view helper itself.
 
 ```php
-// Zend/View/Helper/FlashMessenger.php#L41-L43
+// Laminas/View/Helper/FlashMessenger.php#L41-L43
 protected $messageCloseString     = '</li></ul>';
 protected $messageOpenFormat      = '<ul%s><li>';
 protected $messageSeparatorString = '</li><li>';
@@ -129,7 +129,7 @@ only having different CSS classes applied.
 
 ## Alternative Configuration of the ViewHelper Layout
 
-`Zend\View\Helper\Service\FlashMessengerFactory` checks the application
+`Laminas\View\Helper\Service\FlashMessengerFactory` checks the application
 configuration, making it possible to set up the `FlashMessenger` strings through
 your `module.config.php`, too. The next example will set up the output to be
 identical with the above Twitter Bootstrap 3 Example

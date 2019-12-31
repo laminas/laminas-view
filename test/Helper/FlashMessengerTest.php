@@ -1,28 +1,27 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
+use Laminas\Mvc\Controller\Plugin\FlashMessenger as V2PluginFlashMessenger;
+use Laminas\Mvc\Controller\PluginManager;
+use Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger as V3PluginFlashMessenger;
+use Laminas\ServiceManager\Config;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\Helper\FlashMessenger;
+use Laminas\View\HelperPluginManager;
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Mvc\Controller\Plugin\FlashMessenger as V2PluginFlashMessenger;
-use Zend\Mvc\Controller\PluginManager;
-use Zend\Mvc\Plugin\FlashMessenger\FlashMessenger as V3PluginFlashMessenger;
-use Zend\ServiceManager\Config;
-use Zend\ServiceManager\ServiceManager;
-use Zend\View\Helper\FlashMessenger;
-use Zend\View\HelperPluginManager;
 
 /**
- * Test class for Zend\View\Helper\Cycle.
+ * Test class for Laminas\View\Helper\Cycle.
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class FlashMessengerTest extends TestCase
 {
@@ -375,7 +374,7 @@ class FlashMessengerTest extends TestCase
 
     public function testCanTranslateMessages()
     {
-        $mockTranslator = $this->getMock('Zend\I18n\Translator\Translator');
+        $mockTranslator = $this->getMock('Laminas\I18n\Translator\Translator');
         $mockTranslator->expects($this->exactly(1))
         ->method('translate')
         ->will($this->returnValue('translated message'));
@@ -392,7 +391,7 @@ class FlashMessengerTest extends TestCase
 
     public function testCanTranslateCurrentMessages()
     {
-        $mockTranslator = $this->getMock('Zend\I18n\Translator\Translator');
+        $mockTranslator = $this->getMock('Laminas\I18n\Translator\Translator');
         $mockTranslator->expects($this->exactly(1))
         ->method('translate')
         ->will($this->returnValue('translated message'));
@@ -422,7 +421,7 @@ class FlashMessengerTest extends TestCase
     }
 
     /**
-     * @covers Zend\View\Helper\FlashMessenger::render
+     * @covers Laminas\View\Helper\FlashMessenger::render
      */
     public function testMessageIsEscapedByDefault()
     {
@@ -436,7 +435,7 @@ class FlashMessengerTest extends TestCase
     }
 
     /**
-     * @covers Zend\View\Helper\FlashMessenger::render
+     * @covers Laminas\View\Helper\FlashMessenger::render
      */
     public function testMessageIsNotEscapedWhenAutoEscapeIsFalse()
     {
@@ -451,7 +450,7 @@ class FlashMessengerTest extends TestCase
     }
 
     /**
-     * @covers Zend\View\Helper\FlashMessenger::render
+     * @covers Laminas\View\Helper\FlashMessenger::render
      */
     public function testCanSetAutoEscapeOnRender()
     {
@@ -465,7 +464,7 @@ class FlashMessengerTest extends TestCase
     }
 
     /**
-     * @covers Zend\View\Helper\FlashMessenger::render
+     * @covers Laminas\View\Helper\FlashMessenger::render
      */
     public function testRenderUsesCurrentAutoEscapeByDefault()
     {
@@ -489,7 +488,7 @@ class FlashMessengerTest extends TestCase
     }
 
     /**
-     * @covers Zend\View\Helper\FlashMessenger::renderCurrent
+     * @covers Laminas\View\Helper\FlashMessenger::renderCurrent
      */
     public function testCurrentMessageIsEscapedByDefault()
     {
@@ -501,7 +500,7 @@ class FlashMessengerTest extends TestCase
     }
 
     /**
-     * @covers Zend\View\Helper\FlashMessenger::renderCurrent
+     * @covers Laminas\View\Helper\FlashMessenger::renderCurrent
      */
     public function testCurrentMessageIsNotEscapedWhenAutoEscapeIsFalse()
     {
@@ -514,7 +513,7 @@ class FlashMessengerTest extends TestCase
     }
 
     /**
-     * @covers Zend\View\Helper\FlashMessenger::renderCurrent
+     * @covers Laminas\View\Helper\FlashMessenger::renderCurrent
      */
     public function testCanSetAutoEscapeOnRenderCurrent()
     {
@@ -526,7 +525,7 @@ class FlashMessengerTest extends TestCase
     }
 
     /**
-     * @covers Zend\View\Helper\FlashMessenger::renderCurrent
+     * @covers Laminas\View\Helper\FlashMessenger::renderCurrent
      */
     public function testRenderCurrentUsesCurrentAutoEscapeByDefault()
     {

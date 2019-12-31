@@ -1,23 +1,24 @@
 <?php
+
 /**
- * @link      http://github.com/zendframework/zend-view for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
-use Zend\Mvc\Controller\Plugin\FlashMessenger as V2PluginFlashMessenger;
-use Zend\Mvc\Plugin\FlashMessenger\FlashMessenger as PluginFlashMessenger;
-use Zend\View\Exception\InvalidArgumentException;
+use Laminas\Mvc\Controller\Plugin\FlashMessenger as V2PluginFlashMessenger;
+use Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger as PluginFlashMessenger;
+use Laminas\View\Exception\InvalidArgumentException;
 
 /**
  * Helper to proxy the plugin flash messenger
  *
- * Duck-types against Zend\I18n\Translator\TranslatorAwareInterface.
+ * Duck-types against Laminas\I18n\Translator\TranslatorAwareInterface.
  *
  * @deprecated This helper will be removed in version 3.0 of this component.
- *     At that time, it will be available in zendframework/zend-mvc-plugin-flashmessenger.
+ *     At that time, it will be available in laminas/laminas-mvc-plugin-flashmessenger.
  */
 class FlashMessenger extends AbstractHelper
 {

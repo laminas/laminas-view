@@ -1,29 +1,28 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\Console\Console;
-use Zend\ServiceManager\ServiceManager;
-use Zend\Mvc\Console\ConfigProvider as MvcConsoleConfigProvider;
-use Zend\Mvc\Router\Http as V2HttpRoute;
-use Zend\Mvc\Service\ServiceManagerConfig;
-use Zend\Mvc\Service\ServiceListenerFactory;
-use Zend\Router\ConfigProvider as RouterConfigProvider;
-use Zend\Router\Http as V3HttpRoute;
-use Zend\ServiceManager\Config;
+use Laminas\Console\Console;
+use Laminas\Mvc\Console\ConfigProvider as MvcConsoleConfigProvider;
+use Laminas\Mvc\Router\Http as V2HttpRoute;
+use Laminas\Mvc\Service\ServiceListenerFactory;
+use Laminas\Mvc\Service\ServiceManagerConfig;
+use Laminas\Router\ConfigProvider as RouterConfigProvider;
+use Laminas\Router\Http as V3HttpRoute;
+use Laminas\ServiceManager\Config;
+use Laminas\ServiceManager\ServiceManager;
 
 /**
  * url() helper test -- tests integration with MVC
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
 {
@@ -89,7 +88,7 @@ class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
         Console::overrideIsConsole(false);
         $this->serviceManager->get('Application')->bootstrap();
         $request = $this->serviceManager->get('Request');
-        $this->assertInstanceOf('Zend\Http\Request', $request);
+        $this->assertInstanceOf('Laminas\Http\Request', $request);
         $viewHelpers = $this->serviceManager->get('ViewHelperManager');
         $urlHelper   = $viewHelpers->get('url');
         $test        = $urlHelper('test');
@@ -101,7 +100,7 @@ class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
         Console::overrideIsConsole(false);
         $this->serviceManager->get('Application')->bootstrap();
         $request = $this->serviceManager->get('Request');
-        $this->assertInstanceOf('Zend\Http\Request', $request);
+        $this->assertInstanceOf('Laminas\Http\Request', $request);
         $router = $this->serviceManager->get('Router');
         $router->setRequestUri($request->getUri());
         $request->setUri('http://example.com/test');
@@ -116,7 +115,7 @@ class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
         Console::overrideIsConsole(true);
         $this->serviceManager->get('Application')->bootstrap();
         $request = $this->serviceManager->get('Request');
-        $this->assertInstanceOf('Zend\Console\Request', $request);
+        $this->assertInstanceOf('Laminas\Console\Request', $request);
         $viewHelpers = $this->serviceManager->get('ViewHelperManager');
         $urlHelper   = $viewHelpers->get('url');
         $test        = $urlHelper('test');

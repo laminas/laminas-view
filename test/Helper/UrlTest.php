@@ -1,38 +1,37 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\Mvc\MvcEvent;
-use Zend\Mvc\ModuleRouteListener;
-use Zend\Mvc\Router\Http\Literal as LiteralRoute;
-use Zend\Mvc\Router\Http\Segment as SegmentRoute;
-use Zend\Mvc\Router\Http\TreeRouteStack;
-use Zend\Mvc\Router\Http\Wildcard as WildcardRoute;
-use Zend\Mvc\Router\RouteMatch;
-use Zend\Mvc\Router\SimpleRouteStack as Router;
-use Zend\Router\Http\Literal as NextGenLiteralRoute;
-use Zend\Router\Http\Segment as NextGenSegmentRoute;
-use Zend\Router\Http\TreeRouteStack as NextGenTreeRouteStack;
-use Zend\Router\Http\Wildcard as NextGenWildcardRoute;
-use Zend\Router\RouteMatch as NextGenRouteMatch;
-use Zend\Router\SimpleRouteStack as NextGenRouter;
-use Zend\View\Exception;
-use Zend\View\Helper\Url as UrlHelper;
+use Laminas\Mvc\ModuleRouteListener;
+use Laminas\Mvc\MvcEvent;
+use Laminas\Mvc\Router\Http\Literal as LiteralRoute;
+use Laminas\Mvc\Router\Http\Segment as SegmentRoute;
+use Laminas\Mvc\Router\Http\TreeRouteStack;
+use Laminas\Mvc\Router\Http\Wildcard as WildcardRoute;
+use Laminas\Mvc\Router\RouteMatch;
+use Laminas\Mvc\Router\SimpleRouteStack as Router;
+use Laminas\Router\Http\Literal as NextGenLiteralRoute;
+use Laminas\Router\Http\Segment as NextGenSegmentRoute;
+use Laminas\Router\Http\TreeRouteStack as NextGenTreeRouteStack;
+use Laminas\Router\Http\Wildcard as NextGenWildcardRoute;
+use Laminas\Router\RouteMatch as NextGenRouteMatch;
+use Laminas\Router\SimpleRouteStack as NextGenRouter;
+use Laminas\View\Exception;
+use Laminas\View\Helper\Url as UrlHelper;
 
 /**
- * Zend\View\Helper\Url Test
+ * Laminas\View\Helper\Url Test
  *
  * Tests formText helper, including some common functionality of all form helpers
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class UrlTest extends \PHPUnit_Framework_TestCase
 {
@@ -123,7 +122,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Zend\View\Exception\InvalidArgumentException
+     * @expectedException \Laminas\View\Exception\InvalidArgumentException
      */
     public function testThrowsExceptionOnInvalidParams()
     {
@@ -159,7 +158,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
             'options' => [
                 'route'    => '/:controller/:action',
                 'defaults' => [
-                    'controller' => 'ZendTest\Mvc\Controller\TestAsset\SampleController',
+                    'controller' => 'LaminasTest\Mvc\Controller\TestAsset\SampleController',
                 ],
             ],
         ]);
@@ -179,7 +178,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
             'options' => [
                 'route'    => '/:controller/:action',
                 'defaults' => [
-                    'controller' => 'ZendTest\Mvc\Controller\TestAsset\SampleController',
+                    'controller' => 'LaminasTest\Mvc\Controller\TestAsset\SampleController',
                 ],
             ],
         ]);
@@ -200,7 +199,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
             'options' => [
                 'route'    => '/:controller/:action',
                 'defaults' => [
-                    ModuleRouteListener::MODULE_NAMESPACE => 'ZendTest\Mvc\Controller\TestAsset',
+                    ModuleRouteListener::MODULE_NAMESPACE => 'LaminasTest\Mvc\Controller\TestAsset',
                     'controller' => 'SampleController',
                     'action'     => 'Dash'
                 ]
@@ -217,7 +216,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
         ]);
 
         $routeMatch = new $this->routeMatchType([
-            ModuleRouteListener::MODULE_NAMESPACE => 'ZendTest\Mvc\Controller\TestAsset',
+            ModuleRouteListener::MODULE_NAMESPACE => 'LaminasTest\Mvc\Controller\TestAsset',
             'controller' => 'Rainbow'
         ]);
         $routeMatch->setMatchedRouteName('default/wildcard');
