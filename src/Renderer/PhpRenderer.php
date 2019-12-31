@@ -1,30 +1,29 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Renderer;
+namespace Laminas\View\Renderer;
 
 use ArrayAccess;
+use Laminas\Filter\FilterChain;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\Exception;
+use Laminas\View\Helper\AbstractHelper;
+use Laminas\View\HelperPluginManager;
+use Laminas\View\Model\ModelInterface as Model;
+use Laminas\View\Renderer\RendererInterface as Renderer;
+use Laminas\View\Resolver\ResolverInterface as Resolver;
+use Laminas\View\Resolver\TemplatePathStack;
+use Laminas\View\Variables;
 use Traversable;
-use Zend\Filter\FilterChain;
-use Zend\ServiceManager\ServiceManager;
-use Zend\View\Exception;
-use Zend\View\HelperPluginManager;
-use Zend\View\Helper\AbstractHelper;
-use Zend\View\Model\ModelInterface as Model;
-use Zend\View\Renderer\RendererInterface as Renderer;
-use Zend\View\Resolver\ResolverInterface as Resolver;
-use Zend\View\Resolver\TemplatePathStack;
-use Zend\View\Variables;
 
 // @codingStandardsIgnoreStart
 /**
- * Class for Zend\View\Strategy\PhpRendererStrategy to help enforce private constructs.
+ * Class for Laminas\View\Strategy\PhpRendererStrategy to help enforce private constructs.
  *
  * Note: all private variables in this class are prefixed with "__". This is to
  * mark them as part of the internal implementation, and thus prevent conflict
@@ -34,44 +33,44 @@ use Zend\View\Variables;
  *
  * @method string asset($asset)
  * @method string|null basePath($file = null)
- * @method \Zend\View\Helper\Cycle cycle(array $data = array(), $name = \Zend\View\Helper\Cycle::DEFAULT_NAME)
- * @method \Zend\View\Helper\DeclareVars declareVars()
- * @method \Zend\View\Helper\Doctype doctype($doctype = null)
- * @method mixed escapeCss($value, $recurse = \Zend\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
- * @method mixed escapeHtml($value, $recurse = \Zend\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
- * @method mixed escapeHtmlAttr($value, $recurse = \Zend\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
- * @method mixed escapeJs($value, $recurse = \Zend\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
- * @method mixed escapeUrl($value, $recurse = \Zend\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
- * @method \Zend\View\Helper\FlashMessenger flashMessenger($namespace = null)
- * @method \Zend\View\Helper\Gravatar gravatar($email = "", $options = array(), $attribs = array())
- * @method \Zend\View\Helper\HeadLink headLink(array $attributes = null, $placement = \Zend\View\Helper\Placeholder\Container\AbstractContainer::APPEND)
- * @method \Zend\View\Helper\HeadMeta headMeta($content = null, $keyValue = null, $keyType = 'name', $modifiers = array(), $placement = \Zend\View\Helper\Placeholder\Container\AbstractContainer::APPEND)
- * @method \Zend\View\Helper\HeadScript headScript($mode = \Zend\View\Helper\HeadScript::FILE, $spec = null, $placement = 'APPEND', array $attrs = array(), $type = 'text/javascript')
- * @method \Zend\View\Helper\HeadStyle headStyle($content = null, $placement = 'APPEND', $attributes = array())
- * @method \Zend\View\Helper\HeadTitle headTitle($title = null, $setType = null)
+ * @method \Laminas\View\Helper\Cycle cycle(array $data = array(), $name = \Laminas\View\Helper\Cycle::DEFAULT_NAME)
+ * @method \Laminas\View\Helper\DeclareVars declareVars()
+ * @method \Laminas\View\Helper\Doctype doctype($doctype = null)
+ * @method mixed escapeCss($value, $recurse = \Laminas\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
+ * @method mixed escapeHtml($value, $recurse = \Laminas\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
+ * @method mixed escapeHtmlAttr($value, $recurse = \Laminas\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
+ * @method mixed escapeJs($value, $recurse = \Laminas\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
+ * @method mixed escapeUrl($value, $recurse = \Laminas\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
+ * @method \Laminas\View\Helper\FlashMessenger flashMessenger($namespace = null)
+ * @method \Laminas\View\Helper\Gravatar gravatar($email = "", $options = array(), $attribs = array())
+ * @method \Laminas\View\Helper\HeadLink headLink(array $attributes = null, $placement = \Laminas\View\Helper\Placeholder\Container\AbstractContainer::APPEND)
+ * @method \Laminas\View\Helper\HeadMeta headMeta($content = null, $keyValue = null, $keyType = 'name', $modifiers = array(), $placement = \Laminas\View\Helper\Placeholder\Container\AbstractContainer::APPEND)
+ * @method \Laminas\View\Helper\HeadScript headScript($mode = \Laminas\View\Helper\HeadScript::FILE, $spec = null, $placement = 'APPEND', array $attrs = array(), $type = 'text/javascript')
+ * @method \Laminas\View\Helper\HeadStyle headStyle($content = null, $placement = 'APPEND', $attributes = array())
+ * @method \Laminas\View\Helper\HeadTitle headTitle($title = null, $setType = null)
  * @method string htmlFlash($data, array $attribs = array(), array $params = array(), $content = null)
  * @method string htmlList(array $items, $ordered = false, $attribs = false, $escape = true)
  * @method string htmlObject($data = null, $type = null, array $attribs = array(), array $params = array(), $content = null)
  * @method string htmlPage($data, array $attribs = array(), array $params = array(), $content = null)
  * @method string htmlQuicktime($data, array $attribs = array(), array $params = array(), $content = null)
  * @method mixed|null identity()
- * @method \Zend\View\Helper\InlineScript inlineScript($mode = \Zend\View\Helper\HeadScript::FILE, $spec = null, $placement = 'APPEND', array $attrs = array(), $type = 'text/javascript')
+ * @method \Laminas\View\Helper\InlineScript inlineScript($mode = \Laminas\View\Helper\HeadScript::FILE, $spec = null, $placement = 'APPEND', array $attrs = array(), $type = 'text/javascript')
  * @method string|void json($data, array $jsonOptions = array())
- * @method \Zend\View\Helper\Layout layout($template = null)
- * @method \Zend\View\Helper\Navigation navigation($container = null)
- * @method string paginationControl(\Zend\Paginator\Paginator $paginator = null, $scrollingStyle = null, $partial = null, $params = null)
- * @method string|\Zend\View\Helper\Partial partial($name = null, $values = null)
+ * @method \Laminas\View\Helper\Layout layout($template = null)
+ * @method \Laminas\View\Helper\Navigation navigation($container = null)
+ * @method string paginationControl(\Laminas\Paginator\Paginator $paginator = null, $scrollingStyle = null, $partial = null, $params = null)
+ * @method string|\Laminas\View\Helper\Partial partial($name = null, $values = null)
  * @method string partialLoop($name = null, $values = null)
- * @method \Zend\View\Helper\Placeholder\Container\AbstractContainer placeholder($name = null)
+ * @method \Laminas\View\Helper\Placeholder\Container\AbstractContainer placeholder($name = null)
  * @method string renderChildModel($child)
  * @method void renderToPlaceholder($script, $placeholder)
  * @method string serverUrl($requestUri = null)
  * @method string url($name = null, array $params = array(), $options = array(), $reuseMatchedParams = false)
- * @method \Zend\View\Helper\ViewModel viewModel()
- * @method \Zend\View\Helper\Navigation\Breadcrumbs breadCrumbs($container = null)
- * @method \Zend\View\Helper\Navigation\Links links($container = null)
- * @method \Zend\View\Helper\Navigation\Menu menu($container = null)
- * @method \Zend\View\Helper\Navigation\Sitemap sitemap($container = null)
+ * @method \Laminas\View\Helper\ViewModel viewModel()
+ * @method \Laminas\View\Helper\Navigation\Breadcrumbs breadCrumbs($container = null)
+ * @method \Laminas\View\Helper\Navigation\Links links($container = null)
+ * @method \Laminas\View\Helper\Navigation\Menu menu($container = null)
+ * @method \Laminas\View\Helper\Navigation\Sitemap sitemap($container = null)
  */
 class PhpRenderer implements Renderer, TreeRendererInterface
 {
@@ -341,7 +340,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
         }
         if (! $helpers instanceof HelperPluginManager) {
             throw new Exception\InvalidArgumentException(sprintf(
-                'Helper helpers must extend Zend\View\HelperPluginManager; got type "%s" instead',
+                'Helper helpers must extend Laminas\View\HelperPluginManager; got type "%s" instead',
                 (is_object($helpers) ? get_class($helpers) : gettype($helpers))
             ));
         }

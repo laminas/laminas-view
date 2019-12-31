@@ -1,15 +1,14 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
-use Zend\View\Exception;
+use Laminas\View\Exception;
 
 /**
  * Helper for retrieving avatars from gravatar.com
@@ -196,7 +195,7 @@ class Gravatar extends AbstractHtmlElement
      * @param  array $attribs
      * @return Gravatar
      *
-     * @deprecated Please use Zend\View\Helper\Gravatar::setAttributes
+     * @deprecated Please use Laminas\View\Helper\Gravatar::setAttributes
      */
     public function setAttribs(array $attribs)
     {
@@ -235,7 +234,7 @@ class Gravatar extends AbstractHtmlElement
      *
      * @return array
      *
-     * @deprecated Please use Zend\View\Helper\Gravatar::getAttributes
+     * @deprecated Please use Laminas\View\Helper\Gravatar::getAttributes
      */
     public function getAttribs()
     {

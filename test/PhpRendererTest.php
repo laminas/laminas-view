@@ -1,29 +1,28 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View;
+namespace LaminasTest\View;
 
+use Laminas\Filter\FilterChain;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\Exception;
+use Laminas\View\Helper\Doctype;
+use Laminas\View\HelperPluginManager;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Renderer\PhpRenderer;
+use Laminas\View\Resolver\TemplateMapResolver;
+use Laminas\View\Resolver\TemplatePathStack;
+use Laminas\View\Variables;
+use LaminasTest\View\TestAsset;
 use PHPUnit\Framework\TestCase;
-use Zend\ServiceManager\ServiceManager;
-use Zend\View\Exception;
-use Zend\View\Helper\Doctype;
-use Zend\View\HelperPluginManager;
-use Zend\View\Renderer\PhpRenderer;
-use Zend\View\Model\ViewModel;
-use Zend\View\Resolver\TemplateMapResolver;
-use Zend\View\Resolver\TemplatePathStack;
-use Zend\View\Variables;
-use Zend\Filter\FilterChain;
-use ZendTest\View\TestAsset;
 
 /**
- * @group      Zend_View
+ * @group      Laminas_View
  */
 class PhpRendererTest extends TestCase
 {
@@ -175,7 +174,7 @@ class PhpRendererTest extends TestCase
     }
 
     /**
-     * @group ZF2-68
+     * @group Laminas-68
      */
     public function testCanSpecifyArrayForVarsAndGetAlwaysArrayObject()
     {
@@ -185,7 +184,7 @@ class PhpRendererTest extends TestCase
     }
 
     /**
-     * @group ZF2-68
+     * @group Laminas-68
      */
     public function testPassingVariablesObjectToSetVarsShouldUseItDirectory()
     {
@@ -195,7 +194,7 @@ class PhpRendererTest extends TestCase
     }
 
     /**
-     * @group ZF2-86
+     * @group Laminas-86
      */
     public function testNestedRenderingRestoresVariablesCorrectly()
     {
@@ -237,7 +236,7 @@ class PhpRendererTest extends TestCase
         ]]);
         $this->renderer->setHelperPluginManager($helpers);
         $return = $this->renderer->invokable('it works!');
-        $this->assertEquals('ZendTest\View\TestAsset\Invokable::__invoke: it works!', $return);
+        $this->assertEquals('LaminasTest\View\TestAsset\Invokable::__invoke: it works!', $return);
     }
 
     /**
@@ -438,7 +437,7 @@ class PhpRendererTest extends TestCase
     }
 
     /**
-     * @group ZF2-4221
+     * @group Laminas-4221
      */
     public function testSharedInstanceHelper()
     {
@@ -483,7 +482,7 @@ class PhpRendererTest extends TestCase
     }
 
     /**
-     * @group zend-view-120
+     * @group laminas-view-120
      * @see https://github.com/zendframework/zend-view/issues/120
      */
     public function testRendererDoesntUsePreviousRenderedOutputWhenInvokedWithEmptyString()
@@ -498,7 +497,7 @@ class PhpRendererTest extends TestCase
     }
 
     /**
-     * @group zend-view-120
+     * @group laminas-view-120
      * @see https://github.com/zendframework/zend-view/issues/120
      */
     public function testRendererDoesntUsePreviousRenderedOutputWhenInvokedWithFalse()

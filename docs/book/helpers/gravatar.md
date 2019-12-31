@@ -38,10 +38,10 @@ $gravatar->setEmail('email@example.com');
 $gravatar->setImgSize(40);
 
 // Set the default avatar image to use if gravatar.com does not find a match
-$gravatar->setDefaultImg( \Zend\View\Helper\Gravatar::DEFAULT_MM );
+$gravatar->setDefaultImg( \Laminas\View\Helper\Gravatar::DEFAULT_MM );
 
 // Set the avatar "rating" threshold (often used to omit NSFW avatars)
-$gravatar->setRating( \Zend\View\Helper\Gravatar::RATING_G );
+$gravatar->setRating( \Laminas\View\Helper\Gravatar::RATING_G );
 
 // Indicate that a secure URI should be used for the image source
 $gravatar->setSecure(true);
@@ -56,8 +56,8 @@ the following keys:
 ```php
 $settings = [
     'img_size'    => 40,
-    'default_img' => \Zend\View\Helper\Gravatar::DEFAULT_MM,
-    'rating'      => \Zend\View\Helper\Gravatar::RATING_G,
+    'default_img' => \Laminas\View\Helper\Gravatar::DEFAULT_MM,
+    'rating'      => \Laminas\View\Helper\Gravatar::RATING_G,
     'secure'      => null,
 ];
 $email = 'email@example.com';
@@ -108,7 +108,7 @@ invocation:
 ```php
 $email = 'email@example.com';
 $settings = [
-    'default_img' => \Zend\View\Helper\Gravatar::DEFAULT_MM,
+    'default_img' => \Laminas\View\Helper\Gravatar::DEFAULT_MM,
 ];
 $attr = [
     'class' => 'gravatar-image',

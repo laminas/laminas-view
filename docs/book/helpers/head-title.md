@@ -85,7 +85,7 @@ $this->headTitle()->append('Music');
 echo $this->headTitle(); // <title>My albumsMusic</title>
 ```
 
-The constant `Zend\View\Helper\Placeholder\Container\AbstractContainer::APPEND`
+The constant `Laminas\View\Helper\Placeholder\Container\AbstractContainer::APPEND`
 can also be used as value for the second parameter `$setType`.
 
 ### Prepend Content
@@ -107,7 +107,7 @@ $this->headTitle()->prepend('Music');
 echo $this->headTitle(); // <title>MusicMy albums</title>
 ```
 
-The constant `Zend\View\Helper\Placeholder\Container\AbstractContainer::PREPEND`
+The constant `Laminas\View\Helper\Placeholder\Container\AbstractContainer::PREPEND`
 can also be used as value for the second parameter `$setType`.
 
 ### Overwrite existing Content
@@ -129,7 +129,7 @@ $this->headTitle()->set('Music');
 echo $this->headTitle(); // <title>Music</title>
 ```
 
-The constant `Zend\View\Helper\Placeholder\Container\AbstractContainer::SET`
+The constant `Laminas\View\Helper\Placeholder\Container\AbstractContainer::SET`
 can also be used as value for the second parameter `$setType`.
 
 ### Set a default Order to add Content
@@ -156,7 +156,7 @@ echo $this->headTitle()->getDefaultAttachOrder(); // PREPEND
 #### Default Value
 
 The default value is
-`Zend\View\Helper\Placeholder\Container\AbstractContainer::APPEND` which
+`Laminas\View\Helper\Placeholder\Container\AbstractContainer::APPEND` which
 corresponds to the value `APPEND`.
 
 ## Using Separator

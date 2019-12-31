@@ -1,11 +1,11 @@
 # Setting module-specific Layouts
 
 The following example shows how to set a template for the layout based on a
-module name in a zend-mvc based application. The example uses a listener that
+module name in a laminas-mvc based application. The example uses a listener that
 listens on the
-[`Zend\Mvc\MvcEvent::EVENT_RENDER` event](https://docs.zendframework.com/zend-mvc/mvc-event/#mvceventevent_render-render)
+[`Laminas\Mvc\MvcEvent::EVENT_RENDER` event](https://docs.laminas.dev/laminas-mvc/mvc-event/#mvceventevent_render-render)
 and uses the
-[`Zend\Router\RouteMatch` object](https://docs.zendframework.com/zend-mvc/routing/#routing)
+[`Laminas\Router\RouteMatch` object](https://docs.laminas.dev/laminas-mvc/routing/#routing)
 to get the called controller from the current request.
 
 ## Create Listener
@@ -16,14 +16,14 @@ Create a listener as a separate class, e.g.
 ```php
 namespace Admin\Listener;
 
-use Zend\EventManager\AbstractListenerAggregate;
-use Zend\EventManager\EventManagerInterface;
-use Zend\Filter\FilterChain;
-use Zend\Filter\FilterInterface;
-use Zend\Filter\StringToLower;
-use Zend\Filter\Word\CamelCaseToDash;
-use Zend\Mvc\MvcEvent;
-use Zend\View\Resolver\TemplateMapResolver;
+use Laminas\EventManager\AbstractListenerAggregate;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\Filter\FilterChain;
+use Laminas\Filter\FilterInterface;
+use Laminas\Filter\StringToLower;
+use Laminas\Filter\Word\CamelCaseToDash;
+use Laminas\Mvc\MvcEvent;
+use Laminas\View\Resolver\TemplateMapResolver;
 
 class LayoutListener extends AbstractListenerAggregate
 {
@@ -92,8 +92,8 @@ Extend the module class to register the listener, e.g.
 namespace Admin;
 
 use Admin\Listener\LayoutListener;
-use Zend\Mvc\MvcEvent;
-use Zend\View\Resolver\TemplateMapResolver;
+use Laminas\Mvc\MvcEvent;
+use Laminas\View\Resolver\TemplateMapResolver;
 
 class Module
 {
@@ -115,8 +115,8 @@ class Module
 }
 ```
 
-> More informations on registering module-specific listeners can be found in the
-> [documentation of zend-mvc](https://docs.zendframework.com/zend-mvc/examples/#registering-module-specific-listeners).
+> More information on registering module-specific listeners can be found in the
+> [documentation of laminas-mvc](https://docs.laminas.dev/laminas-mvc/examples/#registering-module-specific-listeners).
 
 ## Add Template Scripts to the Configuration
 

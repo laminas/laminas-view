@@ -3,8 +3,8 @@
 The `Identity` helper allows retrieving the identity from the
 `AuthenticationService`.
 
-For the `Identity` helper to work, a `Zend\Authentication\AuthenticationService`
-or `Zend\Authentication\AuthenticationServiceInterface` name or alias must be
+For the `Identity` helper to work, a `Laminas\Authentication\AuthenticationService`
+or `Laminas\Authentication\AuthenticationServiceInterface` name or alias must be
 defined and recognized by the `ServiceManager`.
 
 `Identity` returns the identity discovered in the `AuthenticationService`, or
@@ -25,13 +25,13 @@ defined and recognized by the `ServiceManager`.
 ## Using with ServiceManager
 
 When invoked, the `Identity` plugin will look for a service by the name or alias
-`Zend\Authentication\AuthenticationService` in the `ServiceManager`. You can
+`Laminas\Authentication\AuthenticationService` in the `ServiceManager`. You can
 provide this service to the `ServiceManager` in a configuration file:
 
 ```php
 // In a configuration file...
-use Zend\Authentication\AuthenticationService;
-use Zend\ServiceManager\Factory\InvokableFactory;
+use Laminas\Authentication\AuthenticationService;
+use Laminas\ServiceManager\Factory\InvokableFactory;
 
 return [
     'service_manager' => [
@@ -46,4 +46,4 @@ return [
 ```
 
 If that service is not registered, the plugin will then look for a service named
-`Zend\Authentication\AuthenticationServiceInterface`, and use that if found.
+`Laminas\Authentication\AuthenticationServiceInterface`, and use that if found.

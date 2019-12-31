@@ -1,25 +1,24 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
+use Laminas\Paginator;
+use Laminas\View\Exception;
+use Laminas\View\Helper;
+use Laminas\View\Renderer\PhpRenderer as View;
+use Laminas\View\Renderer\RendererInterface;
+use Laminas\View\Resolver;
 use PHPUnit\Framework\TestCase;
-use Zend\Paginator;
-use Zend\View\Exception;
-use Zend\View\Helper;
-use Zend\View\Renderer\PhpRenderer as View;
-use Zend\View\Renderer\RendererInterface;
-use Zend\View\Resolver;
 
 /**
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class PaginationControlTest extends TestCase
 {
@@ -40,7 +39,7 @@ class PaginationControlTest extends TestCase
      */
     protected function setUp()
     {
-        $this->markTestIncomplete('Re-enable after zend-paginator is updated to zend-servicemanager v3');
+        $this->markTestIncomplete('Re-enable after laminas-paginator is updated to laminas-servicemanager v3');
 
         $resolver = new Resolver\TemplatePathStack(['script_paths' => [
             __DIR__ . '/_files/scripts',
@@ -97,7 +96,7 @@ class PaginationControlTest extends TestCase
     }
 
     /**
-     * @group ZF-4037
+     * @group Laminas-4037
      */
     public function testUsesDefaultScrollingStyleIfNoneSupplied()
     {
@@ -115,7 +114,7 @@ class PaginationControlTest extends TestCase
     }
 
     /**
-     * @group ZF-4153
+     * @group Laminas-4153
      */
     public function testUsesPaginatorFromViewIfNoneSupplied()
     {
@@ -128,7 +127,7 @@ class PaginationControlTest extends TestCase
     }
 
     /**
-     * @group ZF-4153
+     * @group Laminas-4153
      */
     public function testThrowsExceptionIfNoPaginatorFound()
     {
@@ -140,7 +139,7 @@ class PaginationControlTest extends TestCase
     }
 
     /**
-     * @group ZF-4233
+     * @group Laminas-4233
      */
     public function testAcceptsViewPartialInOtherModule()
     {
@@ -148,7 +147,7 @@ class PaginationControlTest extends TestCase
             $this->_viewHelper->__invoke($this->_paginator, null, ['partial.phtml', 'test']);
         } catch (\Exception $e) {
             /* We don't care whether or not the module exists--we just want to
-             * make sure it gets to Zend_View_Helper_Partial and it's recognized
+             * make sure it gets to Laminas_View_Helper_Partial and it's recognized
              * as a module. */
             $this->assertInstanceOf(
                 Exception\RuntimeException::class,
@@ -164,7 +163,7 @@ class PaginationControlTest extends TestCase
     }
 
     /**
-     * @group ZF-4328
+     * @group Laminas-4328
      */
     public function testUsesPaginatorFromViewOnlyIfNoneSupplied()
     {
@@ -177,7 +176,7 @@ class PaginationControlTest extends TestCase
     }
 
     /**
-     * @group ZF-4878
+     * @group Laminas-4878
      */
     public function testCanUseObjectForScrollingStyle()
     {

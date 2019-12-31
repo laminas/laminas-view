@@ -1,15 +1,16 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-view for the canonical source repository
- * @copyright Copyright (c) 2018 Zend Technologies USA Inc. (https://www.zend.com)
- * @license   https://github.com/zendframework/zend-view/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Model;
+namespace LaminasTest\View\Model;
 
+use Laminas\View\Model\ConsoleModel;
+use Laminas\View\Model\ModelInterface;
 use PHPUnit\Framework\TestCase;
-use Zend\View\Model\ConsoleModel;
-use Zend\View\Model\ModelInterface;
 
 class ConsoleModelTest extends TestCase
 {

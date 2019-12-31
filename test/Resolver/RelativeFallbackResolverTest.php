@@ -1,28 +1,27 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Resolver;
+namespace LaminasTest\View\Resolver;
 
+use Laminas\View\Helper\ViewModel as ViewModelHelper;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Renderer\PhpRenderer;
+use Laminas\View\Resolver\AggregateResolver;
+use Laminas\View\Resolver\RelativeFallbackResolver;
+use Laminas\View\Resolver\ResolverInterface;
+use Laminas\View\Resolver\TemplateMapResolver;
+use Laminas\View\Resolver\TemplatePathStack;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use stdClass;
-use Zend\View\Helper\ViewModel as ViewModelHelper;
-use Zend\View\Model\ViewModel;
-use Zend\View\Renderer\PhpRenderer;
-use Zend\View\Resolver\RelativeFallbackResolver;
-use Zend\View\Resolver\ResolverInterface;
-use Zend\View\Resolver\TemplateMapResolver;
-use Zend\View\Resolver\TemplatePathStack;
-use Zend\View\Resolver\AggregateResolver;
 
 /**
- * @covers \Zend\View\Resolver\RelativeFallbackResolver
+ * @covers \Laminas\View\Resolver\RelativeFallbackResolver
  */
 class RelativeFallbackResolverTest extends TestCase
 {
