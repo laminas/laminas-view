@@ -1,28 +1,27 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View;
+namespace LaminasTest\View;
 
-use Zend\I18n\Translator\Translator;
-use Zend\Mvc\I18n\Translator as MvcTranslator;
-use Zend\ServiceManager\Config;
-use Zend\ServiceManager\Exception\InvalidServiceException;
-use Zend\ServiceManager\ServiceManager;
-use Zend\View\Exception\InvalidHelperException;
-use Zend\View\HelperPluginManager;
-use Zend\View\Helper\HeadTitle;
-use Zend\View\Helper\HelperInterface;
-use Zend\View\Helper\Url;
-use Zend\View\Renderer\PhpRenderer;
+use Laminas\I18n\Translator\Translator;
+use Laminas\Mvc\I18n\Translator as MvcTranslator;
+use Laminas\ServiceManager\Config;
+use Laminas\ServiceManager\Exception\InvalidServiceException;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\Exception\InvalidHelperException;
+use Laminas\View\Helper\HeadTitle;
+use Laminas\View\Helper\HelperInterface;
+use Laminas\View\Helper\Url;
+use Laminas\View\HelperPluginManager;
+use Laminas\View\Renderer\PhpRenderer;
 
 /**
- * @group      Zend_View
+ * @group      Laminas_View
  */
 class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
 {
@@ -37,7 +36,7 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
     public function testConstructorArgumentsAreOptionalUnderV2()
     {
         if (method_exists($this->helpers, 'configure')) {
-            $this->markTestSkipped('zend-servicemanager v3 plugin managers require a container argument');
+            $this->markTestSkipped('laminas-servicemanager v3 plugin managers require a container argument');
         }
 
         $helpers = new HelperPluginManager();
@@ -50,7 +49,7 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
     public function testConstructorAllowsConfigInstanceAsFirstArgumentUnderV2()
     {
         if (method_exists($this->helpers, 'configure')) {
-            $this->markTestSkipped('zend-servicemanager v3 plugin managers require a container argument');
+            $this->markTestSkipped('laminas-servicemanager v3 plugin managers require a container argument');
         }
 
         $helpers = new HelperPluginManager(new Config([]));
@@ -111,13 +110,13 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
     public function testIdentityFactoryCanInjectAuthenticationServiceIfInParentServiceManager()
     {
         $config = new Config(['invokables' => [
-            'Zend\Authentication\AuthenticationService' =>  'Zend\Authentication\AuthenticationService',
+            'Laminas\Authentication\AuthenticationService' =>  'Laminas\Authentication\AuthenticationService',
         ]]);
         $services = new ServiceManager();
         $config->configureServiceManager($services);
         $helpers  = new HelperPluginManager($services);
         $identity = $helpers->get('identity');
-        $expected = $services->get('Zend\Authentication\AuthenticationService');
+        $expected = $services->get('Laminas\Authentication\AuthenticationService');
         $this->assertSame($expected, $identity->getAuthenticationService());
     }
 
@@ -125,13 +124,13 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
     {
         if (! class_exists(PluginFlashMessenger::class)) {
             $this->markTestSkipped(
-                'Skipping zend-mvc-related tests until that component is updated '
-                . 'to be forwards-compatible with zend-eventmanager, zend-stdlib, '
-                . 'and zend-servicemanager v3.'
+                'Skipping laminas-mvc-related tests until that component is updated '
+                . 'to be forwards-compatible with laminas-eventmanager, laminas-stdlib, '
+                . 'and laminas-servicemanager v3.'
             );
         }
 
-        $translator = new MvcTranslator($this->getMock('Zend\I18n\Translator\TranslatorInterface'));
+        $translator = new MvcTranslator($this->getMock('Laminas\I18n\Translator\TranslatorInterface'));
         $config = new Config(['services' => [
             'MvcTranslator' =>  $translator,
         ]]);
@@ -146,9 +145,9 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
     {
         if (! class_exists(PluginFlashMessenger::class)) {
             $this->markTestSkipped(
-                'Skipping zend-mvc-related tests until that component is updated '
-                . 'to be forwards-compatible with zend-eventmanager, zend-stdlib, '
-                . 'and zend-servicemanager v3.'
+                'Skipping laminas-mvc-related tests until that component is updated '
+                . 'to be forwards-compatible with laminas-eventmanager, laminas-stdlib, '
+                . 'and laminas-servicemanager v3.'
             );
         }
 
@@ -167,7 +166,7 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
     {
         $translator = new Translator();
         $config = new Config(['services' => [
-            'Zend\I18n\Translator\TranslatorInterface' =>  $translator,
+            'Laminas\I18n\Translator\TranslatorInterface' =>  $translator,
         ]]);
         $services = new ServiceManager();
         $config->configureServiceManager($services);
@@ -183,7 +182,7 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
     {
         if (method_exists($this->helpers, 'configure')) {
             $this->markTestSkipped(
-                'Skip test when testing against zend-servicemanager v3, as that implementation '
+                'Skip test when testing against laminas-servicemanager v3, as that implementation '
                 . 'guarantees a parent container in plugin managers'
             );
         }

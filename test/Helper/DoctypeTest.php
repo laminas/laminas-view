@@ -1,21 +1,20 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\View\Helper;
+use Laminas\View\Helper;
 
 /**
- * Test class for Zend\View\Helper\Doctype.
+ * Test class for Laminas\View\Helper\Doctype.
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class DoctypeTest extends \PHPUnit_Framework_TestCase
 {
@@ -55,7 +54,7 @@ class DoctypeTest extends \PHPUnit_Framework_TestCase
     public function testDoctypeMethodReturnsObjectInstance()
     {
         $doctype = $this->helper->__invoke();
-        $this->assertInstanceOf('Zend\View\Helper\Doctype', $doctype);
+        $this->assertInstanceOf('Laminas\View\Helper\Doctype', $doctype);
     }
 
     public function testPassingDoctypeSetsDoctype()
@@ -81,7 +80,7 @@ class DoctypeTest extends \PHPUnit_Framework_TestCase
             $this->assertTrue($doctype->isXhtml());
         }
 
-        $doctype = $this->helper->__invoke('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://framework.zend.com/foo/DTD/xhtml1-custom.dtd">');
+        $doctype = $this->helper->__invoke('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "https://getlaminas.org/foo/DTD/xhtml1-custom.dtd">');
         $this->assertEquals('CUSTOM_XHTML', $doctype->getDoctype());
         $this->assertTrue($doctype->isXhtml());
     }
@@ -100,7 +99,7 @@ class DoctypeTest extends \PHPUnit_Framework_TestCase
             $this->assertFalse($doctype->isXhtml());
         }
 
-        $doctype = $this->helper->__invoke('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 10.0 Strict//EN" "http://framework.zend.com/foo/DTD/html10-custom.dtd">');
+        $doctype = $this->helper->__invoke('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 10.0 Strict//EN" "https://getlaminas.org/foo/DTD/html10-custom.dtd">');
         $this->assertEquals('CUSTOM', $doctype->getDoctype());
         $this->assertFalse($doctype->isXhtml());
     }
@@ -157,7 +156,7 @@ class DoctypeTest extends \PHPUnit_Framework_TestCase
         }
 
         // custom doctype
-        $doctype = $this->helper->__invoke('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 10.0 Strict//EN" "http://framework.zend.com/foo/DTD/html10-custom.dtd">');
+        $doctype = $this->helper->__invoke('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 10.0 Strict//EN" "https://getlaminas.org/foo/DTD/html10-custom.dtd">');
         $this->assertFalse($doctype->isRdfa());
     }
 
@@ -170,14 +169,14 @@ class DoctypeTest extends \PHPUnit_Framework_TestCase
 
     public function testCanRegisterCustomXhtmlDoctype()
     {
-        $doctype = $this->helper->__invoke('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://framework.zend.com/foo/DTD/xhtml1-custom.dtd">');
+        $doctype = $this->helper->__invoke('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "https://getlaminas.org/foo/DTD/xhtml1-custom.dtd">');
         $this->assertEquals('CUSTOM_XHTML', $doctype->getDoctype());
         $this->assertTrue($doctype->isXhtml());
     }
 
     public function testCanRegisterCustomHtmlDoctype()
     {
-        $doctype = $this->helper->__invoke('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 10.0 Strict//EN" "http://framework.zend.com/foo/DTD/html10-custom.dtd">');
+        $doctype = $this->helper->__invoke('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 10.0 Strict//EN" "https://getlaminas.org/foo/DTD/html10-custom.dtd">');
         $this->assertEquals('CUSTOM', $doctype->getDoctype());
         $this->assertFalse($doctype->isXhtml());
     }

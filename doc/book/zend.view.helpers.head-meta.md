@@ -20,7 +20,7 @@ The `HeadMeta` helper supports the following methods for setting and adding meta
 - `setCharset($charset)`
 
 The following methods are also supported with XHTML1\_RDFA doctype set with the Doctype helper
-&lt;zend.view.helpers.initial.doctype&gt;:
+&lt;laminas.view.helpers.initial.doctype&gt;:
 
 - `appendProperty($property, $content, $modifiers)`
 - `offsetSetProperty($index, $property, $content, $modifiers)`
@@ -44,7 +44,7 @@ later serializes using the `itemToString()` method. This allows you to perform c
 in the stack, and optionally modify these items by simply modifying the object returned.
 
 The `HeadMeta` helper is a concrete implementation of the Placeholder helper
-&lt;zend.view.helpers.initial.placeholder&gt;.
+&lt;laminas.view.helpers.initial.placeholder&gt;.
 
 ## Basic Usage
 
@@ -103,14 +103,14 @@ When you're ready to place your meta tags in the layout, simply echo the helper:
 
 ## Usage with XHTML1\_RDFA doctype
 
-Enabling the RDFa doctype with the \[Doctype helper\](zend.view.helpers.initial.doctype) enables the
+Enabling the RDFa doctype with the \[Doctype helper\](laminas.view.helpers.initial.doctype) enables the
 use of the 'property' attribute (in addition to the standard 'name' and 'http-equiv') with HeadMeta.
 This is commonly used with the Facebook [Open Graph Protocol](http://opengraphprotocol.org/).
 
 For instance, you may specify an open graph page title and type as follows:
 
 ```php
-$this->doctype(Zend\View\Helper\Doctype::XHTML1_RDFA);
+$this->doctype(Laminas\View\Helper\Doctype::XHTML1_RDFA);
 $this->headMeta()->setProperty('og:title', 'my article title');
 $this->headMeta()->setProperty('og:type', 'article');
 echo $this->headMeta();

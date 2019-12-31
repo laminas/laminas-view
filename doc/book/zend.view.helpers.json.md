@@ -24,10 +24,10 @@ Usage of the *JSON* helper is very straightforward:
 ```
 
 > ## Note
-#### Enabling encoding using Zend\\Json\\Expr
-The *JSON* helper accepts an array of options that will be passed to `Zend\Json\Json::encode()` and
+#### Enabling encoding using Laminas\\Json\\Expr
+The *JSON* helper accepts an array of options that will be passed to `Laminas\Json\Json::encode()` and
 used internally to encode data.
-`Zend\Json\Json::encode` allows the encoding of native *JSON* expressions using `Zend\Json\Expr`
+`Laminas\Json\Json::encode` allows the encoding of native *JSON* expressions using `Laminas\Json\Expr`
 objects. This option is disabled by default. To enable this option, pass a boolean `TRUE` to the
 `enableJsonExprFinder` key of the options array:
 ```php

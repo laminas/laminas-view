@@ -1,8 +1,8 @@
 # The PhpRenderer
 
-`Zend\View\Renderer\PhpRenderer` "renders" view scripts written in PHP, capturing and returning the
+`Laminas\View\Renderer\PhpRenderer` "renders" view scripts written in PHP, capturing and returning the
 output. It composes Variable containers and/or View Models, a helper plugin manager for
-\[helpers\](zend.view.helpers), and optional filtering of the captured output.
+\[helpers\](laminas.view.helpers), and optional filtering of the captured output.
 
 The `PhpRenderer` is template system agnostic; you may use *PHP* as your template language, or
 create instances of other template systems and manipulate them within your view script. Anything you
@@ -17,25 +17,25 @@ providing it with a resolver which will resolve templates to PHP view scripts, a
 Instantiating a renderer is trivial:
 
 ```php
-use Zend\View\Renderer\PhpRenderer;
+use Laminas\View\Renderer\PhpRenderer;
 
 $renderer = new PhpRenderer();
 ```
 
-Zend Framework ships with several types of "resolvers", which are used to resolve a template name to
+Laminas ships with several types of "resolvers", which are used to resolve a template name to
 a resource a renderer can consume. The ones we will usually use with the `PhpRenderer` are:
 
-- `Zend\View\Resolver\TemplateMapResolver`, which simply maps template names directly to view
+- `Laminas\View\Resolver\TemplateMapResolver`, which simply maps template names directly to view
 scripts.
-- `Zend\View\Resolver\TemplatePathStack`, which creates a LIFO stack of script directories in which
+- `Laminas\View\Resolver\TemplatePathStack`, which creates a LIFO stack of script directories in which
 to search for a view script. By default, it appends the suffix ".phtml" to the requested template
 name, and then loops through the script directories; if it finds a file matching the requested
 template, it returns the full file path.
-- `Zend\View\Resolver\RelativeFallbackResolver`, which allows using short template name into partial
+- `Laminas\View\Resolver\RelativeFallbackResolver`, which allows using short template name into partial
 rendering. It is used as wrapper for each of two aforesaid resolvers. For example, this allows usage
 of partial template paths such as `my/module/script/path/my-view/some/partial.phtml`, while
 rendering template `my/module/script/path/my-view` by short name `some/partial`.
-- `Zend\View\Resolver\AggregateResolver`, which allows attaching a FIFO queue of resolvers to
+- `Laminas\View\Resolver\AggregateResolver`, which allows attaching a FIFO queue of resolvers to
 consult.
 
 We suggest using the `AggregateResolver`, as it allows you to create a multi-tiered strategy for
@@ -44,8 +44,8 @@ resolving template names.
 Programmatically, you would then do something like this:
 
 ```php
-use Zend\View\Renderer\PhpRenderer;
-use Zend\View\Resolver;
+use Laminas\View\Renderer\PhpRenderer;
+use Laminas\View\Resolver;
 
 $renderer = new PhpRenderer();
 
@@ -80,14 +80,14 @@ In an MVC application, you can configure this via DI quite easily:
 return array(
     'di' => array(
         'instance' => array(
-            'Zend\View\Resolver\AggregateResolver' => array(
+            'Laminas\View\Resolver\AggregateResolver' => array(
                 'injections' => array(
-                    'Zend\View\Resolver\TemplateMapResolver',
-                    'Zend\View\Resolver\TemplatePathStack',
+                    'Laminas\View\Resolver\TemplateMapResolver',
+                    'Laminas\View\Resolver\TemplatePathStack',
                 ),
             ),
 
-            'Zend\View\Resolver\TemplateMapResolver' => array(
+            'Laminas\View\Resolver\TemplateMapResolver' => array(
                 'parameters' => array(
                     'map'  => array(
                         'layout'      => __DIR__ . '/view/layout.phtml',
@@ -95,7 +95,7 @@ return array(
                     ),
                 ),
             ),
-            'Zend\View\Resolver\TemplatePathStack' => array(
+            'Laminas\View\Resolver\TemplatePathStack' => array(
                 'parameters' => array(
                     'paths'  => array(
                         'application' => __DIR__ . '/view',
@@ -103,9 +103,9 @@ return array(
                     ),
                 ),
             ),
-            'Zend\View\Renderer\PhpRenderer' => array(
+            'Laminas\View\Renderer\PhpRenderer' => array(
                 'parameters' => array(
-                    'resolver' => 'Zend\View\Resolver\AggregateResolver',
+                    'resolver' => 'Laminas\View\Resolver\AggregateResolver',
                 ),
             ),
         ),
@@ -116,9 +116,9 @@ return array(
 Now that we have our `PhpRenderer` instance, and it can find templates, let's inject some variables.
 This can be done in 4 different ways.
 
-- Pass an associative array (or `ArrayAccess` instance, or `Zend\View\Variables` instance) of items
+- Pass an associative array (or `ArrayAccess` instance, or `Laminas\View\Variables` instance) of items
 as the second argument to `render()`: *$renderer-&gt;render($templateName, array('foo' =&gt; 'bar))*
-- Assign a `Zend\View\Variables` instance, associative array, or `ArrayAccess` instance to the
+- Assign a `Laminas\View\Variables` instance, associative array, or `ArrayAccess` instance to the
 `setVars()` method.
 - Assign variables as instance properties of the renderer: *$renderer-&gt;foo = 'bar'*. This
 essentially proxies to an instance of `Variables` composed internally in the renderer by default.
@@ -126,8 +126,8 @@ essentially proxies to an instance of `Variables` composed internally in the ren
 method:
 
     ```php
-    use Zend\View\Model\ViewModel;
-    use Zend\View\Renderer\PhpRenderer;
+    use Laminas\View\Model\ViewModel;
+    use Laminas\View\Renderer\PhpRenderer;
 
     $renderer = new PhpRenderer();
 
@@ -172,7 +172,7 @@ of view models. Let's consider the following code from within an action method o
 ```php
 namespace Bookstore\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
+use Laminas\Mvc\Controller\AbstractActionController;
 
 class BookController extends AbstractActionController
 {
@@ -243,7 +243,7 @@ Javascript, CSS and URI. Each context has a dedicated helper available to apply 
 strategy most appropriate to each context. You should be aware that escaping does vary significantly
 between contexts - there is no one single escaping strategy that can be globally applied.
 In the example above, there are calls to an `escapeHtml()` method. The method is actually a helper
-&lt;zend.view.helpers&gt;, a plugin available via method overloading. Additional escape helpers
+&lt;laminas.view.helpers&gt;, a plugin available via method overloading. Additional escape helpers
 provide the `escapeHtmlAttr()`, `escapeJs()`, `escapeCss()`, and `escapeUrl()` methods for each of
 the HTML contexts you are most likely to encounter.
 By using the provided helpers and being aware of your variables' contexts, you will prevent your
@@ -256,26 +256,26 @@ scripts, and render view scripts.
 
 ## Options and Configuration
 
-`Zend\View\Renderer\PhpRenderer` utilizes several collaborators in order to do its work. use the
+`Laminas\View\Renderer\PhpRenderer` utilizes several collaborators in order to do its work. use the
 following methods to configure the renderer.
 
-setHelperPluginManager(string|Zend\\View\\HelperPluginManager $helpers)
+setHelperPluginManager(string|Laminas\\View\\HelperPluginManager $helpers)
 
 > Set the helper plugin manager instance used to load, register, and retrieve
-\[helpers\](zend.view.helpers).
+\[helpers\](laminas.view.helpers).
 rtype  
-Zend\\View\\Renderer\\PhpRenderer
-setResolver(Zend\\View\\Resolver\\ResolverInterface $resolver)
+Laminas\\View\\Renderer\\PhpRenderer
+setResolver(Laminas\\View\\Resolver\\ResolverInterface $resolver)
 
 > Set the resolver instance.
 rtype  
-Zend\\View\\Renderer\\PhpRenderer
-setFilterChain(Zend\\Filter\\FilterChain $filters)
+Laminas\\View\\Renderer\\PhpRenderer
+setFilterChain(Laminas\\Filter\\FilterChain $filters)
 
 > Set a filter chain to use as an output filter on rendered content.
 rtype  
-Zend\\View\\Renderer\\PhpRenderer
-setVars(array|ArrayAccess|Zend\\View\\Variables $variables)
+Laminas\\View\\Renderer\\PhpRenderer
+setVars(array|ArrayAccess|Laminas\\View\\Variables $variables)
 
 > Set the variables to use when rendering a view script/template.
 rtype  
@@ -283,19 +283,19 @@ mixed
 setCanRenderTrees(boolean $canRenderTrees)
 
 > Set flag indicating whether or not we should render trees of view models. If set to true, the
-`Zend\View\View` instance will not attempt to render children separately, but instead pass the root
+`Laminas\View\View` instance will not attempt to render children separately, but instead pass the root
 view model directly to the `PhpRenderer`. It is then up to the developer to render the children from
 within the view script. This is typically done using the `RenderChildModel` helper:
 *$this-&gt;renderChildModel('child\_name')*.
 rtype  
-Zend\\View\\Renderer\\PhpRenderer
+Laminas\\View\\Renderer\\PhpRenderer
 ## Additional Methods
 
-Typically, you'll only ever access variables and \[helpers\](zend.view.helpers) within your view
+Typically, you'll only ever access variables and \[helpers\](laminas.view.helpers) within your view
 scripts or when interacting with the `PhpRenderer`. However, there are a few additional methods you
 may be interested in.
 
-render(string|Zend\\View\\Model\\ModelInterface $nameOrModel, array|Traversable $values = null)
+render(string|Laminas\\View\\Model\\ModelInterface $nameOrModel, array|Traversable $values = null)
 
 > Render a template/view model.
 If `$nameOrModel` is a string, it is assumed to be a template name. That template will be resolved
@@ -303,7 +303,7 @@ using the current resolver, and then rendered. If `$values` is non-null, those v
 values only, will be used during rendering, and will replace whatever variable container previously
 was in the renderer; however, the previous variable container will be reset when done. If `$values`
 is empty, the current variables container (see
-\[setVars()\](zend.view.renderer.php-renderer.options.vars)) will be injected when rendering.
+\[setVars()\](laminas.view.renderer.php-renderer.options.vars)) will be injected when rendering.
 If `$nameOrModel` is a `Model` instance, the template name will be retrieved from it and used.
 Additionally, if the model contains any variables, these will be used when rendering; otherwise, the
 variables container already present, if any, will be used.
@@ -314,7 +314,7 @@ resolver()
 
 > Retrieves the `Resolver` instance.
 rtype  
-string|Zend\\View\\Resolver\\ResolverInterface
+string|Laminas\\View\\Resolver\\ResolverInterface
 vars(string $key = null)
 
 > Retrieve a single variable from the container if a key is provided, otherwise it will return the
@@ -325,13 +325,13 @@ plugin(string $name, array $options = null)
 
 > Get a plugin/helper instance. Proxies to the plugin manager's `get()` method; as such, any
 `$options` you pass will be passed to the plugin's constructor if this is the first time the plugin
-has been retrieved. See the section on \[helpers\](zend.view.helpers) for more information.
+has been retrieved. See the section on \[helpers\](laminas.view.helpers) for more information.
 rtype  
-Zend\\View\\Helper\\HelperInterface
+Laminas\\View\\Helper\\HelperInterface
 addTemplate(string $template)
 
 > Add a template to the stack. When used, the next call to `render()` will loop through all template
 added using this method, rendering them one by one; the output of the last will be returned.
 rtype  
-Zend\\View\\Renderer\\PhpRenderer
+Laminas\\View\\Renderer\\PhpRenderer
 

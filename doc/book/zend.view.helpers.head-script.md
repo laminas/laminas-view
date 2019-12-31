@@ -70,11 +70,11 @@ it later serializes using the `itemToString()` method. This allows you to perfor
 items in the stack, and optionally modify these items by simply modifying the object returned.
 
 The `HeadScript` helper is a concrete implementation of the Placeholder helper
-&lt;zend.view.helpers.initial.placeholder&gt;.
+&lt;laminas.view.helpers.initial.placeholder&gt;.
 
 > ## Note
 #### Use InlineScript for HTML Body Scripts
-`HeadScript`'s sibling helper, \[InlineScript\](zend.view.helpers.initial.inlinescript), should be
+`HeadScript`'s sibling helper, \[InlineScript\](laminas.view.helpers.initial.inlinescript), should be
 used when you wish to include scripts inline in the *HTML* **body**. Placing scripts at the end of
 your document is a good practice for speeding up delivery of your page, particularly when using 3rd
 party analytics scripts.
