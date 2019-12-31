@@ -1,24 +1,23 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
+use Laminas\View\Helper;
+use Laminas\View\Helper\Placeholder\Container\AbstractContainer;
+use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
-use Zend\View\Helper\Placeholder\Container\AbstractContainer;
-use Zend\View\Renderer\PhpRenderer as View;
-use Zend\View\Helper;
 
 /**
- * Test class for Zend\View\Helper\Placeholder.
+ * Test class for Laminas\View\Helper\Placeholder.
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class PlaceholderTest extends TestCase
 {

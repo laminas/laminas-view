@@ -1,6 +1,6 @@
 # The PhpRenderer
 
-`Zend\View\Renderer\PhpRenderer` "renders" view scripts written in PHP,
+`Laminas\View\Renderer\PhpRenderer` "renders" view scripts written in PHP,
 capturing and returning the output. It composes Variable containers and/or View
 Models, a helper plugin manager for [helpers](helpers/intro.md), and optional
 filtering of the captured output.
@@ -18,28 +18,28 @@ view scripts, and then calling its `render()` method.
 Instantiating a renderer:
 
 ```php
-use Zend\View\Renderer\PhpRenderer;
+use Laminas\View\Renderer\PhpRenderer;
 
 $renderer = new PhpRenderer();
 ```
 
-zend-view ships with several types of "resolvers", which are used to resolve a
+laminas-view ships with several types of "resolvers", which are used to resolve a
 template name to a resource a renderer can consume. The ones we will usually use
 with the `PhpRenderer` are:
 
-- `Zend\View\Resolver\TemplateMapResolver`, which simply maps template names
+- `Laminas\View\Resolver\TemplateMapResolver`, which simply maps template names
   directly to view scripts.
-- `Zend\View\Resolver\TemplatePathStack`, which creates a LIFO stack of script
+- `Laminas\View\Resolver\TemplatePathStack`, which creates a LIFO stack of script
   directories in which to search for a view script. By default, it appends the
   suffix `.phtml` to the requested template name, and then loops through the
   script directories; if it finds a file matching the requested template, it
   returns the full file path.
-- `Zend\View\Resolver\RelativeFallbackResolver`, which allows using short
+- `Laminas\View\Resolver\RelativeFallbackResolver`, which allows using short
   template name into partial rendering. It is used as wrapper for each of two
   aforesaid resolvers. For example, this allows usage of partial template paths
   such as `my/module/script/path/my-view/some/partial.phtml`, while rendering
   template `my/module/script/path/my-view` by short name `some/partial`.
-- `Zend\View\Resolver\AggregateResolver`, which allows attaching a FIFO queue of
+- `Laminas\View\Resolver\AggregateResolver`, which allows attaching a FIFO queue of
   resolvers to consult.
 
 We suggest using the `AggregateResolver`, as it allows you to create a
@@ -48,8 +48,8 @@ multi-tiered strategy for resolving template names.
 Programmatically, you would then do something like this:
 
 ```php
-use Zend\View\Renderer\PhpRenderer;
-use Zend\View\Resolver;
+use Laminas\View\Renderer\PhpRenderer;
+use Laminas\View\Resolver;
 
 $renderer = new PhpRenderer();
 
@@ -81,7 +81,7 @@ high, positive integers getting higher priority, and low, negative integers
 getting low priority, when resolving.
 
 If you are started your application via the [skeleton
-application](https://github.com/zendframework/ZendSkeletonApplication), you can
+application](https://github.com/laminas/LaminasSkeletonApplication), you can
 provide the above via configuration:
 
 ```php
@@ -107,10 +107,10 @@ own factories for creating each resolver and wiring them to the
 Now that we have our `PhpRenderer` instance, and it can find templates, let's
 inject some variables. This can be done in 4 different ways.
 
-- Pass an associative array (or `ArrayAccess` instance, or `Zend\View\Variables`
+- Pass an associative array (or `ArrayAccess` instance, or `Laminas\View\Variables`
   instance) of items as the second argument to `render()`:
   `$renderer->render($templateName, ['foo' => 'bar'])`
-- Assign a `Zend\View\Variables` instance, associative array, or `ArrayAccess`
+- Assign a `Laminas\View\Variables` instance, associative array, or `ArrayAccess`
   instance to the `setVars()` method.
 - Assign variables as instance properties of the renderer: `$renderer->foo =
   'bar'`. This essentially proxies to an instance of `Variables` composed
@@ -121,8 +121,8 @@ inject some variables. This can be done in 4 different ways.
 As an example of the latter:
 
 ```php
-use Zend\View\Model\ViewModel;
-use Zend\View\Renderer\PhpRenderer;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Renderer\PhpRenderer;
 
 $renderer = new PhpRenderer();
 
@@ -169,7 +169,7 @@ within an action method of a controller.
 ```php
 namespace Bookstore\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
+use Laminas\Mvc\Controller\AbstractActionController;
 
 class BookController extends AbstractActionController
 {
@@ -257,10 +257,10 @@ and/or create view models, create view scripts, and render view scripts.
 
 ## Options and Configuration
 
-`Zend\View\Renderer\PhpRenderer` utilizes several collaborators in order to do
+`Laminas\View\Renderer\PhpRenderer` utilizes several collaborators in order to do
 its work. Use the following methods to configure the renderer.
 
-Unless otherwise noted, class names are relative to the `Zend\View` namespace.
+Unless otherwise noted, class names are relative to the `Laminas\View` namespace.
 
 ### setHelperPluginManager
 
@@ -282,7 +282,7 @@ Set the resolver instance.
 ### setFilterChain
 
 ```php
-setFilterChain(\Zend\Filter\FilterChain $filters) : void
+setFilterChain(\Laminas\Filter\FilterChain $filters) : void
 ```
 
 Set a filter chain to use as an output filter on rendered content.
@@ -302,7 +302,7 @@ setCanRenderTrees(boolean $canRenderTrees) : void
 ```
 
 Set the flag indicating whether or not we should render trees of view models. If
-set to true, the `Zend\View\View` instance will not attempt to render children
+set to true, the `Laminas\View\View` instance will not attempt to render children
 separately, but instead pass the root view model directly to the `PhpRenderer`.
 It is then up to the developer to render the children from within the view
 script. This is typically done using the `RenderChildModel` helper:
@@ -314,7 +314,7 @@ Typically, you'll only ever access variables and [helpers](helpers/intro.md)
 within your view scripts or when interacting with the `PhpRenderer`. However,
 there are a few additional methods you may be interested in.
 
-Unless otherwise noted, class names are relative to the `Zend\View` namespace.
+Unless otherwise noted, class names are relative to the `Laminas\View` namespace.
 
 ### render
 

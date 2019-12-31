@@ -1,26 +1,25 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
 use ArrayObject;
-use stdClass;
+use Laminas\View\Exception;
+use Laminas\View\Helper\PartialLoop;
+use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
-use Zend\View\Exception;
-use Zend\View\Helper\PartialLoop;
-use Zend\View\Renderer\PhpRenderer as View;
+use stdClass;
 
 /**
- * Test class for Zend\View\Helper\PartialLoop.
+ * Test class for Laminas\View\Helper\PartialLoop.
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class PartialLoopTest extends TestCase
 {
@@ -200,8 +199,8 @@ class PartialLoopTest extends TestCase
     }
 
     /**
-     * @group ZF-3350
-     * @group ZF-3352
+     * @group Laminas-3350
+     * @group Laminas-3352
      */
     public function testShouldNotCastToArrayIfObjectIsTraversable()
     {
@@ -226,7 +225,7 @@ class PartialLoopTest extends TestCase
     }
 
     /**
-     * @group ZF-3083
+     * @group Laminas-3083
      */
     public function testEmptyArrayPassedToPartialLoopShouldNotThrowException()
     {
@@ -238,7 +237,7 @@ class PartialLoopTest extends TestCase
     }
 
     /**
-     * @group ZF-2737
+     * @group Laminas-2737
      */
     public function testPartialLoopIncrementsPartialCounter()
     {
@@ -258,7 +257,7 @@ class PartialLoopTest extends TestCase
     }
 
     /**
-     * @group ZF-5174
+     * @group Laminas-5174
      */
     public function testPartialLoopPartialCounterResets()
     {
@@ -511,8 +510,8 @@ class PartialLoopTest extends TestCase
     }
 
     /**
-     * @group ZF-3350
-     * @group ZF-3352
+     * @group Laminas-3350
+     * @group Laminas-3352
      */
     public function testShouldNotCastToArrayIfObjectIsTraversableInLoopMethod()
     {
@@ -537,7 +536,7 @@ class PartialLoopTest extends TestCase
     }
 
     /**
-     * @group ZF-3083
+     * @group Laminas-3083
      */
     public function testEmptyArrayPassedToPartialLoopShouldNotThrowExceptionInLoopMethod()
     {
@@ -549,7 +548,7 @@ class PartialLoopTest extends TestCase
     }
 
     /**
-     * @group ZF-2737
+     * @group Laminas-2737
      */
     public function testPartialLoopIncrementsPartialCounterInLoopMethod()
     {
@@ -569,7 +568,7 @@ class PartialLoopTest extends TestCase
     }
 
     /**
-     * @group ZF-5174
+     * @group Laminas-5174
      */
     public function testPartialLoopPartialCounterResetsInLoopMethod()
     {

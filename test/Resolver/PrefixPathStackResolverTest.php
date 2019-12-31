@@ -1,22 +1,21 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Resolver;
+namespace LaminasTest\View\Resolver;
 
+use Laminas\View\Resolver\PrefixPathStackResolver;
+use Laminas\View\Resolver\ResolverInterface;
 use PHPUnit\Framework\TestCase;
-use Zend\View\Resolver\PrefixPathStackResolver;
-use Zend\View\Resolver\ResolverInterface;
 
 /**
- * Tests for {@see \Zend\View\Resolver\PrefixPathStackResolver}
+ * Tests for {@see \Laminas\View\Resolver\PrefixPathStackResolver}
  *
- * @covers \Zend\View\Resolver\PrefixPathStackResolver
+ * @covers \Laminas\View\Resolver\PrefixPathStackResolver
  */
 class PrefixPathStackResolverTest extends TestCase
 {

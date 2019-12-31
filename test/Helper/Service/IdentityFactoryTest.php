@@ -1,19 +1,20 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-view for the canonical source repository
- * @copyright Copyright (c) 2018 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframework/zend-view/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper\Service;
+namespace LaminasTest\View\Helper\Service;
 
+use Laminas\Authentication\AuthenticationService;
+use Laminas\Authentication\AuthenticationServiceInterface;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\Helper\Identity;
+use Laminas\View\Helper\Service\IdentityFactory;
+use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\TestCase;
-use Zend\Authentication\AuthenticationService;
-use Zend\Authentication\AuthenticationServiceInterface;
-use Zend\ServiceManager\ServiceManager;
-use Zend\View\Helper\Identity;
-use Zend\View\HelperPluginManager;
-use Zend\View\Helper\Service\IdentityFactory;
 
 class IdentityFactoryTest extends TestCase
 {
@@ -34,9 +35,14 @@ class IdentityFactoryTest extends TestCase
     public function testFactoryReturnsEmptyIdentityIfNoAuthenticationServicePresent()
     {
         $this->services->has(AuthenticationService::class)->willReturn(false);
+
+        $this->services->has(\Zend\Authentication\AuthenticationService::class)->willReturn(false);
         $this->services->get(AuthenticationService::class)->shouldNotBeCalled();
+        $this->services->get(\Zend\Authentication\AuthenticationService::class)->shouldNotBeCalled();
         $this->services->has(AuthenticationServiceInterface::class)->willReturn(false);
+        $this->services->has(\Zend\Authentication\AuthenticationServiceInterface::class)->willReturn(false);
         $this->services->get(AuthenticationServiceInterface::class)->shouldNotBeCalled();
+        $this->services->get(\Zend\Authentication\AuthenticationServiceInterface::class)->shouldNotBeCalled();
 
         $factory = new IdentityFactory();
 
@@ -53,7 +59,9 @@ class IdentityFactoryTest extends TestCase
         $this->services->has(AuthenticationService::class)->willReturn(true);
         $this->services->get(AuthenticationService::class)->will([$authentication, 'reveal']);
         $this->services->has(AuthenticationServiceInterface::class)->willReturn(false);
+        $this->services->has(\Zend\Authentication\AuthenticationServiceInterface::class)->willReturn(false);
         $this->services->get(AuthenticationServiceInterface::class)->shouldNotBeCalled();
+        $this->services->get(\Zend\Authentication\AuthenticationServiceInterface::class)->shouldNotBeCalled();
 
         $factory = new IdentityFactory();
 
@@ -68,7 +76,10 @@ class IdentityFactoryTest extends TestCase
         $authentication = $this->prophesize(AuthenticationServiceInterface::class);
 
         $this->services->has(AuthenticationService::class)->willReturn(false);
+
+        $this->services->has(\Zend\Authentication\AuthenticationService::class)->willReturn(false);
         $this->services->get(AuthenticationService::class)->shouldNotBeCalled();
+        $this->services->get(\Zend\Authentication\AuthenticationService::class)->shouldNotBeCalled();
         $this->services->has(AuthenticationServiceInterface::class)->willReturn(true);
         $this->services->get(AuthenticationServiceInterface::class)->will([$authentication, 'reveal']);
 
