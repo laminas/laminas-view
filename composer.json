@@ -1,55 +1,22 @@
 {
-    "name": "zendframework/zend-view",
+    "name": "laminas/laminas-view",
     "description": "provides a system of helpers, output filters, and variable escaping",
     "license": "BSD-3-Clause",
     "keywords": [
-        "zf2",
+        "laminas",
         "view"
     ],
-    "homepage": "https://github.com/zendframework/zend-view",
-    "autoload": {
-        "psr-4": {
-            "Zend\\View\\": "src/"
-        }
+    "homepage": "https://laminas.dev",
+    "support": {
+        "docs": "https://docs.laminas.dev/laminas-view/",
+        "issues": "https://github.com/laminas/laminas-view/issues",
+        "source": "https://github.com/laminas/laminas-view",
+        "rss": "https://github.com/laminas/laminas-view/releases.atom",
+        "chat": "https://laminas.dev/chat",
+        "forum": "https://discourse.laminas.dev"
     },
-    "require": {
-        "php": ">=5.3.23",
-        "zendframework/zend-eventmanager": "self.version",
-        "zendframework/zend-loader": "self.version",
-        "zendframework/zend-stdlib": "self.version"
-    },
-    "require-dev": {
-        "zendframework/zend-authentication": "self.version",
-        "zendframework/zend-escaper": "self.version",
-        "zendframework/zend-feed": "self.version",
-        "zendframework/zend-filter": "self.version",
-        "zendframework/zend-http": "self.version",
-        "zendframework/zend-i18n": "self.version",
-        "zendframework/zend-json": "self.version",
-        "zendframework/zend-mvc": "self.version",
-        "zendframework/zend-navigation": "self.version",
-        "zendframework/zend-paginator": "self.version",
-        "zendframework/zend-permissions-acl": "self.version",
-        "zendframework/zend-servicemanager": "self.version",
-        "zendframework/zend-uri": "self.version",
-        "fabpot/php-cs-fixer": "1.7.*",
-        "satooshi/php-coveralls": "dev-master",
-        "phpunit/PHPUnit": "~4.0"
-    },
-    "suggest": {
-        "zendframework/zend-authentication": "Zend\\Authentication component",
-        "zendframework/zend-escaper": "Zend\\Escaper component",
-        "zendframework/zend-feed": "Zend\\Feed component",
-        "zendframework/zend-filter": "Zend\\Filter component",
-        "zendframework/zend-http": "Zend\\Http component",
-        "zendframework/zend-i18n": "Zend\\I18n component",
-        "zendframework/zend-json": "Zend\\Json component",
-        "zendframework/zend-mvc": "Zend\\Mvc component",
-        "zendframework/zend-navigation": "Zend\\Navigation component",
-        "zendframework/zend-paginator": "Zend\\Paginator component",
-        "zendframework/zend-permissions-acl": "Zend\\Permissions\\Acl component",
-        "zendframework/zend-servicemanager": "Zend\\ServiceManager component",
-        "zendframework/zend-uri": "Zend\\Uri component"
+    "config": {
+        "sort-packages": true
     },
     "extra": {
         "branch-alias": {
@@ -57,9 +24,57 @@
             "dev-develop": "2.4-dev"
         }
     },
+    "require": {
+        "php": ">=5.3.23",
+        "laminas/laminas-eventmanager": "self.version",
+        "laminas/laminas-loader": "self.version",
+        "laminas/laminas-stdlib": "self.version",
+        "laminas/laminas-zendframework-bridge": "^1.0"
+    },
+    "require-dev": {
+        "fabpot/php-cs-fixer": "1.7.*",
+        "laminas/laminas-authentication": "self.version",
+        "laminas/laminas-escaper": "self.version",
+        "laminas/laminas-feed": "self.version",
+        "laminas/laminas-filter": "self.version",
+        "laminas/laminas-http": "self.version",
+        "laminas/laminas-i18n": "self.version",
+        "laminas/laminas-json": "self.version",
+        "laminas/laminas-mvc": "self.version",
+        "laminas/laminas-navigation": "self.version",
+        "laminas/laminas-paginator": "self.version",
+        "laminas/laminas-permissions-acl": "self.version",
+        "laminas/laminas-servicemanager": "self.version",
+        "laminas/laminas-uri": "self.version",
+        "phpunit/phpunit": "~4.0",
+        "satooshi/php-coveralls": "dev-master"
+    },
+    "suggest": {
+        "laminas/laminas-authentication": "Laminas\\Authentication component",
+        "laminas/laminas-escaper": "Laminas\\Escaper component",
+        "laminas/laminas-feed": "Laminas\\Feed component",
+        "laminas/laminas-filter": "Laminas\\Filter component",
+        "laminas/laminas-http": "Laminas\\Http component",
+        "laminas/laminas-i18n": "Laminas\\I18n component",
+        "laminas/laminas-json": "Laminas\\Json component",
+        "laminas/laminas-mvc": "Laminas\\Mvc component",
+        "laminas/laminas-navigation": "Laminas\\Navigation component",
+        "laminas/laminas-paginator": "Laminas\\Paginator component",
+        "laminas/laminas-permissions-acl": "Laminas\\Permissions\\Acl component",
+        "laminas/laminas-servicemanager": "Laminas\\ServiceManager component",
+        "laminas/laminas-uri": "Laminas\\Uri component"
+    },
+    "autoload": {
+        "psr-4": {
+            "Laminas\\View\\": "src/"
+        }
+    },
     "autoload-dev": {
         "psr-4": {
-            "ZendTest\\View\\": "test/"
+            "LaminasTest\\View\\": "test/"
         }
+    },
+    "replace": {
+        "zendframework/zend-view": "self.version"
     }
 }
