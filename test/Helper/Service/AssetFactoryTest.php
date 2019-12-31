@@ -1,18 +1,19 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-view for the canonical source repository
- * @copyright Copyright (c) 2017 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   https://github.com/zendframework/zend-view/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper\Service;
+namespace LaminasTest\View\Helper\Service;
 
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\Exception;
+use Laminas\View\Helper\Asset;
+use Laminas\View\Helper\Service\AssetFactory;
+use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\TestCase;
-use Zend\ServiceManager\ServiceManager;
-use Zend\View\Exception;
-use Zend\View\Helper\Asset;
-use Zend\View\Helper\Service\AssetFactory;
-use Zend\View\HelperPluginManager;
 
 class AssetFactoryTest extends TestCase
 {
@@ -80,7 +81,7 @@ class AssetFactoryTest extends TestCase
 
         $helpers = new HelperPluginManager($services->reveal());
 
-        // test if we are using Zend\ServiceManager v3
+        // test if we are using Laminas\ServiceManager v3
         if (method_exists($helpers, 'configure')) {
             return $services->reveal();
         }

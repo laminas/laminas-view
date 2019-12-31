@@ -1,20 +1,19 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Resolver;
+namespace LaminasTest\View\Resolver;
 
+use Laminas\View\Exception;
+use Laminas\View\Resolver\TemplatePathStack;
 use PHPUnit\Framework\TestCase;
-use Zend\View\Exception;
-use Zend\View\Resolver\TemplatePathStack;
 
 /**
- * @group      Zend_View
+ * @group      Laminas_View
  */
 class TemplatePathStackTest extends TestCase
 {
@@ -171,7 +170,7 @@ class TemplatePathStackTest extends TestCase
         }
         $this->stack->setUseStreamWrapper(true)
                     ->addPath($this->baseDir . '/_templates');
-        $expected = 'zend.view://' . realpath($this->baseDir . '/_templates/test.phtml');
+        $expected = 'laminas.view://' . realpath($this->baseDir . '/_templates/test.phtml');
         $test     = $this->stack->resolve('test.phtml');
         $this->assertEquals($expected, $test);
     }

@@ -1,23 +1,22 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
+use Laminas\View;
+use Laminas\View\Helper;
 use PHPUnit\Framework\TestCase;
-use Zend\View\Helper;
-use Zend\View;
 
 /**
- * Test class for Zend\View\Helper\HeadScript.
+ * Test class for Laminas\View\Helper\HeadScript.
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class HeadScriptTest extends TestCase
 {
@@ -365,8 +364,8 @@ document.write(bar.strlen());');
     }
 
     /**
-     * @issue ZF-3928
-     * @link http://framework.zend.com/issues/browse/ZF-3928
+     * @issue Laminas-3928
+     * @link https://getlaminas.org/issues/browse/Laminas-3928
      */
     public function testTurnOffAutoEscapeDoesNotEncodeAmpersand()
     {
@@ -421,7 +420,7 @@ document.write(bar.strlen());');
     }
 
     /**
-     * @issue ZF-5435
+     * @issue Laminas-5435
      */
     public function testContainerMaintainsCorrectOrderOfItems()
     {
@@ -497,8 +496,8 @@ document.write(bar.strlen());');
      */
     public function testOmitsTypeAttributeIfEmptyValueAndHtml5Doctype()
     {
-        $view = new \Zend\View\Renderer\PhpRenderer();
-        $view->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5);
+        $view = new \Laminas\View\Renderer\PhpRenderer();
+        $view->plugin('doctype')->setDoctype(\Laminas\View\Helper\Doctype::HTML5);
         $this->helper->setView($view);
 
         $this->helper->__invoke()->appendScript('// some script' . PHP_EOL, '');

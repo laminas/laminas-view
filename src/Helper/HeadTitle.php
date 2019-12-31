@@ -1,18 +1,19 @@
 <?php
+
 /**
- * @link      http://github.com/zendframework/zend-view for the canonical source repository
- * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
-use Zend\View\Exception;
+use Laminas\View\Exception;
 
 /**
  * Helper for setting and retrieving title element for HTML head.
  *
- * Duck-types against Zend\I18n\Translator\TranslatorAwareInterface.
+ * Duck-types against Laminas\I18n\Translator\TranslatorAwareInterface.
  */
 class HeadTitle extends Placeholder\Container\AbstractStandalone
 {
@@ -23,7 +24,7 @@ class HeadTitle extends Placeholder\Container\AbstractStandalone
      *
      * @var string
      */
-    protected $regKey = 'Zend_View_Helper_HeadTitle';
+    protected $regKey = 'Laminas_View_Helper_HeadTitle';
 
     /**
      * Default title rendering order (i.e. order in which each title attached)
