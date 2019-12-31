@@ -1,25 +1,23 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper\Placeholder;
+namespace LaminasTest\View\Helper\Placeholder;
 
-use Zend\View\Renderer\PhpRenderer as View;
+use Laminas\View\Renderer\PhpRenderer as View;
 
 /**
- * Test class for Zend_View_Helper_Placeholder_StandaloneContainer.
+ * Test class for Laminas_View_Helper_Placeholder_StandaloneContainer.
  *
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class StandaloneContainerTest extends \PHPUnit_Framework_TestCase
 {
@@ -32,7 +30,7 @@ class StandaloneContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        \Zend\View\Helper\Placeholder\Registry::unsetRegistry();
+        \Laminas\View\Helper\Placeholder\Registry::unsetRegistry();
         $this->basePath = __DIR__ . '/_files/modules';
         $this->helper = new Foo();
     }
@@ -71,7 +69,7 @@ class StandaloneContainerTest extends \PHPUnit_Framework_TestCase
     }
 }
 
-class Foo extends \Zend\View\Helper\Placeholder\Container\AbstractStandalone
+class Foo extends \Laminas\View\Helper\Placeholder\Container\AbstractStandalone
 {
     protected $_regKey = 'foo';
     public function direct() {}
