@@ -1,40 +1,39 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Model;
+namespace LaminasTest\View\Model;
 
 use ArrayObject;
-use stdClass;
+use Laminas\View\Exception;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Variables as ViewVariables;
+use LaminasTest\View\Model\TestAsset\Variable;
 use PHPUnit\Framework\TestCase;
-use Zend\View\Exception;
-use Zend\View\Model\ViewModel;
-use Zend\View\Variables as ViewVariables;
-use ZendTest\View\Model\TestAsset\Variable;
+use stdClass;
 
 class ViewModelTest extends TestCase
 {
     public function testImplementsModelInterface()
     {
         $model = new ViewModel();
-        $this->assertInstanceOf('Zend\View\Model\ModelInterface', $model);
+        $this->assertInstanceOf('Laminas\View\Model\ModelInterface', $model);
     }
 
     public function testImplementsClearableModelInterface()
     {
         $model = new ViewModel();
-        $this->assertInstanceOf('Zend\View\Model\ClearableModelInterface', $model);
+        $this->assertInstanceOf('Laminas\View\Model\ClearableModelInterface', $model);
     }
 
     public function testAllowsEmptyConstructor()
     {
         $model = new ViewModel();
-        $this->assertInstanceOf('Zend\View\Variables', $model->getVariables());
+        $this->assertInstanceOf('Laminas\View\Variables', $model->getVariables());
         $this->assertEquals([], $model->getOptions());
     }
 

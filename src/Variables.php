@@ -1,18 +1,17 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View;
+namespace Laminas\View;
 
 use ArrayObject;
 
 /**
- * Class for Zend\View\Renderer\PhpRenderer to help enforce private constructs.
+ * Class for Laminas\View\Renderer\PhpRenderer to help enforce private constructs.
  *
  * @todo       Allow specifying string names for manager, filter chain, variables
  * @todo       Move escaping into variables object

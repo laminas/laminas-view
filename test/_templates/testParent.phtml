@@ -1,5 +1,5 @@
 <?php
-use Zend\Log;
+use Laminas\Log;
 
 $content = $this->render($this->content);
 $logger = new Log\Logger(new Log\Writer\Stream(__DIR__ . '/view.log'));

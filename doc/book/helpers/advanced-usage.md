@@ -2,12 +2,12 @@
 
 ## Registering Helpers
 
-`Zend\View\Renderer\PhpRenderer` composes a *plugin manager* for managing
-helpers, specifically an instance of `Zend\View\HelperPluginManager`, which
-extends `Zend\ServiceManager\AbstractPluginManager`, which is itself an
-extension of `Zend\ServiceManager\ServiceManager`.  `HelperPluginManager` is a
+`Laminas\View\Renderer\PhpRenderer` composes a *plugin manager* for managing
+helpers, specifically an instance of `Laminas\View\HelperPluginManager`, which
+extends `Laminas\ServiceManager\AbstractPluginManager`, which is itself an
+extension of `Laminas\ServiceManager\ServiceManager`.  `HelperPluginManager` is a
 specialized service manager, so you can register a helper/plugin like any other
-service (see the [Service Manager documentation](http://zendframework.github.io/zend-servicemanager/configuring-the-service-manager/)
+service (see the [Service Manager documentation](http://docs.laminas.dev/laminas-servicemanager/configuring-the-service-manager/)
 for more information).
 
 Programmatically, this is done as follows:
@@ -36,7 +36,7 @@ via your configuration.
 
 ```php
 use MyModule\View\Helper;
-use Zend\ServiceManager\Factory\InvokableFactory;
+use Laminas\ServiceManager\Factory\InvokableFactory;
 
 // From within a configuration file
 return [
@@ -53,7 +53,7 @@ return [
 ];
 ```
 
-If your module class implements `Zend\ModuleManager\Feature\ViewHelperProviderInterface`,
+If your module class implements `Laminas\ModuleManager\Feature\ViewHelperProviderInterface`,
 or just the method `getViewHelperConfig()`, you could also do the following
 (it's the same as the previous example).
 
@@ -86,13 +86,13 @@ class will actually be registered!
 ## Writing Custom Helpers
 
 Writing custom helpers is easy. We recommend extending
-`Zend\View\Helper\AbstractHelper`, but at the minimum, you need only implement
-the `Zend\View\Helper\HelperInterface` interface:
+`Laminas\View\Helper\AbstractHelper`, but at the minimum, you need only implement
+the `Laminas\View\Helper\HelperInterface` interface:
 
 ```php
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
-use Zend\View\Renderer\RendererInterface as Renderer;
+use Laminas\View\Renderer\RendererInterface as Renderer;
 
 interface HelperInterface
 {
@@ -116,7 +116,7 @@ interface HelperInterface
 If you want your helper to be capable of being invoked as if it were a method call of the
 `PhpRenderer`, you should also implement an `__invoke()` method within your helper.
 
-As previously noted, we recommend extending `Zend\View\Helper\AbstractHelper`, as it implements the
+As previously noted, we recommend extending `Laminas\View\Helper\AbstractHelper`, as it implements the
 methods defined in `HelperInterface`, giving you a headstart in your development.
 
 > ### Invokable helpers
@@ -133,7 +133,7 @@ Here is an example helper, which we're titling "SpecialPurpose"
 ```php
 namespace MyModule\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 
 class SpecialPurpose extends AbstractHelper
 {
@@ -156,7 +156,7 @@ you like; it will be instantiated once, and then it persists for the life of
 that `PhpRenderer` instance.
 
 ```php
-// remember, in a view script, $this refers to the Zend\View\Renderer\PhpRenderer instance.
+// remember, in a view script, $this refers to the Laminas\View\Renderer\PhpRenderer instance.
 echo $this->specialPurpose();
 echo $this->specialPurpose();
 echo $this->specialPurpose();
@@ -179,7 +179,7 @@ as follows to take advantage of the `EscapeHtml` helper:
 ```php
 namespace MyModule\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 
 class SpecialPurpose extends AbstractHelper
 {
@@ -212,7 +212,7 @@ class SpecialPurpose extends AbstractHelper
 > ```php
 > namespace MyModule\View\Helper;
 > 
-> use Zend\View\Helper\EscapeHtml;
+> use Laminas\View\Helper\EscapeHtml;
 > 
 > class SpecialPurpose
 > {
@@ -238,14 +238,14 @@ class SpecialPurpose extends AbstractHelper
 > Then we would write a factory like the following:
 > 
 > ```php
-> use Zend\ServiceManager\AbstractPluginManager;
+> use Laminas\ServiceManager\AbstractPluginManager;
 > 
 > class SpecialPurposeFactory
 > {
 >     public function __invoke($container)
 >     {
 >         if (! $container instanceof AbstractPluginManager) {
->             // zend-servicemanager v3. v2 passes the helper manager directly.
+>             // laminas-servicemanager v3. v2 passes the helper manager directly.
 >             $container = $container->get('ViewHelperManager');
 >         }
 > 
