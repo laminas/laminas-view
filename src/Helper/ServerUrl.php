@@ -1,20 +1,18 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
 /**
  * Helper for returning the current server URL (optionally with request URI)
  *
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage Helper
  */
 class ServerUrl extends AbstractHelper
@@ -88,7 +86,7 @@ class ServerUrl extends AbstractHelper
      * Sets host
      *
      * @param  string $host                new host
-     * @return \Zend\View\Helper\ServerUrl  fluent interface, returns self
+     * @return \Laminas\View\Helper\ServerUrl  fluent interface, returns self
      */
     public function setHost($host)
     {
@@ -123,7 +121,7 @@ class ServerUrl extends AbstractHelper
      * Sets scheme (typically http or https)
      *
      * @param  string $scheme              new scheme (typically http or https)
-     * @return \Zend\View\Helper\ServerUrl  fluent interface, returns self
+     * @return \Laminas\View\Helper\ServerUrl  fluent interface, returns self
      */
     public function setScheme($scheme)
     {
