@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Flexible view layer supporting and providing multiple view layers, helpers, and more.">  
+    <link rel="canonical" href="https://docs.laminas.dev/cookbook/setting-module-specific-layouts/">
+    <link rel="shortcut icon" href="/img/trademark-laminas-foundation-rgb.svg">
+
+    <title>Setting module-specific Layouts - laminas-view - Laminas Docs</title>
+
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body id="page-top" class="components">
+
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        
+        <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+        </a>
+        <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
+            Documentation
+        </a>
+
+        
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
+                </li>
+            </ul>
+
+            
+            
+                <div class="d-block d-sm-none">
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../..">laminas-view</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../../quick-start/" class="subnavigation__link">Quick Start</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Rendering Views</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../php-renderer/" class="subnavigation__link">The PhpRenderer</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../view-scripts/" class="subnavigation__link">View Scripts</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../view-event/" class="subnavigation__link">The ViewEvent</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Helpers</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/intro/" class="subnavigation__link">Introduction</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/asset/" class="subnavigation__link">Asset</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/base-path/" class="subnavigation__link">BasePath</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/cycle/" class="subnavigation__link">Cycle</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/doctype/" class="subnavigation__link">Doctype</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/escape/" class="subnavigation__link">Escape</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/flash-messenger/" class="subnavigation__link">FlashMessenger</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/gravatar/" class="subnavigation__link">Gravatar</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/head-link/" class="subnavigation__link">HeadLink</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/head-meta/" class="subnavigation__link">HeadMeta</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/head-script/" class="subnavigation__link">HeadScript</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/head-style/" class="subnavigation__link">HeadStyle</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/head-title/" class="subnavigation__link">HeadTitle</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/html-list/" class="subnavigation__link">HtmlList</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/html-object/" class="subnavigation__link">HtmlObject</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/html-tag/" class="subnavigation__link">HtmlTag</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/identity/" class="subnavigation__link">Identity</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/inline-script/" class="subnavigation__link">InlineScript</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/json/" class="subnavigation__link">Json</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/layout/" class="subnavigation__link">Layout</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/partial/" class="subnavigation__link">Partial</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/placeholder/" class="subnavigation__link">Placeholder</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/url/" class="subnavigation__link">Url</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/advanced-usage/" class="subnavigation__link">Advanced usage of helpers</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Cookbook</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Setting module-specific Layouts</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                </div>
+            
+
+            
+            <div class="d-block d-sm-none">
+                <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    
+    <header class="header">
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="col-6 offset-md-2">
+                <h1 class="header__title">
+                    Components
+
+                    
+                        <small class="header__subtitle">laminas-view</small>
+                    
+                </h1>
+            </div>
+
+            
+            <div class="col-4 text-sm-right">
+                
+                    
+
+                    <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                    <a href="https://github.com/laminas/laminas-view/" class="header__link header__link--github" title="Go to repository of laminas-view">
+                        <i class="fa fa-github"></i> GitHub
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-sm-12">
+                
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+                
+                    <li class="toc__entry">
+                        <a href="#create-listener" class="toc__link">Create Listener</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#register-listener" class="toc__link">Register Listener</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#add-template-scripts-to-the-configuration" class="toc__link">Add Template Scripts to the Configuration</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+            </div>
+            <div class="col-md-7 col-sm-12 content" role="main" data-spy="scroll" data-target=".toc">
+                
+                    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        
+            <li class="breadcrumb-item"><a href="">Overview</a></li>
+
+            
+                <li class="breadcrumb-item"><a href="../..">laminas-view</a></li>
+
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">Cookbook</li>
+                        
+                    
+                
+
+                <li class="breadcrumb-item active" aria-current="page">Setting module-specific Layouts</li>
+            
+        
+    </ol>
+</nav>
+
+
+
+
+
+
+    
+    
+        <h2 class="chapter__headline">Cookbook</h2>
+    
+
+    <h1 id="setting-module-specific-layouts">Setting module-specific Layouts</h1>
+<p>The following example shows how to set a template for the layout based on a
+module name in a laminas-mvc based application. The example uses a listener that
+listens on the
+<a href="https://docs.laminas.dev/laminas-mvc/mvc-event/#mvceventevent_render-render"><code>Laminas\Mvc\MvcEvent::EVENT_RENDER</code> event</a>
+and uses the
+<a href="https://docs.laminas.dev/laminas-mvc/routing/#routing"><code>Laminas\Router\RouteMatch</code> object</a>
+to get the called controller from the current request.</p>
+<h2 id="create-listener">Create Listener</h2>
+<p>Create a listener as a separate class, e.g.
+<code>module/Admin/src/Listener/LayoutListener.php</code>:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>namespace Admin\Listener;</span>
+
+<span class=x>use Laminas\EventManager\AbstractListenerAggregate;</span>
+<span class=x>use Laminas\EventManager\EventManagerInterface;</span>
+<span class=x>use Laminas\Filter\FilterChain;</span>
+<span class=x>use Laminas\Filter\FilterInterface;</span>
+<span class=x>use Laminas\Filter\StringToLower;</span>
+<span class=x>use Laminas\Filter\Word\CamelCaseToDash;</span>
+<span class=x>use Laminas\Mvc\MvcEvent;</span>
+<span class=x>use Laminas\View\Resolver\TemplateMapResolver;</span>
+
+<span class=x>class LayoutListener extends AbstractListenerAggregate</span>
+<span class=x>{</span>
+<span class=x>    /** @var TemplateMapResolver */</span>
+<span class=x>    private $templateMapResolver;</span>
+
+<span class=x>    /** @var FilterInterface */</span>
+<span class=x>    private $filter;</span>
+
+<span class=x>    public function __construct(TemplateMapResolver $templateMapResolver)</span>
+<span class=x>    {</span>
+<span class=x>        $this-&gt;templateMapResolver = $templateMapResolver;</span>
+<span class=x>        $this-&gt;filter              = (new FilterChain())</span>
+<span class=x>            -&gt;attach(new CamelCaseToDash())</span>
+<span class=x>            -&gt;attach(new StringToLower());</span>
+<span class=x>    }</span>
+
+<span class=x>    public function attach(EventManagerInterface $events, $priority = 1)</span>
+<span class=x>    {</span>
+<span class=x>        $this-&gt;listeners[] = $events-&gt;attach(</span>
+<span class=x>            MvcEvent::EVENT_RENDER,</span>
+<span class=x>            [$this, &#39;setLayout&#39;]</span>
+<span class=x>        );</span>
+<span class=x>    }</span>
+
+<span class=x>    public function setLayout(MvcEvent $event) : void</span>
+<span class=x>    {</span>
+<span class=x>        // Get and check the route match object</span>
+<span class=x>        $routeMatch = $event-&gt;getRouteMatch();</span>
+<span class=x>        if (! $routeMatch) {</span>
+<span class=x>            return;</span>
+<span class=x>        }</span>
+
+<span class=x>        // Get and check the parameter for current controller</span>
+<span class=x>        $controller = $routeMatch-&gt;getParam(&#39;controller&#39;);</span>
+<span class=x>        if (! $controller) {</span>
+<span class=x>            return;</span>
+<span class=x>        }</span>
+
+<span class=x>        // Extract module name</span>
+<span class=x>        $module = substr($controller, 0, strpos($controller, &#39;\\&#39;));</span>
+
+<span class=x>        // Convert the module name from camel case to a lower string with dashes</span>
+<span class=x>        $name = &#39;layout/&#39; . $this-&gt;filter-&gt;filter($module);</span>
+
+<span class=x>        // Has the resolver an entry / layout with the given name?</span>
+<span class=x>        if (! $this-&gt;templateMapResolver-&gt;has($name)) {</span>
+<span class=x>            return;</span>
+<span class=x>        }</span>
+
+<span class=x>        // Get root view model</span>
+<span class=x>        $layoutViewModel = $event-&gt;getViewModel();</span>
+
+<span class=x>        // Change template</span>
+<span class=x>        $layoutViewModel-&gt;setTemplate($name);</span>
+<span class=x>    }</span>
+<span class=x>}</span>
+</pre></div></p>
+<h2 id="register-listener">Register Listener</h2>
+<p>Extend the module class to register the listener, e.g.
+<code>module/Admin/Module.php</code>:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>namespace Admin;</span>
+
+<span class=x>use Admin\Listener\LayoutListener;</span>
+<span class=x>use Laminas\Mvc\MvcEvent;</span>
+<span class=x>use Laminas\View\Resolver\TemplateMapResolver;</span>
+
+<span class=x>class Module</span>
+<span class=x>{</span>
+<span class=x>    public function onBootstrap(MvcEvent $event) : void</span>
+<span class=x>    {</span>
+<span class=x>        $application = $event-&gt;getApplication();</span>
+
+<span class=x>        /** @var TemplateMapResolver $templateMapResolver */</span>
+<span class=x>        $templateMapResolver = $application-&gt;getServiceManager()-&gt;get(</span>
+<span class=x>            &#39;ViewTemplateMapResolver&#39;</span>
+<span class=x>        );</span>
+
+<span class=x>        // Create and register layout listener</span>
+<span class=x>        $listener = new LayoutListener($templateMapResolver);</span>
+<span class=x>        $listener-&gt;attach($application-&gt;getEventManager());</span>
+<span class=x>    }</span>
+
+<span class=x>    // …</span>
+<span class=x>}</span>
+</pre></div></p>
+<blockquote>
+<p>More information on registering module-specific listeners can be found in the
+<a href="https://docs.laminas.dev/laminas-mvc/examples/#registering-module-specific-listeners">documentation of laminas-mvc</a>.</p>
+</blockquote>
+<h2 id="add-template-scripts-to-the-configuration">Add Template Scripts to the Configuration</h2>
+<p>Extend the configuration of a module to add the specific layout script, e.g.
+<code>module/Admin/config/module.config.php</code>:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>return [</span>
+<span class=x>    // Add the following array</span>
+<span class=x>    &#39;view_manager&#39; =&gt; [</span>
+<span class=x>        &#39;template_map&#39; =&gt; [</span>
+<span class=x>            &#39;layout/admin&#39; =&gt; __DIR__ . &#39;/../view/layout/admin.phtml&#39;,</span>
+<span class=x>        ],</span>
+<span class=x>    ],</span>
+<span class=x>    // …</span>
+<span class=x>];</span>
+</pre></div></p>
+<p>And in another module, e.g. <code>module/Album/config/module.config.php</code>:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>return [</span>
+<span class=x>    // Add the following array</span>
+<span class=x>    &#39;view_manager&#39; =&gt; [</span>
+<span class=x>        &#39;template_map&#39; =&gt; [</span>
+<span class=x>            &#39;layout/album&#39; =&gt; __DIR__ . &#39;/../view/layout/layout-of-album.phtml&#39;,</span>
+<span class=x>        ],</span>
+<span class=x>    ],</span>
+<span class=x>    // …</span>
+<span class=x>];</span>
+</pre></div></p>
+<p>The name of the array key must follow the format <code>layout/{module-name}</code> and the
+value must contain the path to the layout file. The path and the filename can be
+freely chosen.</p>
+
+
+
+
+    <nav>
+    <ul class="page-nav hidden-print">
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../../helpers/advanced-usage/">
+                    <i class="fa fa-chevron-left"></i> Previous
+                </a>
+            
+        </li>
+
+        
+        <li class="page-nav__item">
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+
+    <div class="help-wanted">
+        <p>
+            Found a mistake or want to contribute to the documentation?
+            <a href="https://github.com/laminas/laminas-view/edit/master/docs/book/cookbook/setting-module-specific-layouts.md" target="_blank" class="help-wanted__link">
+                Edit this page on GitHub!
+            </a>
+        </p>
+    </div>
+
+                
+            </div>
+            <div class="col-md-3 col-sm-12 sidebar">
+                
+                    <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../..">laminas-view</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../../quick-start/" class="subnavigation__link">Quick Start</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Rendering Views</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../php-renderer/" class="subnavigation__link">The PhpRenderer</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../view-scripts/" class="subnavigation__link">View Scripts</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../view-event/" class="subnavigation__link">The ViewEvent</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Helpers</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/intro/" class="subnavigation__link">Introduction</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/asset/" class="subnavigation__link">Asset</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/base-path/" class="subnavigation__link">BasePath</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/cycle/" class="subnavigation__link">Cycle</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/doctype/" class="subnavigation__link">Doctype</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/escape/" class="subnavigation__link">Escape</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/flash-messenger/" class="subnavigation__link">FlashMessenger</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/gravatar/" class="subnavigation__link">Gravatar</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/head-link/" class="subnavigation__link">HeadLink</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/head-meta/" class="subnavigation__link">HeadMeta</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/head-script/" class="subnavigation__link">HeadScript</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/head-style/" class="subnavigation__link">HeadStyle</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/head-title/" class="subnavigation__link">HeadTitle</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/html-list/" class="subnavigation__link">HtmlList</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/html-object/" class="subnavigation__link">HtmlObject</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/html-tag/" class="subnavigation__link">HtmlTag</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/identity/" class="subnavigation__link">Identity</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/inline-script/" class="subnavigation__link">InlineScript</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/json/" class="subnavigation__link">Json</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/layout/" class="subnavigation__link">Layout</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/partial/" class="subnavigation__link">Partial</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/placeholder/" class="subnavigation__link">Placeholder</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/url/" class="subnavigation__link">Url</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/advanced-usage/" class="subnavigation__link">Advanced usage of helpers</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Cookbook</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Setting module-specific Layouts</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+    <div class="container">
+
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7 offset-md-2">
+                <h5>Laminas</h5>
+                <ul>
+                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
+                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+
+            
+            <div class="col-md-4 offset-md-2">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/getlaminas" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">License</h4>
+                <p>
+                    Code licensed under <a
+                        href="https://github.com/laminas/laminas-view//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                </p>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>
+                    <!--Built with love by the Laminas team with the help of our
+                    <a href="https://github.com/laminas/laminas-view//graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        let base_url = '../..',
+            project  = "components",
+            siteName = 'laminas-view';
+    </script>
+    <script src="/js/scripts.js"></script>
+        <script src="../../search/main.js"></script>
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Search</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search in laminas-view" id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>

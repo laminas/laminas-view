@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Flexible view layer supporting and providing multiple view layers, helpers, and more.">  
+    <link rel="canonical" href="https://docs.laminas.dev/helpers/placeholder/">
+    <link rel="shortcut icon" href="/img/trademark-laminas-foundation-rgb.svg">
+
+    <title>Placeholder - laminas-view - Laminas Docs</title>
+
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body id="page-top" class="components">
+
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        
+        <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+        </a>
+        <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
+            Documentation
+        </a>
+
+        
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
+                </li>
+            </ul>
+
+            
+            
+                <div class="d-block d-sm-none">
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../..">laminas-view</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../../quick-start/" class="subnavigation__link">Quick Start</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Rendering Views</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../php-renderer/" class="subnavigation__link">The PhpRenderer</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../view-scripts/" class="subnavigation__link">View Scripts</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../view-event/" class="subnavigation__link">The ViewEvent</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Helpers</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../intro/" class="subnavigation__link">Introduction</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../asset/" class="subnavigation__link">Asset</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../base-path/" class="subnavigation__link">BasePath</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../cycle/" class="subnavigation__link">Cycle</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../doctype/" class="subnavigation__link">Doctype</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../escape/" class="subnavigation__link">Escape</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../flash-messenger/" class="subnavigation__link">FlashMessenger</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../gravatar/" class="subnavigation__link">Gravatar</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../head-link/" class="subnavigation__link">HeadLink</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../head-meta/" class="subnavigation__link">HeadMeta</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../head-script/" class="subnavigation__link">HeadScript</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../head-style/" class="subnavigation__link">HeadStyle</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../head-title/" class="subnavigation__link">HeadTitle</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../html-list/" class="subnavigation__link">HtmlList</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../html-object/" class="subnavigation__link">HtmlObject</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../html-tag/" class="subnavigation__link">HtmlTag</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../identity/" class="subnavigation__link">Identity</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../inline-script/" class="subnavigation__link">InlineScript</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../json/" class="subnavigation__link">Json</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../layout/" class="subnavigation__link">Layout</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../partial/" class="subnavigation__link">Partial</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Placeholder</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../url/" class="subnavigation__link">Url</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../advanced-usage/" class="subnavigation__link">Advanced usage of helpers</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Cookbook</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../cookbook/setting-module-specific-layouts/" class="subnavigation__link">Setting module-specific Layouts</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                </div>
+            
+
+            
+            <div class="d-block d-sm-none">
+                <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    
+    <header class="header">
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="col-6 offset-md-2">
+                <h1 class="header__title">
+                    Components
+
+                    
+                        <small class="header__subtitle">laminas-view</small>
+                    
+                </h1>
+            </div>
+
+            
+            <div class="col-4 text-sm-right">
+                
+                    
+
+                    <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                    <a href="https://github.com/laminas/laminas-view/" class="header__link header__link--github" title="Go to repository of laminas-view">
+                        <i class="fa fa-github"></i> GitHub
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-sm-12">
+                
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+                
+                    <li class="toc__entry">
+                        <a href="#basic-usage" class="toc__link">Basic Usage</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#aggregate-content" class="toc__link">Aggregate Content</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#capture-content" class="toc__link">Capture Content</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#clearing-content" class="toc__link">Clearing Content</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#concrete-implementations" class="toc__link">Concrete Implementations</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+            </div>
+            <div class="col-md-7 col-sm-12 content" role="main" data-spy="scroll" data-target=".toc">
+                
+                    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        
+            <li class="breadcrumb-item"><a href="">Overview</a></li>
+
+            
+                <li class="breadcrumb-item"><a href="../..">laminas-view</a></li>
+
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">Helpers</li>
+                        
+                    
+                
+
+                <li class="breadcrumb-item active" aria-current="page">Placeholder</li>
+            
+        
+    </ol>
+</nav>
+
+
+
+
+
+
+    
+    
+        <h2 class="chapter__headline">Helpers</h2>
+    
+
+    <h1 id="placeholder">Placeholder</h1>
+<p>The <code>Placeholder</code> view helper is used to persist content between view scripts
+and view instances. It also offers some useful features such as aggregating
+content, capturing view script content for later use, and adding pre- and
+post-text to content (and custom separators for aggregated content).</p>
+<h2 id="basic-usage">Basic Usage</h2>
+<p>Basic usage of placeholders is to persist view data. Each invocation of the
+<code>Placeholder</code> helper expects a placeholder name; the helper then returns a
+placeholder container object that you can either manipulate or echo.</p>
+<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>placeholder</span><span class=p>(</span><span class=s1>&#39;foo&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>set</span><span class=p>(</span><span class=s2>&quot;Some text for later&quot;</span><span class=p>)</span> <span class=cp>?&gt;</span><span class=x></span>
+
+<span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>placeholder</span><span class=p>(</span><span class=s1>&#39;foo&#39;</span><span class=p>);</span> <span class=cp>?&gt;</span><span class=x></span>
+</pre></div></p>
+<p>Results in:</p>
+<p> <div class=codehilite><pre><span></span>Some text for later
+</pre></div></p>
+<h2 id="aggregate-content">Aggregate Content</h2>
+<p>Aggregating content via placeholders can be useful at times as well. For
+instance, your view script may have a variable array from which you wish to
+retrieve messages to display later; a later view script can then determine how
+those will be rendered.</p>
+<p>The <code>Placeholder</code> view helper uses containers that extend <code>ArrayObject</code>,
+providing a rich feature set for manipulating arrays. In addition, it offers a
+variety of methods for formatting the content stored in the container:</p>
+<ul>
+<li><code>setPrefix($prefix)</code> sets text with which to prefix the content. Use
+  <code>getPrefix()</code> at any time to determine what the current setting is.</li>
+<li><code>setPostfix($prefix)</code> sets text with which to append the content. Use
+  <code>getPostfix()</code> at any time to determine what the current setting is.</li>
+<li><code>setSeparator($prefix)</code> sets text with which to separate aggregated content.
+  Use <code>getSeparator()</code> at any time to determine what the current setting is.</li>
+<li><code>setIndent($prefix)</code> can be used to set an indentation value for content. If
+  an integer is passed, that number of spaces will be used; if a string is
+  passed, the string will be used. Use <code>getIndent()</code> at any time to determine
+  what the current setting is.</li>
+</ul>
+<div class=md-fenced-code-tabs id=tab-tab-group-2><ul class="nav nav-tabs"><li class=nav-item><a class="nav-link active" href=#tab-group-2-0_php-panel role=tab id=tab-group-2-0_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-2-0_php-panel aria-selected=true>Php</a></li><li class=nav-item><a class="nav-link " href=#tab-group-2-1_php-panel role=tab id=tab-group-2-1_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-2-1_php-panel aria-selected=false>Php</a></li></ul><div class=tab-content><div id=tab-group-2-0_php-panel class="tab-pane show active" role=tabpanel aria-labelledby=tab-group-2-0_php-tab><div class=codehilite><pre><span></span><span class=x>&lt;!-- first view script --&gt;</span>
+<span class=cp>&lt;?php</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>placeholder</span><span class=p>(</span><span class=s1>&#39;foo&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>exchangeArray</span><span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>data</span><span class=p>)</span> <span class=cp>?&gt;</span><span class=x></span>
+</pre></div></div><div id=tab-group-2-1_php-panel class="tab-pane " role=tabpanel aria-labelledby=tab-group-2-1_php-tab><div class=codehilite><pre><span></span><span class=x>&lt;!-- later view script --&gt;</span>
+<span class=cp>&lt;?php</span>
+<span class=nv>$this</span><span class=o>-&gt;</span><span class=na>placeholder</span><span class=p>(</span><span class=s1>&#39;foo&#39;</span><span class=p>)</span>
+    <span class=o>-&gt;</span><span class=na>setPrefix</span><span class=p>(</span><span class=s2>&quot;&lt;ul&gt;</span><span class=se>\n</span><span class=s2>    &lt;li&gt;&quot;</span><span class=p>)</span>
+    <span class=o>-&gt;</span><span class=na>setSeparator</span><span class=p>(</span><span class=s2>&quot;&lt;/li&gt;&lt;li&gt;</span><span class=se>\n</span><span class=s2>&quot;</span><span class=p>)</span>
+    <span class=o>-&gt;</span><span class=na>setIndent</span><span class=p>(</span><span class=mi>4</span><span class=p>)</span>
+    <span class=o>-&gt;</span><span class=na>setPostfix</span><span class=p>(</span><span class=s2>&quot;&lt;/li&gt;&lt;/ul&gt;</span><span class=se>\n</span><span class=s2>&quot;</span><span class=p>);</span>
+<span class=cp>?&gt;</span><span class=x></span>
+
+<span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>placeholder</span><span class=p>(</span><span class=s1>&#39;foo&#39;</span><span class=p>)</span> <span class=cp>?&gt;</span><span class=x></span>
+</pre></div></div></div></div>
+
+<p>The above results in an unordered list with pretty indentation.</p>
+<p>Because the <code>Placeholder</code> container objects extend <code>ArrayObject</code>, you can also
+assign content to a specific key in the container easily, instead of simply
+pushing it into the container. Keys may be accessed either as object properties
+or as array keys.</p>
+<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>placeholder</span><span class=p>(</span><span class=s1>&#39;foo&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>bar</span> <span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>data</span> <span class=cp>?&gt;</span><span class=x></span>
+<span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>placeholder</span><span class=p>(</span><span class=s1>&#39;foo&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>bar</span> <span class=cp>?&gt;</span><span class=x></span>
+
+<span class=cp>&lt;?php</span>
+<span class=nv>$foo</span> <span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>placeholder</span><span class=p>(</span><span class=s1>&#39;foo&#39;</span><span class=p>);</span>
+<span class=k>echo</span> <span class=nv>$foo</span><span class=p>[</span><span class=s1>&#39;bar&#39;</span><span class=p>];</span>
+</pre></div></p>
+<h2 id="capture-content">Capture Content</h2>
+<p>Occasionally you may have content for a placeholder in a view script that is
+easiest to template; the <code>Placeholder</code> view helper allows you to capture
+arbitrary content for later rendering using the following API.</p>
+<ul>
+<li><code>captureStart($type, $key)</code> begins capturing content.</li>
+<li><code>$type</code> should be one of the <code>Placeholder</code> constants <code>APPEND</code> or <code>SET</code>. If
+    <code>APPEND</code>, captured content is appended to the list of current content in the
+    placeholder; if <code>SET</code>, captured content is used as the sole value of the
+    placeholder (potentially replacing any previous content). By default,
+    <code>$type</code> is <code>APPEND</code>.</li>
+<li><code>$key</code> can be used to specify a specific key in the placeholder container to
+    which you want content captured.</li>
+<li><code>captureStart()</code> locks capturing until <code>captureEnd()</code> is called; you cannot
+    nest capturing with the same placeholder container. Doing so will raise an
+    exception.</li>
+<li><code>captureEnd()</code> stops capturing content, and places it in the container object
+  according to how <code>captureStart()</code> was called.</li>
+</ul>
+<p>As an example:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>&lt;!-- Default capture: append --&gt;</span>
+<span class=cp>&lt;?php</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>placeholder</span><span class=p>(</span><span class=s1>&#39;foo&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>captureStart</span><span class=p>();</span>
+<span class=k>foreach</span> <span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>data</span> <span class=k>as</span> <span class=nv>$datum</span><span class=p>)</span><span class=o>:</span> <span class=cp>?&gt;</span><span class=x></span>
+<span class=x>&lt;div class=&quot;foo&quot;&gt;</span>
+<span class=x>    &lt;h2&gt;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$datum</span><span class=o>-&gt;</span><span class=na>title</span> <span class=cp>?&gt;</span><span class=x>&lt;/h2&gt;</span>
+<span class=x>    &lt;p&gt;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$datum</span><span class=o>-&gt;</span><span class=na>content</span> <span class=cp>?&gt;</span><span class=x>&lt;/p&gt;</span>
+<span class=x>&lt;/div&gt;</span>
+<span class=cp>&lt;?php</span> <span class=k>endforeach</span><span class=p>;</span> <span class=cp>?&gt;</span><span class=x></span>
+<span class=cp>&lt;?php</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>placeholder</span><span class=p>(</span><span class=s1>&#39;foo&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>captureEnd</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x></span>
+
+<span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>placeholder</span><span class=p>(</span><span class=s1>&#39;foo&#39;</span><span class=p>)</span> <span class=cp>?&gt;</span><span class=x></span>
+</pre></div></p>
+<p>Alternately, capture to a key:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>&lt;!-- Capture to key --&gt;</span>
+<span class=cp>&lt;?php</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>placeholder</span><span class=p>(</span><span class=s1>&#39;foo&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>captureStart</span><span class=p>(</span><span class=s1>&#39;SET&#39;</span><span class=p>,</span> <span class=s1>&#39;data&#39;</span><span class=p>);</span>
+<span class=k>foreach</span> <span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>data</span> <span class=k>as</span> <span class=nv>$datum</span><span class=p>)</span><span class=o>:</span> <span class=cp>?&gt;</span><span class=x></span>
+<span class=x>&lt;div class=&quot;foo&quot;&gt;</span>
+<span class=x>    &lt;h2&gt;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$datum</span><span class=o>-&gt;</span><span class=na>title</span> <span class=cp>?&gt;</span><span class=x>&lt;/h2&gt;</span>
+<span class=x>    &lt;p&gt;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$datum</span><span class=o>-&gt;</span><span class=na>content</span> <span class=cp>?&gt;</span><span class=x>&lt;/p&gt;</span>
+<span class=x>&lt;/div&gt;</span>
+<span class=x> </span><span class=cp>&lt;?php</span> <span class=k>endforeach</span><span class=p>;</span> <span class=cp>?&gt;</span><span class=x></span>
+<span class=cp>&lt;?php</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>placeholder</span><span class=p>(</span><span class=s1>&#39;foo&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>captureEnd</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x></span>
+
+<span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>placeholder</span><span class=p>(</span><span class=s1>&#39;foo&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>data</span> <span class=cp>?&gt;</span><span class=x></span>
+</pre></div></p>
+<h2 id="clearing-content">Clearing Content</h2>
+<p>In certain situations it is desirable to remove or clear containers and
+aggregated content. The placeholder view helper provides two methods to either
+delete a specific container or clear all containers at once:</p>
+<h3>Delete a single container</h3>
+<p> <div class=codehilite><pre><span></span><span class=x>$this-&gt;plugin(&#39;placeholder&#39;)-&gt;deleteContainer(&#39;myNamedContainer&#39;);</span>
+</pre></div></p>
+<h3>Clear all containers</h3>
+<p> <div class=codehilite><pre><span></span><span class=x>$this-&gt;plugin(&#39;placeholder&#39;)-&gt;clearContainers();</span>
+</pre></div></p>
+<h2 id="concrete-implementations">Concrete Implementations</h2>
+<p>laminas-view ships with a number of "concrete" placeholder implementations. These
+are for commonly used placeholders: doctype, page title, and various <code>&lt;head&gt;</code>
+elements. In all cases, calling the placeholder with no arguments returns the
+element itself.</p>
+<p>Documentation for each element is covered separately, as linked below:</p>
+<ul>
+<li><a href="../doctype/">Doctype</a></li>
+<li><a href="../head-link/">HeadLink</a></li>
+<li><a href="../head-meta/">HeadMeta</a></li>
+<li><a href="../head-script/">HeadScript</a></li>
+<li><a href="../head-style/">HeadStyle</a></li>
+<li><a href="../head-title/">HeadTitle</a></li>
+<li><a href="../inline-script/">InlineScript</a></li>
+</ul>
+
+
+
+
+    <nav>
+    <ul class="page-nav hidden-print">
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../partial/">
+                    <i class="fa fa-chevron-left"></i> Previous
+                </a>
+            
+        </li>
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../url/">
+                    Next <i class="fa fa-chevron-right"></i>
+                </a>
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+
+    <div class="help-wanted">
+        <p>
+            Found a mistake or want to contribute to the documentation?
+            <a href="https://github.com/laminas/laminas-view/edit/master/docs/book/helpers/placeholder.md" target="_blank" class="help-wanted__link">
+                Edit this page on GitHub!
+            </a>
+        </p>
+    </div>
+
+                
+            </div>
+            <div class="col-md-3 col-sm-12 sidebar">
+                
+                    <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../..">laminas-view</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../../quick-start/" class="subnavigation__link">Quick Start</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Rendering Views</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../php-renderer/" class="subnavigation__link">The PhpRenderer</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../view-scripts/" class="subnavigation__link">View Scripts</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../view-event/" class="subnavigation__link">The ViewEvent</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Helpers</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../intro/" class="subnavigation__link">Introduction</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../asset/" class="subnavigation__link">Asset</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../base-path/" class="subnavigation__link">BasePath</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../cycle/" class="subnavigation__link">Cycle</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../doctype/" class="subnavigation__link">Doctype</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../escape/" class="subnavigation__link">Escape</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../flash-messenger/" class="subnavigation__link">FlashMessenger</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../gravatar/" class="subnavigation__link">Gravatar</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../head-link/" class="subnavigation__link">HeadLink</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../head-meta/" class="subnavigation__link">HeadMeta</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../head-script/" class="subnavigation__link">HeadScript</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../head-style/" class="subnavigation__link">HeadStyle</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../head-title/" class="subnavigation__link">HeadTitle</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../html-list/" class="subnavigation__link">HtmlList</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../html-object/" class="subnavigation__link">HtmlObject</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../html-tag/" class="subnavigation__link">HtmlTag</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../identity/" class="subnavigation__link">Identity</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../inline-script/" class="subnavigation__link">InlineScript</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../json/" class="subnavigation__link">Json</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../layout/" class="subnavigation__link">Layout</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../partial/" class="subnavigation__link">Partial</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Placeholder</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../url/" class="subnavigation__link">Url</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../advanced-usage/" class="subnavigation__link">Advanced usage of helpers</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Cookbook</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../cookbook/setting-module-specific-layouts/" class="subnavigation__link">Setting module-specific Layouts</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+    <div class="container">
+
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7 offset-md-2">
+                <h5>Laminas</h5>
+                <ul>
+                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
+                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+
+            
+            <div class="col-md-4 offset-md-2">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/getlaminas" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">License</h4>
+                <p>
+                    Code licensed under <a
+                        href="https://github.com/laminas/laminas-view//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                </p>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>
+                    <!--Built with love by the Laminas team with the help of our
+                    <a href="https://github.com/laminas/laminas-view//graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        let base_url = '../..',
+            project  = "components",
+            siteName = 'laminas-view';
+    </script>
+    <script src="/js/scripts.js"></script>
+        <script src="../../search/main.js"></script>
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Search</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search in laminas-view" id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>

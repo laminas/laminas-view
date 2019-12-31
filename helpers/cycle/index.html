@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Flexible view layer supporting and providing multiple view layers, helpers, and more.">  
+    <link rel="canonical" href="https://docs.laminas.dev/helpers/cycle/">
+    <link rel="shortcut icon" href="/img/trademark-laminas-foundation-rgb.svg">
+
+    <title>Cycle - laminas-view - Laminas Docs</title>
+
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body id="page-top" class="components">
+
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        
+        <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+        </a>
+        <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
+            Documentation
+        </a>
+
+        
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
+                </li>
+            </ul>
+
+            
+            
+                <div class="d-block d-sm-none">
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../..">laminas-view</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../../quick-start/" class="subnavigation__link">Quick Start</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Rendering Views</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../php-renderer/" class="subnavigation__link">The PhpRenderer</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../view-scripts/" class="subnavigation__link">View Scripts</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../view-event/" class="subnavigation__link">The ViewEvent</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Helpers</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../intro/" class="subnavigation__link">Introduction</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../asset/" class="subnavigation__link">Asset</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../base-path/" class="subnavigation__link">BasePath</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Cycle</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../doctype/" class="subnavigation__link">Doctype</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../escape/" class="subnavigation__link">Escape</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../flash-messenger/" class="subnavigation__link">FlashMessenger</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../gravatar/" class="subnavigation__link">Gravatar</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../head-link/" class="subnavigation__link">HeadLink</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../head-meta/" class="subnavigation__link">HeadMeta</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../head-script/" class="subnavigation__link">HeadScript</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../head-style/" class="subnavigation__link">HeadStyle</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../head-title/" class="subnavigation__link">HeadTitle</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../html-list/" class="subnavigation__link">HtmlList</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../html-object/" class="subnavigation__link">HtmlObject</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../html-tag/" class="subnavigation__link">HtmlTag</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../identity/" class="subnavigation__link">Identity</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../inline-script/" class="subnavigation__link">InlineScript</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../json/" class="subnavigation__link">Json</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../layout/" class="subnavigation__link">Layout</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../partial/" class="subnavigation__link">Partial</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../placeholder/" class="subnavigation__link">Placeholder</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../url/" class="subnavigation__link">Url</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../advanced-usage/" class="subnavigation__link">Advanced usage of helpers</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Cookbook</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../cookbook/setting-module-specific-layouts/" class="subnavigation__link">Setting module-specific Layouts</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                </div>
+            
+
+            
+            <div class="d-block d-sm-none">
+                <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    
+    <header class="header">
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="col-6 offset-md-2">
+                <h1 class="header__title">
+                    Components
+
+                    
+                        <small class="header__subtitle">laminas-view</small>
+                    
+                </h1>
+            </div>
+
+            
+            <div class="col-4 text-sm-right">
+                
+                    
+
+                    <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                    <a href="https://github.com/laminas/laminas-view/" class="header__link header__link--github" title="Go to repository of laminas-view">
+                        <i class="fa fa-github"></i> GitHub
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 col-sm-12">
+                
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+                
+                    <li class="toc__entry">
+                        <a href="#basic-usage" class="toc__link">Basic Usage</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#working-with-two-or-more-cycles" class="toc__link">Working with two or more cycles</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+            </div>
+            <div class="col-md-7 col-sm-12 content" role="main" data-spy="scroll" data-target=".toc">
+                
+                    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        
+            <li class="breadcrumb-item"><a href="">Overview</a></li>
+
+            
+                <li class="breadcrumb-item"><a href="../..">laminas-view</a></li>
+
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">Helpers</li>
+                        
+                    
+                
+
+                <li class="breadcrumb-item active" aria-current="page">Cycle</li>
+            
+        
+    </ol>
+</nav>
+
+
+
+
+
+
+    
+    
+        <h2 class="chapter__headline">Helpers</h2>
+    
+
+    <h1 id="cycle">Cycle</h1>
+<p>The <code>Cycle</code> helper is used to alternate a set of values.</p>
+<h2 id="basic-usage">Basic Usage</h2>
+<p>To add elements to cycle, specify them in constructor:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>&lt;table&gt;</span>
+<span class=x>    </span><span class=cp>&lt;?php</span> <span class=k>foreach</span> <span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>books</span> <span class=k>as</span> <span class=nv>$book</span><span class=p>)</span><span class=o>:</span> <span class=cp>?&gt;</span><span class=x></span>
+<span class=x>        &lt;tr class=&quot;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>cycle</span><span class=p>([</span><span class=s1>&#39;odd&#39;</span><span class=p>,</span> <span class=s1>&#39;even&#39;</span><span class=p>])</span><span class=o>-&gt;</span><span class=na>next</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x>&quot;&gt;</span>
+<span class=x>            &lt;td&gt;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>escapeHtml</span><span class=p>(</span><span class=nv>$book</span><span class=p>[</span><span class=s1>&#39;author&#39;</span><span class=p>])</span> <span class=cp>?&gt;</span><span class=x>&lt;/td&gt;</span>
+<span class=x>        &lt;/tr&gt;</span>
+<span class=x>    </span><span class=cp>&lt;?php</span> <span class=k>endforeach</span> <span class=cp>?&gt;</span><span class=x></span>
+<span class=x>&lt;/table&gt;</span>
+</pre></div></p>
+<p>The output:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>&lt;table&gt;</span>
+<span class=x>    &lt;tr class=&quot;odd&quot;&gt;</span>
+<span class=x>       &lt;td&gt;First&lt;/td&gt;</span>
+<span class=x>    &lt;/tr&gt;</span>
+<span class=x>    &lt;tr class=&quot;even&quot;&gt;</span>
+<span class=x>       &lt;td&gt;Second&lt;/td&gt;</span>
+<span class=x>    &lt;/tr&gt;</span>
+<span class=x>&lt;/table&gt;</span>
+</pre></div></p>
+<p>Instead of passing the data at invocation, you can assign it ahead of time:</p>
+<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>cycle</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>assign</span><span class=p>([</span><span class=s1>&#39;odd&#39;</span><span class=p>,</span> <span class=s1>&#39;even&#39;</span><span class=p>]);</span> <span class=cp>?&gt;</span><span class=x></span>
+</pre></div></p>
+<p>You can also cycle in reverse, using the <code>prev()</code> method instead of <code>next()</code>:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>&lt;table&gt;</span>
+<span class=x>    </span><span class=cp>&lt;?php</span> <span class=k>foreach</span> <span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>books</span> <span class=k>as</span> <span class=nv>$book</span><span class=p>)</span><span class=o>:</span> <span class=cp>?&gt;</span><span class=x></span>
+<span class=x>    &lt;tr class=&quot;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>cycle</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>prev</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x>&quot;&gt;</span>
+<span class=x>       &lt;td&gt;</span><span class=cp>&lt;?php</span> <span class=k>echo</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>escapeHtml</span><span class=p>(</span><span class=nv>$book</span><span class=p>[</span><span class=s1>&#39;author&#39;</span><span class=p>])</span> <span class=cp>?&gt;</span><span class=x>&lt;/td&gt;</span>
+<span class=x>    &lt;/tr&gt;</span>
+<span class=x>    </span><span class=cp>&lt;?php</span> <span class=k>endforeach</span> <span class=cp>?&gt;</span><span class=x></span>
+<span class=x>&lt;/table&gt;</span>
+</pre></div></p>
+<p>The output of the two previous examples combined becomes:</p>
+<p> <div class=codehilite><pre><span></span><span class=x>&lt;table&gt;</span>
+<span class=x>    &lt;tr class=&quot;even&quot;&gt;</span>
+<span class=x>       &lt;td&gt;First&lt;/td&gt;</span>
+<span class=x>    &lt;/tr&gt;</span>
+<span class=x>    &lt;tr class=&quot;odd&quot;&gt;</span>
+<span class=x>       &lt;td&gt;Second&lt;/td&gt;</span>
+<span class=x>    &lt;/tr&gt;</span>
+<span class=x>&lt;/table&gt;</span>
+</pre></div></p>
+<h2 id="working-with-two-or-more-cycles">Working with two or more cycles</h2>
+<p>If you are nesting cycles, you must provide all but one of them with a name; do
+this by providing a second parameter to the <code>cycle()</code> invocation:
+<code>$this-&gt;cycle(['odd', 'even'], 'cycle2')</code></p>
+<p> <div class=codehilite><pre><span></span><span class=x>&lt;table&gt;</span>
+<span class=x>    </span><span class=cp>&lt;?php</span> <span class=k>foreach</span> <span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>books</span> <span class=k>as</span> <span class=nv>$book</span><span class=p>)</span><span class=o>:</span> <span class=cp>?&gt;</span><span class=x></span>
+<span class=x>        &lt;tr class=&quot;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>cycle</span><span class=p>([</span><span class=s1>&#39;odd&#39;</span><span class=p>,</span> <span class=s1>&#39;even&#39;</span><span class=p>])</span><span class=o>-&gt;</span><span class=na>next</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x>&quot;&gt;</span>
+<span class=x>            &lt;td&gt;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>cycle</span><span class=p>([</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>],</span> <span class=s1>&#39;number&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>next</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x>&lt;/td&gt;</span>
+<span class=x>            &lt;td&gt;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>escapeHtml</span><span class=p>(</span><span class=nv>$book</span><span class=p>[</span><span class=s1>&#39;author&#39;</span><span class=p>])</span> <span class=cp>?&gt;</span><span class=x>&lt;/td&gt;</span>
+<span class=x>        &lt;/tr&gt;</span>
+<span class=x>    </span><span class=cp>&lt;?php</span> <span class=k>endforeach</span> <span class=cp>?&gt;</span><span class=x></span>
+<span class=x>&lt;/table&gt;</span>
+</pre></div></p>
+<p>You can also provide a <code>$name</code> argument to <code>assign()</code>:</p>
+<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>cycle</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>assign</span><span class=p>([</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>],</span> <span class=s1>&#39;number&#39;</span><span class=p>);</span> <span class=cp>?&gt;</span><span class=x></span>
+</pre></div></p>
+<p>Or use the <code>setName()</code> method priort to invoking either of <code>next()</code> or <code>prev()</code>.</p>
+<p>As a combined example:</p>
+<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span>
+<span class=nv>$this</span><span class=o>-&gt;</span><span class=na>cycle</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>assign</span><span class=p>([</span><span class=s1>&#39;odd&#39;</span><span class=p>,</span> <span class=s1>&#39;even&#39;</span><span class=p>],</span> <span class=s1>&#39;classes&#39;</span><span class=p>);</span>
+<span class=nv>$this</span><span class=o>-&gt;</span><span class=na>cycle</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>assign</span><span class=p>([</span><span class=mi>1</span><span class=p>,</span> <span class=mi>2</span><span class=p>,</span> <span class=mi>3</span><span class=p>],</span> <span class=s1>&#39;numbers&#39;</span><span class=p>);</span>
+<span class=cp>?&gt;</span><span class=x></span>
+<span class=x>&lt;table&gt;</span>
+<span class=x>    </span><span class=cp>&lt;?php</span> <span class=k>foreach</span> <span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>books</span> <span class=k>as</span> <span class=nv>$book</span><span class=p>)</span><span class=o>:</span> <span class=cp>?&gt;</span><span class=x></span>
+<span class=x>        &lt;tr class=&quot;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>cycle</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>setName</span><span class=p>(</span><span class=s1>&#39;classes&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>next</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x>&quot;&gt;</span>
+<span class=x>            &lt;td&gt;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>cycle</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>setName</span><span class=p>(</span><span class=s1>&#39;numbers&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>next</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x>&lt;/td&gt;</span>
+<span class=x>            &lt;td&gt;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>escapeHtml</span><span class=p>(</span><span class=nv>$book</span><span class=p>[</span><span class=s1>&#39;author&#39;</span><span class=p>])</span> <span class=cp>?&gt;</span><span class=x>&lt;/td&gt;</span>
+<span class=x>        &lt;/tr&gt;</span>
+<span class=x>    </span><span class=cp>&lt;?php</span> <span class=k>endforeach</span> <span class=cp>?&gt;</span><span class=x></span>
+<span class=x>&lt;/table&gt;</span>
+</pre></div></p>
+
+
+
+
+    <nav>
+    <ul class="page-nav hidden-print">
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../base-path/">
+                    <i class="fa fa-chevron-left"></i> Previous
+                </a>
+            
+        </li>
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../doctype/">
+                    Next <i class="fa fa-chevron-right"></i>
+                </a>
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+
+    <div class="help-wanted">
+        <p>
+            Found a mistake or want to contribute to the documentation?
+            <a href="https://github.com/laminas/laminas-view/edit/master/docs/book/helpers/cycle.md" target="_blank" class="help-wanted__link">
+                Edit this page on GitHub!
+            </a>
+        </p>
+    </div>
+
+                
+            </div>
+            <div class="col-md-3 col-sm-12 sidebar">
+                
+                    <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../..">laminas-view</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item ">
+                                <a href="../../quick-start/" class="subnavigation__link">Quick Start</a>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Rendering Views</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../php-renderer/" class="subnavigation__link">The PhpRenderer</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../view-scripts/" class="subnavigation__link">View Scripts</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../view-event/" class="subnavigation__link">The ViewEvent</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Helpers</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../intro/" class="subnavigation__link">Introduction</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../asset/" class="subnavigation__link">Asset</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../base-path/" class="subnavigation__link">BasePath</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Cycle</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../doctype/" class="subnavigation__link">Doctype</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../escape/" class="subnavigation__link">Escape</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../flash-messenger/" class="subnavigation__link">FlashMessenger</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../gravatar/" class="subnavigation__link">Gravatar</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../head-link/" class="subnavigation__link">HeadLink</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../head-meta/" class="subnavigation__link">HeadMeta</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../head-script/" class="subnavigation__link">HeadScript</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../head-style/" class="subnavigation__link">HeadStyle</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../head-title/" class="subnavigation__link">HeadTitle</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../html-list/" class="subnavigation__link">HtmlList</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../html-object/" class="subnavigation__link">HtmlObject</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../html-tag/" class="subnavigation__link">HtmlTag</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../identity/" class="subnavigation__link">Identity</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../inline-script/" class="subnavigation__link">InlineScript</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../json/" class="subnavigation__link">Json</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../layout/" class="subnavigation__link">Layout</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../partial/" class="subnavigation__link">Partial</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../placeholder/" class="subnavigation__link">Placeholder</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../url/" class="subnavigation__link">Url</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../advanced-usage/" class="subnavigation__link">Advanced usage of helpers</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Cookbook</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../cookbook/setting-module-specific-layouts/" class="subnavigation__link">Setting module-specific Layouts</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+    <div class="container">
+
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-7 offset-md-2">
+                <h5>Laminas</h5>
+                <ul>
+                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
+                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+
+            
+            <div class="col-md-4 offset-md-2">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/getlaminas" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://getlaminas.org/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">License</h4>
+                <p>
+                    Code licensed under <a
+                        href="https://github.com/laminas/laminas-view//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                </p>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>
+                    <!--Built with love by the Laminas team with the help of our
+                    <a href="https://github.com/laminas/laminas-view//graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        let base_url = '../..',
+            project  = "components",
+            siteName = 'laminas-view';
+    </script>
+    <script src="/js/scripts.js"></script>
+        <script src="../../search/main.js"></script>
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Search</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search in laminas-view" id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>
