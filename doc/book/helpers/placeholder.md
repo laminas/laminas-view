@@ -133,7 +133,7 @@ foreach ($this->data as $datum): ?>
 
 ## Concrete Implementations
 
-zend-view ships with a number of "concrete" placeholder implementations. These
+laminas-view ships with a number of "concrete" placeholder implementations. These
 are for commonly used placeholders: doctype, page title, and various `<head>`
 elements. In all cases, calling the placeholder with no arguments returns the
 element itself.
