@@ -1,21 +1,19 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper\Placeholder\Container;
+namespace Laminas\View\Helper\Placeholder\Container;
 
-use Zend\View\Exception;
+use Laminas\View\Exception;
 
 /**
  * Abstract class representing container for placeholder values
  *
- * @package    Zend_View
+ * @package    Laminas_View
  * @subpackage Helper
  */
 abstract class AbstractContainer extends \ArrayObject
@@ -136,7 +134,7 @@ abstract class AbstractContainer extends \ArrayObject
      * Set prefix for __toString() serialization
      *
      * @param  string $prefix
-     * @return \Zend\View\Helper\Placeholder\Container\AbstractContainer
+     * @return \Laminas\View\Helper\Placeholder\Container\AbstractContainer
      */
     public function setPrefix($prefix)
     {
@@ -158,7 +156,7 @@ abstract class AbstractContainer extends \ArrayObject
      * Set postfix for __toString() serialization
      *
      * @param  string $postfix
-     * @return \Zend\View\Helper\Placeholder\Container\AbstractContainer
+     * @return \Laminas\View\Helper\Placeholder\Container\AbstractContainer
      */
     public function setPostfix($postfix)
     {
@@ -182,7 +180,7 @@ abstract class AbstractContainer extends \ArrayObject
      * Used to implode elements in container
      *
      * @param  string $separator
-     * @return \Zend\View\Helper\Placeholder\Container\AbstractContainer
+     * @return \Laminas\View\Helper\Placeholder\Container\AbstractContainer
      */
     public function setSeparator($separator)
     {
@@ -205,7 +203,7 @@ abstract class AbstractContainer extends \ArrayObject
      * optionally, if a number is passed, it will be the number of spaces
      *
      * @param  string|int $indent
-     * @return \Zend\View\Helper\Placeholder\Container\AbstractContainer
+     * @return \Laminas\View\Helper\Placeholder\Container\AbstractContainer
      */
     public function setIndent($indent)
     {

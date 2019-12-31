@@ -1,22 +1,20 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View;
+namespace LaminasTest\View;
 
-use Zend\View\Resolver\TemplatePathStack;
+use Laminas\View\Resolver\TemplatePathStack;
 
 /**
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage UnitTests
- * @group      Zend_View
+ * @group      Laminas_View
  */
 class TemplatePathStackTest extends \PHPUnit_Framework_TestCase
 {
@@ -114,7 +112,7 @@ class TemplatePathStackTest extends \PHPUnit_Framework_TestCase
     {
         $this->stack->addPath(__DIR__ . '/_templates');
 
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface', 'parent directory traversal');
+        $this->setExpectedException('Laminas\View\Exception\ExceptionInterface', 'parent directory traversal');
         $test = $this->stack->resolve('../_stubs/scripts/LfiProtectionCheck.phtml');
     }
 
@@ -156,7 +154,7 @@ class TemplatePathStackTest extends \PHPUnit_Framework_TestCase
         }
         $this->stack->setUseStreamWrapper(true)
                     ->addPath(__DIR__ . '/_templates');
-        $expected = 'zend.view://' . realpath(__DIR__ . '/_templates/test.phtml');
+        $expected = 'laminas.view://' . realpath(__DIR__ . '/_templates/test.phtml');
         $test     = $this->stack->resolve('test.phtml');
         $this->assertEquals($expected, $test);
     }
@@ -177,7 +175,7 @@ class TemplatePathStackTest extends \PHPUnit_Framework_TestCase
      */
     public function testSettingOptionsWithInvalidArgumentRaisesException($arg)
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->setExpectedException('Laminas\View\Exception\ExceptionInterface');
         $this->stack->setOptions($arg);
     }
 

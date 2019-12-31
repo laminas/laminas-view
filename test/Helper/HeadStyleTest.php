@@ -1,32 +1,30 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\View\Helper\Placeholder\Registry;
-use Zend\View\Helper;
-use Zend\View;
+use Laminas\View;
+use Laminas\View\Helper;
+use Laminas\View\Helper\Placeholder\Registry;
 
 /**
- * Test class for Zend_View_Helper_HeadStyle.
+ * Test class for Laminas_View_Helper_HeadStyle.
  *
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class HeadStyleTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Zend_View_Helper_HeadStyle
+     * @var Laminas_View_Helper_HeadStyle
      */
     public $helper;
 
@@ -62,12 +60,12 @@ class HeadStyleTest extends \PHPUnit_Framework_TestCase
     public function testNamespaceRegisteredInPlaceholderRegistryAfterInstantiation()
     {
         $registry = Registry::getRegistry();
-        if ($registry->containerExists('Zend_View_Helper_HeadStyle')) {
-            $registry->deleteContainer('Zend_View_Helper_HeadStyle');
+        if ($registry->containerExists('Laminas_View_Helper_HeadStyle')) {
+            $registry->deleteContainer('Laminas_View_Helper_HeadStyle');
         }
-        $this->assertFalse($registry->containerExists('Zend_View_Helper_HeadStyle'));
+        $this->assertFalse($registry->containerExists('Laminas_View_Helper_HeadStyle'));
         $helper = new Helper\HeadStyle();
-        $this->assertTrue($registry->containerExists('Zend_View_Helper_HeadStyle'));
+        $this->assertTrue($registry->containerExists('Laminas_View_Helper_HeadStyle'));
     }
 
     public function testHeadStyleReturnsObjectInstance()
@@ -197,7 +195,7 @@ class HeadStyleTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group ZF-8056
+     * @group Laminas-8056
      */
     public function testMediaAttributeCanHaveSpaceInCommaSeparatedString()
     {
@@ -375,7 +373,7 @@ a {
     }
 
     /**
-     * @issue ZF-5435
+     * @issue Laminas-5435
      */
     public function testContainerMaintainsCorrectOrderOfItems()
     {
@@ -402,7 +400,7 @@ a {
     }
 
     /**
-     * @group ZF-9532
+     * @group Laminas-9532
      */
     public function testRenderConditionalCommentsShouldNotContainHtmlEscaping()
     {

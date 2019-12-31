@@ -1,32 +1,30 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper\Navigation;
+namespace LaminasTest\View\Helper\Navigation;
 
-use Zend\Config;
-use Zend\Navigation\Page\AbstractPage;
-use Zend\Navigation\Page\Uri as UriPage;
-use Zend\Permissions\Acl;
-use Zend\Permissions\Acl\Role;
-use Zend\Permissions\Acl\Resource;
-use Zend\View;
-use Zend\View\Helper\Navigation;
+use Laminas\Config;
+use Laminas\Navigation\Page\AbstractPage;
+use Laminas\Navigation\Page\Uri as UriPage;
+use Laminas\Permissions\Acl;
+use Laminas\Permissions\Acl\Resource;
+use Laminas\Permissions\Acl\Role;
+use Laminas\View;
+use Laminas\View\Helper\Navigation;
 
 /**
- * Tests Zend_View_Helper_Navigation_Links
+ * Tests Laminas_View_Helper_Navigation_Links
  *
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class LinksTest extends AbstractTest
 {
@@ -35,12 +33,12 @@ class LinksTest extends AbstractTest
      *
      * @var string
      */
-    protected $_helperName = 'Zend\View\Helper\Navigation\Links';
+    protected $_helperName = 'Laminas\View\Helper\Navigation\Links';
 
     /**
      * View helper
      *
-     * @var Zend\View\Helper\Navigation\Links
+     * @var Laminas\View\Helper\Navigation\Links
      */
     protected $_helper;
 
@@ -55,7 +53,7 @@ class LinksTest extends AbstractTest
         $this->_doctypeHelper = $this->_helper->getView()->plugin('doctype');
         $this->_oldDoctype = $this->_doctypeHelper->getDoctype();
         $this->_doctypeHelper->setDoctype(
-                \Zend\View\Helper\Doctype::HTML4_LOOSE);
+                \Laminas\View\Helper\Doctype::HTML4_LOOSE);
 
         // disable all active pages
         foreach ($this->_helper->findAllByActive(true) as $page) {
@@ -104,7 +102,7 @@ class LinksTest extends AbstractTest
         $found = $this->_helper->findRelation($active, 'rel', 'example');
 
         $expected = array(
-            'type'  => 'Zend\Navigation\Page\Uri',
+            'type'  => 'Laminas\Navigation\Page\Uri',
             'href'  => 'http://www.example.com/',
             'label' => null
         );
@@ -128,7 +126,7 @@ class LinksTest extends AbstractTest
         $found = $this->_helper->findRelExample($active);
 
         $expected = array(
-            'type'  => 'Zend\Navigation\Page\Uri',
+            'type'  => 'Laminas\Navigation\Page\Uri',
             'href'  => 'http://www.example.com/',
             'label' => 'An example page'
         );
@@ -152,7 +150,7 @@ class LinksTest extends AbstractTest
         $found = $this->_helper->findRelExample($active);
 
         $expected = array(
-            'type'  => 'Zend\Navigation\Page\Uri',
+            'type'  => 'Laminas\Navigation\Page\Uri',
             'href'  => 'http://www.example.com/',
             'label' => 'An example page'
         );
@@ -176,7 +174,7 @@ class LinksTest extends AbstractTest
         $found = $this->_helper->findRelExample($active);
 
         $expected = array(
-            'type'  => 'Zend\Navigation\Page\Uri',
+            'type'  => 'Laminas\Navigation\Page\Uri',
             'href'  => 'http://www.example.com/',
             'label' => 'An example page'
         );
@@ -531,7 +529,7 @@ class LinksTest extends AbstractTest
         try {
             $this->_helper->findRelation($active, 'foo', 'bar');
             $this->fail('An invalid value was given, but a ' .
-                        'Zend_View_Exception was not thrown');
+                        'Laminas_View_Exception was not thrown');
         } catch (View\Exception\ExceptionInterface $e) {
             $this->assertContains('Invalid argument: $rel', $e->getMessage());
         }
@@ -543,7 +541,7 @@ class LinksTest extends AbstractTest
         try {
             $this->_helper->renderLink($active, 'foo', 'bar');
             $this->fail('An invalid value was given, but a ' .
-                        'Zend_View_Exception was not thrown');
+                        'Laminas_View_Exception was not thrown');
         } catch (View\Exception\ExceptionInterface $e) {
             $this->assertContains('Invalid relation attribute', $e->getMessage());
         }

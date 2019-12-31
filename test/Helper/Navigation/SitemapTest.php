@@ -1,26 +1,24 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper\Navigation;
+namespace LaminasTest\View\Helper\Navigation;
 
 use DOMDocument;
-use Zend\View;
+use Laminas\View;
 
 /**
- * Tests Zend_View_Helper_Navigation_Sitemap
+ * Tests Laminas_View_Helper_Navigation_Sitemap
  *
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class SitemapTest extends AbstractTest
 {
@@ -31,12 +29,12 @@ class SitemapTest extends AbstractTest
      *
      * @var string
      */
-    protected $_helperName = 'Zend\View\Helper\Navigation\Sitemap';
+    protected $_helperName = 'Laminas\View\Helper\Navigation\Sitemap';
 
     /**
      * View helper
      *
-     * @var Zend_View_Helper_Navigation_Sitemap
+     * @var Laminas_View_Helper_Navigation_Sitemap
      */
     protected $_helper;
 
@@ -174,7 +172,7 @@ class SitemapTest extends AbstractTest
 
     public function testThrowExceptionOnInvalidLoc()
     {
-        $this->markTestIncomplete('Zend\URI changes affect this test');
+        $this->markTestIncomplete('Laminas\URI changes affect this test');
         $nav = clone $this->_nav2;
         $nav->addPage(array('label' => 'Invalid', 'uri' => 'http://w.'));
 
@@ -189,7 +187,7 @@ class SitemapTest extends AbstractTest
             return;
         }
 
-        $this->fail('A Zend_View_Exception was not thrown on invalid <loc />');
+        $this->fail('A Laminas_View_Exception was not thrown on invalid <loc />');
     }
 
     public function testDisablingValidators()
@@ -210,12 +208,12 @@ class SitemapTest extends AbstractTest
 
     public function testSetServerUrlRequiresValidUri()
     {
-        $this->markTestIncomplete('Zend\URI changes affect this test');
+        $this->markTestIncomplete('Laminas\URI changes affect this test');
         try {
             $this->_helper->setServerUrl('site.example.org');
             $this->fail('An invalid server URL was given, but a ' .
-                        'Zend\URI\Exception\ExceptionInterface was not thrown');
-        } catch (\Zend\URI\Exception\ExceptionInterface $e) {
+                        'Laminas\URI\Exception\ExceptionInterface was not thrown');
+        } catch (\Laminas\URI\Exception\ExceptionInterface $e) {
             $this->assertContains('Illegal scheme', $e->getMessage());
         }
     }
@@ -258,12 +256,12 @@ class SitemapTest extends AbstractTest
         } catch (View\Exception\ExceptionInterface $e) {
             $expected = sprintf(
                     'Sitemap is invalid according to XML Schema at "%s"',
-                    \Zend\View\Helper\Navigation\Sitemap::SITEMAP_XSD);
+                    \Laminas\View\Helper\Navigation\Sitemap::SITEMAP_XSD);
             $actual = $e->getMessage();
             $this->assertEquals($expected, $actual);
             return;
         }
 
-        $this->fail('A Zend_View_Exception was not thrown when using Schema validation');
+        $this->fail('A Laminas_View_Exception was not thrown when using Schema validation');
     }
 }
