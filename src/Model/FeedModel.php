@@ -1,16 +1,15 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Model;
+namespace Laminas\View\Model;
 
-use Zend\Feed\Writer\Feed;
-use Zend\Feed\Writer\FeedFactory;
+use Laminas\Feed\Writer\Feed;
+use Laminas\Feed\Writer\FeedFactory;
 
 /**
  * Marker view model for indicating feed data.
@@ -35,7 +34,7 @@ class FeedModel extends ViewModel
     protected $terminate = true;
 
     /**
-     * @return \Zend\Feed\Writer\Feed
+     * @return \Laminas\Feed\Writer\Feed
      */
     public function getFeed()
     {

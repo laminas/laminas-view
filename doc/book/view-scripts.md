@@ -1,6 +1,6 @@
 # View Scripts
 
-Once you call `render()`, `Zend\View\Renderer\PhpRenderer` then `include()`s the
+Once you call `render()`, `Laminas\View\Renderer\PhpRenderer` then `include()`s the
 requested view script and executes it "inside" the scope of the `PhpRenderer`
 instance. Therefore, in your view scripts, references to `$this` actually point
 to the `PhpRenderer` instance itself.
