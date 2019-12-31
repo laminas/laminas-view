@@ -1,19 +1,18 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
+use Laminas\Mvc\ModuleRouteListener;
+use Laminas\Mvc\Router\RouteMatch;
+use Laminas\Mvc\Router\RouteStackInterface;
+use Laminas\View\Exception;
 use Traversable;
-use Zend\Mvc\ModuleRouteListener;
-use Zend\Mvc\Router\RouteMatch;
-use Zend\Mvc\Router\RouteStackInterface;
-use Zend\View\Exception;
 
 /**
  * Helper for making easy links and getting urls that depend on the routes and router.
@@ -37,7 +36,7 @@ class Url extends AbstractHelper
     /**
      * Generates a url given the name of a route.
      *
-     * @see    Zend\Mvc\Router\RouteInterface::assemble()
+     * @see    Laminas\Mvc\Router\RouteInterface::assemble()
      * @param  string               $name               Name of the route
      * @param  array                $params             Parameters for the link
      * @param  array|Traversable    $options            Options for the route
