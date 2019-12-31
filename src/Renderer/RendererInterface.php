@@ -1,19 +1,18 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Renderer;
+namespace Laminas\View\Renderer;
 
-use Zend\View\Model\ModelInterface;
-use Zend\View\Resolver\ResolverInterface;
+use Laminas\View\Model\ModelInterface;
+use Laminas\View\Resolver\ResolverInterface;
 
 /**
- * Interface class for Zend\View\Renderer\* compatible template engine implementations
+ * Interface class for Laminas\View\Renderer\* compatible template engine implementations
  */
 interface RendererInterface
 {

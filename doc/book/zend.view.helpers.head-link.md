@@ -31,7 +31,7 @@ element, and allows you to also specify placement -- whether the new element rep
 prepends (top of stack), or appends (end of stack).
 
 The `HeadLink` helper is a concrete implementation of the Placeholder helper
-&lt;zend.view.helpers.initial.placeholder&gt;.
+&lt;laminas.view.helpers.initial.placeholder&gt;.
 
 ## Basic Usage
 

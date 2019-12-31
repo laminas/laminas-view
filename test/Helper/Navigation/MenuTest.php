@@ -1,19 +1,18 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper\Navigation;
+namespace LaminasTest\View\Helper\Navigation;
 
 /**
- * Tests Zend\View\Helper\Navigation\Menu.
+ * Tests Laminas\View\Helper\Navigation\Menu.
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class MenuTest extends AbstractTest
 {
@@ -22,12 +21,12 @@ class MenuTest extends AbstractTest
      *
      * @var string
      */
-    protected $_helperName = 'Zend\View\Helper\Navigation\Menu';
+    protected $_helperName = 'Laminas\View\Helper\Navigation\Menu';
 
     /**
      * View helper.
      *
-     * @var \Zend\View\Helper\Navigation\Menu
+     * @var \Laminas\View\Helper\Navigation\Menu
      */
     protected $_helper;
 
@@ -157,7 +156,7 @@ class MenuTest extends AbstractTest
     {
         $acl = $this->_getAcl();
         $this->_helper->setAcl($acl['acl']);
-        $this->_helper->setRole(new \Zend\Permissions\Acl\Role\GenericRole('member'));
+        $this->_helper->setRole(new \Laminas\Permissions\Acl\Role\GenericRole('member'));
 
         $expected = $this->_getExpected('menu/acl_role_interface.html');
         $this->assertEquals($expected, $this->_helper->render());
@@ -183,7 +182,7 @@ class MenuTest extends AbstractTest
             'escapeLabels' => true,
         ];
 
-        $container = new \Zend\Navigation\Navigation($this->_nav2->toArray());
+        $container = new \Laminas\Navigation\Navigation($this->_nav2->toArray());
         $container->addPage([
             'label' => 'Badges <span class="badge">1</span>',
             'uri' => 'badges',
@@ -201,7 +200,7 @@ class MenuTest extends AbstractTest
             'escapeLabels' => false,
         ];
 
-        $container = new \Zend\Navigation\Navigation($this->_nav2->toArray());
+        $container = new \Laminas\Navigation\Navigation($this->_nav2->toArray());
         $container->addPage([
             'label' => 'Badges <span class="badge">1</span>',
             'uri' => 'badges',
@@ -213,7 +212,7 @@ class MenuTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testTranslationUsingZendTranslate()
+    public function testTranslationUsingLaminasTranslate()
     {
         if (!extension_loaded('intl')) {
             $this->markTestSkipped('ext/intl not enabled');
@@ -226,7 +225,7 @@ class MenuTest extends AbstractTest
         $this->assertEquals($expected, $this->_helper->render());
     }
 
-    public function testTranslationUsingZendTranslateWithTextDomain()
+    public function testTranslationUsingLaminasTranslateWithTextDomain()
     {
         if (!extension_loaded('intl')) {
             $this->markTestSkipped('ext/intl not enabled');
@@ -240,7 +239,7 @@ class MenuTest extends AbstractTest
         $this->assertEquals(trim($expected), trim($test));
     }
 
-    public function testTranslationUsingZendTranslateAdapter()
+    public function testTranslationUsingLaminasTranslateAdapter()
     {
         if (!extension_loaded('intl')) {
             $this->markTestSkipped('ext/intl not enabled');
@@ -297,8 +296,8 @@ class MenuTest extends AbstractTest
 
         try {
             $this->_helper->render();
-            $this->fail('invalid $partial should throw Zend\View\Exception\InvalidArgumentException');
-        } catch (\Zend\View\Exception\ExceptionInterface $e) {
+            $this->fail('invalid $partial should throw Laminas\View\Exception\InvalidArgumentException');
+        } catch (\Laminas\View\Exception\ExceptionInterface $e) {
         }
     }
 
@@ -555,7 +554,7 @@ class MenuTest extends AbstractTest
 
     public function testRenderingWithoutPageClassToLi()
     {
-        $container = new \Zend\Navigation\Navigation($this->_nav2->toArray());
+        $container = new \Laminas\Navigation\Navigation($this->_nav2->toArray());
         $container->addPage([
             'label' => 'Class test',
             'uri' => 'test',
@@ -574,7 +573,7 @@ class MenuTest extends AbstractTest
             'addClassToListItem' => true,
         ];
 
-        $container = new \Zend\Navigation\Navigation($this->_nav2->toArray());
+        $container = new \Laminas\Navigation\Navigation($this->_nav2->toArray());
         $container->addPage([
             'label' => 'Class test',
             'uri' => 'test',
@@ -597,7 +596,7 @@ class MenuTest extends AbstractTest
 
         $pages = $this->_nav2->toArray();
         $pages[1]['class'] = 'foobar';
-        $container = new \Zend\Navigation\Navigation($pages);
+        $container = new \Laminas\Navigation\Navigation($pages);
 
         $expected = $this->_getExpected('menu/onlyactivebranch_addclasstolistitem.html');
         $actual = $this->_helper->renderMenu($container, $options);
