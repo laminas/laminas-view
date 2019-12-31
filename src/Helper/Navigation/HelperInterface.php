@@ -1,24 +1,22 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper\Navigation;
+namespace Laminas\View\Helper\Navigation;
 
-use Zend\Navigation;
-use Zend\Permissions\Acl;
-use Zend\View\Helper\HelperInterface as BaseHelperInterface;
+use Laminas\Navigation;
+use Laminas\Permissions\Acl;
+use Laminas\View\Helper\HelperInterface as BaseHelperInterface;
 
 /**
  * Interface for navigational helpers
  *
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage Helper
  */
 interface HelperInterface extends BaseHelperInterface
@@ -63,7 +61,7 @@ interface HelperInterface extends BaseHelperInterface
      * @param  mixed $role [optional] role to set.  Expects a string, an
      *                     instance of type {@link Acl\Role}, or null. Default
      *                     is null.
-     * @throws \Zend\View\Exception\ExceptionInterface if $role is invalid
+     * @throws \Laminas\View\Exception\ExceptionInterface if $role is invalid
      * @return HelperInterface fluent interface, returns
      *                                             self
      */
@@ -143,7 +141,7 @@ interface HelperInterface extends BaseHelperInterface
      *                                         the container returned by {@link
      *                                         getContainer()}.
      * @return string helper output
-     * @throws \Zend\View\Exception\ExceptionInterface if unable to render
+     * @throws \Laminas\View\Exception\ExceptionInterface if unable to render
      */
     public function render($container = null);
 }
