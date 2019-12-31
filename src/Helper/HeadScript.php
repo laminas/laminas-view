@@ -1,22 +1,20 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
-use Zend\View;
-use Zend\View\Exception;
+use Laminas\View;
+use Laminas\View\Exception;
 
 /**
  * Helper for setting and retrieving script elements for HTML head section
  *
- * @package    Zend_View
+ * @package    Laminas_View
  * @subpackage Helper
  */
 class HeadScript extends Placeholder\Container\AbstractStandalone
@@ -33,7 +31,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      * Registry key for placeholder
      * @var string
      */
-    protected $regKey = 'Zend_View_Helper_HeadScript';
+    protected $regKey = 'Laminas_View_Helper_HeadScript';
 
     /**
      * Are arbitrary attributes allowed?
@@ -95,7 +93,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      * @param  string $placement Append, prepend, or set
      * @param  array  $attrs     Array of script attributes
      * @param  string $type      Script type and/or array of script attributes
-     * @return \Zend\View\Helper\HeadScript
+     * @return \Laminas\View\Helper\HeadScript
      */
     public function __invoke($mode = HeadScript::FILE, $spec = null, $placement = 'APPEND', array $attrs = array(), $type = 'text/javascript')
     {
@@ -182,7 +180,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      *
      * @param  string $method Method to call
      * @param  array  $args   Arguments of method
-     * @return \Zend\View\Helper\HeadScript
+     * @return \Laminas\View\Helper\HeadScript
      * @throws Exception\BadMethodCallException if too few arguments or invalid method
      */
     public function __call($method, $args)
@@ -362,7 +360,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      * Set flag indicating if arbitrary attributes are allowed
      *
      * @param  bool $flag Set flag
-     * @return \Zend\View\Helper\HeadScript
+     * @return \Laminas\View\Helper\HeadScript
      */
     public function setAllowArbitraryAttributes($flag)
     {

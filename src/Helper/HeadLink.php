@@ -1,23 +1,21 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
-use Zend\View;
-use Zend\View\Exception;
+use Laminas\View;
+use Laminas\View\Exception;
 
 /**
- * Zend_Layout_View_Helper_HeadLink
+ * Laminas_Layout_View_Helper_HeadLink
  *
  * @see        http://www.w3.org/TR/xhtml1/dtds.html
- * @package    Zend_View
+ * @package    Laminas_View
  * @subpackage Helper
  */
 class HeadLink extends Placeholder\Container\AbstractStandalone
@@ -32,7 +30,7 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
     /**
      * @var string registry key
      */
-    protected $regKey = 'Zend_View_Helper_HeadLink';
+    protected $regKey = 'Laminas_View_Helper_HeadLink';
 
     /**
      * Constructor
@@ -52,7 +50,7 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
      * Returns current object instance. Optionally, allows passing array of
      * values to build link.
      *
-     * @return \Zend\View\Helper\HeadLink
+     * @return \Laminas\View\Helper\HeadLink
      */
     public function __invoke(array $attributes = null, $placement = Placeholder\Container\AbstractContainer::APPEND)
     {
@@ -216,7 +214,7 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
      * prepend()
      *
      * @param  array $value
-     * @return Zend_Layout_ViewHelper_HeadLink
+     * @return Laminas_Layout_ViewHelper_HeadLink
      * @throws Exception\InvalidArgumentException
      */
     public function prepend($value)
@@ -234,7 +232,7 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
      * set()
      *
      * @param  array $value
-     * @return Zend_Layout_ViewHelper_HeadLink
+     * @return Laminas_Layout_ViewHelper_HeadLink
      * @throws Exception\InvalidArgumentException
      */
     public function set($value)

@@ -1,23 +1,21 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
-use Zend\I18n\Translator\Translator;
-use Zend\I18n\Translator\TranslatorAwareInterface;
-use Zend\View\Exception;
+use Laminas\I18n\Translator\Translator;
+use Laminas\I18n\Translator\TranslatorAwareInterface;
+use Laminas\View\Exception;
 
 /**
  * Helper for setting and retrieving title element for HTML head
  *
- * @package    Zend_View
+ * @package    Laminas_View
  * @subpackage Helper
  */
 class HeadTitle extends Placeholder\Container\AbstractStandalone implements
@@ -27,7 +25,7 @@ class HeadTitle extends Placeholder\Container\AbstractStandalone implements
      * Registry key for placeholder
      * @var string
      */
-    protected $regKey = 'Zend_View_Helper_HeadTitle';
+    protected $regKey = 'Laminas_View_Helper_HeadTitle';
 
     /**
      * Default title rendering order (i.e. order in which each title attached)
@@ -62,7 +60,7 @@ class HeadTitle extends Placeholder\Container\AbstractStandalone implements
      *
      * @param  string $title
      * @param  string $setType
-     * @return \Zend\View\Helper\HeadTitle
+     * @return \Laminas\View\Helper\HeadTitle
      */
     public function __invoke($title = null, $setType = null)
     {

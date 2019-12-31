@@ -1,19 +1,17 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
 /**
  * Helper for alternating between set of values
  *
- * @package    Zend_View
+ * @package    Laminas_View
  * @subpackage Helper
  */
 class Cycle extends AbstractHelper implements \Iterator
@@ -51,7 +49,7 @@ class Cycle extends AbstractHelper implements \Iterator
      *
      * @param array $data
      * @param string $name
-     * @return \Zend\View\Helper\Cycle
+     * @return \Laminas\View\Helper\Cycle
      */
     public function __invoke(array $data = array(), $name = self::DEFAULT_NAME)
     {
@@ -67,7 +65,7 @@ class Cycle extends AbstractHelper implements \Iterator
      *
      * @param array $data
      * @param string $name
-     * @return \Zend\View\Helper\Cycle
+     * @return \Laminas\View\Helper\Cycle
      */
     public function assign(Array $data , $name = self::DEFAULT_NAME)
     {
@@ -81,7 +79,7 @@ class Cycle extends AbstractHelper implements \Iterator
      * Sets actual name of cycle
      *
      * @param $name
-     * @return \Zend\View\Helper\Cycle
+     * @return \Laminas\View\Helper\Cycle
      */
     public function setName($name = self::DEFAULT_NAME)
     {
@@ -141,7 +139,7 @@ class Cycle extends AbstractHelper implements \Iterator
     /**
      * Move to next value
      *
-     * @return \Zend\View\Helper\Cycle
+     * @return \Laminas\View\Helper\Cycle
      */
     public function next()
     {
@@ -156,7 +154,7 @@ class Cycle extends AbstractHelper implements \Iterator
     /**
      * Move to previous value
      *
-     * @return \Zend\View\Helper\Cycle
+     * @return \Laminas\View\Helper\Cycle
      */
     public function prev()
     {
@@ -184,7 +182,7 @@ class Cycle extends AbstractHelper implements \Iterator
     /**
      * Rewind pointer
      *
-     * @return \Zend\View\Helper\Cycle
+     * @return \Laminas\View\Helper\Cycle
      */
     public function rewind()
     {

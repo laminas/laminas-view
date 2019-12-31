@@ -1,18 +1,16 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
+use Laminas\View\Helper\EscapeHtml as EscapeHelper;
 use PHPUnit_Framework_TestCase as TestCase;
 use stdClass;
-use Zend\View\Helper\EscapeHtml as EscapeHelper;
 
 class EscapeHtmlTest extends TestCase
 {
@@ -40,7 +38,7 @@ class EscapeHtmlTest extends TestCase
     }
 
     /**
-     * @expectedException \Zend\View\Exception\InvalidArgumentException
+     * @expectedException \Laminas\View\Exception\InvalidArgumentException
      */
     public function testEncodingIsImmutable()
     {
@@ -53,22 +51,22 @@ class EscapeHtmlTest extends TestCase
     {
         $this->helper->setEncoding('BIG5-HKSCS');
         $escaper = $this->helper->getEscaper();
-        $this->assertTrue($escaper instanceof \Zend\Escaper\Escaper);
+        $this->assertTrue($escaper instanceof \Laminas\Escaper\Escaper);
         $this->assertEquals('big5-hkscs', $escaper->getEncoding());
     }
 
     public function testSettingEscaperObjectAlsoSetsEncoding()
     {
-        $escaper = new \Zend\Escaper\Escaper('big5-hkscs');
+        $escaper = new \Laminas\Escaper\Escaper('big5-hkscs');
         $this->helper->setEscaper($escaper);
         $escaper = $this->helper->getEscaper();
-        $this->assertTrue($escaper instanceof \Zend\Escaper\Escaper);
+        $this->assertTrue($escaper instanceof \Laminas\Escaper\Escaper);
         $this->assertEquals('big5-hkscs', $escaper->getEncoding());
     }
 
     public function testEscapehtmlCalledOnEscaperObject()
     {
-        $escaper = $this->getMock('\\Zend\\Escaper\\Escaper');
+        $escaper = $this->getMock('\\Laminas\\Escaper\\Escaper');
         $escaper->expects($this->any())->method('escapeHtml');
         $this->helper->setEscaper($escaper);
         $this->helper->__invoke('foo');
@@ -162,7 +160,7 @@ class EscapeHtmlTest extends TestCase
     }
 
     /**
-     * @expectedException \Zend\Escaper\Exception\InvalidArgumentException
+     * @expectedException \Laminas\Escaper\Exception\InvalidArgumentException
      *
      * PHP 5.3 instates default encoding on empty string instead of the expected
      * warning level error for htmlspecialchars() encoding param. PHP 5.4 attempts
@@ -185,7 +183,7 @@ class EscapeHtmlTest extends TestCase
     }
 
     /**
-     * @expectedException \Zend\Escaper\Exception\InvalidArgumentException
+     * @expectedException \Laminas\Escaper\Exception\InvalidArgumentException
      *
      * All versions of PHP - when an invalid encoding is set on htmlspecialchars()
      * a warning level error is issued and escaping continues with the default encoding

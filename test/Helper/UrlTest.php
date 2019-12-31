@@ -1,29 +1,27 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\View\Helper\Url as UrlHelper;
-use Zend\Mvc\Router\RouteMatch;
-use Zend\Mvc\Router\SimpleRouteStack as Router;
+use Laminas\Mvc\Router\RouteMatch;
+use Laminas\Mvc\Router\SimpleRouteStack as Router;
+use Laminas\View\Helper\Url as UrlHelper;
 
 /**
- * Zend_View_Helper_UrlTest
+ * Laminas_View_Helper_UrlTest
  *
  * Tests formText helper, including some common functionality of all form helpers
  *
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class UrlTest extends \PHPUnit_Framework_TestCase
 {
@@ -35,13 +33,13 @@ class UrlTest extends \PHPUnit_Framework_TestCase
     {
         $router = new Router();
         $router->addRoute('home', array(
-            'type' => 'Zend\Mvc\Router\Http\Literal',
+            'type' => 'Laminas\Mvc\Router\Http\Literal',
             'options' => array(
                 'route' => '/',
             )
         ));
         $router->addRoute('default', array(
-                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'type' => 'Laminas\Mvc\Router\Http\Segment',
                 'options' => array(
                     'route' => '/:controller[/:action]',
                 )
@@ -54,7 +52,7 @@ class UrlTest extends \PHPUnit_Framework_TestCase
 
     public function testHelperHasHardDependencyWithRouter()
     {
-        $this->setExpectedException('Zend\View\Exception\RuntimeException', 'No RouteStackInterface instance provided');
+        $this->setExpectedException('Laminas\View\Exception\RuntimeException', 'No RouteStackInterface instance provided');
         $url = new UrlHelper;
         $url('home');
     }
@@ -73,14 +71,14 @@ class UrlTest extends \PHPUnit_Framework_TestCase
 
     public function testPluginWithoutRouteMatchesInEventRaisesExceptionWhenNoRouteProvided()
     {
-        $this->setExpectedException('Zend\View\Exception\RuntimeException', 'RouteMatch');
+        $this->setExpectedException('Laminas\View\Exception\RuntimeException', 'RouteMatch');
         $url = $this->url->__invoke();
     }
 
     public function testPluginWithRouteMatchesReturningNoMatchedRouteNameRaisesExceptionWhenNoRouteProvided()
     {
         $this->url->setRouteMatch(new RouteMatch(array()));
-        $this->setExpectedException('Zend\View\Exception\RuntimeException', 'matched');
+        $this->setExpectedException('Laminas\View\Exception\RuntimeException', 'matched');
         $url = $this->url->__invoke();
     }
 
@@ -96,11 +94,11 @@ class UrlTest extends \PHPUnit_Framework_TestCase
     public function testCanReuseMatchedParameters()
     {
         $this->router->addRoute('replace', array(
-            'type'    => 'Zend\Mvc\Router\Http\Segment',
+            'type'    => 'Laminas\Mvc\Router\Http\Segment',
             'options' => array(
                 'route'    => '/:controller/:action',
                 'defaults' => array(
-                    'controller' => 'ZendTest\Mvc\Controller\TestAsset\SampleController',
+                    'controller' => 'LaminasTest\Mvc\Controller\TestAsset\SampleController',
                 ),
             ),
         ));
@@ -116,11 +114,11 @@ class UrlTest extends \PHPUnit_Framework_TestCase
     public function testCanPassBooleanValueForThirdArgumentToAllowReusingRouteMatches()
     {
         $this->router->addRoute('replace', array(
-            'type' => 'Zend\Mvc\Router\Http\Segment',
+            'type' => 'Laminas\Mvc\Router\Http\Segment',
             'options' => array(
                 'route'    => '/:controller/:action',
                 'defaults' => array(
-                    'controller' => 'ZendTest\Mvc\Controller\TestAsset\SampleController',
+                    'controller' => 'LaminasTest\Mvc\Controller\TestAsset\SampleController',
                 ),
             ),
         ));

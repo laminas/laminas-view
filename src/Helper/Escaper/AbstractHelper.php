@@ -1,23 +1,21 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper\Escaper;
+namespace Laminas\View\Helper\Escaper;
 
-use Zend\Escaper;
-use Zend\View\Exception;
-use Zend\View\Helper;
+use Laminas\Escaper;
+use Laminas\View\Exception;
+use Laminas\View\Helper;
 
 /**
  * Helper for escaping values
  *
- * @package    Zend_View
+ * @package    Laminas_View
  * @subpackage Helper
  */
 abstract class AbstractHelper extends Helper\AbstractHelper
@@ -67,7 +65,7 @@ abstract class AbstractHelper extends Helper\AbstractHelper
         if (!is_null($this->escaper)) {
             throw new Exception\InvalidArgumentException(
                 'Character encoding settings cannot be changed once the Helper has been used or '
-                . ' if a Zend\Escaper\Escaper object (with preset encoding option) is set.'
+                . ' if a Laminas\Escaper\Escaper object (with preset encoding option) is set.'
             );
         }
         $this->encoding = $encoding;

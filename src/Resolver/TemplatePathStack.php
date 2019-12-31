@@ -1,25 +1,23 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Resolver;
+namespace Laminas\View\Resolver;
 
+use Laminas\Stdlib\SplStack;
+use Laminas\View\Exception;
+use Laminas\View\Renderer\RendererInterface as Renderer;
 use SplFileInfo;
-use Zend\Stdlib\SplStack;
-use Zend\View\Exception;
-use Zend\View\Renderer\RendererInterface as Renderer;
 
 /**
  * Resolves view scripts based on a stack of paths
  *
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage Resolver
  */
 class TemplatePathStack implements ResolverInterface
@@ -71,8 +69,8 @@ class TemplatePathStack implements ResolverInterface
     {
         $this->useViewStream = (bool) ini_get('short_open_tag');
         if ($this->useViewStream) {
-            if (!in_array('zend.view', stream_get_wrappers())) {
-                stream_wrapper_register('zend.view', 'Zend\View\Stream');
+            if (!in_array('laminas.view', stream_get_wrappers())) {
+                stream_wrapper_register('laminas.view', 'Laminas\View\Stream');
             }
         }
 
@@ -317,7 +315,7 @@ class TemplatePathStack implements ResolverInterface
                 }
                 if ($this->useStreamWrapper()) {
                     // If using a stream wrapper, prepend the spec to the path
-                    $filePath = 'zend.view://' . $filePath;
+                    $filePath = 'laminas.view://' . $filePath;
                 }
                 return $filePath;
             }
