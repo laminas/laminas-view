@@ -1,21 +1,20 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
+use Laminas\View\Helper\Gravatar;
+use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\View\Renderer\PhpRenderer as View;
-use Zend\View\Helper\Gravatar;
 
 /**
- * @group      Zendview
- * @group      Zendview_Helper
+ * @group      Laminasview
+ * @group      Laminasview_Helper
  */
 class GravatarTest extends TestCase
 {
@@ -127,7 +126,7 @@ class GravatarTest extends TestCase
     public function testInvalidRatingParametr()
     {
         $ratingsWrong = [ 'a', 'cs', 456];
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->setExpectedException('Laminas\View\Exception\ExceptionInterface');
         foreach ($ratingsWrong as $value) {
             $this->helper->setRating($value);
         }
@@ -260,7 +259,7 @@ class GravatarTest extends TestCase
 
     public function testReturnThisObject()
     {
-        $this->assertInstanceOf('Zend\View\Helper\Gravatar', $this->helper->__invoke());
+        $this->assertInstanceOf('Laminas\View\Helper\Gravatar', $this->helper->__invoke());
     }
 
     public function testInvalidKeyPassedToSetOptionsMethod()

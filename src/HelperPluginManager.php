@@ -1,20 +1,19 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View;
+namespace Laminas\View;
 
 use Interop\Container\ContainerInterface;
-use Zend\I18n\Translator\TranslatorAwareInterface;
-use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\Exception\InvalidServiceException;
-use Zend\ServiceManager\Factory\InvokableFactory;
-use Zend\View\Exception\InvalidHelperException;
+use Laminas\I18n\Translator\TranslatorAwareInterface;
+use Laminas\ServiceManager\AbstractPluginManager;
+use Laminas\ServiceManager\Exception\InvalidServiceException;
+use Laminas\ServiceManager\Factory\InvokableFactory;
+use Laminas\View\Exception\InvalidHelperException;
 
 /**
  * Plugin manager implementation for view helpers
@@ -132,6 +131,80 @@ class HelperPluginManager extends AbstractPluginManager
         'viewmodel'           => Helper\ViewModel::class,
         'viewModel'           => Helper\ViewModel::class,
         'ViewModel'           => Helper\ViewModel::class,
+
+        // Legacy Zend Framework aliases
+        \Zend\View\Helper\FlashMessenger::class => Helper\FlashMessenger::class,
+        \Zend\View\Helper\Identity::class => Helper\Identity::class,
+        \Zend\View\Helper\BasePath::class => Helper\BasePath::class,
+        \Zend\View\Helper\Cycle::class => Helper\Cycle::class,
+        \Zend\View\Helper\DeclareVars::class => Helper\DeclareVars::class,
+        \Zend\View\Helper\Doctype::class => Helper\Doctype::class,
+        \Zend\View\Helper\EscapeHtml::class => Helper\EscapeHtml::class,
+        \Zend\View\Helper\EscapeHtmlAttr::class => Helper\EscapeHtmlAttr::class,
+        \Zend\View\Helper\EscapeJs::class => Helper\EscapeJs::class,
+        \Zend\View\Helper\EscapeCss::class => Helper\EscapeCss::class,
+        \Zend\View\Helper\EscapeUrl::class => Helper\EscapeUrl::class,
+        \Zend\View\Helper\Gravatar::class => Helper\Gravatar::class,
+        \Zend\View\Helper\HtmlTag::class => Helper\HtmlTag::class,
+        \Zend\View\Helper\HeadLink::class => Helper\HeadLink::class,
+        \Zend\View\Helper\HeadMeta::class => Helper\HeadMeta::class,
+        \Zend\View\Helper\HeadScript::class => Helper\HeadScript::class,
+        \Zend\View\Helper\HeadStyle::class => Helper\HeadStyle::class,
+        \Zend\View\Helper\HeadTitle::class => Helper\HeadTitle::class,
+        \Zend\View\Helper\HtmlFlash::class => Helper\HtmlFlash::class,
+        \Zend\View\Helper\HtmlList::class => Helper\HtmlList::class,
+        \Zend\View\Helper\HtmlObject::class => Helper\HtmlObject::class,
+        \Zend\View\Helper\HtmlPage::class => Helper\HtmlPage::class,
+        \Zend\View\Helper\HtmlQuicktime::class => Helper\HtmlQuicktime::class,
+        \Zend\View\Helper\InlineScript::class => Helper\InlineScript::class,
+        \Zend\View\Helper\Json::class => Helper\Json::class,
+        \Zend\View\Helper\Layout::class => Helper\Layout::class,
+        \Zend\View\Helper\PaginationControl::class => Helper\PaginationControl::class,
+        \Zend\View\Helper\PartialLoop::class => Helper\PartialLoop::class,
+        \Zend\View\Helper\Partial::class => Helper\Partial::class,
+        \Zend\View\Helper\Placeholder::class => Helper\Placeholder::class,
+        \Zend\View\Helper\RenderChildModel::class => Helper\RenderChildModel::class,
+        \Zend\View\Helper\RenderToPlaceholder::class => Helper\RenderToPlaceholder::class,
+        \Zend\View\Helper\ServerUrl::class => Helper\ServerUrl::class,
+        \Zend\View\Helper\Url::class => Helper\Url::class,
+        \Zend\View\Helper\ViewModel::class => Helper\ViewModel::class,
+
+        // v2 normalized FQCNs
+        'zendviewhelperflashmessenger' => Helper\FlashMessenger::class,
+        'zendviewhelperidentity' => Helper\Identity::class,
+        'zendviewhelperbasepath' => Helper\BasePath::class,
+        'zendviewhelpercycle' => Helper\Cycle::class,
+        'zendviewhelperdeclarevars' => Helper\DeclareVars::class,
+        'zendviewhelperdoctype' => Helper\Doctype::class,
+        'zendviewhelperescapehtml' => Helper\EscapeHtml::class,
+        'zendviewhelperescapehtmlattr' => Helper\EscapeHtmlAttr::class,
+        'zendviewhelperescapejs' => Helper\EscapeJs::class,
+        'zendviewhelperescapecss' => Helper\EscapeCss::class,
+        'zendviewhelperescapeurl' => Helper\EscapeUrl::class,
+        'zendviewhelpergravatar' => Helper\Gravatar::class,
+        'zendviewhelperhtmltag' => Helper\HtmlTag::class,
+        'zendviewhelperheadlink' => Helper\HeadLink::class,
+        'zendviewhelperheadmeta' => Helper\HeadMeta::class,
+        'zendviewhelperheadscript' => Helper\HeadScript::class,
+        'zendviewhelperheadstyle' => Helper\HeadStyle::class,
+        'zendviewhelperheadtitle' => Helper\HeadTitle::class,
+        'zendviewhelperhtmlflash' => Helper\HtmlFlash::class,
+        'zendviewhelperhtmllist' => Helper\HtmlList::class,
+        'zendviewhelperhtmlobject' => Helper\HtmlObject::class,
+        'zendviewhelperhtmlpage' => Helper\HtmlPage::class,
+        'zendviewhelperhtmlquicktime' => Helper\HtmlQuicktime::class,
+        'zendviewhelperinlinescript' => Helper\InlineScript::class,
+        'zendviewhelperjson' => Helper\Json::class,
+        'zendviewhelperlayout' => Helper\Layout::class,
+        'zendviewhelperpaginationcontrol' => Helper\PaginationControl::class,
+        'zendviewhelperpartialloop' => Helper\PartialLoop::class,
+        'zendviewhelperpartial' => Helper\Partial::class,
+        'zendviewhelperplaceholder' => Helper\Placeholder::class,
+        'zendviewhelperrenderchildmodel' => Helper\RenderChildModel::class,
+        'zendviewhelperrendertoplaceholder' => Helper\RenderToPlaceholder::class,
+        'zendviewhelperserverurl' => Helper\ServerUrl::class,
+        'zendviewhelperurl' => Helper\Url::class,
+        'zendviewhelperviewmodel' => Helper\ViewModel::class,
     ];
 
     protected $instanceOf = Helper\HelperInterface::class;
@@ -185,41 +258,41 @@ class HelperPluginManager extends AbstractPluginManager
 
         // v2 canonical FQCNs
 
-        'zendviewhelperflashmessenger'    => Helper\Service\FlashMessengerFactory::class,
-        'zendviewhelperidentity'          => Helper\Service\IdentityFactory::class,
-        'zendviewhelperbasepath'          => InvokableFactory::class,
-        'zendviewhelpercycle'             => InvokableFactory::class,
-        'zendviewhelperdeclarevars'       => InvokableFactory::class,
-        'zendviewhelperdoctype'           => InvokableFactory::class,
-        'zendviewhelperescapehtml'        => InvokableFactory::class,
-        'zendviewhelperescapehtmlattr'    => InvokableFactory::class,
-        'zendviewhelperescapejs'          => InvokableFactory::class,
-        'zendviewhelperescapecss'         => InvokableFactory::class,
-        'zendviewhelperescapeurl'         => InvokableFactory::class,
-        'zendviewhelpergravatar'          => InvokableFactory::class,
-        'zendviewhelperhtmltag'           => InvokableFactory::class,
-        'zendviewhelperheadlink'          => InvokableFactory::class,
-        'zendviewhelperheadmeta'          => InvokableFactory::class,
-        'zendviewhelperheadscript'        => InvokableFactory::class,
-        'zendviewhelperheadstyle'         => InvokableFactory::class,
-        'zendviewhelperheadtitle'         => InvokableFactory::class,
-        'zendviewhelperhtmlflash'         => InvokableFactory::class,
-        'zendviewhelperhtmllist'          => InvokableFactory::class,
-        'zendviewhelperhtmlobject'        => InvokableFactory::class,
-        'zendviewhelperhtmlpage'          => InvokableFactory::class,
-        'zendviewhelperhtmlquicktime'     => InvokableFactory::class,
-        'zendviewhelperinlinescript'      => InvokableFactory::class,
-        'zendviewhelperjson'              => InvokableFactory::class,
-        'zendviewhelperlayout'            => InvokableFactory::class,
-        'zendviewhelperpaginationcontrol' => InvokableFactory::class,
-        'zendviewhelperpartialloop'       => InvokableFactory::class,
-        'zendviewhelperpartial'           => InvokableFactory::class,
-        'zendviewhelperplaceholder'       => InvokableFactory::class,
-        'zendviewhelperrenderchildmodel'  => InvokableFactory::class,
-        'zendviewhelperrendertoplaceholder' => InvokableFactory::class,
-        'zendviewhelperserverurl'         => InvokableFactory::class,
-        'zendviewhelperurl'               => InvokableFactory::class,
-        'zendviewhelperviewmodel'         => InvokableFactory::class,
+        'laminasviewhelperflashmessenger'    => Helper\Service\FlashMessengerFactory::class,
+        'laminasviewhelperidentity'          => Helper\Service\IdentityFactory::class,
+        'laminasviewhelperbasepath'          => InvokableFactory::class,
+        'laminasviewhelpercycle'             => InvokableFactory::class,
+        'laminasviewhelperdeclarevars'       => InvokableFactory::class,
+        'laminasviewhelperdoctype'           => InvokableFactory::class,
+        'laminasviewhelperescapehtml'        => InvokableFactory::class,
+        'laminasviewhelperescapehtmlattr'    => InvokableFactory::class,
+        'laminasviewhelperescapejs'          => InvokableFactory::class,
+        'laminasviewhelperescapecss'         => InvokableFactory::class,
+        'laminasviewhelperescapeurl'         => InvokableFactory::class,
+        'laminasviewhelpergravatar'          => InvokableFactory::class,
+        'laminasviewhelperhtmltag'           => InvokableFactory::class,
+        'laminasviewhelperheadlink'          => InvokableFactory::class,
+        'laminasviewhelperheadmeta'          => InvokableFactory::class,
+        'laminasviewhelperheadscript'        => InvokableFactory::class,
+        'laminasviewhelperheadstyle'         => InvokableFactory::class,
+        'laminasviewhelperheadtitle'         => InvokableFactory::class,
+        'laminasviewhelperhtmlflash'         => InvokableFactory::class,
+        'laminasviewhelperhtmllist'          => InvokableFactory::class,
+        'laminasviewhelperhtmlobject'        => InvokableFactory::class,
+        'laminasviewhelperhtmlpage'          => InvokableFactory::class,
+        'laminasviewhelperhtmlquicktime'     => InvokableFactory::class,
+        'laminasviewhelperinlinescript'      => InvokableFactory::class,
+        'laminasviewhelperjson'              => InvokableFactory::class,
+        'laminasviewhelperlayout'            => InvokableFactory::class,
+        'laminasviewhelperpaginationcontrol' => InvokableFactory::class,
+        'laminasviewhelperpartialloop'       => InvokableFactory::class,
+        'laminasviewhelperpartial'           => InvokableFactory::class,
+        'laminasviewhelperplaceholder'       => InvokableFactory::class,
+        'laminasviewhelperrenderchildmodel'  => InvokableFactory::class,
+        'laminasviewhelperrendertoplaceholder' => InvokableFactory::class,
+        'laminasviewhelperserverurl'         => InvokableFactory::class,
+        'laminasviewhelperurl'               => InvokableFactory::class,
+        'laminasviewhelperviewmodel'         => InvokableFactory::class,
     ];
 
     /**
@@ -314,8 +387,8 @@ class HelperPluginManager extends AbstractPluginManager
             return;
         }
 
-        if ($container->has('Zend\I18n\Translator\TranslatorInterface')) {
-            $helper->setTranslator($container->get('Zend\I18n\Translator\TranslatorInterface'));
+        if ($container->has('Laminas\I18n\Translator\TranslatorInterface')) {
+            $helper->setTranslator($container->get('Laminas\I18n\Translator\TranslatorInterface'));
             return;
         }
 

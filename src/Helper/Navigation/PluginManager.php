@@ -1,17 +1,16 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper\Navigation;
+namespace Laminas\View\Helper\Navigation;
 
 use Interop\Container\ContainerInterface;
-use Zend\ServiceManager\Factory\InvokableFactory;
-use Zend\View\HelperPluginManager;
+use Laminas\ServiceManager\Factory\InvokableFactory;
+use Laminas\View\HelperPluginManager;
 
 /**
  * Plugin manager implementation for navigation helpers
@@ -37,6 +36,12 @@ class PluginManager extends HelperPluginManager
         'links'       => Links::class,
         'menu'        => Menu::class,
         'sitemap'     => Sitemap::class,
+
+        // Legacy Zend Framework aliases
+        \Zend\View\Helper\Navigation\Breadcrumbs::class => Breadcrumbs::class,
+        \Zend\View\Helper\Navigation\Links::class => Links::class,
+        \Zend\View\Helper\Navigation\Menu::class => Menu::class,
+        \Zend\View\Helper\Navigation\Sitemap::class => Sitemap::class,
     ];
 
     /**

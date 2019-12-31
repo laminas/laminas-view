@@ -1,21 +1,20 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\View\Renderer\PhpRenderer as View;
-use Zend\View\Helper\Doctype;
-use Zend\View\Helper\HtmlObject;
+use Laminas\View\Helper\Doctype;
+use Laminas\View\Helper\HtmlObject;
+use Laminas\View\Renderer\PhpRenderer as View;
 
 /**
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class HtmlObjectTest extends \PHPUnit_Framework_TestCase
 {
@@ -44,7 +43,7 @@ class HtmlObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testViewObjectIsSet()
     {
-        $this->assertInstanceof('Zend\View\Renderer\RendererInterface', $this->helper->getView());
+        $this->assertInstanceof('Laminas\View\Renderer\RendererInterface', $this->helper->getView());
     }
 
     public function testMakeHtmlObjectWithoutAttribsWithoutParams()

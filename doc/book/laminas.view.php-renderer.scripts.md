@@ -1,12 +1,12 @@
 # PhpRenderer View Scripts
 
-Once you call `render()`, `Zend\View\Renderer\PhpRenderer` then `include()`s the requested view
+Once you call `render()`, `Laminas\View\Renderer\PhpRenderer` then `include()`s the requested view
 script and executes it "inside" the scope of the `PhpRenderer` instance. Therefore, in your view
 scripts, references to `$this` actually point to the `PhpRenderer` instance itself.
 
 Variables assigned to the view -- either via a \[View
-Model\](zend.view.quick-start.usage.controllers), Variables container
-&lt;zend.view.quick-start.intro&gt;, or simply by passing an array of variables to `render()`-- may
+Model\](laminas.view.quick-start.usage.controllers), Variables container
+&lt;laminas.view.quick-start.intro&gt;, or simply by passing an array of variables to `render()`-- may
 be retrieved in three ways:
 
 - Explicitly, by retrieving them from the `Variables` container composed in the `PhpRenderer`:
