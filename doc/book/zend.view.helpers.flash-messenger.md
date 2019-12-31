@@ -3,7 +3,7 @@
 ## Introduction
 
 The `FlashMessenger` helper is used to render the messages of the \[FlashMessenger MVC
-plugin\](zend.mvc.controller-plugins.flashmessenger).
+plugin\](laminas.mvc.controller-plugins.flashmessenger).
 
 ## Basic Usage
 
@@ -15,7 +15,7 @@ echo $this->flashMessenger()->render();
 ```
 
 The first argument of the `render()`-function is the `namespace`. If no `namespace` is defined, the
-default `Zend\Mvc\Controller\Plugin\FlashMessenger::NAMESPACE_DEFAULT` will be used, which
+default `Laminas\Mvc\Controller\Plugin\FlashMessenger::NAMESPACE_DEFAULT` will be used, which
 translates to `default`.
 
 ```php
@@ -23,7 +23,7 @@ translates to `default`.
 echo $this->flashMessenger()->render('error');
 
 // Alternatively use one of the pre-defined namespaces 
-// (aka: use Zend\Mvc\Controller\Plugin\FlashMessenger;)
+// (aka: use Laminas\Mvc\Controller\Plugin\FlashMessenger;)
 echo $this->flashMessenger()->render(FlashMessenger::NAMESPACE_SUCCESS);
 ```
 
@@ -56,7 +56,7 @@ modify the generated `HTML` as a whole to create even more distinct visuals for 
 view helper itself.
 
 ```php
-// Zend/View/Helper/FlashMessenger.php#L41-L43
+// Laminas/View/Helper/FlashMessenger.php#L41-L43
 protected $messageCloseString     = '</li></ul>';
 protected $messageOpenFormat      = '<ul%s><li>';
 protected $messageSeparatorString = '</li><li>';
