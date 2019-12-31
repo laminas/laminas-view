@@ -26,7 +26,7 @@ The `Doctype` helper allows you to specify one of the following types:
 You can also specify a custom doctype as long as it is well-formed.
 
 The `Doctype` helper is a concrete implementation of the Placeholder helper
-&lt;zend.view.helpers.initial.placeholder&gt;.
+&lt;laminas.view.helpers.initial.placeholder&gt;.
 
 ## Basic Usage
 
@@ -35,7 +35,7 @@ output will recognize it only after you have set it, so the easiest approach is 
 your bootstrap:
 
 ```php
-$doctypeHelper = new Zend\View\Helper\Doctype();
+$doctypeHelper = new Laminas\View\Helper\Doctype();
 $doctypeHelper->doctype('XHTML1_STRICT');
 ```
 
@@ -78,7 +78,7 @@ XHTML1\_RDFA doctype. This doctype allows a developer to use the [Resource Descr
 Framework](http://www.w3.org/TR/xhtml-rdfa-primer/) within an *XHTML* document.
 
 ```php
-$doctypeHelper = new Zend\View\Helper\Doctype();
+$doctypeHelper = new Laminas\View\Helper\Doctype();
 $doctypeHelper->doctype('XHTML1_RDFA');
 ```
 
@@ -96,7 +96,7 @@ Open Graph Protocol spec. Example within a view script:
 In the previous example, we set the property to og:type. The og references the Open Graph namespace
 we specified in the html tag. The content identifies the page as being about a musician. See the
 [Open Graph Protocol documentation](http://opengraphprotocol.org/) for supported properties. The
-\[HeadMeta helper\](zend.view.helpers.initial.headmeta) may be used to programmatically set these
+\[HeadMeta helper\](laminas.view.helpers.initial.headmeta) may be used to programmatically set these
 Open Graph Protocol meta tags.
 
 Here is how you check if the doctype is set to XHTML1\_RDFA:
@@ -111,7 +111,7 @@ Here is how you check if the doctype is set to XHTML1\_RDFA:
 >
 ```
 
-## Zend MVC View Manager
+## Laminas MVC View Manager
 
-If you're running a ZendMvc application, you should specify doctype via the
-\[ViewManager\](zend.mvc.services.view-manager) service.
+If you're running a LaminasMvc application, you should specify doctype via the
+\[ViewManager\](laminas.mvc.services.view-manager) service.

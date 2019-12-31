@@ -2,12 +2,12 @@
 
 ## Registering Helpers
 
-`Zend\View\Renderer\PhpRenderer` composes a *plugin manager* for managing helpers, specifically an
-instance of `Zend\View\HelperPluginManager`, which extends
-`Zend\ServiceManager\AbstractPluginManager`, and this extends `Zend\ServiceManager\ServiceManager`.
+`Laminas\View\Renderer\PhpRenderer` composes a *plugin manager* for managing helpers, specifically an
+instance of `Laminas\View\HelperPluginManager`, which extends
+`Laminas\ServiceManager\AbstractPluginManager`, and this extends `Laminas\ServiceManager\ServiceManager`.
 As you can see, the *HelperPluginManager* is a specialized service manager, so you can register a
 helper/plugin like any other service (see the Service Manager documentation
-&lt;zend.service-manager.intro&gt; for more information).
+&lt;laminas.service-manager.intro&gt; for more information).
 
 Programmatically, this is done as follows:
 
@@ -43,7 +43,7 @@ return array(
 );
 ```
 
-If your module class implements `Zend\ModuleManager\Feature\ViewHelperProviderInterface`, or just
+If your module class implements `Laminas\ModuleManager\Feature\ViewHelperProviderInterface`, or just
 the method `getViewHelperConfig()`, you could do the following (it's the same as the previous
 example).
 
@@ -73,13 +73,13 @@ order of modules can impact which helper class will actually be registered!
 
 ## Writing Custom Helpers
 
-Writing custom helpers is easy. We recommend extending `Zend\View\Helper\AbstractHelper`, but at the
-minimum, you need only implement the `Zend\View\Helper\HelperInterface` interface:
+Writing custom helpers is easy. We recommend extending `Laminas\View\Helper\AbstractHelper`, but at the
+minimum, you need only implement the `Laminas\View\Helper\HelperInterface` interface:
 
 ```php
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
-use Zend\View\Renderer\RendererInterface as Renderer;
+use Laminas\View\Renderer\RendererInterface as Renderer;
 
 interface HelperInterface
 {
@@ -103,12 +103,12 @@ interface HelperInterface
 If you want your helper to be capable of being invoked as if it were a method call of the
 `PhpRenderer`, you should also implement an `__invoke()` method within your helper.
 
-As previously noted, we recommend extending `Zend\View\Helper\AbstractHelper`, as it implements the
+As previously noted, we recommend extending `Laminas\View\Helper\AbstractHelper`, as it implements the
 methods defined in `HelperInterface`, giving you a headstart in your development.
 
 Once you have defined your helper class, make sure you can autoload it, and then register it with
 the plugin
-manager &lt;zend.view.helpers.register&gt;.
+manager &lt;laminas.view.helpers.register&gt;.
 
 Here is an example helper, which we're titling "SpecialPurpose"
 
@@ -116,7 +116,7 @@ Here is an example helper, which we're titling "SpecialPurpose"
 // /module/src/MyModule/View/Helper/SpecialPurpose.php
 namespace MyModule\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 
 class SpecialPurpose extends AbstractHelper
 {
@@ -131,14 +131,14 @@ class SpecialPurpose extends AbstractHelper
 }
 ```
 
-Then assume that we \[register it with the plugin manager\](zend.view.helpers.register), by the name
+Then assume that we \[register it with the plugin manager\](laminas.view.helpers.register), by the name
 "specialpurpose".
 
 Within a view script, you can call the `SpecialPurpose` helper as many times as you like; it will be
 instantiated once, and then it persists for the life of that `PhpRenderer` instance.
 
 ```php
-// remember, in a view script, $this refers to the Zend\View\Renderer\PhpRenderer instance.
+// remember, in a view script, $this refers to the Laminas\View\Renderer\PhpRenderer instance.
 echo $this->specialPurpose();
 echo $this->specialPurpose();
 echo $this->specialPurpose();
@@ -160,7 +160,7 @@ why we define the `setView()` and `getView()` methods. As an example, we could r
 ```php
 namespace MyModule\View\Helper;
 
-use Zend\View\Helper\AbstractHelper;
+use Laminas\View\Helper\AbstractHelper;
 
 class SpecialPurpose extends AbstractHelper
 {
