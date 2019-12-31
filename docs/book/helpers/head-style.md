@@ -53,7 +53,7 @@ The `HeadStyle` helper is a concrete implementation of the
 
 > ### UTF-8 encoding used by default
 >
-> By default, zend-view uses *UTF-8* as its default encoding.  If you want to
+> By default, laminas-view uses *UTF-8* as its default encoding.  If you want to
 > use another encoding with `headStyle`, you must:
 >
 > 1. Create a custom renderer and implement a `getEncoding()` method;
@@ -66,8 +66,8 @@ The `HeadStyle` helper is a concrete implementation of the
 > // module/MyModule/View/Renderer/MyRenderer.php
 > namespace MyModule\View\Renderer;
 >
-> // Since we just want to implement the getEncoding() method, we can extend the Zend native renderer
-> use Zend\View\Renderer\PhpRenderer;
+> // Since we just want to implement the getEncoding() method, we can extend the Laminas native renderer
+> use Laminas\View\Renderer\PhpRenderer;
 >
 > class MyRenderer extends PhpRenderer
 > {
@@ -116,8 +116,8 @@ The `HeadStyle` helper is a concrete implementation of the
 > namespace MyModule;
 >
 > use MyModule\View\Renderer\MyRenderer;
-> use Zend\Mvc\MvcEvent;
-> use Zend\View\Strategy\PhpRendererStrategy;
+> use Laminas\Mvc\MvcEvent;
+> use Laminas\View\Strategy\PhpRendererStrategy;
 >
 > class Module
 > {
@@ -155,7 +155,7 @@ The `HeadStyle` helper is a concrete implementation of the
 >     {
 >         $app        = $e->getTarget();
 >         $locator    = $app->getServiceManager();
->         $view       = $locator->get('Zend\View\View');
+>         $view       = $locator->get('Laminas\View\View');
 >         $myStrategy = $locator->get('MyCustomStrategy');
 >
 >         // Attach strategy, which is a listener aggregate, at high priority

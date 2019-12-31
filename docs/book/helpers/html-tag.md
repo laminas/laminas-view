@@ -74,7 +74,7 @@ is enabled:
 
 ```php
 // Set doctype to XHTML
-$this->doctype(Zend\View\Helper\Doctype::XHTML1_STRICT);
+$this->doctype(Laminas\View\Helper\Doctype::XHTML1_STRICT);
 
 // Add namespace to open tag
 $this->htmlTag()->setUseNamespaces(true);

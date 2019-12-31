@@ -7,8 +7,8 @@ retrieving the root view model.
 
 ### Change the Layout Template
 
-If you're running a zend-mvc application then the layout template is set in the
-configuration for the [`ViewManager`](https://docs.zendframework.com/zend-mvc/services/#viewmanager).
+If you're running a laminas-mvc application then the layout template is set in the
+configuration for the [`ViewManager`](https://docs.laminas.dev/laminas-mvc/services/#viewmanager).
 
 To change the layout template within a view script, call:
 
@@ -27,7 +27,7 @@ $this->layout()->setTemplate('layout/backend');
 The `Layout` helper can also retrieve the view model for the layout (root):
 
 ```php
-/** @var \Zend\View\Model\ViewModel $rootViewModel */
+/** @var \Laminas\View\Model\ViewModel $rootViewModel */
 $rootViewModel = $this->layout();
 ```
 
@@ -56,5 +56,5 @@ $this->layout()->setVariables([
 ]);
 ```
 
-More informations related to view models can be found in the
-[quick start](https://docs.zendframework.com/zend-view/quick-start/).
+More information related to view models can be found in the
+[quick start](https://docs.laminas.dev/laminas-view/quick-start/).

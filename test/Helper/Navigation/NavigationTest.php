@@ -1,30 +1,29 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper\Navigation;
+namespace LaminasTest\View\Helper\Navigation;
 
 use Interop\Container\ContainerInterface;
-use Zend\Navigation\Navigation as Container;
-use Zend\Navigation\Page;
-use Zend\Permissions\Acl;
-use Zend\Permissions\Acl\Role;
-use Zend\ServiceManager\ServiceManager;
-use Zend\View;
-use Zend\View\Helper\Navigation;
-use Zend\View\Renderer\PhpRenderer;
-use Zend\I18n\Translator\Translator;
+use Laminas\I18n\Translator\Translator;
+use Laminas\Navigation\Navigation as Container;
+use Laminas\Navigation\Page;
+use Laminas\Permissions\Acl;
+use Laminas\Permissions\Acl\Role;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View;
+use Laminas\View\Helper\Navigation;
+use Laminas\View\Renderer\PhpRenderer;
 
 /**
- * Tests Zend\View\Helper\Navigation
+ * Tests Laminas\View\Helper\Navigation
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class NavigationTest extends AbstractTest
 {
@@ -317,7 +316,7 @@ class NavigationTest extends AbstractTest
         try {
             $this->_helper->setRole(1337);
             $this->fail('An invalid argument was given, but a ' .
-                        'Zend\View\Exception\InvalidArgumentException was not thrown');
+                        'Laminas\View\Exception\InvalidArgumentException was not thrown');
         } catch (View\Exception\ExceptionInterface $e) {
             $this->assertContains('$role must be a string', $e->getMessage());
         }
@@ -328,7 +327,7 @@ class NavigationTest extends AbstractTest
         try {
             $this->_helper->setRole(new \stdClass());
             $this->fail('An invalid argument was given, but a ' .
-                        'Zend\View\Exception\InvalidArgumentException was not thrown');
+                        'Laminas\View\Exception\InvalidArgumentException was not thrown');
         } catch (View\Exception\ExceptionInterface $e) {
             $this->assertContains('$role must be a string', $e->getMessage());
         }
@@ -369,7 +368,7 @@ class NavigationTest extends AbstractTest
         try {
             Navigation\AbstractHelper::setDefaultRole(1337);
             $this->fail('An invalid argument was given, but a ' .
-                        'Zend\View\Exception\InvalidArgumentException was not thrown');
+                        'Laminas\View\Exception\InvalidArgumentException was not thrown');
         } catch (View\Exception\ExceptionInterface $e) {
             $this->assertContains('$role must be', $e->getMessage());
         }
@@ -380,7 +379,7 @@ class NavigationTest extends AbstractTest
         try {
             Navigation\AbstractHelper::setDefaultRole(new \stdClass());
             $this->fail('An invalid argument was given, but a ' .
-                        'Zend\View\Exception\InvalidArgumentException was not thrown');
+                        'Laminas\View\Exception\InvalidArgumentException was not thrown');
         } catch (View\Exception\ExceptionInterface $e) {
             $this->assertContains('$role must be', $e->getMessage());
         }
@@ -407,7 +406,7 @@ class NavigationTest extends AbstractTest
     {
         $nl = PHP_EOL;
 
-        $container = new \Zend\Navigation\Navigation([
+        $container = new \Laminas\Navigation\Navigation([
             [
                 'label' => 'Page 1',
                 'id'    => 'p1',
@@ -436,11 +435,11 @@ class NavigationTest extends AbstractTest
     }
 
     /**
-     * @group ZF-6854
+     * @group Laminas-6854
      */
     public function testRenderInvisibleItem()
     {
-        $container = new \Zend\Navigation\Navigation([
+        $container = new \Laminas\Navigation\Navigation([
             [
                 'label' => 'Page 1',
                 'id'    => 'p1',
