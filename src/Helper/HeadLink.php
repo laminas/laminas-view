@@ -1,24 +1,22 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
+use Laminas\View;
+use Laminas\View\Exception;
 use stdClass;
-use Zend\View;
-use Zend\View\Exception;
 
 /**
- * Zend_Layout_View_Helper_HeadLink
+ * Laminas_Layout_View_Helper_HeadLink
  *
  * @see        http://www.w3.org/TR/xhtml1/dtds.html
- * @package    Zend_View
+ * @package    Laminas_View
  * @subpackage Helper
  */
 class HeadLink extends Placeholder\Container\AbstractStandalone
@@ -33,7 +31,7 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
     /**
      * @var string registry key
      */
-    protected $regKey = 'Zend_View_Helper_HeadLink';
+    protected $regKey = 'Laminas_View_Helper_HeadLink';
 
     /**
      * Constructor
@@ -55,7 +53,7 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
      *
      * @param array $attributes
      * @param string $placement
-     * @return \Zend\View\Helper\HeadLink
+     * @return \Laminas\View\Helper\HeadLink
      */
     public function __invoke(array $attributes = null, $placement = Placeholder\Container\AbstractContainer::APPEND)
     {

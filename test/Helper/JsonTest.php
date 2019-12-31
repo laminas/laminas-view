@@ -1,28 +1,26 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
+use Laminas\Http\Response;
+use Laminas\Json\Json as JsonFormatter;
+use Laminas\View\Helper\Json as JsonHelper;
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Http\Response;
-use Zend\Json\Json as JsonFormatter;
-use Zend\View\Helper\Json as JsonHelper;
 
 /**
- * Test class for Zend_View_Helper_Json
+ * Test class for Laminas_View_Helper_Json
  *
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class JsonTest extends TestCase
 {

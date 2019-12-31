@@ -1,26 +1,24 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
-use Zend\Navigation\AbstractContainer;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
-use Zend\View\Exception;
-use Zend\View\Helper\Navigation\AbstractHelper as AbstractNavigationHelper;
-use Zend\View\Helper\Navigation\HelperInterface as NavigationHelper;
+use Laminas\Navigation\AbstractContainer;
+use Laminas\ServiceManager\ServiceLocatorAwareInterface;
+use Laminas\View\Exception;
+use Laminas\View\Helper\Navigation\AbstractHelper as AbstractNavigationHelper;
+use Laminas\View\Helper\Navigation\HelperInterface as NavigationHelper;
 
 /**
  * Proxy helper for retrieving navigational helpers and forwarding calls
  *
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage Helper
  */
 class Navigation extends AbstractNavigationHelper
@@ -30,7 +28,7 @@ class Navigation extends AbstractNavigationHelper
      *
      * @var string
      */
-    const NS = 'Zend\View\Helper\Navigation';
+    const NS = 'Laminas\View\Helper\Navigation';
 
     /**
      * @var Navigation\PluginManager
@@ -106,11 +104,11 @@ class Navigation extends AbstractNavigationHelper
      *                                    container
      * @param  array  $arguments          [optional] arguments to pass
      * @return mixed                      returns what the proxied call returns
-     * @throws \Zend\View\Exception\ExceptionInterface        if proxying to a helper, and the
+     * @throws \Laminas\View\Exception\ExceptionInterface        if proxying to a helper, and the
      *                                    helper is not an instance of the
      *                                    interface specified in
      *                                    {@link findHelper()}
-     * @throws \Zend\Navigation\Exception\ExceptionInterface  if method does not exist in container
+     * @throws \Laminas\Navigation\Exception\ExceptionInterface  if method does not exist in container
      */
     public function __call($method, array $arguments = array())
     {
@@ -163,14 +161,14 @@ class Navigation extends AbstractNavigationHelper
      * Returns the helper matching $proxy
      *
      * The helper must implement the interface
-     * {@link Zend\View\Helper\Navigation\Helper}.
+     * {@link Laminas\View\Helper\Navigation\Helper}.
      *
      * @param string $proxy                        helper name
      * @param bool   $strict                       [optional] whether
      *                                             exceptions should be
      *                                             thrown if something goes
      *                                             wrong. Default is true.
-     * @return \Zend\View\Helper\Navigation\HelperInterface  helper instance
+     * @return \Laminas\View\Helper\Navigation\HelperInterface  helper instance
      * @throws Exception\RuntimeException if $strict is true and
      *         helper cannot be found
      */
@@ -233,7 +231,7 @@ class Navigation extends AbstractNavigationHelper
      * Sets the default proxy to use in {@link render()}
      *
      * @param  string $proxy                default proxy
-     * @return \Zend\View\Helper\Navigation  fluent interface, returns self
+     * @return \Laminas\View\Helper\Navigation  fluent interface, returns self
      */
     public function setDefaultProxy($proxy)
     {
@@ -257,7 +255,7 @@ class Navigation extends AbstractNavigationHelper
      * @param bool $injectContainer         [optional] whether container should
      *                                      be injected when proxying. Default
      *                                      is true.
-     * @return \Zend\View\Helper\Navigation  fluent interface, returns self
+     * @return \Laminas\View\Helper\Navigation  fluent interface, returns self
      */
     public function setInjectContainer($injectContainer = true)
     {
@@ -281,7 +279,7 @@ class Navigation extends AbstractNavigationHelper
      * @param  bool $injectAcl              [optional] whether ACL should be
      *                                      injected when proxying. Default is
      *                                      true.
-     * @return \Zend\View\Helper\Navigation  fluent interface, returns self
+     * @return \Laminas\View\Helper\Navigation  fluent interface, returns self
      */
     public function setInjectAcl($injectAcl = true)
     {
@@ -323,12 +321,12 @@ class Navigation extends AbstractNavigationHelper
         return $this->injectTranslator;
     }
 
-    // Zend\View\Helper\Navigation\Helper:
+    // Laminas\View\Helper\Navigation\Helper:
 
     /**
      * Renders helper
      *
-     * @param  \Zend\Navigation\AbstractContainer $container  [optional] container to
+     * @param  \Laminas\Navigation\AbstractContainer $container  [optional] container to
      *                                               render. Default is to
      *                                               render the container
      *                                               registered in the helper.

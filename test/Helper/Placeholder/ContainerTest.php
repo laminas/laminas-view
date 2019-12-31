@@ -1,29 +1,27 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper\Placeholder;
+namespace LaminasTest\View\Helper\Placeholder;
 
 
 /**
- * Test class for Zend_View_Helper_Placeholder_Container.
+ * Test class for Laminas_View_Helper_Placeholder_Container.
  *
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class ContainerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Zend_View_Helper_Placeholder_Container
+     * @var Laminas_View_Helper_Placeholder_Container
      */
     public $container;
 
@@ -35,7 +33,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->container = new \Zend\View\Helper\Placeholder\Container(array());
+        $this->container = new \Laminas\View\Helper\Placeholder\Container(array());
     }
 
     /**

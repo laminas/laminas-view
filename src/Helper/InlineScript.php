@@ -1,20 +1,18 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
- * @package   Zend_View
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
 /**
  * Helper for setting and retrieving script elements for inclusion in HTML body
  * section
  *
- * @package    Zend_View
+ * @package    Laminas_View
  * @subpackage Helper
  */
 class InlineScript extends HeadScript
@@ -23,7 +21,7 @@ class InlineScript extends HeadScript
      * Registry key for placeholder
      * @var string
      */
-    protected $regKey = 'Zend_View_Helper_InlineScript';
+    protected $regKey = 'Laminas_View_Helper_InlineScript';
 
     /**
      * Return InlineScript object
@@ -36,7 +34,7 @@ class InlineScript extends HeadScript
      * @param  string $placement Append, prepend, or set
      * @param  array $attrs Array of script attributes
      * @param  string $type Script type and/or array of script attributes
-     * @return \Zend\View\Helper\InlineScript
+     * @return \Laminas\View\Helper\InlineScript
      */
     public function __invoke($mode = HeadScript::FILE, $spec = null, $placement = 'APPEND', array $attrs = array(), $type = 'text/javascript')
     {
