@@ -1,7 +1,7 @@
 <?php
 
-namespace ZendTest\View\Helper\TestAsset;
+namespace LaminasTest\View\Helper\TestAsset;
 
-class Bar extends \Zend\View\Helper\Placeholder\Container\AbstractContainer
+class Bar extends \Laminas\View\Helper\Placeholder\Container\AbstractContainer
 {
 }

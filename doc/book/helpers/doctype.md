@@ -33,7 +33,7 @@ doctype for their output will recognize it only after you have set it, so the
 easiest approach is to specify it in your bootstrap:
 
 ```php
-use Zend\View\Helper\Doctype;
+use Laminas\View\Helper\Doctype;
 
 $doctypeHelper = new Doctype();
 $doctypeHelper->doctype('XHTML1_STRICT');
@@ -45,7 +45,7 @@ And then print it out on top of your layout script:
 <?php echo $this->doctype() ?>
 ```
 
-Within an application based off the [skeleton application](https://github.com/zendframework/ZendSkeletonApplication),
+Within an application based off the [skeleton application](https://github.com/laminas/LaminasSkeletonApplication),
 you can specify the doctype via configuration:
 
 ```php
@@ -93,7 +93,7 @@ specify the `XHTML1_RDFA` doctype. This doctype allows a developer to use the
 an XHTML document.
 
 ```php
-use Zend\View\Helper\Doctype;
+use Laminas\View\Helper\Doctype;
 
 $doctypeHelper = new Doctype();
 $doctypeHelper->doctype('XHTML1_RDFA');
@@ -129,7 +129,7 @@ Here is how you check if the doctype is set to `XHTML1_RDFA`:
 >
 ```
 
-## Zend MVC View Manager
+## Laminas MVC View Manager
 
-If you're running a ZendMvc application, you should specify doctype via the
-[ViewManager](https://zendframework.github.io/zend-mvc/services/#viewmanager) service.
+If you're running a LaminasMvc application, you should specify doctype via the
+[ViewManager](https://docs.laminas.dev/laminas-mvc/services/#viewmanager) service.

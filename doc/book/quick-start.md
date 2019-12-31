@@ -1,6 +1,6 @@
 # Quick Start
 
-zend-view provides the "View" layer of Zend Framework 2's MVC system. It is a
+laminas-view provides the "View" layer of Laminas's MVC system. It is a
 multi-tiered system allowing a variety of mechanisms for extension,
 substitution, and more.
 
@@ -13,7 +13,7 @@ The components of the view layer are as follows:
   any), and optionally provide rendering options (more on that below). View
   Models may be nested in order to represent complex structures.
 - **Renderers** take View Models and provide a representation of them to return.
-  zend-view ships with three renderers by default: a `PhpRenderer` which
+  laminas-view ships with three renderers by default: a `PhpRenderer` which
   utilizes PHP templates in order to generate markup, a `JsonRenderer`, and a
   `FeedRenderer` for generating RSS and Atom feeds.
 - **Resolvers** utilize Resolver Strategies to resolve a template name to a
@@ -22,19 +22,19 @@ The components of the view layer are as follows:
 - The **View** consists of strategies that map the current Request to a
   Renderer, and strategies for injecting the result of rendering to the
   Response.
-- **Rendering Strategies** listen to the `Zend\View\ViewEvent::EVENT_RENDERER`
+- **Rendering Strategies** listen to the `Laminas\View\ViewEvent::EVENT_RENDERER`
   event of the View and decide which Renderer should be selected based on the
   Request or other criteria.
 - **Response Strategies** are used to inject the Response object with the
   results of rendering. That may also include taking actions such as setting
   Content-Type headers.
 
-Additionally, zend-mvc integrates with zend-view via a number of event listeners
-in the `Zend\Mvc\View` namespace.
+Additionally, laminas-mvc integrates with laminas-view via a number of event listeners
+in the `Laminas\Mvc\View` namespace.
 
 This section of the manual is designed to show you typical usage patterns of the
-view layer when using it with [zend-mvc](https://zendframework.github.io/zend-mvc/).
-The assumption is that you are using the [service manager](https://zendframework.github.io/zend-servicemanager/)
+view layer when using it with [laminas-mvc](https://docs.laminas.dev/laminas-mvc/).
+The assumption is that you are using the [service manager](https://docs.laminas.dev/laminas-servicemanager/)
 and the default MVC view strategies.
 
 ## Configuration
@@ -45,7 +45,7 @@ potentially indicate alternate template names for things like the site layout,
 404 (not found) pages, and error pages. The code snippets below can be added to
 your configuration to accomplish this. We recommend adding it to a
 site-specific module, such as the "Application" module from the framework's
-[ZendSkeletonApplication](https://github.com/zendframework/ZendSkeletonApplication),
+[LaminasSkeletonApplication](https://github.com/laminas/LaminasSkeletonApplication),
 or to one of your autoloaded configurations within the `config/autoload/`
 directory.
 
@@ -124,7 +124,7 @@ return [
 
 ## Controllers and View Models
 
-`Zend\View\View` consumes `ViewModel`s, passing them to the selected renderer.
+`Laminas\View\View` consumes `ViewModel`s, passing them to the selected renderer.
 Where do you create these, though?
 
 The most explicit way is to create them in your controllers and return them.
@@ -132,8 +132,8 @@ The most explicit way is to create them in your controllers and return them.
 ```php
 namespace Foo\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
 
 class BazBatController extends AbstractActionController
 {
@@ -159,7 +159,7 @@ The MVC registers a couple of listeners for controllers to automate this. The
 first will look to see if you returned an associative array from your
 controller; if so, it will create a View Model and make this associative array
 the Variables Container; this View Model then replaces the
-[MvcEvent](http://zendframework.github.io/zend-mvc/mvc-event/)'s result. It will
+[MvcEvent](http://docs.laminas.dev/laminas-mvc/mvc-event/)'s result. It will
 also look to see if you returned nothing or `null`; if so, it will create a View
 Model without any variables attached; this View Model also replaces the
 `MvcEvent`'s result.
@@ -181,7 +181,7 @@ In practice, that means our previous example could be re-written as follows:
 ```php
 namespace Foo\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
+use Laminas\Mvc\Controller\AbstractActionController;
 
 class BazBatController extends AbstractActionController
 {
@@ -211,8 +211,8 @@ may include content from multiple Views as well:
 ```php
 namespace Content\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
 
 class ArticleController extends AbstractActionController
 {
@@ -350,9 +350,9 @@ Most sites enforce a cohesive look-and-feel which we typically call the site's
 as well as the basic markup structure into which all site content will be
 injected.
 
-Within zend-mvc, layouts are handled via nesting of View Models ([see the
+Within laminas-mvc, layouts are handled via nesting of View Models ([see the
 previous example](#nesting-view-models) for examples of View Model nesting). The
-`Zend\Mvc\View\Http\ViewManager` composes a View Model which acts as the "root"
+`Laminas\Mvc\View\Http\ViewManager` composes a View Model which acts as the "root"
 for nested View Models. As such, it should contain the skeleton (or layout)
 template for the site. All other content is then rendered and captured to view
 variables of this root View Model.
@@ -361,7 +361,7 @@ The `ViewManager` sets the layout template as `layout/layout` by default. To
 change this, you can add some configuration to the `view_manager` area of your
 [configuration](#configuration).
 
-A listener on the controllers, `Zend\Mvc\View\Http\InjectViewModelListener`,
+A listener on the controllers, `Laminas\Mvc\View\Http\InjectViewModelListener`,
 will take a View Model returned from a controller and inject it as a child of
 the root (layout) View Model. By default, View Models will capture to the
 "content" variable of the root View Model. This means you can do the following
@@ -385,8 +385,8 @@ value:
 ```php
 namespace Foo\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
 
 class BazBatController extends AbstractActionController
 {
@@ -415,8 +415,8 @@ view model.
 ```php
 namespace Foo\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
 
 class BazBatController extends AbstractActionController
 {
@@ -444,8 +444,8 @@ method on it as we did in that previous example.
 ```php
 namespace Content\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
 
 class ArticleController extends AbstractActionController
 {
@@ -474,8 +474,8 @@ You could also use this technique to select a different layout, by calling the
 //In a controller
 namespace Content\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
 
 class ArticleController extends AbstractActionController
 {
@@ -534,7 +534,7 @@ priority. Typically, you will register this during the bootstrap event.
 ```php
 namespace Content;
 
-use Zend\Mvc\MvcEvent;
+use Laminas\Mvc\MvcEvent;
 
 class Module
 {
@@ -571,7 +571,7 @@ class Module
 
 ## Creating and Registering Alternate Rendering and Response Strategies
 
-`Zend\View\View` does very little. Its workflow is essentially to martial a
+`Laminas\View\View` does very little. Its workflow is essentially to martial a
 `ViewEvent`, and then trigger two events, `renderer` and `response`. You can
 attach "strategies" to these events, using the methods `addRenderingStrategy()`
 and `addResponseStrategy()`, respectively. A Rendering Strategy introspects the
@@ -579,18 +579,18 @@ Request object (or any other criteria) in order to select a Renderer (or fail to
 select one). A Response Strategy determines how to populate the Response based
 on the result of rendering.
 
-zend-view ships with three Rendering and Response Strategies that you can use
+laminas-view ships with three Rendering and Response Strategies that you can use
 within your application.
 
-- `Zend\View\Strategy\PhpRendererStrategy`. This strategy is a "catch-all" in
-  that it will always return the `Zend\View\Renderer\PhpRenderer` and populate
+- `Laminas\View\Strategy\PhpRendererStrategy`. This strategy is a "catch-all" in
+  that it will always return the `Laminas\View\Renderer\PhpRenderer` and populate
   the Response body with the results of rendering.
-- `Zend\View\Strategy\JsonStrategy`. This strategy will return the
-  `Zend\View\Renderer\JsonRenderer`, and populate the Response body with the
+- `Laminas\View\Strategy\JsonStrategy`. This strategy will return the
+  `Laminas\View\Renderer\JsonRenderer`, and populate the Response body with the
   JSON value returned, as well as set a `Content-Type` header with a value of
   `application/json`.
-- `Zend\View\Strategy\FeedStrategy`. This strategy will return the 
-  `Zend\View\Renderer\FeedRenderer`, setting the feed type to
+- `Laminas\View\Strategy\FeedStrategy`. This strategy will return the 
+  `Laminas\View\Renderer\FeedRenderer`, setting the feed type to
   either "rss" or "atom", based on what was matched. Its Response strategy will
   populate the Response body with the generated feed, as well as set a
   `Content-Type` header with the appropriate value based on feed type.
@@ -604,7 +604,7 @@ register the `JsonStrategy`:
 ```php
 namespace Application;
 
-use Zend\Mvc\MvcEvent;
+use Laminas\Mvc\MvcEvent;
 
 class Module
 {
@@ -628,7 +628,7 @@ class Module
     {
         $app          = $e->getTarget();
         $locator      = $app->getServiceManager();
-        $view         = $locator->get('Zend\View\View');
+        $view         = $locator->get('Laminas\View\View');
         $jsonStrategy = $locator->get('ViewJsonStrategy');
 
         // Attach strategy, which is a listener aggregate, at high priority
@@ -645,7 +645,7 @@ You could also use the module configuration to add the strategies:
 ```php
 namespace Application;
 
-use Zend\ModuleManager\Feature\ConfigProviderInterface;
+use Laminas\ModuleManager\Feature\ConfigProviderInterface;
 
 class Module implements ConfigProviderInterface
 {
@@ -677,7 +677,7 @@ the layout for a specific module:
 ```php
 namespace Application;
 
-use Zend\Mvc\MvcEvent;
+use Laminas\Mvc\MvcEvent;
 
 class Module
 {
@@ -712,7 +712,7 @@ class Module
         // Set the JSON strategy when controllers from this module are selected
         $app          = $e->getTarget();
         $locator      = $app->getServiceManager();
-        $view         = $locator->get('Zend\View\View');
+        $view         = $locator->get('Laminas\View\View');
         $jsonStrategy = $locator->get('ViewJsonStrategy');
 
         // Attach strategy, which is a listener aggregate, at high priority
@@ -728,10 +728,10 @@ If you successfully registered the Strategy you need to use the appropriate `Vie
 ```php
 namespace Application;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
-use Zend\View\Model\FeedModel;
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Model\JsonModel;
+use Laminas\View\Model\FeedModel;
 
 class MyController extends AbstractActionController
 {
@@ -771,4 +771,4 @@ class MyController extends AbstractActionController
 ```
 
 Or you could switch the `ViewModel` dynamically based on the "Accept" HTTP Header with the 
-[Zend-Mvc-Plugin AcceptableViewModelSelector](http://zendframework.github.io/zend-mvc/plugins/#acceptableviewmodelselector-plugin).
+[Laminas-Mvc-Plugin AcceptableViewModelSelector](http://docs.laminas.dev/laminas-mvc/plugins/#acceptableviewmodelselector-plugin).

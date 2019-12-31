@@ -1,6 +1,6 @@
 <?php
 
-namespace ZendTest\View\Helper\TestAsset;
+namespace LaminasTest\View\Helper\TestAsset;
 
 class BogusContainer
 {
