@@ -6,7 +6,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Added
 
-- [#5](https://github.com/zendframework/zend-view/pull/5) adds support for the
+- [zendframework/zend-view#5](https://github.com/zendframework/zend-view/pull/5) adds support for the
   `itemprop` attribute in the `headLink()` view helper.
 
 ### Deprecated
@@ -19,7 +19,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#25](https://github.com/zendframework/zend-view/pull/25) updates
+- [zendframework/zend-view#25](https://github.com/zendframework/zend-view/pull/25) updates
   `PhpRenderer::render()` to no longer lazy-instantiate a `FilterChain`;
   content filtering is now only done if a `FitlerChain` is already
   injected in the renderer.
@@ -40,7 +40,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#4](https://github.com/zendframework/zend-view/pull/4) fixes an issue with
+- [zendframework/zend-view#4](https://github.com/zendframework/zend-view/pull/4) fixes an issue with
   how the `ServerUrl` detects and emits the port when port-forwarding is in
   effect.
 
@@ -60,6 +60,6 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#4](https://github.com/zendframework/zend-view/pull/4) fixes an issue with
+- [zendframework/zend-view#4](https://github.com/zendframework/zend-view/pull/4) fixes an issue with
   how the `ServerUrl` detects and emits the port when port-forwarding is in
   effect.
