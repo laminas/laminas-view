@@ -1,21 +1,20 @@
 <?php
+
 /**
- * Zend Framework (http://framework.zend.com/)
- *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
- * @license   http://framework.zend.com/license/new-bsd New BSD License
+ * @see       https://github.com/laminas/laminas-view for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\View\Helper;
+use Laminas\View\Helper;
 
 /**
- * Tests Zend_View_Helper_ServerUrl
+ * Tests Laminas_View_Helper_ServerUrl
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class ServerUrlTest extends \PHPUnit_Framework_TestCase
 {
@@ -157,7 +156,7 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group ZF-9919
+     * @group Laminas-9919
      */
     public function testServerUrlWithScheme()
     {
@@ -168,7 +167,7 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group ZF-9919
+     * @group Laminas-9919
      */
     public function testServerUrlWithPort()
     {
@@ -179,7 +178,7 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group ZF2-508
+     * @group Laminas-508
      */
     public function testServerUrlWithProxy()
     {
@@ -191,7 +190,7 @@ class ServerUrlTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @group ZF2-508
+     * @group Laminas-508
      */
     public function testServerUrlWithMultipleProxies()
     {
