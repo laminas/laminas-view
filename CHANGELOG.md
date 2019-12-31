@@ -18,7 +18,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#4](https://github.com/zendframework/zend-view/pull/4) fixes an issue with
+- [zendframework/zend-view#4](https://github.com/zendframework/zend-view/pull/4) fixes an issue with
   how the `ServerUrl` detects and emits the port when port-forwarding is in
   effect.
 
@@ -38,6 +38,6 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- [#4](https://github.com/zendframework/zend-view/pull/4) fixes an issue with
+- [zendframework/zend-view#4](https://github.com/zendframework/zend-view/pull/4) fixes an issue with
   how the `ServerUrl` detects and emits the port when port-forwarding is in
   effect.
