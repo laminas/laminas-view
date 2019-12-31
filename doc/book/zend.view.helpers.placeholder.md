@@ -127,17 +127,17 @@ foreach ($this->data as $datum): ?>
 
 ## Concrete Implementations
 
-Zend Framework ships with a number of "concrete" placeholder implementations. These are for commonly
+Laminas ships with a number of "concrete" placeholder implementations. These are for commonly
 used placeholders: doctype, page title, and various &lt;head&gt; elements. In all cases, calling the
 placeholder with no arguments returns the element itself.
 
 Documentation for each element is covered separately, as linked below:
 
-- \[Doctype\](zend.view.helpers.initial.doctype)
-- \[HeadLink\](zend.view.helpers.initial.headlink)
-- \[HeadMeta\](zend.view.helpers.initial.headmeta)
-- \[HeadScript\](zend.view.helpers.initial.headscript)
-- \[HeadStyle\](zend.view.helpers.initial.headstyle)
-- \[HeadTitle\](zend.view.helpers.initial.headtitle)
-- \[InlineScript\](zend.view.helpers.initial.inlinescript)
+- \[Doctype\](laminas.view.helpers.initial.doctype)
+- \[HeadLink\](laminas.view.helpers.initial.headlink)
+- \[HeadMeta\](laminas.view.helpers.initial.headmeta)
+- \[HeadScript\](laminas.view.helpers.initial.headscript)
+- \[HeadStyle\](laminas.view.helpers.initial.headstyle)
+- \[HeadTitle\](laminas.view.helpers.initial.headtitle)
+- \[InlineScript\](laminas.view.helpers.initial.inlinescript)
 

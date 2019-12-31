@@ -5,7 +5,7 @@
 The *HTML* **&lt;script&gt;** element is used to either provide inline client-side scripting
 elements or link to a remote resource containing client-side scripting code. The `InlineScript`
 helper allows you to manage both. It is derived from
-\[HeadScript\](zend.view.helpers.initial.headscript), and any method of that helper is available;
+\[HeadScript\](laminas.view.helpers.initial.headscript), and any method of that helper is available;
 however, use the `inlineScript()` method in place of `headScript()`.
 
 > ## Note
@@ -14,7 +14,7 @@ however, use the `inlineScript()` method in place of `headScript()`.
 Placing scripts at the end of your document is a good practice for speeding up delivery of your
 page, particularly when using 3rd party analytics scripts.
 Some JS libraries need to be included in the *HTML* **head**; use HeadScript
-&lt;zend.view.helpers.initial.headscript&gt; for those scripts.
+&lt;laminas.view.helpers.initial.headscript&gt; for those scripts.
 
 ## Basic Usage
 
