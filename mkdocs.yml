@@ -37,3 +37,6 @@ nav:
 site_name: laminas-view
 site_description: 'Flexible view layer supporting and providing multiple view layers, helpers, and more.'
 repo_url: 'https://github.com/laminas/laminas-view'
+extra:
+    project: Components
+    project_url: 'https://docs.laminas.dev'
