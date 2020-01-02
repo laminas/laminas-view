@@ -22,11 +22,11 @@ final class PrefixPathStackResolver implements ResolverInterface
     /**
      * Constructor
      *
-     * @param string[]|string[][]|ResolverInterface[] $prefixes Set of path prefixes to be matched (array keys), with
-     *                                                          either a path or an array of paths to use for matching
-     *                                                          as in the {@see \Laminas\View\Resolver\TemplatePathStack},
-     *                                                          or a {@see \Laminas\View\Resolver\ResolverInterface}
-     *                                                          to use for view path starting with that prefix
+     * @param string[]|string[][]|ResolverInterface[] $prefixes Set of path prefixes
+     *     to be matched (array keys), with either a path or an array of paths
+     *     to use for matching as in the {@see \Laminas\View\Resolver\TemplatePathStack},
+     *     or a {@see \Laminas\View\Resolver\ResolverInterface}
+     *     to use for view path starting with that prefix
      */
     public function __construct(array $prefixes = [])
     {
