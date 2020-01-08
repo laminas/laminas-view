@@ -1,6 +1,6 @@
 # laminas-view
 
-[![Build Status](https://travis-ci.org/laminas/laminas-view.svg?branch=master)](https://travis-ci.org/laminas/laminas-view)
+[![Build Status](https://travis-ci.com/laminas/laminas-view.svg?branch=master)](https://travis-ci.com/laminas/laminas-view)
 [![Coverage Status](https://coveralls.io/repos/github/laminas/laminas-view/badge.svg?branch=master)](https://coveralls.io/github/laminas/laminas-view?branch=master)
 
 laminas-view provides the “View” layer of the Laminas MVC system. It is a
