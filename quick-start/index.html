@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -458,98 +462,96 @@ site-specific module, such as the "Application" module from the framework's
 <a href="https://github.com/laminas/LaminasSkeletonApplication">LaminasSkeletonApplication</a>,
 or to one of your autoloaded configurations within the <code>config/autoload/</code>
 directory.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>return [</span>
-<span class=x>    &#39;view_manager&#39; =&gt; [</span>
-<span class=x>        // The TemplateMapResolver allows you to directly map template names</span>
-<span class=x>        // to specific templates. The following map would provide locations</span>
-<span class=x>        // for a home page template (&quot;application/index/index&quot;), as well as for</span>
-<span class=x>        // the layout (&quot;layout/layout&quot;), error pages (&quot;error/index&quot;), and</span>
-<span class=x>        // 404 page (&quot;error/404&quot;), resolving them to view scripts.</span>
-<span class=x>        &#39;template_map&#39; =&gt; [</span>
-<span class=x>            &#39;application/index/index&#39; =&gt; __DIR__ .  &#39;/../view/application/index/index.phtml&#39;,</span>
-<span class=x>            &#39;site/layout&#39;             =&gt; __DIR__ . &#39;/../view/layout/layout.phtml&#39;,</span>
-<span class=x>            &#39;error/index&#39;             =&gt; __DIR__ . &#39;/../view/error/index.phtml&#39;,</span>
-<span class=x>            &#39;error/404&#39;               =&gt; __DIR__ . &#39;/../view/error/404.phtml&#39;,</span>
-<span class=x>        ],</span>
+<pre class=codehilite><code class=language-php>return [
+    'view_manager' =&gt; [
+        // The TemplateMapResolver allows you to directly map template names
+        // to specific templates. The following map would provide locations
+        // for a home page template (&quot;application/index/index&quot;), as well as for
+        // the layout (&quot;layout/layout&quot;), error pages (&quot;error/index&quot;), and
+        // 404 page (&quot;error/404&quot;), resolving them to view scripts.
+        'template_map' =&gt; [
+            'application/index/index' =&gt; __DIR__ .  '/../view/application/index/index.phtml',
+            'site/layout'             =&gt; __DIR__ . '/../view/layout/layout.phtml',
+            'error/index'             =&gt; __DIR__ . '/../view/error/index.phtml',
+            'error/404'               =&gt; __DIR__ . '/../view/error/404.phtml',
+        ],
 
-<span class=x>        // The TemplatePathStack takes an array of directories. Directories</span>
-<span class=x>        // are then searched in LIFO order (it&#39;s a stack) for the requested</span>
-<span class=x>        // view script. This is a nice solution for rapid application</span>
-<span class=x>        // development, but potentially introduces performance expense in</span>
-<span class=x>        // production due to the number of static calls necessary.</span>
-<span class=x>        //</span>
-<span class=x>        // The following adds an entry pointing to the view directory</span>
-<span class=x>        // of the current module. Make sure your keys differ between modules</span>
-<span class=x>        // to ensure that they are not overwritten -- or simply omit the key!</span>
-<span class=x>        &#39;template_path_stack&#39; =&gt; [</span>
-<span class=x>            &#39;application&#39; =&gt; __DIR__ . &#39;/../view&#39;,</span>
-<span class=x>        ],</span>
+        // The TemplatePathStack takes an array of directories. Directories
+        // are then searched in LIFO order (it's a stack) for the requested
+        // view script. This is a nice solution for rapid application
+        // development, but potentially introduces performance expense in
+        // production due to the number of static calls necessary.
+        //
+        // The following adds an entry pointing to the view directory
+        // of the current module. Make sure your keys differ between modules
+        // to ensure that they are not overwritten -- or simply omit the key!
+        'template_path_stack' =&gt; [
+            'application' =&gt; __DIR__ . '/../view',
+        ],
 
-<span class=x>        // This will be used as the default suffix for template scripts</span>
-<span class=x>        // resolving, it defaults to &#39;phtml&#39;.</span>
-<span class=x>        &#39;default_template_suffix&#39; =&gt; &#39;php&#39;,</span>
+        // This will be used as the default suffix for template scripts
+        // resolving, it defaults to 'phtml'.
+        'default_template_suffix' =&gt; 'php',
 
-<span class=x>        // Set the template name for the site&#39;s layout.</span>
-<span class=x>        //</span>
-<span class=x>        // By default, the MVC&#39;s default Rendering Strategy uses the</span>
-<span class=x>        // template name &quot;layout/layout&quot; for the site&#39;s layout.</span>
-<span class=x>        // Here, we tell it to use the &quot;site/layout&quot; template,</span>
-<span class=x>        // which we mapped via the TemplateMapResolver above.</span>
-<span class=x>        &#39;layout&#39; =&gt; &#39;site/layout&#39;,</span>
+        // Set the template name for the site's layout.
+        //
+        // By default, the MVC's default Rendering Strategy uses the
+        // template name &quot;layout/layout&quot; for the site's layout.
+        // Here, we tell it to use the &quot;site/layout&quot; template,
+        // which we mapped via the TemplateMapResolver above.
+        'layout' =&gt; 'site/layout',
 
-<span class=x>        // By default, the MVC registers an &quot;exception strategy&quot;, which is</span>
-<span class=x>        // triggered when a requested action raises an exception; it creates</span>
-<span class=x>        // a custom view model that wraps the exception, and selects a</span>
-<span class=x>        // template. We&#39;ll set it to &quot;error/index&quot;.</span>
-<span class=x>        //</span>
-<span class=x>        // Additionally, we&#39;ll tell it that we want to display an exception</span>
-<span class=x>        // stack trace; you&#39;ll likely want to disable this by default.</span>
-<span class=x>        &#39;display_exceptions&#39; =&gt; true,</span>
-<span class=x>        &#39;exception_template&#39; =&gt; &#39;error/index&#39;,</span>
+        // By default, the MVC registers an &quot;exception strategy&quot;, which is
+        // triggered when a requested action raises an exception; it creates
+        // a custom view model that wraps the exception, and selects a
+        // template. We'll set it to &quot;error/index&quot;.
+        //
+        // Additionally, we'll tell it that we want to display an exception
+        // stack trace; you'll likely want to disable this by default.
+        'display_exceptions' =&gt; true,
+        'exception_template' =&gt; 'error/index',
 
-<span class=x>       // Another strategy the MVC registers by default is a &quot;route not</span>
-<span class=x>       // found&quot; strategy. Basically, this gets triggered if (a) no route</span>
-<span class=x>       // matches the current request, (b) the controller specified in the</span>
-<span class=x>       // route match cannot be found in the service locator, (c) the controller</span>
-<span class=x>       // specified in the route match does not implement the DispatchableInterface</span>
-<span class=x>       // interface, or (d) if a response from a controller sets the</span>
-<span class=x>       // response status to 404.</span>
-<span class=x>       //</span>
-<span class=x>       // The default template used in such situations is &quot;error&quot;, just</span>
-<span class=x>       // like the exception strategy. Here, we tell it to use the &quot;error/404&quot;</span>
-<span class=x>       // template (which we mapped via the TemplateMapResolver, above).</span>
-<span class=x>       //</span>
-<span class=x>       // You can opt in to inject the reason for a 404 situation; see the</span>
-<span class=x>       // various `Application\:\:ERROR_*`_ constants for a list of values.</span>
-<span class=x>       // Additionally, a number of 404 situations derive from exceptions</span>
-<span class=x>       // raised during routing or dispatching. You can opt-in to display</span>
-<span class=x>       // these.</span>
-<span class=x>       &#39;display_not_found_reason&#39; =&gt; true,</span>
-<span class=x>       &#39;not_found_template&#39;       =&gt; &#39;error/404&#39;,</span>
-<span class=x>    ],</span>
-<span class=x>];</span>
-</pre></div></p>
+       // Another strategy the MVC registers by default is a &quot;route not
+       // found&quot; strategy. Basically, this gets triggered if (a) no route
+       // matches the current request, (b) the controller specified in the
+       // route match cannot be found in the service locator, (c) the controller
+       // specified in the route match does not implement the DispatchableInterface
+       // interface, or (d) if a response from a controller sets the
+       // response status to 404.
+       //
+       // The default template used in such situations is &quot;error&quot;, just
+       // like the exception strategy. Here, we tell it to use the &quot;error/404&quot;
+       // template (which we mapped via the TemplateMapResolver, above).
+       //
+       // You can opt in to inject the reason for a 404 situation; see the
+       // various `Application\:\:ERROR_*`_ constants for a list of values.
+       // Additionally, a number of 404 situations derive from exceptions
+       // raised during routing or dispatching. You can opt-in to display
+       // these.
+       'display_not_found_reason' =&gt; true,
+       'not_found_template'       =&gt; 'error/404',
+    ],
+];</code></pre>
 <h2 id="controllers-and-view-models">Controllers and View Models</h2>
 <p><code>Laminas\View\View</code> consumes <code>ViewModel</code>s, passing them to the selected renderer.
 Where do you create these, though?</p>
 <p>The most explicit way is to create them in your controllers and return them.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>namespace Foo\Controller;</span>
+<pre class=codehilite><code class=language-php>namespace Foo\Controller;
 
-<span class=x>use Laminas\Mvc\Controller\AbstractActionController;</span>
-<span class=x>use Laminas\View\Model\ViewModel;</span>
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
 
-<span class=x>class BazBatController extends AbstractActionController</span>
-<span class=x>{</span>
-<span class=x>    public function doSomethingCrazyAction()</span>
-<span class=x>    {</span>
-<span class=x>        $view = new ViewModel([</span>
-<span class=x>            &#39;message&#39; =&gt; &#39;Hello world&#39;,</span>
-<span class=x>        ]);</span>
-<span class=x>        $view-&gt;setTemplate(&#39;foo/baz-bat/do-something-crazy&#39;);</span>
-<span class=x>        return $view;</span>
-<span class=x>    }</span>
-<span class=x>}</span>
-</pre></div></p>
+class BazBatController extends AbstractActionController
+{
+    public function doSomethingCrazyAction()
+    {
+        $view = new ViewModel([
+            'message' =&gt; 'Hello world',
+        ]);
+        $view-&gt;setTemplate('foo/baz-bat/do-something-crazy');
+        return $view;
+    }
+}</code></pre>
 <p>This sets a "message" variable in the View Model, and sets the template name
 "foo/baz-bat/do-something-crazy". The View Model is then returned.</p>
 <p>In most cases, you'll likely have a template name based on the module namespace,
@@ -574,20 +576,19 @@ to lowercase, dash-separated words.</p>
 <code>foo/baz-bat/do-something-crazy</code>. As you can see, the words "Controller" and
 "Action" are omitted.</p>
 <p>In practice, that means our previous example could be re-written as follows:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>namespace Foo\Controller;</span>
+<pre class=codehilite><code class=language-php>namespace Foo\Controller;
 
-<span class=x>use Laminas\Mvc\Controller\AbstractActionController;</span>
+use Laminas\Mvc\Controller\AbstractActionController;
 
-<span class=x>class BazBatController extends AbstractActionController</span>
-<span class=x>{</span>
-<span class=x>    public function doSomethingCrazyAction()</span>
-<span class=x>    {</span>
-<span class=x>        return [</span>
-<span class=x>            &#39;message&#39; =&gt; &#39;Hello world&#39;,</span>
-<span class=x>        ];</span>
-<span class=x>    }</span>
-<span class=x>}</span>
-</pre></div></p>
+class BazBatController extends AbstractActionController
+{
+    public function doSomethingCrazyAction()
+    {
+        return [
+            'message' =&gt; 'Hello world',
+        ];
+    }
+}</code></pre>
 <p>The above method will likely work for the majority of use cases. When you need
 to specify a different template, explicitly create and return a View Model and
 specify the template manually, as in the first example.</p>
@@ -598,44 +599,43 @@ included within the main View you return.</p>
 <p>As an example, you may want the View from an action to be one primary section
 that includes both an "article" and a couple of sidebars; one of the sidebars
 may include content from multiple Views as well:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>namespace Content\Controller;</span>
+<pre class=codehilite><code class=language-php>namespace Content\Controller;
 
-<span class=x>use Laminas\Mvc\Controller\AbstractActionController;</span>
-<span class=x>use Laminas\View\Model\ViewModel;</span>
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
 
-<span class=x>class ArticleController extends AbstractActionController</span>
-<span class=x>{</span>
-<span class=x>    public function viewAction()</span>
-<span class=x>    {</span>
-<span class=x>        // get the article from the persistence layer, etc...</span>
+class ArticleController extends AbstractActionController
+{
+    public function viewAction()
+    {
+        // get the article from the persistence layer, etc...
 
-<span class=x>        $view = new ViewModel();</span>
+        $view = new ViewModel();
 
-<span class=x>        // this is not needed since it matches &quot;module/controller/action&quot;</span>
-<span class=x>        $view-&gt;setTemplate(&#39;content/article/view&#39;);</span>
+        // this is not needed since it matches &quot;module/controller/action&quot;
+        $view-&gt;setTemplate('content/article/view');
 
-<span class=x>        $articleView = new ViewModel([&#39;article&#39; =&gt; $article]);</span>
-<span class=x>        $articleView-&gt;setTemplate(&#39;content/article&#39;);</span>
+        $articleView = new ViewModel(['article' =&gt; $article]);
+        $articleView-&gt;setTemplate('content/article');
 
-<span class=x>        $primarySidebarView = new ViewModel();</span>
-<span class=x>        $primarySidebarView-&gt;setTemplate(&#39;content/main-sidebar&#39;);</span>
+        $primarySidebarView = new ViewModel();
+        $primarySidebarView-&gt;setTemplate('content/main-sidebar');
 
-<span class=x>        $secondarySidebarView = new ViewModel();</span>
-<span class=x>        $secondarySidebarView-&gt;setTemplate(&#39;content/secondary-sidebar&#39;);</span>
+        $secondarySidebarView = new ViewModel();
+        $secondarySidebarView-&gt;setTemplate('content/secondary-sidebar');
 
-<span class=x>        $sidebarBlockView = new ViewModel();</span>
-<span class=x>        $sidebarBlockView-&gt;setTemplate(&#39;content/block&#39;);</span>
+        $sidebarBlockView = new ViewModel();
+        $sidebarBlockView-&gt;setTemplate('content/block');
 
-<span class=x>        $secondarySidebarView-&gt;addChild($sidebarBlockView, &#39;block&#39;);</span>
+        $secondarySidebarView-&gt;addChild($sidebarBlockView, 'block');
 
-<span class=x>        $view-&gt;addChild($articleView, &#39;article&#39;)</span>
-<span class=x>             -&gt;addChild($primarySidebarView, &#39;sidebar_primary&#39;)</span>
-<span class=x>             -&gt;addChild($secondarySidebarView, &#39;sidebar_secondary&#39;);</span>
+        $view-&gt;addChild($articleView, 'article')
+             -&gt;addChild($primarySidebarView, 'sidebar_primary')
+             -&gt;addChild($secondarySidebarView, 'sidebar_secondary');
 
-<span class=x>        return $view;</span>
-<span class=x>    }</span>
-<span class=x>}</span>
-</pre></div></p>
+        return $view;
+    }
+}</code></pre>
 <p>The above will create and return a View Model specifying the template
 <code>content/article/view</code>. When the View is rendered, it will render three child
 Views, the <code>$articleView</code>, <code>$primarySidebarView</code>, and <code>$secondarySidebarView</code>;
@@ -648,69 +648,63 @@ additional View Model, <code>$sidebarBlockView</code>, which will be captured to
 with comments detailing where each nested view model is injected.</p>
 <p>Here are the templates, rendered based on a 12-column grid.</p>
 <p>The <code>content/article/view</code> template:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>&lt;!-- This is from the $view View Model, and the &quot;content/article/view&quot; template --&gt;</span>
-<span class=x>&lt;div class=&quot;row content&quot;&gt;</span>
-<span class=x>    </span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>article</span> <span class=cp>?&gt;</span><span class=x></span>
+<pre class=codehilite><code class=language-php>&lt;!-- This is from the $view View Model, and the &quot;content/article/view&quot; template --&gt;
+&lt;div class=&quot;row content&quot;&gt;
+    &lt;?= $this-&gt;article ?&gt;
 
-<span class=x>    </span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>sidebar_primary</span> <span class=cp>?&gt;</span><span class=x></span>
+    &lt;?= $this-&gt;sidebar_primary ?&gt;
 
-<span class=x>    </span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>sidebar_secondary</span> <span class=cp>?&gt;</span><span class=x></span>
-<span class=x>&lt;/div&gt;</span>
-</pre></div></p>
+    &lt;?= $this-&gt;sidebar_secondary ?&gt;
+&lt;/div&gt;</code></pre>
 <p>The <code>content/article</code> template:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>    &lt;!-- This is from the $articleView View Model, and the &quot;content/article&quot;</span>
-<span class=x>         template --&gt;</span>
-<span class=x>    &lt;article class=&quot;span8&quot;&gt;</span>
-<span class=x>        </span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>escapeHtml</span><span class=p>(</span><span class=s1>&#39;article&#39;</span><span class=p>)</span> <span class=cp>?&gt;</span><span class=x></span>
-<span class=x>    &lt;/article&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>    &lt;!-- This is from the $articleView View Model, and the &quot;content/article&quot;
+         template --&gt;
+    &lt;article class=&quot;span8&quot;&gt;
+        &lt;?= $this-&gt;escapeHtml('article') ?&gt;
+    &lt;/article&gt;</code></pre>
 <p>The <code>content/main-sidebar</code> template:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>    &lt;!-- This is from the $primarySidebarView View Model, and the</span>
-<span class=x>         &quot;content/main-sidebar&quot; template --&gt;</span>
-<span class=x>    &lt;div class=&quot;span2 sidebar&quot;&gt;</span>
-<span class=x>        sidebar content...</span>
-<span class=x>    &lt;/div&gt;</span>
-</pre></div></p>
-<p>The <code>content/secondary-sidebar</code> template:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>    &lt;!-- This is from the $secondarySidebarView View Model, and the</span>
-<span class=x>         &quot;content/secondary-sidebar&quot; template --&gt;</span>
-<span class=x>    &lt;div class=&quot;span2 sidebar pull-right&quot;&gt;</span>
-<span class=x>        </span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>block</span> <span class=cp>?&gt;</span><span class=x></span>
-<span class=x>    &lt;/div&gt;</span>
-</pre></div></p>
-<p>The <code>content/block</code> template:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>        &lt;!-- This is from the $sidebarBlockView View Model, and the</span>
-<span class=x>            &quot;content/block&quot; template --&gt;</span>
-<span class=x>        &lt;div class=&quot;block&quot;&gt;</span>
-<span class=x>            block content...</span>
-<span class=x>        &lt;/div&gt;</span>
-</pre></div></p>
-<p>And here is the aggregate, generated content:</p>
-<p> <div class=codehilite><pre><span></span><span class=c>&lt;!-- This is from the $view View Model, and the &quot;content/article/view&quot; template --&gt;</span>
-<span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;row content&quot;</span><span class=p>&gt;</span>
-    <span class=c>&lt;!-- This is from the $articleView View Model, and the &quot;content/article&quot;</span>
-<span class=c>         template --&gt;</span>
-    <span class=p>&lt;</span><span class=nt>article</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;span8&quot;</span><span class=p>&gt;</span>
-        Lorem ipsum ....
-    <span class=p>&lt;/</span><span class=nt>article</span><span class=p>&gt;</span>
-
-    <span class=c>&lt;!-- This is from the $primarySidebarView View Model, and the</span>
-<span class=c>         &quot;content/main-sidebar&quot; template --&gt;</span>
-    <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;span2 sidebar&quot;</span><span class=p>&gt;</span>
+<pre class=codehilite><code class=language-php>    &lt;!-- This is from the $primarySidebarView View Model, and the
+         &quot;content/main-sidebar&quot; template --&gt;
+    &lt;div class=&quot;span2 sidebar&quot;&gt;
         sidebar content...
-    <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
-
-    <span class=c>&lt;!-- This is from the $secondarySidebarView View Model, and the</span>
-<span class=c>         &quot;content/secondary-sidebar&quot; template --&gt;</span>
-    <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;span2 sidebar pull-right&quot;</span><span class=p>&gt;</span>
-        <span class=c>&lt;!-- This is from the $sidebarBlockView View Model, and the</span>
-<span class=c>            &quot;content/block&quot; template --&gt;</span>
-        <span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;block&quot;</span><span class=p>&gt;</span>
+    &lt;/div&gt;</code></pre>
+<p>The <code>content/secondary-sidebar</code> template:</p>
+<pre class=codehilite><code class=language-php>    &lt;!-- This is from the $secondarySidebarView View Model, and the
+         &quot;content/secondary-sidebar&quot; template --&gt;
+    &lt;div class=&quot;span2 sidebar pull-right&quot;&gt;
+        &lt;?= $this-&gt;block ?&gt;
+    &lt;/div&gt;</code></pre>
+<p>The <code>content/block</code> template:</p>
+<pre class=codehilite><code class=language-php>        &lt;!-- This is from the $sidebarBlockView View Model, and the
+            &quot;content/block&quot; template --&gt;
+        &lt;div class=&quot;block&quot;&gt;
             block content...
-        <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
-<span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
-</pre></div></p>
+        &lt;/div&gt;</code></pre>
+<p>And here is the aggregate, generated content:</p>
+<pre class=codehilite><code class=language-html>&lt;!-- This is from the $view View Model, and the &quot;content/article/view&quot; template --&gt;
+&lt;div class=&quot;row content&quot;&gt;
+    &lt;!-- This is from the $articleView View Model, and the &quot;content/article&quot;
+         template --&gt;
+    &lt;article class=&quot;span8&quot;&gt;
+        Lorem ipsum ....
+    &lt;/article&gt;
+
+    &lt;!-- This is from the $primarySidebarView View Model, and the
+         &quot;content/main-sidebar&quot; template --&gt;
+    &lt;div class=&quot;span2 sidebar&quot;&gt;
+        sidebar content...
+    &lt;/div&gt;
+
+    &lt;!-- This is from the $secondarySidebarView View Model, and the
+         &quot;content/secondary-sidebar&quot; template --&gt;
+    &lt;div class=&quot;span2 sidebar pull-right&quot;&gt;
+        &lt;!-- This is from the $sidebarBlockView View Model, and the
+            &quot;content/block&quot; template --&gt;
+        &lt;div class=&quot;block&quot;&gt;
+            block content...
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
 <p>You can achieve very complex markup using nested Views, while simultaneously
 keeping the details of rendering isolated from the Request/Response lifecycle of
 the controller.</p>
@@ -733,38 +727,36 @@ will take a View Model returned from a controller and inject it as a child of
 the root (layout) View Model. By default, View Models will capture to the
 "content" variable of the root View Model. This means you can do the following
 in your layout view script:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>&lt;html&gt;</span>
-<span class=x>    &lt;head&gt;</span>
-<span class=x>        &lt;title&gt;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>headTitle</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x>&lt;/title&gt;</span>
-<span class=x>    &lt;/head&gt;</span>
-<span class=x>    &lt;body&gt;</span>
-<span class=x>        </span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>content</span><span class=p>;</span> <span class=cp>?&gt;</span><span class=x></span>
-<span class=x>    &lt;/body&gt;</span>
-<span class=x>&lt;/html&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;&lt;?= $this-&gt;headTitle() ?&gt;&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;?= $this-&gt;content; ?&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
 <p>If you want to specify a different View variable for which to capture,
 explicitly create a view model in your controller, and set its "capture to"
 value:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>namespace Foo\Controller;</span>
+<pre class=codehilite><code class=language-php>namespace Foo\Controller;
 
-<span class=x>use Laminas\Mvc\Controller\AbstractActionController;</span>
-<span class=x>use Laminas\View\Model\ViewModel;</span>
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
 
-<span class=x>class BazBatController extends AbstractActionController</span>
-<span class=x>{</span>
-<span class=x>    public function doSomethingCrazyAction()</span>
-<span class=x>    {</span>
-<span class=x>        $view = new ViewModel([</span>
-<span class=x>            &#39;message&#39; =&gt; &#39;Hello world&#39;,</span>
-<span class=x>        ]);</span>
+class BazBatController extends AbstractActionController
+{
+    public function doSomethingCrazyAction()
+    {
+        $view = new ViewModel([
+            'message' =&gt; 'Hello world',
+        ]);
 
-<span class=x>        // Capture to the layout view&#39;s &quot;article&quot; variable</span>
-<span class=x>        $view-&gt;setCaptureTo(&#39;article&#39;);</span>
+        // Capture to the layout view's &quot;article&quot; variable
+        $view-&gt;setCaptureTo('article');
 
-<span class=x>        return $view;</span>
-<span class=x>    }</span>
-<span class=x>}</span>
-</pre></div></p>
+        return $view;
+    }
+}</code></pre>
 <p>There will be times you don't want to render a layout. For example, you might be
 answering an API call which expects JSON or an XML payload, or you might be
 answering an XHR request that expects a partial HTML payload. To do this,
@@ -772,148 +764,143 @@ explicitly create and return a view model from your controller, and mark it as
 "terminal", which will hint to the MVC listener that normally injects the
 returned View Model into the layout View Model, to instead replace the layout
 view model.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>namespace Foo\Controller;</span>
+<pre class=codehilite><code class=language-php>namespace Foo\Controller;
 
-<span class=x>use Laminas\Mvc\Controller\AbstractActionController;</span>
-<span class=x>use Laminas\View\Model\ViewModel;</span>
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
 
-<span class=x>class BazBatController extends AbstractActionController</span>
-<span class=x>{</span>
-<span class=x>    public function doSomethingCrazyAction()</span>
-<span class=x>    {</span>
-<span class=x>        $view = new ViewModel([</span>
-<span class=x>            &#39;message&#39; =&gt; &#39;Hello world&#39;,</span>
-<span class=x>        ]);</span>
+class BazBatController extends AbstractActionController
+{
+    public function doSomethingCrazyAction()
+    {
+        $view = new ViewModel([
+            'message' =&gt; 'Hello world',
+        ]);
 
-<span class=x>        // Disable layouts; `MvcEvent` will use this View Model instead</span>
-<span class=x>        $view-&gt;setTerminal(true);</span>
+        // Disable layouts; `MvcEvent` will use this View Model instead
+        $view-&gt;setTerminal(true);
 
-<span class=x>        return $view;</span>
-<span class=x>    }</span>
-<span class=x>}</span>
-</pre></div></p>
+        return $view;
+    }
+}</code></pre>
 <p><a href="#nesting-view-models">When discussing nesting View Models</a>, we detailed a
 nested View Model which contained an article and sidebars. Sometimes, you may
 want to provide additional View Models to the layout, instead of nesting in the
 returned layout. This may be done by using the <code>layout()</code> controller plugin,
 which returns the root View Model. You can then call the same <code>addChild()</code>
 method on it as we did in that previous example.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>namespace Content\Controller;</span>
+<pre class=codehilite><code class=language-php>namespace Content\Controller;
 
-<span class=x>use Laminas\Mvc\Controller\AbstractActionController;</span>
-<span class=x>use Laminas\View\Model\ViewModel;</span>
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
 
-<span class=x>class ArticleController extends AbstractActionController</span>
-<span class=x>{</span>
-<span class=x>    public function viewAction()</span>
-<span class=x>    {</span>
-<span class=x>        // get the article from the persistence layer, etc...</span>
+class ArticleController extends AbstractActionController
+{
+    public function viewAction()
+    {
+        // get the article from the persistence layer, etc...
 
-<span class=x>        // Get the &quot;layout&quot; view model and inject a sidebar</span>
-<span class=x>        $layout = $this-&gt;layout();</span>
-<span class=x>        $sidebarView = new ViewModel();</span>
-<span class=x>        $sidebarView-&gt;setTemplate(&#39;content/sidebar&#39;);</span>
-<span class=x>        $layout-&gt;addChild($sidebarView, &#39;sidebar&#39;);</span>
+        // Get the &quot;layout&quot; view model and inject a sidebar
+        $layout = $this-&gt;layout();
+        $sidebarView = new ViewModel();
+        $sidebarView-&gt;setTemplate('content/sidebar');
+        $layout-&gt;addChild($sidebarView, 'sidebar');
 
-<span class=x>        // Create and return a view model for the retrieved article</span>
-<span class=x>        $view = new ViewModel([&#39;article&#39; =&gt; $article]);</span>
-<span class=x>        $view-&gt;setTemplate(&#39;content/article&#39;);</span>
-<span class=x>        return $view;</span>
-<span class=x>    }</span>
-<span class=x>}</span>
-</pre></div></p>
+        // Create and return a view model for the retrieved article
+        $view = new ViewModel(['article' =&gt; $article]);
+        $view-&gt;setTemplate('content/article');
+        return $view;
+    }
+}</code></pre>
 <p>You could also use this technique to select a different layout, by calling the
 <code>setTemplate()</code> method of the layout View Model:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>//In a controller</span>
-<span class=x>namespace Content\Controller;</span>
+<pre class=codehilite><code class=language-php>//In a controller
+namespace Content\Controller;
 
-<span class=x>use Laminas\Mvc\Controller\AbstractActionController;</span>
-<span class=x>use Laminas\View\Model\ViewModel;</span>
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
 
-<span class=x>class ArticleController extends AbstractActionController</span>
-<span class=x>{</span>
-<span class=x>    public function viewAction()</span>
-<span class=x>    {</span>
-<span class=x>        // get the article from the persistence layer, etc...</span>
+class ArticleController extends AbstractActionController
+{
+    public function viewAction()
+    {
+        // get the article from the persistence layer, etc...
 
-<span class=x>        // Get the &quot;layout&quot; view model and set an alternate template</span>
-<span class=x>        $layout = $this-&gt;layout();</span>
-<span class=x>        $layout-&gt;setTemplate(&#39;article/layout&#39;);</span>
+        // Get the &quot;layout&quot; view model and set an alternate template
+        $layout = $this-&gt;layout();
+        $layout-&gt;setTemplate('article/layout');
 
-<span class=x>        // Create and return a view model for the retrieved article</span>
-<span class=x>        $view = new ViewModel([&#39;article&#39; =&gt; $article]);</span>
-<span class=x>        $view-&gt;setTemplate(&#39;content/article&#39;);</span>
-<span class=x>        return $view;</span>
-<span class=x>    }</span>
-<span class=x>}</span>
-</pre></div></p>
+        // Create and return a view model for the retrieved article
+        $view = new ViewModel(['article' =&gt; $article]);
+        $view-&gt;setTemplate('content/article');
+        return $view;
+    }
+}</code></pre>
 <p>Sometimes, you may want to access the layout from within your actual view
 scripts when using the <code>PhpRenderer</code>. Reasons might include wanting to change
 the layout template, or wanting to either access or inject layout view variables.
 Similar to the <code>layout()</code> controller plugin, you can use the <code>layout()</code> View Helper.
 If you provide a string argument to it, you will change the template; if you
 provide no arguments, the root layout View Model is returned.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>//In a view script</span>
+<pre class=codehilite><code class=language-php>//In a view script
 
-<span class=x>// Change the layout:</span>
-<span class=x>$this-&gt;layout(&#39;alternate/layout&#39;); // OR</span>
-<span class=x>$this-&gt;layout()-&gt;setTemplate(&#39;alternate/layout&#39;);</span>
+// Change the layout:
+$this-&gt;layout('alternate/layout'); // OR
+$this-&gt;layout()-&gt;setTemplate('alternate/layout');
 
-<span class=x>// Access a layout variable.</span>
-<span class=x>// Since access to the base view model is relatively easy, it becomes a</span>
-<span class=x>// reasonable place to store things such as API keys, which other view scripts</span>
-<span class=x>// may need.</span>
-<span class=x>$layout       = $this-&gt;layout();</span>
-<span class=x>$disqusApiKey = false;</span>
-<span class=x>if (isset($layout-&gt;disqusApiKey)) {</span>
-<span class=x>    $disqusApiKey = $layout-&gt;disqusApiKey;</span>
-<span class=x>}</span>
+// Access a layout variable.
+// Since access to the base view model is relatively easy, it becomes a
+// reasonable place to store things such as API keys, which other view scripts
+// may need.
+$layout       = $this-&gt;layout();
+$disqusApiKey = false;
+if (isset($layout-&gt;disqusApiKey)) {
+    $disqusApiKey = $layout-&gt;disqusApiKey;
+}
 
-<span class=x>// Set a layout variable</span>
-<span class=x>$this-&gt;layout()-&gt;footer = $this-&gt;render(&#39;article/footer&#39;);</span>
-</pre></div></p>
+// Set a layout variable
+$this-&gt;layout()-&gt;footer = $this-&gt;render('article/footer');</code></pre>
 <p>Commonly, you may want to alter the layout based on the current <strong>module</strong>. This
 requires (a) detecting if the controller matched in routing belongs to this
 module, and then (b) changing the template of the View Model.</p>
 <p>The place to do these actions is in a listener. It should listen either to the
 <code>route</code> event at low (negative) priority, or on the <code>dispatch</code> event, at any
 priority. Typically, you will register this during the bootstrap event.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>namespace Content;</span>
+<pre class=codehilite><code class=language-php>namespace Content;
 
-<span class=x>use Laminas\Mvc\MvcEvent;</span>
+use Laminas\Mvc\MvcEvent;
 
-<span class=x>class Module</span>
-<span class=x>{</span>
-<span class=x>    /**</span>
-<span class=x>     * @param  MvcEvent $e The MvcEvent instance</span>
-<span class=x>     * @return void</span>
-<span class=x>     */</span>
-<span class=x>    public function onBootstrap(MvcEvent $e)</span>
-<span class=x>    {</span>
-<span class=x>        // Register a dispatch event</span>
-<span class=x>        $app = $e-&gt;getParam(&#39;application&#39;);</span>
-<span class=x>        $app-&gt;getEventManager()-&gt;attach(&#39;dispatch&#39;, [$this, &#39;setLayout&#39;]);</span>
-<span class=x>    }</span>
+class Module
+{
+    /**
+     * @param  MvcEvent $e The MvcEvent instance
+     * @return void
+     */
+    public function onBootstrap(MvcEvent $e)
+    {
+        // Register a dispatch event
+        $app = $e-&gt;getParam('application');
+        $app-&gt;getEventManager()-&gt;attach('dispatch', [$this, 'setLayout']);
+    }
 
-<span class=x>    /**</span>
-<span class=x>     * @param  MvcEvent $e The MvcEvent instance</span>
-<span class=x>     * @return void</span>
-<span class=x>     */</span>
-<span class=x>    public function setLayout(MvcEvent $e)</span>
-<span class=x>    {</span>
-<span class=x>        $matches    = $e-&gt;getRouteMatch();</span>
-<span class=x>        $controller = $matches-&gt;getParam(&#39;controller&#39;);</span>
-<span class=x>        if (false === strpos($controller, __NAMESPACE__)) {</span>
-<span class=x>            // not a controller from this module</span>
-<span class=x>            return;</span>
-<span class=x>        }</span>
+    /**
+     * @param  MvcEvent $e The MvcEvent instance
+     * @return void
+     */
+    public function setLayout(MvcEvent $e)
+    {
+        $matches    = $e-&gt;getRouteMatch();
+        $controller = $matches-&gt;getParam('controller');
+        if (false === strpos($controller, __NAMESPACE__)) {
+            // not a controller from this module
+            return;
+        }
 
-<span class=x>        // Set the layout template</span>
-<span class=x>        $viewModel = $e-&gt;getViewModel();</span>
-<span class=x>        $viewModel-&gt;setTemplate(&#39;content/layout&#39;);</span>
-<span class=x>    }</span>
-<span class=x>}</span>
-</pre></div></p>
+        // Set the layout template
+        $viewModel = $e-&gt;getViewModel();
+        $viewModel-&gt;setTemplate('content/layout');
+    }
+}</code></pre>
 <h2 id="creating-and-registering-alternate-rendering-and-response-strategies">Creating and Registering Alternate Rendering and Response Strategies</h2>
 <p><code>Laminas\View\View</code> does very little. Its workflow is essentially to martial a
 <code>ViewEvent</code>, and then trigger two events, <code>renderer</code> and <code>response</code>. You can
@@ -943,164 +930,160 @@ to register the other Strategies yourself if you want to use them. Additionally,
 it means that you will likely want to register these at higher priority to
 ensure they match before the <code>PhpRendererStrategy</code>. As an example, let's
 register the <code>JsonStrategy</code>:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>namespace Application;</span>
+<pre class=codehilite><code class=language-php>namespace Application;
 
-<span class=x>use Laminas\Mvc\MvcEvent;</span>
+use Laminas\Mvc\MvcEvent;
 
-<span class=x>class Module</span>
-<span class=x>{</span>
-<span class=x>    /**</span>
-<span class=x>     * @param  MvcEvent $e The MvcEvent instance</span>
-<span class=x>     * @return void</span>
-<span class=x>     */</span>
-<span class=x>    public function onBootstrap(MvcEvent $e)</span>
-<span class=x>    {</span>
-<span class=x>        // Register a &quot;render&quot; event, at high priority (so it executes prior</span>
-<span class=x>        // to the view attempting to render)</span>
-<span class=x>        $app = $e-&gt;getApplication();</span>
-<span class=x>        $app-&gt;getEventManager()-&gt;attach(&#39;render&#39;, [$this, &#39;registerJsonStrategy&#39;], 100);</span>
-<span class=x>    }</span>
+class Module
+{
+    /**
+     * @param  MvcEvent $e The MvcEvent instance
+     * @return void
+     */
+    public function onBootstrap(MvcEvent $e)
+    {
+        // Register a &quot;render&quot; event, at high priority (so it executes prior
+        // to the view attempting to render)
+        $app = $e-&gt;getApplication();
+        $app-&gt;getEventManager()-&gt;attach('render', [$this, 'registerJsonStrategy'], 100);
+    }
 
-<span class=x>    /**</span>
-<span class=x>     * @param  MvcEvent $e The MvcEvent instance</span>
-<span class=x>     * @return void</span>
-<span class=x>     */</span>
-<span class=x>    public function registerJsonStrategy(MvcEvent $e)</span>
-<span class=x>    {</span>
-<span class=x>        $app          = $e-&gt;getTarget();</span>
-<span class=x>        $locator      = $app-&gt;getServiceManager();</span>
-<span class=x>        $view         = $locator-&gt;get(&#39;Laminas\View\View&#39;);</span>
-<span class=x>        $jsonStrategy = $locator-&gt;get(&#39;ViewJsonStrategy&#39;);</span>
+    /**
+     * @param  MvcEvent $e The MvcEvent instance
+     * @return void
+     */
+    public function registerJsonStrategy(MvcEvent $e)
+    {
+        $app          = $e-&gt;getTarget();
+        $locator      = $app-&gt;getServiceManager();
+        $view         = $locator-&gt;get('Laminas\View\View');
+        $jsonStrategy = $locator-&gt;get('ViewJsonStrategy');
 
-<span class=x>        // Attach strategy, which is a listener aggregate, at high priority</span>
-<span class=x>        $jsonStrategy-&gt;attach($view-&gt;getEventManager(), 100);</span>
-<span class=x>    }</span>
-<span class=x>}</span>
-</pre></div></p>
+        // Attach strategy, which is a listener aggregate, at high priority
+        $jsonStrategy-&gt;attach($view-&gt;getEventManager(), 100);
+    }
+}</code></pre>
 <p>The above will register the <code>JsonStrategy</code> with the "render" event, such that it
 executes prior to the <code>PhpRendererStrategy</code>, and thus ensure that a JSON payload
 is created when the controller returns a <code>JsonModel</code>.</p>
 <p>You could also use the module configuration to add the strategies:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>namespace Application;</span>
+<pre class=codehilite><code class=language-php>namespace Application;
 
-<span class=x>use Laminas\ModuleManager\Feature\ConfigProviderInterface;</span>
+use Laminas\ModuleManager\Feature\ConfigProviderInterface;
 
-<span class=x>class Module implements ConfigProviderInterface</span>
-<span class=x>{</span>
-<span class=x>    /**</span>
-<span class=x>     * Returns configuration to merge with application configuration</span>
-<span class=x>     *</span>
-<span class=x>     * @return array</span>
-<span class=x>     */</span>
-<span class=x>    public function getConfig()</span>
-<span class=x>    {</span>
-<span class=x>        return [</span>
-<span class=x>            /* ... */</span>
-<span class=x>            &#39;view_manager&#39; =&gt; [</span>
-<span class=x>                /* ... */</span>
-<span class=x>                &#39;strategies&#39; =&gt; [</span>
-<span class=x>                    &#39;ViewJsonStrategy&#39;,</span>
-<span class=x>                ],</span>
-<span class=x>            ],</span>
-<span class=x>        ];</span>
-<span class=x>    }</span>
-<span class=x>}</span>
-</pre></div></p>
+class Module implements ConfigProviderInterface
+{
+    /**
+     * Returns configuration to merge with application configuration
+     *
+     * @return array
+     */
+    public function getConfig()
+    {
+        return [
+            /* ... */
+            'view_manager' =&gt; [
+                /* ... */
+                'strategies' =&gt; [
+                    'ViewJsonStrategy',
+                ],
+            ],
+        ];
+    }
+}</code></pre>
 <p>What if you want this to happen only in specific modules, or specific
 controllers? One way is similar to the last example in the
 <a href="#dealing-with-layouts">previous section on layouts</a>, where we detailed changing
 the layout for a specific module:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>namespace Application;</span>
+<pre class=codehilite><code class=language-php>namespace Application;
 
-<span class=x>use Laminas\Mvc\MvcEvent;</span>
+use Laminas\Mvc\MvcEvent;
 
-<span class=x>class Module</span>
-<span class=x>{</span>
-<span class=x>    /**</span>
-<span class=x>     * @param  MvcEvent $e The MvcEvent instance</span>
-<span class=x>     * @return void</span>
-<span class=x>     */</span>
-<span class=x>    public function onBootstrap(MvcEvent $e)</span>
-<span class=x>    {</span>
-<span class=x>        // Register a render event</span>
-<span class=x>        $app = $e-&gt;getParam(&#39;application&#39;);</span>
-<span class=x>        $app-&gt;getEventManager()-&gt;attach(&#39;render&#39;, [$this, &#39;registerJsonStrategy&#39;], 100);</span>
-<span class=x>    }</span>
+class Module
+{
+    /**
+     * @param  MvcEvent $e The MvcEvent instance
+     * @return void
+     */
+    public function onBootstrap(MvcEvent $e)
+    {
+        // Register a render event
+        $app = $e-&gt;getParam('application');
+        $app-&gt;getEventManager()-&gt;attach('render', [$this, 'registerJsonStrategy'], 100);
+    }
 
-<span class=x>    /**</span>
-<span class=x>     * @param  MvcEvent $e The MvcEvent instance</span>
-<span class=x>     * @return void</span>
-<span class=x>     */</span>
-<span class=x>    public function registerJsonStrategy(MvcEvent $e)</span>
-<span class=x>    {</span>
-<span class=x>        $matches    = $e-&gt;getRouteMatch();</span>
-<span class=x>        $controller = $matches-&gt;getParam(&#39;controller&#39;);</span>
-<span class=x>        if (false === strpos($controller, __NAMESPACE__)) {</span>
-<span class=x>            // not a controller from this module</span>
-<span class=x>            return;</span>
-<span class=x>        }</span>
+    /**
+     * @param  MvcEvent $e The MvcEvent instance
+     * @return void
+     */
+    public function registerJsonStrategy(MvcEvent $e)
+    {
+        $matches    = $e-&gt;getRouteMatch();
+        $controller = $matches-&gt;getParam('controller');
+        if (false === strpos($controller, __NAMESPACE__)) {
+            // not a controller from this module
+            return;
+        }
 
-<span class=x>        // Potentially, you could be even more selective at this point, and test</span>
-<span class=x>        // for specific controller classes, and even specific actions or request</span>
-<span class=x>        // methods.</span>
+        // Potentially, you could be even more selective at this point, and test
+        // for specific controller classes, and even specific actions or request
+        // methods.
 
-<span class=x>        // Set the JSON strategy when controllers from this module are selected</span>
-<span class=x>        $app          = $e-&gt;getTarget();</span>
-<span class=x>        $locator      = $app-&gt;getServiceManager();</span>
-<span class=x>        $view         = $locator-&gt;get(&#39;Laminas\View\View&#39;);</span>
-<span class=x>        $jsonStrategy = $locator-&gt;get(&#39;ViewJsonStrategy&#39;);</span>
+        // Set the JSON strategy when controllers from this module are selected
+        $app          = $e-&gt;getTarget();
+        $locator      = $app-&gt;getServiceManager();
+        $view         = $locator-&gt;get('Laminas\View\View');
+        $jsonStrategy = $locator-&gt;get('ViewJsonStrategy');
 
-<span class=x>        // Attach strategy, which is a listener aggregate, at high priority</span>
-<span class=x>        $view-&gt;getEventManager()-&gt;attach($jsonStrategy, 100);</span>
-<span class=x>    }</span>
-<span class=x>}</span>
-</pre></div></p>
+        // Attach strategy, which is a listener aggregate, at high priority
+        $view-&gt;getEventManager()-&gt;attach($jsonStrategy, 100);
+    }
+}</code></pre>
 <p>While the above examples detail using the <code>JsonStrategy</code>, the same could be done
 for the <code>FeedStrategy</code>.</p>
 <p>If you successfully registered the Strategy you need to use the appropriate <code>ViewModel</code>:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>namespace Application;</span>
+<pre class=codehilite><code class=language-php>namespace Application;
 
-<span class=x>use Laminas\Mvc\Controller\AbstractActionController;</span>
-<span class=x>use Laminas\View\Model\ViewModel;</span>
-<span class=x>use Laminas\View\Model\JsonModel;</span>
-<span class=x>use Laminas\View\Model\FeedModel;</span>
+use Laminas\Mvc\Controller\AbstractActionController;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Model\JsonModel;
+use Laminas\View\Model\FeedModel;
 
-<span class=x>class MyController extends AbstractActionController</span>
-<span class=x>{</span>
-<span class=x>    /**</span>
-<span class=x>     * Lists the items as HTML</span>
-<span class=x>     */</span>
-<span class=x>    public function listAction()</span>
-<span class=x>    {</span>
-<span class=x>        $items = /* ... get items ... */;</span>
-<span class=x>        $viewModel = new ViewModel();</span>
-<span class=x>        $viewModel-&gt;setVariable(&#39;items&#39;, $items);</span>
-<span class=x>        return $viewModel;</span>
-<span class=x>    }</span>
+class MyController extends AbstractActionController
+{
+    /**
+     * Lists the items as HTML
+     */
+    public function listAction()
+    {
+        $items = /* ... get items ... */;
+        $viewModel = new ViewModel();
+        $viewModel-&gt;setVariable('items', $items);
+        return $viewModel;
+    }
 
-<span class=x>    /**</span>
-<span class=x>     * Lists the items as JSON</span>
-<span class=x>     */</span>
-<span class=x>    public function listJsonAction()</span>
-<span class=x>    {</span>
-<span class=x>        $items = /* ... get items ... */;</span>
-<span class=x>        $viewModel = new JsonModel();</span>
-<span class=x>        $viewModel-&gt;setVariable(&#39;items&#39;, $items);</span>
-<span class=x>        return $viewModel;</span>
-<span class=x>    }</span>
+    /**
+     * Lists the items as JSON
+     */
+    public function listJsonAction()
+    {
+        $items = /* ... get items ... */;
+        $viewModel = new JsonModel();
+        $viewModel-&gt;setVariable('items', $items);
+        return $viewModel;
+    }
 
-<span class=x>    /**</span>
-<span class=x>     * Lists the items as a Feed</span>
-<span class=x>     */</span>
-<span class=x>    public function listFeedAction()</span>
-<span class=x>    {</span>
-<span class=x>        $items = /* ... get items ... */;</span>
-<span class=x>        $viewModel = new FeedModel();</span>
-<span class=x>        $viewModel-&gt;setVariable(&#39;items&#39;, $items);</span>
-<span class=x>        return $viewModel;</span>
-<span class=x>    }</span>
-<span class=x>}</span>
-</pre></div></p>
+    /**
+     * Lists the items as a Feed
+     */
+    public function listFeedAction()
+    {
+        $items = /* ... get items ... */;
+        $viewModel = new FeedModel();
+        $viewModel-&gt;setVariable('items', $items);
+        return $viewModel;
+    }
+}</code></pre>
 <p>Or you could switch the <code>ViewModel</code> dynamically based on the "Accept" HTTP Header with the
 <a href="https://docs.laminas.dev/laminas-mvc/plugins/#acceptableviewmodelselector-plugin">Laminas-Mvc-Plugin AcceptableViewModelSelector</a>.</p>
 
@@ -1420,9 +1403,10 @@ for the <code>FeedStrategy</code>.</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -1459,7 +1443,7 @@ for the <code>FeedStrategy</code>.</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-view//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-view/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -1468,8 +1452,8 @@ for the <code>FeedStrategy</code>.</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-view//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-view/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

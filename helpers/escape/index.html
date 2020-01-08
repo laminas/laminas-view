@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -452,69 +456,57 @@ in the
 <h3>Installation Requirements</h3>
 <p>The escape helpers depends on the laminas-escaper component, so be sure to have
 it installed before getting started:</p>
-<pre class=codehilite><code class=language-bash>
+<pre class="codehilite"><code class="language-bash">
 $ composer require laminas/laminas-escaper
 </code></pre>
 </blockquote>
 <h2 id="escapecss">EscapeCss</h2>
-<p> <div class=codehilite><pre><span></span><span class=x>$css = &lt;&lt;&lt;CSS</span>
-<span class=x>body {</span>
-<span class=x>    background-image: url(&#39;http://example.com/foo.jpg?&lt;/style&gt;&lt;script&gt;alert(1)&lt;/script&gt;&#39;);</span>
-<span class=x>}</span>
-<span class=x>CSS;</span>
+<pre class=codehilite><code class=language-php>$css = &lt;&lt;&lt;CSS
+body {
+    background-image: url('http://example.com/foo.jpg?&lt;/style&gt;&lt;script&gt;alert(1)&lt;/script&gt;');
+}
+CSS;
 
-<span class=x>echo $this-&gt;escapeCss($css);</span>
-</pre></div></p>
+echo $this-&gt;escapeCss($css);</code></pre>
 <p>Output:</p>
-<p> <div class=codehilite><pre><span></span><span class=nt>body</span><span class=err>\</span><span class=nt>20</span> <span class=err>\</span><span class=nt>7B</span> <span class=err>\</span><span class=nt>D</span> <span class=err>\</span><span class=nt>A</span> <span class=err>\</span><span class=nt>20</span> <span class=err>\</span><span class=nt>20</span> <span class=err>\</span><span class=nt>20</span> <span class=err>\</span><span class=nt>20</span> <span class=nt>background</span><span class=err>\</span><span class=nt>2D</span> <span class=nt>image</span><span class=err>\</span><span class=nt>3A</span> <span class=err>\</span><span class=nt>20</span> <span class=nt>url</span><span class=err>\</span><span class=nt>28</span> <span class=err>\</span><span class=nt>27</span> <span class=nt>http</span><span class=err>\</span><span class=nt>3A</span> <span class=err>\</span><span class=nt>2F</span> <span class=err>\</span><span class=nt>2F</span> <span class=nt>example</span><span class=err>\</span><span class=nt>2E</span> <span class=nt>com</span><span class=err>\</span><span class=nt>2F</span> <span class=nt>foo</span><span class=err>\</span><span class=nt>2E</span> <span class=nt>jpg</span><span class=err>\</span><span class=nt>3F</span> <span class=err>\</span><span class=nt>3C</span> <span class=err>\</span><span class=nt>2F</span> <span class=nt>style</span><span class=err>\</span><span class=nt>3E</span> <span class=err>\</span><span class=nt>3C</span> <span class=nt>script</span><span class=err>\</span><span class=nt>3E</span> <span class=nt>alert</span><span class=err>\</span><span class=nt>28</span> <span class=nt>1</span><span class=err>\</span><span class=nt>29</span> <span class=err>\</span><span class=nt>3C</span> <span class=err>\</span><span class=nt>2F</span> <span class=nt>script</span><span class=err>\</span><span class=nt>3E</span> <span class=err>\</span><span class=nt>27</span> <span class=err>\</span><span class=nt>29</span> <span class=err>\</span><span class=nt>3B</span> <span class=err>\</span><span class=nt>D</span> <span class=err>\</span><span class=nt>A</span> <span class=err>\</span><span class=nt>7D</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-css>body\20 \7B \D \A \20 \20 \20 \20 background\2D image\3A \20 url\28 \27 http\3A \2F \2F example\2E com\2F foo\2E jpg\3F \3C \2F style\3E \3C script\3E alert\28 1\29 \3C \2F script\3E \27 \29 \3B \D \A \7D</code></pre>
 <h2 id="escapehtml">EscapeHtml</h2>
-<p> <div class=codehilite><pre><span></span><span class=x>$html = &quot;&lt;script&gt;alert(&#39;laminas-framework&#39;)&lt;/script&gt;&quot;;</span>
+<pre class=codehilite><code class=language-php>$html = &quot;&lt;script&gt;alert('laminas-framework')&lt;/script&gt;&quot;;
 
-<span class=x>echo $this-&gt;escapeHtml($html);</span>
-</pre></div></p>
+echo $this-&gt;escapeHtml($html);</code></pre>
 <p>Output:</p>
-<p> <div class=codehilite><pre><span></span><span class=ni>&amp;lt;</span>script<span class=ni>&amp;gt;</span>alert(<span class=ni>&amp;#039;</span>laminas-framework<span class=ni>&amp;#039;</span>)<span class=ni>&amp;lt;</span>/script<span class=ni>&amp;gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&amp;lt;script&amp;gt;alert(&amp;#039;laminas-framework&amp;#039;)&amp;lt;/script&amp;gt;</code></pre>
 <h2 id="escapehtmlattr">EscapeHtmlAttr</h2>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span> <span class=nv>$html</span> <span class=o>=</span> <span class=s1>&#39;faketitle onmouseover=alert(/laminas-framework/);&#39;</span><span class=p>;</span> <span class=cp>?&gt;</span>
+<pre class=codehilite><code class=language-php+html>&lt;?php $html = 'faketitle onmouseover=alert(/laminas-framework/);'; ?&gt;
 
-<span class=nt>&lt;a</span> <span class=na>title=</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>escapeHtmlAttr</span><span class=p>(</span><span class=nv>$html</span><span class=p>)</span> <span class=cp>?&gt;</span><span class=err>&gt;</span><span class=s>click&lt;/a</span><span class=nt>&gt;</span>
-</pre></div></p>
+&lt;a title=&lt;?= $this-&gt;escapeHtmlAttr($html) ?&gt;&gt;click&lt;/a&gt;</code></pre>
 <p>Output:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>a</span> <span class=na>title</span><span class=o>=</span><span class=s>faketitle&amp;#x20;onmouseover&amp;#x3D;alert&amp;#x28;&amp;#x2F;laminas-framework&amp;#x2F;&amp;#x29;&amp;#x3B;</span><span class=p>&gt;</span>click<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;a title=faketitle&amp;#x20;onmouseover&amp;#x3D;alert&amp;#x28;&amp;#x2F;laminas-framework&amp;#x2F;&amp;#x29;&amp;#x3B;&gt;click&lt;/a&gt;</code></pre>
 <h2 id="escapejs">EscapeJs</h2>
-<p> <div class=codehilite><pre><span></span><span class=x>$js = &quot;window.location = &#39;https://getlaminas.org/?cookie=&#39; + document.cookie&quot;;</span>
+<pre class=codehilite><code class=language-php>$js = &quot;window.location = 'https://getlaminas.org/?cookie=' + document.cookie&quot;;
 
-<span class=x>echo $this-&gt;escapeJs($js);</span>
-</pre></div></p>
+echo $this-&gt;escapeJs($js);</code></pre>
 <p>Output:</p>
-<p> <div class=codehilite><pre><span></span><span class=nb>window</span><span class=p>.</span><span class=nx>location</span><span class=err>\</span><span class=nx>x20</span><span class=err>\</span><span class=nx>x3D</span><span class=err>\</span><span class=nx>x20</span><span class=err>\</span><span class=nx>x27https</span><span class=err>\</span><span class=nx>x3A</span><span class=err>\</span><span class=nx>x2F</span><span class=err>\</span><span class=nx>x2Fgetlaminas</span><span class=p>.</span><span class=nx>org</span><span class=err>\</span><span class=nx>x2F</span><span class=err>\</span><span class=nx>x3Fcookie</span><span class=err>\</span><span class=nx>x3D</span><span class=err>\</span><span class=nx>x27</span><span class=err>\</span><span class=nx>x20</span><span class=err>\</span><span class=nx>x2B</span><span class=err>\</span><span class=nx>x20document</span><span class=p>.</span><span class=nx>cookie</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-js>window.location\x20\x3D\x20\x27https\x3A\x2F\x2Fgetlaminas.org\x2F\x3Fcookie\x3D\x27\x20\x2B\x20document.cookie</code></pre>
 <h2 id="escapeurl">EscapeUrl</h2>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span>
-<span class=nv>$url</span> <span class=o>=</span> <span class=s>&lt;&lt;&lt;</span><span class=dl>JS</span><span class=s></span>
-<span class=s>&quot; onmouseover=&quot;alert(&#39;laminas&#39;)</span>
-<span class=dl>JS</span><span class=p>;</span>
-<span class=cp>?&gt;</span><span class=x></span>
+<pre class=codehilite><code class=language-php>&lt;?php
+$url = &lt;&lt;&lt;JS
+&quot; onmouseover=&quot;alert('laminas')
+JS;
+?&gt;
 
-<span class=x>&lt;a href=&quot;http://example.com/?name=</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>escapeUrl</span><span class=p>(</span><span class=nv>$url</span><span class=p>)</span> <span class=cp>?&gt;</span><span class=x>&quot;&gt;click&lt;/a&gt;</span>
-</pre></div></p>
+&lt;a href=&quot;http://example.com/?name=&lt;?= $this-&gt;escapeUrl($url) ?&gt;&quot;&gt;click&lt;/a&gt;</code></pre>
 <p>Output:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;http://example.com/?name=%22%20onmouseover%3D%22alert%28%27laminas%27%29&quot;</span><span class=p>&gt;</span>click<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;a href=&quot;http://example.com/?name=%22%20onmouseover%3D%22alert%28%27laminas%27%29&quot;&gt;click&lt;/a&gt;</code></pre>
 <h2 id="using-encoding">Using Encoding</h2>
-<p> <div class=codehilite><pre><span></span><span class=x>$this-&gt;escapeHtml()-&gt;setEncoding(&#39;iso-8859-15&#39;);</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>$this-&gt;escapeHtml()-&gt;setEncoding('iso-8859-15');</code></pre>
 <p>All allowed encodings can be found in the
 <a href="https://docs.laminas.dev/laminas-escaper/configuration/">documentation of laminas-escaper</a>.</p>
 <h3>Get Current Value</h3>
 <p>To get the current value of this option, use the <code>getEncoding()</code> method.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$this-&gt;escapeHtml()-&gt;setEncoding(&#39;iso-8859-15&#39;);</span>
+<pre class=codehilite><code class=language-php>$this-&gt;escapeHtml()-&gt;setEncoding('iso-8859-15');
 
-<span class=x>echo $this-&gt;escapeHtml()-&gt;getEncoding(); // iso-8859-15</span>
-</pre></div></p>
+echo $this-&gt;escapeHtml()-&gt;getEncoding(); // iso-8859-15</code></pre>
 <h3>Default Value</h3>
 <p>The default value for all escape helpers is <code>utf-8</code>.</p>
 <h2 id="using-recursion">Using Recursion</h2>
@@ -523,85 +515,76 @@ operation. This allows the escaping of the datatypes <code>array</code> and <cod
 <h3>Escape an Array</h3>
 <p>To escape an <code>array</code>, the second parameter <code>$recurse</code> must be use the constant
 <code>RECURSE_ARRAY</code> of an escape helper:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$html = [</span>
-<span class=x>    &#39;headline&#39; =&gt; &#39;&lt;h1&gt;Foo&lt;/h1&gt;&#39;,</span>
-<span class=x>    &#39;content&#39;  =&gt; [</span>
-<span class=x>        &#39;paragraph&#39; =&gt; &#39;&lt;p&gt;Bar&lt;/p&gt;&#39;,</span>
-<span class=x>    ],</span>
-<span class=x>];</span>
+<pre class=codehilite><code class=language-php>$html = [
+    'headline' =&gt; '&lt;h1&gt;Foo&lt;/h1&gt;',
+    'content'  =&gt; [
+        'paragraph' =&gt; '&lt;p&gt;Bar&lt;/p&gt;',
+    ],
+];
 
-<span class=x>var_dump($this-&gt;escapeHtml($html, Laminas\View\Helper\EscapeHtml::RECURSE_ARRAY));</span>
-</pre></div></p>
+var_dump($this-&gt;escapeHtml($html, Laminas\View\Helper\EscapeHtml::RECURSE_ARRAY));</code></pre>
 <p>Output:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>array(2) {</span>
-<span class=x>  &#39;headline&#39; =&gt;</span>
-<span class=x>  string(24) &quot;&amp;lt;h1&amp;gt;Foo&amp;lt;/h1&amp;gt;&quot;</span>
-<span class=x>  &#39;content&#39; =&gt;</span>
-<span class=x>  array(1) {</span>
-<span class=x>    &#39;paragraph&#39; =&gt;</span>
-<span class=x>    string(22) &quot;&amp;lt;p&amp;gt;Bar&amp;lt;/p&amp;gt;&quot;</span>
-<span class=x>  }</span>
-<span class=x>}</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>array(2) {
+  'headline' =&gt;
+  string(24) &quot;&amp;lt;h1&amp;gt;Foo&amp;lt;/h1&amp;gt;&quot;
+  'content' =&gt;
+  array(1) {
+    'paragraph' =&gt;
+    string(22) &quot;&amp;lt;p&amp;gt;Bar&amp;lt;/p&amp;gt;&quot;
+  }
+}</code></pre>
 <h3>Escape an Object</h3>
 <p>An escape helper can use the <code>__toString()</code> method of an object. No additional
 parameter is needed:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$object = new class {</span>
-<span class=x>    public function __toString() : string</span>
-<span class=x>    {</span>
-<span class=x>        return &#39;&lt;h1&gt;Foo&lt;/h1&gt;&#39;;</span>
-<span class=x>    }</span>
-<span class=x>};</span>
+<pre class=codehilite><code class=language-php>$object = new class {
+    public function __toString() : string
+    {
+        return '&lt;h1&gt;Foo&lt;/h1&gt;';
+    }
+};
 
-<span class=x>echo $this-&gt;escapeHtml($object); // &quot;&amp;lt;h1&amp;gt;Foo&amp;lt;/h1&amp;gt;&quot;</span>
-</pre></div></p>
+echo $this-&gt;escapeHtml($object); // &quot;&amp;lt;h1&amp;gt;Foo&amp;lt;/h1&amp;gt;&quot;</code></pre>
 <p>An escape helper can also use the <code>toArray()</code> method of an object. The second
 parameter <code>$recurse</code> must be use the constant <code>RECURSE_OBJECT</code> of an escape
 helper:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$object = new class {</span>
-<span class=x>    public function toArray() : array</span>
-<span class=x>    {</span>
-<span class=x>        return [&#39;headline&#39; =&gt; &#39;&lt;h1&gt;Foo&lt;/h1&gt;&#39;];</span>
-<span class=x>    }</span>
-<span class=x>};</span>
+<pre class=codehilite><code class=language-php>$object = new class {
+    public function toArray() : array
+    {
+        return ['headline' =&gt; '&lt;h1&gt;Foo&lt;/h1&gt;'];
+    }
+};
 
-<span class=x>var_dump($this-&gt;escapeHtml($object, Laminas\View\Helper\EscapeHtml::RECURSE_OBJECT));</span>
-</pre></div></p>
+var_dump($this-&gt;escapeHtml($object, Laminas\View\Helper\EscapeHtml::RECURSE_OBJECT));</code></pre>
 <p>Output:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>array(1) {</span>
-<span class=x>  &#39;headline&#39; =&gt;</span>
-<span class=x>  string(3) &quot;&amp;lt;h1&amp;gt;Foo&amp;lt;/h1&amp;gt;&quot;</span>
-<span class=x>}</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>array(1) {
+  'headline' =&gt;
+  string(3) &quot;&amp;lt;h1&amp;gt;Foo&amp;lt;/h1&amp;gt;&quot;
+}</code></pre>
 <p>If the object does not contains the methods <code>__toString()</code> or <code>toArray()</code> then
 the object is casted to an <code>array</code>:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$object = new class {</span>
-<span class=x>    public $headline = &#39;&lt;h1&gt;Foo&lt;/h1&gt;&#39;;</span>
-<span class=x>};</span>
+<pre class=codehilite><code class=language-php>$object = new class {
+    public $headline = '&lt;h1&gt;Foo&lt;/h1&gt;';
+};
 
-<span class=x>var_dump($this-&gt;escapeHtml($object, Laminas\View\Helper\EscapeHtml::RECURSE_OBJECT));</span>
-</pre></div></p>
+var_dump($this-&gt;escapeHtml($object, Laminas\View\Helper\EscapeHtml::RECURSE_OBJECT));</code></pre>
 <p>Output:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>array(1) {</span>
-<span class=x>  &#39;headline&#39; =&gt;</span>
-<span class=x>  string(3) &quot;&amp;lt;h1&amp;gt;Foo&amp;lt;/h1&amp;gt;&quot;</span>
-<span class=x>}</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>array(1) {
+  'headline' =&gt;
+  string(3) &quot;&amp;lt;h1&amp;gt;Foo&amp;lt;/h1&amp;gt;&quot;
+}</code></pre>
 <h2 id="using-custom-escaper">Using Custom Escaper</h2>
 <p>Create an own instance of <code>Laminas\Escaper\Escaper</code> and set to any of the escape
 helpers:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$escaper = new Laminas\Escaper\Escaper(&#39;utf-8&#39;);</span>
+<pre class=codehilite><code class=language-php>$escaper = new Laminas\Escaper\Escaper('utf-8');
 
-<span class=x>$this-&gt;escapeHtml()-&gt;setEscaper($escaper);</span>
-</pre></div></p>
+$this-&gt;escapeHtml()-&gt;setEscaper($escaper);</code></pre>
 <h3>Get Current Value</h3>
 <p>To get the current value, use the <code>getEscaper()</code> method.</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span>
-<span class=nv>$escaper</span> <span class=o>=</span> <span class=k>new</span> <span class=nx>Laminas\Escaper\Escaper</span><span class=p>(</span><span class=s1>&#39;utf-8&#39;</span><span class=p>);</span>
-<span class=nv>$this</span><span class=o>-&gt;</span><span class=na>escapeHtml</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>setEscaper</span><span class=p>(</span><span class=nv>$escaper</span><span class=p>);</span>
+<pre class=codehilite><code class=language-php>&lt;?php
+$escaper = new Laminas\Escaper\Escaper('utf-8');
+$this-&gt;escapeHtml()-&gt;setEscaper($escaper);
 
-<span class=nb>var_dump</span><span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>escapeHtml</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>getEscaper</span><span class=p>());</span> <span class=c1>// instance of Laminas\Escaper\Escaper</span>
-</pre></div></p>
+var_dump($this-&gt;escapeHtml()-&gt;getEscaper()); // instance of Laminas\Escaper\Escaper</code></pre>
 <h3>Default Value</h3>
 <p>The default value is an instance of <code>Laminas\Escaper\Escaper</code>, created by the
 helper.</p>
@@ -922,9 +905,10 @@ helper.</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -961,7 +945,7 @@ helper.</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-view//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-view/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -970,8 +954,8 @@ helper.</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-view//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-view/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

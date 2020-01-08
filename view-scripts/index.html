@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -428,30 +432,29 @@ first, but differentiates between variables in the view script scope and those
 assigned to the renderer from elsewhere.</p>
 <p>By way of reminder, here is the example view script from the <code>PhpRenderer</code>
 introduction.</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span> <span class=k>if</span> <span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>books</span><span class=p>)</span><span class=o>:</span> <span class=cp>?&gt;</span><span class=x></span>
+<pre class=codehilite><code class=language-php>&lt;?php if ($this-&gt;books): ?&gt;
 
-<span class=x>    &lt;!-- A table of some books. --&gt;</span>
-<span class=x>    &lt;table&gt;</span>
-<span class=x>        &lt;tr&gt;</span>
-<span class=x>            &lt;th&gt;Author&lt;/th&gt;</span>
-<span class=x>            &lt;th&gt;Title&lt;/th&gt;</span>
-<span class=x>        &lt;/tr&gt;</span>
+    &lt;!-- A table of some books. --&gt;
+    &lt;table&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Author&lt;/th&gt;
+            &lt;th&gt;Title&lt;/th&gt;
+        &lt;/tr&gt;
 
-<span class=x>        </span><span class=cp>&lt;?php</span> <span class=k>foreach</span> <span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>books</span> <span class=k>as</span> <span class=nv>$key</span> <span class=o>=&gt;</span> <span class=nv>$val</span><span class=p>)</span><span class=o>:</span> <span class=cp>?&gt;</span><span class=x></span>
-<span class=x>        &lt;tr&gt;</span>
-<span class=x>            &lt;td&gt;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>escapeHtml</span><span class=p>(</span><span class=nv>$val</span><span class=p>[</span><span class=s1>&#39;author&#39;</span><span class=p>])</span> <span class=cp>?&gt;</span><span class=x>&lt;/td&gt;</span>
-<span class=x>            &lt;td&gt;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>escapeHtml</span><span class=p>(</span><span class=nv>$val</span><span class=p>[</span><span class=s1>&#39;title&#39;</span><span class=p>])</span> <span class=cp>?&gt;</span><span class=x>&lt;/td&gt;</span>
-<span class=x>        &lt;/tr&gt;</span>
-<span class=x>        </span><span class=cp>&lt;?php</span> <span class=k>endforeach</span><span class=p>;</span> <span class=cp>?&gt;</span><span class=x></span>
+        &lt;?php foreach ($this-&gt;books as $key =&gt; $val): ?&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;?= $this-&gt;escapeHtml($val['author']) ?&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;?= $this-&gt;escapeHtml($val['title']) ?&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;?php endforeach; ?&gt;
 
-<span class=x>    &lt;/table&gt;</span>
+    &lt;/table&gt;
 
-<span class=cp>&lt;?php</span> <span class=k>else</span><span class=o>:</span> <span class=cp>?&gt;</span><span class=x></span>
+&lt;?php else: ?&gt;
 
-<span class=x>    &lt;p&gt;There are no books to display.&lt;/p&gt;</span>
+    &lt;p&gt;There are no books to display.&lt;/p&gt;
 
-<span class=cp>&lt;?php</span> <span class=k>endif</span><span class=p>;</span><span class=cp>?&gt;</span><span class=x></span>
-</pre></div></p>
+&lt;?php endif;?&gt;</code></pre>
 <h2 id="escaping-output">Escaping Output</h2>
 <p>One of the most important tasks to perform in a view script is to make sure that
 output is escaped properly; among other things, this helps to avoid cross-site
@@ -464,17 +467,16 @@ context you use.</p>
 Matching the correct helper (or combination of helpers) to the context into
 which you are injecting untrusted variables will ensure that you are protected
 against Cross-Site Scripting (XSS) vulnerabilities.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// bad view-script practice:</span>
-<span class=x>echo $this-&gt;variable;</span>
+<pre class=codehilite><code class=language-php>// bad view-script practice:
+echo $this-&gt;variable;
 
-<span class=x>// good view-script practice:</span>
-<span class=x>echo $this-&gt;escapeHtml($this-&gt;variable);</span>
+// good view-script practice:
+echo $this-&gt;escapeHtml($this-&gt;variable);
 
-<span class=x>// and remember context is always relevant!</span>
-<span class=x>&lt;script type=&quot;text/javascript&quot;&gt;</span>
-<span class=x>    var foo = &quot;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>escapeJs</span><span class=p>(</span><span class=nv>$variable</span><span class=p>)</span> <span class=cp>?&gt;</span><span class=x>&quot;;</span>
-<span class=x>&lt;/script&gt;</span>
-</pre></div></p>
+// and remember context is always relevant!
+&lt;script type=&quot;text/javascript&quot;&gt;
+    var foo = &quot;&lt;?= $this-&gt;escapeJs($variable) ?&gt;&quot;;
+&lt;/script&gt;</code></pre>
 
 
 
@@ -792,9 +794,10 @@ against Cross-Site Scripting (XSS) vulnerabilities.</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -831,7 +834,7 @@ against Cross-Site Scripting (XSS) vulnerabilities.</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-view//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-view/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -840,8 +843,8 @@ against Cross-Site Scripting (XSS) vulnerabilities.</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-view//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-view/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

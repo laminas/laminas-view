@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -446,59 +450,51 @@ instance, <code>CDATA</code> escaping in <code>&lt;script&gt;</code> and <code>&
 <p>You may specify the doctype at any time. However, helpers that depend on the
 doctype for their output will recognize it only after you have set it, so the
 easiest approach is to specify it in your bootstrap:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\View\Helper\Doctype;</span>
+<pre class=codehilite><code class=language-php>use Laminas\View\Helper\Doctype;
 
-<span class=x>$doctypeHelper = new Doctype();</span>
-<span class=x>$doctypeHelper-&gt;doctype(&#39;XHTML1_STRICT&#39;);</span>
-</pre></div></p>
+$doctypeHelper = new Doctype();
+$doctypeHelper-&gt;doctype('XHTML1_STRICT');</code></pre>
 <p>And then print it out on top of your layout script:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span> <span class=k>echo</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>doctype</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x></span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?php echo $this-&gt;doctype() ?&gt;</code></pre>
 <p>Within an application based off the <a href="https://github.com/laminas/LaminasSkeletonApplication">skeleton application</a>,
 you can specify the doctype via configuration:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// module/Application/config/module.config.php:</span>
-<span class=x>return [</span>
-<span class=x>    /* ... */</span>
-<span class=x>    &#39;view_manager&#39; =&gt; [</span>
-<span class=x>        &#39;doctype&#39; =&gt; &#39;html5&#39;,</span>
-<span class=x>        /* ... */</span>
-<span class=x>    ],</span>
-<span class=x>];</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>// module/Application/config/module.config.php:
+return [
+    /* ... */
+    'view_manager' =&gt; [
+        'doctype' =&gt; 'html5',
+        /* ... */
+    ],
+];</code></pre>
 <h2 id="retrieving-the-doctype">Retrieving the Doctype</h2>
 <p>If you need to know the doctype, you can do so by calling <code>getDoctype()</code> on the
 helper, which is returned by invoking the helper from the view.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$doctype = $this-&gt;doctype()-&gt;getDoctype();</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>$doctype = $this-&gt;doctype()-&gt;getDoctype();</code></pre>
 <p>Typically, you'll want to know if the doctype is XHTML or not; for this, the
 <code>isXhtml()</code> method will suffice:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>if ($this-&gt;doctype()-&gt;isXhtml()) {</span>
-<span class=x>    // do something differently</span>
-<span class=x>}</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>if ($this-&gt;doctype()-&gt;isXhtml()) {
+    // do something differently
+}</code></pre>
 <p>You can also check if the doctype represents an HTML5 document.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>if ($this-&gt;doctype()-&gt;isHtml5()) {</span>
-<span class=x>    // do something differently</span>
-<span class=x>}</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>if ($this-&gt;doctype()-&gt;isHtml5()) {
+    // do something differently
+}</code></pre>
 <h2 id="choosing-a-doctype-to-use-with-the-open-graph-protocol">Choosing a Doctype to Use with the Open Graph Protocol</h2>
 <p>To implement the <a href="http://opengraphprotocol.org/">Open Graph Protocol</a>, you may
 specify the <code>XHTML1_RDFA</code> doctype. This doctype allows a developer to use the
 <a href="http://www.w3.org/TR/xhtml-rdfa-primer/">Resource Description Framework</a> within
 an XHTML document.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\View\Helper\Doctype;</span>
+<pre class=codehilite><code class=language-php>use Laminas\View\Helper\Doctype;
 
-<span class=x>$doctypeHelper = new Doctype();</span>
-<span class=x>$doctypeHelper-&gt;doctype(&#39;XHTML1_RDFA&#39;);</span>
-</pre></div></p>
+$doctypeHelper = new Doctype();
+$doctypeHelper-&gt;doctype('XHTML1_RDFA');</code></pre>
 <p>The RDFa doctype allows XHTML to validate when the 'property' meta tag attribute
 is used per the Open Graph Protocol spec. Example within a view script:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>doctype</span><span class=p>(</span><span class=s1>&#39;XHTML1_RDFA&#39;</span><span class=p>);</span> <span class=cp>?&gt;</span><span class=x></span>
-<span class=x>&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;</span>
-<span class=x>      xmlns:og=&quot;http://opengraphprotocol.org/schema/&quot;&gt;</span>
-<span class=x>&lt;head&gt;</span>
-<span class=x>   &lt;meta property=&quot;og:type&quot; content=&quot;musician&quot; /&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?= $this-&gt;doctype('XHTML1_RDFA'); ?&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;
+      xmlns:og=&quot;http://opengraphprotocol.org/schema/&quot;&gt;
+&lt;head&gt;
+   &lt;meta property=&quot;og:type&quot; content=&quot;musician&quot; /&gt;</code></pre>
 <p>In the previous example, we set the property to <code>og:type</code>. The <code>og</code> references
 the Open Graph namespace we specified in the html tag. The content identifies
 the page as being about a musician. See the <a href="http://opengraphprotocol.org/">Open Graph Protocol
@@ -506,14 +502,13 @@ documentation</a> for supported properties. The
 <a href="../head-meta/">HeadMeta helper</a> may be used to programmatically set these Open
 Graph Protocol meta tags.</p>
 <p>Here is how you check if the doctype is set to <code>XHTML1_RDFA</code>:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>doctype</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x></span>
-<span class=x>&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;</span>
-<span class=x>    </span><span class=cp>&lt;?php</span> <span class=k>if</span> <span class=p>(</span><span class=nv>$view</span><span class=o>-&gt;</span><span class=na>doctype</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>isRdfa</span><span class=p>())</span><span class=o>:</span> <span class=cp>?&gt;</span><span class=x></span>
-<span class=x>      xmlns:og=&quot;http://opengraphprotocol.org/schema/&quot;</span>
-<span class=x>      xmlns:fb=&quot;http://www.facebook.com/2008/fbml&quot;</span>
-<span class=x>    </span><span class=cp>&lt;?php</span> <span class=k>endif</span><span class=p>;</span> <span class=cp>?&gt;</span><span class=x></span>
-<span class=x>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?= $this-&gt;doctype() ?&gt;
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;
+    &lt;?php if ($view-&gt;doctype()-&gt;isRdfa()): ?&gt;
+      xmlns:og=&quot;http://opengraphprotocol.org/schema/&quot;
+      xmlns:fb=&quot;http://www.facebook.com/2008/fbml&quot;
+    &lt;?php endif; ?&gt;
+&gt;</code></pre>
 <h2 id="laminas-mvc-view-manager">Laminas MVC View Manager</h2>
 <p>If you're running a LaminasMvc application, you should specify doctype via the
 <a href="https://docs.laminas.dev/laminas-mvc/services/#viewmanager">ViewManager</a> service.</p>
@@ -834,9 +829,10 @@ Graph Protocol meta tags.</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -873,7 +869,7 @@ Graph Protocol meta tags.</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-view//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-view/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -882,8 +878,8 @@ Graph Protocol meta tags.</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-view//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-view/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

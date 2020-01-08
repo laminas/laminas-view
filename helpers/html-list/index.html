@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -414,102 +418,94 @@ individual items will be escaped using the view objects registered escaping
 mechanisms; pass a <code>false</code> value if you want to allow markup in your lists.</p>
 <h2 id="basic-usage">Basic Usage</h2>
 <h3>Unordered list</h3>
-<p> <div class=codehilite><pre><span></span><span class=x>$items = [</span>
-<span class=x>    &#39;Level one, number one&#39;,</span>
-<span class=x>    [</span>
-<span class=x>        &#39;Level two, number one&#39;,</span>
-<span class=x>        &#39;Level two, number two&#39;,</span>
-<span class=x>        [</span>
-<span class=x>            &#39;Level three, number one&#39;</span>
-<span class=x>        ],</span>
-<span class=x>        &#39;Level two, number three&#39;,</span>
-<span class=x>    ],</span>
-<span class=x>    &#39;Level one, number two&#39;,</span>
-<span class=x>];</span>
+<pre class=codehilite><code class=language-php>$items = [
+    'Level one, number one',
+    [
+        'Level two, number one',
+        'Level two, number two',
+        [
+            'Level three, number one'
+        ],
+        'Level two, number three',
+    ],
+    'Level one, number two',
+];
 
-<span class=x>echo $this-&gt;htmlList($items);</span>
-</pre></div></p>
+echo $this-&gt;htmlList($items);</code></pre>
 <p>Output:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Level one, number one
-        <span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Level two, number one<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Level two, number two
-                <span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
-                    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Level three, number one<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-                <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-            <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Level two, number three<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Level one, number two<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-<span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;ul&gt;
+    &lt;li&gt;Level one, number one
+        &lt;ul&gt;
+            &lt;li&gt;Level two, number one&lt;/li&gt;
+            &lt;li&gt;Level two, number two
+                &lt;ul&gt;
+                    &lt;li&gt;Level three, number one&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/li&gt;
+            &lt;li&gt;Level two, number three&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;Level one, number two&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
 <h3>Ordered list</h3>
-<p> <div class=codehilite><pre><span></span><span class=x>echo $this-&gt;htmlList($items, true);</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>echo $this-&gt;htmlList($items, true);</code></pre>
 <p>Output:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>ol</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Level one, number one
-        <span class=p>&lt;</span><span class=nt>ol</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Level two, number one<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Level two, number two
-                <span class=p>&lt;</span><span class=nt>ol</span><span class=p>&gt;</span>
-                    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Level three, number one<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-                <span class=p>&lt;/</span><span class=nt>ol</span><span class=p>&gt;</span>
-            <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Level two, number three<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;/</span><span class=nt>ol</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Level one, number two<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-<span class=p>&lt;/</span><span class=nt>ol</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;ol&gt;
+    &lt;li&gt;Level one, number one
+        &lt;ol&gt;
+            &lt;li&gt;Level two, number one&lt;/li&gt;
+            &lt;li&gt;Level two, number two
+                &lt;ol&gt;
+                    &lt;li&gt;Level three, number one&lt;/li&gt;
+                &lt;/ol&gt;
+            &lt;/li&gt;
+            &lt;li&gt;Level two, number three&lt;/li&gt;
+        &lt;/ol&gt;
+    &lt;/li&gt;
+    &lt;li&gt;Level one, number two&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
 <h3>HTML attributes</h3>
-<p> <div class=codehilite><pre><span></span><span class=x>$attribs = [&#39;class&#39; =&gt; &#39;foo&#39;];</span>
+<pre class=codehilite><code class=language-php>$attribs = ['class' =&gt; 'foo'];
 
-<span class=x>echo $this-&gt;htmlList($items, false, $attribs);</span>
-</pre></div></p>
+echo $this-&gt;htmlList($items, false, $attribs);</code></pre>
 <p>Output:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>ul</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;foo&quot;</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Level one, number one
-        <span class=p>&lt;</span><span class=nt>ul</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;foo&quot;</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Level two, number one<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Level two, number two
-                <span class=p>&lt;</span><span class=nt>ul</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;foo&quot;</span><span class=p>&gt;</span>
-                    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Level three, number one<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-                <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-            <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Level two, number three<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Level one, number two<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-<span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;ul class=&quot;foo&quot;&gt;
+    &lt;li&gt;Level one, number one
+        &lt;ul class=&quot;foo&quot;&gt;
+            &lt;li&gt;Level two, number one&lt;/li&gt;
+            &lt;li&gt;Level two, number two
+                &lt;ul class=&quot;foo&quot;&gt;
+                    &lt;li&gt;Level three, number one&lt;/li&gt;
+                &lt;/ul&gt;
+            &lt;/li&gt;
+            &lt;li&gt;Level two, number three&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;Level one, number two&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
 <h3>Escape Output</h3>
-<p> <div class=codehilite><pre><span></span><span class=x>$items = [</span>
-<span class=x>    &#39;Level one, number &lt;strong&gt;one&lt;/strong&gt;&#39;,</span>
-<span class=x>    &#39;Level one, number &lt;em&gt;two&lt;/em&gt;&#39;,</span>
-<span class=x>];</span>
+<pre class=codehilite><code class=language-php>$items = [
+    'Level one, number &lt;strong&gt;one&lt;/strong&gt;',
+    'Level one, number &lt;em&gt;two&lt;/em&gt;',
+];
 
-<span class=x>// Escape output (default)</span>
-<span class=x>echo $this-&gt;htmlList($items);</span>
+// Escape output (default)
+echo $this-&gt;htmlList($items);
 
-<span class=x>// Don&#39;t escape output</span>
-<span class=x>echo $this-&gt;htmlList($items, false, false, false);</span>
-</pre></div></p>
+// Don't escape output
+echo $this-&gt;htmlList($items, false, false, false);</code></pre>
 <p>Output:</p>
-<p> <div class=codehilite><pre><span></span><span class=c>&lt;!-- Escape output (default) --&gt;</span>
-<span class=p>&lt;</span><span class=nt>ul</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;foo&quot;</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Level one, number <span class=ni>&amp;lt;</span>strong<span class=ni>&amp;gt;</span>one<span class=ni>&amp;lt;</span>/strong<span class=ni>&amp;gt;</span><span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Level one, number <span class=ni>&amp;lt;</span>em<span class=ni>&amp;gt;</span>two<span class=ni>&amp;lt;</span>/em<span class=ni>&amp;gt;</span><span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-<span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
+<pre class=codehilite><code class=language-html>&lt;!-- Escape output (default) --&gt;
+&lt;ul class=&quot;foo&quot;&gt;
+    &lt;li&gt;Level one, number &amp;lt;strong&amp;gt;one&amp;lt;/strong&amp;gt;&lt;/li&gt;
+    &lt;li&gt;Level one, number &amp;lt;em&amp;gt;two&amp;lt;/em&amp;gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-<span class=c>&lt;!-- Don&#39;t escape output --&gt;</span>
-<span class=p>&lt;</span><span class=nt>ul</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;foo&quot;</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Level one, number <span class=p>&lt;</span><span class=nt>strong</span><span class=p>&gt;</span>one<span class=p>&lt;/</span><span class=nt>strong</span><span class=p>&gt;&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Level one, number <span class=p>&lt;</span><span class=nt>em</span><span class=p>&gt;</span>two<span class=p>&lt;/</span><span class=nt>em</span><span class=p>&gt;&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-<span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-</pre></div></p>
+&lt;!-- Don't escape output --&gt;
+&lt;ul class=&quot;foo&quot;&gt;
+    &lt;li&gt;Level one, number &lt;strong&gt;one&lt;/strong&gt;&lt;/li&gt;
+    &lt;li&gt;Level one, number &lt;em&gt;two&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
 
 
 
@@ -827,9 +823,10 @@ mechanisms; pass a <code>false</code> value if you want to allow markup in your 
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -866,7 +863,7 @@ mechanisms; pass a <code>false</code> value if you want to allow markup in your 
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-view//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-view/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -875,8 +872,8 @@ mechanisms; pass a <code>false</code> value if you want to allow markup in your 
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-view//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-view/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

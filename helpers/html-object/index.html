@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -425,15 +429,13 @@ effort.</p>
 documentation will only contain examples of two of these helpers.</p>
 <h2 id="flash-helper">Flash helper</h2>
 <p>Embedding Flash in your page using the helper only requires the resource URI.</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>htmlFlash</span><span class=p>(</span><span class=s1>&#39;/path/to/flash.swf&#39;</span><span class=p>);</span> <span class=cp>?&gt;</span><span class=x></span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?= $this-&gt;htmlFlash('/path/to/flash.swf'); ?&gt;</code></pre>
 <p>This outputs the following HTML:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>object</span> <span class=na>data</span><span class=o>=</span><span class=s>&quot;/path/to/flash.swf&quot;</span>
-        <span class=na>type</span><span class=o>=</span><span class=s>&quot;application/x-shockwave-flash&quot;</span>
-        <span class=na>classid</span><span class=o>=</span><span class=s>&quot;clsid:D27CDB6E-AE6D-11cf-96B8-444553540000&quot;</span>
-        <span class=na>codebase</span><span class=o>=</span><span class=s>&quot;http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab&quot;</span><span class=p>&gt;</span>
-<span class=p>&lt;/</span><span class=nt>object</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;object data=&quot;/path/to/flash.swf&quot;
+        type=&quot;application/x-shockwave-flash&quot;
+        classid=&quot;clsid:D27CDB6E-AE6D-11cf-96B8-444553540000&quot;
+        codebase=&quot;http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab&quot;&gt;
+&lt;/object&gt;</code></pre>
 <p>Additionally, you can specify attributes, parameters, and content that can be
 rendered along with the <code>&lt;object&gt;</code>. This will be demonstrated using the
 <code>htmlObject()</code> helper.</p>
@@ -447,28 +449,26 @@ object element. It only accepts an array with key-value pairs. <code>classid</co
 a key-value array and uses them to create <code>&lt;param&gt;</code> elements. You will see an
 example of this shortly. Lastly, there is the option of providing additional
 content to the object. The following example utilizes all arguments.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>echo $this-&gt;htmlObject(</span>
-<span class=x>    &#39;/path/to/file.ext&#39;,</span>
-<span class=x>    &#39;mime/type&#39;,</span>
-<span class=x>    [</span>
-<span class=x>        &#39;attr1&#39; =&gt; &#39;aval1&#39;,</span>
-<span class=x>        &#39;attr2&#39; =&gt; &#39;aval2&#39;,</span>
-<span class=x>    ],</span>
-<span class=x>    [</span>
-<span class=x>        &#39;param1&#39; =&gt; &#39;pval1&#39;,</span>
-<span class=x>        &#39;param2&#39; =&gt; &#39;pval2&#39;,</span>
-<span class=x>    ],</span>
-<span class=x>    &#39;some content&#39;</span>
-<span class=x>);</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>echo $this-&gt;htmlObject(
+    '/path/to/file.ext',
+    'mime/type',
+    [
+        'attr1' =&gt; 'aval1',
+        'attr2' =&gt; 'aval2',
+    ],
+    [
+        'param1' =&gt; 'pval1',
+        'param2' =&gt; 'pval2',
+    ],
+    'some content'
+);</code></pre>
 <p>This would output:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>object</span> <span class=na>data</span><span class=o>=</span><span class=s>&quot;/path/to/file.ext&quot;</span> <span class=na>type</span><span class=o>=</span><span class=s>&quot;mime/type&quot;</span>
-    <span class=na>attr1</span><span class=o>=</span><span class=s>&quot;aval1&quot;</span> <span class=na>attr2</span><span class=o>=</span><span class=s>&quot;aval2&quot;</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>param</span> <span class=na>name</span><span class=o>=</span><span class=s>&quot;param1&quot;</span> <span class=na>value</span><span class=o>=</span><span class=s>&quot;pval1&quot;</span> <span class=p>/&gt;</span>
-    <span class=p>&lt;</span><span class=nt>param</span> <span class=na>name</span><span class=o>=</span><span class=s>&quot;param2&quot;</span> <span class=na>value</span><span class=o>=</span><span class=s>&quot;pval2&quot;</span> <span class=p>/&gt;</span>
+<pre class=codehilite><code class=language-html>&lt;object data=&quot;/path/to/file.ext&quot; type=&quot;mime/type&quot;
+    attr1=&quot;aval1&quot; attr2=&quot;aval2&quot;&gt;
+    &lt;param name=&quot;param1&quot; value=&quot;pval1&quot; /&gt;
+    &lt;param name=&quot;param2&quot; value=&quot;pval2&quot; /&gt;
     some content
-<span class=p>&lt;/</span><span class=nt>object</span><span class=p>&gt;</span>
-</pre></div></p>
+&lt;/object&gt;</code></pre>
 
 
 
@@ -786,9 +786,10 @@ content to the object. The following example utilizes all arguments.</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -825,7 +826,7 @@ content to the object. The following example utilizes all arguments.</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-view//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-view/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -834,8 +835,8 @@ content to the object. The following example utilizes all arguments.</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-view//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-view/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

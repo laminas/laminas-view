@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -427,10 +431,9 @@ within your view script. Anything you can do with PHP is available to you.</p>
 <code>PhpRenderer</code>, providing it with a resolver which will resolve templates to PHP
 view scripts, and then calling its <code>render()</code> method.</p>
 <p>Instantiating a renderer:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\View\Renderer\PhpRenderer;</span>
+<pre class=codehilite><code class=language-php>use Laminas\View\Renderer\PhpRenderer;
 
-<span class=x>$renderer = new PhpRenderer();</span>
-</pre></div></p>
+$renderer = new PhpRenderer();</code></pre>
 <p>laminas-view ships with several types of "resolvers", which are used to resolve a
 template name to a resource a renderer can consume. The ones we will usually use
 with the <code>PhpRenderer</code> are:</p>
@@ -453,53 +456,51 @@ with the <code>PhpRenderer</code> are:</p>
 <p>We suggest using the <code>AggregateResolver</code>, as it allows you to create a
 multi-tiered strategy for resolving template names.</p>
 <p>Programmatically, you would then do something like this:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\View\Renderer\PhpRenderer;</span>
-<span class=x>use Laminas\View\Resolver;</span>
+<pre class=codehilite><code class=language-php>use Laminas\View\Renderer\PhpRenderer;
+use Laminas\View\Resolver;
 
-<span class=x>$renderer = new PhpRenderer();</span>
+$renderer = new PhpRenderer();
 
-<span class=x>$resolver = new Resolver\AggregateResolver();</span>
+$resolver = new Resolver\AggregateResolver();
 
-<span class=x>$renderer-&gt;setResolver($resolver);</span>
+$renderer-&gt;setResolver($resolver);
 
-<span class=x>$map = new Resolver\TemplateMapResolver([</span>
-<span class=x>    &#39;layout&#39;      =&gt; __DIR__ . &#39;/view/layout.phtml&#39;,</span>
-<span class=x>    &#39;index/index&#39; =&gt; __DIR__ . &#39;/view/index/index.phtml&#39;,</span>
-<span class=x>]);</span>
-<span class=x>$stack = new Resolver\TemplatePathStack([</span>
-<span class=x>    &#39;script_paths&#39; =&gt; [</span>
-<span class=x>        __DIR__ . &#39;/view&#39;,</span>
-<span class=x>        $someOtherPath</span>
-<span class=x>    ],</span>
-<span class=x>]);</span>
+$map = new Resolver\TemplateMapResolver([
+    'layout'      =&gt; __DIR__ . '/view/layout.phtml',
+    'index/index' =&gt; __DIR__ . '/view/index/index.phtml',
+]);
+$stack = new Resolver\TemplatePathStack([
+    'script_paths' =&gt; [
+        __DIR__ . '/view',
+        $someOtherPath
+    ],
+]);
 
-<span class=x>// Attach resolvers to the aggregate:</span>
-<span class=x>$resolver</span>
-<span class=x>    -&gt;attach($map)    // this will be consulted first, and is the fastest lookup</span>
-<span class=x>    -&gt;attach($stack)  // filesystem-based lookup</span>
-<span class=x>    -&gt;attach(new Resolver\RelativeFallbackResolver($map)) // allow short template names</span>
-<span class=x>    -&gt;attach(new Resolver\RelativeFallbackResolver($stack));</span>
-</pre></div></p>
+// Attach resolvers to the aggregate:
+$resolver
+    -&gt;attach($map)    // this will be consulted first, and is the fastest lookup
+    -&gt;attach($stack)  // filesystem-based lookup
+    -&gt;attach(new Resolver\RelativeFallbackResolver($map)) // allow short template names
+    -&gt;attach(new Resolver\RelativeFallbackResolver($stack));</code></pre>
 <p>You can also specify a specific priority value when registering resolvers, with
 high, positive integers getting higher priority, and low, negative integers
 getting low priority, when resolving.</p>
 <p>If you are started your application via the <a href="https://github.com/laminas/LaminasSkeletonApplication">skeleton
 application</a>, you can
 provide the above via configuration:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// In the Application module configuration</span>
-<span class=x>// (module/Application/config/module.config.php):</span>
-<span class=x>return [</span>
-<span class=x>    &#39;view_manager&#39; =&gt; [</span>
-<span class=x>        &#39;template_map&#39; =&gt; [</span>
-<span class=x>            &#39;layout&#39;      =&gt; __DIR__ . &#39;/../view/layout.phtml&#39;,</span>
-<span class=x>            &#39;index/index&#39; =&gt; __DIR__ . &#39;/../view/index/index.phtml&#39;,</span>
-<span class=x>        ],</span>
-<span class=x>        &#39;template_path_stack&#39; =&gt; [</span>
-<span class=x>            &#39;application&#39; =&gt; __DIR__ . &#39;/../view&#39;,</span>
-<span class=x>        ],</span>
-<span class=x>    ],</span>
-<span class=x>];</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>// In the Application module configuration
+// (module/Application/config/module.config.php):
+return [
+    'view_manager' =&gt; [
+        'template_map' =&gt; [
+            'layout'      =&gt; __DIR__ . '/../view/layout.phtml',
+            'index/index' =&gt; __DIR__ . '/../view/index/index.phtml',
+        ],
+        'template_path_stack' =&gt; [
+            'application' =&gt; __DIR__ . '/../view',
+        ],
+    ],
+];</code></pre>
 <p>If you did not begin with the skeleton application, you will need to write your
 own factories for creating each resolver and wiring them to the
 <code>AggregateResolver</code> and injecting into the <code>PhpRenderer</code>.</p>
@@ -518,104 +519,99 @@ inject some variables. This can be done in 4 different ways.</p>
   <code>ViewModel</code> to the <code>render()</code> method:</li>
 </ul>
 <p>As an example of the latter:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>use Laminas\View\Model\ViewModel;</span>
-<span class=x>use Laminas\View\Renderer\PhpRenderer;</span>
+<pre class=codehilite><code class=language-php>use Laminas\View\Model\ViewModel;
+use Laminas\View\Renderer\PhpRenderer;
 
-<span class=x>$renderer = new PhpRenderer();</span>
+$renderer = new PhpRenderer();
 
-<span class=x>$model    = new ViewModel();</span>
-<span class=x>$model-&gt;setVariable(&#39;foo&#39;, &#39;bar&#39;);</span>
-<span class=x>// or</span>
-<span class=x>$model = new ViewModel([&#39;foo&#39; =&gt; &#39;bar&#39;]);</span>
+$model    = new ViewModel();
+$model-&gt;setVariable('foo', 'bar');
+// or
+$model = new ViewModel(['foo' =&gt; 'bar']);
 
-<span class=x>$model-&gt;setTemplate($templateName);</span>
-<span class=x>$renderer-&gt;render($model);</span>
-</pre></div></p>
+$model-&gt;setTemplate($templateName);
+$renderer-&gt;render($model);</code></pre>
 <p>Now, let's render something. As an example, let us say you have a list of
 book data.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// use a model to get the data for book authors and titles.</span>
-<span class=x>$data = [</span>
-<span class=x>    [</span>
-<span class=x>        &#39;author&#39; =&gt; &#39;Hernando de Soto&#39;,</span>
-<span class=x>        &#39;title&#39; =&gt; &#39;The Mystery of Capitalism&#39;,</span>
-<span class=x>    ],</span>
-<span class=x>    [</span>
-<span class=x>        &#39;author&#39; =&gt; &#39;Henry Hazlitt&#39;,</span>
-<span class=x>        &#39;title&#39; =&gt; &#39;Economics in One Lesson&#39;,</span>
-<span class=x>    ],</span>
-<span class=x>    [</span>
-<span class=x>        &#39;author&#39; =&gt; &#39;Milton Friedman&#39;,</span>
-<span class=x>        &#39;title&#39; =&gt; &#39;Free to Choose&#39;,</span>
-<span class=x>    ],</span>
-<span class=x>];</span>
+<pre class=codehilite><code class=language-php>// use a model to get the data for book authors and titles.
+$data = [
+    [
+        'author' =&gt; 'Hernando de Soto',
+        'title' =&gt; 'The Mystery of Capitalism',
+    ],
+    [
+        'author' =&gt; 'Henry Hazlitt',
+        'title' =&gt; 'Economics in One Lesson',
+    ],
+    [
+        'author' =&gt; 'Milton Friedman',
+        'title' =&gt; 'Free to Choose',
+    ],
+];
 
-<span class=x>// now assign the book data to a renderer instance</span>
-<span class=x>$renderer-&gt;books = $data;</span>
+// now assign the book data to a renderer instance
+$renderer-&gt;books = $data;
 
-<span class=x>// and render the template &quot;booklist&quot;</span>
-<span class=x>echo $renderer-&gt;render(&#39;booklist&#39;);</span>
-</pre></div></p>
+// and render the template &quot;booklist&quot;
+echo $renderer-&gt;render('booklist');</code></pre>
 <p>More often than not, you'll likely be using the MVC layer. As such, you should
 be thinking in terms of view models. Let's consider the following code from
 within an action method of a controller.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>namespace Bookstore\Controller;</span>
+<pre class=codehilite><code class=language-php>namespace Bookstore\Controller;
 
-<span class=x>use Laminas\Mvc\Controller\AbstractActionController;</span>
+use Laminas\Mvc\Controller\AbstractActionController;
 
-<span class=x>class BookController extends AbstractActionController</span>
-<span class=x>{</span>
-<span class=x>    public function listAction()</span>
-<span class=x>    {</span>
-<span class=x>        // do some work...</span>
+class BookController extends AbstractActionController
+{
+    public function listAction()
+    {
+        // do some work...
 
-<span class=x>        // Assume $data is the list of books from the previous example</span>
-<span class=x>        $model = new ViewModel([&#39;books&#39; =&gt; $data]);</span>
+        // Assume $data is the list of books from the previous example
+        $model = new ViewModel(['books' =&gt; $data]);
 
-<span class=x>        // Optionally specify a template; if we don&#39;t, by default it will be</span>
-<span class=x>        // auto-determined based on the module name, controller name and this action.</span>
-<span class=x>        // In this example, the template would resolve to &quot;bookstore/book/list&quot;,</span>
-<span class=x>        // and thus the file &quot;bookstore/book/list.phtml&quot;; the following overrides</span>
-<span class=x>        // that to set the template to &quot;booklist&quot;, and thus the file &quot;booklist.phtml&quot;</span>
-<span class=x>        // (note the lack of directory preceding the filename).</span>
-<span class=x>        $model-&gt;setTemplate(&#39;booklist&#39;);</span>
+        // Optionally specify a template; if we don't, by default it will be
+        // auto-determined based on the module name, controller name and this action.
+        // In this example, the template would resolve to &quot;bookstore/book/list&quot;,
+        // and thus the file &quot;bookstore/book/list.phtml&quot;; the following overrides
+        // that to set the template to &quot;booklist&quot;, and thus the file &quot;booklist.phtml&quot;
+        // (note the lack of directory preceding the filename).
+        $model-&gt;setTemplate('booklist');
 
-<span class=x>        return $model</span>
-<span class=x>    }</span>
-<span class=x>}</span>
-</pre></div></p>
+        return $model
+    }
+}</code></pre>
 <p>This will then be rendered as if the following were executed:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$renderer-&gt;render($model);</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>$renderer-&gt;render($model);</code></pre>
 <p>Now we need the associated view script. At this point, we'll assume that the
 template <code>booklist</code> resolves to the file <code>booklist.phtml</code>. This is a PHP script
 like any other, with one exception: it executes inside the scope of the
 <code>PhpRenderer</code> instance, which means that references to <code>$this</code> point to the
 <code>PhpRenderer</code> instance properties and methods. Thus, a very basic view script
 could look like this:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span> <span class=k>if</span> <span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>books</span><span class=p>)</span><span class=o>:</span> <span class=cp>?&gt;</span><span class=x></span>
+<pre class=codehilite><code class=language-php>&lt;?php if ($this-&gt;books): ?&gt;
 
-<span class=x>    &lt;!-- A table of some books. --&gt;</span>
-<span class=x>    &lt;table&gt;</span>
-<span class=x>        &lt;tr&gt;</span>
-<span class=x>            &lt;th&gt;Author&lt;/th&gt;</span>
-<span class=x>            &lt;th&gt;Title&lt;/th&gt;</span>
-<span class=x>        &lt;/tr&gt;</span>
+    &lt;!-- A table of some books. --&gt;
+    &lt;table&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Author&lt;/th&gt;
+            &lt;th&gt;Title&lt;/th&gt;
+        &lt;/tr&gt;
 
-<span class=x>        </span><span class=cp>&lt;?php</span> <span class=k>foreach</span> <span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>books</span> <span class=k>as</span> <span class=nv>$key</span> <span class=o>=&gt;</span> <span class=nv>$val</span><span class=p>)</span><span class=o>:</span> <span class=cp>?&gt;</span><span class=x></span>
-<span class=x>        &lt;tr&gt;</span>
-<span class=x>            &lt;td&gt;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>escapeHtml</span><span class=p>(</span><span class=nv>$val</span><span class=p>[</span><span class=s1>&#39;author&#39;</span><span class=p>])</span> <span class=cp>?&gt;</span><span class=x>&lt;/td&gt;</span>
-<span class=x>            &lt;td&gt;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>escapeHtml</span><span class=p>(</span><span class=nv>$val</span><span class=p>[</span><span class=s1>&#39;title&#39;</span><span class=p>])</span> <span class=cp>?&gt;</span><span class=x>&lt;/td&gt;</span>
-<span class=x>        &lt;/tr&gt;</span>
-<span class=x>        </span><span class=cp>&lt;?php</span> <span class=k>endforeach</span><span class=p>;</span> <span class=cp>?&gt;</span><span class=x></span>
+        &lt;?php foreach ($this-&gt;books as $key =&gt; $val): ?&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;?= $this-&gt;escapeHtml($val['author']) ?&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;?= $this-&gt;escapeHtml($val['title']) ?&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;?php endforeach; ?&gt;
 
-<span class=x>    &lt;/table&gt;</span>
+    &lt;/table&gt;
 
-<span class=cp>&lt;?php</span> <span class=k>else</span><span class=o>:</span> <span class=cp>?&gt;</span><span class=x></span>
+&lt;?php else: ?&gt;
 
-<span class=x>    &lt;p&gt;There are no books to display.&lt;/p&gt;</span>
+    &lt;p&gt;There are no books to display.&lt;/p&gt;
 
-<span class=cp>&lt;?php</span> <span class=k>endif</span><span class=p>;</span><span class=cp>?&gt;</span><span class=x></span>
-</pre></div></p>
+&lt;?php endif;?&gt;</code></pre>
 <blockquote>
 <h3>Escape Output</h3>
 <p>The security mantra is "Filter input, escape output." If you are unsure of the
@@ -643,25 +639,20 @@ and/or create view models, create view scripts, and render view scripts.</p>
 its work. Use the following methods to configure the renderer.</p>
 <p>Unless otherwise noted, class names are relative to the <code>Laminas\View</code> namespace.</p>
 <h3>setHelperPluginManager</h3>
-<p> <div class=codehilite><pre><span></span><span class=x>setHelperPluginManager(string|HelperPluginManager $helpers): void</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>setHelperPluginManager(string|HelperPluginManager $helpers): void</code></pre>
 <p>Set the helper plugin manager instance used to load, register, and retrieve
 <a href="../helpers/intro/">helpers</a>.</p>
 <h3>setResolver</h3>
-<p> <div class=codehilite><pre><span></span><span class=x>setResolver(Resolver\\ResolverInterface $resolver) : void</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>setResolver(Resolver\\ResolverInterface $resolver) : void</code></pre>
 <p>Set the resolver instance.</p>
 <h3>setFilterChain</h3>
-<p> <div class=codehilite><pre><span></span><span class=x>setFilterChain(\Laminas\Filter\FilterChain $filters) : void</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>setFilterChain(\Laminas\Filter\FilterChain $filters) : void</code></pre>
 <p>Set a filter chain to use as an output filter on rendered content.</p>
 <h3>setVars</h3>
-<p> <div class=codehilite><pre><span></span><span class=x>setVars(array|\ArrayAccess|Variables $variables) : void</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>setVars(array|\ArrayAccess|Variables $variables) : void</code></pre>
 <p>Set the variables to use when rendering a view script/template.</p>
 <h3>setCanRenderTrees</h3>
-<p> <div class=codehilite><pre><span></span><span class=x>setCanRenderTrees(boolean $canRenderTrees) : void</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>setCanRenderTrees(boolean $canRenderTrees) : void</code></pre>
 <p>Set the flag indicating whether or not we should render trees of view models. If
 set to true, the <code>Laminas\View\View</code> instance will not attempt to render children
 separately, but instead pass the root view model directly to the <code>PhpRenderer</code>.
@@ -674,11 +665,10 @@ within your view scripts or when interacting with the <code>PhpRenderer</code>. 
 there are a few additional methods you may be interested in.</p>
 <p>Unless otherwise noted, class names are relative to the <code>Laminas\View</code> namespace.</p>
 <h3>render</h3>
-<p> <div class=codehilite><pre><span></span><span class=x>render(</span>
-<span class=x>    string|Model\ModelInterface $nameOrModel,</span>
-<span class=x>    array|\Traversable $values = null</span>
-<span class=x>) : string</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>render(
+    string|Model\ModelInterface $nameOrModel,
+    array|\Traversable $values = null
+) : string</code></pre>
 <p>Render a template/view model.</p>
 <p>If <code>$nameOrModel</code> is a string, it is assumed to be a template name. That
 template will be resolved using the current resolver, and then rendered.</p>
@@ -693,24 +683,20 @@ these will be used when rendering; otherwise, the variables container already
 present, if any, will be used.</p>
 <p>The method returns the script output.</p>
 <h3>resolver</h3>
-<p> <div class=codehilite><pre><span></span><span class=x>resolver() : Resolver\ResolverInterface</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>resolver() : Resolver\ResolverInterface</code></pre>
 <p>Retrieves the current <code>Resolver</code> instance.</p>
 <h3>vars</h3>
-<p> <div class=codehilite><pre><span></span><span class=x>vars(string $key = null) : mixed</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>vars(string $key = null) : mixed</code></pre>
 <p>Retrieve a single variable from the container if a key is provided; otherwise it
 will return the variables container.</p>
 <h3>plugin</h3>
-<p> <div class=codehilite><pre><span></span><span class=x>plugin(string $name, array $options = null) : Helper\HelperInterface</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>plugin(string $name, array $options = null) : Helper\HelperInterface</code></pre>
 <p>Retrieve a plugin/helper instance. Proxies to the plugin manager's <code>get()</code>
 method; as such, any <code>$options</code> you pass will be passed to the plugin's
 constructor if this is the first time the plugin has been retrieved. See the
 section on <a href="../helpers/intro/">helpers</a> for more information.</p>
 <h3>addTemplate</h3>
-<p> <div class=codehilite><pre><span></span><span class=x>addTemplate(string $template) : void</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>addTemplate(string $template) : void</code></pre>
 <p>Add a template to the stack. When used, the next call to <code>render()</code> will loop
 through all templates added using this method, rendering them one by one; the
 output of the last will be returned.</p>
@@ -1031,9 +1017,10 @@ output of the last will be returned.</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -1070,7 +1057,7 @@ output of the last will be returned.</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-view//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-view/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -1079,8 +1066,8 @@ output of the last will be returned.</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-view//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-view/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

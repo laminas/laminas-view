@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -436,7 +440,7 @@ media, or dir are all permissible.</p>
 allows you to hide it from specific browsers. To add the conditional tags,
 pass the conditional value as part of the <code>$attributes</code> parameter in the
 method calls.</p>
-<pre class=codehilite><code class=language-php>
+<pre class="codehilite"><code class="language-php">
 // adding comments
 $this-&gt;headStyle()-&gt;appendStyle($styles, ['conditional' =&gt; 'lt IE 7']);
 </code></pre>
@@ -465,7 +469,7 @@ use another encoding with <code>headStyle</code>, you must:</p>
 <li>Attach the custom strategy in the <code>ViewEvent</code>.</li>
 </ol>
 <p>First we have to write the custom renderer:</p>
-<pre class=codehilite><code class=language-php>
+<pre class="codehilite"><code class="language-php">
 // module/MyModule/View/Renderer/MyRenderer.php
 namespace MyModule\View\Renderer;
 
@@ -512,7 +516,7 @@ class MyRenderer extends PhpRenderer
 }
 </code></pre>
 <p>Now we make some configuration in the module class:</p>
-<pre class=codehilite><code class=language-php>
+<pre class="codehilite"><code class="language-php">
 // module/MyModule.php
 namespace MyModule;
 
@@ -570,38 +574,34 @@ to your view.</p>
 </blockquote>
 <h2 id="basic-usage">Basic Usage</h2>
 <p>You may specify a new style tag at any time:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// adding styles</span>
-<span class=x>$this-&gt;headStyle()-&gt;appendStyle($styles);</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>// adding styles
+$this-&gt;headStyle()-&gt;appendStyle($styles);</code></pre>
 <p>Order is very important with CSS; you may need to ensure that declarations are
 loaded in a specific order due to the order of the cascade; use the various
 <code>append</code>, <code>prepend</code>, and <code>offsetSet</code> directives to aid in this task:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// Putting styles in order</span>
+<pre class=codehilite><code class=language-php>// Putting styles in order
 
-<span class=x>// place at a particular offset:</span>
-<span class=x>$this-&gt;headStyle()-&gt;offsetSetStyle(100, $customStyles);</span>
+// place at a particular offset:
+$this-&gt;headStyle()-&gt;offsetSetStyle(100, $customStyles);
 
-<span class=x>// place at end:</span>
-<span class=x>$this-&gt;headStyle()-&gt;appendStyle($finalStyles);</span>
+// place at end:
+$this-&gt;headStyle()-&gt;appendStyle($finalStyles);
 
-<span class=x>// place at beginning</span>
-<span class=x>$this-&gt;headStyle()-&gt;prependStyle($firstStyles);</span>
-</pre></div></p>
+// place at beginning
+$this-&gt;headStyle()-&gt;prependStyle($firstStyles);</code></pre>
 <p>When you're finally ready to output all style declarations in your layout
 script, echo the helper:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>headStyle</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x></span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?= $this-&gt;headStyle() ?&gt;</code></pre>
 <h2 id="capturing-style-declarations">Capturing Style Declarations</h2>
 <p>Sometimes you need to generate CSS style declarations programmatically. While
 you could use string concatenation, heredocs, and the like, often it's easier
 just to do so by creating the styles and sprinkling in PHP tags. <code>HeadStyle</code>
 lets you do just that, capturing it to the stack:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>headStyle</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>captureStart</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x></span>
-<span class=x>body {</span>
-<span class=x>    background-color: </span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>bgColor</span> <span class=cp>?&gt;</span><span class=x>;</span>
-<span class=x>}</span>
-<span class=cp>&lt;?php</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>headStyle</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>captureEnd</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x></span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?php $this-&gt;headStyle()-&gt;captureStart() ?&gt;
+body {
+    background-color: &lt;?= $this-&gt;bgColor ?&gt;;
+}
+&lt;?php $this-&gt;headStyle()-&gt;captureEnd() ?&gt;</code></pre>
 <p>The following assumptions are made:</p>
 <ul>
 <li>The style declarations will be appended to the stack. If you wish for them to
@@ -927,9 +927,10 @@ lets you do just that, capturing it to the stack:</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -966,7 +967,7 @@ lets you do just that, capturing it to the stack:</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-view//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-view/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -975,8 +976,8 @@ lets you do just that, capturing it to the stack:</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-view//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-view/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

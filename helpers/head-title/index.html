@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -440,124 +444,106 @@ explicitly pass a different attach order as the second parameter.</p>
 <h2 id="basic-usage">Basic Usage</h2>
 <p>Specify a title tag in a view script, e.g.
 <code>module/Album/view/album/album/index.phtml</code>:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$this-&gt;headTitle(&#39;My albums&#39;);</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>$this-&gt;headTitle('My albums');</code></pre>
 <p>Render the title in the layout script, e.g.
 <code>module/Application/view/layout/layout.phtml</code></p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>headTitle</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x></span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?= $this-&gt;headTitle() ?&gt;</code></pre>
 <p>Output:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>title</span><span class=p>&gt;</span>My albums<span class=p>&lt;/</span><span class=nt>title</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;title&gt;My albums&lt;/title&gt;</code></pre>
 <h3>Add the Website Name</h3>
 <p>A typical usage includes the website name in the title. Add the name and <a href="#using-separator">set a
 separator</a> in the layout script, e.g.
 <code>module/Application/view/layout/layout.phtml</code></p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>headTitle</span><span class=p>(</span><span class=s1>&#39;Music&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>setSeparator</span><span class=p>(</span><span class=s1>&#39; - &#39;</span><span class=p>)</span> <span class=cp>?&gt;</span><span class=x></span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?= $this-&gt;headTitle('Music')-&gt;setSeparator(' - ') ?&gt;</code></pre>
 <p>Output:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>title</span><span class=p>&gt;</span>My albums - Music<span class=p>&lt;/</span><span class=nt>title</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;title&gt;My albums - Music&lt;/title&gt;</code></pre>
 <h2 id="set-content">Set Content</h2>
 <p>The normal behaviour is to append the content to the title (container).</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$this-&gt;headTitle(&#39;My albums&#39;)</span>
-<span class=x>$this-&gt;headTitle(&#39;Music&#39;);</span>
+<pre class=codehilite><code class=language-php>$this-&gt;headTitle('My albums')
+$this-&gt;headTitle('Music');
 
-<span class=x>echo $this-&gt;headTitle(); // &lt;title&gt;My albumsMusic&lt;/title&gt;</span>
-</pre></div></p>
+echo $this-&gt;headTitle(); // &lt;title&gt;My albumsMusic&lt;/title&gt;</code></pre>
 <h3>Append Content</h3>
 <p>To explicitly append content, the second paramater <code>$setType</code> or the concrete
 method <code>append()</code> of the helper can be used:</p>
-<div class=md-fenced-code-tabs id=tab-tab-group-6><ul class="nav nav-tabs"><li class=nav-item><a class="nav-link active" href=#tab-group-6-0_php-panel role=tab id=tab-group-6-0_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-6-0_php-panel aria-selected=true>Invoke Usage</a></li><li class=nav-item><a class="nav-link " href=#tab-group-6-1_php-panel role=tab id=tab-group-6-1_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-6-1_php-panel aria-selected=false>Setter Usage</a></li></ul><div class=tab-content><div id=tab-group-6-0_php-panel class="tab-pane show active" role=tabpanel aria-labelledby=tab-group-6-0_php-tab><div class=codehilite><pre><span></span><span class=x>$this-&gt;headTitle(&#39;My albums&#39;)</span>
-<span class=x>$this-&gt;headTitle(&#39;Music&#39;, &#39;APPEND&#39;);</span>
+<div class=md-fenced-code-tabs id=tab-tab-group-6><ul class="nav nav-tabs"><li class=nav-item><a class="nav-link active" href=#tab-group-6-0_php-panel role=tab id=tab-group-6-0_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-6-0_php-panel aria-selected=true>Invoke Usage</a></li><li class=nav-item><a class="nav-link " href=#tab-group-6-1_php-panel role=tab id=tab-group-6-1_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-6-1_php-panel aria-selected=false>Setter Usage</a></li></ul><div class=tab-content><div id=tab-group-6-0_php-panel class="tab-pane show active" role=tabpanel aria-labelledby=tab-group-6-0_php-tab><pre class=codehilite><code class=language-php>$this-&gt;headTitle('My albums')
+$this-&gt;headTitle('Music', 'APPEND');
 
-<span class=x>echo $this-&gt;headTitle(); // &lt;title&gt;My albumsMusic&lt;/title&gt;</span>
-</pre></div></div><div id=tab-group-6-1_php-panel class="tab-pane " role=tabpanel aria-labelledby=tab-group-6-1_php-tab><div class=codehilite><pre><span></span><span class=x>$this-&gt;headTitle(&#39;My albums&#39;)</span>
-<span class=x>$this-&gt;headTitle()-&gt;append(&#39;Music&#39;);</span>
+echo $this-&gt;headTitle(); // &lt;title&gt;My albumsMusic&lt;/title&gt;</code></pre></div><div id=tab-group-6-1_php-panel class="tab-pane " role=tabpanel aria-labelledby=tab-group-6-1_php-tab><pre class=codehilite><code class=language-php>$this-&gt;headTitle('My albums')
+$this-&gt;headTitle()-&gt;append('Music');
 
-<span class=x>echo $this-&gt;headTitle(); // &lt;title&gt;My albumsMusic&lt;/title&gt;</span>
-</pre></div></div></div></div>
+echo $this-&gt;headTitle(); // &lt;title&gt;My albumsMusic&lt;/title&gt;</code></pre></div></div></div>
 
 <p>The constant <code>Laminas\View\Helper\Placeholder\Container\AbstractContainer::APPEND</code>
 can also be used as value for the second parameter <code>$setType</code>.</p>
 <h3>Prepend Content</h3>
 <p>To prepend content, the second paramater <code>$setType</code> or the concrete method
 <code>prepend()</code> of the helper can be used:</p>
-<div class=md-fenced-code-tabs id=tab-tab-group-7><ul class="nav nav-tabs"><li class=nav-item><a class="nav-link active" href=#tab-group-7-0_php-panel role=tab id=tab-group-7-0_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-7-0_php-panel aria-selected=true>Invoke Usage</a></li><li class=nav-item><a class="nav-link " href=#tab-group-7-1_php-panel role=tab id=tab-group-7-1_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-7-1_php-panel aria-selected=false>Setter Usage</a></li></ul><div class=tab-content><div id=tab-group-7-0_php-panel class="tab-pane show active" role=tabpanel aria-labelledby=tab-group-7-0_php-tab><div class=codehilite><pre><span></span><span class=x>$this-&gt;headTitle(&#39;My albums&#39;)</span>
-<span class=x>$this-&gt;headTitle(&#39;Music&#39;, &#39;PREPEND&#39;);</span>
+<div class=md-fenced-code-tabs id=tab-tab-group-7><ul class="nav nav-tabs"><li class=nav-item><a class="nav-link active" href=#tab-group-7-0_php-panel role=tab id=tab-group-7-0_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-7-0_php-panel aria-selected=true>Invoke Usage</a></li><li class=nav-item><a class="nav-link " href=#tab-group-7-1_php-panel role=tab id=tab-group-7-1_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-7-1_php-panel aria-selected=false>Setter Usage</a></li></ul><div class=tab-content><div id=tab-group-7-0_php-panel class="tab-pane show active" role=tabpanel aria-labelledby=tab-group-7-0_php-tab><pre class=codehilite><code class=language-php>$this-&gt;headTitle('My albums')
+$this-&gt;headTitle('Music', 'PREPEND');
 
-<span class=x>echo $this-&gt;headTitle(); // &lt;title&gt;MusicMy albums&lt;/title&gt;</span>
-</pre></div></div><div id=tab-group-7-1_php-panel class="tab-pane " role=tabpanel aria-labelledby=tab-group-7-1_php-tab><div class=codehilite><pre><span></span><span class=x>$this-&gt;headTitle(&#39;My albums&#39;)</span>
-<span class=x>$this-&gt;headTitle()-&gt;prepend(&#39;Music&#39;);</span>
+echo $this-&gt;headTitle(); // &lt;title&gt;MusicMy albums&lt;/title&gt;</code></pre></div><div id=tab-group-7-1_php-panel class="tab-pane " role=tabpanel aria-labelledby=tab-group-7-1_php-tab><pre class=codehilite><code class=language-php>$this-&gt;headTitle('My albums')
+$this-&gt;headTitle()-&gt;prepend('Music');
 
-<span class=x>echo $this-&gt;headTitle(); // &lt;title&gt;MusicMy albums&lt;/title&gt;</span>
-</pre></div></div></div></div>
+echo $this-&gt;headTitle(); // &lt;title&gt;MusicMy albums&lt;/title&gt;</code></pre></div></div></div>
 
 <p>The constant <code>Laminas\View\Helper\Placeholder\Container\AbstractContainer::PREPEND</code>
 can also be used as value for the second parameter <code>$setType</code>.</p>
 <h3>Overwrite existing Content</h3>
 <p>To overwrite the entire content of title helper, the second parameter <code>$setType</code>
 or the concrete method <code>set()</code> of the helper can be used:</p>
-<div class=md-fenced-code-tabs id=tab-tab-group-8><ul class="nav nav-tabs"><li class=nav-item><a class="nav-link active" href=#tab-group-8-0_php-panel role=tab id=tab-group-8-0_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-8-0_php-panel aria-selected=true>Invoke Usage</a></li><li class=nav-item><a class="nav-link " href=#tab-group-8-1_php-panel role=tab id=tab-group-8-1_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-8-1_php-panel aria-selected=false>Setter Usage</a></li></ul><div class=tab-content><div id=tab-group-8-0_php-panel class="tab-pane show active" role=tabpanel aria-labelledby=tab-group-8-0_php-tab><div class=codehilite><pre><span></span><span class=x>$this-&gt;headTitle(&#39;My albums&#39;)</span>
-<span class=x>$this-&gt;headTitle(&#39;Music&#39;, &#39;SET&#39;);</span>
+<div class=md-fenced-code-tabs id=tab-tab-group-8><ul class="nav nav-tabs"><li class=nav-item><a class="nav-link active" href=#tab-group-8-0_php-panel role=tab id=tab-group-8-0_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-8-0_php-panel aria-selected=true>Invoke Usage</a></li><li class=nav-item><a class="nav-link " href=#tab-group-8-1_php-panel role=tab id=tab-group-8-1_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-8-1_php-panel aria-selected=false>Setter Usage</a></li></ul><div class=tab-content><div id=tab-group-8-0_php-panel class="tab-pane show active" role=tabpanel aria-labelledby=tab-group-8-0_php-tab><pre class=codehilite><code class=language-php>$this-&gt;headTitle('My albums')
+$this-&gt;headTitle('Music', 'SET');
 
-<span class=x>echo $this-&gt;headTitle(); // &lt;title&gt;Music&lt;/title&gt;</span>
-</pre></div></div><div id=tab-group-8-1_php-panel class="tab-pane " role=tabpanel aria-labelledby=tab-group-8-1_php-tab><div class=codehilite><pre><span></span><span class=x>$this-&gt;headTitle(&#39;My albums&#39;)</span>
-<span class=x>$this-&gt;headTitle()-&gt;set(&#39;Music&#39;);</span>
+echo $this-&gt;headTitle(); // &lt;title&gt;Music&lt;/title&gt;</code></pre></div><div id=tab-group-8-1_php-panel class="tab-pane " role=tabpanel aria-labelledby=tab-group-8-1_php-tab><pre class=codehilite><code class=language-php>$this-&gt;headTitle('My albums')
+$this-&gt;headTitle()-&gt;set('Music');
 
-<span class=x>echo $this-&gt;headTitle(); // &lt;title&gt;Music&lt;/title&gt;</span>
-</pre></div></div></div></div>
+echo $this-&gt;headTitle(); // &lt;title&gt;Music&lt;/title&gt;</code></pre></div></div></div>
 
 <p>The constant <code>Laminas\View\Helper\Placeholder\Container\AbstractContainer::SET</code>
 can also be used as value for the second parameter <code>$setType</code>.</p>
 <h3>Set a default Order to add Content</h3>
-<p> <div class=codehilite><pre><span></span><span class=x>$this-&gt;headTitle()-&gt;setDefaultAttachOrder(&#39;PREPEND&#39;);</span>
-<span class=x>$this-&gt;headTitle(&#39;My albums&#39;);</span>
-<span class=x>$this-&gt;headTitle(&#39;Music&#39;);</span>
+<pre class=codehilite><code class=language-php>$this-&gt;headTitle()-&gt;setDefaultAttachOrder('PREPEND');
+$this-&gt;headTitle('My albums');
+$this-&gt;headTitle('Music');
 
-<span class=x>echo $this-&gt;headTitle(); // &lt;title&gt;MusicMy albums&lt;/title&gt;</span>
-</pre></div></p>
+echo $this-&gt;headTitle(); // &lt;title&gt;MusicMy albums&lt;/title&gt;</code></pre>
 <h4>Get Current Value</h4>
 <p>To get the current value of this option, use the <code>getDefaultAttachOrder()</code>
 method.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$this-&gt;headTitle()-&gt;setDefaultAttachOrder(&#39;PREPEND&#39;);</span>
+<pre class=codehilite><code class=language-php>$this-&gt;headTitle()-&gt;setDefaultAttachOrder('PREPEND');
 
-<span class=x>echo $this-&gt;headTitle()-&gt;getDefaultAttachOrder(); // PREPEND</span>
-</pre></div></p>
+echo $this-&gt;headTitle()-&gt;getDefaultAttachOrder(); // PREPEND</code></pre>
 <h4>Default Value</h4>
 <p>The default value is
 <code>Laminas\View\Helper\Placeholder\Container\AbstractContainer::APPEND</code> which
 corresponds to the value <code>APPEND</code>.</p>
 <h2 id="using-separator">Using Separator</h2>
-<p> <div class=codehilite><pre><span></span><span class=x>$this-&gt;headTitle()-&gt;setSeparator(&#39; | &#39;);</span>
-<span class=x>$this-&gt;headTitle(&#39;My albums&#39;);</span>
-<span class=x>$this-&gt;headTitle(&#39;Music&#39;);</span>
+<pre class=codehilite><code class=language-php>$this-&gt;headTitle()-&gt;setSeparator(' | ');
+$this-&gt;headTitle('My albums');
+$this-&gt;headTitle('Music');
 
-<span class=x>echo $this-&gt;headTitle(); // &lt;title&gt;My albums | Music&lt;/title&gt;</span>
-</pre></div></p>
+echo $this-&gt;headTitle(); // &lt;title&gt;My albums | Music&lt;/title&gt;</code></pre>
 <h3>Get Current Value</h3>
 <p>To get the current value of this option, use the <code>getSeparator()</code>
 method.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$this-&gt;headTitle()-&gt;setSeparator(&#39; | &#39;);</span>
+<pre class=codehilite><code class=language-php>$this-&gt;headTitle()-&gt;setSeparator(' | ');
 
-<span class=x>echo $this-&gt;headTitle()-&gt;getSeparator(); //  |</span>
-</pre></div></p>
+echo $this-&gt;headTitle()-&gt;getSeparator(); //  |</code></pre>
 <h3>Default Value</h3>
 <p>The default value is an empty <code>string</code> that means no extra content is added
 between the titles on rendering.</p>
 <h2 id="add-prefix-and-postfix">Add Prefix and Postfix</h2>
 <p>The content of the helper can be formatted with a prefix and a postfix.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$this-&gt;headTitle(&#39;My albums&#39;)-&gt;setPrefix(&#39;Music: &#39;)-&gt;setPostfix(&#39;𝄞&#39;);</span>
+<pre class=codehilite><code class=language-php>$this-&gt;headTitle('My albums')-&gt;setPrefix('Music: ')-&gt;setPostfix('𝄞');
 
-<span class=x>echo $this-&gt;headTitle(); // &lt;title&gt;Music: My albums 𝄞&lt;/title&gt;</span>
-</pre></div></p>
+echo $this-&gt;headTitle(); // &lt;title&gt;Music: My albums 𝄞&lt;/title&gt;</code></pre>
 <p>More descriptions and another example of usage can be found at the
 <a href="../placeholder/#aggregate-content"><code>Placeholder</code> helper</a>.</p>
 <h2 id="render-without-tags">Render without Tags</h2>
 <p>In case the title is needed without the <code>&lt;title&gt;</code> and <code>&lt;/title&gt;</code> tags the
 <code>renderTitle()</code> method can be used.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>echo $this-&gt;headTitle(&#39;My albums&#39;)-&gt;renderTitle(); // My albums</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>echo $this-&gt;headTitle('My albums')-&gt;renderTitle(); // My albums</code></pre>
 
 
 
@@ -875,9 +861,10 @@ between the titles on rendering.</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -914,7 +901,7 @@ between the titles on rendering.</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-view//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-view/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -923,8 +910,8 @@ between the titles on rendering.</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-view//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-view/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

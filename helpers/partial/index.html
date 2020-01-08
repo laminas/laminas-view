@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -425,24 +429,21 @@ This provides a way to have alternating colors on table rows, for example.</p>
 <h2 id="basic-usage">Basic Usage</h2>
 <p>Basic usage of partials is to render a template fragment in its own view scope.
 Consider the following partial script:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span> <span class=c1>// partial.phtml ?&gt;</span>
-<span class=o>&lt;</span><span class=nx>ul</span><span class=o>&gt;</span>
-    <span class=o>&lt;</span><span class=nx>li</span><span class=o>&gt;</span><span class=nx>From</span><span class=o>:</span> <span class=o>&lt;?=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>escapeHtml</span><span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>from</span><span class=p>)</span> <span class=cp>?&gt;</span><span class=x>&lt;/li&gt;</span>
-<span class=x>    &lt;li&gt;Subject: </span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>escapeHtml</span><span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>subject</span><span class=p>)</span> <span class=cp>?&gt;</span><span class=x>&lt;/li&gt;</span>
-<span class=x>&lt;/ul&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?php // partial.phtml ?&gt;
+&lt;ul&gt;
+    &lt;li&gt;From: &lt;?= $this-&gt;escapeHtml($this-&gt;from) ?&gt;&lt;/li&gt;
+    &lt;li&gt;Subject: &lt;?= $this-&gt;escapeHtml($this-&gt;subject) ?&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
 <p>You would then call it from your view script using the following:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>partial</span><span class=p>(</span><span class=s1>&#39;partial.phtml&#39;</span><span class=p>,</span> <span class=p>[</span>
-    <span class=s1>&#39;from&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;Team Framework&#39;</span><span class=p>,</span>
-    <span class=s1>&#39;subject&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;view partials&#39;</span><span class=p>,</span>
-<span class=p>]);</span> <span class=cp>?&gt;</span><span class=x></span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?= $this-&gt;partial('partial.phtml', [
+    'from' =&gt; 'Team Framework',
+    'subject' =&gt; 'view partials',
+]); ?&gt;</code></pre>
 <p>Which would then render:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>From: Team Framework<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Subject: view partials<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-<span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;ul&gt;
+    &lt;li&gt;From: Team Framework&lt;/li&gt;
+    &lt;li&gt;Subject: view partials&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
 <blockquote>
 <h3>What is a model?</h3>
 <p>A model used with the <code>Partial</code> view helper can be one of the following:</p>
@@ -459,7 +460,7 @@ Consider the following partial script:</p>
 <p>If your model is an object, you may want to have it passed <strong>as an object</strong> to
 the partial script, instead of serializing it to an array of variables. You
 can do this by setting the <code>objectKey</code> property of the appropriate helper:</p>
-<pre class=codehilite><code class=language-php>
+<pre class="codehilite"><code class="language-php">
 // Tell partial to pass objects as 'model' variable
 $view-&gt;partial()-&gt;setObjectKey('model');
 
@@ -482,38 +483,34 @@ iterable item (array or object implementing <code>Iterator</code>) as the model.
 iterates over this, passing, the items to the partial script as the model. Items
 in the iterator may be any model the <code>Partial</code> view helper allows.</p>
 <p>Let's assume the following partial view script:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span> <span class=c1>// partialLoop.phtml ?&gt;</span>
-    <span class=o>&lt;</span><span class=nx>dt</span><span class=o>&gt;&lt;?=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>key</span> <span class=cp>?&gt;</span><span class=x>&lt;/dt&gt;</span>
-<span class=x>    &lt;dd&gt;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>value</span> <span class=cp>?&gt;</span><span class=x>&lt;/dd&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?php // partialLoop.phtml ?&gt;
+    &lt;dt&gt;&lt;?= $this-&gt;key ?&gt;&lt;/dt&gt;
+    &lt;dd&gt;&lt;?= $this-&gt;value ?&gt;&lt;/dd&gt;</code></pre>
 <p>And the following "model":</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$model = [</span>
-<span class=x>    [&#39;key&#39; =&gt; &#39;Mammal&#39;, &#39;value&#39; =&gt; &#39;Camel&#39;],</span>
-<span class=x>    [&#39;key&#39; =&gt; &#39;Bird&#39;, &#39;value&#39; =&gt; &#39;Penguin&#39;],</span>
-<span class=x>    [&#39;key&#39; =&gt; &#39;Reptile&#39;, &#39;value&#39; =&gt; &#39;Asp&#39;],</span>
-<span class=x>    [&#39;key&#39; =&gt; &#39;Fish&#39;, &#39;value&#39; =&gt; &#39;Flounder&#39;],</span>
-<span class=x>];</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>$model = [
+    ['key' =&gt; 'Mammal', 'value' =&gt; 'Camel'],
+    ['key' =&gt; 'Bird', 'value' =&gt; 'Penguin'],
+    ['key' =&gt; 'Reptile', 'value' =&gt; 'Asp'],
+    ['key' =&gt; 'Fish', 'value' =&gt; 'Flounder'],
+];</code></pre>
 <p>In your view script, you could then invoke the <code>PartialLoop</code> helper:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>&lt;dl&gt;</span>
-<span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>partialLoop</span><span class=p>(</span><span class=s1>&#39;partialLoop.phtml&#39;</span><span class=p>,</span> <span class=nv>$model</span><span class=p>)</span> <span class=cp>?&gt;</span><span class=x></span>
-<span class=x>&lt;/dl&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;dl&gt;
+&lt;?= $this-&gt;partialLoop('partialLoop.phtml', $model) ?&gt;
+&lt;/dl&gt;</code></pre>
 <p>Resulting in the following:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>dl</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>dt</span><span class=p>&gt;</span>Mammal<span class=p>&lt;/</span><span class=nt>dt</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>dd</span><span class=p>&gt;</span>Camel<span class=p>&lt;/</span><span class=nt>dd</span><span class=p>&gt;</span>
+<pre class=codehilite><code class=language-html>&lt;dl&gt;
+    &lt;dt&gt;Mammal&lt;/dt&gt;
+    &lt;dd&gt;Camel&lt;/dd&gt;
 
-    <span class=p>&lt;</span><span class=nt>dt</span><span class=p>&gt;</span>Bird<span class=p>&lt;/</span><span class=nt>dt</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>dd</span><span class=p>&gt;</span>Penguin<span class=p>&lt;/</span><span class=nt>dd</span><span class=p>&gt;</span>
+    &lt;dt&gt;Bird&lt;/dt&gt;
+    &lt;dd&gt;Penguin&lt;/dd&gt;
 
-    <span class=p>&lt;</span><span class=nt>dt</span><span class=p>&gt;</span>Reptile<span class=p>&lt;/</span><span class=nt>dt</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>dd</span><span class=p>&gt;</span>Asp<span class=p>&lt;/</span><span class=nt>dd</span><span class=p>&gt;</span>
+    &lt;dt&gt;Reptile&lt;/dt&gt;
+    &lt;dd&gt;Asp&lt;/dd&gt;
 
-    <span class=p>&lt;</span><span class=nt>dt</span><span class=p>&gt;</span>Fish<span class=p>&lt;/</span><span class=nt>dt</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>dd</span><span class=p>&gt;</span>Flounder<span class=p>&lt;/</span><span class=nt>dd</span><span class=p>&gt;</span>
-<span class=p>&lt;/</span><span class=nt>dl</span><span class=p>&gt;</span>
-</pre></div></p>
+    &lt;dt&gt;Fish&lt;/dt&gt;
+    &lt;dd&gt;Flounder&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
 
 
 
@@ -831,9 +828,10 @@ in the iterator may be any model the <code>Partial</code> view helper allows.</p
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -870,7 +868,7 @@ in the iterator may be any model the <code>Partial</code> view helper allows.</p
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-view//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-view/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -879,8 +877,8 @@ in the iterator may be any model the <code>Partial</code> view helper allows.</p
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-view//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-view/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

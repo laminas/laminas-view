@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -440,42 +444,37 @@ following definitions for the helper arguments:</p>
 <p>The following example shows a simple configuration for a news module. The route
 is called <code>news</code> and it has two <strong>optional</strong> parameters called <code>action</code> and
 <code>id</code>.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// In a configuration array (e.g. returned by some module&#39;s module.config.php)</span>
-<span class=x>&#39;router&#39; =&gt; [</span>
-<span class=x>    &#39;routes&#39; =&gt; [</span>
-<span class=x>        &#39;news&#39; =&gt; [</span>
-<span class=x>            &#39;type&#39;    =&gt; &#39;segment&#39;,</span>
-<span class=x>            &#39;options&#39; =&gt; [</span>
-<span class=x>                &#39;route&#39;       =&gt; &#39;/news[/:action][/:id]&#39;,</span>
-<span class=x>                &#39;constraints&#39; =&gt; [</span>
-<span class=x>                    &#39;action&#39; =&gt; &#39;[a-zA-Z][a-zA-Z0-9_-]*&#39;,</span>
-<span class=x>                ],</span>
-<span class=x>                &#39;defaults&#39; =&gt; [</span>
-<span class=x>                    &#39;controller&#39; =&gt; &#39;news&#39;,</span>
-<span class=x>                    &#39;action&#39;     =&gt; &#39;index&#39;,</span>
-<span class=x>                ],</span>
-<span class=x>            ],</span>
-<span class=x>        ],</span>
-<span class=x>    ],</span>
-<span class=x>],</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>// In a configuration array (e.g. returned by some module's module.config.php)
+'router' =&gt; [
+    'routes' =&gt; [
+        'news' =&gt; [
+            'type'    =&gt; 'segment',
+            'options' =&gt; [
+                'route'       =&gt; '/news[/:action][/:id]',
+                'constraints' =&gt; [
+                    'action' =&gt; '[a-zA-Z][a-zA-Z0-9_-]*',
+                ],
+                'defaults' =&gt; [
+                    'controller' =&gt; 'news',
+                    'action'     =&gt; 'index',
+                ],
+            ],
+        ],
+    ],
+],</code></pre>
 <p>First, let's use the view helper to create the output for the URL <code>/news</code> without any of the
 optional parameters being used:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>&lt;a href=&quot;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>url</span><span class=p>(</span><span class=s1>&#39;news&#39;</span><span class=p>);</span> <span class=cp>?&gt;</span><span class=x>&quot;&gt;News Index&lt;/a&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;a href=&quot;&lt;?= $this-&gt;url('news'); ?&gt;&quot;&gt;News Index&lt;/a&gt;</code></pre>
 <p>This will render the output:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/news&quot;</span><span class=p>&gt;</span>News Index<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;a href=&quot;/news&quot;&gt;News Index&lt;/a&gt;</code></pre>
 <p>Now let's assume we want to get a link to display the detail page of a single
 news entry. For this task, the optional parameters <code>action</code> and <code>id</code> need to
 have values assigned. This is how you do that:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>&lt;a href=&quot;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>url</span><span class=p>(</span><span class=s1>&#39;news&#39;</span><span class=p>,</span> <span class=p>[</span><span class=s1>&#39;action&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;details&#39;</span><span class=p>,</span> <span class=s1>&#39;id&#39;</span> <span class=o>=&gt;</span> <span class=mi>42</span><span class=p>]);</span> <span class=cp>?&gt;</span><span class=x>&quot;&gt;</span>
-<span class=x>    Details of News #42</span>
-<span class=x>&lt;/a&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;a href=&quot;&lt;?= $this-&gt;url('news', ['action' =&gt; 'details', 'id' =&gt; 42]); ?&gt;&quot;&gt;
+    Details of News #42
+&lt;/a&gt;</code></pre>
 <p>This will render the output:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/news/details/42&quot;</span><span class=p>&gt;</span>News Index<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;a href=&quot;/news/details/42&quot;&gt;News Index&lt;/a&gt;</code></pre>
 <h2 id="query-string-arguments">Query String Arguments</h2>
 <p>Most SEO experts agree that pagination parameters should not be part of the URL
 path; for example, the following URL would be considered a bad practice:
@@ -483,97 +482,88 @@ path; for example, the following URL would be considered a bad practice:
 string arguments, such as <code>/news/archive?page=13</code>. To achieve this, you'll need
 to make use of the <code>$options</code> argument from the view helper.</p>
 <p>We will use the same route configuration as defined above:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// In a configuration array (e.g. returned by some module&#39;s module.config.php)</span>
-<span class=x>&#39;router&#39; =&gt; [</span>
-<span class=x>    &#39;routes&#39; =&gt; [</span>
-<span class=x>        &#39;news&#39; =&gt; [</span>
-<span class=x>            &#39;type&#39;    =&gt; &#39;segment&#39;,</span>
-<span class=x>            &#39;options&#39; =&gt; [</span>
-<span class=x>                &#39;route&#39;       =&gt; &#39;/news[/:action][/:id]&#39;,</span>
-<span class=x>                &#39;constraints&#39; =&gt; [</span>
-<span class=x>                    &#39;action&#39; =&gt; &#39;[a-zA-Z][a-zA-Z0-9_-]*&#39;,</span>
-<span class=x>                ],</span>
-<span class=x>                &#39;defaults&#39; =&gt; [</span>
-<span class=x>                    &#39;controller&#39; =&gt; &#39;news&#39;,</span>
-<span class=x>                    &#39;action&#39;     =&gt; &#39;index&#39;,</span>
-<span class=x>                ],</span>
-<span class=x>            ],</span>
-<span class=x>        ],</span>
-<span class=x>    ],</span>
-<span class=x>],</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>// In a configuration array (e.g. returned by some module's module.config.php)
+'router' =&gt; [
+    'routes' =&gt; [
+        'news' =&gt; [
+            'type'    =&gt; 'segment',
+            'options' =&gt; [
+                'route'       =&gt; '/news[/:action][/:id]',
+                'constraints' =&gt; [
+                    'action' =&gt; '[a-zA-Z][a-zA-Z0-9_-]*',
+                ],
+                'defaults' =&gt; [
+                    'controller' =&gt; 'news',
+                    'action'     =&gt; 'index',
+                ],
+            ],
+        ],
+    ],
+],</code></pre>
 <p>To generate query string arguments from the view helper, you need to assign them
 as the third argument using the <code>query</code> key like this:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span>
-<span class=nv>$url</span> <span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>url</span><span class=p>(</span>
-    <span class=s1>&#39;news&#39;</span><span class=p>,</span>
-    <span class=p>[</span><span class=s1>&#39;action&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;archive&#39;</span><span class=p>],</span>
-    <span class=p>[</span>
-        <span class=s1>&#39;query&#39;</span> <span class=o>=&gt;</span> <span class=p>[</span>
-            <span class=s1>&#39;page&#39;</span> <span class=o>=&gt;</span> <span class=mi>13</span><span class=p>,</span>
-        <span class=p>],</span>
-    <span class=p>]</span>
-<span class=p>);</span>
-<span class=cp>?&gt;</span><span class=x></span>
-<span class=x>&lt;a href=&quot;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$url</span><span class=p>;</span> <span class=cp>?&gt;</span><span class=x>&quot;&gt;News Archive Page #13&lt;/a&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?php
+$url = $this-&gt;url(
+    'news',
+    ['action' =&gt; 'archive'],
+    [
+        'query' =&gt; [
+            'page' =&gt; 13,
+        ],
+    ]
+);
+?&gt;
+&lt;a href=&quot;&lt;?= $url; ?&gt;&quot;&gt;News Archive Page #13&lt;/a&gt;</code></pre>
 <p>The above code sample would output:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/news/archive?page=13&quot;</span><span class=p>&gt;</span>News Archive Page #13<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;a href=&quot;/news/archive?page=13&quot;&gt;News Archive Page #13&lt;/a&gt;</code></pre>
 <h2 id="fragments">Fragments</h2>
 <p>Another possible entry within the <code>$options</code> array is the assignment of URL
 fragments (typically used to link to in-page anchors), denoted with using the
 <code>fragment</code> key. Let's assume we want to enter a link for users to directly jump
 to the comment section of a details page:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span>
-<span class=nv>$url</span> <span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>url</span><span class=p>(</span>
-    <span class=s1>&#39;news&#39;</span><span class=p>,</span>
-    <span class=p>[</span><span class=s1>&#39;action&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;details&#39;</span><span class=p>,</span> <span class=s1>&#39;id&#39;</span> <span class=o>=&gt;</span> <span class=mi>42</span><span class=p>],</span>
-    <span class=p>[</span>
-        <span class=s1>&#39;fragment&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;comments&#39;</span><span class=p>,</span>
-    <span class=p>]</span>
-<span class=p>);</span>
-<span class=cp>?&gt;</span><span class=x></span>
-<span class=x>&lt;a href=&quot;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$url</span><span class=p>;</span> <span class=cp>?&gt;</span><span class=x>&quot;&gt;Comment Section of News #42&lt;/a&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?php
+$url = $this-&gt;url(
+    'news',
+    ['action' =&gt; 'details', 'id' =&gt; 42],
+    [
+        'fragment' =&gt; 'comments',
+    ]
+);
+?&gt;
+&lt;a href=&quot;&lt;?= $url; ?&gt;&quot;&gt;Comment Section of News #42&lt;/a&gt;</code></pre>
 <p>The above code sample would output:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/news/details/42#comments&quot;</span><span class=p>&gt;</span>Comment Section of News #42<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;a href=&quot;/news/details/42#comments&quot;&gt;Comment Section of News #42&lt;/a&gt;</code></pre>
 <p>You can use <code>fragment</code> and <code>query</code> options at the same time!</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span>
-<span class=nv>$url</span> <span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>url</span><span class=p>(</span>
-    <span class=s1>&#39;news&#39;</span><span class=p>,</span>
-    <span class=p>[</span><span class=s1>&#39;action&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;details&#39;</span><span class=p>,</span> <span class=s1>&#39;id&#39;</span> <span class=o>=&gt;</span> <span class=mi>42</span><span class=p>],</span>
-    <span class=p>[</span>
-        <span class=s1>&#39;query&#39;</span> <span class=o>=&gt;</span> <span class=p>[</span>
-            <span class=s1>&#39;commentPage&#39;</span> <span class=o>=&gt;</span> <span class=mi>3</span><span class=p>,</span>
-        <span class=p>],</span>
-        <span class=s1>&#39;fragment&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;comments&#39;</span><span class=p>,</span>
-    <span class=p>]</span>
-<span class=p>);</span>
-<span class=cp>?&gt;</span><span class=x></span>
-<span class=x>&lt;a href=&quot;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$url</span><span class=p>;</span> <span class=cp>?&gt;</span><span class=x>&quot;&gt;Comment Section of News #42&lt;/a&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?php
+$url = $this-&gt;url(
+    'news',
+    ['action' =&gt; 'details', 'id' =&gt; 42],
+    [
+        'query' =&gt; [
+            'commentPage' =&gt; 3,
+        ],
+        'fragment' =&gt; 'comments',
+    ]
+);
+?&gt;
+&lt;a href=&quot;&lt;?= $url; ?&gt;&quot;&gt;Comment Section of News #42&lt;/a&gt;</code></pre>
 <p>The above code sample would output:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/news/details/42?commentPage=3#comments&quot;</span><span class=p>&gt;</span>Comment Section of News #42<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;a href=&quot;/news/details/42?commentPage=3#comments&quot;&gt;Comment Section of News #42&lt;/a&gt;</code></pre>
 <h2 id="fully-qualified-domain-name">Fully Qualified Domain Name</h2>
 <p>Another possible entry within the <code>$options</code> array is to output a fully
 qualified domain name (absolute URL), denoted using the <code>force_canonical</code> key:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span>
-<span class=nv>$url</span> <span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>url</span><span class=p>(</span>
-    <span class=s1>&#39;news&#39;</span><span class=p>,</span>
-    <span class=p>[],</span>
-    <span class=p>[</span>
-        <span class=s1>&#39;force_canonical&#39;</span> <span class=o>=&gt;</span> <span class=k>true</span><span class=p>,</span>
-    <span class=p>]</span>
-<span class=p>);</span>
-<span class=cp>?&gt;</span><span class=x></span>
-<span class=x>&lt;a href=&quot;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$url</span><span class=p>;</span> <span class=cp>?&gt;</span><span class=x>&quot;&gt;News Index&lt;/a&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?php
+$url = $this-&gt;url(
+    'news',
+    [],
+    [
+        'force_canonical' =&gt; true,
+    ]
+);
+?&gt;
+&lt;a href=&quot;&lt;?= $url; ?&gt;&quot;&gt;News Index&lt;/a&gt;</code></pre>
 <p>The above code sample would output:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;http://www.example.com/news&quot;</span><span class=p>&gt;</span>News Index<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;a href=&quot;http://www.example.com/news&quot;&gt;News Index&lt;/a&gt;</code></pre>
 <h2 id="reusing-matched-parameters">Reusing Matched Parameters</h2>
 <p>When you're on a route that has many parameters, often times it makes sense to
 reuse currently matched parameters instead of assigning them explicitly. In this
@@ -581,25 +571,22 @@ case, the argument <code>$reuseMatchedParams</code> will come in handy.</p>
 <p>As an example, we will imagine being on a detail page for our <code>news</code> route. We
 want to display links to the <code>edit</code> and <code>delete</code> actions without having to
 assign the ID again:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// Currently url /news/details/777</span>
+<pre class=codehilite><code class=language-php>// Currently url /news/details/777
 
-<span class=x>&lt;a href=&quot;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>url</span><span class=p>(</span><span class=s1>&#39;news&#39;</span><span class=p>,</span> <span class=p>[</span><span class=s1>&#39;action&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;edit&#39;</span><span class=p>],</span> <span class=k>null</span><span class=p>,</span> <span class=k>true</span><span class=p>);</span> <span class=cp>?&gt;</span><span class=x>&quot;&gt;Edit Me&lt;/a&gt;</span>
-<span class=x>&lt;a href=&quot;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>url</span><span class=p>(</span><span class=s1>&#39;news&#39;</span><span class=p>,</span> <span class=p>[</span><span class=s1>&#39;action&#39;</span> <span class=o>=&gt;</span> <span class=s1>&#39;delete&#39;</span><span class=p>],</span> <span class=k>null</span><span class=p>,</span> <span class=k>true</span><span class=p>);</span> <span class=cp>?&gt;</span><span class=x>&quot;&gt;Delete Me&lt;/a&gt;</span>
-</pre></div></p>
+&lt;a href=&quot;&lt;?= $this-&gt;url('news', ['action' =&gt; 'edit'], null, true); ?&gt;&quot;&gt;Edit Me&lt;/a&gt;
+&lt;a href=&quot;&lt;?= $this-&gt;url('news', ['action' =&gt; 'delete'], null, true); ?&gt;&quot;&gt;Delete Me&lt;/a&gt;</code></pre>
 <p>Notice the <code>true</code> argument in the fourth position. This tells the view helper to
 use the matched <code>id</code> (<code>777</code>) when creating the new URL:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/news/edit/777&quot;</span><span class=p>&gt;</span>Edit Me<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-<span class=p>&lt;</span><span class=nt>a</span> <span class=na>href</span><span class=o>=</span><span class=s>&quot;/news/delete/777&quot;</span><span class=p>&gt;</span>Edit Me<span class=p>&lt;/</span><span class=nt>a</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;a href=&quot;/news/edit/777&quot;&gt;Edit Me&lt;/a&gt;
+&lt;a href=&quot;/news/delete/777&quot;&gt;Edit Me&lt;/a&gt;</code></pre>
 <h3>Shorthand</h3>
 <p>Due to the fact that reusing parameters is a use case that can happen when no
 route options are set, the third argument for the URL view helper will be
 checked against its type; when a <code>boolean</code> is passed, the helper uses it to set
 the value of the <code>$reuseMatchedParams</code> flag:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$this-&gt;url(&#39;news&#39;, [&#39;action&#39; =&gt; &#39;archive&#39;], null, true);</span>
-<span class=x>// is equal to</span>
-<span class=x>$this-&gt;url(&#39;news&#39;, [&#39;action&#39; =&gt; &#39;archive&#39;], true);</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>$this-&gt;url('news', ['action' =&gt; 'archive'], null, true);
+// is equal to
+$this-&gt;url('news', ['action' =&gt; 'archive'], true);</code></pre>
 
 
 
@@ -917,9 +904,10 @@ the value of the <code>$reuseMatchedParams</code> flag:</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -956,7 +944,7 @@ the value of the <code>$reuseMatchedParams</code> flag:</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-view//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-view/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -965,8 +953,8 @@ the value of the <code>$reuseMatchedParams</code> flag:</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-view//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-view/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

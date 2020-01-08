@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -476,67 +480,59 @@ client-side caching rules or SEO keywords.</p>
 <p>For instance, if you wish to specify SEO keywords, you'd be creating a meta name
 tag with the name <code>keywords</code> and the content the keywords you wish to associate
 with your page:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// setting meta keywords</span>
-<span class=x>$this-&gt;headMeta()-&gt;appendName(&#39;keywords&#39;, &#39;framework, PHP, productivity&#39;);</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>// setting meta keywords
+$this-&gt;headMeta()-&gt;appendName('keywords', 'framework, PHP, productivity');</code></pre>
 <p>If you wished to set some client-side caching rules, you'd set <code>http-equiv</code> tags
 with the rules you wish to enforce:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// disabling client-side cache</span>
-<span class=x>$this-&gt;headMeta()</span>
-<span class=x>    -&gt;appendHttpEquiv(&#39;expires&#39;, &#39;Wed, 26 Feb 1997 08:21:57 GMT&#39;)</span>
-<span class=x>    -&gt;appendHttpEquiv(&#39;pragma&#39;, &#39;no-cache&#39;)</span>
-<span class=x>    -&gt;appendHttpEquiv(&#39;Cache-Control&#39;, &#39;no-cache&#39;);</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>// disabling client-side cache
+$this-&gt;headMeta()
+    -&gt;appendHttpEquiv('expires', 'Wed, 26 Feb 1997 08:21:57 GMT')
+    -&gt;appendHttpEquiv('pragma', 'no-cache')
+    -&gt;appendHttpEquiv('Cache-Control', 'no-cache');</code></pre>
 <p>Another popular use for meta tags is setting the content type, character set,
 and language:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// setting content type and character set</span>
-<span class=x>$this-&gt;headMeta()</span>
-<span class=x>    -&gt;appendHttpEquiv(&#39;Content-Type&#39;, &#39;text/html; charset=UTF-8&#39;)</span>
-<span class=x>    -&gt;appendHttpEquiv(&#39;Content-Language&#39;, &#39;en-US&#39;);</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>// setting content type and character set
+$this-&gt;headMeta()
+    -&gt;appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8')
+    -&gt;appendHttpEquiv('Content-Language', 'en-US');</code></pre>
 <p>If you are serving an HTML5 document, you should provide the character set like
 this:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// setting character set in HTML5</span>
-<span class=x>$this-&gt;headMeta()-&gt;setCharset(&#39;UTF-8&#39;); // Will look like &lt;meta charset=&quot;UTF-8&quot;&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>// setting character set in HTML5
+$this-&gt;headMeta()-&gt;setCharset('UTF-8'); // Will look like &lt;meta charset=&quot;UTF-8&quot;&gt;</code></pre>
 <p>As a final example, an easy way to display a transitional message before a
 redirect is using a "meta refresh":</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// setting a meta refresh for 3 seconds to a new url:</span>
-<span class=x>$this-&gt;headMeta()</span>
-<span class=x>    -&gt;appendHttpEquiv(&#39;Refresh&#39;, &#39;3;URL=http://www.some.org/some.html&#39;);</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>// setting a meta refresh for 3 seconds to a new url:
+$this-&gt;headMeta()
+    -&gt;appendHttpEquiv('Refresh', '3;URL=http://www.some.org/some.html');</code></pre>
 <p>When you're ready to place your meta tags in the layout, echo the helper:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>headMeta</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x></span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?= $this-&gt;headMeta() ?&gt;</code></pre>
 <h2 id="usage-with-xhtml195rdfa-doctype">Usage with XHTML1_RDFA doctype</h2>
 <p>Enabling the RDFa doctype with the <a href="../doctype/">Doctype helper</a> enables the use
 of the <code>property</code> attribute (in addition to the standard <code>name</code> and
 <code>http-equiv</code>) with <code>HeadMeta</code>.  This is commonly used with the Facebook <a href="http://opengraphprotocol.org/">Open
 Graph Protocol</a>.</p>
 <p>For instance, you may specify an open graph page title and type as follows:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$this-&gt;doctype(Laminas\View\Helper\Doctype::XHTML1_RDFA);</span>
-<span class=x>$this-&gt;headMeta()-&gt;setProperty(&#39;og:title&#39;, &#39;my article title&#39;);</span>
-<span class=x>$this-&gt;headMeta()-&gt;setProperty(&#39;og:type&#39;, &#39;article&#39;);</span>
-<span class=x>echo $this-&gt;headMeta();</span>
+<pre class=codehilite><code class=language-php>$this-&gt;doctype(Laminas\View\Helper\Doctype::XHTML1_RDFA);
+$this-&gt;headMeta()-&gt;setProperty('og:title', 'my article title');
+$this-&gt;headMeta()-&gt;setProperty('og:type', 'article');
+echo $this-&gt;headMeta();
 
-<span class=x>// output is:</span>
-<span class=x>//   &lt;meta property=&quot;og:title&quot; content=&quot;my article title&quot; /&gt;</span>
-<span class=x>//   &lt;meta property=&quot;og:type&quot; content=&quot;article&quot; /&gt;</span>
-</pre></div></p>
+// output is:
+//   &lt;meta property=&quot;og:title&quot; content=&quot;my article title&quot; /&gt;
+//   &lt;meta property=&quot;og:type&quot; content=&quot;article&quot; /&gt;</code></pre>
 <h2 id="usage-with-html5-doctype">Usage with HTML5 doctype</h2>
 <p>Enabling the HTML5 doctype with the <a href="../doctype/">Doctype helper</a> enables the use
 of the <code>itemprop</code> attribute (in addition to the standard <code>name</code> and
 <code>http-equiv</code>) with <code>HeadMeta</code>.  This is typically used to add
 <a href="https://schema.org">Microdata</a> to the head of your document.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$this-&gt;doctype(Laminas\View\Helper\Doctype::HTML5);</span>
-<span class=x>$this-&gt;headMeta()-&gt;setItemprop(&#39;headline&#39;, &#39;My Article Headline&#39;);</span>
-<span class=x>$this-&gt;headMeta()-&gt;setItemprop(&#39;dateCreated&#39;, $date-&gt;format(&#39;c&#39;));</span>
-<span class=x>echo $this-&gt;headMeta();</span>
+<pre class=codehilite><code class=language-php>$this-&gt;doctype(Laminas\View\Helper\Doctype::HTML5);
+$this-&gt;headMeta()-&gt;setItemprop('headline', 'My Article Headline');
+$this-&gt;headMeta()-&gt;setItemprop('dateCreated', $date-&gt;format('c'));
+echo $this-&gt;headMeta();
 
-<span class=x>// output is:</span>
-<span class=x>//   &lt;meta itemprop=&quot;headline&quot; content=&quot;My Article Headline&quot;&gt;</span>
-<span class=x>//   &lt;meta itemprop=&quot;dateCreated&quot; content=&quot;2018-07-12T22:19:06+00:00&quot;&gt;</span>
-</pre></div></p>
+// output is:
+//   &lt;meta itemprop=&quot;headline&quot; content=&quot;My Article Headline&quot;&gt;
+//   &lt;meta itemprop=&quot;dateCreated&quot; content=&quot;2018-07-12T22:19:06+00:00&quot;&gt;</code></pre>
 
 
 
@@ -854,9 +850,10 @@ of the <code>itemprop</code> attribute (in addition to the standard <code>name</
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -893,7 +890,7 @@ of the <code>itemprop</code> attribute (in addition to the standard <code>name</
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-view//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-view/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -902,8 +899,8 @@ of the <code>itemprop</code> attribute (in addition to the standard <code>name</
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-view//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-view/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

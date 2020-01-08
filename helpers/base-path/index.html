@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -414,23 +418,22 @@ correct.</p>
 <p>If you're running a laminas-mvc application, <code>basePath()</code> will point to the
 <code>public</code> folder of the application's root.</p>
 <h2 id="basic-usage">Basic Usage</h2>
-<p> <div class=codehilite><pre><span></span><span class=x>/*</span>
-<span class=x> * The following assume that the base URL of the page/application is &quot;/mypage&quot;.</span>
-<span class=x> */</span>
+<pre class=codehilite><code class=language-php>/*
+ * The following assume that the base URL of the page/application is &quot;/mypage&quot;.
+ */
 
-<span class=x>/*</span>
-<span class=x> * Prints:</span>
-<span class=x> * &lt;base href=&quot;/mypage/&quot; /&gt;</span>
-<span class=x> */</span>
-<span class=x>&lt;base href=&quot;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>basePath</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x>&quot; /&gt;</span>
+/*
+ * Prints:
+ * &lt;base href=&quot;/mypage/&quot; /&gt;
+ */
+&lt;base href=&quot;&lt;?= $this-&gt;basePath() ?&gt;&quot; /&gt;
 
-<span class=x>/*</span>
-<span class=x> * Prints:</span>
-<span class=x> * &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/mypage/css/base.css&quot; /&gt;</span>
-<span class=x> */</span>
-<span class=x>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot;</span>
-<span class=x>     href=&quot;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>basePath</span><span class=p>(</span><span class=s1>&#39;css/base.css&#39;</span><span class=p>)</span> <span class=cp>?&gt;</span><span class=x>&quot; /&gt;</span>
-</pre></div></p>
+/*
+ * Prints:
+ * &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/mypage/css/base.css&quot; /&gt;
+ */
+&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot;
+     href=&quot;&lt;?= $this-&gt;basePath('css/base.css') ?&gt;&quot; /&gt;</code></pre>
 <blockquote>
 <h3>index.php script</h3>
 <p>For simplicity's sake, we strip out the entry PHP file (e.g., <code>index.php</code>)
@@ -755,9 +758,10 @@ base path.</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -794,7 +798,7 @@ base path.</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-view//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-view/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -803,8 +807,8 @@ base path.</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-view//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-view/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

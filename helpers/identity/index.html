@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -419,33 +423,31 @@ defined and recognized by the <code>ServiceManager</code>.</p>
 <p><code>Identity</code> returns the identity discovered in the <code>AuthenticationService</code>, or
 <code>null</code> if no identity is available.</p>
 <h2 id="basic-usage">Basic Usage</h2>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span>
-    <span class=k>if</span> <span class=p>(</span><span class=nv>$user</span> <span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>identity</span><span class=p>())</span> <span class=p>{</span>
-        <span class=k>echo</span> <span class=s1>&#39;Logged in as &#39;</span> <span class=o>.</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>escapeHtml</span><span class=p>(</span><span class=nv>$user</span><span class=o>-&gt;</span><span class=na>getUsername</span><span class=p>());</span>
-    <span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
-        <span class=k>echo</span> <span class=s1>&#39;Not logged in&#39;</span><span class=p>;</span>
-    <span class=p>}</span>
-<span class=cp>?&gt;</span><span class=x></span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?php
+    if ($user = $this-&gt;identity()) {
+        echo 'Logged in as ' . $this-&gt;escapeHtml($user-&gt;getUsername());
+    } else {
+        echo 'Not logged in';
+    }
+?&gt;</code></pre>
 <h2 id="using-with-servicemanager">Using with ServiceManager</h2>
 <p>When invoked, the <code>Identity</code> plugin will look for a service by the name or alias
 <code>Laminas\Authentication\AuthenticationService</code> in the <code>ServiceManager</code>. You can
 provide this service to the <code>ServiceManager</code> in a configuration file:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// In a configuration file...</span>
-<span class=x>use Laminas\Authentication\AuthenticationService;</span>
-<span class=x>use Laminas\ServiceManager\Factory\InvokableFactory;</span>
+<pre class=codehilite><code class=language-php>// In a configuration file...
+use Laminas\Authentication\AuthenticationService;
+use Laminas\ServiceManager\Factory\InvokableFactory;
 
-<span class=x>return [</span>
-<span class=x>    &#39;service_manager&#39; =&gt; [</span>
-<span class=x>        &#39;aliases&#39; =&gt; [</span>
-<span class=x>            &#39;my_auth_service&#39; =&gt; AuthenticationService::class,</span>
-<span class=x>        ],</span>
-<span class=x>        &#39;factories&#39; =&gt; [</span>
-<span class=x>            AuthenticationService::class =&gt; InvokableFactory::class,</span>
-<span class=x>        ],</span>
-<span class=x>    ],</span>
-<span class=x>];</span>
-</pre></div></p>
+return [
+    'service_manager' =&gt; [
+        'aliases' =&gt; [
+            'my_auth_service' =&gt; AuthenticationService::class,
+        ],
+        'factories' =&gt; [
+            AuthenticationService::class =&gt; InvokableFactory::class,
+        ],
+    ],
+];</code></pre>
 <p>If that service is not registered, the plugin will then look for a service named
 <code>Laminas\Authentication\AuthenticationServiceInterface</code>, and use that if found.</p>
 
@@ -765,9 +767,10 @@ provide this service to the <code>ServiceManager</code> in a configuration file:
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -804,7 +807,7 @@ provide this service to the <code>ServiceManager</code> in a configuration file:
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-view//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-view/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -813,8 +816,8 @@ provide this service to the <code>ServiceManager</code> in a configuration file:
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-view//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-view/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

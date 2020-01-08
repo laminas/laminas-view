@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -428,109 +432,99 @@
 <h2 id="basic-usage">Basic Usage</h2>
 <p>When only using the default <code>namespace</code> for the <code>FlashMessenger</code>, you can do the
 following:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// Usable in any of your .phtml files</span>
-<span class=x>echo $this-&gt;flashMessenger()-&gt;render();</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>// Usable in any of your .phtml files
+echo $this-&gt;flashMessenger()-&gt;render();</code></pre>
 <p>The first argument of the <code>render()</code> function is the <code>namespace</code>. If no
 <code>namespace</code> is defined, the default
 <code>Laminas\Mvc\Controller\Plugin\FlashMessenger::NAMESPACE_DEFAULT</code> will be used,
 which translates to <code>default</code>.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// Usable in any of your .phtml files</span>
-<span class=x>echo $this-&gt;flashMessenger()-&gt;render(&#39;error&#39;);</span>
+<pre class=codehilite><code class=language-php>// Usable in any of your .phtml files
+echo $this-&gt;flashMessenger()-&gt;render('error');
 
-<span class=x>// Alternatively use one of the pre-defined namespaces</span>
-<span class=x>// (aka: use Laminas\Mvc\Controller\Plugin\FlashMessenger;)</span>
-<span class=x>echo $this-&gt;flashMessenger()-&gt;render(FlashMessenger::NAMESPACE_SUCCESS);</span>
-</pre></div></p>
+// Alternatively use one of the pre-defined namespaces
+// (aka: use Laminas\Mvc\Controller\Plugin\FlashMessenger;)
+echo $this-&gt;flashMessenger()-&gt;render(FlashMessenger::NAMESPACE_SUCCESS);</code></pre>
 <h2 id="css-layout">CSS Layout</h2>
 <p>The <code>FlashMessenger</code> default rendering adds a CSS class to the generated HTML,
 that matches the defined <code>namespace</code> that should be rendered. While it may work
 well for the default cases, every so often you may want to add specific CSS
 classes to the HTML output. This can be done while making use of the second
 parameter of the <code>render()</code> function.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// Usable in any of your .phtml files</span>
-<span class=x>echo $this-&gt;flashMessenger()-&gt;render(&#39;error&#39;, [&#39;alert&#39;, &#39;alert-danger&#39;]);</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>// Usable in any of your .phtml files
+echo $this-&gt;flashMessenger()-&gt;render('error', ['alert', 'alert-danger']);</code></pre>
 <p>The output of this example, using the default HTML rendering settings, would
 look like this:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>ul</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;alert alert-danger&quot;</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Some FlashMessenger Content<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>You, the developer, are AWESOME!<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-<span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;ul class=&quot;alert alert-danger&quot;&gt;
+    &lt;li&gt;Some FlashMessenger Content&lt;/li&gt;
+    &lt;li&gt;You, the developer, are AWESOME!&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
 <h2 id="html-layout">HTML Layout</h2>
 <p>Aside from modifying the rendered CSS classes of the <code>FlashMessenger</code>, you are
 furthermore able to modify the generated HTML as a whole to create even more
 distinct visuals for your flash messages. The default output format is defined
 within the source code of the <code>FlashMessenger</code> view helper itself.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// Laminas/View/Helper/FlashMessenger.php#L41-L43</span>
-<span class=x>protected $messageCloseString     = &#39;&lt;/li&gt;&lt;/ul&gt;&#39;;</span>
-<span class=x>protected $messageOpenFormat      = &#39;&lt;ul%s&gt;&lt;li&gt;&#39;;</span>
-<span class=x>protected $messageSeparatorString = &#39;&lt;/li&gt;&lt;li&gt;&#39;;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>// Laminas/View/Helper/FlashMessenger.php#L41-L43
+protected $messageCloseString     = '&lt;/li&gt;&lt;/ul&gt;';
+protected $messageOpenFormat      = '&lt;ul%s&gt;&lt;li&gt;';
+protected $messageSeparatorString = '&lt;/li&gt;&lt;li&gt;';</code></pre>
 <p>These defaults exactly match what we're trying to do. The placeholder <code>%s</code> will
 be filled with the CSS classes output.</p>
 <p>To change this, all we need to do is call the respective setter methods of these
 variables and give them new strings; for example:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// In any of your .phtml files:</span>
-<span class=x>echo $this-&gt;flashMessenger()</span>
-<span class=x>    -&gt;setMessageOpenFormat(&#39;&lt;div%s&gt;&lt;p&gt;&#39;)</span>
-<span class=x>    -&gt;setMessageSeparatorString(&#39;&lt;/p&gt;&lt;p&gt;&#39;)</span>
-<span class=x>    -&gt;setMessageCloseString(&#39;&lt;/p&gt;&lt;/div&gt;&#39;)</span>
-<span class=x>    -&gt;render(&#39;success&#39;);</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>// In any of your .phtml files:
+echo $this-&gt;flashMessenger()
+    -&gt;setMessageOpenFormat('&lt;div%s&gt;&lt;p&gt;')
+    -&gt;setMessageSeparatorString('&lt;/p&gt;&lt;p&gt;')
+    -&gt;setMessageCloseString('&lt;/p&gt;&lt;/div&gt;')
+    -&gt;render('success');</code></pre>
 <p>The above code sample then would then generate the following output:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;success&quot;</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span>Some FlashMessenger Content<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>p</span><span class=p>&gt;</span>You, who&#39;s reading the docs, are AWESOME!<span class=p>&lt;/</span><span class=nt>p</span><span class=p>&gt;</span>
-<span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;div class=&quot;success&quot;&gt;
+    &lt;p&gt;Some FlashMessenger Content&lt;/p&gt;
+    &lt;p&gt;You, who's reading the docs, are AWESOME!&lt;/p&gt;
+&lt;/div&gt;</code></pre>
 <h2 id="sample-modification-for-twitter-bootstrap-3">Sample Modification for Twitter Bootstrap 3</h2>
 <p>Taking all the above knowledge into account, we can create a nice, highly usable
 and user-friendly rendering strategy using the
 <a href="http://getbootstrap.com/">Bootstrap front-end framework</a> version 3 layouts:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// In any of your .phtml files:</span>
-<span class=x>$flash = $this-&gt;flashMessenger();</span>
-<span class=x>$flash-&gt;setMessageOpenFormat(&#39;&lt;div%s&gt;</span>
-<span class=x>    &lt;button type=&quot;button&quot; class=&quot;close&quot; data-dismiss=&quot;alert&quot; aria-hidden=&quot;true&quot;&gt;</span>
-<span class=x>        &amp;times;</span>
-<span class=x>    &lt;/button&gt;</span>
-<span class=x>    &lt;ul&gt;&lt;li&gt;&#39;)</span>
-<span class=x>    -&gt;setMessageSeparatorString(&#39;&lt;/li&gt;&lt;li&gt;&#39;)</span>
-<span class=x>    -&gt;setMessageCloseString(&#39;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&#39;);</span>
+<pre class=codehilite><code class=language-php>// In any of your .phtml files:
+$flash = $this-&gt;flashMessenger();
+$flash-&gt;setMessageOpenFormat('&lt;div%s&gt;
+    &lt;button type=&quot;button&quot; class=&quot;close&quot; data-dismiss=&quot;alert&quot; aria-hidden=&quot;true&quot;&gt;
+        &amp;times;
+    &lt;/button&gt;
+    &lt;ul&gt;&lt;li&gt;')
+    -&gt;setMessageSeparatorString('&lt;/li&gt;&lt;li&gt;')
+    -&gt;setMessageCloseString('&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;');
 
-<span class=x>echo $flash-&gt;render(&#39;error&#39;,   [&#39;alert&#39;, &#39;alert-dismissible&#39;, &#39;alert-danger&#39;]);</span>
-<span class=x>echo $flash-&gt;render(&#39;info&#39;,    [&#39;alert&#39;, &#39;alert-dismissible&#39;, &#39;alert-info&#39;]);</span>
-<span class=x>echo $flash-&gt;render(&#39;default&#39;, [&#39;alert&#39;, &#39;alert-dismissible&#39;, &#39;alert-warning&#39;]);</span>
-<span class=x>echo $flash-&gt;render(&#39;success&#39;, [&#39;alert&#39;, &#39;alert-dismissible&#39;, &#39;alert-success&#39;]);</span>
-</pre></div></p>
+echo $flash-&gt;render('error',   ['alert', 'alert-dismissible', 'alert-danger']);
+echo $flash-&gt;render('info',    ['alert', 'alert-dismissible', 'alert-info']);
+echo $flash-&gt;render('default', ['alert', 'alert-dismissible', 'alert-warning']);
+echo $flash-&gt;render('success', ['alert', 'alert-dismissible', 'alert-success']);</code></pre>
 <p>The output of the above example would create dismissable <code>FlashMessages</code> with
 the following HTML markup. The example only covers one type of <code>FlashMessenger</code>
 output; if you would have several <code>FlashMessages</code> available in each of the
 rendered <code>namespaces</code>, then you would receive the same output multiple times
 only having different CSS classes applied.</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>div</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;alert alert-dismissable alert-success&quot;</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>button</span> <span class=na>type</span><span class=o>=</span><span class=s>&quot;button&quot;</span> <span class=na>class</span><span class=o>=</span><span class=s>&quot;close&quot;</span> <span class=na>data-dismiss</span><span class=o>=</span><span class=s>&quot;alert&quot;</span> <span class=na>aria-hidden</span><span class=o>=</span><span class=s>&quot;true&quot;</span><span class=p>&gt;</span>×<span class=p>&lt;/</span><span class=nt>button</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>ul</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>Some FlashMessenger Content<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>li</span><span class=p>&gt;</span>You, who&#39;s reading the docs, are AWESOME!<span class=p>&lt;/</span><span class=nt>li</span><span class=p>&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>ul</span><span class=p>&gt;</span>
-<span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;div class=&quot;alert alert-dismissable alert-success&quot;&gt;
+    &lt;button type=&quot;button&quot; class=&quot;close&quot; data-dismiss=&quot;alert&quot; aria-hidden=&quot;true&quot;&gt;×&lt;/button&gt;
+    &lt;ul&gt;
+        &lt;li&gt;Some FlashMessenger Content&lt;/li&gt;
+        &lt;li&gt;You, who's reading the docs, are AWESOME!&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;</code></pre>
 <h2 id="alternative-configuration-of-the-viewhelper-layout">Alternative Configuration of the ViewHelper Layout</h2>
 <p><code>Laminas\View\Helper\Service\FlashMessengerFactory</code> checks the application
 configuration, making it possible to set up the <code>FlashMessenger</code> strings through
 your <code>module.config.php</code>, too. The next example will set up the output to be
 identical with the above Twitter Bootstrap 3 Example</p>
-<p> <div class=codehilite><pre><span></span><span class=x>&#39;view_helper_config&#39; =&gt; [</span>
-<span class=x>    &#39;flashmessenger&#39; =&gt; [</span>
-<span class=x>        &#39;message_open_format&#39;      =&gt; &#39;&lt;div%s&gt;&lt;button type=&quot;button&quot; class=&quot;close&quot;</span>
-<span class=x>data-dismiss=&quot;alert&quot; aria-hidden=&quot;true&quot;&gt;&amp;times;&lt;/button&gt;&lt;ul&gt;&lt;li&gt;&#39;,</span>
-<span class=x>        &#39;message_close_string&#39;     =&gt; &#39;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&#39;,</span>
-<span class=x>        &#39;message_separator_string&#39; =&gt; &#39;&lt;/li&gt;&lt;li&gt;&#39;,</span>
-<span class=x>    ],</span>
-<span class=x>],</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>'view_helper_config' =&gt; [
+    'flashmessenger' =&gt; [
+        'message_open_format'      =&gt; '&lt;div%s&gt;&lt;button type=&quot;button&quot; class=&quot;close&quot;
+data-dismiss=&quot;alert&quot; aria-hidden=&quot;true&quot;&gt;&amp;times;&lt;/button&gt;&lt;ul&gt;&lt;li&gt;',
+        'message_close_string'     =&gt; '&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;',
+        'message_separator_string' =&gt; '&lt;/li&gt;&lt;li&gt;',
+    ],
+],</code></pre>
 
 
 
@@ -848,9 +842,10 @@ identical with the above Twitter Bootstrap 3 Example</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -887,7 +882,7 @@ identical with the above Twitter Bootstrap 3 Example</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-view//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-view/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -896,8 +891,8 @@ identical with the above Twitter Bootstrap 3 Example</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-view//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-view/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -425,102 +429,100 @@ to get the called controller from the current request.</p>
 <h2 id="create-listener">Create Listener</h2>
 <p>Create a listener as a separate class, e.g.
 <code>module/Admin/src/Listener/LayoutListener.php</code>:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>namespace Admin\Listener;</span>
+<pre class=codehilite><code class=language-php>namespace Admin\Listener;
 
-<span class=x>use Laminas\EventManager\AbstractListenerAggregate;</span>
-<span class=x>use Laminas\EventManager\EventManagerInterface;</span>
-<span class=x>use Laminas\Filter\FilterChain;</span>
-<span class=x>use Laminas\Filter\FilterInterface;</span>
-<span class=x>use Laminas\Filter\StringToLower;</span>
-<span class=x>use Laminas\Filter\Word\CamelCaseToDash;</span>
-<span class=x>use Laminas\Mvc\MvcEvent;</span>
-<span class=x>use Laminas\View\Resolver\TemplateMapResolver;</span>
+use Laminas\EventManager\AbstractListenerAggregate;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\Filter\FilterChain;
+use Laminas\Filter\FilterInterface;
+use Laminas\Filter\StringToLower;
+use Laminas\Filter\Word\CamelCaseToDash;
+use Laminas\Mvc\MvcEvent;
+use Laminas\View\Resolver\TemplateMapResolver;
 
-<span class=x>class LayoutListener extends AbstractListenerAggregate</span>
-<span class=x>{</span>
-<span class=x>    /** @var TemplateMapResolver */</span>
-<span class=x>    private $templateMapResolver;</span>
+class LayoutListener extends AbstractListenerAggregate
+{
+    /** @var TemplateMapResolver */
+    private $templateMapResolver;
 
-<span class=x>    /** @var FilterInterface */</span>
-<span class=x>    private $filter;</span>
+    /** @var FilterInterface */
+    private $filter;
 
-<span class=x>    public function __construct(TemplateMapResolver $templateMapResolver)</span>
-<span class=x>    {</span>
-<span class=x>        $this-&gt;templateMapResolver = $templateMapResolver;</span>
-<span class=x>        $this-&gt;filter              = (new FilterChain())</span>
-<span class=x>            -&gt;attach(new CamelCaseToDash())</span>
-<span class=x>            -&gt;attach(new StringToLower());</span>
-<span class=x>    }</span>
+    public function __construct(TemplateMapResolver $templateMapResolver)
+    {
+        $this-&gt;templateMapResolver = $templateMapResolver;
+        $this-&gt;filter              = (new FilterChain())
+            -&gt;attach(new CamelCaseToDash())
+            -&gt;attach(new StringToLower());
+    }
 
-<span class=x>    public function attach(EventManagerInterface $events, $priority = 1)</span>
-<span class=x>    {</span>
-<span class=x>        $this-&gt;listeners[] = $events-&gt;attach(</span>
-<span class=x>            MvcEvent::EVENT_RENDER,</span>
-<span class=x>            [$this, &#39;setLayout&#39;]</span>
-<span class=x>        );</span>
-<span class=x>    }</span>
+    public function attach(EventManagerInterface $events, $priority = 1)
+    {
+        $this-&gt;listeners[] = $events-&gt;attach(
+            MvcEvent::EVENT_RENDER,
+            [$this, 'setLayout']
+        );
+    }
 
-<span class=x>    public function setLayout(MvcEvent $event) : void</span>
-<span class=x>    {</span>
-<span class=x>        // Get and check the route match object</span>
-<span class=x>        $routeMatch = $event-&gt;getRouteMatch();</span>
-<span class=x>        if (! $routeMatch) {</span>
-<span class=x>            return;</span>
-<span class=x>        }</span>
+    public function setLayout(MvcEvent $event) : void
+    {
+        // Get and check the route match object
+        $routeMatch = $event-&gt;getRouteMatch();
+        if (! $routeMatch) {
+            return;
+        }
 
-<span class=x>        // Get and check the parameter for current controller</span>
-<span class=x>        $controller = $routeMatch-&gt;getParam(&#39;controller&#39;);</span>
-<span class=x>        if (! $controller) {</span>
-<span class=x>            return;</span>
-<span class=x>        }</span>
+        // Get and check the parameter for current controller
+        $controller = $routeMatch-&gt;getParam('controller');
+        if (! $controller) {
+            return;
+        }
 
-<span class=x>        // Extract module name</span>
-<span class=x>        $module = substr($controller, 0, strpos($controller, &#39;\\&#39;));</span>
+        // Extract module name
+        $module = substr($controller, 0, strpos($controller, '\\'));
 
-<span class=x>        // Convert the module name from camel case to a lower string with dashes</span>
-<span class=x>        $name = &#39;layout/&#39; . $this-&gt;filter-&gt;filter($module);</span>
+        // Convert the module name from camel case to a lower string with dashes
+        $name = 'layout/' . $this-&gt;filter-&gt;filter($module);
 
-<span class=x>        // Has the resolver an entry / layout with the given name?</span>
-<span class=x>        if (! $this-&gt;templateMapResolver-&gt;has($name)) {</span>
-<span class=x>            return;</span>
-<span class=x>        }</span>
+        // Has the resolver an entry / layout with the given name?
+        if (! $this-&gt;templateMapResolver-&gt;has($name)) {
+            return;
+        }
 
-<span class=x>        // Get root view model</span>
-<span class=x>        $layoutViewModel = $event-&gt;getViewModel();</span>
+        // Get root view model
+        $layoutViewModel = $event-&gt;getViewModel();
 
-<span class=x>        // Change template</span>
-<span class=x>        $layoutViewModel-&gt;setTemplate($name);</span>
-<span class=x>    }</span>
-<span class=x>}</span>
-</pre></div></p>
+        // Change template
+        $layoutViewModel-&gt;setTemplate($name);
+    }
+}</code></pre>
 <h2 id="register-listener">Register Listener</h2>
 <p>Extend the module class to register the listener, e.g.
 <code>module/Admin/Module.php</code>:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>namespace Admin;</span>
+<pre class=codehilite><code class=language-php>namespace Admin;
 
-<span class=x>use Admin\Listener\LayoutListener;</span>
-<span class=x>use Laminas\Mvc\MvcEvent;</span>
-<span class=x>use Laminas\View\Resolver\TemplateMapResolver;</span>
+use Admin\Listener\LayoutListener;
+use Laminas\Mvc\MvcEvent;
+use Laminas\View\Resolver\TemplateMapResolver;
 
-<span class=x>class Module</span>
-<span class=x>{</span>
-<span class=x>    public function onBootstrap(MvcEvent $event) : void</span>
-<span class=x>    {</span>
-<span class=x>        $application = $event-&gt;getApplication();</span>
+class Module
+{
+    public function onBootstrap(MvcEvent $event) : void
+    {
+        $application = $event-&gt;getApplication();
 
-<span class=x>        /** @var TemplateMapResolver $templateMapResolver */</span>
-<span class=x>        $templateMapResolver = $application-&gt;getServiceManager()-&gt;get(</span>
-<span class=x>            &#39;ViewTemplateMapResolver&#39;</span>
-<span class=x>        );</span>
+        /** @var TemplateMapResolver $templateMapResolver */
+        $templateMapResolver = $application-&gt;getServiceManager()-&gt;get(
+            'ViewTemplateMapResolver'
+        );
 
-<span class=x>        // Create and register layout listener</span>
-<span class=x>        $listener = new LayoutListener($templateMapResolver);</span>
-<span class=x>        $listener-&gt;attach($application-&gt;getEventManager());</span>
-<span class=x>    }</span>
+        // Create and register layout listener
+        $listener = new LayoutListener($templateMapResolver);
+        $listener-&gt;attach($application-&gt;getEventManager());
+    }
 
-<span class=x>    // …</span>
-<span class=x>}</span>
-</pre></div></p>
+    // …
+}</code></pre>
 <blockquote>
 <p>More information on registering module-specific listeners can be found in the
 <a href="https://docs.laminas.dev/laminas-mvc/examples/#registering-module-specific-listeners">documentation of laminas-mvc</a>.</p>
@@ -528,27 +530,25 @@ to get the called controller from the current request.</p>
 <h2 id="add-template-scripts-to-the-configuration">Add Template Scripts to the Configuration</h2>
 <p>Extend the configuration of a module to add the specific layout script, e.g.
 <code>module/Admin/config/module.config.php</code>:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>return [</span>
-<span class=x>    // Add the following array</span>
-<span class=x>    &#39;view_manager&#39; =&gt; [</span>
-<span class=x>        &#39;template_map&#39; =&gt; [</span>
-<span class=x>            &#39;layout/admin&#39; =&gt; __DIR__ . &#39;/../view/layout/admin.phtml&#39;,</span>
-<span class=x>        ],</span>
-<span class=x>    ],</span>
-<span class=x>    // …</span>
-<span class=x>];</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>return [
+    // Add the following array
+    'view_manager' =&gt; [
+        'template_map' =&gt; [
+            'layout/admin' =&gt; __DIR__ . '/../view/layout/admin.phtml',
+        ],
+    ],
+    // …
+];</code></pre>
 <p>And in another module, e.g. <code>module/Album/config/module.config.php</code>:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>return [</span>
-<span class=x>    // Add the following array</span>
-<span class=x>    &#39;view_manager&#39; =&gt; [</span>
-<span class=x>        &#39;template_map&#39; =&gt; [</span>
-<span class=x>            &#39;layout/album&#39; =&gt; __DIR__ . &#39;/../view/layout/layout-of-album.phtml&#39;,</span>
-<span class=x>        ],</span>
-<span class=x>    ],</span>
-<span class=x>    // …</span>
-<span class=x>];</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>return [
+    // Add the following array
+    'view_manager' =&gt; [
+        'template_map' =&gt; [
+            'layout/album' =&gt; __DIR__ . '/../view/layout/layout-of-album.phtml',
+        ],
+    ],
+    // …
+];</code></pre>
 <p>The name of the array key must follow the format <code>layout/{module-name}</code> and the
 value must contain the path to the layout file. The path and the filename can be
 freely chosen.</p>
@@ -865,9 +865,10 @@ freely chosen.</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -904,7 +905,7 @@ freely chosen.</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-view//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-view/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -913,8 +914,8 @@ freely chosen.</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-view//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-view/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

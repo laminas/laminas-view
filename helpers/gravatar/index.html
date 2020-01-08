@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -415,49 +419,45 @@
 the <a href="http://gravatar.com">gravatar.com</a> service.</p>
 <h2 id="basic-usage">Basic Usage</h2>
 <p>You can use the <code>Gravatar</code> helper anywhere in view scripts per the following example:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>echo $this-&gt;gravatar(&#39;email@example.com&#39;)-&gt;getImgTag();</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>echo $this-&gt;gravatar('email@example.com')-&gt;getImgTag();</code></pre>
 <p>The first (and only, in this example) argument passed to the <code>Gravatar</code> helper
 is an e-mail for which you want grab an avatar from gravatar.com. For
 convenience, this e-mail will be automatically hashed via the md5 algorithm.</p>
 <p>This will render the HTML below:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>img</span> <span class=na>src</span><span class=o>=</span><span class=s>&quot;http://www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e?s=80&amp;d=mm&amp;r=g&quot;</span><span class=p>&gt;</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-html>&lt;img src=&quot;http://www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e?s=80&amp;d=mm&amp;r=g&quot;&gt;</code></pre>
 <p>The helper already provides URL defaults for you.</p>
 <h2 id="custom-settings">Custom Settings</h2>
 <p>You can customize the request for a gravatar.com image by using setter methods
 on the view helper:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$gravatar = $this-&gt;gravatar();</span>
+<pre class=codehilite><code class=language-php>$gravatar = $this-&gt;gravatar();
 
-<span class=x>// Set the email instead of passing it via helper invocation</span>
-<span class=x>$gravatar-&gt;setEmail(&#39;email@example.com&#39;);</span>
+// Set the email instead of passing it via helper invocation
+$gravatar-&gt;setEmail('email@example.com');
 
-<span class=x>// Set the image size you want gravatar.com to return, in pixels</span>
-<span class=x>$gravatar-&gt;setImgSize(40);</span>
+// Set the image size you want gravatar.com to return, in pixels
+$gravatar-&gt;setImgSize(40);
 
-<span class=x>// Set the default avatar image to use if gravatar.com does not find a match</span>
-<span class=x>$gravatar-&gt;setDefaultImg( \Laminas\View\Helper\Gravatar::DEFAULT_MM );</span>
+// Set the default avatar image to use if gravatar.com does not find a match
+$gravatar-&gt;setDefaultImg( \Laminas\View\Helper\Gravatar::DEFAULT_MM );
 
-<span class=x>// Set the avatar &quot;rating&quot; threshold (often used to omit NSFW avatars)</span>
-<span class=x>$gravatar-&gt;setRating( \Laminas\View\Helper\Gravatar::RATING_G );</span>
+// Set the avatar &quot;rating&quot; threshold (often used to omit NSFW avatars)
+$gravatar-&gt;setRating( \Laminas\View\Helper\Gravatar::RATING_G );
 
-<span class=x>// Indicate that a secure URI should be used for the image source</span>
-<span class=x>$gravatar-&gt;setSecure(true);</span>
+// Indicate that a secure URI should be used for the image source
+$gravatar-&gt;setSecure(true);
 
-<span class=x>// Render the &lt;img&gt; tag with the email you&#39;ve set previously</span>
-<span class=x>echo $gravatar-&gt;getImgTag();</span>
-</pre></div></p>
+// Render the &lt;img&gt; tag with the email you've set previously
+echo $gravatar-&gt;getImgTag();</code></pre>
 <p>Alternately, you can pass an array as the second argument on invocation, with
 the following keys:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$settings = [</span>
-<span class=x>    &#39;img_size&#39;    =&gt; 40,</span>
-<span class=x>    &#39;default_img&#39; =&gt; \Laminas\View\Helper\Gravatar::DEFAULT_MM,</span>
-<span class=x>    &#39;rating&#39;      =&gt; \Laminas\View\Helper\Gravatar::RATING_G,</span>
-<span class=x>    &#39;secure&#39;      =&gt; null,</span>
-<span class=x>];</span>
-<span class=x>$email = &#39;email@example.com&#39;;</span>
-<span class=x>echo $this-&gt;gravatar($email, $settings);</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>$settings = [
+    'img_size'    =&gt; 40,
+    'default_img' =&gt; \Laminas\View\Helper\Gravatar::DEFAULT_MM,
+    'rating'      =&gt; \Laminas\View\Helper\Gravatar::RATING_G,
+    'secure'      =&gt; null,
+];
+$email = 'email@example.com';
+echo $this-&gt;gravatar($email, $settings);</code></pre>
 <blockquote>
 <h3>Scheme autodiscovery</h3>
 <p>Passing <code>null</code> for the <code>secure</code> setting will cause the view helper to choose a
@@ -483,28 +483,26 @@ default image and rating.</p>
 </ul>
 <p>You may also provide custom attributes for the generated <code>img</code> tag. To do this,
 pass an attributes array to the <code>setAttributes()</code> method:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$gravatar = $this-&gt;gravatar(&#39;email@example.com&#39;);</span>
+<pre class=codehilite><code class=language-php>$gravatar = $this-&gt;gravatar('email@example.com');
 
-<span class=x>// Suppose that I want to add the class attribute with a value of</span>
-<span class=x>// &quot;gravatarcls&quot; to the rendered &lt;img&gt; tag:</span>
-<span class=x>$attr = [</span>
-<span class=x>    &#39;class&#39; =&gt; &#39;gravatarcls&#39;,</span>
-<span class=x>];</span>
-<span class=x>echo $gravatar-&gt;setAttributes($attr)-&gt;getImgTag();</span>
-</pre></div></p>
+// Suppose that I want to add the class attribute with a value of
+// &quot;gravatarcls&quot; to the rendered &lt;img&gt; tag:
+$attr = [
+    'class' =&gt; 'gravatarcls',
+];
+echo $gravatar-&gt;setAttributes($attr)-&gt;getImgTag();</code></pre>
 <p>Alternately, you can pass this array as the third argument during helper
 invocation:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$email = &#39;email@example.com&#39;;</span>
-<span class=x>$settings = [</span>
-<span class=x>    &#39;default_img&#39; =&gt; \Laminas\View\Helper\Gravatar::DEFAULT_MM,</span>
-<span class=x>];</span>
-<span class=x>$attr = [</span>
-<span class=x>    &#39;class&#39; =&gt; &#39;gravatar-image&#39;,</span>
-<span class=x>    &#39;id&#39;    =&gt; &#39;gravatar&#39;,</span>
-<span class=x>];</span>
+<pre class=codehilite><code class=language-php>$email = 'email@example.com';
+$settings = [
+    'default_img' =&gt; \Laminas\View\Helper\Gravatar::DEFAULT_MM,
+];
+$attr = [
+    'class' =&gt; 'gravatar-image',
+    'id'    =&gt; 'gravatar',
+];
 
-<span class=x>echo $this-&gt;gravatar($email, $settings, $attr);</span>
-</pre></div></p>
+echo $this-&gt;gravatar($email, $settings, $attr);</code></pre>
 
 
 
@@ -822,9 +820,10 @@ invocation:</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -861,7 +860,7 @@ invocation:</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-view//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-view/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -870,8 +869,8 @@ invocation:</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-view//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-view/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

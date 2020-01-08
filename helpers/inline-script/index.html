@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -426,49 +430,45 @@ analytics scripts.  Some JS libraries need to be included in the HTML
 </blockquote>
 <h2 id="basic-usage">Basic Usage</h2>
 <p>Add to the layout script:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>&lt;body&gt;</span>
-<span class=x>    &lt;!-- Content --&gt;</span>
+<pre class=codehilite><code class=language-php>&lt;body&gt;
+    &lt;!-- Content --&gt;
 
-<span class=x>    </span><span class=cp>&lt;?php</span>
-    <span class=k>echo</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>inlineScript</span><span class=p>()</span>
-        <span class=o>-&gt;</span><span class=na>prependFile</span><span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>basePath</span><span class=p>(</span><span class=s1>&#39;js/vendor/foundation.min.js&#39;</span><span class=p>))</span>
-        <span class=o>-&gt;</span><span class=na>prependFile</span><span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>basePath</span><span class=p>(</span><span class=s1>&#39;js/vendor/jquery.js&#39;</span><span class=p>));</span>
-    <span class=cp>?&gt;</span><span class=x></span>
-<span class=x>&lt;/body&gt;</span>
-</pre></div></p>
+    &lt;?php
+    echo $this-&gt;inlineScript()
+        -&gt;prependFile($this-&gt;basePath('js/vendor/foundation.min.js'))
+        -&gt;prependFile($this-&gt;basePath('js/vendor/jquery.js'));
+    ?&gt;
+&lt;/body&gt;</code></pre>
 <p>Output:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>body</span><span class=p>&gt;</span>
-    <span class=c>&lt;!-- Content --&gt;</span>
+<pre class=codehilite><code class=language-html>&lt;body&gt;
+    &lt;!-- Content --&gt;
 
-    <span class=p>&lt;</span><span class=nt>script</span> <span class=na>type</span><span class=o>=</span><span class=s>&quot;text/javascript&quot;</span> <span class=na>src</span><span class=o>=</span><span class=s>&quot;/js/vendor/jquery.js&quot;</span><span class=p>&gt;&lt;/</span><span class=nt>script</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>script</span> <span class=na>type</span><span class=o>=</span><span class=s>&quot;text/javascript&quot;</span> <span class=na>src</span><span class=o>=</span><span class=s>&quot;/js/vendor/foundation.min.js&quot;</span><span class=p>&gt;&lt;/</span><span class=nt>script</span><span class=p>&gt;</span>
-<span class=p>&lt;/</span><span class=nt>body</span><span class=p>&gt;</span>
-</pre></div></p>
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/js/vendor/jquery.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/js/vendor/foundation.min.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;</code></pre>
 <h2 id="capturing-scripts">Capturing Scripts</h2>
 <p>Add in your view scripts:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>$this-&gt;inlineScript()-&gt;captureStart();</span>
-<span class=x>echo &lt;&lt;&lt;JS</span>
-<span class=x>    $(&#39;select&#39;).change(function(){</span>
-<span class=x>        location.href = $(this).val();</span>
-<span class=x>    });</span>
-<span class=x>JS;</span>
-<span class=x>$this-&gt;inlineScript()-&gt;captureEnd();</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>$this-&gt;inlineScript()-&gt;captureStart();
+echo &lt;&lt;&lt;JS
+    $('select').change(function(){
+        location.href = $(this).val();
+    });
+JS;
+$this-&gt;inlineScript()-&gt;captureEnd();</code></pre>
 <p>Output:</p>
-<p> <div class=codehilite><pre><span></span><span class=p>&lt;</span><span class=nt>body</span><span class=p>&gt;</span>
-    <span class=c>&lt;!-- Content --&gt;</span>
+<pre class=codehilite><code class=language-html>&lt;body&gt;
+    &lt;!-- Content --&gt;
 
-    <span class=p>&lt;</span><span class=nt>script</span> <span class=na>type</span><span class=o>=</span><span class=s>&quot;text/javascript&quot;</span> <span class=na>src</span><span class=o>=</span><span class=s>&quot;/js/vendor/jquery.js&quot;</span><span class=p>&gt;&lt;/</span><span class=nt>script</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>script</span> <span class=na>type</span><span class=o>=</span><span class=s>&quot;text/javascript&quot;</span> <span class=na>src</span><span class=o>=</span><span class=s>&quot;/js/vendor/foundation.min.js&quot;</span><span class=p>&gt;&lt;/</span><span class=nt>script</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>script</span> <span class=na>type</span><span class=o>=</span><span class=s>&quot;text/javascript&quot;</span><span class=p>&gt;</span>
-        <span class=c1>//&lt;!--</span>
-        <span class=nx>$</span><span class=p>(</span><span class=s1>&#39;select&#39;</span><span class=p>).</span><span class=nx>change</span><span class=p>(</span><span class=kd>function</span><span class=p>(){</span>
-            <span class=nx>location</span><span class=p>.</span><span class=nx>href</span> <span class=o>=</span> <span class=nx>$</span><span class=p>(</span><span class=k>this</span><span class=p>).</span><span class=nx>val</span><span class=p>();</span>
-        <span class=p>});</span>
-        <span class=c1>//--&gt;</span>
-    <span class=p>&lt;/</span><span class=nt>script</span><span class=p>&gt;</span>
-<span class=p>&lt;/</span><span class=nt>body</span><span class=p>&gt;</span>
-</pre></div></p>
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/js/vendor/jquery.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;/js/vendor/foundation.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script type=&quot;text/javascript&quot;&gt;
+        //&lt;!--
+        $('select').change(function(){
+            location.href = $(this).val();
+        });
+        //--&gt;
+    &lt;/script&gt;
+&lt;/body&gt;</code></pre>
 
 
 
@@ -786,9 +786,10 @@ analytics scripts.  Some JS libraries need to be included in the HTML
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -825,7 +826,7 @@ analytics scripts.  Some JS libraries need to be included in the HTML
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-view//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-view/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -834,8 +835,8 @@ analytics scripts.  Some JS libraries need to be included in the HTML
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-view//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-view/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

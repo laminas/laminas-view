@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -431,13 +435,11 @@ post-text to content (and custom separators for aggregated content).</p>
 <p>Basic usage of placeholders is to persist view data. Each invocation of the
 <code>Placeholder</code> helper expects a placeholder name; the helper then returns a
 placeholder container object that you can either manipulate or echo.</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>placeholder</span><span class=p>(</span><span class=s1>&#39;foo&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>set</span><span class=p>(</span><span class=s2>&quot;Some text for later&quot;</span><span class=p>)</span> <span class=cp>?&gt;</span><span class=x></span>
+<pre class=codehilite><code class=language-php>&lt;?php $this-&gt;placeholder('foo')-&gt;set(&quot;Some text for later&quot;) ?&gt;
 
-<span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>placeholder</span><span class=p>(</span><span class=s1>&#39;foo&#39;</span><span class=p>);</span> <span class=cp>?&gt;</span><span class=x></span>
-</pre></div></p>
+&lt;?= $this-&gt;placeholder('foo'); ?&gt;</code></pre>
 <p>Results in:</p>
-<p> <div class=codehilite><pre><span></span>Some text for later
-</pre></div></p>
+<pre class=codehilite><code class=language-html>Some text for later</code></pre>
 <h2 id="aggregate-content">Aggregate Content</h2>
 <p>Aggregating content via placeholders can be useful at times as well. For
 instance, your view script may have a variable array from which you wish to
@@ -458,32 +460,29 @@ variety of methods for formatting the content stored in the container:</p>
   passed, the string will be used. Use <code>getIndent()</code> at any time to determine
   what the current setting is.</li>
 </ul>
-<div class=md-fenced-code-tabs id=tab-tab-group-2><ul class="nav nav-tabs"><li class=nav-item><a class="nav-link active" href=#tab-group-2-0_php-panel role=tab id=tab-group-2-0_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-2-0_php-panel aria-selected=true>Php</a></li><li class=nav-item><a class="nav-link " href=#tab-group-2-1_php-panel role=tab id=tab-group-2-1_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-2-1_php-panel aria-selected=false>Php</a></li></ul><div class=tab-content><div id=tab-group-2-0_php-panel class="tab-pane show active" role=tabpanel aria-labelledby=tab-group-2-0_php-tab><div class=codehilite><pre><span></span><span class=x>&lt;!-- first view script --&gt;</span>
-<span class=cp>&lt;?php</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>placeholder</span><span class=p>(</span><span class=s1>&#39;foo&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>exchangeArray</span><span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>data</span><span class=p>)</span> <span class=cp>?&gt;</span><span class=x></span>
-</pre></div></div><div id=tab-group-2-1_php-panel class="tab-pane " role=tabpanel aria-labelledby=tab-group-2-1_php-tab><div class=codehilite><pre><span></span><span class=x>&lt;!-- later view script --&gt;</span>
-<span class=cp>&lt;?php</span>
-<span class=nv>$this</span><span class=o>-&gt;</span><span class=na>placeholder</span><span class=p>(</span><span class=s1>&#39;foo&#39;</span><span class=p>)</span>
-    <span class=o>-&gt;</span><span class=na>setPrefix</span><span class=p>(</span><span class=s2>&quot;&lt;ul&gt;</span><span class=se>\n</span><span class=s2>    &lt;li&gt;&quot;</span><span class=p>)</span>
-    <span class=o>-&gt;</span><span class=na>setSeparator</span><span class=p>(</span><span class=s2>&quot;&lt;/li&gt;&lt;li&gt;</span><span class=se>\n</span><span class=s2>&quot;</span><span class=p>)</span>
-    <span class=o>-&gt;</span><span class=na>setIndent</span><span class=p>(</span><span class=mi>4</span><span class=p>)</span>
-    <span class=o>-&gt;</span><span class=na>setPostfix</span><span class=p>(</span><span class=s2>&quot;&lt;/li&gt;&lt;/ul&gt;</span><span class=se>\n</span><span class=s2>&quot;</span><span class=p>);</span>
-<span class=cp>?&gt;</span><span class=x></span>
+<div class=md-fenced-code-tabs id=tab-tab-group-2><ul class="nav nav-tabs"><li class=nav-item><a class="nav-link active" href=#tab-group-2-0_php-panel role=tab id=tab-group-2-0_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-2-0_php-panel aria-selected=true>Php</a></li><li class=nav-item><a class="nav-link " href=#tab-group-2-1_php-panel role=tab id=tab-group-2-1_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-2-1_php-panel aria-selected=false>Php</a></li></ul><div class=tab-content><div id=tab-group-2-0_php-panel class="tab-pane show active" role=tabpanel aria-labelledby=tab-group-2-0_php-tab><pre class=codehilite><code class=language-php>&lt;!-- first view script --&gt;
+&lt;?php $this-&gt;placeholder('foo')-&gt;exchangeArray($this-&gt;data) ?&gt;</code></pre></div><div id=tab-group-2-1_php-panel class="tab-pane " role=tabpanel aria-labelledby=tab-group-2-1_php-tab><pre class=codehilite><code class=language-php>&lt;!-- later view script --&gt;
+&lt;?php
+$this-&gt;placeholder('foo')
+    -&gt;setPrefix(&quot;&lt;ul&gt;\n    &lt;li&gt;&quot;)
+    -&gt;setSeparator(&quot;&lt;/li&gt;&lt;li&gt;\n&quot;)
+    -&gt;setIndent(4)
+    -&gt;setPostfix(&quot;&lt;/li&gt;&lt;/ul&gt;\n&quot;);
+?&gt;
 
-<span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>placeholder</span><span class=p>(</span><span class=s1>&#39;foo&#39;</span><span class=p>)</span> <span class=cp>?&gt;</span><span class=x></span>
-</pre></div></div></div></div>
+&lt;?= $this-&gt;placeholder('foo') ?&gt;</code></pre></div></div></div>
 
 <p>The above results in an unordered list with pretty indentation.</p>
 <p>Because the <code>Placeholder</code> container objects extend <code>ArrayObject</code>, you can also
 assign content to a specific key in the container easily, instead of simply
 pushing it into the container. Keys may be accessed either as object properties
 or as array keys.</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>placeholder</span><span class=p>(</span><span class=s1>&#39;foo&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>bar</span> <span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>data</span> <span class=cp>?&gt;</span><span class=x></span>
-<span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>placeholder</span><span class=p>(</span><span class=s1>&#39;foo&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>bar</span> <span class=cp>?&gt;</span><span class=x></span>
+<pre class=codehilite><code class=language-php>&lt;?php $this-&gt;placeholder('foo')-&gt;bar = $this-&gt;data ?&gt;
+&lt;?= $this-&gt;placeholder('foo')-&gt;bar ?&gt;
 
-<span class=cp>&lt;?php</span>
-<span class=nv>$foo</span> <span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>placeholder</span><span class=p>(</span><span class=s1>&#39;foo&#39;</span><span class=p>);</span>
-<span class=k>echo</span> <span class=nv>$foo</span><span class=p>[</span><span class=s1>&#39;bar&#39;</span><span class=p>];</span>
-</pre></div></p>
+&lt;?php
+$foo = $this-&gt;placeholder('foo');
+echo $foo['bar'];</code></pre>
 <h2 id="capture-content">Capture Content</h2>
 <p>Occasionally you may have content for a placeholder in a view script that is
 easiest to template; the <code>Placeholder</code> view helper allows you to capture
@@ -504,41 +503,37 @@ arbitrary content for later rendering using the following API.</p>
   according to how <code>captureStart()</code> was called.</li>
 </ul>
 <p>As an example:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>&lt;!-- Default capture: append --&gt;</span>
-<span class=cp>&lt;?php</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>placeholder</span><span class=p>(</span><span class=s1>&#39;foo&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>captureStart</span><span class=p>();</span>
-<span class=k>foreach</span> <span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>data</span> <span class=k>as</span> <span class=nv>$datum</span><span class=p>)</span><span class=o>:</span> <span class=cp>?&gt;</span><span class=x></span>
-<span class=x>&lt;div class=&quot;foo&quot;&gt;</span>
-<span class=x>    &lt;h2&gt;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$datum</span><span class=o>-&gt;</span><span class=na>title</span> <span class=cp>?&gt;</span><span class=x>&lt;/h2&gt;</span>
-<span class=x>    &lt;p&gt;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$datum</span><span class=o>-&gt;</span><span class=na>content</span> <span class=cp>?&gt;</span><span class=x>&lt;/p&gt;</span>
-<span class=x>&lt;/div&gt;</span>
-<span class=cp>&lt;?php</span> <span class=k>endforeach</span><span class=p>;</span> <span class=cp>?&gt;</span><span class=x></span>
-<span class=cp>&lt;?php</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>placeholder</span><span class=p>(</span><span class=s1>&#39;foo&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>captureEnd</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x></span>
+<pre class=codehilite><code class=language-php>&lt;!-- Default capture: append --&gt;
+&lt;?php $this-&gt;placeholder('foo')-&gt;captureStart();
+foreach ($this-&gt;data as $datum): ?&gt;
+&lt;div class=&quot;foo&quot;&gt;
+    &lt;h2&gt;&lt;?= $datum-&gt;title ?&gt;&lt;/h2&gt;
+    &lt;p&gt;&lt;?= $datum-&gt;content ?&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;?php endforeach; ?&gt;
+&lt;?php $this-&gt;placeholder('foo')-&gt;captureEnd() ?&gt;
 
-<span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>placeholder</span><span class=p>(</span><span class=s1>&#39;foo&#39;</span><span class=p>)</span> <span class=cp>?&gt;</span><span class=x></span>
-</pre></div></p>
+&lt;?= $this-&gt;placeholder('foo') ?&gt;</code></pre>
 <p>Alternately, capture to a key:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>&lt;!-- Capture to key --&gt;</span>
-<span class=cp>&lt;?php</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>placeholder</span><span class=p>(</span><span class=s1>&#39;foo&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>captureStart</span><span class=p>(</span><span class=s1>&#39;SET&#39;</span><span class=p>,</span> <span class=s1>&#39;data&#39;</span><span class=p>);</span>
-<span class=k>foreach</span> <span class=p>(</span><span class=nv>$this</span><span class=o>-&gt;</span><span class=na>data</span> <span class=k>as</span> <span class=nv>$datum</span><span class=p>)</span><span class=o>:</span> <span class=cp>?&gt;</span><span class=x></span>
-<span class=x>&lt;div class=&quot;foo&quot;&gt;</span>
-<span class=x>    &lt;h2&gt;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$datum</span><span class=o>-&gt;</span><span class=na>title</span> <span class=cp>?&gt;</span><span class=x>&lt;/h2&gt;</span>
-<span class=x>    &lt;p&gt;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$datum</span><span class=o>-&gt;</span><span class=na>content</span> <span class=cp>?&gt;</span><span class=x>&lt;/p&gt;</span>
-<span class=x>&lt;/div&gt;</span>
-<span class=x> </span><span class=cp>&lt;?php</span> <span class=k>endforeach</span><span class=p>;</span> <span class=cp>?&gt;</span><span class=x></span>
-<span class=cp>&lt;?php</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>placeholder</span><span class=p>(</span><span class=s1>&#39;foo&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>captureEnd</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x></span>
+<pre class=codehilite><code class=language-php>&lt;!-- Capture to key --&gt;
+&lt;?php $this-&gt;placeholder('foo')-&gt;captureStart('SET', 'data');
+foreach ($this-&gt;data as $datum): ?&gt;
+&lt;div class=&quot;foo&quot;&gt;
+    &lt;h2&gt;&lt;?= $datum-&gt;title ?&gt;&lt;/h2&gt;
+    &lt;p&gt;&lt;?= $datum-&gt;content ?&gt;&lt;/p&gt;
+&lt;/div&gt;
+ &lt;?php endforeach; ?&gt;
+&lt;?php $this-&gt;placeholder('foo')-&gt;captureEnd() ?&gt;
 
-<span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>placeholder</span><span class=p>(</span><span class=s1>&#39;foo&#39;</span><span class=p>)</span><span class=o>-&gt;</span><span class=na>data</span> <span class=cp>?&gt;</span><span class=x></span>
-</pre></div></p>
+&lt;?= $this-&gt;placeholder('foo')-&gt;data ?&gt;</code></pre>
 <h2 id="clearing-content">Clearing Content</h2>
 <p>In certain situations it is desirable to remove or clear containers and
 aggregated content. The placeholder view helper provides two methods to either
 delete a specific container or clear all containers at once:</p>
 <h3>Delete a single container</h3>
-<p> <div class=codehilite><pre><span></span><span class=x>$this-&gt;plugin(&#39;placeholder&#39;)-&gt;deleteContainer(&#39;myNamedContainer&#39;);</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>$this-&gt;plugin('placeholder')-&gt;deleteContainer('myNamedContainer');</code></pre>
 <h3>Clear all containers</h3>
-<p> <div class=codehilite><pre><span></span><span class=x>$this-&gt;plugin(&#39;placeholder&#39;)-&gt;clearContainers();</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>$this-&gt;plugin('placeholder')-&gt;clearContainers();</code></pre>
 <h2 id="concrete-implementations">Concrete Implementations</h2>
 <p>laminas-view ships with a number of "concrete" placeholder implementations. These
 are for commonly used placeholders: doctype, page title, and various <code>&lt;head&gt;</code>
@@ -871,9 +866,10 @@ element itself.</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -910,7 +906,7 @@ element itself.</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-view//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-view/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -919,8 +915,8 @@ element itself.</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-view//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-view/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>

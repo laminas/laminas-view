@@ -20,7 +20,7 @@
     <div class="container">
         
         <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
-            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Lamnias">
+            <img src="../../img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
             Documentation
@@ -36,13 +36,17 @@
             
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="https://getlaminas.org/about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://getlaminas.org/blog" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://docs.laminas.dev" class="nav-link">All Docs</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="https://docs.laminas.dev/components">Components</a>
+                            <a class="dropdown-item" href="https://docs.mezzio.dev/">Mezzio</a>
+                            <a class="dropdown-item" href="https://api-tools.getlaminas.org/docs">API Tools</a>
+                            <a class="dropdown-item" href="https://docs.laminas.dev/mvc">MVC</a>
+                        </div>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
@@ -435,7 +439,7 @@ to use in the element.</p>
 allows you to hide it from specific browsers. To add the conditional tags,
 pass the conditional value as part of the <code>$attrs</code> parameter in the method
 calls.</p>
-<pre class=codehilite><code class=language-php>
+<pre class="codehilite"><code class="language-php">
 // adding scripts
 $this-&gt;headScript()-&gt;appendFile(
     '/js/prototype.js',
@@ -449,7 +453,7 @@ scripts with XHTML CDATA.  This behavior can be problematic when you intend to
 use the script tag in an alternative way by setting the type to something
 other then <code>text/javascript</code>. To prevent such escaping, pass an <code>noescape</code>
 with a value of true as part of the <code>$attrs</code> parameter in the method calls.</p>
-<pre class=codehilite><code class=language-php>
+<pre class="codehilite"><code class="language-php">
 // jquery template
 $template = '&lt;div class=&quot;book&quot;&gt;{{:title}}&lt;/div&gt;';
 
@@ -490,46 +494,42 @@ These include <code>id</code>, <code>charset</code>, <code>crossorigin</code>, <
 <a href="http://www.dojotoolkit.org/">Dojo</a>, utilize custom attributes in order to
 modify behavior. To allow such attributes, you can enable them via the
 <code>setAllowArbitraryAttributes()</code> method:</p>
-<pre class=codehilite><code class=language-php>
+<pre class="codehilite"><code class="language-php">
 $this-&gt;headScript()-&gt;setAllowArbitraryAttributes(true);
 </code></pre>
 </blockquote>
 <h2 id="basic-usage">Basic Usage</h2>
 <p>You may specify a new script tag at any time. As noted above, these may be links
 to outside resource files or scripts themselves.</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// adding scripts</span>
-<span class=x>$this-&gt;headScript()</span>
-<span class=x>    -&gt;appendFile(&#39;/js/prototype.js&#39;)</span>
-<span class=x>    -&gt;appendScript($onloadScript);</span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>// adding scripts
+$this-&gt;headScript()
+    -&gt;appendFile('/js/prototype.js')
+    -&gt;appendScript($onloadScript);</code></pre>
 <p>Order is often important with client-side scripting; you may need to ensure that
 libraries are loaded in a specific order due to dependencies each have; use the
 various <code>append</code>, <code>prepend</code>, and <code>offsetSet</code> directives to aid in this task:</p>
-<p> <div class=codehilite><pre><span></span><span class=x>// Putting scripts in order</span>
+<pre class=codehilite><code class=language-php>// Putting scripts in order
 
-<span class=x>// place at a particular offset to ensure loaded last</span>
-<span class=x>$this-&gt;headScript()-&gt;offsetSetFile(100, &#39;/js/myfuncs.js&#39;);</span>
+// place at a particular offset to ensure loaded last
+$this-&gt;headScript()-&gt;offsetSetFile(100, '/js/myfuncs.js');
 
-<span class=x>// use scriptaculous effects (append uses next index, 101)</span>
-<span class=x>$this-&gt;headScript()-&gt;appendFile(&#39;/js/scriptaculous.js&#39;);</span>
+// use scriptaculous effects (append uses next index, 101)
+$this-&gt;headScript()-&gt;appendFile('/js/scriptaculous.js');
 
-<span class=x>// but always have base prototype script load first:</span>
-<span class=x>$this-&gt;headScript()-&gt;prependFile(&#39;/js/prototype.js&#39;);</span>
-</pre></div></p>
+// but always have base prototype script load first:
+$this-&gt;headScript()-&gt;prependFile('/js/prototype.js');</code></pre>
 <p>When you're finally ready to output all scripts in your layout script, simply
 echo the helper:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>headScript</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x></span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?= $this-&gt;headScript() ?&gt;</code></pre>
 <h2 id="capturing-scripts">Capturing Scripts</h2>
 <p>Sometimes you need to generate client-side scripts programmatically. While you
 could use string concatenation, heredocs, and the like, often it's easier just
 to do so by creating the script and sprinkling in PHP tags. <code>HeadScript</code> lets
 you do just that, capturing it to the stack:</p>
-<p> <div class=codehilite><pre><span></span><span class=cp>&lt;?php</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>headScript</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>captureStart</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x></span>
-<span class=x>var action = &#39;</span><span class=cp>&lt;?</span><span class=o>=</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>baseUrl</span> <span class=cp>?&gt;</span><span class=x>&#39;;</span>
-<span class=x>$(&#39;foo_form&#39;).action = action;</span>
-<span class=cp>&lt;?php</span> <span class=nv>$this</span><span class=o>-&gt;</span><span class=na>headScript</span><span class=p>()</span><span class=o>-&gt;</span><span class=na>captureEnd</span><span class=p>()</span> <span class=cp>?&gt;</span><span class=x></span>
-</pre></div></p>
+<pre class=codehilite><code class=language-php>&lt;?php $this-&gt;headScript()-&gt;captureStart() ?&gt;
+var action = '&lt;?= $this-&gt;baseUrl ?&gt;';
+$('foo_form').action = action;
+&lt;?php $this-&gt;headScript()-&gt;captureEnd() ?&gt;</code></pre>
 <p>The following assumptions are made:</p>
 <ul>
 <li>The script will be appended to the stack. If you wish for it to replace the
@@ -858,9 +858,10 @@ you do just that, capturing it to the stack:</p>
             <div class="col-md-7 offset-md-2">
                 <h5>Laminas</h5>
                 <ul>
-                    <li>Laminas Project <a href="https://getlaminas.org/">Components and MVC for Enterprise Applications</a></li>
-                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 Middleware in Minutes</a></li>
-                    <li>Laminas API Tools: <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
                 </ul>
             </div>
         </div>
@@ -897,7 +898,7 @@ you do just that, capturing it to the stack:</p>
                 <h4 class="footer__headline">License</h4>
                 <p>
                     Code licensed under <a
-                        href="https://github.com/laminas/laminas-view//blob/master/LICENSE.md">BSD 3-Clause</a>.
+                        href="https://github.com/laminas/laminas-view/blob/master/LICENSE.md">BSD 3-Clause</a>.
                 </p>
             </div>
 
@@ -906,8 +907,8 @@ you do just that, capturing it to the stack:</p>
                 <h4 class="footer__headline">Copyright</h4>
                 <p>
                     <!--Built with love by the Laminas team with the help of our
-                    <a href="https://github.com/laminas/laminas-view//graphs/contributors">contributors</a>.<br>-->
-                    &copy; 2019-2019 by <a href="https://getlaminas.org/">The Laminas Project</a>.
+                    <a href="https://github.com/laminas/laminas-view/graphs/contributors">contributors</a>.<br>-->
+                    &copy; 2019-2020 by <a href="https://getlaminas.org/">The Laminas Project</a>.
                 </p>
             </div>
         </div>
