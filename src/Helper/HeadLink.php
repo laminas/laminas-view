@@ -27,8 +27,8 @@ use stdClass;
  * @method HeadLink prependAlternate($href, $type, $title, $extras = [])
  * @method HeadLink setAlternate($href, $type, $title, $extras = [])
  */
-// @codingStandardsIgnoreEnd
 class HeadLink extends Placeholder\Container\AbstractStandalone
+// @codingStandardsIgnoreEnd
 {
     /**
      * Allowed attributes
