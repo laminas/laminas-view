@@ -45,7 +45,7 @@ potentially indicate alternate template names for things like the site layout,
 404 (not found) pages, and error pages. The code snippets below can be added to
 your configuration to accomplish this. We recommend adding it to a
 site-specific module, such as the "Application" module from the framework's
-[LaminasSkeletonApplication](https://github.com/laminas/LaminasSkeletonApplication),
+[laminas-mvc-skeleton](https://github.com/laminas/laminas-mvc-skeleton),
 or to one of your autoloaded configurations within the `config/autoload/`
 directory.
 
