@@ -45,7 +45,7 @@ And then print it out on top of your layout script:
 <?php echo $this->doctype() ?>
 ```
 
-Within an application based off the [skeleton application](https://github.com/laminas/LaminasSkeletonApplication),
+Within an application based off the [laminas-mvc-skeleton](https://github.com/laminas/laminas-mvc-skeleton),
 you can specify the doctype via configuration:
 
 ```php

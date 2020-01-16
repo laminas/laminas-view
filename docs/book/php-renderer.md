@@ -80,9 +80,8 @@ You can also specify a specific priority value when registering resolvers, with
 high, positive integers getting higher priority, and low, negative integers
 getting low priority, when resolving.
 
-If you are started your application via the [skeleton
-application](https://github.com/laminas/LaminasSkeletonApplication), you can
-provide the above via configuration:
+If you are started your application via the [laminas-mvc-skeleton](https://github.com/laminas/laminas-mvc-skeleton),
+you can provide the above via configuration:
 
 ```php
 // In the Application module configuration
