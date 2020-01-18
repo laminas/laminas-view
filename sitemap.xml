@@ -2,152 +2,152 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
      <loc>https://docs.laminas.dev/laminas-view/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/quick-start/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/php-renderer/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/view-scripts/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/view-event/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/helpers/intro/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/helpers/asset/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/helpers/base-path/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/helpers/cycle/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/helpers/doctype/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/helpers/escape/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/helpers/flash-messenger/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/helpers/gravatar/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/helpers/head-link/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/helpers/head-meta/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/helpers/head-script/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/helpers/head-style/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/helpers/head-title/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/helpers/html-list/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/helpers/html-object/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/helpers/html-tag/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/helpers/identity/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/helpers/inline-script/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/helpers/json/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/helpers/layout/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/helpers/partial/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/helpers/placeholder/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/helpers/url/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/helpers/advanced-usage/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.laminas.dev/laminas-view/cookbook/setting-module-specific-layouts/</loc>
-     <lastmod>2020-01-16</lastmod>
+     <lastmod>2020-01-18</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>
