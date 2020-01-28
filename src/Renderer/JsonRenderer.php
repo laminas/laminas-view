@@ -6,17 +6,17 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Renderer;
+namespace Laminas\View\Renderer;
 
 use JsonSerializable;
 use Traversable;
-use Zend\Json\Json;
-use Zend\Stdlib\ArrayUtils;
-use Zend\View\Exception;
-use Zend\View\Model\JsonModel;
-use Zend\View\Model\ModelInterface as Model;
-use Zend\View\Renderer\RendererInterface as Renderer;
-use Zend\View\Resolver\ResolverInterface as Resolver;
+use Laminas\Json\Json;
+use Laminas\Stdlib\ArrayUtils;
+use Laminas\View\Exception;
+use Laminas\View\Model\JsonModel;
+use Laminas\View\Model\ModelInterface as Model;
+use Laminas\View\Renderer\RendererInterface as Renderer;
+use Laminas\View\Resolver\ResolverInterface as Resolver;
 
 /**
  * JSON renderer

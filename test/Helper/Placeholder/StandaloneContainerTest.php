@@ -6,16 +6,16 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper\Placeholder;
+namespace LaminasTest\View\Helper\Placeholder;
 
-use Zend\View\Helper\Placeholder\Container;
-use Zend\View\Renderer\PhpRenderer as View;
+use Laminas\View\Helper\Placeholder\Container;
+use Laminas\View\Renderer\PhpRenderer as View;
 
 /**
- * Test class for Zend_View_Helper_Placeholder_StandaloneContainer.
+ * Test class for Laminas_View_Helper_Placeholder_StandaloneContainer.
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class StandaloneContainerTest extends \PHPUnit_Framework_TestCase
 {
@@ -53,7 +53,7 @@ class StandaloneContainerTest extends \PHPUnit_Framework_TestCase
     public function testGetContainer()
     {
         $container = $this->helper->getContainer();
-        $this->assertInstanceOf('Zend\View\Helper\Placeholder\Container', $container);
+        $this->assertInstanceOf('Laminas\View\Helper\Placeholder\Container', $container);
     }
 
     /**
@@ -63,7 +63,7 @@ class StandaloneContainerTest extends \PHPUnit_Framework_TestCase
     {
         $this->helper->deleteContainer();
         $container = $this->helper->getContainer();
-        $this->assertInstanceOf('Zend\View\Helper\Placeholder\Container', $container);
+        $this->assertInstanceOf('Laminas\View\Helper\Placeholder\Container', $container);
     }
 
     /**
@@ -99,8 +99,8 @@ class StandaloneContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetGetContainerClass()
     {
-        $this->helper->setContainerClass('ZendTest\View\Helper\Placeholder\Bar');
-        $this->assertEquals('ZendTest\View\Helper\Placeholder\Bar', $this->helper->getContainerClass());
+        $this->helper->setContainerClass('LaminasTest\View\Helper\Placeholder\Bar');
+        $this->assertEquals('LaminasTest\View\Helper\Placeholder\Bar', $this->helper->getContainerClass());
     }
 
     /**
@@ -132,11 +132,11 @@ class StandaloneContainerTest extends \PHPUnit_Framework_TestCase
     }
 }
 
-class Foo extends \Zend\View\Helper\Placeholder\Container\AbstractStandalone
+class Foo extends \Laminas\View\Helper\Placeholder\Container\AbstractStandalone
 {
     protected $_regKey = 'foo';
     public function direct() {}
 }
 
-class Bar extends \Zend\View\Helper\Placeholder\Container\AbstractContainer
+class Bar extends \Laminas\View\Helper\Placeholder\Container\AbstractContainer
 {}
