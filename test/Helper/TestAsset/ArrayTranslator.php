@@ -6,9 +6,9 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper\TestAsset;
+namespace LaminasTest\View\Helper\TestAsset;
 
-use Zend\I18n\Translator;
+use Laminas\I18n\Translator;
 
 class ArrayTranslator implements Translator\Loader\FileLoaderInterface
 {
