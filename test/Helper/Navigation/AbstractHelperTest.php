@@ -6,7 +6,7 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper\Navigation;
+namespace LaminasTest\View\Helper\Navigation;
 
 class AbstractHelperTest extends AbstractTest
 {
@@ -15,12 +15,12 @@ class AbstractHelperTest extends AbstractTest
      *
      * @var string
      */
-    protected $_helperName = 'Zend\View\Helper\Navigation';
+    protected $_helperName = 'Laminas\View\Helper\Navigation';
 
     /**
      * View helper
      *
-     * @var \Zend\View\Helper\Navigation\Breadcrumbs
+     * @var \Laminas\View\Helper\Navigation\Breadcrumbs
      */
     protected $_helper;
 

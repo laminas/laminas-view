@@ -6,10 +6,10 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper\Placeholder\Container;
+namespace Laminas\View\Helper\Placeholder\Container;
 
 use ArrayObject;
-use Zend\View\Exception;
+use Laminas\View\Exception;
 
 /**
  * Abstract class representing container for placeholder values
