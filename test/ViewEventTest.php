@@ -6,14 +6,14 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View;
+namespace LaminasTest\View;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Http\Request;
-use Zend\Http\Response;
-use Zend\View\Model\ViewModel;
-use Zend\View\Renderer\PhpRenderer;
-use Zend\View\ViewEvent;
+use Laminas\Http\Request;
+use Laminas\Http\Response;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Renderer\PhpRenderer;
+use Laminas\View\ViewEvent;
 
 class ViewEventTest extends TestCase
 {

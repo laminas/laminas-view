@@ -6,15 +6,15 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Renderer;
+namespace Laminas\View\Renderer;
 
-use Zend\View\Exception;
-use Zend\View\Model\FeedModel;
-use Zend\View\Model\ModelInterface as Model;
-use Zend\View\Resolver\ResolverInterface as Resolver;
+use Laminas\View\Exception;
+use Laminas\View\Model\FeedModel;
+use Laminas\View\Model\ModelInterface as Model;
+use Laminas\View\Resolver\ResolverInterface as Resolver;
 
 /**
- * Class for Zend\View\Strategy\FeedStrategy compatible template engine implementations
+ * Class for Laminas\View\Strategy\FeedStrategy compatible template engine implementations
  */
 class FeedRenderer implements RendererInterface
 {

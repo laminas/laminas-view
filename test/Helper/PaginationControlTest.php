@@ -6,16 +6,16 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\Paginator;
-use Zend\View\Helper;
-use Zend\View\Renderer\PhpRenderer as View;
-use Zend\View\Resolver;
+use Laminas\Paginator;
+use Laminas\View\Helper;
+use Laminas\View\Renderer\PhpRenderer as View;
+use Laminas\View\Resolver;
 
 /**
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class PaginationControlTest extends \PHPUnit_Framework_TestCase
 {
@@ -59,7 +59,7 @@ class PaginationControlTest extends \PHPUnit_Framework_TestCase
         $helper = new Helper\PaginationControl();
         $this->assertNull($helper->getView());
         $helper->setView($view);
-        $this->assertInstanceOf('Zend\View\Renderer\RendererInterface', $helper->getView());
+        $this->assertInstanceOf('Laminas\View\Renderer\RendererInterface', $helper->getView());
     }
 
     public function testGetsAndSetsDefaultViewPartial()
@@ -83,7 +83,7 @@ class PaginationControlTest extends \PHPUnit_Framework_TestCase
         try {
             $this->_viewHelper->__invoke($this->_paginator);
         } catch (\Exception $e) {
-            $this->assertInstanceOf('Zend\View\Exception\ExceptionInterface', $e);
+            $this->assertInstanceOf('Laminas\View\Exception\ExceptionInterface', $e);
             $this->assertEquals('No view partial provided and no default set', $e->getMessage());
         }
     }
@@ -127,7 +127,7 @@ class PaginationControlTest extends \PHPUnit_Framework_TestCase
         Helper\PaginationControl::setDefaultViewPartial('testPagination.phtml');
 
         $this->setExpectedException(
-            'Zend\View\Exception\ExceptionInterface',
+            'Laminas\View\Exception\ExceptionInterface',
             'No paginator instance provided or incorrect type'
         );
         $this->_viewHelper->__invoke();
@@ -142,9 +142,9 @@ class PaginationControlTest extends \PHPUnit_Framework_TestCase
             $this->_viewHelper->__invoke($this->_paginator, null, ['partial.phtml', 'test']);
         } catch (\Exception $e) {
             /* We don't care whether or not the module exists--we just want to
-             * make sure it gets to Zend_View_Helper_Partial and it's recognized
+             * make sure it gets to Laminas_View_Helper_Partial and it's recognized
              * as a module. */
-            $this->assertInstanceOf('Zend\View\Exception\RuntimeException', $e);
+            $this->assertInstanceOf('Laminas\View\Exception\RuntimeException', $e);
             $this->assertContains('could not resolve', $e->getMessage());
         }
     }

@@ -6,14 +6,14 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\View\Helper\BasePath;
+use Laminas\View\Helper\BasePath;
 
 /**
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class BasePathTest extends TestCase
 {

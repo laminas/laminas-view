@@ -6,16 +6,16 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View;
+namespace LaminasTest\View;
 
-use Zend\I18n\Translator\Translator;
-use Zend\Mvc\I18n\Translator as MvcTranslator;
-use Zend\ServiceManager\ServiceManager;
-use Zend\View\HelperPluginManager;
-use Zend\View\Renderer\PhpRenderer;
+use Laminas\I18n\Translator\Translator;
+use Laminas\Mvc\I18n\Translator as MvcTranslator;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\HelperPluginManager;
+use Laminas\View\Renderer\PhpRenderer;
 
 /**
- * @group      Zend_View
+ * @group      Laminas_View
  */
 class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
 {
@@ -52,14 +52,14 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testRegisteringInvalidHelperRaisesException()
     {
-        $this->setExpectedException('Zend\View\Exception\InvalidHelperException');
+        $this->setExpectedException('Laminas\View\Exception\InvalidHelperException');
         $this->helpers->setService('test', $this);
     }
 
     public function testLoadingInvalidHelperRaisesException()
     {
         $this->helpers->setInvokableClass('test', get_class($this));
-        $this->setExpectedException('Zend\View\Exception\InvalidHelperException');
+        $this->setExpectedException('Laminas\View\Exception\InvalidHelperException');
         $this->helpers->get('test');
     }
 
@@ -71,16 +71,16 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
     public function testIdentityFactoryCanInjectAuthenticationServiceIfInParentServiceManager()
     {
         $services = new ServiceManager();
-        $services->setInvokableClass('Zend\Authentication\AuthenticationService', 'Zend\Authentication\AuthenticationService');
+        $services->setInvokableClass('Laminas\Authentication\AuthenticationService', 'Laminas\Authentication\AuthenticationService');
         $this->helpers->setServiceLocator($services);
         $identity = $this->helpers->get('identity');
-        $expected = $services->get('Zend\Authentication\AuthenticationService');
+        $expected = $services->get('Laminas\Authentication\AuthenticationService');
         $this->assertSame($expected, $identity->getAuthenticationService());
     }
 
     public function testIfHelperIsTranslatorAwareAndMvcTranslatorIsAvailableItWillInjectTheMvcTranslator()
     {
-        $translator = new MvcTranslator($this->getMock('Zend\I18n\Translator\TranslatorInterface'));
+        $translator = new MvcTranslator($this->getMock('Laminas\I18n\Translator\TranslatorInterface'));
         $services   = new ServiceManager();
         $services->setService('MvcTranslator', $translator);
         $this->helpers->setServiceLocator($services);
@@ -104,7 +104,7 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
     {
         $translator = new Translator();
         $services   = new ServiceManager();
-        $services->setService('Zend\I18n\Translator\TranslatorInterface', $translator);
+        $services->setService('Laminas\I18n\Translator\TranslatorInterface', $translator);
         $this->helpers->setServiceLocator($services);
 
         $helper = $this->helpers->get('HeadTitle');

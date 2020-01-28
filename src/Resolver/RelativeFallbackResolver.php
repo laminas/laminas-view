@@ -6,11 +6,11 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Resolver;
+namespace Laminas\View\Resolver;
 
-use Zend\View\Helper\ViewModel as ViewModelHelper;
-use Zend\View\Model\ModelInterface;
-use Zend\View\Renderer\RendererInterface;
+use Laminas\View\Helper\ViewModel as ViewModelHelper;
+use Laminas\View\Model\ModelInterface;
+use Laminas\View\Renderer\RendererInterface;
 
 /**
  * Relative fallback resolver - resolves to view templates in a sub-path of the

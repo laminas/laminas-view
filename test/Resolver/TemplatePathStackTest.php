@@ -6,12 +6,12 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Resolver;
+namespace LaminasTest\View\Resolver;
 
-use Zend\View\Resolver\TemplatePathStack;
+use Laminas\View\Resolver\TemplatePathStack;
 
 /**
- * @group      Zend_View
+ * @group      Laminas_View
  */
 class TemplatePathStackTest extends \PHPUnit_Framework_TestCase
 {
@@ -125,7 +125,7 @@ class TemplatePathStackTest extends \PHPUnit_Framework_TestCase
     {
         $this->stack->addPath($this->baseDir . '/_templates');
 
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface', 'parent directory traversal');
+        $this->setExpectedException('Laminas\View\Exception\ExceptionInterface', 'parent directory traversal');
         $this->stack->resolve('../_stubs/scripts/LfiProtectionCheck.phtml');
     }
 
@@ -190,7 +190,7 @@ class TemplatePathStackTest extends \PHPUnit_Framework_TestCase
      */
     public function testSettingOptionsWithInvalidArgumentRaisesException($options)
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->setExpectedException('Laminas\View\Exception\ExceptionInterface');
         $this->stack->setOptions($options);
     }
 

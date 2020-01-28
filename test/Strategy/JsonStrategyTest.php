@@ -6,18 +6,18 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Strategy;
+namespace LaminasTest\View\Strategy;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\EventManager\EventManager;
-use Zend\Http\Request as HttpRequest;
-use Zend\Http\Response as HttpResponse;
-use Zend\View\Model\JsonModel;
-use Zend\View\Model\ViewModel;
-use Zend\View\Renderer\JsonRenderer;
-use Zend\View\Strategy\JsonStrategy;
-use Zend\View\ViewEvent;
-use Zend\Stdlib\Parameters;
+use Laminas\EventManager\EventManager;
+use Laminas\Http\Request as HttpRequest;
+use Laminas\Http\Response as HttpResponse;
+use Laminas\View\Model\JsonModel;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Renderer\JsonRenderer;
+use Laminas\View\Strategy\JsonStrategy;
+use Laminas\View\ViewEvent;
+use Laminas\Stdlib\Parameters;
 
 class JsonStrategyTest extends TestCase
 {

@@ -6,16 +6,16 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper\Navigation;
+namespace Laminas\View\Helper\Navigation;
 
 use DOMDocument;
 use RecursiveIteratorIterator;
-use Zend\Navigation\AbstractContainer;
-use Zend\Navigation\Page\AbstractPage;
-use Zend\Stdlib\ErrorHandler;
-use Zend\Uri;
-use Zend\View;
-use Zend\View\Exception;
+use Laminas\Navigation\AbstractContainer;
+use Laminas\Navigation\Page\AbstractPage;
+use Laminas\Stdlib\ErrorHandler;
+use Laminas\Uri;
+use Laminas\View;
+use Laminas\View\Exception;
 
 /**
  * Helper for printing sitemaps
@@ -60,7 +60,7 @@ class Sitemap extends AbstractHelper
     protected $urls = [];
 
     /**
-     * Whether sitemap should be validated using Zend\Validate\Sitemap\*
+     * Whether sitemap should be validated using Laminas\Validate\Sitemap\*
      *
      * @var bool
      */
@@ -142,10 +142,10 @@ class Sitemap extends AbstractHelper
         // check if we should validate using our own validators
         if ($this->getUseSitemapValidators()) {
             // create validators
-            $locValidator        = new \Zend\Validator\Sitemap\Loc();
-            $lastmodValidator    = new \Zend\Validator\Sitemap\Lastmod();
-            $changefreqValidator = new \Zend\Validator\Sitemap\Changefreq();
-            $priorityValidator   = new \Zend\Validator\Sitemap\Priority();
+            $locValidator        = new \Laminas\Validator\Sitemap\Loc();
+            $lastmodValidator    = new \Laminas\Validator\Sitemap\Lastmod();
+            $changefreqValidator = new \Laminas\Validator\Sitemap\Changefreq();
+            $priorityValidator   = new \Laminas\Validator\Sitemap\Priority();
         }
 
         // create document
@@ -371,7 +371,7 @@ class Sitemap extends AbstractHelper
     }
 
     /**
-     * Sets whether sitemap should be validated using Zend\Validate\Sitemap_*
+     * Sets whether sitemap should be validated using Laminas\Validate\Sitemap_*
      *
      * @param  bool $useSitemapValidators
      * @return Sitemap
@@ -383,7 +383,7 @@ class Sitemap extends AbstractHelper
     }
 
     /**
-     * Returns whether sitemap should be validated using Zend\Validate\Sitemap_*
+     * Returns whether sitemap should be validated using Laminas\Validate\Sitemap_*
      *
      * @return bool
      */
