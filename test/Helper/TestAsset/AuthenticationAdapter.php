@@ -6,10 +6,10 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper\TestAsset;
+namespace LaminasTest\View\Helper\TestAsset;
 
-use Zend\Authentication\Adapter\AdapterInterface;
-use Zend\Authentication\Result;
+use Laminas\Authentication\Adapter\AdapterInterface;
+use Laminas\Authentication\Result;
 
 class AuthenticationAdapter implements AdapterInterface
 {

@@ -6,7 +6,7 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Exception;
+namespace Laminas\View\Exception;
 
 /**
  * Unexpected value exception
