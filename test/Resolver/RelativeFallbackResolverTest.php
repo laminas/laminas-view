@@ -6,20 +6,20 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Resolver;
+namespace LaminasTest\View\Resolver;
 
 use PHPUnit_Framework_TestCase as TestCase;
 use stdClass;
-use Zend\View\Helper\ViewModel as ViewModelHelper;
-use Zend\View\Model\ViewModel;
-use Zend\View\Renderer\PhpRenderer;
-use Zend\View\Resolver\RelativeFallbackResolver;
-use Zend\View\Resolver\TemplateMapResolver;
-use Zend\View\Resolver\TemplatePathStack;
-use Zend\View\Resolver\AggregateResolver;
+use Laminas\View\Helper\ViewModel as ViewModelHelper;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Renderer\PhpRenderer;
+use Laminas\View\Resolver\RelativeFallbackResolver;
+use Laminas\View\Resolver\TemplateMapResolver;
+use Laminas\View\Resolver\TemplatePathStack;
+use Laminas\View\Resolver\AggregateResolver;
 
 /**
- * @covers \Zend\View\Resolver\RelativeFallbackResolver
+ * @covers \Laminas\View\Resolver\RelativeFallbackResolver
  */
 class RelativeFallbackResolverTest extends TestCase
 {
@@ -78,11 +78,11 @@ class RelativeFallbackResolverTest extends TestCase
 
     public function testSkipsResolutionOnViewRendererWithoutPlugins()
     {
-        /* @var $baseResolver \Zend\View\Resolver\ResolverInterface|\PHPUnit_Framework_MockObject_MockObject */
-        $baseResolver = $this->getMock('Zend\View\Resolver\ResolverInterface');
+        /* @var $baseResolver \Laminas\View\Resolver\ResolverInterface|\PHPUnit_Framework_MockObject_MockObject */
+        $baseResolver = $this->getMock('Laminas\View\Resolver\ResolverInterface');
         $fallback     = new RelativeFallbackResolver($baseResolver);
-        /* @var $renderer \Zend\View\Renderer\RendererInterface|\PHPUnit_Framework_MockObject_MockObject */
-        $renderer     = $this->getMock('Zend\View\Renderer\RendererInterface');
+        /* @var $renderer \Laminas\View\Renderer\RendererInterface|\PHPUnit_Framework_MockObject_MockObject */
+        $renderer     = $this->getMock('Laminas\View\Renderer\RendererInterface');
 
         $baseResolver->expects($this->never())->method('resolve');
 
@@ -91,12 +91,12 @@ class RelativeFallbackResolverTest extends TestCase
 
     public function testSkipsResolutionOnViewRendererWithoutCorrectCurrentPlugin()
     {
-        /* @var $baseResolver \Zend\View\Resolver\ResolverInterface|\PHPUnit_Framework_MockObject_MockObject */
-        $baseResolver = $this->getMock('Zend\View\Resolver\ResolverInterface');
+        /* @var $baseResolver \Laminas\View\Resolver\ResolverInterface|\PHPUnit_Framework_MockObject_MockObject */
+        $baseResolver = $this->getMock('Laminas\View\Resolver\ResolverInterface');
         $fallback     = new RelativeFallbackResolver($baseResolver);
-        /* @var $renderer \Zend\View\Renderer\RendererInterface|\PHPUnit_Framework_MockObject_MockObject */
+        /* @var $renderer \Laminas\View\Renderer\RendererInterface|\PHPUnit_Framework_MockObject_MockObject */
         $renderer     = $this->getMock(
-            'Zend\View\Renderer\RendererInterface',
+            'Laminas\View\Renderer\RendererInterface',
             array('getEngine', 'setResolver', 'plugin', 'render')
         );
 
@@ -108,13 +108,13 @@ class RelativeFallbackResolverTest extends TestCase
 
     public function testSkipsResolutionOnNonExistingCurrentViewModel()
     {
-        /* @var $baseResolver \Zend\View\Resolver\ResolverInterface|\PHPUnit_Framework_MockObject_MockObject */
-        $baseResolver = $this->getMock('Zend\View\Resolver\ResolverInterface');
+        /* @var $baseResolver \Laminas\View\Resolver\ResolverInterface|\PHPUnit_Framework_MockObject_MockObject */
+        $baseResolver = $this->getMock('Laminas\View\Resolver\ResolverInterface');
         $fallback     = new RelativeFallbackResolver($baseResolver);
         $viewModel    = new ViewModelHelper();
-        /* @var $renderer \Zend\View\Renderer\RendererInterface|\PHPUnit_Framework_MockObject_MockObject */
+        /* @var $renderer \Laminas\View\Renderer\RendererInterface|\PHPUnit_Framework_MockObject_MockObject */
         $renderer     = $this->getMock(
-            'Zend\View\Renderer\RendererInterface',
+            'Laminas\View\Renderer\RendererInterface',
             array('getEngine', 'setResolver', 'plugin', 'render')
         );
 
