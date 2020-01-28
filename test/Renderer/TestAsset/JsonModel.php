@@ -6,13 +6,13 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Renderer\TestAsset;
+namespace LaminasTest\View\Renderer\TestAsset;
 
 use JsonSerializable;
 
 /**
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage UnitTest
  */
 class JsonModel implements JsonSerializable

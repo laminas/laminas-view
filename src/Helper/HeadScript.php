@@ -6,11 +6,11 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
 use stdClass;
-use Zend\View;
-use Zend\View\Exception;
+use Laminas\View;
+use Laminas\View\Exception;
 
 /**
  * Helper for setting and retrieving script elements for HTML head section
@@ -30,7 +30,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      *
      * @var string
      */
-    protected $regKey = 'Zend_View_Helper_HeadScript';
+    protected $regKey = 'Laminas_View_Helper_HeadScript';
 
     /**
      * Are arbitrary attributes allowed?

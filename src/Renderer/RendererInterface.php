@@ -6,13 +6,13 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Renderer;
+namespace Laminas\View\Renderer;
 
-use Zend\View\Model\ModelInterface;
-use Zend\View\Resolver\ResolverInterface;
+use Laminas\View\Model\ModelInterface;
+use Laminas\View\Resolver\ResolverInterface;
 
 /**
- * Interface class for Zend_View compatible template engine implementations
+ * Interface class for Laminas_View compatible template engine implementations
  */
 interface RendererInterface
 {

@@ -6,20 +6,20 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Renderer;
+namespace LaminasTest\View\Renderer;
 
 use ArrayObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use stdClass;
-use Zend\View\Renderer\JsonRenderer;
-use Zend\View\Model\JsonModel;
-use Zend\View\Model\ViewModel;
+use Laminas\View\Renderer\JsonRenderer;
+use Laminas\View\Model\JsonModel;
+use Laminas\View\Model\ViewModel;
 
 /**
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage UnitTests
- * @group      Zend_View
+ * @group      Laminas_View
  */
 class JsonRendererTest extends TestCase
 {
@@ -160,7 +160,7 @@ class JsonRendererTest extends TestCase
 
     public function testNonViewModelInitialArgumentWithValuesRaisesException()
     {
-        $this->setExpectedException('Zend\View\Exception\DomainException');
+        $this->setExpectedException('Laminas\View\Exception\DomainException');
         $this->renderer->render('foo', array('bar' => 'baz'));
     }
 

@@ -6,14 +6,14 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
 use stdClass;
-use Zend\View;
-use Zend\View\Exception;
+use Laminas\View;
+use Laminas\View\Exception;
 
 /**
- * Zend_Layout_View_Helper_HeadMeta
+ * Laminas_Layout_View_Helper_HeadMeta
  *
  * @see http://www.w3.org/TR/xhtml1/dtds.html
  */
@@ -45,7 +45,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      *
      * @var string
      */
-    protected $regKey = 'Zend_View_Helper_HeadMeta';
+    protected $regKey = 'Laminas_View_Helper_HeadMeta';
 
     /**
      * Constructor
