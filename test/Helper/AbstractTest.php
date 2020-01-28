@@ -6,14 +6,14 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use ZendTest\View\Helper\TestAsset\ConcreteHelper;
+use LaminasTest\View\Helper\TestAsset\ConcreteHelper;
 
 /**
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class AbstractTest extends TestCase
 {
@@ -29,7 +29,7 @@ class AbstractTest extends TestCase
 
     public function testViewSettersGetters()
     {
-        $viewMock = $this->getMock('Zend\View\Renderer\RendererInterface');
+        $viewMock = $this->getMock('Laminas\View\Renderer\RendererInterface');
 
         $this->helper->setView($viewMock);
         $this->assertEquals($viewMock, $this->helper->getView());

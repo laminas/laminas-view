@@ -6,10 +6,10 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
 use ArrayObject;
-use Zend\View\Exception;
+use Laminas\View\Exception;
 
 /**
  * Helper for setting and retrieving the doctype
