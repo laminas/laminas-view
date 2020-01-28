@@ -6,9 +6,9 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
-use Zend\View\Model\ModelInterface;
+use Laminas\View\Model\ModelInterface;
 
 /**
  * Renders a template and stores the rendered output as a placeholder

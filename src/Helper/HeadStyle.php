@@ -6,11 +6,11 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
 use stdClass;
-use Zend\View;
-use Zend\View\Exception;
+use Laminas\View;
+use Laminas\View\Exception;
 
 /**
  * Helper for setting and retrieving stylesheets
@@ -21,7 +21,7 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
      * Registry key for placeholder
      * @var string
      */
-    protected $regKey = 'Zend_View_Helper_HeadStyle';
+    protected $regKey = 'Laminas_View_Helper_HeadStyle';
 
     /**
      * Allowed optional attributes
@@ -76,7 +76,7 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
      * @param  string $content Stylesheet contents
      * @param  string $placement Append, prepend, or set
      * @param  string|array $attributes Optional attributes to utilize
-     * @return \Zend\View\Helper\HeadStyle
+     * @return \Laminas\View\Helper\HeadStyle
      */
     public function __invoke($content = null, $placement = 'APPEND', $attributes = array())
     {

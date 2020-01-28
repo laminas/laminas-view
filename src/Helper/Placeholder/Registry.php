@@ -6,9 +6,9 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper\Placeholder;
+namespace Laminas\View\Helper\Placeholder;
 
-use Zend\View\Exception;
+use Laminas\View\Exception;
 
 /**
  * Registry for placeholder containers
@@ -24,7 +24,7 @@ class Registry
      * Default container class
      * @var string
      */
-    protected $containerClass = 'Zend\View\Helper\Placeholder\Container';
+    protected $containerClass = 'Laminas\View\Helper\Placeholder\Container';
 
     /**
      * Placeholder containers
@@ -153,7 +153,7 @@ class Registry
                 ));
         }
 
-        if (!in_array('Zend\View\Helper\Placeholder\Container\AbstractContainer', class_parents($name))) {
+        if (!in_array('Laminas\View\Helper\Placeholder\Container\AbstractContainer', class_parents($name))) {
             throw new Exception\InvalidArgumentException('Invalid Container class specified');
         }
 
