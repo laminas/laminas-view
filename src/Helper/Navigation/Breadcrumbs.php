@@ -6,12 +6,12 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper\Navigation;
+namespace Laminas\View\Helper\Navigation;
 
-use Zend\Navigation\AbstractContainer;
-use Zend\Navigation\Page\AbstractPage;
-use Zend\View;
-use Zend\View\Exception;
+use Laminas\Navigation\AbstractContainer;
+use Laminas\Navigation\Page\AbstractPage;
+use Laminas\View;
+use Laminas\View\Exception;
 
 /**
  * Helper for printing breadcrumbs
@@ -269,7 +269,7 @@ class Breadcrumbs extends AbstractHelper
         return $partialHelper($partial, $model);
     }
 
-    // Zend\View\Helper\Navigation\Helper:
+    // Laminas\View\Helper\Navigation\Helper:
 
     /**
      * Renders helper

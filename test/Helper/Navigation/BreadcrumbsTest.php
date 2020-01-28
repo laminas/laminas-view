@@ -6,19 +6,19 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper\Navigation;
+namespace LaminasTest\View\Helper\Navigation;
 
-use Zend\Navigation\Navigation;
-use Zend\View\Exception\ExceptionInterface;
+use Laminas\Navigation\Navigation;
+use Laminas\View\Exception\ExceptionInterface;
 
 /**
- * Tests Zend_View_Helper_Navigation_Breadcrumbs
+ * Tests Laminas_View_Helper_Navigation_Breadcrumbs
  *
- * @category   Zend_Tests
- * @package    Zend_View
+ * @category   Laminas_Tests
+ * @package    Laminas_View
  * @subpackage Helper
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class BreadcrumbsTest extends AbstractTest
 {
@@ -27,12 +27,12 @@ class BreadcrumbsTest extends AbstractTest
      *
      * @var string
      */
-    protected $_helperName = 'Zend\View\Helper\Navigation\Breadcrumbs';
+    protected $_helperName = 'Laminas\View\Helper\Navigation\Breadcrumbs';
 
     /**
      * View helper
      *
-     * @var \Zend\View\Helper\Navigation\Breadcrumbs
+     * @var \Laminas\View\Helper\Navigation\Breadcrumbs
      */
     protected $_helper;
 
@@ -69,7 +69,7 @@ class BreadcrumbsTest extends AbstractTest
 
     public function testHelperEntryPointWithContainerStringParam()
     {
-        $pm = new \Zend\View\HelperPluginManager;
+        $pm = new \Laminas\View\HelperPluginManager;
         $pm->setServiceLocator($this->serviceManager);
         $this->_helper->setServiceLocator($pm);
 
@@ -161,7 +161,7 @@ class BreadcrumbsTest extends AbstractTest
         $this->assertEquals($expected, $this->_helper->render());
     }
 
-    public function testTranslationUsingZendTranslate()
+    public function testTranslationUsingLaminasTranslate()
     {
         $this->_helper->setTranslator($this->_getTranslator());
 
@@ -169,7 +169,7 @@ class BreadcrumbsTest extends AbstractTest
         $this->assertEquals($expected, $this->_helper->render());
     }
 
-    public function testTranslationUsingZendTranslateAdapter()
+    public function testTranslationUsingLaminasTranslateAdapter()
     {
         $translator = $this->_getTranslator();
         $this->_helper->setTranslator($translator);
@@ -211,7 +211,7 @@ class BreadcrumbsTest extends AbstractTest
         try {
             $this->_helper->render();
             $this->fail(
-                '$partial was invalid, but no Zend\View\Exception\ExceptionInterface was thrown');
+                '$partial was invalid, but no Laminas\View\Exception\ExceptionInterface was thrown');
         } catch (ExceptionInterface $e) {
         }
     }

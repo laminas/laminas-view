@@ -9,8 +9,8 @@
 namespace Foo\View\Helper;
 
 /**
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage UnitTests
  */
 class Stub1

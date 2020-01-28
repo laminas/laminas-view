@@ -6,25 +6,25 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\View\Helper\Placeholder\Registry;
-use Zend\View\Helper;
-use Zend\View;
+use Laminas\View\Helper\Placeholder\Registry;
+use Laminas\View\Helper;
+use Laminas\View;
 
 /**
- * Test class for Zend_View_Helper_HeadScript.
+ * Test class for Laminas_View_Helper_HeadScript.
  *
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class HeadScriptTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Zend_View_Helper_HeadScript
+     * @var Laminas_View_Helper_HeadScript
      */
     public $helper;
 
@@ -61,12 +61,12 @@ class HeadScriptTest extends \PHPUnit_Framework_TestCase
     public function testNamespaceRegisteredInPlaceholderRegistryAfterInstantiation()
     {
         $registry = Registry::getRegistry();
-        if ($registry->containerExists('Zend_View_Helper_HeadScript')) {
-            $registry->deleteContainer('Zend_View_Helper_HeadScript');
+        if ($registry->containerExists('Laminas_View_Helper_HeadScript')) {
+            $registry->deleteContainer('Laminas_View_Helper_HeadScript');
         }
-        $this->assertFalse($registry->containerExists('Zend_View_Helper_HeadScript'));
+        $this->assertFalse($registry->containerExists('Laminas_View_Helper_HeadScript'));
         $helper = new Helper\HeadScript();
-        $this->assertTrue($registry->containerExists('Zend_View_Helper_HeadScript'));
+        $this->assertTrue($registry->containerExists('Laminas_View_Helper_HeadScript'));
     }
 
     public function testHeadScriptReturnsObjectInstance()

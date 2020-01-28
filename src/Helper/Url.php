@@ -6,12 +6,12 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
-use Zend\Mvc\ModuleRouteListener;
-use Zend\Mvc\Router\RouteMatch;
-use Zend\Mvc\Router\RouteStackInterface;
-use Zend\View\Exception;
+use Laminas\Mvc\ModuleRouteListener;
+use Laminas\Mvc\Router\RouteMatch;
+use Laminas\Mvc\Router\RouteStackInterface;
+use Laminas\View\Exception;
 
 /**
  * Helper for making easy links and getting urls that depend on the routes and router.
@@ -59,7 +59,7 @@ class Url extends AbstractHelper
     /**
      * Generates an url given the name of a route.
      *
-     * @see    Zend\Mvc\Router\RouteInterface::assemble()
+     * @see    Laminas\Mvc\Router\RouteInterface::assemble()
      * @param  string  $name               Name of the route
      * @param  array   $params             Parameters for the link
      * @param  array   $options            Options for the route

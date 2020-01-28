@@ -6,10 +6,10 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
-use Zend\Authentication\AuthenticationService;
-use Zend\View\Exception;
+use Laminas\Authentication\AuthenticationService;
+use Laminas\View\Exception;
 
 /**
  * View helper plugin to fetch the authenticated identity.
