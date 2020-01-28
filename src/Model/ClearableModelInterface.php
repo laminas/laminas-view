@@ -6,7 +6,7 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Model;
+namespace Laminas\View\Model;
 
 /**
  * Interface describing methods for clearing the state of a view model.
