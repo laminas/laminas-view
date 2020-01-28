@@ -6,20 +6,20 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\View\Renderer\PhpRenderer as View;
-use Zend\View\Helper\Doctype;
-use Zend\View\Helper\HtmlObject;
+use Laminas\View\Renderer\PhpRenderer as View;
+use Laminas\View\Helper\Doctype;
+use Laminas\View\Helper\HtmlObject;
 
 /**
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class HtmlObjectTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Zend_View_Helper_HtmlObject
+     * @var Laminas_View_Helper_HtmlObject
      */
     public $helper;
 
@@ -43,7 +43,7 @@ class HtmlObjectTest extends \PHPUnit_Framework_TestCase
 
     public function testViewObjectIsSet()
     {
-        $this->assertInstanceof('Zend\View\Renderer\RendererInterface', $this->helper->getView());
+        $this->assertInstanceof('Laminas\View\Renderer\RendererInterface', $this->helper->getView());
     }
 
     public function testMakeHtmlObjectWithoutAttribsWithoutParams()

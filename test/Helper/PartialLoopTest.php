@@ -6,19 +6,19 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
 use ArrayObject;
 use Iterator;
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\View\Helper\PartialLoop;
-use Zend\View\Renderer\PhpRenderer as View;
+use Laminas\View\Helper\PartialLoop;
+use Laminas\View\Renderer\PhpRenderer as View;
 
 /**
- * Test class for Zend_View_Helper_PartialLoop.
+ * Test class for Laminas_View_Helper_PartialLoop.
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class PartialLoopTest extends TestCase
 {
@@ -160,7 +160,7 @@ class PartialLoopTest extends TestCase
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
         $this->helper->setView($view);
 
-        $this->setExpectedException('Zend\View\Exception\InvalidArgumentException');
+        $this->setExpectedException('Laminas\View\Exception\InvalidArgumentException');
         $result = $this->helper->__invoke('partialLoop.phtml', null);
     }
 
