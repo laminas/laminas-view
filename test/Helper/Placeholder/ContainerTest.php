@@ -6,18 +6,18 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper\Placeholder;
+namespace LaminasTest\View\Helper\Placeholder;
 
 /**
- * Test class for Zend\View\Helper\Placeholder\Container.
+ * Test class for Laminas\View\Helper\Placeholder\Container.
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class ContainerTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var \Zend\View\Helper\Placeholder\Container
+     * @var \Laminas\View\Helper\Placeholder\Container
      */
     public $container;
 
@@ -29,7 +29,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->container = new \Zend\View\Helper\Placeholder\Container(array());
+        $this->container = new \Laminas\View\Helper\Placeholder\Container(array());
     }
 
     /**

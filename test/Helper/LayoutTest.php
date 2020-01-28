@@ -6,17 +6,17 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\View\Helper\Layout;
-use Zend\View\Model\ViewModel;
-use Zend\View\Renderer\PhpRenderer;
+use Laminas\View\Helper\Layout;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Renderer\PhpRenderer;
 
 /**
- * Test class for Zend\View\Helper\Layout
+ * Test class for Laminas\View\Helper\Layout
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class LayoutTest extends \PHPUnit_Framework_TestCase
 {
@@ -68,7 +68,7 @@ class LayoutTest extends \PHPUnit_Framework_TestCase
         $viewModelHelper = $renderer->plugin('view_model');
         $helper          = $renderer->plugin('layout');
 
-        $this->setExpectedException('Zend\View\Exception\RuntimeException', 'view model');
+        $this->setExpectedException('Laminas\View\Exception\RuntimeException', 'view model');
         $helper->setTemplate('foo/bar');
     }
 }
