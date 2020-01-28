@@ -6,7 +6,7 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Model;
+namespace Laminas\View\Model;
 
 class ConsoleModel extends ViewModel
 {
@@ -50,7 +50,7 @@ class ConsoleModel extends ViewModel
      * Set result text.
      *
      * @param string  $text
-     * @return \Zend\View\Model\ConsoleModel
+     * @return \Laminas\View\Model\ConsoleModel
      */
     public function setResult($text)
     {

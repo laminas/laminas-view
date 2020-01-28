@@ -6,11 +6,11 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\TestAsset\Renderer;
+namespace LaminasTest\View\TestAsset\Renderer;
 
-use Zend\View\Model\ModelInterface as Model;
-use Zend\View\Renderer\RendererInterface as Renderer;
-use Zend\View\Resolver\ResolverInterface as Resolver;
+use Laminas\View\Model\ModelInterface as Model;
+use Laminas\View\Renderer\RendererInterface as Renderer;
+use Laminas\View\Resolver\ResolverInterface as Resolver;
 
 class VarExportRenderer implements Renderer
 {
