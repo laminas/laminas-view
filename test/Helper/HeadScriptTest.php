@@ -6,16 +6,16 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\View\Helper;
-use Zend\View;
+use Laminas\View\Helper;
+use Laminas\View;
 
 /**
- * Test class for Zend\View\Helper\HeadScript.
+ * Test class for Laminas\View\Helper\HeadScript.
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class HeadScriptTest extends \PHPUnit_Framework_TestCase
 {
