@@ -6,18 +6,18 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Model;
+namespace LaminasTest\View\Model;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\View\Model\JsonModel;
-use Zend\Json\Json;
+use Laminas\View\Model\JsonModel;
+use Laminas\Json\Json;
 
 class JsonModelTest extends TestCase
 {
     public function testAllowsEmptyConstructor()
     {
         $model = new JsonModel();
-        $this->assertInstanceOf('Zend\View\Variables', $model->getVariables());
+        $this->assertInstanceOf('Laminas\View\Variables', $model->getVariables());
         $this->assertEquals(array(), $model->getOptions());
     }
 
