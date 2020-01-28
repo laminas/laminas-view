@@ -6,18 +6,18 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\Console\Console;
-use Zend\ServiceManager\ServiceManager;
-use Zend\Mvc\Service\ServiceManagerConfig;
-use Zend\Mvc\Service\ServiceListenerFactory;
+use Laminas\Console\Console;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\Mvc\Service\ServiceManagerConfig;
+use Laminas\Mvc\Service\ServiceListenerFactory;
 
 /**
  * url() helper test -- tests integration with MVC
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
 {
@@ -69,7 +69,7 @@ class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
         Console::overrideIsConsole(false);
         $this->serviceManager->get('Application')->bootstrap();
         $request = $this->serviceManager->get('Request');
-        $this->assertInstanceOf('Zend\Http\Request', $request);
+        $this->assertInstanceOf('Laminas\Http\Request', $request);
         $viewHelpers = $this->serviceManager->get('ViewHelperManager');
         $urlHelper   = $viewHelpers->get('url');
         $test        = $urlHelper('test');
@@ -81,7 +81,7 @@ class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
         Console::overrideIsConsole(false);
         $this->serviceManager->get('Application')->bootstrap();
         $request = $this->serviceManager->get('Request');
-        $this->assertInstanceOf('Zend\Http\Request', $request);
+        $this->assertInstanceOf('Laminas\Http\Request', $request);
         $router = $this->serviceManager->get('Router');
         $router->setRequestUri($request->getUri());
         $request->setUri('http://example.com/test');
@@ -96,7 +96,7 @@ class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
         Console::overrideIsConsole(true);
         $this->serviceManager->get('Application')->bootstrap();
         $request = $this->serviceManager->get('Request');
-        $this->assertInstanceOf('Zend\Console\Request', $request);
+        $this->assertInstanceOf('Laminas\Console\Request', $request);
         $viewHelpers = $this->serviceManager->get('ViewHelperManager');
         $urlHelper   = $viewHelpers->get('url');
         $test        = $urlHelper('test');

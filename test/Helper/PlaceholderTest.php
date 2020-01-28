@@ -6,16 +6,16 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\View\Renderer\PhpRenderer as View;
-use Zend\View\Helper;
+use Laminas\View\Renderer\PhpRenderer as View;
+use Laminas\View\Helper;
 
 /**
- * Test class for Zend\View\Helper\Placeholder.
+ * Test class for Laminas\View\Helper\Placeholder.
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class PlaceholderTest extends \PHPUnit_Framework_TestCase
 {
@@ -62,7 +62,7 @@ class PlaceholderTest extends \PHPUnit_Framework_TestCase
     public function testPlaceholderRetrievesContainer()
     {
         $container = $this->placeholder->__invoke('foo');
-        $this->assertInstanceOf('Zend\View\Helper\Placeholder\Container\AbstractContainer', $container);
+        $this->assertInstanceOf('Laminas\View\Helper\Placeholder\Container\AbstractContainer', $container);
     }
 
     /**
