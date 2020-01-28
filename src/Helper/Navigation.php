@@ -6,14 +6,14 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
-use Zend\Navigation\AbstractContainer;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
-use Zend\View\Exception;
-use Zend\View\Helper\Navigation\AbstractHelper as AbstractNavigationHelper;
-use Zend\View\Helper\Navigation\HelperInterface as NavigationHelper;
-use Zend\View\Renderer\RendererInterface as Renderer;
+use Laminas\Navigation\AbstractContainer;
+use Laminas\ServiceManager\ServiceLocatorAwareInterface;
+use Laminas\View\Exception;
+use Laminas\View\Helper\Navigation\AbstractHelper as AbstractNavigationHelper;
+use Laminas\View\Helper\Navigation\HelperInterface as NavigationHelper;
+use Laminas\View\Renderer\RendererInterface as Renderer;
 
 /**
  * Proxy helper for retrieving navigational helpers and forwarding calls
@@ -25,7 +25,7 @@ class Navigation extends AbstractNavigationHelper
      *
      * @var string
      */
-    const NS = 'Zend\View\Helper\Navigation';
+    const NS = 'Laminas\View\Helper\Navigation';
 
     /**
      * Default proxy to use in {@link render()}
@@ -99,11 +99,11 @@ class Navigation extends AbstractNavigationHelper
      *
      * @param  string $method             helper name or method name in container
      * @param  array  $arguments          [optional] arguments to pass
-     * @throws \Zend\View\Exception\ExceptionInterface        if proxying to a helper, and the
+     * @throws \Laminas\View\Exception\ExceptionInterface        if proxying to a helper, and the
      *                                    helper is not an instance of the
      *                                    interface specified in
      *                                    {@link findHelper()}
-     * @throws \Zend\Navigation\Exception\ExceptionInterface  if method does not exist in container
+     * @throws \Laminas\Navigation\Exception\ExceptionInterface  if method does not exist in container
      * @return mixed                      returns what the proxied call returns
      */
     public function __call($method, array $arguments = array())
@@ -137,14 +137,14 @@ class Navigation extends AbstractNavigationHelper
      * Returns the helper matching $proxy
      *
      * The helper must implement the interface
-     * {@link Zend\View\Helper\Navigation\Helper}.
+     * {@link Laminas\View\Helper\Navigation\Helper}.
      *
      * @param string $proxy  helper name
      * @param bool   $strict [optional] whether exceptions should be
      *                                  thrown if something goes
      *                                  wrong. Default is true.
      * @throws Exception\RuntimeException if $strict is true and helper cannot be found
-     * @return \Zend\View\Helper\Navigation\HelperInterface  helper instance
+     * @return \Laminas\View\Helper\Navigation\HelperInterface  helper instance
      */
     public function findHelper($proxy, $strict = true)
     {

@@ -6,14 +6,14 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Strategy;
+namespace LaminasTest\View\Strategy;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\EventManager\EventManager;
-use Zend\Http\Response as HttpResponse;
-use Zend\View\Renderer\PhpRenderer;
-use Zend\View\Strategy\PhpRendererStrategy;
-use Zend\View\ViewEvent;
+use Laminas\EventManager\EventManager;
+use Laminas\Http\Response as HttpResponse;
+use Laminas\View\Renderer\PhpRenderer;
+use Laminas\View\Strategy\PhpRendererStrategy;
+use Laminas\View\ViewEvent;
 
 class PhpRendererStrategyTest extends TestCase
 {

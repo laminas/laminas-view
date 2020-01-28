@@ -6,9 +6,9 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\TestAsset;
+namespace LaminasTest\View\TestAsset;
 
-use Zend\View\Helper\AbstractHelper as Helper;
+use Laminas\View\Helper\AbstractHelper as Helper;
 
 class Invokable extends Helper
 {
