@@ -6,14 +6,14 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Resolver;
+namespace LaminasTest\View\Resolver;
 
-use Zend\View\Resolver\PrefixPathStackResolver;
+use Laminas\View\Resolver\PrefixPathStackResolver;
 
 /**
- * Tests for {@see \Zend\View\Resolver\PrefixPathStackResolver}
+ * Tests for {@see \Laminas\View\Resolver\PrefixPathStackResolver}
  *
- * @covers \Zend\View\Resolver\PrefixPathStackResolver
+ * @covers \Laminas\View\Resolver\PrefixPathStackResolver
  */
 class PrefixPathStackResolverTest extends \PHPUnit_Framework_TestCase
 {
@@ -66,7 +66,7 @@ class PrefixPathStackResolverTest extends \PHPUnit_Framework_TestCase
 
     public function testSetCustomPathStackResolver()
     {
-        $mockResolver = $this->getMock('Zend\View\Resolver\ResolverInterface');
+        $mockResolver = $this->getMock('Laminas\View\Resolver\ResolverInterface');
 
         $resolver = new PrefixPathStackResolver([
             'foo' => $mockResolver,

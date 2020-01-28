@@ -6,20 +6,20 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\View\Renderer\PhpRenderer;
+use Laminas\View\Renderer\PhpRenderer;
 
 /**
- * Tests for {@see \Zend\View\Helper\AbstractHtmlElement}
+ * Tests for {@see \Laminas\View\Helper\AbstractHtmlElement}
  *
- * @covers \Zend\View\Helper\AbstractHtmlElement
+ * @covers \Laminas\View\Helper\AbstractHtmlElement
  */
 class AbstractHtmlElementTest extends TestCase
 {
     /**
-     * @var \Zend\View\Helper\AbstractHtmlElement|\PHPUnit_Framework_MockObject_MockObject
+     * @var \Laminas\View\Helper\AbstractHtmlElement|\PHPUnit_Framework_MockObject_MockObject
      */
     protected $helper;
 
@@ -28,7 +28,7 @@ class AbstractHtmlElementTest extends TestCase
      */
     public function setUp()
     {
-        $this->helper = $this->getMockForAbstractClass('Zend\View\Helper\AbstractHtmlElement');
+        $this->helper = $this->getMockForAbstractClass('Laminas\View\Helper\AbstractHtmlElement');
 
         $this->helper->setView(new PhpRenderer());
     }

@@ -6,15 +6,15 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper\Placeholder\Container;
+namespace Laminas\View\Helper\Placeholder\Container;
 
 use ArrayAccess;
 use Countable;
 use IteratorAggregate;
-use Zend\Escaper\Escaper;
-use Zend\View\Exception;
-use Zend\View\Helper\AbstractHelper;
-use Zend\View\Renderer\RendererInterface;
+use Laminas\Escaper\Escaper;
+use Laminas\View\Exception;
+use Laminas\View\Helper\AbstractHelper;
+use Laminas\View\Renderer\RendererInterface;
 
 /**
  * Base class for targeted placeholder helpers
@@ -41,7 +41,7 @@ abstract class AbstractStandalone extends AbstractHelper implements
      * Default container class
      * @var string
      */
-    protected $containerClass = 'Zend\View\Helper\Placeholder\Container';
+    protected $containerClass = 'Laminas\View\Helper\Placeholder\Container';
 
     /**
      * @var Escaper[]
@@ -243,7 +243,7 @@ abstract class AbstractStandalone extends AbstractHelper implements
      * @param  string $name
      * @throws Exception\InvalidArgumentException
      * @throws Exception\DomainException
-     * @return \Zend\View\Helper\Placeholder\Container\AbstractStandalone
+     * @return \Laminas\View\Helper\Placeholder\Container\AbstractStandalone
      */
     public function setContainerClass($name)
     {
@@ -257,7 +257,7 @@ abstract class AbstractStandalone extends AbstractHelper implements
             );
         }
 
-        if (!in_array('Zend\View\Helper\Placeholder\Container\AbstractContainer', class_parents($name))) {
+        if (!in_array('Laminas\View\Helper\Placeholder\Container\AbstractContainer', class_parents($name))) {
             throw new Exception\InvalidArgumentException('Invalid Container class specified');
         }
 
