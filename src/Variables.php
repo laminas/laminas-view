@@ -6,12 +6,12 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View;
+namespace Laminas\View;
 
 use ArrayObject;
 
 /**
- * Class for Zend\View\Renderer\PhpRenderer to help enforce private constructs.
+ * Class for Laminas\View\Renderer\PhpRenderer to help enforce private constructs.
  *
  * @todo       Allow specifying string names for manager, filter chain, variables
  * @todo       Move escaping into variables object

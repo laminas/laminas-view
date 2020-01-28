@@ -6,7 +6,7 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper\TestAsset;
+namespace LaminasTest\View\Helper\TestAsset;
 
 class ToArray
 {
