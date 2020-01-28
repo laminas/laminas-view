@@ -6,13 +6,13 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper\Navigation;
+namespace Laminas\View\Helper\Navigation;
 
 use RecursiveIteratorIterator;
-use Zend\Navigation\AbstractContainer;
-use Zend\Navigation\Page\AbstractPage;
-use Zend\View;
-use Zend\View\Exception;
+use Laminas\Navigation\AbstractContainer;
+use Laminas\Navigation\Page\AbstractPage;
+use Laminas\View;
+use Laminas\View\Exception;
 
 /**
  * Helper for rendering menus from navigation containers
@@ -142,7 +142,7 @@ class Menu extends AbstractHelper
             $active['page'] = $active['page']->getParent();
         }
 
-        /* @var $escaper \Zend\View\Helper\EscapeHtmlAttr */
+        /* @var $escaper \Laminas\View\Helper\EscapeHtmlAttr */
         $escaper = $this->view->plugin('escapeHtmlAttr');
         $ulClass = $ulClass ? ' class="' . $escaper($ulClass) . '"' : '';
         $html = $indent . '<ul' . $ulClass . '>' . self::EOL;
@@ -250,7 +250,7 @@ class Menu extends AbstractHelper
 
         // find deepest active
         $found = $this->findActive($container, $minDepth, $maxDepth);
-        /* @var $escaper \Zend\View\Helper\EscapeHtmlAttr */
+        /* @var $escaper \Laminas\View\Helper\EscapeHtmlAttr */
         $escaper = $this->view->plugin('escapeHtmlAttr');
 
         if ($found) {
