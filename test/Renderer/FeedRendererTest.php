@@ -6,13 +6,13 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Renderer;
+namespace LaminasTest\View\Renderer;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\View\Model\ModelInterface as Model;
-use Zend\View\Model\FeedModel;
-use Zend\View\Model\ViewModel;
-use Zend\View\Renderer\FeedRenderer;
+use Laminas\View\Model\ModelInterface as Model;
+use Laminas\View\Model\FeedModel;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Renderer\FeedRenderer;
 
 class FeedRendererTest extends TestCase
 {
@@ -108,13 +108,13 @@ class FeedRendererTest extends TestCase
 
     public function testNonStringNonModelArgumentRaisesException()
     {
-        $this->setExpectedException('Zend\View\Exception\InvalidArgumentException', 'expects');
+        $this->setExpectedException('Laminas\View\Exception\InvalidArgumentException', 'expects');
         $this->renderer->render(array('foo'));
     }
 
     public function testSettingUnacceptableFeedTypeRaisesException()
     {
-        $this->setExpectedException('Zend\View\Exception\InvalidArgumentException', 'expects a string of either "rss" or "atom"');
+        $this->setExpectedException('Laminas\View\Exception\InvalidArgumentException', 'expects a string of either "rss" or "atom"');
         $this->renderer->setFeedType('foobar');
     }
 }

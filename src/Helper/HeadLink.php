@@ -6,14 +6,14 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
 use stdClass;
-use Zend\View;
-use Zend\View\Exception;
+use Laminas\View;
+use Laminas\View\Exception;
 
 /**
- * Zend_Layout_View_Helper_HeadLink
+ * Laminas_Layout_View_Helper_HeadLink
  *
  * @see http://www.w3.org/TR/xhtml1/dtds.html
  *
@@ -41,7 +41,7 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
      *
      * @var string
      */
-    protected $regKey = 'Zend_View_Helper_HeadLink';
+    protected $regKey = 'Laminas_View_Helper_HeadLink';
 
     /**
      * Constructor
