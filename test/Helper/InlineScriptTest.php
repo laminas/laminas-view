@@ -6,15 +6,15 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\View\Helper;
+use Laminas\View\Helper;
 
 /**
- * Test class for Zend\View\Helper\InlineScript.
+ * Test class for Laminas\View\Helper\InlineScript.
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class InlineScriptTest extends \PHPUnit_Framework_TestCase
 {
@@ -54,6 +54,6 @@ class InlineScriptTest extends \PHPUnit_Framework_TestCase
     public function testInlineScriptReturnsObjectInstance()
     {
         $placeholder = $this->helper->__invoke();
-        $this->assertInstanceOf('Zend\View\Helper\InlineScript', $placeholder);
+        $this->assertInstanceOf('Laminas\View\Helper\InlineScript', $placeholder);
     }
 }
