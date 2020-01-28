@@ -6,16 +6,16 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\I18n\Translator\Translator;
-use Zend\View\Helper;
+use Laminas\I18n\Translator\Translator;
+use Laminas\View\Helper;
 
 /**
- * Test class for Zend\View\Helper\HeadTitle.
+ * Test class for Laminas\View\Helper\HeadTitle.
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class HeadTitleTest extends \PHPUnit_Framework_TestCase
 {
@@ -55,7 +55,7 @@ class HeadTitleTest extends \PHPUnit_Framework_TestCase
     public function testHeadTitleReturnsObjectInstance()
     {
         $placeholder = $this->helper->__invoke();
-        $this->assertInstanceOf('Zend\View\Helper\HeadTitle', $placeholder);
+        $this->assertInstanceOf('Laminas\View\Helper\HeadTitle', $placeholder);
     }
 
     public function testCanSetTitleViaHeadTitle()
@@ -182,7 +182,7 @@ class HeadTitleTest extends \PHPUnit_Framework_TestCase
 
     public function testTranslatorMethods()
     {
-        $translatorMock = $this->getMock('Zend\I18n\Translator\Translator');
+        $translatorMock = $this->getMock('Laminas\I18n\Translator\Translator');
         $this->helper->setTranslator($translatorMock, 'foo');
 
         $this->assertEquals($translatorMock, $this->helper->getTranslator());
@@ -217,7 +217,7 @@ class HeadTitleTest extends \PHPUnit_Framework_TestCase
      */
     public function testReturnTypeDefaultAttachOrder()
     {
-        $this->assertInstanceOf('Zend\View\Helper\HeadTitle', $this->helper->setDefaultAttachOrder('PREPEND'));
+        $this->assertInstanceOf('Laminas\View\Helper\HeadTitle', $this->helper->setDefaultAttachOrder('PREPEND'));
         $this->assertEquals('PREPEND', $this->helper->getDefaultAttachOrder());
     }
 }
