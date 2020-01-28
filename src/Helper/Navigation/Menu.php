@@ -6,13 +6,13 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper\Navigation;
+namespace Laminas\View\Helper\Navigation;
 
 use RecursiveIteratorIterator;
-use Zend\Navigation\AbstractContainer;
-use Zend\Navigation\Page\AbstractPage;
-use Zend\View;
-use Zend\View\Exception;
+use Laminas\Navigation\AbstractContainer;
+use Laminas\Navigation\Page\AbstractPage;
+use Laminas\View;
+use Laminas\View\Exception;
 
 /**
  * Helper for rendering menus from navigation containers
@@ -151,7 +151,7 @@ class Menu extends AbstractHelper
             $active['page'] = $active['page']->getParent();
         }
 
-        /* @var $escaper \Zend\View\Helper\EscapeHtmlAttr */
+        /* @var $escaper \Laminas\View\Helper\EscapeHtmlAttr */
         $escaper = $this->view->plugin('escapeHtmlAttr');
         $ulClass = $ulClass ? ' class="' . $escaper($ulClass) . '"' : '';
         $html = $indent . '<ul' . $ulClass . '>' . PHP_EOL;
@@ -263,7 +263,7 @@ class Menu extends AbstractHelper
 
         // find deepest active
         $found = $this->findActive($container, $minDepth, $maxDepth);
-        /* @var $escaper \Zend\View\Helper\EscapeHtmlAttr */
+        /* @var $escaper \Laminas\View\Helper\EscapeHtmlAttr */
         $escaper = $this->view->plugin('escapeHtmlAttr');
 
         if ($found) {
@@ -411,7 +411,7 @@ class Menu extends AbstractHelper
             'container' => $container
         );
 
-        /** @var \Zend\View\Helper\Partial $partialHelper */
+        /** @var \Laminas\View\Helper\Partial $partialHelper */
         $partialHelper = $this->view->plugin('partial');
 
         if (is_array($partial)) {
@@ -519,7 +519,7 @@ class Menu extends AbstractHelper
         $html  = '<' . $element . $this->htmlAttribs($attribs) . '>';
         $label = $this->translate($page->getLabel(), $page->getTextDomain());
         if ($escapeLabel === true) {
-            /** @var \Zend\View\Helper\EscapeHtml $escaper */
+            /** @var \Laminas\View\Helper\EscapeHtml $escaper */
             $escaper = $this->view->plugin('escapeHtml');
             $html .= $escaper($label);
         } else {

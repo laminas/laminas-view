@@ -6,18 +6,18 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Http\Response;
-use Zend\Json\Json as JsonFormatter;
-use Zend\View\Helper\Json as JsonHelper;
+use Laminas\Http\Response;
+use Laminas\Json\Json as JsonFormatter;
+use Laminas\View\Helper\Json as JsonHelper;
 
 /**
- * Test class for Zend\View\Helper\Json
+ * Test class for Laminas\View\Helper\Json
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class JsonTest extends TestCase
 {
