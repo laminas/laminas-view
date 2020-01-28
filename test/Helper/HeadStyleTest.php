@@ -6,25 +6,25 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\View\Helper\Placeholder\Registry;
-use Zend\View\Helper;
-use Zend\View;
+use Laminas\View\Helper\Placeholder\Registry;
+use Laminas\View\Helper;
+use Laminas\View;
 
 /**
- * Test class for Zend_View_Helper_HeadStyle.
+ * Test class for Laminas_View_Helper_HeadStyle.
  *
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class HeadStyleTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Zend_View_Helper_HeadStyle
+     * @var Laminas_View_Helper_HeadStyle
      */
     public $helper;
 
