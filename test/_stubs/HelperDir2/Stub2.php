@@ -6,7 +6,7 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
 class Stub2
 {
@@ -17,7 +17,7 @@ class Stub2
         return 'bar';
     }
 
-    public function setView(\Zend\View\View $view)
+    public function setView(\Laminas\View\View $view)
     {
         $this->view = $view;
         return $this;

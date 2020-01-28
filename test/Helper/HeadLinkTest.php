@@ -6,23 +6,23 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\View\Helper\Placeholder\Registry as PlaceholderRegistry;
-use Zend\View\Helper;
-use Zend\View\Renderer\PhpRenderer as View;
-use Zend\View\Exception\ExceptionInterface as ViewException;
+use Laminas\View\Helper\Placeholder\Registry as PlaceholderRegistry;
+use Laminas\View\Helper;
+use Laminas\View\Renderer\PhpRenderer as View;
+use Laminas\View\Exception\ExceptionInterface as ViewException;
 
 /**
- * Test class for Zend_View_Helper_HeadLink.
+ * Test class for Laminas_View_Helper_HeadLink.
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class HeadLinkTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Zend_View_Helper_HeadLink
+     * @var Laminas_View_Helper_HeadLink
      */
     public $helper;
 
@@ -65,25 +65,25 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
 
     public function testPrependThrowsExceptionWithoutArrayArgument()
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->setExpectedException('Laminas\View\Exception\ExceptionInterface');
         $this->helper->prepend('foo');
     }
 
     public function testAppendThrowsExceptionWithoutArrayArgument()
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->setExpectedException('Laminas\View\Exception\ExceptionInterface');
         $this->helper->append('foo');
     }
 
     public function testSetThrowsExceptionWithoutArrayArgument()
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->setExpectedException('Laminas\View\Exception\ExceptionInterface');
         $this->helper->set('foo');
     }
 
     public function testOffsetSetThrowsExceptionWithoutArrayArgument()
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->setExpectedException('Laminas\View\Exception\ExceptionInterface');
         $this->helper->offsetSet(1, 'foo');
     }
 
@@ -202,7 +202,7 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
 
     public function testOverloadingThrowsExceptionWithNoArguments()
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->setExpectedException('Laminas\View\Exception\ExceptionInterface');
         $this->helper->appendStylesheet();
     }
 
@@ -215,7 +215,7 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
 
     public function testOverloadingUsingSingleArrayArgumentWithInvalidValuesThrowsException()
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->setExpectedException('Laminas\View\Exception\ExceptionInterface');
         $this->helper->setStylesheet(array('bogus' => 'unused'));
     }
 
@@ -230,7 +230,7 @@ class HeadLinkTest extends \PHPUnit_Framework_TestCase
 
     public function testOverloadingThrowsExceptionWithInvalidMethod()
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->setExpectedException('Laminas\View\Exception\ExceptionInterface');
         $this->helper->bogusMethod();
     }
 

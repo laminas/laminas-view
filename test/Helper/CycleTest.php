@@ -6,20 +6,20 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\View\Helper;
+use Laminas\View\Helper;
 
 /**
- * Test class for Zend_View_Helper_Cycle.
+ * Test class for Laminas_View_Helper_Cycle.
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class CycleTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Zend_View_Helper_Cycle
+     * @var Laminas_View_Helper_Cycle
      */
     public $helper;
 

@@ -6,22 +6,22 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Mvc\Controller\PluginManager;
-use Zend\Mvc\Controller\Plugin\FlashMessenger as PluginFlashMessenger;
-use Zend\ServiceManager\Config;
-use Zend\ServiceManager\ServiceManager;
-use Zend\View\HelperPluginManager;
-use Zend\View\Helper\FlashMessenger;
-use ZendTest\Session\TestAsset\TestManager as SessionManager;
+use Laminas\Mvc\Controller\PluginManager;
+use Laminas\Mvc\Controller\Plugin\FlashMessenger as PluginFlashMessenger;
+use Laminas\ServiceManager\Config;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\HelperPluginManager;
+use Laminas\View\Helper\FlashMessenger;
+use LaminasTest\Session\TestAsset\TestManager as SessionManager;
 
 /**
- * Test class for Zend_View_Helper_Cycle.
+ * Test class for Laminas_View_Helper_Cycle.
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class FlashMessengerTest extends TestCase
 {
@@ -48,11 +48,11 @@ class FlashMessengerTest extends TestCase
     public function testCanAssertPluginClass()
     {
         $this->assertEquals(
-            'Zend\Mvc\Controller\Plugin\FlashMessenger',
+            'Laminas\Mvc\Controller\Plugin\FlashMessenger',
             get_class($this->plugin)
         );
         $this->assertEquals(
-            'Zend\Mvc\Controller\Plugin\FlashMessenger',
+            'Laminas\Mvc\Controller\Plugin\FlashMessenger',
             get_class($this->helper->getPluginFlashMessenger())
         );
         $this->assertSame(
@@ -174,12 +174,12 @@ class FlashMessengerTest extends TestCase
         $sm->setService('Config', $config);
         $helperPluginManager = new HelperPluginManager(new Config(array(
             'factories' => array(
-                'flashmessenger' => 'Zend\View\Helper\Service\FlashMessengerFactory',
+                'flashmessenger' => 'Laminas\View\Helper\Service\FlashMessengerFactory',
             ),
         )));
         $controllerPluginManager = new PluginManager(new Config(array(
             'invokables' => array(
-                'flashmessenger' => 'Zend\Mvc\Controller\Plugin\FlashMessenger',
+                'flashmessenger' => 'Laminas\Mvc\Controller\Plugin\FlashMessenger',
             ),
         )));
         $helperPluginManager->setServiceLocator($sm);
@@ -209,12 +209,12 @@ class FlashMessengerTest extends TestCase
         $sm->setService('Config', $config);
         $helperPluginManager = new HelperPluginManager(new Config(array(
             'factories' => array(
-                'flashmessenger' => 'Zend\View\Helper\Service\FlashMessengerFactory',
+                'flashmessenger' => 'Laminas\View\Helper\Service\FlashMessengerFactory',
             ),
         )));
         $controllerPluginManager = new PluginManager(new Config(array(
             'invokables' => array(
-                'flashmessenger' => 'Zend\Mvc\Controller\Plugin\FlashMessenger',
+                'flashmessenger' => 'Laminas\Mvc\Controller\Plugin\FlashMessenger',
             ),
         )));
         $helperPluginManager->setServiceLocator($sm);
@@ -229,7 +229,7 @@ class FlashMessengerTest extends TestCase
 
     public function testCanTranslateMessages()
     {
-        $mockTranslator = $this->getMock('Zend\I18n\Translator\Translator');
+        $mockTranslator = $this->getMock('Laminas\I18n\Translator\Translator');
         $mockTranslator->expects($this->exactly(1))
         ->method('translate')
         ->will($this->returnValue('translated message'));

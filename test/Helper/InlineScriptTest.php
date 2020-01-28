@@ -6,22 +6,22 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\View\Helper\Placeholder\Registry;
-use Zend\View\Helper;
+use Laminas\View\Helper\Placeholder\Registry;
+use Laminas\View\Helper;
 
 
 /**
- * Test class for Zend_View_Helper_InlineScript.
+ * Test class for Laminas_View_Helper_InlineScript.
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class InlineScriptTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Zend_View_Helper_InlineScript
+     * @var Laminas_View_Helper_InlineScript
      */
     public $helper;
 

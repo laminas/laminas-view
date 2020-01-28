@@ -6,22 +6,22 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\I18n\Translator\Translator;
-use Zend\View\Helper\Placeholder\Registry;
-use Zend\View\Helper;
+use Laminas\I18n\Translator\Translator;
+use Laminas\View\Helper\Placeholder\Registry;
+use Laminas\View\Helper;
 
 /**
- * Test class for Zend_View_Helper_HeadTitle.
+ * Test class for Laminas_View_Helper_HeadTitle.
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class HeadTitleTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Zend_View_Helper_HeadTitle
+     * @var Laminas_View_Helper_HeadTitle
      */
     public $helper;
 
@@ -183,7 +183,7 @@ class HeadTitleTest extends \PHPUnit_Framework_TestCase
 
     public function testTranslatorMethods()
     {
-        $translatorMock = $this->getMock('Zend\I18n\Translator\Translator');
+        $translatorMock = $this->getMock('Laminas\I18n\Translator\Translator');
         $this->helper->setTranslator($translatorMock, 'foo');
 
         $this->assertEquals($translatorMock, $this->helper->getTranslator());
