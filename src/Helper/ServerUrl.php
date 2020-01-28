@@ -6,7 +6,7 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
 /**
  * Helper for returning the current server URL (optionally with request URI)
@@ -82,7 +82,7 @@ class ServerUrl extends AbstractHelper
      * Sets host
      *
      * @param  string $host                new host
-     * @return \Zend\View\Helper\ServerUrl  fluent interface, returns self
+     * @return \Laminas\View\Helper\ServerUrl  fluent interface, returns self
      */
     public function setHost($host)
     {
@@ -117,7 +117,7 @@ class ServerUrl extends AbstractHelper
      * Sets scheme (typically http or https)
      *
      * @param  string $scheme              new scheme (typically http or https)
-     * @return \Zend\View\Helper\ServerUrl  fluent interface, returns self
+     * @return \Laminas\View\Helper\ServerUrl  fluent interface, returns self
      */
     public function setScheme($scheme)
     {

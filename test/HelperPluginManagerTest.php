@@ -6,17 +6,17 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View;
+namespace LaminasTest\View;
 
-use Zend\ServiceManager\ServiceManager;
-use Zend\View\HelperPluginManager;
-use Zend\View\Renderer\PhpRenderer;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\HelperPluginManager;
+use Laminas\View\Renderer\PhpRenderer;
 
 /**
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage UnitTests
- * @group      Zend_View
+ * @group      Laminas_View
  */
 class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
 {
@@ -53,14 +53,14 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
 
     public function testRegisteringInvalidHelperRaisesException()
     {
-        $this->setExpectedException('Zend\View\Exception\InvalidHelperException');
+        $this->setExpectedException('Laminas\View\Exception\InvalidHelperException');
         $this->helpers->setService('test', $this);
     }
 
     public function testLoadingInvalidHelperRaisesException()
     {
         $this->helpers->setInvokableClass('test', get_class($this));
-        $this->setExpectedException('Zend\View\Exception\InvalidHelperException');
+        $this->setExpectedException('Laminas\View\Exception\InvalidHelperException');
         $this->helpers->get('test');
     }
 
@@ -72,10 +72,10 @@ class HelperPluginManagerTest extends \PHPUnit_Framework_TestCase
     public function testIdentityFactoryCanInjectAuthenticationServiceIfInParentServiceManager()
     {
         $services = new ServiceManager();
-        $services->setInvokableClass('Zend\Authentication\AuthenticationService', 'Zend\Authentication\AuthenticationService');
+        $services->setInvokableClass('Laminas\Authentication\AuthenticationService', 'Laminas\Authentication\AuthenticationService');
         $this->helpers->setServiceLocator($services);
         $identity = $this->helpers->get('identity');
-        $expected = $services->get('Zend\Authentication\AuthenticationService');
+        $expected = $services->get('Laminas\Authentication\AuthenticationService');
         $this->assertSame($expected, $identity->getAuthenticationService());
     }
 }

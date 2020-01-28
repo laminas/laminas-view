@@ -6,21 +6,21 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\Console\Console;
-use Zend\ServiceManager\ServiceManager;
-use Zend\ServiceManager\Config as ServiceManagerConfig;
-use Zend\View\Helper\Url as UrlHelper;
+use Laminas\Console\Console;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\ServiceManager\Config as ServiceManagerConfig;
+use Laminas\View\Helper\Url as UrlHelper;
 
 /**
  * url() helper test -- tests integration with MVC
  *
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
 {
@@ -58,25 +58,25 @@ class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
         );
         $serviceConfig = array(
             'invokables' => array(
-                'SharedEventManager' => 'Zend\EventManager\SharedEventManager',
-                'DispatchListener'   => 'Zend\Mvc\DispatchListener',
-                'RouteListener'      => 'Zend\Mvc\RouteListener',
-                'SendResponseListener' => 'Zend\Mvc\SendResponseListener'
+                'SharedEventManager' => 'Laminas\EventManager\SharedEventManager',
+                'DispatchListener'   => 'Laminas\Mvc\DispatchListener',
+                'RouteListener'      => 'Laminas\Mvc\RouteListener',
+                'SendResponseListener' => 'Laminas\Mvc\SendResponseListener'
             ),
             'factories' => array(
-                'Application'             => 'Zend\Mvc\Service\ApplicationFactory',
-                'EventManager'            => 'Zend\Mvc\Service\EventManagerFactory',
-                'ViewHelperManager'       => 'Zend\Mvc\Service\ViewHelperManagerFactory',
-                'Request'                 => 'Zend\Mvc\Service\RequestFactory',
-                'Response'                => 'Zend\Mvc\Service\ResponseFactory',
-                'Router'                  => 'Zend\Mvc\Service\RouterFactory',
-                'ConsoleRouter'           => 'Zend\Mvc\Service\RouterFactory',
-                'HttpRouter'              => 'Zend\Mvc\Service\RouterFactory',
-                'RoutePluginManager'      => 'Zend\Mvc\Service\RoutePluginManagerFactory',
-                'ViewManager'             => 'Zend\Mvc\Service\ViewManagerFactory',
-                'ViewResolver'            => 'Zend\Mvc\Service\ViewResolverFactory',
-                'ViewTemplateMapResolver' => 'Zend\Mvc\Service\ViewTemplateMapResolverFactory',
-                'ViewTemplatePathStack'   => 'Zend\Mvc\Service\ViewTemplatePathStackFactory',
+                'Application'             => 'Laminas\Mvc\Service\ApplicationFactory',
+                'EventManager'            => 'Laminas\Mvc\Service\EventManagerFactory',
+                'ViewHelperManager'       => 'Laminas\Mvc\Service\ViewHelperManagerFactory',
+                'Request'                 => 'Laminas\Mvc\Service\RequestFactory',
+                'Response'                => 'Laminas\Mvc\Service\ResponseFactory',
+                'Router'                  => 'Laminas\Mvc\Service\RouterFactory',
+                'ConsoleRouter'           => 'Laminas\Mvc\Service\RouterFactory',
+                'HttpRouter'              => 'Laminas\Mvc\Service\RouterFactory',
+                'RoutePluginManager'      => 'Laminas\Mvc\Service\RoutePluginManagerFactory',
+                'ViewManager'             => 'Laminas\Mvc\Service\ViewManagerFactory',
+                'ViewResolver'            => 'Laminas\Mvc\Service\ViewResolverFactory',
+                'ViewTemplateMapResolver' => 'Laminas\Mvc\Service\ViewTemplateMapResolverFactory',
+                'ViewTemplatePathStack'   => 'Laminas\Mvc\Service\ViewTemplatePathStackFactory',
             ),
             'shared' => array(
                 'EventManager' => false,
@@ -94,7 +94,7 @@ class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
         Console::overrideIsConsole(false);
         $this->serviceManager->get('Application')->bootstrap();
         $request = $this->serviceManager->get('Request');
-        $this->assertInstanceOf('Zend\Http\Request', $request);
+        $this->assertInstanceOf('Laminas\Http\Request', $request);
         $viewHelpers = $this->serviceManager->get('ViewHelperManager');
         $urlHelper   = $viewHelpers->get('url');
         $test        = $urlHelper('test');
@@ -106,7 +106,7 @@ class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
         Console::overrideIsConsole(false);
         $this->serviceManager->get('Application')->bootstrap();
         $request = $this->serviceManager->get('Request');
-        $this->assertInstanceOf('Zend\Http\Request', $request);
+        $this->assertInstanceOf('Laminas\Http\Request', $request);
         $router = $this->serviceManager->get('Router');
         $router->setRequestUri($request->getUri());
         $request->setUri('http://example.com/test');
@@ -121,7 +121,7 @@ class UrlIntegrationTest extends \PHPUnit_Framework_TestCase
         Console::overrideIsConsole(true);
         $this->serviceManager->get('Application')->bootstrap();
         $request = $this->serviceManager->get('Request');
-        $this->assertInstanceOf('Zend\Console\Request', $request);
+        $this->assertInstanceOf('Laminas\Console\Request', $request);
         $viewHelpers = $this->serviceManager->get('ViewHelperManager');
         $urlHelper   = $viewHelpers->get('url');
         $test        = $urlHelper('test');

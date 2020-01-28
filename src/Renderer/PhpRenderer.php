@@ -6,22 +6,22 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Renderer;
+namespace Laminas\View\Renderer;
 
 use ArrayAccess;
 use Traversable;
-use Zend\Filter\FilterChain;
-use Zend\View\Exception;
-use Zend\View\HelperPluginManager;
-use Zend\View\Helper\AbstractHelper;
-use Zend\View\Model\ModelInterface as Model;
-use Zend\View\Renderer\RendererInterface as Renderer;
-use Zend\View\Resolver\ResolverInterface as Resolver;
-use Zend\View\Resolver\TemplatePathStack;
-use Zend\View\Variables;
+use Laminas\Filter\FilterChain;
+use Laminas\View\Exception;
+use Laminas\View\HelperPluginManager;
+use Laminas\View\Helper\AbstractHelper;
+use Laminas\View\Model\ModelInterface as Model;
+use Laminas\View\Renderer\RendererInterface as Renderer;
+use Laminas\View\Resolver\ResolverInterface as Resolver;
+use Laminas\View\Resolver\TemplatePathStack;
+use Laminas\View\Variables;
 
 /**
- * Abstract class for Zend_View to help enforce private constructs.
+ * Abstract class for Laminas_View to help enforce private constructs.
  *
  * Note: all private variables in this class are prefixed with "__". This is to
  * mark them as part of the internal implementation, and thus prevent conflict
@@ -121,8 +121,8 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     }
 
     /**
-     * Allow custom object initialization when extending Zend_View_Abstract or
-     * Zend_View
+     * Allow custom object initialization when extending Laminas_View_Abstract or
+     * Laminas_View
      *
      * Triggered by {@link __construct() the constructor} as its final action.
      *
@@ -300,7 +300,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
         }
         if (!$helpers instanceof HelperPluginManager) {
             throw new Exception\InvalidArgumentException(sprintf(
-                'Helper helpers must extend Zend\View\HelperPluginManager; got type "%s" instead',
+                'Helper helpers must extend Laminas\View\HelperPluginManager; got type "%s" instead',
                 (is_object($helpers) ? get_class($helpers) : gettype($helpers))
             ));
         }

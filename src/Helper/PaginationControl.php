@@ -6,11 +6,11 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
-use Zend\Paginator;
-use Zend\View;
-use Zend\View\Exception;
+use Laminas\Paginator;
+use Laminas\View;
+use Laminas\View\Exception;
 
 class PaginationControl extends AbstractHelper
 {
@@ -73,7 +73,7 @@ class PaginationControl extends AbstractHelper
      * if so, uses that.  Also, if no scrolling style or partial are specified,
      * the defaults will be used (if set).
      *
-     * @param  \Zend\Paginator\Paginator (Optional) $paginator
+     * @param  \Laminas\Paginator\Paginator (Optional) $paginator
      * @param  string $scrollingStyle (Optional) Scrolling style
      * @param  string $partial (Optional) View partial
      * @param  array|string $params (Optional) params to pass to the partial
