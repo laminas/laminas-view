@@ -6,11 +6,11 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
-use Zend\I18n\Translator\Translator;
-use Zend\I18n\Translator\TranslatorAwareInterface;
-use Zend\View\Exception;
+use Laminas\I18n\Translator\Translator;
+use Laminas\I18n\Translator\TranslatorAwareInterface;
+use Laminas\View\Exception;
 
 /**
  * Helper for setting and retrieving title element for HTML head
@@ -22,7 +22,7 @@ class HeadTitle extends Placeholder\Container\AbstractStandalone implements
      * Registry key for placeholder
      * @var string
      */
-    protected $regKey = 'Zend_View_Helper_HeadTitle';
+    protected $regKey = 'Laminas_View_Helper_HeadTitle';
 
     /**
      * Default title rendering order (i.e. order in which each title attached)
@@ -57,7 +57,7 @@ class HeadTitle extends Placeholder\Container\AbstractStandalone implements
      *
      * @param  string $title
      * @param  string $setType
-     * @return \Zend\View\Helper\HeadTitle
+     * @return \Laminas\View\Helper\HeadTitle
      */
     public function __invoke($title = null, $setType = null)
     {

@@ -6,20 +6,20 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View;
+namespace LaminasTest\View;
 
-use Zend\View\Renderer\PhpRenderer;
-use Zend\View\Model\ViewModel;
-use Zend\View\Resolver\TemplateMapResolver;
-use Zend\View\Resolver\TemplatePathStack;
-use Zend\View\Variables;
-use Zend\Filter\FilterChain;
+use Laminas\View\Renderer\PhpRenderer;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Resolver\TemplateMapResolver;
+use Laminas\View\Resolver\TemplatePathStack;
+use Laminas\View\Variables;
+use Laminas\Filter\FilterChain;
 
 /**
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage UnitTests
- * @group      Zend_View
+ * @group      Laminas_View
  */
 class PhpRendererTest extends \PHPUnit_Framework_TestCase
 {
@@ -35,7 +35,7 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
 
     public function testUsesTemplatePathStackAsDefaultResolver()
     {
-        $this->assertInstanceOf('Zend\View\Resolver\TemplatePathStack', $this->renderer->resolver());
+        $this->assertInstanceOf('Laminas\View\Resolver\TemplatePathStack', $this->renderer->resolver());
     }
 
     public function testCanSetResolverInstance()
@@ -54,7 +54,7 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
 
     public function testUsesVariablesObjectForVarsByDefault()
     {
-        $this->assertInstanceOf('Zend\View\Variables', $this->renderer->vars());
+        $this->assertInstanceOf('Laminas\View\Variables', $this->renderer->vars());
     }
 
     public function testCanSpecifyArrayAccessForVars()
@@ -79,25 +79,25 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
 
     public function testUsesHelperPluginManagerByDefault()
     {
-        $this->assertInstanceOf('Zend\View\HelperPluginManager', $this->renderer->getHelperPluginManager());
+        $this->assertInstanceOf('Laminas\View\HelperPluginManager', $this->renderer->getHelperPluginManager());
     }
 
     public function testPassingArgumentToPluginReturnsHelperByThatName()
     {
         $helper = $this->renderer->plugin('doctype');
-        $this->assertInstanceOf('Zend\View\Helper\Doctype', $helper);
+        $this->assertInstanceOf('Laminas\View\Helper\Doctype', $helper);
     }
 
     public function testPassingStringOfUndefinedClassToSetHelperPluginManagerRaisesException()
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface', 'Invalid');
+        $this->setExpectedException('Laminas\View\Exception\ExceptionInterface', 'Invalid');
         $this->renderer->setHelperPluginManager('__foo__');
     }
 
     public function testPassingValidStringClassToSetHelperPluginManagerCreatesIt()
     {
-        $this->renderer->setHelperPluginManager('Zend\View\HelperPluginManager');
-        $this->assertInstanceOf('Zend\View\HelperPluginManager', $this->renderer->getHelperPluginManager());
+        $this->renderer->setHelperPluginManager('Laminas\View\HelperPluginManager');
+        $this->assertInstanceOf('Laminas\View\HelperPluginManager', $this->renderer->getHelperPluginManager());
     }
 
     public function invalidPluginManagers()
@@ -116,7 +116,7 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
      */
     public function testPassingInvalidArgumentToSetHelperPluginManagerRaisesException($plugins)
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface', 'must extend');
+        $this->setExpectedException('Laminas\View\Exception\ExceptionInterface', 'must extend');
         $this->renderer->setHelperPluginManager($plugins);
     }
 
@@ -128,7 +128,7 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
 
     public function testUsesFilterChainByDefault()
     {
-        $this->assertInstanceOf('Zend\Filter\FilterChain', $this->renderer->getFilterChain());
+        $this->assertInstanceOf('Laminas\Filter\FilterChain', $this->renderer->getFilterChain());
     }
 
     public function testMaySetExplicitFilterChainInstance()
@@ -214,9 +214,9 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
     public function testMethodOverloadingShouldReturnHelperInstanceIfNotInvokable()
     {
         $helpers = $this->renderer->getHelperPluginManager();
-        $helpers->setInvokableClass('uninvokable', 'ZendTest\View\TestAsset\Uninvokable');
+        $helpers->setInvokableClass('uninvokable', 'LaminasTest\View\TestAsset\Uninvokable');
         $helper = $this->renderer->uninvokable();
-        $this->assertInstanceOf('ZendTest\View\TestAsset\Uninvokable', $helper);
+        $this->assertInstanceOf('LaminasTest\View\TestAsset\Uninvokable', $helper);
     }
 
     /**
@@ -225,9 +225,9 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
     public function testMethodOverloadingShouldInvokeHelperIfInvokable()
     {
         $helpers = $this->renderer->getHelperPluginManager();
-        $helpers->setInvokableClass('invokable', 'ZendTest\View\TestAsset\Invokable');
+        $helpers->setInvokableClass('invokable', 'LaminasTest\View\TestAsset\Invokable');
         $return = $this->renderer->invokable('it works!');
-        $this->assertEquals('ZendTest\View\TestAsset\Invokable::__invoke: it works!', $return);
+        $this->assertEquals('LaminasTest\View\TestAsset\Invokable::__invoke: it works!', $return);
     }
 
     /**
@@ -287,7 +287,7 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
     public function testViewModelWithoutTemplateRaisesException()
     {
         $model = new ViewModel();
-        $this->setExpectedException('Zend\View\Exception\DomainException');
+        $this->setExpectedException('Laminas\View\Exception\DomainException');
         $content = $this->renderer->render($model);
     }
 
@@ -350,7 +350,7 @@ class PhpRendererTest extends \PHPUnit_Framework_TestCase
     {
         $expected = '10 &gt; 9';
         $this->renderer->vars()->assign(array('foo' => '10 > 9'));
-        $this->setExpectedException('Zend\View\Exception\RuntimeException', 'could not resolve');
+        $this->setExpectedException('Laminas\View\Exception\RuntimeException', 'could not resolve');
         $test = $this->renderer->render('should-not-find-this');
     }
 
