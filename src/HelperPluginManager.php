@@ -6,11 +6,11 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View;
+namespace Laminas\View;
 
-use Zend\I18n\Translator\TranslatorAwareInterface;
-use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\ConfigInterface;
+use Laminas\I18n\Translator\TranslatorAwareInterface;
+use Laminas\ServiceManager\AbstractPluginManager;
+use Laminas\ServiceManager\ConfigInterface;
 
 /**
  * Plugin manager implementation for view helpers
@@ -27,8 +27,8 @@ class HelperPluginManager extends AbstractPluginManager
      * @var array
      */
     protected $factories = array(
-        'flashmessenger' => 'Zend\View\Helper\Service\FlashMessengerFactory',
-        'identity'       => 'Zend\View\Helper\Service\IdentityFactory',
+        'flashmessenger' => 'Laminas\View\Helper\Service\FlashMessengerFactory',
+        'identity'       => 'Laminas\View\Helper\Service\IdentityFactory',
     );
 
     /**
@@ -41,38 +41,38 @@ class HelperPluginManager extends AbstractPluginManager
         // basepath and url are not very useful without their factories, however the doctype
         // helper works fine as an invokable. The factory for doctype simply checks for the
         // config value from the merged config.
-        'basepath'            => 'Zend\View\Helper\BasePath',
-        'cycle'               => 'Zend\View\Helper\Cycle',
-        'declarevars'         => 'Zend\View\Helper\DeclareVars',
-        'doctype'             => 'Zend\View\Helper\Doctype', // overridden by a factory in ViewHelperManagerFactory
-        'escapehtml'          => 'Zend\View\Helper\EscapeHtml',
-        'escapehtmlattr'      => 'Zend\View\Helper\EscapeHtmlAttr',
-        'escapejs'            => 'Zend\View\Helper\EscapeJs',
-        'escapecss'           => 'Zend\View\Helper\EscapeCss',
-        'escapeurl'           => 'Zend\View\Helper\EscapeUrl',
-        'gravatar'            => 'Zend\View\Helper\Gravatar',
-        'headlink'            => 'Zend\View\Helper\HeadLink',
-        'headmeta'            => 'Zend\View\Helper\HeadMeta',
-        'headscript'          => 'Zend\View\Helper\HeadScript',
-        'headstyle'           => 'Zend\View\Helper\HeadStyle',
-        'headtitle'           => 'Zend\View\Helper\HeadTitle',
-        'htmlflash'           => 'Zend\View\Helper\HtmlFlash',
-        'htmllist'            => 'Zend\View\Helper\HtmlList',
-        'htmlobject'          => 'Zend\View\Helper\HtmlObject',
-        'htmlpage'            => 'Zend\View\Helper\HtmlPage',
-        'htmlquicktime'       => 'Zend\View\Helper\HtmlQuicktime',
-        'inlinescript'        => 'Zend\View\Helper\InlineScript',
-        'json'                => 'Zend\View\Helper\Json',
-        'layout'              => 'Zend\View\Helper\Layout',
-        'paginationcontrol'   => 'Zend\View\Helper\PaginationControl',
-        'partialloop'         => 'Zend\View\Helper\PartialLoop',
-        'partial'             => 'Zend\View\Helper\Partial',
-        'placeholder'         => 'Zend\View\Helper\Placeholder',
-        'renderchildmodel'    => 'Zend\View\Helper\RenderChildModel',
-        'rendertoplaceholder' => 'Zend\View\Helper\RenderToPlaceholder',
-        'serverurl'           => 'Zend\View\Helper\ServerUrl',
-        'url'                 => 'Zend\View\Helper\Url',
-        'viewmodel'           => 'Zend\View\Helper\ViewModel',
+        'basepath'            => 'Laminas\View\Helper\BasePath',
+        'cycle'               => 'Laminas\View\Helper\Cycle',
+        'declarevars'         => 'Laminas\View\Helper\DeclareVars',
+        'doctype'             => 'Laminas\View\Helper\Doctype', // overridden by a factory in ViewHelperManagerFactory
+        'escapehtml'          => 'Laminas\View\Helper\EscapeHtml',
+        'escapehtmlattr'      => 'Laminas\View\Helper\EscapeHtmlAttr',
+        'escapejs'            => 'Laminas\View\Helper\EscapeJs',
+        'escapecss'           => 'Laminas\View\Helper\EscapeCss',
+        'escapeurl'           => 'Laminas\View\Helper\EscapeUrl',
+        'gravatar'            => 'Laminas\View\Helper\Gravatar',
+        'headlink'            => 'Laminas\View\Helper\HeadLink',
+        'headmeta'            => 'Laminas\View\Helper\HeadMeta',
+        'headscript'          => 'Laminas\View\Helper\HeadScript',
+        'headstyle'           => 'Laminas\View\Helper\HeadStyle',
+        'headtitle'           => 'Laminas\View\Helper\HeadTitle',
+        'htmlflash'           => 'Laminas\View\Helper\HtmlFlash',
+        'htmllist'            => 'Laminas\View\Helper\HtmlList',
+        'htmlobject'          => 'Laminas\View\Helper\HtmlObject',
+        'htmlpage'            => 'Laminas\View\Helper\HtmlPage',
+        'htmlquicktime'       => 'Laminas\View\Helper\HtmlQuicktime',
+        'inlinescript'        => 'Laminas\View\Helper\InlineScript',
+        'json'                => 'Laminas\View\Helper\Json',
+        'layout'              => 'Laminas\View\Helper\Layout',
+        'paginationcontrol'   => 'Laminas\View\Helper\PaginationControl',
+        'partialloop'         => 'Laminas\View\Helper\PartialLoop',
+        'partial'             => 'Laminas\View\Helper\Partial',
+        'placeholder'         => 'Laminas\View\Helper\Placeholder',
+        'renderchildmodel'    => 'Laminas\View\Helper\RenderChildModel',
+        'rendertoplaceholder' => 'Laminas\View\Helper\RenderToPlaceholder',
+        'serverurl'           => 'Laminas\View\Helper\ServerUrl',
+        'url'                 => 'Laminas\View\Helper\Url',
+        'viewmodel'           => 'Laminas\View\Helper\ViewModel',
     );
 
     /**

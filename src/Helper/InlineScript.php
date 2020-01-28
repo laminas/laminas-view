@@ -6,7 +6,7 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
 /**
  * Helper for setting and retrieving script elements for inclusion in HTML body
@@ -19,7 +19,7 @@ class InlineScript extends HeadScript
      *
      * @var string
      */
-    protected $regKey = 'Zend_View_Helper_InlineScript';
+    protected $regKey = 'Laminas_View_Helper_InlineScript';
 
     /**
      * Return InlineScript object
