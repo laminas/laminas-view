@@ -6,6 +6,6 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\_stubs\HelperDir1;
+namespace LaminasTest\View\_stubs\HelperDir1;
 
 // used to test when helper file is loaded but class is not within

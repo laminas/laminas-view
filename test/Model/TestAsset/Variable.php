@@ -6,7 +6,7 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Model\TestAsset;
+namespace LaminasTest\View\Model\TestAsset;
 
 use Iterator;
 
