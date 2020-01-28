@@ -6,11 +6,11 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Resolver;
+namespace LaminasTest\View\Resolver;
 
 use ArrayObject;
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\View\Resolver\TemplateMapResolver;
+use Laminas\View\Resolver\TemplateMapResolver;
 
 class TemplateMapResolverTest extends TestCase
 {
