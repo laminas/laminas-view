@@ -6,18 +6,18 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Model;
+namespace LaminasTest\View\Model;
 
 use ArrayObject;
 use stdClass;
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\View\Model\ViewModel;
-use Zend\View\Variables as ViewVariables;
-use ZendTest\View\Model\TestAsset\Variable;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Variables as ViewVariables;
+use LaminasTest\View\Model\TestAsset\Variable;
 
 /**
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage UnitTest
  */
 class ViewModelTest extends TestCase
@@ -25,19 +25,19 @@ class ViewModelTest extends TestCase
     public function testImplementsModelInterface()
     {
         $model = new ViewModel();
-        $this->assertInstanceOf('Zend\View\Model\ModelInterface', $model);
+        $this->assertInstanceOf('Laminas\View\Model\ModelInterface', $model);
     }
 
     public function testImplementsClearableModelInterface()
     {
         $model = new ViewModel();
-        $this->assertInstanceOf('Zend\View\Model\ClearableModelInterface', $model);
+        $this->assertInstanceOf('Laminas\View\Model\ClearableModelInterface', $model);
     }
 
     public function testAllowsEmptyConstructor()
     {
         $model = new ViewModel();
-        $this->assertInstanceOf('Zend\View\Variables', $model->getVariables());
+        $this->assertInstanceOf('Laminas\View\Variables', $model->getVariables());
         $this->assertEquals(array(), $model->getOptions());
     }
 
@@ -152,14 +152,14 @@ class ViewModelTest extends TestCase
     public function testPassingAnInvalidArgumentToSetVariablesRaisesAnException()
     {
         $model = new ViewModel();
-        $this->setExpectedException('Zend\View\Exception\InvalidArgumentException', 'expects an array');
+        $this->setExpectedException('Laminas\View\Exception\InvalidArgumentException', 'expects an array');
         $model->setVariables(new stdClass);
     }
 
     public function testPassingAnInvalidArgumentToSetOptionsRaisesAnException()
     {
         $model = new ViewModel();
-        $this->setExpectedException('Zend\View\Exception\InvalidArgumentException', 'expects an array');
+        $this->setExpectedException('Laminas\View\Exception\InvalidArgumentException', 'expects an array');
         $model->setOptions(new stdClass);
     }
 

@@ -6,9 +6,9 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper\Placeholder\Container;
+namespace Laminas\View\Helper\Placeholder\Container;
 
-use Zend\View\Exception;
+use Laminas\View\Exception;
 
 /**
  * Abstract class representing container for placeholder values
@@ -133,7 +133,7 @@ abstract class AbstractContainer extends \ArrayObject
      * Set prefix for __toString() serialization
      *
      * @param  string $prefix
-     * @return \Zend\View\Helper\Placeholder\Container\AbstractContainer
+     * @return \Laminas\View\Helper\Placeholder\Container\AbstractContainer
      */
     public function setPrefix($prefix)
     {
@@ -155,7 +155,7 @@ abstract class AbstractContainer extends \ArrayObject
      * Set postfix for __toString() serialization
      *
      * @param  string $postfix
-     * @return \Zend\View\Helper\Placeholder\Container\AbstractContainer
+     * @return \Laminas\View\Helper\Placeholder\Container\AbstractContainer
      */
     public function setPostfix($postfix)
     {
@@ -179,7 +179,7 @@ abstract class AbstractContainer extends \ArrayObject
      * Used to implode elements in container
      *
      * @param  string $separator
-     * @return \Zend\View\Helper\Placeholder\Container\AbstractContainer
+     * @return \Laminas\View\Helper\Placeholder\Container\AbstractContainer
      */
     public function setSeparator($separator)
     {
@@ -202,7 +202,7 @@ abstract class AbstractContainer extends \ArrayObject
      * optionally, if a number is passed, it will be the number of spaces
      *
      * @param  string|int $indent
-     * @return \Zend\View\Helper\Placeholder\Container\AbstractContainer
+     * @return \Laminas\View\Helper\Placeholder\Container\AbstractContainer
      */
     public function setIndent($indent)
     {
