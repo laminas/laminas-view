@@ -6,18 +6,18 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\View\Renderer\PhpRenderer as View;
-use Zend\View\Helper\Gravatar;
+use Laminas\View\Renderer\PhpRenderer as View;
+use Laminas\View\Helper\Gravatar;
 
 /**
- * @category   Zend
- * @package    Zendview
+ * @category   Laminas
+ * @package    Laminasview
  * @subpackage UnitTests
- * @group      Zendview
- * @group      Zendview_Helper
+ * @group      Laminasview
+ * @group      Laminasview_Helper
  */
 class GravatarTest extends TestCase
 {
@@ -129,7 +129,7 @@ class GravatarTest extends TestCase
     public function testInvalidRatingParametr()
     {
         $ratingsWrong = array( 'a', 'cs', 456);
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->setExpectedException('Laminas\View\Exception\ExceptionInterface');
         foreach ($ratingsWrong as $value) {
             $this->helper->setRating($value);
         }
@@ -262,7 +262,7 @@ class GravatarTest extends TestCase
 
     public function testReturnThisObject()
     {
-        $this->assertInstanceOf('Zend\View\Helper\Gravatar', $this->helper->__invoke());
+        $this->assertInstanceOf('Laminas\View\Helper\Gravatar', $this->helper->__invoke());
     }
 
     public function testInvalidKeyPassedToSetOptionsMethod()

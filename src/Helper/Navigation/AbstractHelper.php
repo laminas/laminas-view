@@ -6,21 +6,21 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper\Navigation;
+namespace Laminas\View\Helper\Navigation;
 
 use RecursiveIteratorIterator;
-use Zend\EventManager\EventManager;
-use Zend\EventManager\EventManagerAwareInterface;
-use Zend\EventManager\EventManagerInterface;
-use Zend\I18n\Translator\Translator;
-use Zend\I18n\Translator\TranslatorAwareInterface;
-use Zend\Navigation;
-use Zend\Navigation\Page\AbstractPage;
-use Zend\Permissions\Acl;
-use Zend\ServiceManager\ServiceLocatorAwareInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\View;
-use Zend\View\Exception;
+use Laminas\EventManager\EventManager;
+use Laminas\EventManager\EventManagerAwareInterface;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\I18n\Translator\Translator;
+use Laminas\I18n\Translator\TranslatorAwareInterface;
+use Laminas\Navigation;
+use Laminas\Navigation\Page\AbstractPage;
+use Laminas\Permissions\Acl;
+use Laminas\ServiceManager\ServiceLocatorAwareInterface;
+use Laminas\ServiceManager\ServiceLocatorInterface;
+use Laminas\View;
+use Laminas\View\Exception;
 
 /**
  * Base class for navigational helpers
@@ -264,7 +264,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
             /**
              * Load the navigation container from the root service locator
              *
-             * The navigation container is probably located in Zend\ServiceManager\ServiceManager
+             * The navigation container is probably located in Laminas\ServiceManager\ServiceManager
              * and not in the View\HelperPluginManager. If the set service locator is a
              * HelperPluginManager, access the navigation container via the main service locator.
              */
@@ -279,7 +279,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
         if (!$container instanceof Navigation\AbstractContainer) {
             throw new  Exception\InvalidArgumentException(
                 'Container must be a string alias or an instance of ' .
-                    'Zend\Navigation\AbstractContainer'
+                    'Laminas\Navigation\AbstractContainer'
             );
         }
     }
@@ -688,7 +688,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
         } else {
             throw new Exception\InvalidArgumentException(sprintf(
                 '$role must be a string, null, or an instance of '
-                    .  'Zend\Permissions\Role\RoleInterface; %s given',
+                    .  'Laminas\Permissions\Role\RoleInterface; %s given',
                 (is_object($role) ? get_class($role) : gettype($role))
             ));
         }
@@ -903,7 +903,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
             static::$defaultRole = $role;
         } else {
             throw new Exception\InvalidArgumentException(sprintf(
-                '$role must be null|string|Zend\Permissions\Role\RoleInterface; received "%s"',
+                '$role must be null|string|Laminas\Permissions\Role\RoleInterface; received "%s"',
                 (is_object($role) ? get_class($role) : gettype($role))
             ));
         }
@@ -919,9 +919,9 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
         }
 
         $this->getEventManager()->getSharedManager()->attach(
-            'Zend\View\Helper\Navigation\AbstractHelper',
+            'Laminas\View\Helper\Navigation\AbstractHelper',
             'isAllowed',
-            array('Zend\View\Helper\Navigation\Listener\AclListener', 'accept')
+            array('Laminas\View\Helper\Navigation\Listener\AclListener', 'accept')
         );
     }
 }

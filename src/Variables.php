@@ -6,12 +6,12 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View;
+namespace Laminas\View;
 
 use ArrayObject;
 
 /**
- * Abstract class for Zend_View to help enforce private constructs.
+ * Abstract class for Laminas_View to help enforce private constructs.
  *
  * @todo       Allow specifying string names for manager, filter chain, variables
  * @todo       Move escaping into variables object
