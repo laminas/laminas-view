@@ -6,16 +6,16 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper\Navigation;
+namespace Laminas\View\Helper\Navigation;
 
 use RecursiveIteratorIterator;
 use Traversable;
-use Zend\Navigation\AbstractContainer;
-use Zend\Navigation\Page\AbstractPage;
-use Zend\Stdlib\ArrayUtils;
-use Zend\Stdlib\ErrorHandler;
-use Zend\View;
-use Zend\View\Exception;
+use Laminas\Navigation\AbstractContainer;
+use Laminas\Navigation\Page\AbstractPage;
+use Laminas\Stdlib\ArrayUtils;
+use Laminas\Stdlib\ErrorHandler;
+use Laminas\View;
+use Laminas\View\Exception;
 
 /**
  * Helper for printing <link> elements
@@ -229,7 +229,7 @@ class Links extends AbstractHelper
      *
      * The form of the returned array:
      * <code>
-     * // $page denotes an instance of Zend\Navigation\Page\AbstractPage
+     * // $page denotes an instance of Laminas\Navigation\Page\AbstractPage
      * $returned = array(
      *     'rel' => array(
      *         'alternate' => array($page, $page, $page),

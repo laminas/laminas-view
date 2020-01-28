@@ -6,17 +6,17 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\View\Renderer\PhpRenderer as View;
-use Zend\View\Helper;
-use Zend\View\Exception\ExceptionInterface as ViewException;
+use Laminas\View\Renderer\PhpRenderer as View;
+use Laminas\View\Helper;
+use Laminas\View\Exception\ExceptionInterface as ViewException;
 
 /**
- * Test class for Zend\View\Helper\HeadMeta.
+ * Test class for Laminas\View\Helper\HeadMeta.
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class HeadMetaTest extends \PHPUnit_Framework_TestCase
 {
@@ -195,13 +195,13 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
 
     public function testOverloadingThrowsExceptionWithFewerThanTwoArgs()
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->setExpectedException('Laminas\View\Exception\ExceptionInterface');
         $this->helper->setName('foo');
     }
 
     public function testOverloadingThrowsExceptionWithInvalidMethodType()
     {
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->setExpectedException('Laminas\View\Exception\ExceptionInterface');
         $this->helper->setFoo('foo');
     }
 
@@ -342,7 +342,7 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
     {
         $view = new View();
         $view->plugin('headMeta')->setName('keywords', 'foo');
-        $view->plugin('headMeta')->__invoke('some content', 'bar', 'name', array(), \Zend\View\Helper\Placeholder\Container\AbstractContainer::PREPEND);
+        $view->plugin('headMeta')->__invoke('some content', 'bar', 'name', array(), \Laminas\View\Helper\Placeholder\Container\AbstractContainer::PREPEND);
 
         $this->assertEquals(
             '<meta name="bar" content="some content" />' . PHP_EOL . '<meta name="keywords" content="foo" />',
@@ -379,7 +379,7 @@ class HeadMetaTest extends \PHPUnit_Framework_TestCase
         $view = new View();
         $view->plugin('doctype')->__invoke('HTML4_STRICT');
 
-        $this->setExpectedException('Zend\View\Exception\ExceptionInterface');
+        $this->setExpectedException('Laminas\View\Exception\ExceptionInterface');
         $view->plugin('headMeta')->setCharset('utf-8');
     }
 

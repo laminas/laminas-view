@@ -6,7 +6,7 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper\Placeholder;
+namespace Laminas\View\Helper\Placeholder;
 
 /**
  * Container for placeholder values
