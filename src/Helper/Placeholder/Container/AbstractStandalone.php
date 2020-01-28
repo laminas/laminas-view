@@ -6,22 +6,22 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper\Placeholder\Container;
+namespace Laminas\View\Helper\Placeholder\Container;
 
-use Zend\Escaper\Escaper;
-use Zend\View\Exception;
-use Zend\View\Helper\Placeholder\Registry;
-use Zend\View\Renderer\RendererInterface;
+use Laminas\Escaper\Escaper;
+use Laminas\View\Exception;
+use Laminas\View\Helper\Placeholder\Registry;
+use Laminas\View\Renderer\RendererInterface;
 
 /**
  * Base class for targeted placeholder helpers
  */
 abstract class AbstractStandalone
-    extends \Zend\View\Helper\AbstractHelper
+    extends \Laminas\View\Helper\AbstractHelper
     implements \IteratorAggregate, \Countable, \ArrayAccess
 {
     /**
-     * @var \Zend\View\Helper\Placeholder\Container\AbstractContainer
+     * @var \Laminas\View\Helper\Placeholder\Container\AbstractContainer
      */
     protected $container;
 
@@ -31,7 +31,7 @@ abstract class AbstractStandalone
     protected $escapers = array();
 
     /**
-     * @var \Zend\View\Helper\Placeholder\Registry
+     * @var \Laminas\View\Helper\Placeholder\Registry
      */
     protected $registry;
 
@@ -61,7 +61,7 @@ abstract class AbstractStandalone
     /**
      * Retrieve registry
      *
-     * @return \Zend\View\Helper\Placeholder\Registry
+     * @return \Laminas\View\Helper\Placeholder\Registry
      */
     public function getRegistry()
     {
@@ -71,8 +71,8 @@ abstract class AbstractStandalone
     /**
      * Set registry object
      *
-     * @param  \Zend\View\Helper\Placeholder\Registry $registry
-     * @return \Zend\View\Helper\Placeholder\Container\AbstractStandalone
+     * @param  \Laminas\View\Helper\Placeholder\Registry $registry
+     * @return \Laminas\View\Helper\Placeholder\Container\AbstractStandalone
      */
     public function setRegistry(Registry $registry)
     {
@@ -113,7 +113,7 @@ abstract class AbstractStandalone
      * Set whether or not auto escaping should be used
      *
      * @param  bool $autoEscape whether or not to auto escape output
-     * @return \Zend\View\Helper\Placeholder\Container\AbstractStandalone
+     * @return \Laminas\View\Helper\Placeholder\Container\AbstractStandalone
      */
     public function setAutoEscape($autoEscape = true)
     {
@@ -154,8 +154,8 @@ abstract class AbstractStandalone
     /**
      * Set container on which to operate
      *
-     * @param  \Zend\View\Helper\Placeholder\Container\AbstractContainer $container
-     * @return \Zend\View\Helper\Placeholder\Container\AbstractStandalone
+     * @param  \Laminas\View\Helper\Placeholder\Container\AbstractContainer $container
+     * @return \Laminas\View\Helper\Placeholder\Container\AbstractStandalone
      */
     public function setContainer(AbstractContainer $container)
     {
@@ -166,7 +166,7 @@ abstract class AbstractStandalone
     /**
      * Retrieve placeholder container
      *
-     * @return \Zend\View\Helper\Placeholder\Container\AbstractContainer
+     * @return \Laminas\View\Helper\Placeholder\Container\AbstractContainer
      */
     public function getContainer()
     {

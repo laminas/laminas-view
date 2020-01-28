@@ -6,20 +6,20 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View;
+namespace LaminasTest\View;
 
 use ArrayObject;
 use PHPUnit_Framework_TestCase as TestCase;
 use stdClass;
-use Zend\Http\Request;
-use Zend\Http\Response;
-use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
-use Zend\View\Renderer\PhpRenderer;
-use Zend\View\Renderer;
-use Zend\View\Resolver;
-use Zend\View\Variables as ViewVariables;
-use Zend\View\View;
+use Laminas\Http\Request;
+use Laminas\Http\Response;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Model\JsonModel;
+use Laminas\View\Renderer\PhpRenderer;
+use Laminas\View\Renderer;
+use Laminas\View\Resolver;
+use Laminas\View\Variables as ViewVariables;
+use Laminas\View\View;
 
 class ViewTest extends TestCase
 {
@@ -162,7 +162,7 @@ class ViewTest extends TestCase
         $this->model->setVariable('parent', 'node');
         $this->model->addChild($child1);
 
-        $this->setExpectedException('Zend\View\Exception\DomainException');
+        $this->setExpectedException('Laminas\View\Exception\DomainException');
         $this->view->render($this->model);
     }
 

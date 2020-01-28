@@ -6,23 +6,23 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Strategy;
+namespace LaminasTest\View\Strategy;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\EventManager\EventManager;
-use Zend\Feed\Writer\FeedFactory;
-use Zend\Http\Request as HttpRequest;
-use Zend\Http\Response as HttpResponse;
-use Zend\View\Model\ModelInterface as Model;
-use Zend\View\Model\FeedModel;
-use Zend\View\Model\ViewModel;
-use Zend\View\Renderer\FeedRenderer;
-use Zend\View\Strategy\FeedStrategy;
-use Zend\View\ViewEvent;
+use Laminas\EventManager\EventManager;
+use Laminas\Feed\Writer\FeedFactory;
+use Laminas\Http\Request as HttpRequest;
+use Laminas\Http\Response as HttpResponse;
+use Laminas\View\Model\ModelInterface as Model;
+use Laminas\View\Model\FeedModel;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Renderer\FeedRenderer;
+use Laminas\View\Strategy\FeedStrategy;
+use Laminas\View\ViewEvent;
 
 /**
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage UnitTest
  */
 class FeedStrategyTest extends TestCase

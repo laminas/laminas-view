@@ -6,11 +6,11 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
 use stdClass;
-use Zend\View;
-use Zend\View\Exception;
+use Laminas\View;
+use Laminas\View\Exception;
 
 /**
  * Helper for setting and retrieving script elements for HTML head section
@@ -29,7 +29,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      * Registry key for placeholder
      * @var string
      */
-    protected $regKey = 'Zend_View_Helper_HeadScript';
+    protected $regKey = 'Laminas_View_Helper_HeadScript';
 
     /**
      * Are arbitrary attributes allowed?
@@ -91,7 +91,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      * @param  string $placement Append, prepend, or set
      * @param  array  $attrs     Array of script attributes
      * @param  string $type      Script type and/or array of script attributes
-     * @return \Zend\View\Helper\HeadScript
+     * @return \Laminas\View\Helper\HeadScript
      */
     public function __invoke($mode = HeadScript::FILE, $spec = null, $placement = 'APPEND', array $attrs = array(), $type = 'text/javascript')
     {
@@ -178,7 +178,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      *
      * @param  string $method Method to call
      * @param  array  $args   Arguments of method
-     * @return \Zend\View\Helper\HeadScript
+     * @return \Laminas\View\Helper\HeadScript
      * @throws Exception\BadMethodCallException if too few arguments or invalid method
      */
     public function __call($method, $args)
@@ -358,7 +358,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      * Set flag indicating if arbitrary attributes are allowed
      *
      * @param  bool $flag Set flag
-     * @return \Zend\View\Helper\HeadScript
+     * @return \Laminas\View\Helper\HeadScript
      */
     public function setAllowArbitraryAttributes($flag)
     {
