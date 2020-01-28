@@ -6,21 +6,21 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\View\Helper\Partial;
-use Zend\View\Model\ViewModel;
-use Zend\View\Renderer\PhpRenderer as View;
+use Laminas\View\Helper\Partial;
+use Laminas\View\Model\ViewModel;
+use Laminas\View\Renderer\PhpRenderer as View;
 
 /**
  * Test class for Partial view helper.
  *
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class PartialTest extends TestCase
 {

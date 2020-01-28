@@ -6,17 +6,17 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\View\Renderer\PhpRenderer as View;
-use Zend\View\Helper\Placeholder as PlaceholderHelper;
+use Laminas\View\Renderer\PhpRenderer as View;
+use Laminas\View\Helper\Placeholder as PlaceholderHelper;
 
 /**
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class RenderToPlaceholderTest extends \PHPUnit_Framework_TestCase
 {
