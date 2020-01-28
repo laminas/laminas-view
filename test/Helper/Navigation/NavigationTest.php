@@ -6,21 +6,21 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper\Navigation;
+namespace LaminasTest\View\Helper\Navigation;
 
-use Zend\Navigation\Navigation as Container;
-use Zend\Permissions\Acl;
-use Zend\Permissions\Acl\Role;
-use Zend\ServiceManager\ServiceManager;
-use Zend\View;
-use Zend\View\Helper\Navigation;
-use Zend\View\Renderer\PhpRenderer;
+use Laminas\Navigation\Navigation as Container;
+use Laminas\Permissions\Acl;
+use Laminas\Permissions\Acl\Role;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View;
+use Laminas\View\Helper\Navigation;
+use Laminas\View\Renderer\PhpRenderer;
 
 /**
- * Tests Zend\View\Helper\Navigation
+ * Tests Laminas\View\Helper\Navigation
  *
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class NavigationTest extends AbstractTest
 {
@@ -29,12 +29,12 @@ class NavigationTest extends AbstractTest
      *
      * @var string
      */
-    protected $_helperName = 'Zend\View\Helper\Navigation';
+    protected $_helperName = 'Laminas\View\Helper\Navigation';
 
     /**
      * View helper
      *
-     * @var \Zend\View\Helper\Navigation
+     * @var \Laminas\View\Helper\Navigation
      */
     protected $_helper;
 
@@ -60,7 +60,7 @@ class NavigationTest extends AbstractTest
         $this->_helper->setRole($acl['role']);
 
         $accepted = $this->_helper->accept(
-            new \Zend\Navigation\Page\Uri(array(
+            new \Laminas\Navigation\Page\Uri(array(
                 'resource'  => 'unknownresource',
                 'privilege' => 'someprivilege'
             ),
@@ -208,7 +208,7 @@ class NavigationTest extends AbstractTest
 
     public function testTranslatorMethods()
     {
-        $translatorMock = $this->getMock('Zend\I18n\Translator\Translator');
+        $translatorMock = $this->getMock('Laminas\I18n\Translator\Translator');
         $this->_helper->setTranslator($translatorMock, 'foo');
 
         $this->assertEquals($translatorMock, $this->_helper->getTranslator());
@@ -304,7 +304,7 @@ class NavigationTest extends AbstractTest
         try {
             $this->_helper->setRole(1337);
             $this->fail('An invalid argument was given, but a ' .
-                        'Zend\View\Exception\InvalidArgumentException was not thrown');
+                        'Laminas\View\Exception\InvalidArgumentException was not thrown');
         } catch (View\Exception\ExceptionInterface $e) {
             $this->assertContains('$role must be a string', $e->getMessage());
         }
@@ -315,7 +315,7 @@ class NavigationTest extends AbstractTest
         try {
             $this->_helper->setRole(new \stdClass());
             $this->fail('An invalid argument was given, but a ' .
-                        'Zend\View\Exception\InvalidArgumentException was not thrown');
+                        'Laminas\View\Exception\InvalidArgumentException was not thrown');
         } catch (View\Exception\ExceptionInterface $e) {
             $this->assertContains('$role must be a string', $e->getMessage());
         }
@@ -356,7 +356,7 @@ class NavigationTest extends AbstractTest
         try {
             Navigation\AbstractHelper::setDefaultRole(1337);
             $this->fail('An invalid argument was given, but a ' .
-                        'Zend\View\Exception\InvalidArgumentException was not thrown');
+                        'Laminas\View\Exception\InvalidArgumentException was not thrown');
         } catch (View\Exception\ExceptionInterface $e) {
             $this->assertContains('$role must be', $e->getMessage());
         }
@@ -367,7 +367,7 @@ class NavigationTest extends AbstractTest
         try {
             Navigation\AbstractHelper::setDefaultRole(new \stdClass());
             $this->fail('An invalid argument was given, but a ' .
-                        'Zend\View\Exception\InvalidArgumentException was not thrown');
+                        'Laminas\View\Exception\InvalidArgumentException was not thrown');
         } catch (View\Exception\ExceptionInterface $e) {
             $this->assertContains('$role must be', $e->getMessage());
         }
@@ -393,7 +393,7 @@ class NavigationTest extends AbstractTest
     {
         $nl = PHP_EOL;
 
-        $container = new \Zend\Navigation\Navigation(array(
+        $container = new \Laminas\Navigation\Navigation(array(
             array(
                 'label' => 'Page 1',
                 'id'    => 'p1',
@@ -425,7 +425,7 @@ class NavigationTest extends AbstractTest
      */
     public function testRenderInvisibleItem()
     {
-        $container = new \Zend\Navigation\Navigation(array(
+        $container = new \Laminas\Navigation\Navigation(array(
             array(
                 'label' => 'Page 1',
                 'id'    => 'p1',
@@ -557,7 +557,7 @@ class NavigationTest extends AbstractTest
 
     public function testSetPluginManagerAndView()
     {
-        $pluginManager = new \Zend\View\Helper\Navigation\PluginManager();
+        $pluginManager = new \Laminas\View\Helper\Navigation\PluginManager();
         $view = new PhpRenderer();
 
         $helper = new $this->_helperName;
