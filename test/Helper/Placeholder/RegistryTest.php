@@ -6,25 +6,25 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper\Placeholder;
+namespace LaminasTest\View\Helper\Placeholder;
 
-use Zend\View\Helper\Placeholder\Registry;
-use Zend\View\Helper\Placeholder\Container;
+use Laminas\View\Helper\Placeholder\Registry;
+use Laminas\View\Helper\Placeholder\Container;
 
 
 /**
- * Test class for Zend_View_Helper_Placeholder_Registry.
+ * Test class for Laminas_View_Helper_Placeholder_Registry.
  *
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class RegistryTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Zend_View_Helper_Placeholder_Registry
+     * @var Laminas_View_Helper_Placeholder_Registry
      */
     public $registry;
 
@@ -105,15 +105,15 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
 
     public function testContainerClassAccessorsSetState()
     {
-        $this->assertEquals('Zend\View\Helper\Placeholder\Container', $this->registry->getContainerClass());
-        $this->registry->setContainerClass('ZendTest\View\Helper\Placeholder\MockContainer');
-        $this->assertEquals('ZendTest\View\Helper\Placeholder\MockContainer', $this->registry->getContainerClass());
+        $this->assertEquals('Laminas\View\Helper\Placeholder\Container', $this->registry->getContainerClass());
+        $this->registry->setContainerClass('LaminasTest\View\Helper\Placeholder\MockContainer');
+        $this->assertEquals('LaminasTest\View\Helper\Placeholder\MockContainer', $this->registry->getContainerClass());
     }
 
     public function testSetContainerClassThrowsExceptionWithInvalidContainerClass()
     {
         try {
-            $this->registry->setContainerClass('ZendTest\View\Helper\Placeholder\BogusContainer');
+            $this->registry->setContainerClass('LaminasTest\View\Helper\Placeholder\BogusContainer');
             $this->fail('Invalid container classes should not be accepted');
         } catch (\Exception $e) {
         }
@@ -136,7 +136,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
 
     public function testUsingCustomContainerClassCreatesContainersOfCustomClass()
     {
-        $this->registry->setContainerClass('ZendTest\View\Helper\Placeholder\MockContainer');
+        $this->registry->setContainerClass('LaminasTest\View\Helper\Placeholder\MockContainer');
         $container = $this->registry->createContainer('foo');
         $this->assertTrue($container instanceof MockContainer);
     }
@@ -159,7 +159,7 @@ class RegistryTest extends \PHPUnit_Framework_TestCase
      */
     public function testSetValueCreateContainer()
     {
-        $this->registry->setContainerClass('ZendTest\View\Helper\Placeholder\MockContainer');
+        $this->registry->setContainerClass('LaminasTest\View\Helper\Placeholder\MockContainer');
         $data = array(
             'ZF-10793'
         );

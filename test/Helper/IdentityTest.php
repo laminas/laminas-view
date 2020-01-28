@@ -6,22 +6,22 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View\Helper;
+namespace LaminasTest\View\Helper;
 
-use Zend\Authentication\AuthenticationService;
-use Zend\Authentication\Storage\NonPersistent as NonPersistentStorage;
-use Zend\View\Helper\Identity as IdentityHelper;
+use Laminas\Authentication\AuthenticationService;
+use Laminas\Authentication\Storage\NonPersistent as NonPersistentStorage;
+use Laminas\View\Helper\Identity as IdentityHelper;
 
 /**
- * Zend_View_Helper_IdentityTest
+ * Laminas_View_Helper_IdentityTest
  *
  * Tests Identity helper
  *
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage UnitTests
- * @group      Zend_View
- * @group      Zend_View_Helper
+ * @group      Laminas_View
+ * @group      Laminas_View_Helper
  */
 class IdentityTest extends \PHPUnit_Framework_TestCase
 {

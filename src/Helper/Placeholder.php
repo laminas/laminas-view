@@ -6,9 +6,9 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
-use Zend\View\Exception\InvalidArgumentException;
+use Laminas\View\Exception\InvalidArgumentException;
 
 /**
  * Helper for passing data between otherwise segregated Views. It's called
@@ -25,7 +25,7 @@ class Placeholder extends AbstractHelper
     protected $items = array();
 
     /**
-     * @var \Zend\View\Helper\Placeholder\Registry
+     * @var \Laminas\View\Helper\Placeholder\Registry
      */
     protected $registry;
 
@@ -44,7 +44,7 @@ class Placeholder extends AbstractHelper
      * Placeholder helper
      *
      * @param  string $name
-     * @return \Zend\View\Helper\Placeholder\Container\AbstractContainer
+     * @return \Laminas\View\Helper\Placeholder\Container\AbstractContainer
      * @throws InvalidArgumentException
      */
     public function __invoke($name = null)
@@ -60,7 +60,7 @@ class Placeholder extends AbstractHelper
     /**
      * Retrieve the registry
      *
-     * @return \Zend\View\Helper\Placeholder\Registry
+     * @return \Laminas\View\Helper\Placeholder\Registry
      */
     public function getRegistry()
     {

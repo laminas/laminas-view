@@ -6,14 +6,14 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
 use stdClass;
-use Zend\View;
-use Zend\View\Exception;
+use Laminas\View;
+use Laminas\View\Exception;
 
 /**
- * Zend_Layout_View_Helper_HeadMeta
+ * Laminas_Layout_View_Helper_HeadMeta
  *
  * @see        http://www.w3.org/TR/xhtml1/dtds.html
  */
@@ -30,7 +30,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
     /**
      * @var string registry key
      */
-    protected $regKey = 'Zend_View_Helper_HeadMeta';
+    protected $regKey = 'Laminas_View_Helper_HeadMeta';
 
     /**
      * Constructor
@@ -52,7 +52,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      * @param  string $keyType
      * @param  array $modifiers
      * @param  string $placement
-     * @return \Zend\View\Helper\HeadMeta
+     * @return \Laminas\View\Helper\HeadMeta
      */
     public function __invoke($content = null, $keyValue = null, $keyType = 'name', $modifiers = array(), $placement = Placeholder\Container\AbstractContainer::APPEND)
     {
@@ -117,7 +117,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      *
      * @param  string $method
      * @param  array $args
-     * @return \Zend\View\Helper\HeadMeta
+     * @return \Laminas\View\Helper\HeadMeta
      * @throws Exception\BadMethodCallException
      */
     public function __call($method, $args)
@@ -164,7 +164,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      * Not valid in a non-HTML5 doctype
      *
      * @param string $charset
-     * @return \Zend\View\Helper\HeadMeta Provides a fluent interface
+     * @return \Laminas\View\Helper\HeadMeta Provides a fluent interface
      */
     public function setCharset($charset)
     {

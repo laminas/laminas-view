@@ -6,10 +6,10 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Model;
+namespace Laminas\View\Model;
 
-use Zend\Feed\Writer\Feed;
-use Zend\Feed\Writer\FeedFactory;
+use Laminas\Feed\Writer\Feed;
+use Laminas\Feed\Writer\FeedFactory;
 
 /**
  * Marker view model for indicating feed data.
@@ -34,7 +34,7 @@ class FeedModel extends ViewModel
     protected $terminate = true;
 
     /**
-     * @return \Zend\Feed\Writer\Feed
+     * @return \Laminas\Feed\Writer\Feed
      */
     public function getFeed()
     {

@@ -6,7 +6,7 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Helper;
+namespace Laminas\View\Helper;
 
 /**
  * Helper for alternating between set of values
@@ -46,7 +46,7 @@ class Cycle extends AbstractHelper implements \Iterator
      *
      * @param array $data
      * @param string $name
-     * @return \Zend\View\Helper\Cycle
+     * @return \Laminas\View\Helper\Cycle
      */
     public function __invoke(array $data = array(), $name = self::DEFAULT_NAME)
     {
@@ -62,7 +62,7 @@ class Cycle extends AbstractHelper implements \Iterator
      *
      * @param array $data
      * @param string $name
-     * @return \Zend\View\Helper\Cycle
+     * @return \Laminas\View\Helper\Cycle
      */
     public function assign(Array $data , $name = self::DEFAULT_NAME)
     {
@@ -76,7 +76,7 @@ class Cycle extends AbstractHelper implements \Iterator
      * Sets actual name of cycle
      *
      * @param $name
-     * @return \Zend\View\Helper\Cycle
+     * @return \Laminas\View\Helper\Cycle
      */
     public function setName($name = self::DEFAULT_NAME)
     {
@@ -135,7 +135,7 @@ class Cycle extends AbstractHelper implements \Iterator
     /**
      * Move to next value
      *
-     * @return \Zend\View\Helper\Cycle
+     * @return \Laminas\View\Helper\Cycle
      */
     public function next()
     {
@@ -150,7 +150,7 @@ class Cycle extends AbstractHelper implements \Iterator
     /**
      * Move to previous value
      *
-     * @return \Zend\View\Helper\Cycle
+     * @return \Laminas\View\Helper\Cycle
      */
     public function prev()
     {
@@ -178,7 +178,7 @@ class Cycle extends AbstractHelper implements \Iterator
     /**
      * Rewind pointer
      *
-     * @return \Zend\View\Helper\Cycle
+     * @return \Laminas\View\Helper\Cycle
      */
     public function rewind()
     {

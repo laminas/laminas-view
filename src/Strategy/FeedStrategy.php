@@ -6,20 +6,20 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\View\Strategy;
+namespace Laminas\View\Strategy;
 
-use Zend\EventManager\EventManagerInterface;
-use Zend\EventManager\ListenerAggregateInterface;
-use Zend\Feed\Writer\Feed;
-use Zend\Http\Request as HttpRequest;
-use Zend\View\Model;
-use Zend\View\Renderer\FeedRenderer;
-use Zend\View\ViewEvent;
+use Laminas\EventManager\EventManagerInterface;
+use Laminas\EventManager\ListenerAggregateInterface;
+use Laminas\Feed\Writer\Feed;
+use Laminas\Http\Request as HttpRequest;
+use Laminas\View\Model;
+use Laminas\View\Renderer\FeedRenderer;
+use Laminas\View\ViewEvent;
 
 class FeedStrategy implements ListenerAggregateInterface
 {
     /**
-     * @var \Zend\Stdlib\CallbackHandler[]
+     * @var \Laminas\Stdlib\CallbackHandler[]
      */
     protected $listeners = array();
 

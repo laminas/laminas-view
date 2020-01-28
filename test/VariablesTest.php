@@ -6,16 +6,16 @@
  * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\View;
+namespace LaminasTest\View;
 
-use Zend\View\Variables;
-use Zend\Config\Config;
+use Laminas\View\Variables;
+use Laminas\Config\Config;
 
 /**
- * @category   Zend
- * @package    Zend_View
+ * @category   Laminas
+ * @package    Laminas_View
  * @subpackage UnitTests
- * @group      Zend_View
+ * @group      Laminas_View
  */
 class VariablesTest extends \PHPUnit_Framework_TestCase
 {
