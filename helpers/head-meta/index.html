@@ -12,14 +12,15 @@
     <title>HeadMeta - laminas-view - Laminas Docs</title>
 
     <link rel="stylesheet" href="https://docs.laminas.dev/css/styles.css">
+    
 </head>
-<body id="page-top" class="components">
+<body id="page-top" class="components" data-spy="scroll" data-target=".toc" data-offset="20">
 
     
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container">
         
-        <a class="logo-link navbar-brand offset-md-2" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+        <a class="logo-link navbar-brand" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
             <img src="https://docs.laminas.dev/img/laminas-foundation-white.svg" height="28" alt="Laminas">
         </a>
         <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
@@ -326,7 +327,7 @@
         <div class="row">
 
             
-            <div class="col-6 offset-md-2">
+            <div class="col-8">
                 <h1 class="header__title">
                     Components
 
@@ -356,7 +357,7 @@
     
     <div class="container">
         <div class="row">
-            <div class="col-md-2 col-sm-12">
+            <div class="col-md-9 col-sm-12 content" role="main">
                 
                 
                     
@@ -369,15 +370,15 @@
             <ul class="toc__list">
                 
                     <li class="toc__entry">
-                        <a href="#basic-usage" class="toc__link">Basic Usage</a>
+                        <a href="#basic-usage" class="toc__link nav-link">Basic Usage</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#usage-with-xhtml195rdfa-doctype" class="toc__link">Usage with XHTML1_RDFA doctype</a>
+                        <a href="#usage-with-xhtml1_rdfa-doctype" class="toc__link nav-link">Usage with XHTML1_RDFA doctype</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#usage-with-html5-doctype" class="toc__link">Usage with HTML5 doctype</a>
+                        <a href="#usage-with-html5-doctype" class="toc__link nav-link">Usage with HTML5 doctype</a>
                     </li>
                 
             </ul>
@@ -385,8 +386,7 @@
     
 
                 
-            </div>
-            <div class="col-md-7 col-sm-12 content" role="main" data-spy="scroll" data-target=".toc">
+
                 
                     <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
@@ -510,7 +510,7 @@ $this-&gt;headMeta()
     -&gt;appendHttpEquiv('Refresh', '3;URL=http://www.some.org/some.html');</code></pre>
 <p>When you're ready to place your meta tags in the layout, echo the helper:</p>
 <pre class=codehilite><code class=language-php>&lt;?= $this-&gt;headMeta() ?&gt;</code></pre>
-<h2 id="usage-with-xhtml195rdfa-doctype">Usage with XHTML1_RDFA doctype</h2>
+<h2 id="usage-with-xhtml1_rdfa-doctype">Usage with XHTML1_RDFA doctype</h2>
 <p>Enabling the RDFa doctype with the <a href="../doctype/">Doctype helper</a> enables the use
 of the <code>property</code> attribute (in addition to the standard <code>name</code> and
 <code>http-equiv</code>) with <code>HeadMeta</code>.  This is commonly used with the Facebook <a href="http://opengraphprotocol.org/">Open
@@ -851,7 +851,7 @@ echo $this-&gt;headMeta();
         </div>
 
         <div class="row">
-            <div class="col-md-10 offset-md-2">
+            <div class="col-md-12">
                 <h5>Laminas</h5>
                 <ul>
                     <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
@@ -863,7 +863,7 @@ echo $this-&gt;headMeta();
         </div>
 
         <div class="row">
-            <div class="col-md-10 offset-md-2"> 
+            <div class="col-md-12">
                 <div class="row">
 
                     
@@ -921,7 +921,9 @@ echo $this-&gt;headMeta();
             siteName = 'laminas-view';
     </script>
     <script src="https://docs.laminas.dev/js/scripts.js"></script>
+    
         <script src="../../search/main.js"></script>
+    
 
     
     <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
