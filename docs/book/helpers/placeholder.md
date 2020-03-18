@@ -45,10 +45,14 @@ variety of methods for formatting the content stored in the container:
   passed, the string will be used. Use `getIndent()` at any time to determine
   what the current setting is.
 
+Set the data in one view script:
+
 ```php
 <!-- first view script -->
 <?php $this->placeholder('foo')->exchangeArray($this->data) ?>
 ```
+
+And retrieve the data and output it in another view script:
 
 ```php
 <!-- later view script -->
