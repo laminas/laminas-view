@@ -519,8 +519,11 @@ variety of methods for formatting the content stored in the container:</p>
   passed, the string will be used. Use <code>getIndent()</code> at any time to determine
   what the current setting is.</li>
 </ul>
-<div class=md-fenced-code-tabs id=tab-tab-group-2><ul class="nav nav-tabs"><li class=nav-item><a class="nav-link active" href=#tab-group-2-0_php-panel role=tab id=tab-group-2-0_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-2-0_php-panel aria-selected=true>Php</a></li><li class=nav-item><a class="nav-link " href=#tab-group-2-1_php-panel role=tab id=tab-group-2-1_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-2-1_php-panel aria-selected=false>Php</a></li></ul><div class=tab-content><div id=tab-group-2-0_php-panel class="tab-pane show active" role=tabpanel aria-labelledby=tab-group-2-0_php-tab><pre class=codehilite><code class=language-php>&lt;!-- first view script --&gt;
-&lt;?php $this-&gt;placeholder('foo')-&gt;exchangeArray($this-&gt;data) ?&gt;</code></pre></div><div id=tab-group-2-1_php-panel class="tab-pane " role=tabpanel aria-labelledby=tab-group-2-1_php-tab><pre class=codehilite><code class=language-php>&lt;!-- later view script --&gt;
+<p>Set the data in one view script:</p>
+<pre class=codehilite><code class=language-php>&lt;!-- first view script --&gt;
+&lt;?php $this-&gt;placeholder('foo')-&gt;exchangeArray($this-&gt;data) ?&gt;</code></pre>
+<p>And retrieve the data and output it in another view script:</p>
+<pre class=codehilite><code class=language-php>&lt;!-- later view script --&gt;
 &lt;?php
 $this-&gt;placeholder('foo')
     -&gt;setPrefix(&quot;&lt;ul&gt;\n    &lt;li&gt;&quot;)
@@ -529,8 +532,7 @@ $this-&gt;placeholder('foo')
     -&gt;setPostfix(&quot;&lt;/li&gt;&lt;/ul&gt;\n&quot;);
 ?&gt;
 
-&lt;?= $this-&gt;placeholder('foo') ?&gt;</code></pre></div></div></div>
-
+&lt;?= $this-&gt;placeholder('foo') ?&gt;</code></pre>
 <p>The above results in an unordered list with pretty indentation.</p>
 <p>Because the <code>Placeholder</code> container objects extend <code>ArrayObject</code>, you can also
 assign content to a specific key in the container easily, instead of simply
