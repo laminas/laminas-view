@@ -26,26 +26,26 @@
     },
     "require": {
         "php": ">=5.3.23",
-        "laminas/laminas-eventmanager": "self.version",
-        "laminas/laminas-loader": "self.version",
-        "laminas/laminas-stdlib": "self.version",
+        "laminas/laminas-eventmanager": "~2.3.7.0",
+        "laminas/laminas-loader": "~2.3.7.0",
+        "laminas/laminas-stdlib": "~2.3.7.0",
         "laminas/laminas-zendframework-bridge": "^1.0"
     },
     "require-dev": {
         "fabpot/php-cs-fixer": "1.7.*",
-        "laminas/laminas-authentication": "self.version",
-        "laminas/laminas-escaper": "self.version",
-        "laminas/laminas-feed": "self.version",
-        "laminas/laminas-filter": "self.version",
-        "laminas/laminas-http": "self.version",
-        "laminas/laminas-i18n": "self.version",
-        "laminas/laminas-json": "self.version",
-        "laminas/laminas-mvc": "self.version",
-        "laminas/laminas-navigation": "self.version",
-        "laminas/laminas-paginator": "self.version",
-        "laminas/laminas-permissions-acl": "self.version",
-        "laminas/laminas-servicemanager": "self.version",
-        "laminas/laminas-uri": "self.version",
+        "laminas/laminas-authentication": "~2.3.7.0",
+        "laminas/laminas-escaper": "~2.3.7.0",
+        "laminas/laminas-feed": "~2.3.7.0",
+        "laminas/laminas-filter": "~2.3.7.0",
+        "laminas/laminas-http": "~2.3.7.0",
+        "laminas/laminas-i18n": "~2.3.7.0",
+        "laminas/laminas-json": "~2.3.7.0",
+        "laminas/laminas-mvc": "~2.3.7.0",
+        "laminas/laminas-navigation": "~2.3.7.0",
+        "laminas/laminas-paginator": "~2.3.7.0",
+        "laminas/laminas-permissions-acl": "~2.3.7.0",
+        "laminas/laminas-servicemanager": "~2.3.7.0",
+        "laminas/laminas-uri": "~2.3.7.0",
         "phpunit/phpunit": "~4.0",
         "satooshi/php-coveralls": "dev-master"
     },
@@ -75,6 +75,6 @@
         }
     },
     "replace": {
-        "zendframework/zend-view": "self.version"
+        "zendframework/zend-view": "~2.3.7.0"
     }
 }
