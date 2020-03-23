@@ -81,6 +81,6 @@
         }
     },
     "replace": {
-        "zendframework/zend-view": "self.version"
+        "zendframework/zend-view": "~2.5.2.0"
     }
 }
