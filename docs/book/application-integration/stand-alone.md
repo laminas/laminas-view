@@ -67,14 +67,8 @@ $viewModel->setOption('has_parent', true);
 echo $view->render($viewModel); // <h1>Example</h1>
 ```
 
-<button class="btn btn-light" type="button" data-toggle="collapse"
-        data-target="#full-code-basis-example"
-        aria-expanded="false"
-        aria-controls="full-code-basis-example">
-Show full code example
-</button>
+<details><summary>Show full code example</summary>
 
-<div class="collapse" id="full-code-basis-example">
 ```php
 <?php
 
@@ -108,7 +102,8 @@ $viewModel->setOption('has_parent', true);
 // Render
 echo $view->render($viewModel);
 ```
-</div>
+
+</details>
 
 ### Example with Layout
 
@@ -147,14 +142,8 @@ $layout->addChild($viewModel);
 echo $view->render($layout);
 ```
 
-<button class="btn btn-light" type="button" data-toggle="collapse"
-        data-target="#full-code-example-with-layout"
-        aria-expanded="false"
-        aria-controls="full-code-example-with-layout">
-Show full code example
-</button>
+<details><summary>Show full code example</summary>
 
-<div class="collapse" id="full-code-example-with-layout">
 ```php
 <?php
 
@@ -195,7 +184,8 @@ $layout->addChild($viewModel);
 // Render
 echo $view->render($layout);
 ```
-</div>
+
+</details>
 
 ## View Helpers
 
