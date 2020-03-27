@@ -32,6 +32,8 @@ nav:
         - Placeholder: helpers/placeholder.md
         - Url: helpers/url.md
         - "Advanced usage of helpers": helpers/advanced-usage.md
+    - 'Application Integration':
+        - 'Stand-Alone': application-integration/stand-alone.md
     - Cookbook:
         - "Setting module-specific Layouts": cookbook/setting-module-specific-layouts.md
 site_name: laminas-view
