@@ -71,19 +71,21 @@ echo $this->headTitle(); // <title>My albumsMusic</title>
 To explicitly append content, the second paramater `$setType` or the concrete
 method `append()` of the helper can be used:
 
-```php fct_label="Invoke Usage"
-$this->headTitle('My albums')
-$this->headTitle('Music', 'APPEND');
+=== "Invoke Usage"
+    ```php
+    $this->headTitle('My albums')
+    $this->headTitle('Music', 'APPEND');
+    
+    echo $this->headTitle(); // <title>My albumsMusic</title>
+    ```
 
-echo $this->headTitle(); // <title>My albumsMusic</title>
-```
-
-```php fct_label="Setter Usage"
-$this->headTitle('My albums')
-$this->headTitle()->append('Music');
-
-echo $this->headTitle(); // <title>My albumsMusic</title>
-```
+=== "Setter Usage"
+    ```php
+    $this->headTitle('My albums')
+    $this->headTitle()->append('Music');
+    
+    echo $this->headTitle(); // <title>My albumsMusic</title>
+    ```
 
 The constant `Laminas\View\Helper\Placeholder\Container\AbstractContainer::APPEND`
 can also be used as value for the second parameter `$setType`.
@@ -93,19 +95,21 @@ can also be used as value for the second parameter `$setType`.
 To prepend content, the second paramater `$setType` or the concrete method
 `prepend()` of the helper can be used:
 
-```php fct_label="Invoke Usage"
-$this->headTitle('My albums')
-$this->headTitle('Music', 'PREPEND');
+=== "Invoke Usage"
+    ```php
+    $this->headTitle('My albums')
+    $this->headTitle('Music', 'PREPEND');
+    
+    echo $this->headTitle(); // <title>MusicMy albums</title>
+    ```
 
-echo $this->headTitle(); // <title>MusicMy albums</title>
-```
-
-```php fct_label="Setter Usage"
-$this->headTitle('My albums')
-$this->headTitle()->prepend('Music');
-
-echo $this->headTitle(); // <title>MusicMy albums</title>
-```
+=== "Setter Usage"
+    ```php
+    $this->headTitle('My albums')
+    $this->headTitle()->prepend('Music');
+    
+    echo $this->headTitle(); // <title>MusicMy albums</title>
+    ```
 
 The constant `Laminas\View\Helper\Placeholder\Container\AbstractContainer::PREPEND`
 can also be used as value for the second parameter `$setType`.
@@ -115,19 +119,21 @@ can also be used as value for the second parameter `$setType`.
 To overwrite the entire content of title helper, the second parameter `$setType`
 or the concrete method `set()` of the helper can be used:
 
-```php fct_label="Invoke Usage"
-$this->headTitle('My albums')
-$this->headTitle('Music', 'SET');
+=== "Invoke Usage"
+    ```php
+    $this->headTitle('My albums')
+    $this->headTitle('Music', 'SET');
+    
+    echo $this->headTitle(); // <title>Music</title>
+    ```
 
-echo $this->headTitle(); // <title>Music</title>
-```
-
-```php fct_label="Setter Usage"
-$this->headTitle('My albums')
-$this->headTitle()->set('Music');
-
-echo $this->headTitle(); // <title>Music</title>
-```
+=== "Setter Usage"
+    ```php
+    $this->headTitle('My albums')
+    $this->headTitle()->set('Music');
+    
+    echo $this->headTitle(); // <title>Music</title>
+    ```
 
 The constant `Laminas\View\Helper\Placeholder\Container\AbstractContainer::SET`
 can also be used as value for the second parameter `$setType`.
