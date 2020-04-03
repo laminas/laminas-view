@@ -23,31 +23,35 @@ Output:
 
 ### Set a single Attribute
 
-```php fct_label="Invoke Usage"
-$this->htmlTag(['lang' => 'en']);
+=== "Invoke Usage"
+    ```php
+    $this->htmlTag(['lang' => 'en']);
+    
+    echo $this->htmlTag()->openTag(); // <html lang="en">
+    ```
 
-echo $this->htmlTag()->openTag(); // <html lang="en">
-```
-
-```php fct_label="Setter Usage"
-$this->htmlTag()->setAttribute('lang', 'en');
-
-echo $this->htmlTag()->openTag(); // <html lang="en">
-```
+=== "Setter Usage"
+    ```php
+    $this->htmlTag()->setAttribute('lang', 'en');
+    
+    echo $this->htmlTag()->openTag(); // <html lang="en">
+    ```
 
 ### Set multiple Attributes
 
-```php fct_label="Invoke Usage"
-$this->htmlTag(['lang' => 'en', 'id' => 'example']);
+=== "Invoke Usage"
+    ```php
+    $this->htmlTag(['lang' => 'en', 'id' => 'example']);
+    
+    echo $this->htmlTag()->openTag(); // <html lang="en" id="example">
+    ```
 
-echo $this->htmlTag()->openTag(); // <html lang="en" id="example">
-```
-
-```php fct_label="Setter Usage"
-$this->htmlTag()->setAttributes(['lang' => 'en', 'id' => 'example']);
-
-echo $this->htmlTag()->openTag(); // <html lang="en" id="example">
-```
+=== "Setter Usage"
+    ```php
+    $this->htmlTag()->setAttributes(['lang' => 'en', 'id' => 'example']);
+    
+    echo $this->htmlTag()->openTag(); // <html lang="en" id="example">
+    ```
 
 ### Get current Value
 
