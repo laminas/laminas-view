@@ -529,7 +529,7 @@ stack).</p>
 links in your layout script, and application specific links in your application
 view scripts. In your layout script, in the <code>&lt;head&gt;</code> section, you will then echo
 the helper to output it.</p>
-<pre class=codehilite><code class=language-php>&lt;?php
+<pre class="highlight"><code class="language-php">&lt;?php
 // setting links in a view script:
 $this-&gt;headLink(['rel' =&gt; 'icon', 'href' =&gt; '/img/favicon.ico'], 'PREPEND')
      -&gt;appendStylesheet('/styles/basic.css')
@@ -543,10 +543,11 @@ $this-&gt;headLink(['rel' =&gt; 'icon', 'href' =&gt; '/img/favicon.ico'], 'PREPE
 // rendering the links from the layout:
 echo $this-&gt;headLink();
 ?&gt;</code></pre>
+
 <p>Output:</p>
-<pre class=codehilite><code class=language-html>&lt;link href=&quot;/styles/moz.css&quot; media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; id=&quot;my_stylesheet&quot;&gt;
-&lt;link href=&quot;/img/favicon.ico&quot; rel=&quot;icon&quot;&gt;
-&lt;link href=&quot;/styles/basic.css&quot; media=&quot;screen&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;</code></pre>
+<pre class="highlight"><code class="language-html">&lt;link href="/styles/moz.css" media="screen" rel="stylesheet" type="text/css" id="my_stylesheet"&gt;
+&lt;link href="/img/favicon.ico" rel="icon"&gt;
+&lt;link href="/styles/basic.css" media="screen" rel="stylesheet" type="text/css"&gt;</code></pre>
 
 
 

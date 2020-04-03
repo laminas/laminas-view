@@ -501,17 +501,19 @@
 the <a href="http://gravatar.com">gravatar.com</a> service.</p>
 <h2 id="basic-usage">Basic Usage</h2>
 <p>You can use the <code>Gravatar</code> helper anywhere in view scripts per the following example:</p>
-<pre class=codehilite><code class=language-php>echo $this-&gt;gravatar('email@example.com')-&gt;getImgTag();</code></pre>
+<pre class="highlight"><code class="language-php">echo $this-&gt;gravatar('email@example.com')-&gt;getImgTag();</code></pre>
+
 <p>The first (and only, in this example) argument passed to the <code>Gravatar</code> helper
 is an e-mail for which you want grab an avatar from gravatar.com. For
 convenience, this e-mail will be automatically hashed via the md5 algorithm.</p>
 <p>This will render the HTML below:</p>
-<pre class=codehilite><code class=language-html>&lt;img src=&quot;http://www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e?s=80&amp;d=mm&amp;r=g&quot;&gt;</code></pre>
+<pre class="highlight"><code class="language-html">&lt;img src="http://www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e?s=80&amp;d=mm&amp;r=g"&gt;</code></pre>
+
 <p>The helper already provides URL defaults for you.</p>
 <h2 id="custom-settings">Custom Settings</h2>
 <p>You can customize the request for a gravatar.com image by using setter methods
 on the view helper:</p>
-<pre class=codehilite><code class=language-php>$gravatar = $this-&gt;gravatar();
+<pre class="highlight"><code class="language-php">$gravatar = $this-&gt;gravatar();
 
 // Set the email instead of passing it via helper invocation
 $gravatar-&gt;setEmail('email@example.com');
@@ -522,7 +524,7 @@ $gravatar-&gt;setImgSize(40);
 // Set the default avatar image to use if gravatar.com does not find a match
 $gravatar-&gt;setDefaultImg( \Laminas\View\Helper\Gravatar::DEFAULT_MM );
 
-// Set the avatar &quot;rating&quot; threshold (often used to omit NSFW avatars)
+// Set the avatar "rating" threshold (often used to omit NSFW avatars)
 $gravatar-&gt;setRating( \Laminas\View\Helper\Gravatar::RATING_G );
 
 // Indicate that a secure URI should be used for the image source
@@ -530,9 +532,10 @@ $gravatar-&gt;setSecure(true);
 
 // Render the &lt;img&gt; tag with the email you've set previously
 echo $gravatar-&gt;getImgTag();</code></pre>
+
 <p>Alternately, you can pass an array as the second argument on invocation, with
 the following keys:</p>
-<pre class=codehilite><code class=language-php>$settings = [
+<pre class="highlight"><code class="language-php">$settings = [
     'img_size'    =&gt; 40,
     'default_img' =&gt; \Laminas\View\Helper\Gravatar::DEFAULT_MM,
     'rating'      =&gt; \Laminas\View\Helper\Gravatar::RATING_G,
@@ -540,6 +543,7 @@ the following keys:</p>
 ];
 $email = 'email@example.com';
 echo $this-&gt;gravatar($email, $settings);</code></pre>
+
 <blockquote>
 <h3>Scheme autodiscovery</h3>
 <p>Passing <code>null</code> for the <code>secure</code> setting will cause the view helper to choose a
@@ -565,17 +569,18 @@ default image and rating.</p>
 </ul>
 <p>You may also provide custom attributes for the generated <code>img</code> tag. To do this,
 pass an attributes array to the <code>setAttributes()</code> method:</p>
-<pre class=codehilite><code class=language-php>$gravatar = $this-&gt;gravatar('email@example.com');
+<pre class="highlight"><code class="language-php">$gravatar = $this-&gt;gravatar('email@example.com');
 
 // Suppose that I want to add the class attribute with a value of
-// &quot;gravatarcls&quot; to the rendered &lt;img&gt; tag:
+// "gravatarcls" to the rendered &lt;img&gt; tag:
 $attr = [
     'class' =&gt; 'gravatarcls',
 ];
 echo $gravatar-&gt;setAttributes($attr)-&gt;getImgTag();</code></pre>
+
 <p>Alternately, you can pass this array as the third argument during helper
 invocation:</p>
-<pre class=codehilite><code class=language-php>$email = 'email@example.com';
+<pre class="highlight"><code class="language-php">$email = 'email@example.com';
 $settings = [
     'default_img' =&gt; \Laminas\View\Helper\Gravatar::DEFAULT_MM,
 ];

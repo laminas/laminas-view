@@ -505,18 +505,19 @@ defined and recognized by the <code>ServiceManager</code>.</p>
 <p><code>Identity</code> returns the identity discovered in the <code>AuthenticationService</code>, or
 <code>null</code> if no identity is available.</p>
 <h2 id="basic-usage">Basic Usage</h2>
-<pre class=codehilite><code class=language-php>&lt;?php
+<pre class="highlight"><code class="language-php">&lt;?php
     if ($user = $this-&gt;identity()) {
         echo 'Logged in as ' . $this-&gt;escapeHtml($user-&gt;getUsername());
     } else {
         echo 'Not logged in';
     }
 ?&gt;</code></pre>
+
 <h2 id="using-with-servicemanager">Using with ServiceManager</h2>
 <p>When invoked, the <code>Identity</code> plugin will look for a service by the name or alias
 <code>Laminas\Authentication\AuthenticationService</code> in the <code>ServiceManager</code>. You can
 provide this service to the <code>ServiceManager</code> in a configuration file:</p>
-<pre class=codehilite><code class=language-php>// In a configuration file...
+<pre class="highlight"><code class="language-php">// In a configuration file...
 use Laminas\Authentication\AuthenticationService;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
@@ -530,6 +531,7 @@ return [
         ],
     ],
 ];</code></pre>
+
 <p>If that service is not registered, the plugin will then look for a service named
 <code>Laminas\Authentication\AuthenticationServiceInterface</code>, and use that if found.</p>
 

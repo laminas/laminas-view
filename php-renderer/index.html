@@ -513,9 +513,10 @@ within your view script. Anything you can do with PHP is available to you.</p>
 <code>PhpRenderer</code>, providing it with a resolver which will resolve templates to PHP
 view scripts, and then calling its <code>render()</code> method.</p>
 <p>Instantiating a renderer:</p>
-<pre class=codehilite><code class=language-php>use Laminas\View\Renderer\PhpRenderer;
+<pre class="highlight"><code class="language-php">use Laminas\View\Renderer\PhpRenderer;
 
 $renderer = new PhpRenderer();</code></pre>
+
 <p>laminas-view ships with several types of "resolvers", which are used to resolve a
 template name to a resource a renderer can consume. The ones we will usually use
 with the <code>PhpRenderer</code> are:</p>
@@ -538,7 +539,7 @@ with the <code>PhpRenderer</code> are:</p>
 <p>We suggest using the <code>AggregateResolver</code>, as it allows you to create a
 multi-tiered strategy for resolving template names.</p>
 <p>Programmatically, you would then do something like this:</p>
-<pre class=codehilite><code class=language-php>use Laminas\View\Renderer\PhpRenderer;
+<pre class="highlight"><code class="language-php">use Laminas\View\Renderer\PhpRenderer;
 use Laminas\View\Resolver;
 
 $renderer = new PhpRenderer();
@@ -564,12 +565,13 @@ $resolver
     -&gt;attach($stack)  // filesystem-based lookup
     -&gt;attach(new Resolver\RelativeFallbackResolver($map)) // allow short template names
     -&gt;attach(new Resolver\RelativeFallbackResolver($stack));</code></pre>
+
 <p>You can also specify a specific priority value when registering resolvers, with
 high, positive integers getting higher priority, and low, negative integers
 getting low priority, when resolving.</p>
 <p>If you are started your application via the <a href="https://github.com/laminas/laminas-mvc-skeleton">laminas-mvc-skeleton</a>,
 you can provide the above via configuration:</p>
-<pre class=codehilite><code class=language-php>// In the Application module configuration
+<pre class="highlight"><code class="language-php">// In the Application module configuration
 // (module/Application/config/module.config.php):
 return [
     'view_manager' =&gt; [
@@ -582,6 +584,7 @@ return [
         ],
     ],
 ];</code></pre>
+
 <p>If you did not begin with the skeleton application, you will need to write your
 own factories for creating each resolver and wiring them to the
 <code>AggregateResolver</code> and injecting into the <code>PhpRenderer</code>.</p>
@@ -600,7 +603,7 @@ inject some variables. This can be done in 4 different ways.</p>
   <code>ViewModel</code> to the <code>render()</code> method:</li>
 </ul>
 <p>As an example of the latter:</p>
-<pre class=codehilite><code class=language-php>use Laminas\View\Model\ViewModel;
+<pre class="highlight"><code class="language-php">use Laminas\View\Model\ViewModel;
 use Laminas\View\Renderer\PhpRenderer;
 
 $renderer = new PhpRenderer();
@@ -612,9 +615,10 @@ $model = new ViewModel(['foo' =&gt; 'bar']);
 
 $model-&gt;setTemplate($templateName);
 $renderer-&gt;render($model);</code></pre>
+
 <p>Now, let's render something. As an example, let us say you have a list of
 book data.</p>
-<pre class=codehilite><code class=language-php>// use a model to get the data for book authors and titles.
+<pre class="highlight"><code class="language-php">// use a model to get the data for book authors and titles.
 $data = [
     [
         'author' =&gt; 'Hernando de Soto',
@@ -633,12 +637,13 @@ $data = [
 // now assign the book data to a renderer instance
 $renderer-&gt;books = $data;
 
-// and render the template &quot;booklist&quot;
+// and render the template "booklist"
 echo $renderer-&gt;render('booklist');</code></pre>
+
 <p>More often than not, you'll likely be using the MVC layer. As such, you should
 be thinking in terms of view models. Let's consider the following code from
 within an action method of a controller.</p>
-<pre class=codehilite><code class=language-php>namespace Bookstore\Controller;
+<pre class="highlight"><code class="language-php">namespace Bookstore\Controller;
 
 use Laminas\Mvc\Controller\AbstractActionController;
 
@@ -653,24 +658,26 @@ class BookController extends AbstractActionController
 
         // Optionally specify a template; if we don't, by default it will be
         // auto-determined based on the module name, controller name and this action.
-        // In this example, the template would resolve to &quot;bookstore/book/list&quot;,
-        // and thus the file &quot;bookstore/book/list.phtml&quot;; the following overrides
-        // that to set the template to &quot;booklist&quot;, and thus the file &quot;booklist.phtml&quot;
+        // In this example, the template would resolve to "bookstore/book/list",
+        // and thus the file "bookstore/book/list.phtml"; the following overrides
+        // that to set the template to "booklist", and thus the file "booklist.phtml"
         // (note the lack of directory preceding the filename).
         $model-&gt;setTemplate('booklist');
 
         return $model
     }
 }</code></pre>
+
 <p>This will then be rendered as if the following were executed:</p>
-<pre class=codehilite><code class=language-php>$renderer-&gt;render($model);</code></pre>
+<pre class="highlight"><code class="language-php">$renderer-&gt;render($model);</code></pre>
+
 <p>Now we need the associated view script. At this point, we'll assume that the
 template <code>booklist</code> resolves to the file <code>booklist.phtml</code>. This is a PHP script
 like any other, with one exception: it executes inside the scope of the
 <code>PhpRenderer</code> instance, which means that references to <code>$this</code> point to the
 <code>PhpRenderer</code> instance properties and methods. Thus, a very basic view script
 could look like this:</p>
-<pre class=codehilite><code class=language-php>&lt;?php if ($this-&gt;books): ?&gt;
+<pre class="highlight"><code class="language-php">&lt;?php if ($this-&gt;books): ?&gt;
 
     &lt;!-- A table of some books. --&gt;
     &lt;table&gt;
@@ -693,6 +700,7 @@ could look like this:</p>
     &lt;p&gt;There are no books to display.&lt;/p&gt;
 
 &lt;?php endif;?&gt;</code></pre>
+
 <blockquote>
 <h3>Escape Output</h3>
 <p>The security mantra is "Filter input, escape output." If you are unsure of the
@@ -720,20 +728,25 @@ and/or create view models, create view scripts, and render view scripts.</p>
 its work. Use the following methods to configure the renderer.</p>
 <p>Unless otherwise noted, class names are relative to the <code>Laminas\View</code> namespace.</p>
 <h3>setHelperPluginManager</h3>
-<pre class=codehilite><code class=language-php>setHelperPluginManager(string|HelperPluginManager $helpers): void</code></pre>
+<pre class="highlight"><code class="language-php">setHelperPluginManager(string|HelperPluginManager $helpers): void</code></pre>
+
 <p>Set the helper plugin manager instance used to load, register, and retrieve
 <a href="../helpers/intro/">helpers</a>.</p>
 <h3>setResolver</h3>
-<pre class=codehilite><code class=language-php>setResolver(Resolver\\ResolverInterface $resolver) : void</code></pre>
+<pre class="highlight"><code class="language-php">setResolver(Resolver\\ResolverInterface $resolver) : void</code></pre>
+
 <p>Set the resolver instance.</p>
 <h3>setFilterChain</h3>
-<pre class=codehilite><code class=language-php>setFilterChain(\Laminas\Filter\FilterChain $filters) : void</code></pre>
+<pre class="highlight"><code class="language-php">setFilterChain(\Laminas\Filter\FilterChain $filters) : void</code></pre>
+
 <p>Set a filter chain to use as an output filter on rendered content.</p>
 <h3>setVars</h3>
-<pre class=codehilite><code class=language-php>setVars(array|\ArrayAccess|Variables $variables) : void</code></pre>
+<pre class="highlight"><code class="language-php">setVars(array|\ArrayAccess|Variables $variables) : void</code></pre>
+
 <p>Set the variables to use when rendering a view script/template.</p>
 <h3>setCanRenderTrees</h3>
-<pre class=codehilite><code class=language-php>setCanRenderTrees(boolean $canRenderTrees) : void</code></pre>
+<pre class="highlight"><code class="language-php">setCanRenderTrees(boolean $canRenderTrees) : void</code></pre>
+
 <p>Set the flag indicating whether or not we should render trees of view models. If
 set to true, the <code>Laminas\View\View</code> instance will not attempt to render children
 separately, but instead pass the root view model directly to the <code>PhpRenderer</code>.
@@ -746,10 +759,11 @@ within your view scripts or when interacting with the <code>PhpRenderer</code>. 
 there are a few additional methods you may be interested in.</p>
 <p>Unless otherwise noted, class names are relative to the <code>Laminas\View</code> namespace.</p>
 <h3>render</h3>
-<pre class=codehilite><code class=language-php>render(
+<pre class="highlight"><code class="language-php">render(
     string|Model\ModelInterface $nameOrModel,
     array|\Traversable $values = null
 ) : string</code></pre>
+
 <p>Render a template/view model.</p>
 <p>If <code>$nameOrModel</code> is a string, it is assumed to be a template name. That
 template will be resolved using the current resolver, and then rendered.</p>
@@ -764,20 +778,24 @@ these will be used when rendering; otherwise, the variables container already
 present, if any, will be used.</p>
 <p>The method returns the script output.</p>
 <h3>resolver</h3>
-<pre class=codehilite><code class=language-php>resolver() : Resolver\ResolverInterface</code></pre>
+<pre class="highlight"><code class="language-php">resolver() : Resolver\ResolverInterface</code></pre>
+
 <p>Retrieves the current <code>Resolver</code> instance.</p>
 <h3>vars</h3>
-<pre class=codehilite><code class=language-php>vars(string $key = null) : mixed</code></pre>
+<pre class="highlight"><code class="language-php">vars(string $key = null) : mixed</code></pre>
+
 <p>Retrieve a single variable from the container if a key is provided; otherwise it
 will return the variables container.</p>
 <h3>plugin</h3>
-<pre class=codehilite><code class=language-php>plugin(string $name, array $options = null) : Helper\HelperInterface</code></pre>
+<pre class="highlight"><code class="language-php">plugin(string $name, array $options = null) : Helper\HelperInterface</code></pre>
+
 <p>Retrieve a plugin/helper instance. Proxies to the plugin manager's <code>get()</code>
 method; as such, any <code>$options</code> you pass will be passed to the plugin's
 constructor if this is the first time the plugin has been retrieved. See the
 section on <a href="../helpers/intro/">helpers</a> for more information.</p>
 <h3>addTemplate</h3>
-<pre class=codehilite><code class=language-php>addTemplate(string $template) : void</code></pre>
+<pre class="highlight"><code class="language-php">addTemplate(string $template) : void</code></pre>
+
 <p>Add a template to the stack. When used, the next call to <code>render()</code> will loop
 through all templates added using this method, rendering them one by one; the
 output of the last will be returned.</p>

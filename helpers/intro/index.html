@@ -511,13 +511,13 @@ that implement <code>__invoke()</code>.</p>
 <p>As an example, let's say we have a helper class named
 <code>MyModule\View\Helper\LowerCase</code>, which we register in our plugin manager with
 the name <code>lowercase</code>. We can retrieve it in one of the following ways:</p>
-<pre class=codehilite><code class=language-php>// $view is a PhpRenderer instance
+<pre class="highlight"><code class="language-php">// $view is a PhpRenderer instance
 
 // Via the plugin manager:
 $pluginManager = $view-&gt;getHelperPluginManager();
 $helper        = $pluginManager-&gt;get('lowercase');
 
-// Retrieve the helper instance, via the method &quot;plugin&quot;,
+// Retrieve the helper instance, via the method "plugin",
 // which proxies to the plugin manager:
 $helper = $view-&gt;plugin('lowercase');
 
@@ -527,6 +527,7 @@ $helper = $view-&gt;lowercase();
 // If the helper DOES define __invoke, you can call the helper
 // as if it is a method:
 $filtered = $view-&gt;lowercase('some value');</code></pre>
+
 <p>The last two examples demonstrate how the <code>PhpRenderer</code> uses method overloading
 to retrieve and/or invoke helpers directly, offering a convenience API for end
 users.</p>

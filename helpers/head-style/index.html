@@ -522,10 +522,9 @@ media, or dir are all permissible.</p>
 allows you to hide it from specific browsers. To add the conditional tags,
 pass the conditional value as part of the <code>$attributes</code> parameter in the
 method calls.</p>
-<pre class="codehilite"><code class="language-php">
-// adding comments
-$this-&gt;headStyle()-&gt;appendStyle($styles, ['conditional' =&gt; 'lt IE 7']);
-</code></pre>
+<pre class="highlight"><code class="language-php">// adding comments
+$this-&gt;headStyle()-&gt;appendStyle($styles, ['conditional' =&gt; 'lt IE 7']);</code></pre>
+
 </blockquote>
 <p><code>HeadStyle</code> also allows capturing style declarations; this can be useful if you
 want to create the declarations programmatically, and then place them elsewhere.
@@ -551,8 +550,7 @@ use another encoding with <code>headStyle</code>, you must:</p>
 <li>Attach the custom strategy in the <code>ViewEvent</code>.</li>
 </ol>
 <p>First we have to write the custom renderer:</p>
-<pre class="codehilite"><code class="language-php">
-// module/MyModule/View/Renderer/MyRenderer.php
+<pre class="highlight"><code class="language-php">// module/MyModule/View/Renderer/MyRenderer.php
 namespace MyModule\View\Renderer;
 
 // Since we just want to implement the getEncoding() method, we can extend the Laminas native renderer
@@ -595,11 +593,10 @@ class MyRenderer extends PhpRenderer
     {
         return $this-&gt;encoding;
     }
-}
-</code></pre>
+}</code></pre>
+
 <p>Now we make some configuration in the module class:</p>
-<pre class="codehilite"><code class="language-php">
-// module/MyModule.php
+<pre class="highlight"><code class="language-php">// module/MyModule.php
 namespace MyModule;
 
 use MyModule\View\Renderer\MyRenderer;
@@ -648,20 +645,21 @@ class Module
         // Attach strategy, which is a listener aggregate, at high priority
         $view-&gt;getEventManager()-&gt;attach($myStrategy, 100);
     }
-}
-</code></pre>
+}</code></pre>
+
 <p>See the quick start <a href="../../quick-start/#creating-and-registering-alternate-rendering-and-response-strategies">Creating and Registering Alternate Rendering and Response Strategies</a>
 chapter for more information on how to create and register custom strategies
 to your view.</p>
 </blockquote>
 <h2 id="basic-usage">Basic Usage</h2>
 <p>You may specify a new style tag at any time:</p>
-<pre class=codehilite><code class=language-php>// adding styles
+<pre class="highlight"><code class="language-php">// adding styles
 $this-&gt;headStyle()-&gt;appendStyle($styles);</code></pre>
+
 <p>Order is very important with CSS; you may need to ensure that declarations are
 loaded in a specific order due to the order of the cascade; use the various
 <code>append</code>, <code>prepend</code>, and <code>offsetSet</code> directives to aid in this task:</p>
-<pre class=codehilite><code class=language-php>// Putting styles in order
+<pre class="highlight"><code class="language-php">// Putting styles in order
 
 // place at a particular offset:
 $this-&gt;headStyle()-&gt;offsetSetStyle(100, $customStyles);
@@ -671,19 +669,22 @@ $this-&gt;headStyle()-&gt;appendStyle($finalStyles);
 
 // place at beginning
 $this-&gt;headStyle()-&gt;prependStyle($firstStyles);</code></pre>
+
 <p>When you're finally ready to output all style declarations in your layout
 script, echo the helper:</p>
-<pre class=codehilite><code class=language-php>&lt;?= $this-&gt;headStyle() ?&gt;</code></pre>
+<pre class="highlight"><code class="language-php">&lt;?= $this-&gt;headStyle() ?&gt;</code></pre>
+
 <h2 id="capturing-style-declarations">Capturing Style Declarations</h2>
 <p>Sometimes you need to generate CSS style declarations programmatically. While
 you could use string concatenation, heredocs, and the like, often it's easier
 just to do so by creating the styles and sprinkling in PHP tags. <code>HeadStyle</code>
 lets you do just that, capturing it to the stack:</p>
-<pre class=codehilite><code class=language-php>&lt;?php $this-&gt;headStyle()-&gt;captureStart() ?&gt;
+<pre class="highlight"><code class="language-php">&lt;?php $this-&gt;headStyle()-&gt;captureStart() ?&gt;
 body {
     background-color: &lt;?= $this-&gt;bgColor ?&gt;;
 }
 &lt;?php $this-&gt;headStyle()-&gt;captureEnd() ?&gt;</code></pre>
+
 <p>The following assumptions are made:</p>
 <ul>
 <li>The style declarations will be appended to the stack. If you wish for them to

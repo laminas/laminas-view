@@ -500,64 +500,71 @@
 <p>The <code>Cycle</code> helper is used to alternate a set of values.</p>
 <h2 id="basic-usage">Basic Usage</h2>
 <p>To add elements to cycle, specify them in constructor:</p>
-<pre class=codehilite><code class=language-php>&lt;table&gt;
+<pre class="highlight"><code class="language-php">&lt;table&gt;
     &lt;?php foreach ($this-&gt;books as $book): ?&gt;
-        &lt;tr class=&quot;&lt;?= $this-&gt;cycle(['odd', 'even'])-&gt;next() ?&gt;&quot;&gt;
+        &lt;tr class="&lt;?= $this-&gt;cycle(['odd', 'even'])-&gt;next() ?&gt;"&gt;
             &lt;td&gt;&lt;?= $this-&gt;escapeHtml($book['author']) ?&gt;&lt;/td&gt;
         &lt;/tr&gt;
     &lt;?php endforeach ?&gt;
 &lt;/table&gt;</code></pre>
+
 <p>The output:</p>
-<pre class=codehilite><code class=language-php>&lt;table&gt;
-    &lt;tr class=&quot;odd&quot;&gt;
+<pre class="highlight"><code class="language-php">&lt;table&gt;
+    &lt;tr class="odd"&gt;
        &lt;td&gt;First&lt;/td&gt;
     &lt;/tr&gt;
-    &lt;tr class=&quot;even&quot;&gt;
+    &lt;tr class="even"&gt;
        &lt;td&gt;Second&lt;/td&gt;
     &lt;/tr&gt;
 &lt;/table&gt;</code></pre>
+
 <p>Instead of passing the data at invocation, you can assign it ahead of time:</p>
-<pre class=codehilite><code class=language-php>&lt;?php $this-&gt;cycle()-&gt;assign(['odd', 'even']); ?&gt;</code></pre>
+<pre class="highlight"><code class="language-php">&lt;?php $this-&gt;cycle()-&gt;assign(['odd', 'even']); ?&gt;</code></pre>
+
 <p>You can also cycle in reverse, using the <code>prev()</code> method instead of <code>next()</code>:</p>
-<pre class=codehilite><code class=language-php>&lt;table&gt;
+<pre class="highlight"><code class="language-php">&lt;table&gt;
     &lt;?php foreach ($this-&gt;books as $book): ?&gt;
-    &lt;tr class=&quot;&lt;?= $this-&gt;cycle()-&gt;prev() ?&gt;&quot;&gt;
+    &lt;tr class="&lt;?= $this-&gt;cycle()-&gt;prev() ?&gt;"&gt;
        &lt;td&gt;&lt;?php echo $this-&gt;escapeHtml($book['author']) ?&gt;&lt;/td&gt;
     &lt;/tr&gt;
     &lt;?php endforeach ?&gt;
 &lt;/table&gt;</code></pre>
+
 <p>The output of the two previous examples combined becomes:</p>
-<pre class=codehilite><code class=language-php>&lt;table&gt;
-    &lt;tr class=&quot;even&quot;&gt;
+<pre class="highlight"><code class="language-php">&lt;table&gt;
+    &lt;tr class="even"&gt;
        &lt;td&gt;First&lt;/td&gt;
     &lt;/tr&gt;
-    &lt;tr class=&quot;odd&quot;&gt;
+    &lt;tr class="odd"&gt;
        &lt;td&gt;Second&lt;/td&gt;
     &lt;/tr&gt;
 &lt;/table&gt;</code></pre>
+
 <h2 id="working-with-two-or-more-cycles">Working with two or more cycles</h2>
 <p>If you are nesting cycles, you must provide all but one of them with a name; do
 this by providing a second parameter to the <code>cycle()</code> invocation:
 <code>$this-&gt;cycle(['odd', 'even'], 'cycle2')</code></p>
-<pre class=codehilite><code class=language-php>&lt;table&gt;
+<pre class="highlight"><code class="language-php">&lt;table&gt;
     &lt;?php foreach ($this-&gt;books as $book): ?&gt;
-        &lt;tr class=&quot;&lt;?= $this-&gt;cycle(['odd', 'even'])-&gt;next() ?&gt;&quot;&gt;
+        &lt;tr class="&lt;?= $this-&gt;cycle(['odd', 'even'])-&gt;next() ?&gt;"&gt;
             &lt;td&gt;&lt;?= $this-&gt;cycle([1, 2, 3], 'number')-&gt;next() ?&gt;&lt;/td&gt;
             &lt;td&gt;&lt;?= $this-&gt;escapeHtml($book['author']) ?&gt;&lt;/td&gt;
         &lt;/tr&gt;
     &lt;?php endforeach ?&gt;
 &lt;/table&gt;</code></pre>
+
 <p>You can also provide a <code>$name</code> argument to <code>assign()</code>:</p>
-<pre class=codehilite><code class=language-php>&lt;?php $this-&gt;cycle()-&gt;assign([1, 2, 3], 'number'); ?&gt;</code></pre>
+<pre class="highlight"><code class="language-php">&lt;?php $this-&gt;cycle()-&gt;assign([1, 2, 3], 'number'); ?&gt;</code></pre>
+
 <p>Or use the <code>setName()</code> method priort to invoking either of <code>next()</code> or <code>prev()</code>.</p>
 <p>As a combined example:</p>
-<pre class=codehilite><code class=language-php>&lt;?php
+<pre class="highlight"><code class="language-php">&lt;?php
 $this-&gt;cycle()-&gt;assign(['odd', 'even'], 'classes');
 $this-&gt;cycle()-&gt;assign([1, 2, 3], 'numbers');
 ?&gt;
 &lt;table&gt;
     &lt;?php foreach ($this-&gt;books as $book): ?&gt;
-        &lt;tr class=&quot;&lt;?= $this-&gt;cycle()-&gt;setName('classes')-&gt;next() ?&gt;&quot;&gt;
+        &lt;tr class="&lt;?= $this-&gt;cycle()-&gt;setName('classes')-&gt;next() ?&gt;"&gt;
             &lt;td&gt;&lt;?= $this-&gt;cycle()-&gt;setName('numbers')-&gt;next() ?&gt;&lt;/td&gt;
             &lt;td&gt;&lt;?= $this-&gt;escapeHtml($book['author']) ?&gt;&lt;/td&gt;
         &lt;/tr&gt;

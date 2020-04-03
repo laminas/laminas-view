@@ -562,59 +562,66 @@ client-side caching rules or SEO keywords.</p>
 <p>For instance, if you wish to specify SEO keywords, you'd be creating a meta name
 tag with the name <code>keywords</code> and the content the keywords you wish to associate
 with your page:</p>
-<pre class=codehilite><code class=language-php>// setting meta keywords
+<pre class="highlight"><code class="language-php">// setting meta keywords
 $this-&gt;headMeta()-&gt;appendName('keywords', 'framework, PHP, productivity');</code></pre>
+
 <p>If you wished to set some client-side caching rules, you'd set <code>http-equiv</code> tags
 with the rules you wish to enforce:</p>
-<pre class=codehilite><code class=language-php>// disabling client-side cache
+<pre class="highlight"><code class="language-php">// disabling client-side cache
 $this-&gt;headMeta()
     -&gt;appendHttpEquiv('expires', 'Wed, 26 Feb 1997 08:21:57 GMT')
     -&gt;appendHttpEquiv('pragma', 'no-cache')
     -&gt;appendHttpEquiv('Cache-Control', 'no-cache');</code></pre>
+
 <p>Another popular use for meta tags is setting the content type, character set,
 and language:</p>
-<pre class=codehilite><code class=language-php>// setting content type and character set
+<pre class="highlight"><code class="language-php">// setting content type and character set
 $this-&gt;headMeta()
     -&gt;appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8')
     -&gt;appendHttpEquiv('Content-Language', 'en-US');</code></pre>
+
 <p>If you are serving an HTML5 document, you should provide the character set like
 this:</p>
-<pre class=codehilite><code class=language-php>// setting character set in HTML5
-$this-&gt;headMeta()-&gt;setCharset('UTF-8'); // Will look like &lt;meta charset=&quot;UTF-8&quot;&gt;</code></pre>
+<pre class="highlight"><code class="language-php">// setting character set in HTML5
+$this-&gt;headMeta()-&gt;setCharset('UTF-8'); // Will look like &lt;meta charset="UTF-8"&gt;</code></pre>
+
 <p>As a final example, an easy way to display a transitional message before a
 redirect is using a "meta refresh":</p>
-<pre class=codehilite><code class=language-php>// setting a meta refresh for 3 seconds to a new url:
+<pre class="highlight"><code class="language-php">// setting a meta refresh for 3 seconds to a new url:
 $this-&gt;headMeta()
     -&gt;appendHttpEquiv('Refresh', '3;URL=http://www.some.org/some.html');</code></pre>
+
 <p>When you're ready to place your meta tags in the layout, echo the helper:</p>
-<pre class=codehilite><code class=language-php>&lt;?= $this-&gt;headMeta() ?&gt;</code></pre>
+<pre class="highlight"><code class="language-php">&lt;?= $this-&gt;headMeta() ?&gt;</code></pre>
+
 <h2 id="usage-with-xhtml1_rdfa-doctype">Usage with XHTML1_RDFA doctype</h2>
 <p>Enabling the RDFa doctype with the <a href="../doctype/">Doctype helper</a> enables the use
 of the <code>property</code> attribute (in addition to the standard <code>name</code> and
 <code>http-equiv</code>) with <code>HeadMeta</code>.  This is commonly used with the Facebook <a href="http://opengraphprotocol.org/">Open
 Graph Protocol</a>.</p>
 <p>For instance, you may specify an open graph page title and type as follows:</p>
-<pre class=codehilite><code class=language-php>$this-&gt;doctype(Laminas\View\Helper\Doctype::XHTML1_RDFA);
+<pre class="highlight"><code class="language-php">$this-&gt;doctype(Laminas\View\Helper\Doctype::XHTML1_RDFA);
 $this-&gt;headMeta()-&gt;setProperty('og:title', 'my article title');
 $this-&gt;headMeta()-&gt;setProperty('og:type', 'article');
 echo $this-&gt;headMeta();
 
 // output is:
-//   &lt;meta property=&quot;og:title&quot; content=&quot;my article title&quot; /&gt;
-//   &lt;meta property=&quot;og:type&quot; content=&quot;article&quot; /&gt;</code></pre>
+//   &lt;meta property="og:title" content="my article title" /&gt;
+//   &lt;meta property="og:type" content="article" /&gt;</code></pre>
+
 <h2 id="usage-with-html5-doctype">Usage with HTML5 doctype</h2>
 <p>Enabling the HTML5 doctype with the <a href="../doctype/">Doctype helper</a> enables the use
 of the <code>itemprop</code> attribute (in addition to the standard <code>name</code> and
 <code>http-equiv</code>) with <code>HeadMeta</code>.  This is typically used to add
 <a href="https://schema.org">Microdata</a> to the head of your document.</p>
-<pre class=codehilite><code class=language-php>$this-&gt;doctype(Laminas\View\Helper\Doctype::HTML5);
+<pre class="highlight"><code class="language-php">$this-&gt;doctype(Laminas\View\Helper\Doctype::HTML5);
 $this-&gt;headMeta()-&gt;setItemprop('headline', 'My Article Headline');
 $this-&gt;headMeta()-&gt;setItemprop('dateCreated', $date-&gt;format('c'));
 echo $this-&gt;headMeta();
 
 // output is:
-//   &lt;meta itemprop=&quot;headline&quot; content=&quot;My Article Headline&quot;&gt;
-//   &lt;meta itemprop=&quot;dateCreated&quot; content=&quot;2018-07-12T22:19:06+00:00&quot;&gt;</code></pre>
+//   &lt;meta itemprop="headline" content="My Article Headline"&gt;
+//   &lt;meta itemprop="dateCreated" content="2018-07-12T22:19:06+00:00"&gt;</code></pre>
 
 
 

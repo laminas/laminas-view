@@ -508,7 +508,7 @@ your view scripts, while having that map to:</p>
 <p><code>Laminas\View\Helper\Service\AssetFactory</code> checks the application configuration,
 making it possible to set up the resource map through your <code>module.config.php</code>
 or application configuration. As an example:</p>
-<pre class=codehilite><code class=language-php>'view_helper_config' =&gt; [
+<pre class="highlight"><code class="language-php">'view_helper_config' =&gt; [
     'asset' =&gt; [
         'resource_map' =&gt; [
             'css/style.css' =&gt; 'css/style-3a97ff4ee3.css',
@@ -516,11 +516,14 @@ or application configuration. As an example:</p>
         ],
     ],
 ],</code></pre>
+
 <p>Within your view script, you would reference the asset name:</p>
-<pre class=codehilite><code class=language-php>// Usable in any of your .phtml files:
+<pre class="highlight"><code class="language-php">// Usable in any of your .phtml files:
 echo $this-&gt;asset('css/style.css');</code></pre>
+
 <p>which then emits the following output:</p>
-<pre class=codehilite><code class=language-html>css/style-3a97ff4ee3.css</code></pre>
+<pre class="highlight"><code class="language-html">css/style-3a97ff4ee3.css</code></pre>
+
 <p>The first argument of the <code>asset</code> helper is the regular asset name, which will
 be replaced by the associated value defined in the <code>resource_map</code> of the
 configuration.</p>
@@ -534,17 +537,19 @@ an array, the helper will raise a <code>Laminas\View\Exception\RuntimeException<
 <h2 id="resource-map-in-json-file">Resource map in JSON file</h2>
 <p>A number of build tools, such as gulp-rev and grunt-rev, will create a JSON
 resource map file such as <code>rev-manifest.json</code>:</p>
-<pre class=codehilite><code class=language-javascript>{
-    &quot;css/style.css&quot;: &quot;css/style-3a97ff4ee3.css&quot;,
-    &quot;js/vendor.js&quot;: &quot;js/vendor-a507086eba.js&quot;
+<pre class="highlight"><code class="language-javascript">{
+    "css/style.css": "css/style-3a97ff4ee3.css",
+    "js/vendor.js": "js/vendor-a507086eba.js"
 }</code></pre>
+
 <p>You can incorporate these into your configuration manually by fetching and
 decoding the contents:</p>
-<pre class=codehilite><code class=language-php>'view_helper_config' =&gt; [
+<pre class="highlight"><code class="language-php">'view_helper_config' =&gt; [
     'asset' =&gt; [
         'resource_map' =&gt; json_decode(file_get_contents('path/to/rev-manifest.json'), true),
     ],
 ],</code></pre>
+
 <p>If you have enabled configuration caching, these values <em>will also be cached</em>,
 meaning that the above operation will occur exactly once in your production
 configuration.</p>

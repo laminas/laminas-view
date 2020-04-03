@@ -526,106 +526,138 @@ explicitly pass a different attach order as the second parameter.</p>
 <h2 id="basic-usage">Basic Usage</h2>
 <p>Specify a title tag in a view script, e.g.
 <code>module/Album/view/album/album/index.phtml</code>:</p>
-<pre class=codehilite><code class=language-php>$this-&gt;headTitle('My albums');</code></pre>
+<pre class="highlight"><code class="language-php">$this-&gt;headTitle('My albums');</code></pre>
+
 <p>Render the title in the layout script, e.g.
 <code>module/Application/view/layout/layout.phtml</code></p>
-<pre class=codehilite><code class=language-php>&lt;?= $this-&gt;headTitle() ?&gt;</code></pre>
+<pre class="highlight"><code class="language-php">&lt;?= $this-&gt;headTitle() ?&gt;</code></pre>
+
 <p>Output:</p>
-<pre class=codehilite><code class=language-html>&lt;title&gt;My albums&lt;/title&gt;</code></pre>
+<pre class="highlight"><code class="language-html">&lt;title&gt;My albums&lt;/title&gt;</code></pre>
+
 <h3>Add the Website Name</h3>
 <p>A typical usage includes the website name in the title. Add the name and <a href="#using-separator">set a
 separator</a> in the layout script, e.g.
 <code>module/Application/view/layout/layout.phtml</code></p>
-<pre class=codehilite><code class=language-php>&lt;?= $this-&gt;headTitle('Music')-&gt;setSeparator(' - ') ?&gt;</code></pre>
+<pre class="highlight"><code class="language-php">&lt;?= $this-&gt;headTitle('Music')-&gt;setSeparator(' - ') ?&gt;</code></pre>
+
 <p>Output:</p>
-<pre class=codehilite><code class=language-html>&lt;title&gt;My albums - Music&lt;/title&gt;</code></pre>
+<pre class="highlight"><code class="language-html">&lt;title&gt;My albums - Music&lt;/title&gt;</code></pre>
+
 <h2 id="set-content">Set Content</h2>
 <p>The normal behaviour is to append the content to the title (container).</p>
-<pre class=codehilite><code class=language-php>$this-&gt;headTitle('My albums')
+<pre class="highlight"><code class="language-php">$this-&gt;headTitle('My albums')
 $this-&gt;headTitle('Music');
 
 echo $this-&gt;headTitle(); // &lt;title&gt;My albumsMusic&lt;/title&gt;</code></pre>
+
 <h3>Append Content</h3>
 <p>To explicitly append content, the second paramater <code>$setType</code> or the concrete
 method <code>append()</code> of the helper can be used:</p>
-<div class=md-fenced-code-tabs id=tab-tab-group-6><ul class="nav nav-tabs"><li class=nav-item><a class="nav-link active" href=#tab-group-6-0_php-panel role=tab id=tab-group-6-0_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-6-0_php-panel aria-selected=true>Invoke Usage</a></li><li class=nav-item><a class="nav-link " href=#tab-group-6-1_php-panel role=tab id=tab-group-6-1_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-6-1_php-panel aria-selected=false>Setter Usage</a></li></ul><div class=tab-content><div id=tab-group-6-0_php-panel class="tab-pane show active" role=tabpanel aria-labelledby=tab-group-6-0_php-tab><pre class=codehilite><code class=language-php>$this-&gt;headTitle('My albums')
+<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Invoke Usage</label><div class="tabbed-content">
+<pre class="highlight"><code class="language-php">$this-&gt;headTitle('My albums')
 $this-&gt;headTitle('Music', 'APPEND');
 
-echo $this-&gt;headTitle(); // &lt;title&gt;My albumsMusic&lt;/title&gt;</code></pre></div><div id=tab-group-6-1_php-panel class="tab-pane " role=tabpanel aria-labelledby=tab-group-6-1_php-tab><pre class=codehilite><code class=language-php>$this-&gt;headTitle('My albums')
+echo $this-&gt;headTitle(); // &lt;title&gt;My albumsMusic&lt;/title&gt;</code></pre>
+
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Setter Usage</label><div class="tabbed-content">
+<pre class="highlight"><code class="language-php">$this-&gt;headTitle('My albums')
 $this-&gt;headTitle()-&gt;append('Music');
 
-echo $this-&gt;headTitle(); // &lt;title&gt;My albumsMusic&lt;/title&gt;</code></pre></div></div></div>
+echo $this-&gt;headTitle(); // &lt;title&gt;My albumsMusic&lt;/title&gt;</code></pre>
 
+</div>
+</div>
 <p>The constant <code>Laminas\View\Helper\Placeholder\Container\AbstractContainer::APPEND</code>
 can also be used as value for the second parameter <code>$setType</code>.</p>
 <h3>Prepend Content</h3>
 <p>To prepend content, the second paramater <code>$setType</code> or the concrete method
 <code>prepend()</code> of the helper can be used:</p>
-<div class=md-fenced-code-tabs id=tab-tab-group-7><ul class="nav nav-tabs"><li class=nav-item><a class="nav-link active" href=#tab-group-7-0_php-panel role=tab id=tab-group-7-0_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-7-0_php-panel aria-selected=true>Invoke Usage</a></li><li class=nav-item><a class="nav-link " href=#tab-group-7-1_php-panel role=tab id=tab-group-7-1_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-7-1_php-panel aria-selected=false>Setter Usage</a></li></ul><div class=tab-content><div id=tab-group-7-0_php-panel class="tab-pane show active" role=tabpanel aria-labelledby=tab-group-7-0_php-tab><pre class=codehilite><code class=language-php>$this-&gt;headTitle('My albums')
+<div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Invoke Usage</label><div class="tabbed-content">
+<pre class="highlight"><code class="language-php">$this-&gt;headTitle('My albums')
 $this-&gt;headTitle('Music', 'PREPEND');
 
-echo $this-&gt;headTitle(); // &lt;title&gt;MusicMy albums&lt;/title&gt;</code></pre></div><div id=tab-group-7-1_php-panel class="tab-pane " role=tabpanel aria-labelledby=tab-group-7-1_php-tab><pre class=codehilite><code class=language-php>$this-&gt;headTitle('My albums')
+echo $this-&gt;headTitle(); // &lt;title&gt;MusicMy albums&lt;/title&gt;</code></pre>
+
+</div>
+<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Setter Usage</label><div class="tabbed-content">
+<pre class="highlight"><code class="language-php">$this-&gt;headTitle('My albums')
 $this-&gt;headTitle()-&gt;prepend('Music');
 
-echo $this-&gt;headTitle(); // &lt;title&gt;MusicMy albums&lt;/title&gt;</code></pre></div></div></div>
+echo $this-&gt;headTitle(); // &lt;title&gt;MusicMy albums&lt;/title&gt;</code></pre>
 
+</div>
+</div>
 <p>The constant <code>Laminas\View\Helper\Placeholder\Container\AbstractContainer::PREPEND</code>
 can also be used as value for the second parameter <code>$setType</code>.</p>
 <h3>Overwrite existing Content</h3>
 <p>To overwrite the entire content of title helper, the second parameter <code>$setType</code>
 or the concrete method <code>set()</code> of the helper can be used:</p>
-<div class=md-fenced-code-tabs id=tab-tab-group-8><ul class="nav nav-tabs"><li class=nav-item><a class="nav-link active" href=#tab-group-8-0_php-panel role=tab id=tab-group-8-0_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-8-0_php-panel aria-selected=true>Invoke Usage</a></li><li class=nav-item><a class="nav-link " href=#tab-group-8-1_php-panel role=tab id=tab-group-8-1_php-tab data-toggle=tab data-lang=php aria-controls=tab-group-8-1_php-panel aria-selected=false>Setter Usage</a></li></ul><div class=tab-content><div id=tab-group-8-0_php-panel class="tab-pane show active" role=tabpanel aria-labelledby=tab-group-8-0_php-tab><pre class=codehilite><code class=language-php>$this-&gt;headTitle('My albums')
+<div class="tabbed-set" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">Invoke Usage</label><div class="tabbed-content">
+<pre class="highlight"><code class="language-php">$this-&gt;headTitle('My albums')
 $this-&gt;headTitle('Music', 'SET');
 
-echo $this-&gt;headTitle(); // &lt;title&gt;Music&lt;/title&gt;</code></pre></div><div id=tab-group-8-1_php-panel class="tab-pane " role=tabpanel aria-labelledby=tab-group-8-1_php-tab><pre class=codehilite><code class=language-php>$this-&gt;headTitle('My albums')
+echo $this-&gt;headTitle(); // &lt;title&gt;Music&lt;/title&gt;</code></pre>
+
+</div>
+<input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><label for="__tabbed_3_2">Setter Usage</label><div class="tabbed-content">
+<pre class="highlight"><code class="language-php">$this-&gt;headTitle('My albums')
 $this-&gt;headTitle()-&gt;set('Music');
 
-echo $this-&gt;headTitle(); // &lt;title&gt;Music&lt;/title&gt;</code></pre></div></div></div>
+echo $this-&gt;headTitle(); // &lt;title&gt;Music&lt;/title&gt;</code></pre>
 
+</div>
+</div>
 <p>The constant <code>Laminas\View\Helper\Placeholder\Container\AbstractContainer::SET</code>
 can also be used as value for the second parameter <code>$setType</code>.</p>
 <h3>Set a default Order to add Content</h3>
-<pre class=codehilite><code class=language-php>$this-&gt;headTitle()-&gt;setDefaultAttachOrder('PREPEND');
+<pre class="highlight"><code class="language-php">$this-&gt;headTitle()-&gt;setDefaultAttachOrder('PREPEND');
 $this-&gt;headTitle('My albums');
 $this-&gt;headTitle('Music');
 
 echo $this-&gt;headTitle(); // &lt;title&gt;MusicMy albums&lt;/title&gt;</code></pre>
+
 <h4>Get Current Value</h4>
 <p>To get the current value of this option, use the <code>getDefaultAttachOrder()</code>
 method.</p>
-<pre class=codehilite><code class=language-php>$this-&gt;headTitle()-&gt;setDefaultAttachOrder('PREPEND');
+<pre class="highlight"><code class="language-php">$this-&gt;headTitle()-&gt;setDefaultAttachOrder('PREPEND');
 
 echo $this-&gt;headTitle()-&gt;getDefaultAttachOrder(); // PREPEND</code></pre>
+
 <h4>Default Value</h4>
 <p>The default value is
 <code>Laminas\View\Helper\Placeholder\Container\AbstractContainer::APPEND</code> which
 corresponds to the value <code>APPEND</code>.</p>
 <h2 id="using-separator">Using Separator</h2>
-<pre class=codehilite><code class=language-php>$this-&gt;headTitle()-&gt;setSeparator(' | ');
+<pre class="highlight"><code class="language-php">$this-&gt;headTitle()-&gt;setSeparator(' | ');
 $this-&gt;headTitle('My albums');
 $this-&gt;headTitle('Music');
 
 echo $this-&gt;headTitle(); // &lt;title&gt;My albums | Music&lt;/title&gt;</code></pre>
+
 <h3>Get Current Value</h3>
 <p>To get the current value of this option, use the <code>getSeparator()</code>
 method.</p>
-<pre class=codehilite><code class=language-php>$this-&gt;headTitle()-&gt;setSeparator(' | ');
+<pre class="highlight"><code class="language-php">$this-&gt;headTitle()-&gt;setSeparator(' | ');
 
 echo $this-&gt;headTitle()-&gt;getSeparator(); //  |</code></pre>
+
 <h3>Default Value</h3>
 <p>The default value is an empty <code>string</code> that means no extra content is added
 between the titles on rendering.</p>
 <h2 id="add-prefix-and-postfix">Add Prefix and Postfix</h2>
 <p>The content of the helper can be formatted with a prefix and a postfix.</p>
-<pre class=codehilite><code class=language-php>$this-&gt;headTitle('My albums')-&gt;setPrefix('Music: ')-&gt;setPostfix('𝄞');
+<pre class="highlight"><code class="language-php">$this-&gt;headTitle('My albums')-&gt;setPrefix('Music: ')-&gt;setPostfix('𝄞');
 
 echo $this-&gt;headTitle(); // &lt;title&gt;Music: My albums 𝄞&lt;/title&gt;</code></pre>
+
 <p>More descriptions and another example of usage can be found at the
 <a href="../placeholder/#aggregate-content"><code>Placeholder</code> helper</a>.</p>
 <h2 id="render-without-tags">Render without Tags</h2>
 <p>In case the title is needed without the <code>&lt;title&gt;</code> and <code>&lt;/title&gt;</code> tags the
 <code>renderTitle()</code> method can be used.</p>
-<pre class=codehilite><code class=language-php>echo $this-&gt;headTitle('My albums')-&gt;renderTitle(); // My albums</code></pre>
+<pre class="highlight"><code class="language-php">echo $this-&gt;headTitle('My albums')-&gt;renderTitle(); // My albums</code></pre>
 
 
 

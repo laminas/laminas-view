@@ -511,13 +511,15 @@ effort.</p>
 documentation will only contain examples of two of these helpers.</p>
 <h2 id="flash-helper">Flash helper</h2>
 <p>Embedding Flash in your page using the helper only requires the resource URI.</p>
-<pre class=codehilite><code class=language-php>&lt;?= $this-&gt;htmlFlash('/path/to/flash.swf'); ?&gt;</code></pre>
+<pre class="highlight"><code class="language-php">&lt;?= $this-&gt;htmlFlash('/path/to/flash.swf'); ?&gt;</code></pre>
+
 <p>This outputs the following HTML:</p>
-<pre class=codehilite><code class=language-html>&lt;object data=&quot;/path/to/flash.swf&quot;
-        type=&quot;application/x-shockwave-flash&quot;
-        classid=&quot;clsid:D27CDB6E-AE6D-11cf-96B8-444553540000&quot;
-        codebase=&quot;http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab&quot;&gt;
+<pre class="highlight"><code class="language-html">&lt;object data="/path/to/flash.swf"
+        type="application/x-shockwave-flash"
+        classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+        codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab"&gt;
 &lt;/object&gt;</code></pre>
+
 <p>Additionally, you can specify attributes, parameters, and content that can be
 rendered along with the <code>&lt;object&gt;</code>. This will be demonstrated using the
 <code>htmlObject()</code> helper.</p>
@@ -531,7 +533,7 @@ object element. It only accepts an array with key-value pairs. <code>classid</co
 a key-value array and uses them to create <code>&lt;param&gt;</code> elements. You will see an
 example of this shortly. Lastly, there is the option of providing additional
 content to the object. The following example utilizes all arguments.</p>
-<pre class=codehilite><code class=language-php>echo $this-&gt;htmlObject(
+<pre class="highlight"><code class="language-php">echo $this-&gt;htmlObject(
     '/path/to/file.ext',
     'mime/type',
     [
@@ -544,11 +546,12 @@ content to the object. The following example utilizes all arguments.</p>
     ],
     'some content'
 );</code></pre>
+
 <p>This would output:</p>
-<pre class=codehilite><code class=language-html>&lt;object data=&quot;/path/to/file.ext&quot; type=&quot;mime/type&quot;
-    attr1=&quot;aval1&quot; attr2=&quot;aval2&quot;&gt;
-    &lt;param name=&quot;param1&quot; value=&quot;pval1&quot; /&gt;
-    &lt;param name=&quot;param2&quot; value=&quot;pval2&quot; /&gt;
+<pre class="highlight"><code class="language-html">&lt;object data="/path/to/file.ext" type="mime/type"
+    attr1="aval1" attr2="aval2"&gt;
+    &lt;param name="param1" value="pval1" /&gt;
+    &lt;param name="param2" value="pval2" /&gt;
     some content
 &lt;/object&gt;</code></pre>
 

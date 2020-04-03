@@ -532,15 +532,17 @@ instance, <code>CDATA</code> escaping in <code>&lt;script&gt;</code> and <code>&
 <p>You may specify the doctype at any time. However, helpers that depend on the
 doctype for their output will recognize it only after you have set it, so the
 easiest approach is to specify it in your bootstrap:</p>
-<pre class=codehilite><code class=language-php>use Laminas\View\Helper\Doctype;
+<pre class="highlight"><code class="language-php">use Laminas\View\Helper\Doctype;
 
 $doctypeHelper = new Doctype();
 $doctypeHelper-&gt;doctype('XHTML1_STRICT');</code></pre>
+
 <p>And then print it out on top of your layout script:</p>
-<pre class=codehilite><code class=language-php>&lt;?php echo $this-&gt;doctype() ?&gt;</code></pre>
+<pre class="highlight"><code class="language-php">&lt;?php echo $this-&gt;doctype() ?&gt;</code></pre>
+
 <p>Within an application based off the <a href="https://github.com/laminas/laminas-mvc-skeleton">laminas-mvc-skeleton</a>,
 you can specify the doctype via configuration:</p>
-<pre class=codehilite><code class=language-php>// module/Application/config/module.config.php:
+<pre class="highlight"><code class="language-php">// module/Application/config/module.config.php:
 return [
     /* ... */
     'view_manager' =&gt; [
@@ -548,35 +550,41 @@ return [
         /* ... */
     ],
 ];</code></pre>
+
 <h2 id="retrieving-the-doctype">Retrieving the Doctype</h2>
 <p>If you need to know the doctype, you can do so by calling <code>getDoctype()</code> on the
 helper, which is returned by invoking the helper from the view.</p>
-<pre class=codehilite><code class=language-php>$doctype = $this-&gt;doctype()-&gt;getDoctype();</code></pre>
+<pre class="highlight"><code class="language-php">$doctype = $this-&gt;doctype()-&gt;getDoctype();</code></pre>
+
 <p>Typically, you'll want to know if the doctype is XHTML or not; for this, the
 <code>isXhtml()</code> method will suffice:</p>
-<pre class=codehilite><code class=language-php>if ($this-&gt;doctype()-&gt;isXhtml()) {
+<pre class="highlight"><code class="language-php">if ($this-&gt;doctype()-&gt;isXhtml()) {
     // do something differently
 }</code></pre>
+
 <p>You can also check if the doctype represents an HTML5 document.</p>
-<pre class=codehilite><code class=language-php>if ($this-&gt;doctype()-&gt;isHtml5()) {
+<pre class="highlight"><code class="language-php">if ($this-&gt;doctype()-&gt;isHtml5()) {
     // do something differently
 }</code></pre>
+
 <h2 id="choosing-a-doctype-to-use-with-the-open-graph-protocol">Choosing a Doctype to Use with the Open Graph Protocol</h2>
 <p>To implement the <a href="http://opengraphprotocol.org/">Open Graph Protocol</a>, you may
 specify the <code>XHTML1_RDFA</code> doctype. This doctype allows a developer to use the
 <a href="http://www.w3.org/TR/xhtml-rdfa-primer/">Resource Description Framework</a> within
 an XHTML document.</p>
-<pre class=codehilite><code class=language-php>use Laminas\View\Helper\Doctype;
+<pre class="highlight"><code class="language-php">use Laminas\View\Helper\Doctype;
 
 $doctypeHelper = new Doctype();
 $doctypeHelper-&gt;doctype('XHTML1_RDFA');</code></pre>
+
 <p>The RDFa doctype allows XHTML to validate when the 'property' meta tag attribute
 is used per the Open Graph Protocol spec. Example within a view script:</p>
-<pre class=codehilite><code class=language-php>&lt;?= $this-&gt;doctype('XHTML1_RDFA'); ?&gt;
-&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;
-      xmlns:og=&quot;http://opengraphprotocol.org/schema/&quot;&gt;
+<pre class="highlight"><code class="language-php">&lt;?= $this-&gt;doctype('XHTML1_RDFA'); ?&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://opengraphprotocol.org/schema/"&gt;
 &lt;head&gt;
-   &lt;meta property=&quot;og:type&quot; content=&quot;musician&quot; /&gt;</code></pre>
+   &lt;meta property="og:type" content="musician" /&gt;</code></pre>
+
 <p>In the previous example, we set the property to <code>og:type</code>. The <code>og</code> references
 the Open Graph namespace we specified in the html tag. The content identifies
 the page as being about a musician. See the <a href="http://opengraphprotocol.org/">Open Graph Protocol
@@ -584,13 +592,14 @@ documentation</a> for supported properties. The
 <a href="../head-meta/">HeadMeta helper</a> may be used to programmatically set these Open
 Graph Protocol meta tags.</p>
 <p>Here is how you check if the doctype is set to <code>XHTML1_RDFA</code>:</p>
-<pre class=codehilite><code class=language-php>&lt;?= $this-&gt;doctype() ?&gt;
-&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot;
+<pre class="highlight"><code class="language-php">&lt;?= $this-&gt;doctype() ?&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"
     &lt;?php if ($view-&gt;doctype()-&gt;isRdfa()): ?&gt;
-      xmlns:og=&quot;http://opengraphprotocol.org/schema/&quot;
-      xmlns:fb=&quot;http://www.facebook.com/2008/fbml&quot;
+      xmlns:og="http://opengraphprotocol.org/schema/"
+      xmlns:fb="http://www.facebook.com/2008/fbml"
     &lt;?php endif; ?&gt;
 &gt;</code></pre>
+
 <h2 id="laminas-mvc-view-manager">Laminas MVC View Manager</h2>
 <p>If you're running a LaminasMvc application, you should specify doctype via the
 <a href="https://docs.laminas.dev/laminas-mvc/services/#viewmanager">ViewManager</a> service.</p>

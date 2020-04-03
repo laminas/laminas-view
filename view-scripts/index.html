@@ -514,7 +514,7 @@ first, but differentiates between variables in the view script scope and those
 assigned to the renderer from elsewhere.</p>
 <p>By way of reminder, here is the example view script from the <code>PhpRenderer</code>
 introduction.</p>
-<pre class=codehilite><code class=language-php>&lt;?php if ($this-&gt;books): ?&gt;
+<pre class="highlight"><code class="language-php">&lt;?php if ($this-&gt;books): ?&gt;
 
     &lt;!-- A table of some books. --&gt;
     &lt;table&gt;
@@ -537,6 +537,7 @@ introduction.</p>
     &lt;p&gt;There are no books to display.&lt;/p&gt;
 
 &lt;?php endif;?&gt;</code></pre>
+
 <h2 id="escaping-output">Escaping Output</h2>
 <p>One of the most important tasks to perform in a view script is to make sure that
 output is escaped properly; among other things, this helps to avoid cross-site
@@ -549,15 +550,15 @@ context you use.</p>
 Matching the correct helper (or combination of helpers) to the context into
 which you are injecting untrusted variables will ensure that you are protected
 against Cross-Site Scripting (XSS) vulnerabilities.</p>
-<pre class=codehilite><code class=language-php>// bad view-script practice:
+<pre class="highlight"><code class="language-php">// bad view-script practice:
 echo $this-&gt;variable;
 
 // good view-script practice:
 echo $this-&gt;escapeHtml($this-&gt;variable);
 
 // and remember context is always relevant!
-&lt;script type=&quot;text/javascript&quot;&gt;
-    var foo = &quot;&lt;?= $this-&gt;escapeJs($variable) ?&gt;&quot;;
+&lt;script type="text/javascript"&gt;
+    var foo = "&lt;?= $this-&gt;escapeJs($variable) ?&gt;";
 &lt;/script&gt;</code></pre>
 
 
