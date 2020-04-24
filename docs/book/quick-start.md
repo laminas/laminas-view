@@ -58,7 +58,7 @@ return [
         // the layout ("layout/layout"), error pages ("error/index"), and
         // 404 page ("error/404"), resolving them to view scripts.
         'template_map' => [
-            'application/index/index' => __DIR__ .  '/../view/application/index/index.phtml',
+            'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
             'site/layout'             => __DIR__ . '/../view/layout/layout.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
