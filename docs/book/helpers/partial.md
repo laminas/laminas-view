@@ -4,6 +4,11 @@ The `Partial` view helper is used to render a specified template within its own
 variable scope. The primary use is for reusable template fragments with which
 you do not need to worry about variable name clashes.
 
+> Note that it is also possible to render a template within its own variable
+> scope by calling `RendererInterface::render()` with a `$values` argument.
+> See the documentation for [`PhpRenderer`](../php-renderer.md#render) for
+> more information.
+
 A sibling to the `Partial`, the `PartialLoop` view helper allows you to pass
 iterable data, and render a partial for each item.
 
