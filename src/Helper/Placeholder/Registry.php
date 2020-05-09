@@ -43,34 +43,6 @@ class Registry
     protected $items = [];
 
     /**
-     * Retrieve or create registry instance
-     *
-     * @return Registry
-     */
-    public static function getRegistry()
-    {
-        trigger_error('Placeholder view helpers should no longer use a singleton registry', E_USER_DEPRECATED);
-        if (null === static::$instance) {
-            static::$instance = new static();
-        }
-
-        return static::$instance;
-    }
-
-    /**
-     * Unset the singleton
-     *
-     * Primarily useful for testing purposes; sets {@link $instance} to null.
-     *
-     * @return void
-     */
-    public static function unsetRegistry()
-    {
-        trigger_error('Placeholder view helpers should no longer use a singleton registry', E_USER_DEPRECATED);
-        static::$instance = null;
-    }
-
-    /**
      * Set the container for an item in the registry
      *
      * @param  string                      $key
