@@ -190,26 +190,6 @@ class Gravatar extends AbstractHtmlElement
     }
 
     /**
-     * Set attribs for image tag
-     *
-     * @param  array $attribs
-     * @return Gravatar
-     *
-     * @deprecated Please use Laminas\View\Helper\Gravatar::setAttributes
-     */
-    public function setAttribs(array $attribs)
-    {
-        trigger_error(sprintf(
-            '%s is deprecated; please use %s::setAttributes',
-            __METHOD__,
-            __CLASS__
-        ), E_USER_DEPRECATED);
-
-        $this->setAttributes($attribs);
-        return $this;
-    }
-
-    /**
      * Get attributes of image
      *
      * Warning!
@@ -222,29 +202,6 @@ class Gravatar extends AbstractHtmlElement
     public function getAttributes()
     {
         return $this->attributes;
-    }
-
-    /**
-     * Get attribs of image
-     *
-     * Warning!
-     * If you set src attrib, you get it, but this value will be overwritten in
-     * protected method setSrcAttribForImg(). And finally your get other src
-     * value!
-     *
-     * @return array
-     *
-     * @deprecated Please use Laminas\View\Helper\Gravatar::getAttributes
-     */
-    public function getAttribs()
-    {
-        trigger_error(sprintf(
-            '%s is deprecated; please use %s::getAttributes',
-            __METHOD__,
-            __CLASS__
-        ), E_USER_DEPRECATED);
-
-        return $this->getAttributes();
     }
 
     /**
