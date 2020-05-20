@@ -41,6 +41,7 @@
         "laminas/laminas-escaper": "^2.5",
         "laminas/laminas-feed": "^2.7",
         "laminas/laminas-filter": "^2.6.1",
+        "laminas/laminas-form": "^2.14.5",
         "laminas/laminas-http": "^2.5.4",
         "laminas/laminas-i18n": "^2.6",
         "laminas/laminas-log": "^2.7",

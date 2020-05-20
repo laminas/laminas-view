@@ -10,6 +10,7 @@ namespace Laminas\View\Renderer;
 
 use ArrayAccess;
 use Laminas\Filter\FilterChain;
+use Laminas\Form\Exception\InvalidElementException;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Exception;
 use Laminas\View\Helper\AbstractHelper;
@@ -506,9 +507,15 @@ class PhpRenderer implements Renderer, TreeRendererInterface
                 $this->__content = ob_get_clean();
             } catch (\Throwable $ex) {
                 ob_end_clean();
+                if ($ex instanceof InvalidElementException && isset($ex->xdebug_message)) {
+                    $ex->xdebug_message = null;
+                }
                 throw $ex;
             } catch (\Exception $ex) { // @TODO clean up once PHP 7 requirement is enforced
                 ob_end_clean();
+                if ($ex instanceof InvalidElementException && isset($ex->xdebug_message)) {
+                    $ex->xdebug_message = null;
+                }
                 throw $ex;
             }
             if ($includeReturn === false && empty($this->__content)) {
