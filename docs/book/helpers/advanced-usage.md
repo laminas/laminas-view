@@ -149,7 +149,7 @@ class SpecialPurpose extends AbstractHelper
 ```
 
 Then assume that we [register it with the plugin manager](#registering-helpers)
-by the name "specialpurpose".
+by the name "specialPurpose".
 
 Within a view script, you can call the `SpecialPurpose` helper as many times as
 you like; it will be instantiated once, and then it persists for the life of
