@@ -8,9 +8,7 @@
 
 namespace LaminasTest\View;
 
-use Laminas\Mvc\Controller\Plugin\FlashMessenger as V2FlashMessenger;
 use Laminas\Mvc\Controller\PluginManager as ControllerPluginManager;
-use Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger;
 use Laminas\ServiceManager\Config;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\ServiceManager\Test\CommonPluginManagerTrait;
