@@ -55,7 +55,6 @@ use function sprintf;
  * @method mixed escapeHtmlAttr($value, $recurse = \Laminas\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
  * @method mixed escapeJs($value, $recurse = \Laminas\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
  * @method mixed escapeUrl($value, $recurse = \Laminas\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
- * @method \Laminas\View\Helper\FlashMessenger flashMessenger($namespace = null)
  * @method \Laminas\View\Helper\Gravatar gravatar($email = "", $options = array(), $attribs = array())
  * @method \Laminas\View\Helper\HeadLink headLink(array $attributes = null, $placement = \Laminas\View\Helper\Placeholder\Container\AbstractContainer::APPEND)
  * @method \Laminas\View\Helper\HeadMeta headMeta($content = null, $keyValue = null, $keyType = 'name', $modifiers = array(), $placement = \Laminas\View\Helper\Placeholder\Container\AbstractContainer::APPEND)
