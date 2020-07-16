@@ -6,11 +6,14 @@ The view and all view-helpers of laminas-view can also be used stand-alone.
 
 The examples uses the following directory structure:
 
-* `public`
-    * `index.php`
-* `templates`
-    * `index.phtml`
-    * `layout.phtml`
+```treeview
+./
+|-- public/
+|   `-- index.php
+`-- templates/
+    |-- index.phtml
+    `-- layout.phtml
+```
 
 ### Basic Example
 
