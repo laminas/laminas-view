@@ -61,10 +61,30 @@ class PlaceholderTest extends TestCase
     /**
      * @return void
      */
+    public function testContainerExists()
+    {
+        $this->placeholder->__invoke('foo');
+        $containerExists = $this->placeholder->__invoke()->containerExists('foo');
+
+        $this->assertTrue($containerExists);
+    }
+
+    /**
+     * @return void
+     */
     public function testPlaceholderRetrievesContainer()
     {
         $container = $this->placeholder->__invoke('foo');
         $this->assertInstanceOf(AbstractContainer::class, $container);
+    }
+
+    /**
+     * @return void
+     */
+    public function testPlaceholderRetrievesItself()
+    {
+        $container = $this->placeholder->__invoke();
+        $this->assertSame($container, $this->placeholder);
     }
 
     /**
@@ -100,5 +120,16 @@ class PlaceholderTest extends TestCase
 
         $this->assertFalse($this->placeholder->containerExists('foo'));
         $this->assertFalse($this->placeholder->containerExists('bar'));
+    }
+
+    /**
+     * @return void
+     */
+    public function testGetContainerRetrievesTheCorrectContainer()
+    {
+        $container1 = $this->placeholder->__invoke('foo');
+        $container2 = $this->placeholder->__invoke()->getContainer('foo');
+
+        $this->assertSame($container1, $container2);
     }
 }
