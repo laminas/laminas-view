@@ -67,7 +67,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
     /**
      * Constructor
      *
-     * @param  null|array|Traversable $variables
+     * @param  null|array|Traversable|ArrayAccess $variables
      * @param  array|Traversable $options
      */
     public function __construct($variables = null, $options = null)
