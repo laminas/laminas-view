@@ -10,7 +10,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Changed
 
-- Nothing.
+- [#52](https://github.com/laminas/laminas-view/pull/52) updates the typehint for the `$variables` parameter of the `ViewModel` constructor to also include `ArrayAccess`; this type has always been allowed, but never documented.
 
 ### Deprecated
 
