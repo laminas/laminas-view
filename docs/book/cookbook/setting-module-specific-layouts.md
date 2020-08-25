@@ -78,7 +78,7 @@ class LayoutListener extends AbstractListenerAggregate
         $layoutViewModel = $event->getViewModel();
 
         // Rendering without layout?
-        if($layoutViewModel->terminate()) {
+        if ($layoutViewModel->terminate()) {
             return;
         }
 
