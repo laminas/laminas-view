@@ -8,9 +8,7 @@
 
 namespace LaminasTest\View;
 
-use Laminas\Mvc\Controller\Plugin\FlashMessenger as V2FlashMessenger;
 use Laminas\Mvc\Controller\PluginManager as ControllerPluginManager;
-use Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger;
 use Laminas\ServiceManager\Config;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\ServiceManager\Test\CommonPluginManagerTrait;
@@ -30,11 +28,7 @@ class HelperPluginManagerCompatibilityTest extends TestCase
         if (class_exists(ControllerPluginManager::class)) {
             $factories['ControllerPluginManager'] = function ($services, $name, $options) {
                 return new ControllerPluginManager($services, [
-                    'invokables' => [
-                        'flashmessenger' => class_exists(FlashMessenger::class)
-                            ? FlashMessenger::class
-                            : V2FlashMessenger::class,
-                    ],
+                    'invokables' => [],
                 ]);
             };
         }
@@ -65,11 +59,6 @@ class HelperPluginManagerCompatibilityTest extends TestCase
         $aliases = $r->getValue($pluginManager);
 
         foreach ($aliases as $alias => $target) {
-            // Skipping conditionally since it depends on laminas-mvc
-            if (! class_exists(ControllerPluginManager::class) && strpos($target, '\\FlashMessenger')) {
-                continue;
-            }
-
             // Skipping conditionally since it depends on laminas-mvc
             if (! class_exists(ControllerPluginManager::class) && strpos($target, '\\Url')) {
                 continue;

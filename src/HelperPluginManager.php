@@ -63,9 +63,6 @@ class HelperPluginManager extends AbstractPluginManager
         'escapeUrl'           => Helper\EscapeUrl::class,
         'EscapeUrl'           => Helper\EscapeUrl::class,
         'escapeurl'           => Helper\EscapeUrl::class,
-        'flashmessenger'      => Helper\FlashMessenger::class,
-        'flashMessenger'      => Helper\FlashMessenger::class,
-        'FlashMessenger'      => Helper\FlashMessenger::class,
         'Gravatar'            => Helper\Gravatar::class,
         'gravatar'            => Helper\Gravatar::class,
         'headLink'            => Helper\HeadLink::class,
@@ -139,7 +136,6 @@ class HelperPluginManager extends AbstractPluginManager
 
         // Legacy Zend Framework aliases
         \Zend\View\Helper\Asset::class => Helper\Asset::class,
-        \Zend\View\Helper\FlashMessenger::class => Helper\FlashMessenger::class,
         \Zend\View\Helper\Identity::class => Helper\Identity::class,
         \Zend\View\Helper\BasePath::class => Helper\BasePath::class,
         \Zend\View\Helper\Cycle::class => Helper\Cycle::class,
@@ -177,7 +173,6 @@ class HelperPluginManager extends AbstractPluginManager
 
         // v2 normalized FQCNs
         'zendviewhelperasset' => Helper\Asset::class,
-        'zendviewhelperflashmessenger' => Helper\FlashMessenger::class,
         'zendviewhelperidentity' => Helper\Identity::class,
         'zendviewhelperbasepath' => Helper\BasePath::class,
         'zendviewhelpercycle' => Helper\Cycle::class,
@@ -226,7 +221,6 @@ class HelperPluginManager extends AbstractPluginManager
      */
     protected $factories = [
         Helper\Asset::class               => Helper\Service\AssetFactory::class,
-        Helper\FlashMessenger::class      => Helper\Service\FlashMessengerFactory::class,
         Helper\Identity::class            => Helper\Service\IdentityFactory::class,
         Helper\BasePath::class            => InvokableFactory::class,
         Helper\Cycle::class               => InvokableFactory::class,
