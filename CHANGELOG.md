@@ -24,28 +24,6 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - Nothing.
 
-## 2.11.5 - TBD
-
-### Added
-
-- Nothing.
-
-### Changed
-
-- Nothing.
-
-### Deprecated
-
-- Nothing.
-
-### Removed
-
-- Nothing.
-
-### Fixed
-
-- Nothing.
-
 ## 2.11.4 - 2019-12-04
 
 ### Added
@@ -641,7 +619,7 @@ All notable changes to this project will be documented in this file, in reverse 
 ### Added
 
 - [zendframework/zend-view#8](https://github.com/zendframework/zend-view/pull/8) adds a new method to
-  each of the `Breadcrumbs` and `Menu` navigation helpers, 
+  each of the `Breadcrumbs` and `Menu` navigation helpers,
   `renderPartialWithParams(array $params = [], $container = null, $partial = null)`.
   This method allows passing parameters to the navigation partial to render,
   just as you would when using the `partial()` view helper.
