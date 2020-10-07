@@ -29,7 +29,7 @@ class ContainerTest extends TestCase
      *
      * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->container = new \Laminas\View\Helper\Placeholder\Container([]);
     }
@@ -40,7 +40,7 @@ class ContainerTest extends TestCase
      *
      * @return void
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         unset($this->container);
     }
@@ -193,7 +193,7 @@ class ContainerTest extends TestCase
         $this->container->captureEnd();
 
         $value = $this->container->getValue();
-        $this->assertContains('This is content intended for capture', $value);
+        $this->assertStringContainsString('This is content intended for capture', $value);
     }
 
     /**
@@ -214,7 +214,7 @@ class ContainerTest extends TestCase
         $keys      = array_keys($value);
         $lastIndex = array_pop($keys);
         $this->assertEquals('foo', $value[$lastIndex - 1]);
-        $this->assertContains('This is content intended for capture', $value[$lastIndex]);
+        $this->assertStringContainsString('This is content intended for capture', $value[$lastIndex]);
     }
 
     /**
@@ -235,7 +235,7 @@ class ContainerTest extends TestCase
         $keys      = array_keys($value);
         $lastIndex = array_pop($keys);
         $this->assertEquals('foo', $value[$lastIndex]);
-        $this->assertContains('This is content intended for capture', $value[$lastIndex - 1]);
+        $this->assertStringContainsString('This is content intended for capture', $value[$lastIndex - 1]);
     }
 
     /**
@@ -251,7 +251,7 @@ class ContainerTest extends TestCase
         $this->assertEquals(1, count($this->container));
 
         $value = $this->container->getValue();
-        $this->assertContains('This is content intended for capture', $value);
+        $this->assertStringContainsString('This is content intended for capture', $value);
     }
 
     /**
@@ -266,7 +266,7 @@ class ContainerTest extends TestCase
         $this->assertEquals(1, count($this->container));
         $this->assertTrue(isset($this->container['key']));
         $value = $this->container['key'];
-        $this->assertContains('This is content intended for capture', $value);
+        $this->assertStringContainsString('This is content intended for capture', $value);
     }
 
     /**
@@ -282,7 +282,7 @@ class ContainerTest extends TestCase
         $this->assertEquals(1, count($this->container));
         $this->assertTrue(isset($this->container['key']));
         $value = $this->container['key'];
-        $this->assertContains('This is content intended for capture', $value);
+        $this->assertStringContainsString('This is content intended for capture', $value);
     }
 
     /**
@@ -298,7 +298,7 @@ class ContainerTest extends TestCase
         $this->assertEquals(1, count($this->container));
         $this->assertTrue(isset($this->container['key']));
         $value = $this->container['key'];
-        $this->assertContains('Foobar This is content intended for capture', $value);
+        $this->assertStringContainsString('Foobar This is content intended for capture', $value);
     }
 
     /**
@@ -428,8 +428,8 @@ class ContainerTest extends TestCase
 
         $lis = substr_count($string, "\n        <li>");
         $this->assertEquals(3, $lis);
-        $this->assertContains("    <ul>\n", $string, $string);
-        $this->assertContains("\n    </ul>", $string, $string);
+        $this->assertStringContainsString("    <ul>\n", $string, $string);
+        $this->assertStringContainsString("\n    </ul>", $string, $string);
     }
 
     /**

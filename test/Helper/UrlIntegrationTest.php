@@ -29,7 +29,7 @@ use PHPUnit\Framework\TestCase;
  */
 class UrlIntegrationTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->literalRouteType = class_exists(V2HttpRoute\Literal::class)
             ? V2HttpRoute\Literal::class
@@ -65,7 +65,7 @@ class UrlIntegrationTest extends TestCase
             ],
         ];
 
-        $serviceConfig = $this->readAttribute(new ServiceListenerFactory, 'defaultServiceConfig');
+        $serviceConfig = (new ServiceListenerFactory)->getDefaultServiceConfig();
 
         $this->serviceManager = new ServiceManager();
         (new ServiceManagerConfig($serviceConfig))->configureServiceManager($this->serviceManager);
@@ -110,7 +110,7 @@ class UrlIntegrationTest extends TestCase
         $viewHelpers = $this->serviceManager->get('ViewHelperManager');
         $urlHelper   = $viewHelpers->get('url');
         $test        = $urlHelper('test', [], ['force_canonical' => true]);
-        $this->assertContains('/test', $test);
+        $this->assertStringContainsString('/test', $test);
     }
 
     public function testUrlHelperUnderConsoleParadigmShouldReturnHttpRoutes()

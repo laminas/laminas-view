@@ -21,7 +21,7 @@ class RenderToPlaceholderTest extends TestCase
     protected $_view = null;
     // @codingStandardsIgnoreEnd
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->_view = new View();
         $this->_view->resolver()->addPath(__DIR__.'/_files/scripts/');

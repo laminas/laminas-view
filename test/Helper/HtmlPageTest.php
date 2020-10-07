@@ -29,14 +29,14 @@ class HtmlPageTest extends TestCase
      *
      * @access protected
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->view   = new View();
         $this->helper = new HtmlPage();
         $this->helper->setView($this->view);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         unset($this->helper);
     }
@@ -49,7 +49,7 @@ class HtmlPageTest extends TestCase
                             . ' type="text&#x2F;html"'
                             . ' classid="clsid&#x3A;25336920-03F9-11CF-8FD0-00AA00686F13">';
 
-        $this->assertContains($objectStartElement, $htmlPage);
-        $this->assertContains('</object>', $htmlPage);
+        $this->assertStringContainsString($objectStartElement, $htmlPage);
+        $this->assertStringContainsString('</object>', $htmlPage);
     }
 }

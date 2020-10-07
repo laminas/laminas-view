@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 class FeedRendererTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->renderer = new FeedRenderer();
     }
@@ -68,8 +68,8 @@ class FeedRendererTest extends TestCase
         $model = new FeedModel($this->getFeedData('atom'));
         $model->setOption('feed_type', 'atom');
         $xml = $this->renderer->render($model);
-        $this->assertContains('<' . '?xml', $xml);
-        $this->assertContains('atom', $xml);
+        $this->assertStringContainsString('<' . '?xml', $xml);
+        $this->assertStringContainsString('atom', $xml);
     }
 
     public function testRendersFeedModelAccordingToRenderTypeIfNoTypeProvidedInModel()
@@ -77,8 +77,8 @@ class FeedRendererTest extends TestCase
         $this->renderer->setFeedType('atom');
         $model = new FeedModel($this->getFeedData('atom'));
         $xml = $this->renderer->render($model);
-        $this->assertContains('<' . '?xml', $xml);
-        $this->assertContains('atom', $xml);
+        $this->assertStringContainsString('<' . '?xml', $xml);
+        $this->assertStringContainsString('atom', $xml);
     }
 
     public function testCastsViewModelToFeedModelUsingFeedTypeOptionProvided()
@@ -86,8 +86,8 @@ class FeedRendererTest extends TestCase
         $model = new ViewModel($this->getFeedData('atom'));
         $model->setOption('feed_type', 'atom');
         $xml = $this->renderer->render($model);
-        $this->assertContains('<' . '?xml', $xml);
-        $this->assertContains('atom', $xml);
+        $this->assertStringContainsString('<' . '?xml', $xml);
+        $this->assertStringContainsString('atom', $xml);
     }
 
     public function testCastsViewModelToFeedModelUsingRendererFeedTypeIfNoFeedTypeOptionInModel()
@@ -95,16 +95,16 @@ class FeedRendererTest extends TestCase
         $this->renderer->setFeedType('atom');
         $model = new ViewModel($this->getFeedData('atom'));
         $xml = $this->renderer->render($model);
-        $this->assertContains('<' . '?xml', $xml);
-        $this->assertContains('atom', $xml);
+        $this->assertStringContainsString('<' . '?xml', $xml);
+        $this->assertStringContainsString('atom', $xml);
     }
 
     public function testStringModelWithValuesProvidedCastsToFeed()
     {
         $this->renderer->setFeedType('atom');
         $xml = $this->renderer->render('layout', $this->getFeedData('atom'));
-        $this->assertContains('<' . '?xml', $xml);
-        $this->assertContains('atom', $xml);
+        $this->assertStringContainsString('<' . '?xml', $xml);
+        $this->assertStringContainsString('atom', $xml);
     }
 
     public function testNonStringNonModelArgumentRaisesException()

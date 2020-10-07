@@ -27,7 +27,7 @@ class AbstractHtmlElementTest extends TestCase
     /**
      * {@inheritDoc}
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->helper = $this->getMockForAbstractClass(AbstractHtmlElement::class);
 

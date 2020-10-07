@@ -23,7 +23,7 @@ class PhpRendererStrategyTest extends TestCase
     /** @var PhpRendererStrategy */
     private $strategy;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->renderer = new PhpRenderer;
         $this->strategy = new PhpRendererStrategy($this->renderer);

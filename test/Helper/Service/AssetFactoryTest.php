@@ -14,9 +14,12 @@ use Laminas\View\Helper\Asset;
 use Laminas\View\Helper\Service\AssetFactory;
 use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class AssetFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testAssetFactoryCreateServiceCreatesAssetInstance()
     {
         $services = $this->getServices();

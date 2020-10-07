@@ -39,7 +39,7 @@ class PartialLoopTest extends TestCase
      *
      * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->basePath = __DIR__ . '/_files/modules';
         $this->helper   = new PartialLoop();
@@ -51,7 +51,7 @@ class PartialLoopTest extends TestCase
      *
      * @return void
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         unset($this->helper);
     }
@@ -72,7 +72,7 @@ class PartialLoopTest extends TestCase
         $result = $this->helper->__invoke('partialLoop.phtml', $data);
         foreach ($data as $item) {
             $string = 'This is an iteration: ' . $item['message'];
-            $this->assertContains($string, $result);
+            $this->assertStringContainsString($string, $result);
         }
     }
 
@@ -93,7 +93,7 @@ class PartialLoopTest extends TestCase
         $result = $this->helper->__invoke('partialLoop.phtml', $o);
         foreach ($data as $item) {
             $string = 'This is an iteration: ' . $item['message'];
-            $this->assertContains($string, $result);
+            $this->assertStringContainsString($string, $result);
         }
     }
 
@@ -114,7 +114,7 @@ class PartialLoopTest extends TestCase
         $result = $this->helper->__invoke('partialLoop.phtml', $rIterator);
         foreach ($rIterator as $item) {
             foreach ($item as $key => $value) {
-                $this->assertContains($value, $result, var_export($value, 1));
+                $this->assertStringContainsString($value, $result, var_export($value, 1));
             }
         }
     }
@@ -173,7 +173,7 @@ class PartialLoopTest extends TestCase
         $result = $this->helper->__invoke('partialLoop.phtml', $o);
         foreach ($data as $item) {
             $string = 'This is an iteration: ' . $item['message'];
-            $this->assertContains($string, $result);
+            $this->assertStringContainsString($string, $result);
         }
     }
 
@@ -194,7 +194,7 @@ class PartialLoopTest extends TestCase
         $result = $this->helper->__invoke('partialLoop.phtml', $o);
         foreach ($data as $item) {
             $string = 'This is an iteration: ' . $item['message'];
-            $this->assertContains($string, $result, $result);
+            $this->assertStringContainsString($string, $result, $result);
         }
     }
 
@@ -220,7 +220,7 @@ class PartialLoopTest extends TestCase
         $result = $this->helper->__invoke('partialLoopObject.phtml', $o);
         foreach ($data as $item) {
             $string = 'This is an iteration: ' . $item->message;
-            $this->assertContains($string, $result, $result);
+            $this->assertStringContainsString($string, $result, $result);
         }
     }
 
@@ -298,7 +298,7 @@ class PartialLoopTest extends TestCase
 
         foreach ($rIterator as $item) {
             foreach ($item as $key => $value) {
-                $this->assertContains('This is an iteration: ' . $value, $result, var_export($value, 1));
+                $this->assertStringContainsString('This is an iteration: ' . $value, $result, var_export($value, 1));
             }
         }
     }
@@ -329,7 +329,7 @@ class PartialLoopTest extends TestCase
 
         foreach ($data as $item) {
             $string = 'This is an iteration with objectKey: ' . $item->objectKey;
-            $this->assertContains($string, $result, $result);
+            $this->assertStringContainsString($string, $result, $result);
         }
     }
 
@@ -353,8 +353,8 @@ class PartialLoopTest extends TestCase
         $this->helper->setView($view);
 
         $result = $this->helper->__invoke('partialLoopParentObject.phtml', $data);
-        $this->assertContains('foo1', $result, $result);
-        $this->assertContains('foo2', $result, $result);
+        $this->assertStringContainsString('foo1', $result, $result);
+        $this->assertStringContainsString('foo2', $result, $result);
     }
 
     public function testPartialLoopWithInvalidValuesWillRaiseException()
@@ -389,7 +389,7 @@ class PartialLoopTest extends TestCase
         $result = $this->helper->loop('partialLoop.phtml', $data);
         foreach ($data as $item) {
             $string = 'This is an iteration: ' . $item['message'];
-            $this->assertContains($string, $result);
+            $this->assertStringContainsString($string, $result);
         }
     }
 
@@ -410,7 +410,7 @@ class PartialLoopTest extends TestCase
         $result = $this->helper->Loop('partialLoop.phtml', $o);
         foreach ($data as $item) {
             $string = 'This is an iteration: ' . $item['message'];
-            $this->assertContains($string, $result);
+            $this->assertStringContainsString($string, $result);
         }
     }
 
@@ -431,7 +431,7 @@ class PartialLoopTest extends TestCase
         $result = $this->helper->Loop('partialLoop.phtml', $rIterator);
         foreach ($rIterator as $item) {
             foreach ($item as $key => $value) {
-                $this->assertContains($value, $result, var_export($value, 1));
+                $this->assertStringContainsString($value, $result, var_export($value, 1));
             }
         }
     }
@@ -484,7 +484,7 @@ class PartialLoopTest extends TestCase
         $result = $this->helper->loop('partialLoop.phtml', $o);
         foreach ($data as $item) {
             $string = 'This is an iteration: ' . $item['message'];
-            $this->assertContains($string, $result);
+            $this->assertStringContainsString($string, $result);
         }
     }
 
@@ -505,7 +505,7 @@ class PartialLoopTest extends TestCase
         $result = $this->helper->loop('partialLoop.phtml', $o);
         foreach ($data as $item) {
             $string = 'This is an iteration: ' . $item['message'];
-            $this->assertContains($string, $result, $result);
+            $this->assertStringContainsString($string, $result, $result);
         }
     }
 
@@ -531,7 +531,7 @@ class PartialLoopTest extends TestCase
         $result = $this->helper->loop('partialLoopObject.phtml', $o);
         foreach ($data as $item) {
             $string = 'This is an iteration: ' . $item->message;
-            $this->assertContains($string, $result, $result);
+            $this->assertStringContainsString($string, $result, $result);
         }
     }
 
@@ -609,7 +609,7 @@ class PartialLoopTest extends TestCase
 
         foreach ($rIterator as $item) {
             foreach ($item as $key => $value) {
-                $this->assertContains('This is an iteration: ' . $value, $result, var_export($value, 1));
+                $this->assertStringContainsString('This is an iteration: ' . $value, $result, var_export($value, 1));
             }
         }
     }
@@ -640,7 +640,7 @@ class PartialLoopTest extends TestCase
 
         foreach ($data as $item) {
             $string = 'This is an iteration with objectKey: ' . $item->objectKey;
-            $this->assertContains($string, $result, $result);
+            $this->assertStringContainsString($string, $result, $result);
         }
     }
 
@@ -664,8 +664,8 @@ class PartialLoopTest extends TestCase
         $this->helper->setView($view);
 
         $result = $this->helper->loop('partialLoopParentObject.phtml', $data);
-        $this->assertContains('foo1', $result, $result);
-        $this->assertContains('foo2', $result, $result);
+        $this->assertStringContainsString('foo1', $result, $result);
+        $this->assertStringContainsString('foo2', $result, $result);
     }
 
     public function testPartialLoopWithInvalidValuesWillRaiseExceptionInLoopMethod()

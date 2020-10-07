@@ -11,6 +11,7 @@ namespace LaminasTest\View\Helper;
 use Laminas\View\Renderer\RendererInterface;
 use LaminasTest\View\Helper\TestAsset\ConcreteHelper;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * @group      Laminas_View
@@ -18,12 +19,14 @@ use PHPUnit\Framework\TestCase;
  */
 class AbstractTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var ConcreteHelper
      */
     protected $helper;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->helper = new ConcreteHelper();
     }

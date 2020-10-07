@@ -11,6 +11,7 @@ namespace LaminasTest\View\Helper\Navigation;
 use DOMDocument;
 use Laminas\View;
 use Laminas\View\Helper\Navigation\Sitemap;
+use PHPUnit\Util\Xml;
 
 /**
  * Tests Laminas\View\Helper\Navigation\Sitemap
@@ -44,7 +45,7 @@ class SitemapTest extends AbstractTest
     private $_originaltimezone;
     // @codingStandardsIgnoreEnd
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->_originaltimezone = date_default_timezone_get();
         date_default_timezone_set('Europe/Berlin');
@@ -71,7 +72,7 @@ class SitemapTest extends AbstractTest
         $this->_helper->getView()->plugin('basepath')->setBasePath('');
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         foreach ($this->_oldServer as $key => $value) {
             $_SERVER[$key] = $value;
@@ -215,7 +216,7 @@ class SitemapTest extends AbstractTest
             $this->fail('An invalid server URL was given, but a ' .
                         'Laminas\URI\Exception\ExceptionInterface was not thrown');
         } catch (\Laminas\URI\Exception\ExceptionInterface $e) {
-            $this->assertContains('Illegal scheme', $e->getMessage());
+            $this->assertStringContainsString('Illegal scheme', $e->getMessage());
         }
     }
 

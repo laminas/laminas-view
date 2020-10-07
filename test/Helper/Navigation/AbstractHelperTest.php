@@ -30,7 +30,7 @@ class AbstractHelperTest extends AbstractTest
     protected $_helper;
     // @codingStandardsIgnoreEnd
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         parent::tearDown();
 

@@ -18,6 +18,7 @@ use Laminas\ServiceManager\ServiceManager;
 use Laminas\View;
 use Laminas\View\Helper\Navigation;
 use Laminas\View\Renderer\PhpRenderer;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * Tests Laminas\View\Helper\Navigation
@@ -27,6 +28,8 @@ use Laminas\View\Renderer\PhpRenderer;
  */
 class NavigationTest extends AbstractTest
 {
+    use ProphecyTrait;
+
     // @codingStandardsIgnoreStart
     /**
      * Class name for view helper to test
@@ -318,7 +321,7 @@ class NavigationTest extends AbstractTest
             $this->fail('An invalid argument was given, but a ' .
                         'Laminas\View\Exception\InvalidArgumentException was not thrown');
         } catch (View\Exception\ExceptionInterface $e) {
-            $this->assertContains('$role must be a string', $e->getMessage());
+            $this->assertStringContainsString('$role must be a string', $e->getMessage());
         }
     }
 
@@ -329,7 +332,7 @@ class NavigationTest extends AbstractTest
             $this->fail('An invalid argument was given, but a ' .
                         'Laminas\View\Exception\InvalidArgumentException was not thrown');
         } catch (View\Exception\ExceptionInterface $e) {
-            $this->assertContains('$role must be a string', $e->getMessage());
+            $this->assertStringContainsString('$role must be a string', $e->getMessage());
         }
     }
 
@@ -370,7 +373,7 @@ class NavigationTest extends AbstractTest
             $this->fail('An invalid argument was given, but a ' .
                         'Laminas\View\Exception\InvalidArgumentException was not thrown');
         } catch (View\Exception\ExceptionInterface $e) {
-            $this->assertContains('$role must be', $e->getMessage());
+            $this->assertStringContainsString('$role must be', $e->getMessage());
         }
     }
 
@@ -381,7 +384,7 @@ class NavigationTest extends AbstractTest
             $this->fail('An invalid argument was given, but a ' .
                         'Laminas\View\Exception\InvalidArgumentException was not thrown');
         } catch (View\Exception\ExceptionInterface $e) {
-            $this->assertContains('$role must be', $e->getMessage());
+            $this->assertStringContainsString('$role must be', $e->getMessage());
         }
     }
     // @codingStandardsIgnoreStart
@@ -399,7 +402,7 @@ class NavigationTest extends AbstractTest
         $this->_helper->__toString();
         restore_error_handler();
 
-        $this->assertContains('array must contain', $this->_errorMessage);
+        $this->assertStringContainsString('array must contain', $this->_errorMessage);
     }
 
     public function testPageIdShouldBeNormalized()
@@ -456,13 +459,13 @@ class NavigationTest extends AbstractTest
         $this->_helper->setServiceLocator(new ServiceManager());
         $render = $this->_helper->menu()->render($container);
 
-        $this->assertNotContains('p2', $render);
+        $this->assertStringNotContainsString('p2', $render);
 
         $this->_helper->menu()->setRenderInvisible();
 
         $render = $this->_helper->menu()->render($container);
 
-        $this->assertContains('p2', $render);
+        $this->assertStringContainsString('p2', $render);
     }
 
     public function testMultipleNavigations()
@@ -596,7 +599,11 @@ class NavigationTest extends AbstractTest
 
         if (method_exists($plugins, 'configure')) {
             // v3
-            $this->assertAttributeSame($services, 'creationContext', $plugins);
+            $pluginsReflection = new \ReflectionObject($plugins);
+            $creationContext = $pluginsReflection->getProperty('creationContext');
+            $creationContext->setAccessible(true);
+            $creationContextValue = $creationContext->getValue($plugins);
+            $this->assertSame($creationContextValue, $services);
         } else {
             // v2
             $this->assertSame($services, $plugins->getServiceLocator());
