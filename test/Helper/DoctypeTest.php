@@ -209,4 +209,9 @@ class DoctypeTest extends TestCase
         $this->assertEquals('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">', $string);
         // @codingStandardsIgnoreEnd
     }
+
+    public function testDoctypeDefaultsToHtml4Loose()
+    {
+        self::assertSame(Helper\Doctype::HTML4_LOOSE, $this->helper->getDoctype());
+    }
 }
