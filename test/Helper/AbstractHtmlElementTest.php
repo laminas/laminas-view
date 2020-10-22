@@ -35,7 +35,7 @@ class AbstractHtmlElementTest extends TestCase
     }
 
     /**
-     * @group 5991
+     * @group #5991
      */
     public function testWillEscapeValueAttributeValuesCorrectly()
     {

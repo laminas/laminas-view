@@ -7,6 +7,7 @@ cache:
 env:
   global:
     - COMPOSER_PROCESS_TIMEOUT=600
+    - COMPOSER_ROOT_VERSION="2.12.x-dev"
     - COMPOSER_ARGS="--no-interaction"
     - COVERAGE_DEPS="php-coveralls/php-coveralls"
     - LOWEST_DEPS_REMOVE="laminas/laminas-router"
