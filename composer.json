@@ -25,9 +25,6 @@
         "laminas/laminas-eventmanager": "^2.6.2 || ^3.0",
         "laminas/laminas-json": "^2.6.1 || ^3.0",
         "laminas/laminas-loader": "^2.5",
-        "laminas/laminas-mvc-console": "^1.2",
-        "laminas/laminas-mvc-i18n": "^1.1",
-        "laminas/laminas-mvc-plugin-flashmessenger": "^1.2",
         "laminas/laminas-stdlib": "^2.7 || ^3.0",
         "laminas/laminas-zendframework-bridge": "^1.0",
         "phpspec/prophecy-phpunit": "^2.0"
