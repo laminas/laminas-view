@@ -35,6 +35,11 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
     const SCRIPT = 'SCRIPT';
 
     /**
+     * @internal
+     */
+    const DEFAULT_SCRIPT_TYPE = 'text/javascript';
+
+    /**
      * Are arbitrary attributes allowed?
      *
      * @var bool
@@ -130,7 +135,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
         $spec = null,
         $placement = 'APPEND',
         array $attrs = [],
-        $type = 'text/javascript'
+        $type = self::DEFAULT_SCRIPT_TYPE
     ) {
         if ((null !== $spec) && is_string($spec)) {
             $action    = ucfirst(strtolower($mode));
@@ -171,7 +176,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
 
             $action  = $matches['action'];
             $mode    = strtolower($matches['mode']);
-            $type    = 'text/javascript';
+            $type    = self::DEFAULT_SCRIPT_TYPE;
             $attrs   = [];
 
             if ('offsetSet' == $action) {
@@ -267,7 +272,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      */
     public function captureStart(
         $captureType = Placeholder\Container\AbstractContainer::APPEND,
-        $type = 'text/javascript',
+        $type = self::DEFAULT_SCRIPT_TYPE,
         $attrs = []
     ) {
         if ($this->captureLock) {
@@ -401,7 +406,10 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
         $addScriptEscape = ! (isset($item->attributes['noescape'])
             && filter_var($item->attributes['noescape'], FILTER_VALIDATE_BOOLEAN));
 
-        if (empty($item->type) && $this->view && $this->view->plugin('doctype')->isHtml5()) {
+        if ((empty($item->type) || strtolower($item->type) === self::DEFAULT_SCRIPT_TYPE)
+            && $this->view
+            && $this->view->plugin('doctype')->isHtml5()
+        ) {
             $html = '<script ' . $attrString . '>';
         } else {
             $type = ($this->autoEscape) ? $this->escapeAttribute($item->type) : $item->type;

@@ -32,7 +32,7 @@ class InlineScript extends HeadScript
         $spec = null,
         $placement = 'APPEND',
         array $attrs = [],
-        $type = 'text/javascript'
+        $type = self::DEFAULT_SCRIPT_TYPE
     ) {
         return parent::__invoke($mode, $spec, $placement, $attrs, $type);
     }
