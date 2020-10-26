@@ -51,6 +51,7 @@
         "laminas/laminas-session": "^2.8.1",
         "laminas/laminas-uri": "^2.5",
         "phpspec/prophecy-phpunit": "^2.0",
+        "phpspec/prophecy": "^1.12",
         "phpunit/phpunit": "^9.3"
     },
     "suggest": {
