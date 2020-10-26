@@ -65,7 +65,11 @@ class UrlIntegrationTest extends TestCase
             ],
         ];
 
-        $serviceConfig = (new ServiceListenerFactory)->getDefaultServiceConfig();
+        $serviceListenerFactory = new ServiceListenerFactory();
+        $serviceListenerFactoryReflection = new \ReflectionObject($serviceListenerFactory);
+        $serviceConfigReflection = $serviceListenerFactoryReflection->getProperty('defaultServiceConfig');
+        $serviceConfigReflection->setAccessible(true);
+        $serviceConfig = $serviceConfigReflection->getValue($serviceListenerFactory);
 
         $this->serviceManager = new ServiceManager();
         (new ServiceManagerConfig($serviceConfig))->configureServiceManager($this->serviceManager);
