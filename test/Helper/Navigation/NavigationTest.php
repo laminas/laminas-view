@@ -390,7 +390,7 @@ class NavigationTest extends AbstractTest
     // @codingStandardsIgnoreStart
     private $_errorMessage;
     // @codingStandardsIgnoreEnd
-    public function toStringErrorHandler($code, $msg, $file, $line, array $c)
+    public function toStringErrorHandler($code, $msg, $file, $line, array $c = [])
     {
         $this->_errorMessage = $msg;
     }
