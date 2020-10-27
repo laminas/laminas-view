@@ -200,12 +200,12 @@ class SitemapTest extends AbstractTest
 
         $expected = $this->_getExpected('sitemap/invalid.xml');
 
-        // using assertEqualXMLStructure to prevent differences in libxml from invalidating test
+        // using DOMDocument::saveXML() to prevent differences in libxml from invalidating test
         $expectedDom = new DOMDocument();
         $receivedDom = new DOMDocument();
         $expectedDom->loadXML($expected);
         $receivedDom->loadXML($this->_helper->render($nav));
-        $this->assertEqualXMLStructure($expectedDom->documentElement, $receivedDom->documentElement);
+        $this->assertEquals($expectedDom->saveXML(), $receivedDom->saveXML());
     }
 
     public function testSetServerUrlRequiresValidUri()
