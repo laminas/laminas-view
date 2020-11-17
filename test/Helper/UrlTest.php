@@ -50,7 +50,7 @@ class UrlTest extends TestCase
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->routeMatchType = class_exists(RouteMatch::class)
             ? RouteMatch::class
@@ -123,11 +123,9 @@ class UrlTest extends TestCase
         $this->assertEquals('/ctrl/act', $url);
     }
 
-    /**
-     * @expectedException \Laminas\View\Exception\InvalidArgumentException
-     */
     public function testThrowsExceptionOnInvalidParams()
     {
+        $this->expectException(\Laminas\View\Exception\InvalidArgumentException::class);
         $this->url->__invoke('default', 'invalid params');
     }
 
@@ -245,7 +243,13 @@ class UrlTest extends TestCase
         $router = new $this->routerClass();
         $url = new UrlHelper();
         $url->setRouter($router);
-        $this->assertAttributeSame($router, 'router', $url);
+
+        $urlReflection = new \ReflectionObject($url);
+        $routerProperty = $urlReflection->getProperty('router');
+        $routerProperty->setAccessible(true);
+        $routerPropertyValue = $routerProperty->getValue($url);
+
+        $this->assertSame($router, $routerPropertyValue);
     }
 
     public function testAcceptsNextGenRouteMatche()
@@ -253,6 +257,12 @@ class UrlTest extends TestCase
         $routeMatch = new $this->routeMatchType([]);
         $url = new UrlHelper();
         $url->setRouteMatch($routeMatch);
-        $this->assertAttributeSame($routeMatch, 'routeMatch', $url);
+
+        $routeMatchReflection = new \ReflectionObject($url);
+        $routeMatchProperty = $routeMatchReflection->getProperty('routeMatch');
+        $routeMatchProperty->setAccessible(true);
+        $routeMatchPropertyValue = $routeMatchProperty->getValue($url);
+
+        $this->assertSame($routeMatch, $routeMatchPropertyValue);
     }
 }

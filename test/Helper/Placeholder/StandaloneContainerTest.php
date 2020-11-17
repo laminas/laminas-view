@@ -8,6 +8,8 @@
 
 namespace LaminasTest\View\Helper\Placeholder;
 
+use Laminas\View\Exception\DomainException;
+use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\Placeholder\Container;
 use Laminas\View\Renderer\PhpRenderer as View;
 use LaminasTest\View\Helper\TestAsset\Foo;
@@ -32,7 +34,7 @@ class StandaloneContainerTest extends TestCase
      *
      * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->helper = new Foo();
     }
@@ -78,20 +80,20 @@ class StandaloneContainerTest extends TestCase
     }
 
     /**
-     * @expectedException DomainException
      * @return void
      */
     public function testSetContainerClassThrowsDomainException()
     {
+        $this->expectException(DomainException::class);
         $this->helper->setContainerClass('bat');
     }
 
     /**
-     * @expectedException InvalidArgumentException
      * @return void
      */
     public function testSetContainerClassThrowsInvalidArgumentException()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->helper->setContainerClass(get_class($this));
     }
 
@@ -127,8 +129,8 @@ class StandaloneContainerTest extends TestCase
         $foo2->append('Bar');
 
         $test = $foo2->toString();
-        $this->assertNotContains('Foo', $test);
-        $this->assertNotContains(' - ', $test);
-        $this->assertContains('Bar', $test);
+        $this->assertStringNotContainsString('Foo', $test);
+        $this->assertStringNotContainsString(' - ', $test);
+        $this->assertStringContainsString('Bar', $test);
     }
 }

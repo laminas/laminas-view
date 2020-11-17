@@ -25,7 +25,9 @@ use stdClass;
 
 class ViewTest extends TestCase
 {
-    protected function setUp()
+    private $result;
+
+    protected function setUp(): void
     {
         $this->request  = new Request;
         $this->response = new Response;
@@ -59,7 +61,7 @@ class ViewTest extends TestCase
 
         foreach ($variables as $key => $value) {
             $expect = sprintf("'%s' => '%s',", $key, $value);
-            $this->assertContains($expect, $this->result->content);
+            $this->assertStringContainsString($expect, $this->result->content);
         }
     }
 
@@ -258,9 +260,9 @@ class ViewTest extends TestCase
 
         $this->view->render($layout);
 
-        $this->assertContains('Layout start', $result->content);
-        $this->assertContains('Content for layout', $result->content, $result->content);
-        $this->assertContains('Layout end', $result->content);
+        $this->assertStringContainsString('Layout start', $result->content);
+        $this->assertStringContainsString('Content for layout', $result->content, $result->content);
+        $this->assertStringContainsString('Layout end', $result->content);
     }
 
     public function testUsesTreeRendererInterfaceToDetermineWhetherOrNotToPassOnlyRootViewModelToJsonRenderer()

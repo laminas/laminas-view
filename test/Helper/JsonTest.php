@@ -27,7 +27,7 @@ class JsonTest extends TestCase
      *
      * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->response = new Response();
         $this->helper   = new JsonHelper();
@@ -51,7 +51,7 @@ class JsonTest extends TestCase
     public function testJsonHelperReturnsJsonEncodedString()
     {
         $data = $this->helper->__invoke('foobar');
-        $this->assertInternalType('string', $data);
+        $this->assertIsString($data);
         $this->assertEquals('foobar', JsonFormatter::decode($data));
     }
 }

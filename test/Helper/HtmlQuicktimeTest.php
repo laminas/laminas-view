@@ -29,14 +29,14 @@ class HtmlQuicktimeTest extends TestCase
      *
      * @access protected
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->view   = new View();
         $this->helper = new HtmlQuicktime();
         $this->helper->setView($this->view);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         unset($this->helper);
     }
@@ -50,7 +50,7 @@ class HtmlQuicktimeTest extends TestCase
                             . ' classid="clsid&#x3A;02BF25D5-8C17-4B23-BC80-D3488ABDDC6B"'
                             . ' codebase="http&#x3A;&#x2F;&#x2F;www.apple.com&#x2F;qtactivex&#x2F;qtplugin.cab">';
 
-        $this->assertContains($objectStartElement, $htmlQuicktime);
-        $this->assertContains('</object>', $htmlQuicktime);
+        $this->assertStringContainsString($objectStartElement, $htmlQuicktime);
+        $this->assertStringContainsString('</object>', $htmlQuicktime);
     }
 }

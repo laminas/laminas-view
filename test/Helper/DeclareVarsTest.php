@@ -18,7 +18,7 @@ use PHPUnit\Framework\TestCase;
  */
 class DeclareVarsTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $view = new View();
         $base = str_replace('/', DIRECTORY_SEPARATOR, '/../_templates');
@@ -27,7 +27,7 @@ class DeclareVarsTest extends TestCase
         $this->view = $view;
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         unset($this->view);
     }
