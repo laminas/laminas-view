@@ -38,6 +38,8 @@ class HelperPluginManager extends AbstractPluginManager
     protected $aliases = [
         'asset'               => Helper\Asset::class,
         'Asset'               => Helper\Asset::class,
+        'attributes'          => Helper\Attributes::class,
+        'Attributes'          => Helper\Attributes::class,
         'basePath'            => Helper\BasePath::class,
         'BasePath'            => Helper\BasePath::class,
         'basepath'            => Helper\BasePath::class,
@@ -226,6 +228,7 @@ class HelperPluginManager extends AbstractPluginManager
      */
     protected $factories = [
         Helper\Asset::class               => Helper\Service\AssetFactory::class,
+        Helper\Attributes::class          => InvokableFactory::class,
         Helper\FlashMessenger::class      => Helper\Service\FlashMessengerFactory::class,
         Helper\Identity::class            => Helper\Service\IdentityFactory::class,
         Helper\BasePath::class            => InvokableFactory::class,
@@ -266,6 +269,7 @@ class HelperPluginManager extends AbstractPluginManager
         // v2 canonical FQCNs
 
         'laminasviewhelperasset'             => Helper\Service\AssetFactory::class,
+        'laminasviewhelperattributes'        => InvokableFactory::class,
         'laminasviewhelperflashmessenger'    => Helper\Service\FlashMessengerFactory::class,
         'laminasviewhelperidentity'          => Helper\Service\IdentityFactory::class,
         'laminasviewhelperbasepath'          => InvokableFactory::class,

@@ -64,39 +64,7 @@ abstract class AbstractHtmlElement extends AbstractHelper
      */
     protected function htmlAttribs($attribs)
     {
-        $xhtml          = '';
-        $escaper        = $this->getView()->plugin('escapehtml');
-        $escapeHtmlAttr = $this->getView()->plugin('escapehtmlattr');
-
-        foreach ((array) $attribs as $key => $val) {
-            $key = $escaper($key);
-
-            if (0 === strpos($key, 'on') || ('constraints' == $key)) {
-                // Don't escape event attributes; _do_ substitute double quotes with singles
-                if (! is_scalar($val)) {
-                    // non-scalar data should be cast to JSON first
-                    $val = \Laminas\Json\Json::encode($val);
-                }
-            } else {
-                if (is_array($val)) {
-                    $val = implode(' ', $val);
-                }
-            }
-
-            $val = $escapeHtmlAttr($val);
-
-            if ('id' == $key) {
-                $val = $this->normalizeId($val);
-            }
-
-            if (strpos($val, '"') !== false) {
-                $xhtml .= " $key='$val'";
-            } else {
-                $xhtml .= " $key=\"$val\"";
-            }
-        }
-
-        return $xhtml;
+        return $this->getView()->plugin('attributes')->htmlAttribs($attribs);
     }
 
     /**
@@ -107,15 +75,6 @@ abstract class AbstractHtmlElement extends AbstractHelper
      */
     protected function normalizeId($value)
     {
-        if (false !== strpos($value, '[')) {
-            if ('[]' == substr($value, -2)) {
-                $value = substr($value, 0, strlen($value) - 2);
-            }
-            $value = trim($value, ']');
-            $value = str_replace('][', '-', $value);
-            $value = str_replace('[', '-', $value);
-        }
-
-        return $value;
+        return $this->getView()->plugin('attributes')->normalizeId($value);
     }
 }
