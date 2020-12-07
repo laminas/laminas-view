@@ -14,6 +14,13 @@ namespace Laminas\View\Helper;
 trait AttributesTrait
 {
     /**
+     * Get the View object
+     *
+     * @return \Laminas\View\Renderer\RendererInterface
+     */
+    abstract public function getView();
+
+    /**
      * Converts an associative array to a string of tag attributes.
      *
      * @param array $attribs From this array, each key-value pair is
