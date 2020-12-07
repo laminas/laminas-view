@@ -10,6 +10,8 @@ namespace Laminas\View\Helper;
 
 abstract class AbstractHtmlElement extends AbstractHelper
 {
+    use AttributesTrait;
+
     /**
      * EOL character
      *
@@ -50,31 +52,5 @@ abstract class AbstractHtmlElement extends AbstractHelper
     protected function isXhtml()
     {
         return $this->getView()->plugin('doctype')->isXhtml();
-    }
-
-    /**
-     * Converts an associative array to a string of tag attributes.
-     *
-     * @access public
-     *
-     * @param array $attribs From this array, each key-value pair is
-     * converted to an attribute name and value.
-     *
-     * @return string The XHTML for the attributes.
-     */
-    protected function htmlAttribs($attribs)
-    {
-        return $this->getView()->plugin('attributes')->htmlAttribs($attribs);
-    }
-
-    /**
-     * Normalize an ID
-     *
-     * @param  string $value
-     * @return string
-     */
-    protected function normalizeId($value)
-    {
-        return $this->getView()->plugin('attributes')->normalizeId($value);
     }
 }
