@@ -16,15 +16,34 @@ class Attributes extends AbstractHelper
     use AttributesTrait;
 
     /**
-     * Converts an associative array to a string of tag attributes.
+     * Returns a new AttributeStore, optionally initializing it with the
+     * provided value.
      *
-     * @param array $attribs From this array, each key-value pair is
-     * converted to an attribute name and value.
+     * @param array|AttributeStore $attribs Attributes
      *
-     * @return string The XHTML for the attributes.
+     * @return AttributeStore
      */
-    public function __invoke(array $attribs)
+    public function __invoke($attribs = [])
     {
+        if ($attribs instanceof AttributeStore) {
+            $attribs = $attribs->getAttributes();
+        }
+        return new AttributeStore($this, $attribs);
+    }
+
+    /**
+     * Converts an associative array or AttributeStore object to a string of
+     * tag attributes.
+     *
+     * @param array|AttributeStore $attribs Attributes
+     *
+     * @return string
+     */
+    public function createAttributesString($attribs)
+    {
+        if ($attribs instanceof AttributeStore) {
+            $attribs = $attribs->getAttributes();
+        }
         return $this->htmlAttribs($attribs);
     }
 }
