@@ -100,8 +100,7 @@ class AttributeStore
     {
         if ($this->hasAttribute($attrib)) {
             $this->attribs[$attrib] = array_merge((array)$this->attribs[$attrib], (array)$value);
-        }
-        else {
+        } else {
             $this->setAttribute($attrib, $value);
         }
         return $this;
@@ -145,8 +144,7 @@ class AttributeStore
         if ($this->hasAttribute($attrib)) {
             if (is_array($this->attribs[$attrib])) {
                 return in_array($value, $this->attribs[$attrib]);
-            }
-            else {
+            } else {
                 return $value === $this->attribs[$attrib];
             }
         }
