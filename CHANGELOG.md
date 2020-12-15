@@ -2,27 +2,28 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.11.5 - TBD
+## 2.11.5 - 2020-12-15
 
-### Added
 
-- Nothing.
+-----
 
-### Changed
+### Release Notes for [2.11.5](https://github.com/laminas/laminas-view/milestone/2)
 
-- Nothing.
+next bugfix release (mini)
 
-### Deprecated
+### 2.11.5
 
-- Nothing.
+- Total issues resolved: **0**
+- Total pull requests resolved: **2**
+- Total contributors: **2**
 
-### Removed
+#### Bug
 
-- Nothing.
+ - [53: Omitting Script attribute if none or default](https://github.com/laminas/laminas-view/pull/53) thanks to @DennisDobslaf
 
-### Fixed
+#### Enhancement
 
-- Nothing.
+ - [52: Fixes #5 : added ArrayAccess to ViewModel &#95;&#95;construct $variables parameter](https://github.com/laminas/laminas-view/pull/52) thanks to @samsonasik
 
 ## 2.11.4 - 2019-12-04
 
