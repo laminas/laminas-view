@@ -37,7 +37,7 @@ class PaginationControlTest extends TestCase
      *
      * @access protected
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->markTestIncomplete('Re-enable after laminas-paginator is updated to laminas-servicemanager v3');
 
@@ -54,7 +54,7 @@ class PaginationControlTest extends TestCase
         $this->_paginator = new Paginator\Paginator($adapter);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         unset($this->_viewHelper);
         unset($this->_paginator);
@@ -81,7 +81,7 @@ class PaginationControlTest extends TestCase
     {
         Helper\PaginationControl::setDefaultViewPartial('testPagination.phtml');
         $output = $this->_viewHelper->__invoke($this->_paginator);
-        $this->assertContains('pagination control', $output, $output);
+        $this->assertStringContainsString('pagination control', $output, $output);
         Helper\PaginationControl::setDefaultViewPartial(null);
     }
 
@@ -102,15 +102,15 @@ class PaginationControlTest extends TestCase
     {
         // First we'll make sure the base case works
         $output = $this->_viewHelper->__invoke($this->_paginator, 'All', 'testPagination.phtml');
-        $this->assertContains('page count (11) equals pages in range (11)', $output, $output);
+        $this->assertStringContainsString('page count (11) equals pages in range (11)', $output, $output);
 
         Paginator\Paginator::setDefaultScrollingStyle('All');
         $output = $this->_viewHelper->__invoke($this->_paginator, null, 'testPagination.phtml');
-        $this->assertContains('page count (11) equals pages in range (11)', $output, $output);
+        $this->assertStringContainsString('page count (11) equals pages in range (11)', $output, $output);
 
         Helper\PaginationControl::setDefaultViewPartial('testPagination.phtml');
         $output = $this->_viewHelper->__invoke($this->_paginator);
-        $this->assertContains('page count (11) equals pages in range (11)', $output, $output);
+        $this->assertStringContainsString('page count (11) equals pages in range (11)', $output, $output);
     }
 
     /**
@@ -123,7 +123,7 @@ class PaginationControlTest extends TestCase
 
         $output = $this->_viewHelper->__invoke();
 
-        $this->assertContains('pagination control', $output, $output);
+        $this->assertStringContainsString('pagination control', $output, $output);
     }
 
     /**
@@ -158,7 +158,7 @@ class PaginationControlTest extends TestCase
                     $e->getMessage()
                 )
             );
-            $this->assertContains('could not resolve', $e->getMessage());
+            $this->assertStringContainsString('could not resolve', $e->getMessage());
         }
     }
 
@@ -172,7 +172,7 @@ class PaginationControlTest extends TestCase
         Helper\PaginationControl::setDefaultViewPartial('testPagination.phtml');
 
         $output = $this->_viewHelper->__invoke($paginator);
-        $this->assertContains('page count (3)', $output, $output);
+        $this->assertStringContainsString('page count (3)', $output, $output);
     }
 
     /**
@@ -184,6 +184,6 @@ class PaginationControlTest extends TestCase
 
         $output = $this->_viewHelper->__invoke($this->_paginator, $all, 'testPagination.phtml');
 
-        $this->assertContains('page count (11) equals pages in range (11)', $output, $output);
+        $this->assertStringContainsString('page count (11) equals pages in range (11)', $output, $output);
     }
 }

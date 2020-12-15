@@ -22,13 +22,16 @@ use Laminas\View\Helper\Url;
 use Laminas\View\HelperPluginManager;
 use Laminas\View\Renderer\PhpRenderer;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * @group      Laminas_View
  */
 class HelperPluginManagerTest extends TestCase
 {
-    protected function setUp()
+    use ProphecyTrait;
+
+    protected function setUp(): void
     {
         $this->helpers = new HelperPluginManager(new ServiceManager());
     }

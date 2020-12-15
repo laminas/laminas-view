@@ -26,7 +26,7 @@ use PHPUnit\Framework\TestCase;
  */
 class PhpRendererTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->renderer = new PhpRenderer();
     }
@@ -149,7 +149,7 @@ class PhpRendererTest extends TestCase
         $this->renderer->vars()->assign(['bar' => 'INJECT']);
         $this->renderer->resolver()->addPath(__DIR__ . '/_templates');
         $test = $this->renderer->render('test.phtml');
-        $this->assertContains($expected, $test);
+        $this->assertStringContainsString($expected, $test);
     }
 
     public function testRenderingFiltersContentWithFilterChain()
@@ -161,7 +161,7 @@ class PhpRendererTest extends TestCase
         $this->renderer->vars()->assign(['bar' => 'INJECT']);
         $this->renderer->resolver()->addPath(__DIR__ . '/_templates');
         $test = $this->renderer->render('test.phtml');
-        $this->assertContains($expected, $test);
+        $this->assertStringContainsString($expected, $test);
     }
 
     public function testCanAccessHelpersInTemplates()
@@ -169,7 +169,7 @@ class PhpRendererTest extends TestCase
         $this->renderer->resolver()->addPath(__DIR__ . '/_templates');
         $content = $this->renderer->render('test-with-helpers.phtml');
         foreach (['foo', 'bar', 'baz'] as $value) {
-            $this->assertContains("<li>$value</li>", $content);
+            $this->assertStringContainsString("<li>$value</li>", $content);
         }
     }
 
@@ -258,7 +258,7 @@ class PhpRendererTest extends TestCase
         $this->renderer->vars()->assign(['foo' => '10 > 9']);
         $this->renderer->resolver()->addPath(__DIR__ . '/_templates');
         $test = $this->renderer->render('testLocalVars.phtml');
-        $this->assertContains($expected, $test);
+        $this->assertStringContainsString($expected, $test);
     }
 
     public function testRendersTemplatesInAStack()
@@ -270,7 +270,7 @@ class PhpRendererTest extends TestCase
         $this->renderer->setResolver($resolver);
 
         $content = $this->renderer->render('block');
-        $this->assertRegexp('#<body>\s*Block content\s*</body>#', $content);
+        $this->assertMatchesRegularExpression('#<body>\s*Block content\s*</body>#', $content);
     }
 
     /**
@@ -287,7 +287,7 @@ class PhpRendererTest extends TestCase
         $model->setTemplate('empty');
 
         $content = $this->renderer->render($model);
-        $this->assertRegexp('/\s*Empty view\s*/s', $content);
+        $this->assertMatchesRegularExpression('/\s*Empty view\s*/s', $content);
     }
 
     /**
@@ -315,7 +315,7 @@ class PhpRendererTest extends TestCase
         $model->setVariable('bar', 'bar');
 
         $content = $this->renderer->render($model);
-        $this->assertRegexp('/\s*foo bar baz\s*/s', $content);
+        $this->assertMatchesRegularExpression('/\s*foo bar baz\s*/s', $content);
     }
 
     /**
@@ -396,7 +396,7 @@ class PhpRendererTest extends TestCase
 
         restore_error_handler();
         $this->assertInstanceOf(Exception\UnexpectedValueException::class, $caught);
-        $this->assertContains('file include failed', $caught->getMessage());
+        $this->assertStringContainsString('file include failed', $caught->getMessage());
     }
 
     /**
@@ -433,7 +433,7 @@ class PhpRendererTest extends TestCase
         ]);
         $this->renderer->setResolver($resolver);
         $test = $this->renderer->render($model);
-        $this->assertContains('BAR-BAZ-BAT', $test);
+        $this->assertStringContainsString('BAR-BAZ-BAT', $test);
     }
 
     /**
@@ -477,8 +477,13 @@ class PhpRendererTest extends TestCase
 
         $result = $this->renderer->render('empty.phtml');
 
-        $this->assertContains('Empty view', $result);
-        $this->assertAttributeEmpty('__filterChain', $this->renderer);
+        $this->assertStringContainsString('Empty view', $result);
+        $rendererReflection = new \ReflectionObject($this->renderer);
+        $method = $rendererReflection->getProperty('__filterChain');
+        $method->setAccessible(true);
+        $filterChain = $method->getValue($this->renderer);
+
+        $this->assertEmpty($filterChain);
     }
 
     /**

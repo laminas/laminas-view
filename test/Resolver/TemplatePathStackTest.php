@@ -32,7 +32,7 @@ class TemplatePathStackTest extends TestCase
      */
     private $baseDir;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->baseDir = realpath(__DIR__ . '/..');
         $this->stack   = new TemplatePathStack();
@@ -138,7 +138,7 @@ class TemplatePathStackTest extends TestCase
                     ->addPath($this->baseDir . '/_templates');
 
         $test = $this->stack->resolve('../_stubs/scripts/LfiProtectionCheck.phtml');
-        $this->assertContains('LfiProtectionCheck.phtml', $test);
+        $this->assertStringContainsString('LfiProtectionCheck.phtml', $test);
     }
 
     public function testReturnsFalseWhenRetrievingScriptIfNoPathsRegistered()

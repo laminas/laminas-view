@@ -18,6 +18,7 @@ use Laminas\View\Resolver\TemplateMapResolver;
 use Laminas\View\Resolver\TemplatePathStack;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use stdClass;
 
 /**
@@ -25,6 +26,8 @@ use stdClass;
  */
 class RelativeFallbackResolverTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testReturnsResourceFromTheSameNameSpaceWithMapResolver()
     {
         $tplMapResolver = new TemplateMapResolver([

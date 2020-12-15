@@ -15,10 +15,13 @@ use Laminas\View\Helper\Identity;
 use Laminas\View\Helper\Service\IdentityFactory;
 use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class IdentityFactoryTest extends TestCase
 {
-    protected function setUp()
+    use ProphecyTrait;
+
+    protected function setUp(): void
     {
         $this->services = $this->prophesize(ServiceManager::class);
         $this->helpers  = new HelperPluginManager($this->services->reveal());

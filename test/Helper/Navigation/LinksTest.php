@@ -44,7 +44,7 @@ class LinksTest extends AbstractTest
     private $_oldDoctype;
     // @codingStandardsIgnoreEnd
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -61,7 +61,7 @@ class LinksTest extends AbstractTest
         }
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         return;
         $this->_doctypeHelper->setDoctype($this->_oldDoctype);
@@ -532,7 +532,7 @@ class LinksTest extends AbstractTest
             $this->fail('An invalid value was given, but a ' .
                         'Laminas\View\Exception\InvalidArgumentException was not thrown');
         } catch (View\Exception\ExceptionInterface $e) {
-            $this->assertContains('Invalid argument: $rel', $e->getMessage());
+            $this->assertStringContainsString('Invalid argument: $rel', $e->getMessage());
         }
     }
 
@@ -544,7 +544,7 @@ class LinksTest extends AbstractTest
             $this->fail('An invalid value was given, but a ' .
                         'Laminas\View\Exception\InvalidArgumentException was not thrown');
         } catch (View\Exception\ExceptionInterface $e) {
-            $this->assertContains('Invalid relation attribute', $e->getMessage());
+            $this->assertStringContainsString('Invalid relation attribute', $e->getMessage());
         }
     }
 

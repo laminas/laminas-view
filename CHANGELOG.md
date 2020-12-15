@@ -2,14 +2,31 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 2.12.0 - TBD
+
+- [#58](https://github.com/laminas/laminas-view/pull/58) Adds PHP 8.0 support
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 2.11.5 - 2020-12-15
-
-
------
 
 ### Release Notes for [2.11.5](https://github.com/laminas/laminas-view/milestone/2)
 
-next bugfix release (mini)
+bugfix release (mini)
 
 ### 2.11.5
 
@@ -19,11 +36,11 @@ next bugfix release (mini)
 
 #### Bug
 
- - [53: Omitting Script attribute if none or default](https://github.com/laminas/laminas-view/pull/53) thanks to @DennisDobslaf
+- [53: Omitting Script attribute if none or default](https://github.com/laminas/laminas-view/pull/53) thanks to @DennisDobslaf
 
 #### Enhancement
 
- - [52: Fixes #5 : added ArrayAccess to ViewModel &#95;&#95;construct $variables parameter](https://github.com/laminas/laminas-view/pull/52) thanks to @samsonasik
+- [52: Fixes #5 : added ArrayAccess to ViewModel &#95;&#95;construct $variables parameter](https://github.com/laminas/laminas-view/pull/52) thanks to @samsonasik
 
 ## 2.11.4 - 2019-12-04
 
@@ -620,7 +637,7 @@ next bugfix release (mini)
 ### Added
 
 - [zendframework/zend-view#8](https://github.com/zendframework/zend-view/pull/8) adds a new method to
-  each of the `Breadcrumbs` and `Menu` navigation helpers, 
+  each of the `Breadcrumbs` and `Menu` navigation helpers,
   `renderPartialWithParams(array $params = [], $container = null, $partial = null)`.
   This method allows passing parameters to the navigation partial to render,
   just as you would when using the `partial()` view helper.

@@ -43,7 +43,7 @@ class HeadMetaTest extends TestCase
      *
      * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->error = false;
         Helper\Doctype::unsetDoctypeRegistry();
@@ -61,7 +61,7 @@ class HeadMetaTest extends TestCase
      *
      * @return void
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         unset($this->helper);
     }
@@ -252,13 +252,13 @@ class HeadMetaTest extends TestCase
 
         $attributeEscaper = $this->attributeEscaper;
 
-        $this->assertContains('http-equiv="screen" content="projection"', $string);
-        $this->assertContains('name="keywords" content="' . $attributeEscaper('foo bar') . '"', $string);
-        $this->assertContains('lang="us_en"', $string);
-        $this->assertContains('scheme="foo"', $string);
-        $this->assertNotContains('bogus', $string);
-        $this->assertNotContains('unused', $string);
-        $this->assertContains('name="title" content="' . $attributeEscaper('boo bah') . '"', $string);
+        $this->assertStringContainsString('http-equiv="screen" content="projection"', $string);
+        $this->assertStringContainsString('name="keywords" content="' . $attributeEscaper('foo bar') . '"', $string);
+        $this->assertStringContainsString('lang="us_en"', $string);
+        $this->assertStringContainsString('scheme="foo"', $string);
+        $this->assertStringNotContainsString('bogus', $string);
+        $this->assertStringNotContainsString('unused', $string);
+        $this->assertStringContainsString('name="title" content="' . $attributeEscaper('boo bah') . '"', $string);
     }
 
     /**
@@ -270,7 +270,7 @@ class HeadMetaTest extends TestCase
         set_error_handler([$this, 'handleErrors']);
         $string = @$this->helper->toString();
         $this->assertEquals('', $string);
-        $this->assertInternalType('string', $this->error);
+        $this->assertIsString($this->error);
     }
 
     public function testHeadMetaHelperCreatesItemEntry()
@@ -316,9 +316,9 @@ class HeadMetaTest extends TestCase
 
         $attributeEscaper = $this->attributeEscaper;
 
-        $this->assertNotContains('/>', $test);
-        $this->assertContains($attributeEscaper('some content'), $test);
-        $this->assertContains('foo', $test);
+        $this->assertStringNotContainsString('/>', $test);
+        $this->assertStringContainsString($attributeEscaper('some content'), $test);
+        $this->assertStringContainsString('foo', $test);
     }
 
     /**
@@ -497,7 +497,7 @@ class HeadMetaTest extends TestCase
             $this->helper->__invoke('foo', 'og:title', 'property');
             $this->fail('meta property attribute should not be supported on default doctype');
         } catch (ViewException $e) {
-            $this->assertContains('Invalid value passed', $e->getMessage());
+            $this->assertStringContainsString('Invalid value passed', $e->getMessage());
         }
     }
 
@@ -554,7 +554,7 @@ class HeadMetaTest extends TestCase
             $this->helper->__invoke('HeadMeta with Microdata', 'description', 'itemprop');
             $this->fail('meta itemprop attribute should not be supported on default doctype');
         } catch (ViewException $e) {
-            $this->assertContains('Invalid value passed', $e->getMessage());
+            $this->assertStringContainsString('Invalid value passed', $e->getMessage());
         }
     }
 
@@ -595,24 +595,24 @@ class HeadMetaTest extends TestCase
     {
         $html = $this->helper->appendHttpEquiv('foo', 'bar', ['conditional' => 'lt IE 7'])->toString();
 
-        $this->assertRegExp("|^<!--\[if lt IE 7\]>|", $html);
-        $this->assertRegExp("|<!\[endif\]-->$|", $html);
+        $this->assertMatchesRegularExpression("|^<!--\[if lt IE 7\]>|", $html);
+        $this->assertMatchesRegularExpression("|<!\[endif\]-->$|", $html);
     }
 
     public function testConditionalNoIE()
     {
         $html = $this->helper->appendHttpEquiv('foo', 'bar', ['conditional' => '!IE'])->toString();
 
-        $this->assertContains('<!--[if !IE]><!--><', $html);
-        $this->assertContains('<!--<![endif]-->', $html);
+        $this->assertStringContainsString('<!--[if !IE]><!--><', $html);
+        $this->assertStringContainsString('<!--<![endif]-->', $html);
     }
 
     public function testConditionalNoIEWidthSpace()
     {
         $html = $this->helper->appendHttpEquiv('foo', 'bar', ['conditional' => '! IE'])->toString();
 
-        $this->assertContains('<!--[if ! IE]><!--><', $html);
-        $this->assertContains('<!--<![endif]-->', $html);
+        $this->assertStringContainsString('<!--[if ! IE]><!--><', $html);
+        $this->assertStringContainsString('<!--<![endif]-->', $html);
     }
 
     public function testTurnOffAutoEscapeDoesNotEncode()

@@ -11,6 +11,7 @@ namespace LaminasTest\View\Resolver;
 use Laminas\View\Resolver\PrefixPathStackResolver;
 use Laminas\View\Resolver\ResolverInterface;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * Tests for {@see \Laminas\View\Resolver\PrefixPathStackResolver}
@@ -19,6 +20,8 @@ use PHPUnit\Framework\TestCase;
  */
 class PrefixPathStackResolverTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var string
      */
@@ -27,7 +30,7 @@ class PrefixPathStackResolverTest extends TestCase
     /**
      * {@inheritDoc}
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->basePath = realpath(__DIR__ . '/../_templates/prefix-path-stack-resolver');
     }
