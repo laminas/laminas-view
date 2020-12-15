@@ -416,7 +416,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -521,7 +521,6 @@ analytics scripts.  Some JS libraries need to be included in the HTML
         -&gt;prependFile($this-&gt;basePath('js/vendor/jquery.js'));
     ?&gt;
 &lt;/body&gt;</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&lt;body&gt;
     &lt;!-- Content --&gt;
@@ -529,7 +528,6 @@ analytics scripts.  Some JS libraries need to be included in the HTML
     &lt;script type="text/javascript" src="/js/vendor/jquery.js"&gt;&lt;/script&gt;
     &lt;script type="text/javascript" src="/js/vendor/foundation.min.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</code></pre>
-
 <h2 id="capturing-scripts">Capturing Scripts</h2>
 <p>Add in your view scripts:</p>
 <pre class="highlight"><code class="language-php">$this-&gt;inlineScript()-&gt;captureStart();
@@ -539,7 +537,6 @@ echo &lt;&lt;&lt;JS
     });
 JS;
 $this-&gt;inlineScript()-&gt;captureEnd();</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&lt;body&gt;
     &lt;!-- Content --&gt;

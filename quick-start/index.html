@@ -416,7 +416,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -614,7 +614,6 @@ directory.</p>
        'not_found_template'       =&gt; 'error/404',
     ],
 ];</code></pre>
-
 <h2 id="controllers-and-view-models">Controllers and View Models</h2>
 <p><code>Laminas\View\View</code> consumes <code>ViewModel</code>s, passing them to the selected renderer.
 Where do you create these, though?</p>
@@ -635,7 +634,6 @@ class BazBatController extends AbstractActionController
         return $view;
     }
 }</code></pre>
-
 <p>This sets a "message" variable in the View Model, and sets the template name
 "foo/baz-bat/do-something-crazy". The View Model is then returned.</p>
 <p>In most cases, you'll likely have a template name based on the module namespace,
@@ -673,7 +671,6 @@ class BazBatController extends AbstractActionController
         ];
     }
 }</code></pre>
-
 <p>The above method will likely work for the majority of use cases. When you need
 to specify a different template, explicitly create and return a View Model and
 specify the template manually, as in the first example.</p>
@@ -721,7 +718,6 @@ class ArticleController extends AbstractActionController
         return $view;
     }
 }</code></pre>
-
 <p>The above will create and return a View Model specifying the template
 <code>content/article/view</code>. When the View is rendered, it will render three child
 Views, the <code>$articleView</code>, <code>$primarySidebarView</code>, and <code>$secondarySidebarView</code>;
@@ -742,35 +738,30 @@ with comments detailing where each nested view model is injected.</p>
 
     &lt;?= $this-&gt;sidebar_secondary ?&gt;
 &lt;/div&gt;</code></pre>
-
 <p>The <code>content/article</code> template:</p>
 <pre class="highlight"><code class="language-php">    &lt;!-- This is from the $articleView View Model, and the "content/article"
          template --&gt;
     &lt;article class="span8"&gt;
         &lt;?= $this-&gt;escapeHtml('article') ?&gt;
     &lt;/article&gt;</code></pre>
-
 <p>The <code>content/main-sidebar</code> template:</p>
 <pre class="highlight"><code class="language-php">    &lt;!-- This is from the $primarySidebarView View Model, and the
          "content/main-sidebar" template --&gt;
     &lt;div class="span2 sidebar"&gt;
         sidebar content...
     &lt;/div&gt;</code></pre>
-
 <p>The <code>content/secondary-sidebar</code> template:</p>
 <pre class="highlight"><code class="language-php">    &lt;!-- This is from the $secondarySidebarView View Model, and the
          "content/secondary-sidebar" template --&gt;
     &lt;div class="span2 sidebar pull-right"&gt;
         &lt;?= $this-&gt;block ?&gt;
     &lt;/div&gt;</code></pre>
-
 <p>The <code>content/block</code> template:</p>
 <pre class="highlight"><code class="language-php">        &lt;!-- This is from the $sidebarBlockView View Model, and the
             "content/block" template --&gt;
         &lt;div class="block"&gt;
             block content...
         &lt;/div&gt;</code></pre>
-
 <p>And here is the aggregate, generated content:</p>
 <pre class="highlight"><code class="language-html">&lt;!-- This is from the $view View Model, and the "content/article/view" template --&gt;
 &lt;div class="row content"&gt;
@@ -796,7 +787,6 @@ with comments detailing where each nested view model is injected.</p>
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/div&gt;</code></pre>
-
 <p>You can achieve very complex markup using nested Views, while simultaneously
 keeping the details of rendering isolated from the Request/Response lifecycle of
 the controller.</p>
@@ -827,7 +817,6 @@ in your layout view script:</p>
         &lt;?= $this-&gt;content; ?&gt;
     &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-
 <p>If you want to specify a different View variable for which to capture,
 explicitly create a view model in your controller, and set its "capture to"
 value:</p>
@@ -850,7 +839,6 @@ class BazBatController extends AbstractActionController
         return $view;
     }
 }</code></pre>
-
 <p>There will be times you don't want to render a layout. For example, you might be
 answering an API call which expects JSON or an XML payload, or you might be
 answering an XHR request that expects a partial HTML payload. To do this,
@@ -877,7 +865,6 @@ class BazBatController extends AbstractActionController
         return $view;
     }
 }</code></pre>
-
 <p><a href="#nesting-view-models">When discussing nesting View Models</a>, we detailed a
 nested View Model which contained an article and sidebars. Sometimes, you may
 want to provide additional View Models to the layout, instead of nesting in the
@@ -907,7 +894,6 @@ class ArticleController extends AbstractActionController
         return $view;
     }
 }</code></pre>
-
 <p>You could also use this technique to select a different layout, by calling the
 <code>setTemplate()</code> method of the layout View Model:</p>
 <pre class="highlight"><code class="language-php">//In a controller
@@ -932,7 +918,6 @@ class ArticleController extends AbstractActionController
         return $view;
     }
 }</code></pre>
-
 <p>Sometimes, you may want to access the layout from within your actual view
 scripts when using the <code>PhpRenderer</code>. Reasons might include wanting to change
 the layout template, or wanting to either access or inject layout view variables.
@@ -957,7 +942,6 @@ if (isset($layout-&gt;disqusApiKey)) {
 
 // Set a layout variable
 $this-&gt;layout()-&gt;footer = $this-&gt;render('article/footer');</code></pre>
-
 <p>Commonly, you may want to alter the layout based on the current <strong>module</strong>. This
 requires (a) detecting if the controller matched in routing belongs to this
 module, and then (b) changing the template of the View Model.</p>
@@ -999,7 +983,6 @@ class Module
         $viewModel-&gt;setTemplate('content/layout');
     }
 }</code></pre>
-
 <h2 id="creating-and-registering-alternate-rendering-and-response-strategies">Creating and Registering Alternate Rendering and Response Strategies</h2>
 <p><code>Laminas\View\View</code> does very little. Its workflow is essentially to martial a
 <code>ViewEvent</code>, and then trigger two events, <code>renderer</code> and <code>response</code>. You can
@@ -1062,7 +1045,6 @@ class Module
         $jsonStrategy-&gt;attach($view-&gt;getEventManager(), 100);
     }
 }</code></pre>
-
 <p>The above will register the <code>JsonStrategy</code> with the "render" event, such that it
 executes prior to the <code>PhpRendererStrategy</code>, and thus ensure that a JSON payload
 is created when the controller returns a <code>JsonModel</code>.</p>
@@ -1139,7 +1121,6 @@ class Module
         $view-&gt;getEventManager()-&gt;attach($jsonStrategy, 100);
     }
 }</code></pre>
-
 <p>While the above examples detail using the <code>JsonStrategy</code>, the same could be done
 for the <code>FeedStrategy</code>.</p>
 <p>If you successfully registered the Strategy you need to use the appropriate <code>ViewModel</code>:

@@ -416,7 +416,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -527,30 +527,24 @@ explicitly pass a different attach order as the second parameter.</p>
 <p>Specify a title tag in a view script, e.g.
 <code>module/Album/view/album/album/index.phtml</code>:</p>
 <pre class="highlight"><code class="language-php">$this-&gt;headTitle('My albums');</code></pre>
-
 <p>Render the title in the layout script, e.g.
 <code>module/Application/view/layout/layout.phtml</code></p>
 <pre class="highlight"><code class="language-php">&lt;?= $this-&gt;headTitle() ?&gt;</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&lt;title&gt;My albums&lt;/title&gt;</code></pre>
-
 <h3>Add the Website Name</h3>
 <p>A typical usage includes the website name in the title. Add the name and <a href="#using-separator">set a
 separator</a> in the layout script, e.g.
 <code>module/Application/view/layout/layout.phtml</code></p>
 <pre class="highlight"><code class="language-php">&lt;?= $this-&gt;headTitle('Music')-&gt;setSeparator(' - ') ?&gt;</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&lt;title&gt;My albums - Music&lt;/title&gt;</code></pre>
-
 <h2 id="set-content">Set Content</h2>
 <p>The normal behaviour is to append the content to the title (container).</p>
 <pre class="highlight"><code class="language-php">$this-&gt;headTitle('My albums')
 $this-&gt;headTitle('Music');
 
 echo $this-&gt;headTitle(); // &lt;title&gt;My albumsMusic&lt;/title&gt;</code></pre>
-
 <h3>Append Content</h3>
 <p>To explicitly append content, the second paramater <code>$setType</code> or the concrete
 method <code>append()</code> of the helper can be used:</p>
@@ -559,14 +553,12 @@ method <code>append()</code> of the helper can be used:</p>
 $this-&gt;headTitle('Music', 'APPEND');
 
 echo $this-&gt;headTitle(); // &lt;title&gt;My albumsMusic&lt;/title&gt;</code></pre>
-
 </div>
 <input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Setter Usage</label><div class="tabbed-content">
 <pre class="highlight"><code class="language-php">$this-&gt;headTitle('My albums')
 $this-&gt;headTitle()-&gt;append('Music');
 
 echo $this-&gt;headTitle(); // &lt;title&gt;My albumsMusic&lt;/title&gt;</code></pre>
-
 </div>
 </div>
 <p>The constant <code>Laminas\View\Helper\Placeholder\Container\AbstractContainer::APPEND</code>
@@ -579,14 +571,12 @@ can also be used as value for the second parameter <code>$setType</code>.</p>
 $this-&gt;headTitle('Music', 'PREPEND');
 
 echo $this-&gt;headTitle(); // &lt;title&gt;MusicMy albums&lt;/title&gt;</code></pre>
-
 </div>
 <input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Setter Usage</label><div class="tabbed-content">
 <pre class="highlight"><code class="language-php">$this-&gt;headTitle('My albums')
 $this-&gt;headTitle()-&gt;prepend('Music');
 
 echo $this-&gt;headTitle(); // &lt;title&gt;MusicMy albums&lt;/title&gt;</code></pre>
-
 </div>
 </div>
 <p>The constant <code>Laminas\View\Helper\Placeholder\Container\AbstractContainer::PREPEND</code>
@@ -599,14 +589,12 @@ or the concrete method <code>set()</code> of the helper can be used:</p>
 $this-&gt;headTitle('Music', 'SET');
 
 echo $this-&gt;headTitle(); // &lt;title&gt;Music&lt;/title&gt;</code></pre>
-
 </div>
 <input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><label for="__tabbed_3_2">Setter Usage</label><div class="tabbed-content">
 <pre class="highlight"><code class="language-php">$this-&gt;headTitle('My albums')
 $this-&gt;headTitle()-&gt;set('Music');
 
 echo $this-&gt;headTitle(); // &lt;title&gt;Music&lt;/title&gt;</code></pre>
-
 </div>
 </div>
 <p>The constant <code>Laminas\View\Helper\Placeholder\Container\AbstractContainer::SET</code>
@@ -617,14 +605,12 @@ $this-&gt;headTitle('My albums');
 $this-&gt;headTitle('Music');
 
 echo $this-&gt;headTitle(); // &lt;title&gt;MusicMy albums&lt;/title&gt;</code></pre>
-
 <h4>Get Current Value</h4>
 <p>To get the current value of this option, use the <code>getDefaultAttachOrder()</code>
 method.</p>
 <pre class="highlight"><code class="language-php">$this-&gt;headTitle()-&gt;setDefaultAttachOrder('PREPEND');
 
 echo $this-&gt;headTitle()-&gt;getDefaultAttachOrder(); // PREPEND</code></pre>
-
 <h4>Default Value</h4>
 <p>The default value is
 <code>Laminas\View\Helper\Placeholder\Container\AbstractContainer::APPEND</code> which
@@ -635,14 +621,12 @@ $this-&gt;headTitle('My albums');
 $this-&gt;headTitle('Music');
 
 echo $this-&gt;headTitle(); // &lt;title&gt;My albums | Music&lt;/title&gt;</code></pre>
-
 <h3>Get Current Value</h3>
 <p>To get the current value of this option, use the <code>getSeparator()</code>
 method.</p>
 <pre class="highlight"><code class="language-php">$this-&gt;headTitle()-&gt;setSeparator(' | ');
 
 echo $this-&gt;headTitle()-&gt;getSeparator(); //  |</code></pre>
-
 <h3>Default Value</h3>
 <p>The default value is an empty <code>string</code> that means no extra content is added
 between the titles on rendering.</p>
@@ -651,7 +635,6 @@ between the titles on rendering.</p>
 <pre class="highlight"><code class="language-php">$this-&gt;headTitle('My albums')-&gt;setPrefix('Music: ')-&gt;setPostfix('𝄞');
 
 echo $this-&gt;headTitle(); // &lt;title&gt;Music: My albums 𝄞&lt;/title&gt;</code></pre>
-
 <p>More descriptions and another example of usage can be found at the
 <a href="../placeholder/#aggregate-content"><code>Placeholder</code> helper</a>.</p>
 <h2 id="render-without-tags">Render without Tags</h2>

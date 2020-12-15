@@ -416,7 +416,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -516,19 +516,16 @@ Consider the following partial script:</p>
     &lt;li&gt;From: &lt;?= $this-&gt;escapeHtml($this-&gt;from) ?&gt;&lt;/li&gt;
     &lt;li&gt;Subject: &lt;?= $this-&gt;escapeHtml($this-&gt;subject) ?&gt;&lt;/li&gt;
 &lt;/ul&gt;</code></pre>
-
 <p>You would then call it from your view script using the following:</p>
 <pre class="highlight"><code class="language-php">&lt;?= $this-&gt;partial('partial.phtml', [
     'from' =&gt; 'Team Framework',
     'subject' =&gt; 'view partials',
 ]); ?&gt;</code></pre>
-
 <p>Which would then render:</p>
 <pre class="highlight"><code class="language-html">&lt;ul&gt;
     &lt;li&gt;From: Team Framework&lt;/li&gt;
     &lt;li&gt;Subject: view partials&lt;/li&gt;
 &lt;/ul&gt;</code></pre>
-
 <blockquote>
 <h3>What is a model?</h3>
 <p>A model used with the <code>Partial</code> view helper can be one of the following:</p>
@@ -551,7 +548,6 @@ $view-&gt;partial()-&gt;setObjectKey('model');
 // Tell partial to pass objects from partialLoop as 'model' variable
 // in final partial view script:
 $view-&gt;partialLoop()-&gt;setObjectKey('model');</code></pre>
-
 <p>This technique is particularly useful when passing
 <code>Laminas\Db\ResultSet\ResultSet</code>s to <code>partialLoop()</code>, as you then have full
 access to your row objects within the view scripts, allowing you to call
@@ -570,7 +566,6 @@ in the iterator may be any model the <code>Partial</code> view helper allows.</p
 <pre class="highlight"><code class="language-php">&lt;?php // partialLoop.phtml ?&gt;
     &lt;dt&gt;&lt;?= $this-&gt;key ?&gt;&lt;/dt&gt;
     &lt;dd&gt;&lt;?= $this-&gt;value ?&gt;&lt;/dd&gt;</code></pre>
-
 <p>And the following "model":</p>
 <pre class="highlight"><code class="language-php">$model = [
     ['key' =&gt; 'Mammal', 'value' =&gt; 'Camel'],
@@ -578,12 +573,10 @@ in the iterator may be any model the <code>Partial</code> view helper allows.</p
     ['key' =&gt; 'Reptile', 'value' =&gt; 'Asp'],
     ['key' =&gt; 'Fish', 'value' =&gt; 'Flounder'],
 ];</code></pre>
-
 <p>In your view script, you could then invoke the <code>PartialLoop</code> helper:</p>
 <pre class="highlight"><code class="language-php">&lt;dl&gt;
 &lt;?= $this-&gt;partialLoop('partialLoop.phtml', $model) ?&gt;
 &lt;/dl&gt;</code></pre>
-
 <p>Resulting in the following:</p>
 <pre class="highlight"><code class="language-html">&lt;dl&gt;
     &lt;dt&gt;Mammal&lt;/dt&gt;

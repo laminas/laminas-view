@@ -416,7 +416,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -516,7 +516,6 @@
 following:</p>
 <pre class="highlight"><code class="language-php">// Usable in any of your .phtml files
 echo $this-&gt;flashMessenger()-&gt;render();</code></pre>
-
 <p>The first argument of the <code>render()</code> function is the <code>namespace</code>. If no
 <code>namespace</code> is defined, the default
 <code>Laminas\Mvc\Controller\Plugin\FlashMessenger::NAMESPACE_DEFAULT</code> will be used,
@@ -527,7 +526,6 @@ echo $this-&gt;flashMessenger()-&gt;render('error');
 // Alternatively use one of the pre-defined namespaces
 // (aka: use Laminas\Mvc\Controller\Plugin\FlashMessenger;)
 echo $this-&gt;flashMessenger()-&gt;render(FlashMessenger::NAMESPACE_SUCCESS);</code></pre>
-
 <h2 id="css-layout">CSS Layout</h2>
 <p>The <code>FlashMessenger</code> default rendering adds a CSS class to the generated HTML,
 that matches the defined <code>namespace</code> that should be rendered. While it may work
@@ -536,14 +534,12 @@ classes to the HTML output. This can be done while making use of the second
 parameter of the <code>render()</code> function.</p>
 <pre class="highlight"><code class="language-php">// Usable in any of your .phtml files
 echo $this-&gt;flashMessenger()-&gt;render('error', ['alert', 'alert-danger']);</code></pre>
-
 <p>The output of this example, using the default HTML rendering settings, would
 look like this:</p>
 <pre class="highlight"><code class="language-html">&lt;ul class="alert alert-danger"&gt;
     &lt;li&gt;Some FlashMessenger Content&lt;/li&gt;
     &lt;li&gt;You, the developer, are AWESOME!&lt;/li&gt;
 &lt;/ul&gt;</code></pre>
-
 <h2 id="html-layout">HTML Layout</h2>
 <p>Aside from modifying the rendered CSS classes of the <code>FlashMessenger</code>, you are
 furthermore able to modify the generated HTML as a whole to create even more
@@ -553,7 +549,6 @@ within the source code of the <code>FlashMessenger</code> view helper itself.</p
 protected $messageCloseString     = '&lt;/li&gt;&lt;/ul&gt;';
 protected $messageOpenFormat      = '&lt;ul%s&gt;&lt;li&gt;';
 protected $messageSeparatorString = '&lt;/li&gt;&lt;li&gt;';</code></pre>
-
 <p>These defaults exactly match what we're trying to do. The placeholder <code>%s</code> will
 be filled with the CSS classes output.</p>
 <p>To change this, all we need to do is call the respective setter methods of these
@@ -564,13 +559,11 @@ echo $this-&gt;flashMessenger()
     -&gt;setMessageSeparatorString('&lt;/p&gt;&lt;p&gt;')
     -&gt;setMessageCloseString('&lt;/p&gt;&lt;/div&gt;')
     -&gt;render('success');</code></pre>
-
 <p>The above code sample then would then generate the following output:</p>
 <pre class="highlight"><code class="language-html">&lt;div class="success"&gt;
     &lt;p&gt;Some FlashMessenger Content&lt;/p&gt;
     &lt;p&gt;You, who's reading the docs, are AWESOME!&lt;/p&gt;
 &lt;/div&gt;</code></pre>
-
 <h2 id="sample-modification-for-twitter-bootstrap-3">Sample Modification for Twitter Bootstrap 3</h2>
 <p>Taking all the above knowledge into account, we can create a nice, highly usable
 and user-friendly rendering strategy using the
@@ -589,7 +582,6 @@ echo $flash-&gt;render('error',   ['alert', 'alert-dismissible', 'alert-danger']
 echo $flash-&gt;render('info',    ['alert', 'alert-dismissible', 'alert-info']);
 echo $flash-&gt;render('default', ['alert', 'alert-dismissible', 'alert-warning']);
 echo $flash-&gt;render('success', ['alert', 'alert-dismissible', 'alert-success']);</code></pre>
-
 <p>The output of the above example would create dismissable <code>FlashMessages</code> with
 the following HTML markup. The example only covers one type of <code>FlashMessenger</code>
 output; if you would have several <code>FlashMessages</code> available in each of the
@@ -602,7 +594,6 @@ only having different CSS classes applied.</p>
         &lt;li&gt;You, who's reading the docs, are AWESOME!&lt;/li&gt;
     &lt;/ul&gt;
 &lt;/div&gt;</code></pre>
-
 <h2 id="alternative-configuration-of-the-viewhelper-layout">Alternative Configuration of the ViewHelper Layout</h2>
 <p><code>Laminas\View\Helper\Service\FlashMessengerFactory</code> checks the application
 configuration, making it possible to set up the <code>FlashMessenger</code> strings through

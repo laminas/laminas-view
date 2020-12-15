@@ -416,7 +416,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -583,7 +583,6 @@ class LayoutListener extends AbstractListenerAggregate
         $layoutViewModel-&gt;setTemplate($name);
     }
 }</code></pre>
-
 <h2 id="register-listener">Register Listener</h2>
 <p>Extend the module class to register the listener, e.g.
 <code>module/Admin/Module.php</code>:</p>
@@ -611,7 +610,6 @@ class Module
 
     // …
 }</code></pre>
-
 <blockquote>
 <p>More information on registering module-specific listeners can be found in the
 <a href="https://docs.laminas.dev/laminas-mvc/examples/#registering-module-specific-listeners">documentation of laminas-mvc</a>.</p>
@@ -628,7 +626,6 @@ class Module
     ],
     // …
 ];</code></pre>
-
 <p>And in another module, e.g. <code>module/Album/config/module.config.php</code>:</p>
 <pre class="highlight"><code class="language-php">return [
     // Add the following array
@@ -639,7 +636,6 @@ class Module
     ],
     // …
 ];</code></pre>
-
 <p>The name of the array key must follow the format <code>layout/{module-name}</code> and the
 value must contain the path to the layout file. The path and the filename can be
 freely chosen.</p>

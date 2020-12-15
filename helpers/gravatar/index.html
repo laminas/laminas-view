@@ -416,7 +416,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -502,13 +502,11 @@ the <a href="http://gravatar.com">gravatar.com</a> service.</p>
 <h2 id="basic-usage">Basic Usage</h2>
 <p>You can use the <code>Gravatar</code> helper anywhere in view scripts per the following example:</p>
 <pre class="highlight"><code class="language-php">echo $this-&gt;gravatar('email@example.com')-&gt;getImgTag();</code></pre>
-
 <p>The first (and only, in this example) argument passed to the <code>Gravatar</code> helper
 is an e-mail for which you want grab an avatar from gravatar.com. For
 convenience, this e-mail will be automatically hashed via the md5 algorithm.</p>
 <p>This will render the HTML below:</p>
 <pre class="highlight"><code class="language-html">&lt;img src="http://www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e?s=80&amp;d=mm&amp;r=g"&gt;</code></pre>
-
 <p>The helper already provides URL defaults for you.</p>
 <h2 id="custom-settings">Custom Settings</h2>
 <p>You can customize the request for a gravatar.com image by using setter methods
@@ -532,7 +530,6 @@ $gravatar-&gt;setSecure(true);
 
 // Render the &lt;img&gt; tag with the email you've set previously
 echo $gravatar-&gt;getImgTag();</code></pre>
-
 <p>Alternately, you can pass an array as the second argument on invocation, with
 the following keys:</p>
 <pre class="highlight"><code class="language-php">$settings = [
@@ -543,7 +540,6 @@ the following keys:</p>
 ];
 $email = 'email@example.com';
 echo $this-&gt;gravatar($email, $settings);</code></pre>
-
 <blockquote>
 <h3>Scheme autodiscovery</h3>
 <p>Passing <code>null</code> for the <code>secure</code> setting will cause the view helper to choose a
@@ -577,7 +573,6 @@ $attr = [
     'class' =&gt; 'gravatarcls',
 ];
 echo $gravatar-&gt;setAttributes($attr)-&gt;getImgTag();</code></pre>
-
 <p>Alternately, you can pass this array as the third argument during helper
 invocation:</p>
 <pre class="highlight"><code class="language-php">$email = 'email@example.com';

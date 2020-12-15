@@ -416,7 +416,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -527,7 +527,6 @@ $this-&gt;headScript()-&gt;appendFile(
     'text/javascript',
     ['conditional' =&gt; 'lt IE 7']
 );</code></pre>
-
 <h3>Preventing HTML style comments or CDATA wrapping of scripts</h3>
 <p>By default, <code>HeadScript</code> will wrap scripts with HTML comments or it wraps
 scripts with XHTML CDATA.  This behavior can be problematic when you intend to
@@ -542,7 +541,6 @@ $this-&gt;headScript()-&gt;appendScript(
     'text/x-jquery-tmpl',
     ['id' =&gt; 'tmpl-book', 'noescape' =&gt; true]
 );</code></pre>
-
 </blockquote>
 <p><code>HeadScript</code> also allows capturing scripts; this can be useful if you want to
 create the client-side script programmatically, and then place it elsewhere. The
@@ -575,7 +573,6 @@ These include <code>id</code>, <code>charset</code>, <code>crossorigin</code>, <
 modify behavior. To allow such attributes, you can enable them via the
 <code>setAllowArbitraryAttributes()</code> method:</p>
 <pre class="highlight"><code class="language-php">$this-&gt;headScript()-&gt;setAllowArbitraryAttributes(true);</code></pre>
-
 </blockquote>
 <h2 id="basic-usage">Basic Usage</h2>
 <p>You may specify a new script tag at any time. As noted above, these may be links
@@ -584,7 +581,6 @@ to outside resource files or scripts themselves.</p>
 $this-&gt;headScript()
     -&gt;appendFile('/js/prototype.js')
     -&gt;appendScript($onloadScript);</code></pre>
-
 <p>Order is often important with client-side scripting; you may need to ensure that
 libraries are loaded in a specific order due to dependencies each have; use the
 various <code>append</code>, <code>prepend</code>, and <code>offsetSet</code> directives to aid in this task:</p>
@@ -598,11 +594,9 @@ $this-&gt;headScript()-&gt;appendFile('/js/scriptaculous.js');
 
 // but always have base prototype script load first:
 $this-&gt;headScript()-&gt;prependFile('/js/prototype.js');</code></pre>
-
 <p>When you're finally ready to output all scripts in your layout script, simply
 echo the helper:</p>
 <pre class="highlight"><code class="language-php">&lt;?= $this-&gt;headScript() ?&gt;</code></pre>
-
 <h2 id="capturing-scripts">Capturing Scripts</h2>
 <p>Sometimes you need to generate client-side scripts programmatically. While you
 could use string concatenation, heredocs, and the like, often it's easier just
@@ -612,7 +606,6 @@ you do just that, capturing it to the stack:</p>
 var action = '&lt;?= $this-&gt;baseUrl ?&gt;';
 $('foo_form').action = action;
 &lt;?php $this-&gt;headScript()-&gt;captureEnd() ?&gt;</code></pre>
-
 <p>The following assumptions are made:</p>
 <ul>
 <li>The script will be appended to the stack. If you wish for it to replace the

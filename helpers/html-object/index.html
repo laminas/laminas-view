@@ -416,7 +416,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -512,14 +512,12 @@ documentation will only contain examples of two of these helpers.</p>
 <h2 id="flash-helper">Flash helper</h2>
 <p>Embedding Flash in your page using the helper only requires the resource URI.</p>
 <pre class="highlight"><code class="language-php">&lt;?= $this-&gt;htmlFlash('/path/to/flash.swf'); ?&gt;</code></pre>
-
 <p>This outputs the following HTML:</p>
 <pre class="highlight"><code class="language-html">&lt;object data="/path/to/flash.swf"
         type="application/x-shockwave-flash"
         classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
         codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab"&gt;
 &lt;/object&gt;</code></pre>
-
 <p>Additionally, you can specify attributes, parameters, and content that can be
 rendered along with the <code>&lt;object&gt;</code>. This will be demonstrated using the
 <code>htmlObject()</code> helper.</p>
@@ -546,7 +544,6 @@ content to the object. The following example utilizes all arguments.</p>
     ],
     'some content'
 );</code></pre>
-
 <p>This would output:</p>
 <pre class="highlight"><code class="language-html">&lt;object data="/path/to/file.ext" type="mime/type"
     attr1="aval1" attr2="aval2"&gt;

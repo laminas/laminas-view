@@ -416,7 +416,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -512,7 +512,6 @@ defined and recognized by the <code>ServiceManager</code>.</p>
         echo 'Not logged in';
     }
 ?&gt;</code></pre>
-
 <h2 id="using-with-servicemanager">Using with ServiceManager</h2>
 <p>When invoked, the <code>Identity</code> plugin will look for a service by the name or alias
 <code>Laminas\Authentication\AuthenticationService</code> in the <code>ServiceManager</code>. You can
@@ -531,7 +530,6 @@ return [
         ],
     ],
 ];</code></pre>
-
 <p>If that service is not registered, the plugin will then look for a service named
 <code>Laminas\Authentication\AuthenticationServiceInterface</code>, and use that if found.</p>
 

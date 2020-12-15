@@ -416,7 +416,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -514,7 +514,6 @@ mechanisms; pass a <code>false</code> value if you want to allow markup in your 
 ];
 
 echo $this-&gt;htmlList($items);</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&lt;ul&gt;
     &lt;li&gt;Level one, number one
@@ -530,10 +529,8 @@ echo $this-&gt;htmlList($items);</code></pre>
     &lt;/li&gt;
     &lt;li&gt;Level one, number two&lt;/li&gt;
 &lt;/ul&gt;</code></pre>
-
 <h3>Ordered list</h3>
 <pre class="highlight"><code class="language-php">echo $this-&gt;htmlList($items, true);</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&lt;ol&gt;
     &lt;li&gt;Level one, number one
@@ -549,12 +546,10 @@ echo $this-&gt;htmlList($items);</code></pre>
     &lt;/li&gt;
     &lt;li&gt;Level one, number two&lt;/li&gt;
 &lt;/ol&gt;</code></pre>
-
 <h3>HTML attributes</h3>
 <pre class="highlight"><code class="language-php">$attribs = ['class' =&gt; 'foo'];
 
 echo $this-&gt;htmlList($items, false, $attribs);</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&lt;ul class="foo"&gt;
     &lt;li&gt;Level one, number one
@@ -570,7 +565,6 @@ echo $this-&gt;htmlList($items, false, $attribs);</code></pre>
     &lt;/li&gt;
     &lt;li&gt;Level one, number two&lt;/li&gt;
 &lt;/ul&gt;</code></pre>
-
 <h3>Escape Output</h3>
 <pre class="highlight"><code class="language-php">$items = [
     'Level one, number &lt;strong&gt;one&lt;/strong&gt;',
@@ -582,7 +576,6 @@ echo $this-&gt;htmlList($items);
 
 // Don't escape output
 echo $this-&gt;htmlList($items, false, false, false);</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&lt;!-- Escape output (default) --&gt;
 &lt;ul class="foo"&gt;

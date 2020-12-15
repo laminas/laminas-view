@@ -416,7 +416,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -507,25 +507,21 @@ open and close tags for the <code>&lt;html&gt;</code> element.</p>
 <pre class="highlight"><code class="language-php">&lt;?= $this-&gt;htmlTag(['lang' =&gt; 'en'])-&gt;openTag() ?&gt;
 &lt;!-- Some HTML --&gt;
 &lt;?= $this-&gt;htmlTag()-&gt;closeTag() ?&gt;</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&lt;html lang="en"&gt;
 &lt;!-- Some HTML --&gt;
 &lt;/html&gt;</code></pre>
-
 <h2 id="using-attributes">Using Attributes</h2>
 <h3>Set a single Attribute</h3>
 <div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Invoke Usage</label><div class="tabbed-content">
 <pre class="highlight"><code class="language-php">$this-&gt;htmlTag(['lang' =&gt; 'en']);
 
 echo $this-&gt;htmlTag()-&gt;openTag(); // &lt;html lang="en"&gt;</code></pre>
-
 </div>
 <input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Setter Usage</label><div class="tabbed-content">
 <pre class="highlight"><code class="language-php">$this-&gt;htmlTag()-&gt;setAttribute('lang', 'en');
 
 echo $this-&gt;htmlTag()-&gt;openTag(); // &lt;html lang="en"&gt;</code></pre>
-
 </div>
 </div>
 <h3>Set multiple Attributes</h3>
@@ -533,13 +529,11 @@ echo $this-&gt;htmlTag()-&gt;openTag(); // &lt;html lang="en"&gt;</code></pre>
 <pre class="highlight"><code class="language-php">$this-&gt;htmlTag(['lang' =&gt; 'en', 'id' =&gt; 'example']);
 
 echo $this-&gt;htmlTag()-&gt;openTag(); // &lt;html lang="en" id="example"&gt;</code></pre>
-
 </div>
 <input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Setter Usage</label><div class="tabbed-content">
 <pre class="highlight"><code class="language-php">$this-&gt;htmlTag()-&gt;setAttributes(['lang' =&gt; 'en', 'id' =&gt; 'example']);
 
 echo $this-&gt;htmlTag()-&gt;openTag(); // &lt;html lang="en" id="example"&gt;</code></pre>
-
 </div>
 </div>
 <h3>Get current Value</h3>
@@ -547,7 +541,6 @@ echo $this-&gt;htmlTag()-&gt;openTag(); // &lt;html lang="en" id="example"&gt;</
 <pre class="highlight"><code class="language-php">$this-&gt;htmlTag(['lang' =&gt; 'en', 'id' =&gt; 'example']);
 
 var_dump($this-&gt;htmlTag()-&gt;getAttributes()); // ['lang' =&gt; 'en', 'id' =&gt; 'example']</code></pre>
-
 <h3>Default Value</h3>
 <p>The default value is an empty <code>array</code> that means no attributes are set.</p>
 <h2 id="using-namespace">Using Namespace</h2>
@@ -564,13 +557,11 @@ $this-&gt;htmlTag()-&gt;setUseNamespaces(true);
 
 // Output
 echo $this-&gt;htmlTag()-&gt;openTag(); // &lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;</code></pre>
-
 <h3>Get current Value</h3>
 <p>To get the current value, use the <code>getUseNamespaces()</code> method.</p>
 <pre class="highlight"><code class="language-php">$this-&gt;htmlTag()-&gt;setUseNamespaces(true);
 
 var_dump($this-&gt;htmlTag()-&gt;getUseNamespaces()); // true</code></pre>
-
 <h3>Default Value</h3>
 <p>The default value is <code>false</code> that means no namespace is added as attribute.</p>
 

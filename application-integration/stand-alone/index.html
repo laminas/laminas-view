@@ -416,7 +416,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -506,7 +506,6 @@
 `-- templates/
     |-- index.phtml
     `-- layout.phtml</code></pre>
-
 <h3>Basic Example</h3>
 <h4>Setup</h4>
 <p><a href="../../php-renderer/#usage">Create a renderer, set a resolver for templates</a>
@@ -528,7 +527,6 @@ $view-&gt;getEventManager()-&gt;attach(
         return $renderer;
     }
 );</code></pre>
-
 <h4>Create View Script</h4>
 <p><a href="../../view-scripts/">Create a view script</a> in <code>templates/index.phtml</code>:</p>
 <pre class="highlight"><code class="language-php">&lt;?php
@@ -538,7 +536,6 @@ $view-&gt;getEventManager()-&gt;attach(
  */
 ?&gt;
 &lt;h1&gt;&lt;?= $headline ?&gt;&lt;/h1&gt;</code></pre>
-
 <h4>Create View Model and render Output</h4>
 <p>Extend the script in <code>public/index.php</code> to add a <a href="../../quick-start/">view model</a>:</p>
 <pre class="highlight"><code class="language-php">$viewModel = new Laminas\View\Model\ViewModel(['headline' =&gt; 'Example']);
@@ -548,7 +545,6 @@ $viewModel-&gt;setTemplate('index');
 $viewModel-&gt;setOption('has_parent', true);
 
 echo $view-&gt;render($viewModel); // &lt;h1&gt;Example&lt;/h1&gt;</code></pre>
-
 <details><summary>Show full code example</summary>
 
 <pre class="highlight"><code class="language-php">&lt;?php
@@ -597,7 +593,6 @@ echo $view-&gt;render($viewModel);</code></pre>
 &lt;body&gt;
 &lt;?= $content ?&gt;
 &lt;/body&gt;</code></pre>
-
 <h4>Create Layout Model and render Output</h4>
 <p>Update the script in <code>public/index.php</code> to add a view model for layout:</p>
 <pre class="highlight"><code class="language-php">// Create layout model
@@ -612,7 +607,6 @@ $layout-&gt;addChild($viewModel);
 
 // Render
 echo $view-&gt;render($layout);</code></pre>
-
 <details><summary>Show full code example</summary>
 
 <pre class="highlight"><code class="language-php">&lt;?php
@@ -660,7 +654,6 @@ echo $view-&gt;render($layout);</code></pre>
 <h3>Setup</h3>
 <p>Create the renderer:</p>
 <pre class="highlight"><code class="language-php">$renderer = new Laminas\View\Renderer\PhpRenderer();</code></pre>
-
 <h3>Using Helper</h3>
 <pre class="highlight"><code class="language-php">echo $renderer-&gt;doctype(Laminas\View\Helper\Doctype::HTML5); // &lt;!DOCTYPE html&gt;</code></pre>
 

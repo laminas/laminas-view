@@ -416,7 +416,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -520,10 +520,8 @@ placeholder container object that you can either manipulate or echo.</p>
 <pre class="highlight"><code class="language-php">&lt;?php $this-&gt;placeholder('foo')-&gt;set("Some text for later") ?&gt;
 
 &lt;?= $this-&gt;placeholder('foo'); ?&gt;</code></pre>
-
 <p>Results in:</p>
 <pre class="highlight"><code class="language-html">Some text for later</code></pre>
-
 <h2 id="aggregate-content">Aggregate Content</h2>
 <p>Aggregating content via placeholders can be useful at times as well. For
 instance, your view script may have a variable array from which you wish to
@@ -547,7 +545,6 @@ variety of methods for formatting the content stored in the container:</p>
 <p>Set the data in one view script:</p>
 <pre class="highlight"><code class="language-php">&lt;!-- first view script --&gt;
 &lt;?php $this-&gt;placeholder('foo')-&gt;exchangeArray($this-&gt;data) ?&gt;</code></pre>
-
 <p>And retrieve the data and output it in another view script:</p>
 <pre class="highlight"><code class="language-php">&lt;!-- later view script --&gt;
 &lt;?php
@@ -559,7 +556,6 @@ $this-&gt;placeholder('foo')
 ?&gt;
 
 &lt;?= $this-&gt;placeholder('foo') ?&gt;</code></pre>
-
 <p>The above results in an unordered list with pretty indentation.</p>
 <p>Because the <code>Placeholder</code> container objects extend <code>ArrayObject</code>, you can also
 assign content to a specific key in the container easily, instead of simply
@@ -571,7 +567,6 @@ or as array keys.</p>
 &lt;?php
 $foo = $this-&gt;placeholder('foo');
 echo $foo['bar'];</code></pre>
-
 <h2 id="capture-content">Capture Content</h2>
 <p>Occasionally you may have content for a placeholder in a view script that is
 easiest to template; the <code>Placeholder</code> view helper allows you to capture
@@ -603,7 +598,6 @@ foreach ($this-&gt;data as $datum): ?&gt;
 &lt;?php $this-&gt;placeholder('foo')-&gt;captureEnd() ?&gt;
 
 &lt;?= $this-&gt;placeholder('foo') ?&gt;</code></pre>
-
 <p>Alternately, capture to a key:</p>
 <pre class="highlight"><code class="language-php">&lt;!-- Capture to key --&gt;
 &lt;?php $this-&gt;placeholder('foo')-&gt;captureStart('SET', 'data');
@@ -616,17 +610,14 @@ foreach ($this-&gt;data as $datum): ?&gt;
 &lt;?php $this-&gt;placeholder('foo')-&gt;captureEnd() ?&gt;
 
 &lt;?= $this-&gt;placeholder('foo')-&gt;data ?&gt;</code></pre>
-
 <h2 id="clearing-content">Clearing Content</h2>
 <p>In certain situations it is desirable to remove or clear containers and
 aggregated content. The placeholder view helper provides two methods to either
 delete a specific container or clear all containers at once:</p>
 <h3>Delete a single container</h3>
 <pre class="highlight"><code class="language-php">$this-&gt;plugin('placeholder')-&gt;deleteContainer('myNamedContainer');</code></pre>
-
 <h3>Clear all containers</h3>
 <pre class="highlight"><code class="language-php">$this-&gt;plugin('placeholder')-&gt;clearContainers();</code></pre>
-
 <h2 id="concrete-implementations">Concrete Implementations</h2>
 <p>laminas-view ships with a number of "concrete" placeholder implementations. These
 are for commonly used placeholders: doctype, page title, and various <code>&lt;head&gt;</code>

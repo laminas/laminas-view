@@ -416,7 +416,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -539,7 +539,6 @@ in the
 <p>The escape helpers depends on the laminas-escaper component, so be sure to have
 it installed before getting started:</p>
 <pre class="highlight"><code class="language-bash">$ composer require laminas/laminas-escaper</code></pre>
-
 </blockquote>
 <h2 id="escapecss">EscapeCss</h2>
 <pre class="highlight"><code class="language-php">$css = &lt;&lt;&lt;CSS
@@ -549,34 +548,26 @@ body {
 CSS;
 
 echo $this-&gt;escapeCss($css);</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-css">body\20 \7B \D \A \20 \20 \20 \20 background\2D image\3A \20 url\28 \27 http\3A \2F \2F example\2E com\2F foo\2E jpg\3F \3C \2F style\3E \3C script\3E alert\28 1\29 \3C \2F script\3E \27 \29 \3B \D \A \7D</code></pre>
-
 <h2 id="escapehtml">EscapeHtml</h2>
 <pre class="highlight"><code class="language-php">$html = "&lt;script&gt;alert('laminas-framework')&lt;/script&gt;";
 
 echo $this-&gt;escapeHtml($html);</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&amp;lt;script&amp;gt;alert(&amp;#039;laminas-framework&amp;#039;)&amp;lt;/script&amp;gt;</code></pre>
-
 <h2 id="escapehtmlattr">EscapeHtmlAttr</h2>
 <pre class="highlight"><code class="language-php+html">&lt;?php $html = 'faketitle onmouseover=alert(/laminas-framework/);'; ?&gt;
 
 &lt;a title=&lt;?= $this-&gt;escapeHtmlAttr($html) ?&gt;&gt;click&lt;/a&gt;</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&lt;a title=faketitle&amp;#x20;onmouseover&amp;#x3D;alert&amp;#x28;&amp;#x2F;laminas-framework&amp;#x2F;&amp;#x29;&amp;#x3B;&gt;click&lt;/a&gt;</code></pre>
-
 <h2 id="escapejs">EscapeJs</h2>
 <pre class="highlight"><code class="language-php">$js = "window.location = 'https://getlaminas.org/?cookie=' + document.cookie";
 
 echo $this-&gt;escapeJs($js);</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-js">window.location\x20\x3D\x20\x27https\x3A\x2F\x2Fgetlaminas.org\x2F\x3Fcookie\x3D\x27\x20\x2B\x20document.cookie</code></pre>
-
 <h2 id="escapeurl">EscapeUrl</h2>
 <pre class="highlight"><code class="language-php">&lt;?php
 $url = &lt;&lt;&lt;JS
@@ -585,13 +576,10 @@ JS;
 ?&gt;
 
 &lt;a href="http://example.com/?name=&lt;?= $this-&gt;escapeUrl($url) ?&gt;"&gt;click&lt;/a&gt;</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&lt;a href="http://example.com/?name=%22%20onmouseover%3D%22alert%28%27laminas%27%29"&gt;click&lt;/a&gt;</code></pre>
-
 <h2 id="using-encoding">Using Encoding</h2>
 <pre class="highlight"><code class="language-php">$this-&gt;escapeHtml()-&gt;setEncoding('iso-8859-15');</code></pre>
-
 <p>All allowed encodings can be found in the
 <a href="https://docs.laminas.dev/laminas-escaper/configuration/">documentation of laminas-escaper</a>.</p>
 <h3>Get Current Value</h3>
@@ -599,7 +587,6 @@ JS;
 <pre class="highlight"><code class="language-php">$this-&gt;escapeHtml()-&gt;setEncoding('iso-8859-15');
 
 echo $this-&gt;escapeHtml()-&gt;getEncoding(); // iso-8859-15</code></pre>
-
 <h3>Default Value</h3>
 <p>The default value for all escape helpers is <code>utf-8</code>.</p>
 <h2 id="using-recursion">Using Recursion</h2>
@@ -616,7 +603,6 @@ operation. This allows the escaping of the datatypes <code>array</code> and <cod
 ];
 
 var_dump($this-&gt;escapeHtml($html, Laminas\View\Helper\EscapeHtml::RECURSE_ARRAY));</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-php">array(2) {
   'headline' =&gt;
@@ -627,7 +613,6 @@ var_dump($this-&gt;escapeHtml($html, Laminas\View\Helper\EscapeHtml::RECURSE_ARR
     string(22) "&amp;lt;p&amp;gt;Bar&amp;lt;/p&amp;gt;"
   }
 }</code></pre>
-
 <h3>Escape an Object</h3>
 <p>An escape helper can use the <code>__toString()</code> method of an object. No additional
 parameter is needed:</p>
@@ -639,7 +624,6 @@ parameter is needed:</p>
 };
 
 echo $this-&gt;escapeHtml($object); // "&amp;lt;h1&amp;gt;Foo&amp;lt;/h1&amp;gt;"</code></pre>
-
 <p>An escape helper can also use the <code>toArray()</code> method of an object. The second
 parameter <code>$recurse</code> must be use the constant <code>RECURSE_OBJECT</code> of an escape
 helper:</p>
@@ -651,13 +635,11 @@ helper:</p>
 };
 
 var_dump($this-&gt;escapeHtml($object, Laminas\View\Helper\EscapeHtml::RECURSE_OBJECT));</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-php">array(1) {
   'headline' =&gt;
   string(3) "&amp;lt;h1&amp;gt;Foo&amp;lt;/h1&amp;gt;"
 }</code></pre>
-
 <p>If the object does not contains the methods <code>__toString()</code> or <code>toArray()</code> then
 the object is casted to an <code>array</code>:</p>
 <pre class="highlight"><code class="language-php">$object = new class {
@@ -665,20 +647,17 @@ the object is casted to an <code>array</code>:</p>
 };
 
 var_dump($this-&gt;escapeHtml($object, Laminas\View\Helper\EscapeHtml::RECURSE_OBJECT));</code></pre>
-
 <p>Output:</p>
 <pre class="highlight"><code class="language-php">array(1) {
   'headline' =&gt;
   string(3) "&amp;lt;h1&amp;gt;Foo&amp;lt;/h1&amp;gt;"
 }</code></pre>
-
 <h2 id="using-custom-escaper">Using Custom Escaper</h2>
 <p>Create an own instance of <code>Laminas\Escaper\Escaper</code> and set to any of the escape
 helpers:</p>
 <pre class="highlight"><code class="language-php">$escaper = new Laminas\Escaper\Escaper('utf-8');
 
 $this-&gt;escapeHtml()-&gt;setEscaper($escaper);</code></pre>
-
 <h3>Get Current Value</h3>
 <p>To get the current value, use the <code>getEscaper()</code> method.</p>
 <pre class="highlight"><code class="language-php">&lt;?php
@@ -686,7 +665,6 @@ $escaper = new Laminas\Escaper\Escaper('utf-8');
 $this-&gt;escapeHtml()-&gt;setEscaper($escaper);
 
 var_dump($this-&gt;escapeHtml()-&gt;getEscaper()); // instance of Laminas\Escaper\Escaper</code></pre>
-
 <h3>Default Value</h3>
 <p>The default value is an instance of <code>Laminas\Escaper\Escaper</code>, created by the
 helper.</p>

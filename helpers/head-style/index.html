@@ -416,7 +416,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -524,7 +524,6 @@ pass the conditional value as part of the <code>$attributes</code> parameter in 
 method calls.</p>
 <pre class="highlight"><code class="language-php">// adding comments
 $this-&gt;headStyle()-&gt;appendStyle($styles, ['conditional' =&gt; 'lt IE 7']);</code></pre>
-
 </blockquote>
 <p><code>HeadStyle</code> also allows capturing style declarations; this can be useful if you
 want to create the declarations programmatically, and then place them elsewhere.
@@ -594,7 +593,6 @@ class MyRenderer extends PhpRenderer
         return $this-&gt;encoding;
     }
 }</code></pre>
-
 <p>Now we make some configuration in the module class:</p>
 <pre class="highlight"><code class="language-php">// module/MyModule.php
 namespace MyModule;
@@ -646,7 +644,6 @@ class Module
         $view-&gt;getEventManager()-&gt;attach($myStrategy, 100);
     }
 }</code></pre>
-
 <p>See the quick start <a href="../../quick-start/#creating-and-registering-alternate-rendering-and-response-strategies">Creating and Registering Alternate Rendering and Response Strategies</a>
 chapter for more information on how to create and register custom strategies
 to your view.</p>
@@ -655,7 +652,6 @@ to your view.</p>
 <p>You may specify a new style tag at any time:</p>
 <pre class="highlight"><code class="language-php">// adding styles
 $this-&gt;headStyle()-&gt;appendStyle($styles);</code></pre>
-
 <p>Order is very important with CSS; you may need to ensure that declarations are
 loaded in a specific order due to the order of the cascade; use the various
 <code>append</code>, <code>prepend</code>, and <code>offsetSet</code> directives to aid in this task:</p>
@@ -669,11 +665,9 @@ $this-&gt;headStyle()-&gt;appendStyle($finalStyles);
 
 // place at beginning
 $this-&gt;headStyle()-&gt;prependStyle($firstStyles);</code></pre>
-
 <p>When you're finally ready to output all style declarations in your layout
 script, echo the helper:</p>
 <pre class="highlight"><code class="language-php">&lt;?= $this-&gt;headStyle() ?&gt;</code></pre>
-
 <h2 id="capturing-style-declarations">Capturing Style Declarations</h2>
 <p>Sometimes you need to generate CSS style declarations programmatically. While
 you could use string concatenation, heredocs, and the like, often it's easier
@@ -684,7 +678,6 @@ body {
     background-color: &lt;?= $this-&gt;bgColor ?&gt;;
 }
 &lt;?php $this-&gt;headStyle()-&gt;captureEnd() ?&gt;</code></pre>
-
 <p>The following assumptions are made:</p>
 <ul>
 <li>The style declarations will be appended to the stack. If you wish for them to

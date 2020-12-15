@@ -416,7 +416,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -564,7 +564,6 @@ tag with the name <code>keywords</code> and the content the keywords you wish to
 with your page:</p>
 <pre class="highlight"><code class="language-php">// setting meta keywords
 $this-&gt;headMeta()-&gt;appendName('keywords', 'framework, PHP, productivity');</code></pre>
-
 <p>If you wished to set some client-side caching rules, you'd set <code>http-equiv</code> tags
 with the rules you wish to enforce:</p>
 <pre class="highlight"><code class="language-php">// disabling client-side cache
@@ -572,28 +571,23 @@ $this-&gt;headMeta()
     -&gt;appendHttpEquiv('expires', 'Wed, 26 Feb 1997 08:21:57 GMT')
     -&gt;appendHttpEquiv('pragma', 'no-cache')
     -&gt;appendHttpEquiv('Cache-Control', 'no-cache');</code></pre>
-
 <p>Another popular use for meta tags is setting the content type, character set,
 and language:</p>
 <pre class="highlight"><code class="language-php">// setting content type and character set
 $this-&gt;headMeta()
     -&gt;appendHttpEquiv('Content-Type', 'text/html; charset=UTF-8')
     -&gt;appendHttpEquiv('Content-Language', 'en-US');</code></pre>
-
 <p>If you are serving an HTML5 document, you should provide the character set like
 this:</p>
 <pre class="highlight"><code class="language-php">// setting character set in HTML5
 $this-&gt;headMeta()-&gt;setCharset('UTF-8'); // Will look like &lt;meta charset="UTF-8"&gt;</code></pre>
-
 <p>As a final example, an easy way to display a transitional message before a
 redirect is using a "meta refresh":</p>
 <pre class="highlight"><code class="language-php">// setting a meta refresh for 3 seconds to a new url:
 $this-&gt;headMeta()
     -&gt;appendHttpEquiv('Refresh', '3;URL=http://www.some.org/some.html');</code></pre>
-
 <p>When you're ready to place your meta tags in the layout, echo the helper:</p>
 <pre class="highlight"><code class="language-php">&lt;?= $this-&gt;headMeta() ?&gt;</code></pre>
-
 <h2 id="usage-with-xhtml1_rdfa-doctype">Usage with XHTML1_RDFA doctype</h2>
 <p>Enabling the RDFa doctype with the <a href="../doctype/">Doctype helper</a> enables the use
 of the <code>property</code> attribute (in addition to the standard <code>name</code> and
@@ -608,7 +602,6 @@ echo $this-&gt;headMeta();
 // output is:
 //   &lt;meta property="og:title" content="my article title" /&gt;
 //   &lt;meta property="og:type" content="article" /&gt;</code></pre>
-
 <h2 id="usage-with-html5-doctype">Usage with HTML5 doctype</h2>
 <p>Enabling the HTML5 doctype with the <a href="../doctype/">Doctype helper</a> enables the use
 of the <code>itemprop</code> attribute (in addition to the standard <code>name</code> and

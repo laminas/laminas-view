@@ -416,7 +416,7 @@
             </div>
 
             
-            <div class="col-4 text-sm-right">
+            <div class="col-4 text-right">
                 
                     
 
@@ -507,7 +507,6 @@
         &lt;/tr&gt;
     &lt;?php endforeach ?&gt;
 &lt;/table&gt;</code></pre>
-
 <p>The output:</p>
 <pre class="highlight"><code class="language-php">&lt;table&gt;
     &lt;tr class="odd"&gt;
@@ -517,10 +516,8 @@
        &lt;td&gt;Second&lt;/td&gt;
     &lt;/tr&gt;
 &lt;/table&gt;</code></pre>
-
 <p>Instead of passing the data at invocation, you can assign it ahead of time:</p>
 <pre class="highlight"><code class="language-php">&lt;?php $this-&gt;cycle()-&gt;assign(['odd', 'even']); ?&gt;</code></pre>
-
 <p>You can also cycle in reverse, using the <code>prev()</code> method instead of <code>next()</code>:</p>
 <pre class="highlight"><code class="language-php">&lt;table&gt;
     &lt;?php foreach ($this-&gt;books as $book): ?&gt;
@@ -529,7 +526,6 @@
     &lt;/tr&gt;
     &lt;?php endforeach ?&gt;
 &lt;/table&gt;</code></pre>
-
 <p>The output of the two previous examples combined becomes:</p>
 <pre class="highlight"><code class="language-php">&lt;table&gt;
     &lt;tr class="even"&gt;
@@ -539,7 +535,6 @@
        &lt;td&gt;Second&lt;/td&gt;
     &lt;/tr&gt;
 &lt;/table&gt;</code></pre>
-
 <h2 id="working-with-two-or-more-cycles">Working with two or more cycles</h2>
 <p>If you are nesting cycles, you must provide all but one of them with a name; do
 this by providing a second parameter to the <code>cycle()</code> invocation:
@@ -552,10 +547,8 @@ this by providing a second parameter to the <code>cycle()</code> invocation:
         &lt;/tr&gt;
     &lt;?php endforeach ?&gt;
 &lt;/table&gt;</code></pre>
-
 <p>You can also provide a <code>$name</code> argument to <code>assign()</code>:</p>
 <pre class="highlight"><code class="language-php">&lt;?php $this-&gt;cycle()-&gt;assign([1, 2, 3], 'number'); ?&gt;</code></pre>
-
 <p>Or use the <code>setName()</code> method priort to invoking either of <code>next()</code> or <code>prev()</code>.</p>
 <p>As a combined example:</p>
 <pre class="highlight"><code class="language-php">&lt;?php
