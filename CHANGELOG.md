@@ -4,13 +4,11 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ## 2.12.0 - TBD
 
-### Added
-
 - [#58](https://github.com/laminas/laminas-view/pull/58) Adds PHP 8.0 support
 
 ### Changed
 
-- [#52](https://github.com/laminas/laminas-view/pull/52) updates the typehint for the `$variables` parameter of the `ViewModel` constructor to also include `ArrayAccess`; this type has always been allowed, but never documented.
+- Nothing.
 
 ### Deprecated
 
@@ -23,6 +21,26 @@ All notable changes to this project will be documented in this file, in reverse 
 ### Fixed
 
 - Nothing.
+
+## 2.11.5 - 2020-12-15
+
+### Release Notes for [2.11.5](https://github.com/laminas/laminas-view/milestone/2)
+
+bugfix release (mini)
+
+### 2.11.5
+
+- Total issues resolved: **0**
+- Total pull requests resolved: **2**
+- Total contributors: **2**
+
+#### Bug
+
+- [53: Omitting Script attribute if none or default](https://github.com/laminas/laminas-view/pull/53) thanks to @DennisDobslaf
+
+#### Enhancement
+
+- [52: Fixes #5 : added ArrayAccess to ViewModel &#95;&#95;construct $variables parameter](https://github.com/laminas/laminas-view/pull/52) thanks to @samsonasik
 
 ## 2.11.4 - 2019-12-04
 

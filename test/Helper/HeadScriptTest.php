@@ -534,4 +534,18 @@ document.write(bar.strlen());');
         $test = $this->helper->__invoke()->toString();
         $this->assertStringContainsString('async="', $test);
     }
+
+    /**
+     * @group 23
+     */
+    public function testOmitsTypeAttributeIfNoneGivenAndHtml5Doctype()
+    {
+        $view = new \Laminas\View\Renderer\PhpRenderer();
+        $view->plugin('doctype')->setDoctype(\Laminas\View\Helper\Doctype::HTML5);
+        $this->helper->setView($view);
+
+        $this->helper->__invoke()->appendScript('// some script' . PHP_EOL);
+        $test = $this->helper->__invoke()->toString();
+        $this->assertNotRegExp('#type="text/javascript"#i', $test);
+    }
 }
