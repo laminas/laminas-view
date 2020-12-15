@@ -73,7 +73,7 @@ Add the following lines to your `config/autoload/global.php` file to set the `Do
 return [
     /* ... */
     'view_manager' => [
-        'doctype' => 'html5',
+        'doctype' => \Laminas\View\Helper\Doctype::HTML5,
         /* ... */
     ],
 ];
