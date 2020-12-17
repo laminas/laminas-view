@@ -60,11 +60,12 @@ class Attributes extends ArrayObject
      */
     public function add($name, $value)
     {
-        if ($this->offsetExists($name)) {
-            $this->offsetSet($name, array_merge((array) $this->offsetGet($name), (array) $value));
-        } else {
-            $this->offsetSet($name, $value);
-        }
+        $this->offsetSet(
+            $name,
+            $this->offsetExists($name)
+                ? array_merge((array) $this->offsetGet($name), (array) $value)
+                : $value
+        );
         return $this;
     }
 
@@ -93,15 +94,16 @@ class Attributes extends ArrayObject
      */
     public function hasValue($name, $value)
     {
-        if ($this->offsetExists($name)) {
-            $storeValue = $this->offsetGet($name);
-            if (is_array($storeValue)) {
-                return in_array($value, $storeValue);
-            } else {
-                return $value === $storeValue;
-            }
+        if (! $this->offsetExists($name)) {
+            return false;
         }
-        return false;
+        
+        $storeValue = $this->offsetGet($name);
+        if (is_array($storeValue)) {
+            return in_array($value, $storeValue);
+        }
+        
+        return $value === $storeValue;
     }
 
     /**
@@ -111,30 +113,26 @@ class Attributes extends ArrayObject
      */
     public function __toString()
     {
-        $xhtml          = '';
+        $xhtml = '';
 
         foreach ($this->getArrayCopy() as $key => $val) {
             $key = $this->htmlEscaper->escapeHtml($key);
 
-            if (0 === strpos($key, 'on') || ('constraints' == $key)) {
+            if ((0 === strpos($key, 'on') || ('constraints' === $key)) && ! is_scalar($val)) {
                 // Don't escape event attributes; _do_ substitute double quotes with singles
-                if (! is_scalar($val)) {
-                    // non-scalar data should be cast to JSON first
-                    $val = \Laminas\Json\Json::encode($val);
-                }
-            } else {
-                if (is_array($val)) {
-                    $val = implode(' ', $val);
-                }
+                // non-scalar data should be cast to JSON first
+                $val = json_encode($val, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
             }
 
-            $val = $this->htmlAttrEscaper->escapeHtmlAttr($val);
-
-            if (strpos($val, '"') !== false) {
-                $xhtml .= " $key='$val'";
-            } else {
-                $xhtml .= " $key=\"$val\"";
+            if (0 !== strpos($key, 'on') && 'constraints' !== $key && is_array($val)) {
+                // Non-event keys and non-constraints keys with array values
+                // should have values separated by whitespace
+                $val = implode(' ', $val);
             }
+
+            $val    = $this->htmlAttrEscaper->escapeHtmlAttr($val);
+            $quote  = strpos($val, '"') !== false ? "'" : '"';
+            $xhtml .= sprintf(' %2$s=%1$s%3$s%1$s', $quote, $key, $val);
         }
 
         return $xhtml;
