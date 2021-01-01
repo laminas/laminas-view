@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.12.0 - TBD
+## 2.12.0 - 2021-01-01
 
 ### Added
 
@@ -10,21 +10,23 @@ All notable changes to this project will be documented in this file, in reverse 
 
 - [#58](https://github.com/laminas/laminas-view/pull/58) Adds PHP 8.0 support
 
-### Changed
 
-- Nothing.
+-----
 
-### Deprecated
+### Release Notes for [2.12.0](https://github.com/laminas/laminas-view/milestone/3)
 
-- Nothing.
+next feature release (minor)
 
-### Removed
+### 2.12.0
 
-- Nothing.
+- Total issues resolved: **1**
+- Total pull requests resolved: **2**
+- Total contributors: **2**
 
-### Fixed
+#### Enhancement,hacktoberfest-accepted
 
-- Nothing.
+ - [59: Doctype ViewHelper Factory](https://github.com/laminas/laminas-view/pull/59) thanks to @rieschl
+ - [58: PHP 8.0 support](https://github.com/laminas/laminas-view/pull/58) thanks to @hummer2k
 
 ## 2.11.5 - 2020-12-15
 
