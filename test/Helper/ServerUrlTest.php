@@ -29,7 +29,7 @@ class ServerUrlTest extends TestCase
     /**
      * Prepares the environment before running a test.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->serverBackup = $_SERVER;
         unset($_SERVER['HTTPS']);
@@ -39,7 +39,7 @@ class ServerUrlTest extends TestCase
     /**
      * Cleans up the environment after running a test.
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $_SERVER = $this->serverBackup;
     }

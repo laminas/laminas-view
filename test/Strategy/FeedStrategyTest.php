@@ -24,7 +24,7 @@ class FeedStrategyTest extends TestCase
 {
     use EventListenerIntrospectionTrait;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->markTestIncomplete('Re-enable tests after laminas-feed has been updated to laminas-servicemanager v3');
         $this->renderer = new FeedRenderer;

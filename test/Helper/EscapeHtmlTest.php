@@ -27,7 +27,7 @@ class EscapeHtmlTest extends TestCase
         'eucjp-win',    'macroman'
     ];
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->helper = new EscapeHelper;
     }
@@ -37,11 +37,9 @@ class EscapeHtmlTest extends TestCase
         $this->assertEquals('UTF-8', $this->helper->getEncoding());
     }
 
-    /**
-     * @expectedException \Laminas\View\Exception\InvalidArgumentException
-     */
     public function testEncodingIsImmutable()
     {
+        $this->expectException(\Laminas\View\Exception\InvalidArgumentException::class);
         $this->helper->setEncoding('BIG5-HKSCS');
         $this->helper->getEscaper();
         $this->helper->setEncoding('UTF-8');
@@ -160,8 +158,6 @@ class EscapeHtmlTest extends TestCase
     }
 
     /**
-     * @expectedException \Laminas\Escaper\Exception\InvalidArgumentException
-     *
      * PHP 5.3 instates default encoding on empty string instead of the expected
      * warning level error for htmlspecialchars() encoding param. PHP 5.4 attempts
      * to guess the encoding or take it from php.ini default_charset when an empty
@@ -169,6 +165,7 @@ class EscapeHtmlTest extends TestCase
      */
     public function testSettingEncodingToEmptyStringShouldThrowException()
     {
+        $this->expectException(\Laminas\Escaper\Exception\InvalidArgumentException::class);
         $this->helper->setEncoding('');
         $this->helper->getEscaper();
     }
@@ -183,8 +180,6 @@ class EscapeHtmlTest extends TestCase
     }
 
     /**
-     * @expectedException \Laminas\Escaper\Exception\InvalidArgumentException
-     *
      * All versions of PHP - when an invalid encoding is set on htmlspecialchars()
      * a warning level error is issued and escaping continues with the default encoding
      * for that PHP version. Preventing the continuation behaviour offsets display_errors
@@ -192,6 +187,7 @@ class EscapeHtmlTest extends TestCase
      */
     public function testSettingEncodingToInvalidValueShouldThrowException()
     {
+        $this->expectException(\Laminas\Escaper\Exception\InvalidArgumentException::class);
         $this->helper->setEncoding('completely-invalid');
         $this->helper->getEscaper();
     }

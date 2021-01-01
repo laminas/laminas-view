@@ -20,7 +20,7 @@ use PHPUnit\Framework\TestCase;
  */
 class RenderChildModelTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->resolver = new TemplateMapResolver([
             'layout'  => __DIR__ . '/../_templates/nested-view-model-layout.phtml',
@@ -60,7 +60,7 @@ class RenderChildModelTest extends TestCase
     {
         $this->setupFirstChild();
         $result = $this->helper->render('child1');
-        $this->assertContains('Content for layout', $result, $result);
+        $this->assertStringContainsString('Content for layout', $result, $result);
     }
 
     public function setupSecondChild()
@@ -78,9 +78,9 @@ class RenderChildModelTest extends TestCase
         $this->setupFirstChild();
         $this->setupSecondChild();
         $result = $this->helper->render('child1');
-        $this->assertContains('Content for layout', $result, $result);
+        $this->assertStringContainsString('Content for layout', $result, $result);
         $result = $this->helper->render('child2');
-        $this->assertContains('Second child', $result, $result);
+        $this->assertStringContainsString('Second child', $result, $result);
     }
 
     public function testRendersNestedChildren()
@@ -93,9 +93,9 @@ class RenderChildModelTest extends TestCase
         $child1->addChild($child2);
 
         $result = $this->helper->render('child1');
-        $this->assertContains('Layout start', $result, $result);
-        $this->assertContains('Content for layout', $result, $result);
-        $this->assertContains('Layout end', $result, $result);
+        $this->assertStringContainsString('Layout start', $result, $result);
+        $this->assertStringContainsString('Content for layout', $result, $result);
+        $this->assertStringContainsString('Layout end', $result, $result);
     }
 
     public function testRendersSequentialChildrenWithNestedChildren()
@@ -114,7 +114,7 @@ class RenderChildModelTest extends TestCase
         $child1->addChild($nested);
 
         $result = $this->renderer->render($this->parent);
-        $this->assertRegExp(
+        $this->assertMatchesRegularExpression(
             '/Content:\s+Layout start\s+Content for layout\s+Layout end\s+Sidebar:\s+Second child/s',
             $result,
             $result

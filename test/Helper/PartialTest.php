@@ -39,7 +39,7 @@ class PartialTest extends TestCase
      *
      * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->basePath = __DIR__ . '/_files/modules';
         $this->helper   = new Partial();
@@ -51,7 +51,7 @@ class PartialTest extends TestCase
      *
      * @return void
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         unset($this->helper);
     }
@@ -65,7 +65,7 @@ class PartialTest extends TestCase
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
         $this->helper->setView($view);
         $return = $this->helper->__invoke('partialOne.phtml');
-        $this->assertContains('This is the first test partial', $return);
+        $this->assertStringContainsString('This is the first test partial', $return);
     }
 
     /**
@@ -78,8 +78,8 @@ class PartialTest extends TestCase
         $view->vars()->message = 'This should never be read';
         $this->helper->setView($view);
         $return = $this->helper->__invoke('partialThree.phtml', ['message' => 'This message should be read']);
-        $this->assertNotContains('This should never be read', $return);
-        $this->assertContains('This message should be read', $return, $return);
+        $this->assertStringNotContainsString('This should never be read', $return);
+        $this->assertStringContainsString('This message should be read', $return, $return);
     }
 
     /**
@@ -105,7 +105,7 @@ class PartialTest extends TestCase
 
         foreach (get_object_vars($model) as $key => $value) {
             $string = sprintf('%s: %s', $key, $value);
-            $this->assertContains($string, $return);
+            $this->assertStringContainsString($string, $return);
         }
     }
 
@@ -120,7 +120,7 @@ class PartialTest extends TestCase
 
         foreach ($model->toArray() as $key => $value) {
             $string = sprintf('%s: %s', $key, $value);
-            $this->assertContains($string, $return);
+            $this->assertStringContainsString($string, $return);
         }
     }
 
@@ -144,7 +144,7 @@ class PartialTest extends TestCase
 
         foreach ($model->getVariables() as $key => $value) {
             $string = sprintf('%s: %s', $key, $value);
-            $this->assertContains($string, $return);
+            $this->assertStringContainsString($string, $return);
         }
     }
 
@@ -162,7 +162,7 @@ class PartialTest extends TestCase
 
         foreach ($model as $key => $value) {
             $string = sprintf('%s: %s', $key, $value);
-            $this->assertContains($string, $return);
+            $this->assertStringContainsString($string, $return);
         }
     }
 
@@ -181,7 +181,7 @@ class PartialTest extends TestCase
 
         foreach ($model->getVariables() as $key => $value) {
             $string = sprintf('%s: %s', $key, $value);
-            $this->assertContains($string, $return);
+            $this->assertStringContainsString($string, $return);
         }
     }
 }

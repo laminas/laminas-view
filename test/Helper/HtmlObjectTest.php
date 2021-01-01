@@ -31,14 +31,14 @@ class HtmlObjectTest extends TestCase
      *
      * @access protected
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->view   = new View();
         $this->helper = new HtmlObject();
         $this->helper->setView($this->view);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         unset($this->helper);
     }
@@ -52,8 +52,8 @@ class HtmlObjectTest extends TestCase
     {
         $htmlObject = $this->helper->__invoke('datastring', 'typestring');
 
-        $this->assertContains('<object data="datastring" type="typestring">', $htmlObject);
-        $this->assertContains('</object>', $htmlObject);
+        $this->assertStringContainsString('<object data="datastring" type="typestring">', $htmlObject);
+        $this->assertStringContainsString('</object>', $htmlObject);
     }
 
     public function testMakeHtmlObjectWithAttribsWithoutParams()
@@ -63,11 +63,11 @@ class HtmlObjectTest extends TestCase
 
         $htmlObject = $this->helper->__invoke('datastring', 'typestring', $attribs);
 
-        $this->assertContains(
+        $this->assertStringContainsString(
             '<object data="datastring" type="typestring" attribkey1="attribvalue1" attribkey2="attribvalue2">',
             $htmlObject
         );
-        $this->assertContains('</object>', $htmlObject);
+        $this->assertStringContainsString('</object>', $htmlObject);
     }
 
     public function testMakeHtmlObjectWithoutAttribsWithParamsHtml()
@@ -79,13 +79,13 @@ class HtmlObjectTest extends TestCase
 
         $htmlObject = $this->helper->__invoke('datastring', 'typestring', [], $params);
 
-        $this->assertContains('<object data="datastring" type="typestring">', $htmlObject);
-        $this->assertContains('</object>', $htmlObject);
+        $this->assertStringContainsString('<object data="datastring" type="typestring">', $htmlObject);
+        $this->assertStringContainsString('</object>', $htmlObject);
 
         foreach ($params as $key => $value) {
             $param = '<param name="' . $key . '" value="' . $value . '">';
 
-            $this->assertContains($param, $htmlObject);
+            $this->assertStringContainsString($param, $htmlObject);
         }
     }
 
@@ -98,13 +98,13 @@ class HtmlObjectTest extends TestCase
 
         $htmlObject = $this->helper->__invoke('datastring', 'typestring', [], $params);
 
-        $this->assertContains('<object data="datastring" type="typestring">', $htmlObject);
-        $this->assertContains('</object>', $htmlObject);
+        $this->assertStringContainsString('<object data="datastring" type="typestring">', $htmlObject);
+        $this->assertStringContainsString('</object>', $htmlObject);
 
         foreach ($params as $key => $value) {
             $param = '<param name="' . $key . '" value="' . $value . '" />';
 
-            $this->assertContains($param, $htmlObject);
+            $this->assertStringContainsString($param, $htmlObject);
         }
     }
 
@@ -112,8 +112,8 @@ class HtmlObjectTest extends TestCase
     {
         $htmlObject = $this->helper->__invoke('datastring', 'typestring', [], [], 'testcontent');
 
-        $this->assertContains('<object data="datastring" type="typestring">', $htmlObject);
-        $this->assertContains('testcontent', $htmlObject);
-        $this->assertContains('</object>', $htmlObject);
+        $this->assertStringContainsString('<object data="datastring" type="typestring">', $htmlObject);
+        $this->assertStringContainsString('testcontent', $htmlObject);
+        $this->assertStringContainsString('</object>', $htmlObject);
     }
 }

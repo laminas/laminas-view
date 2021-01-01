@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
  */
 class VariablesTest extends TestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->error = false;
         $this->vars = new Variables;
@@ -85,7 +85,7 @@ class VariablesTest extends TestCase
         set_error_handler([$this, 'handleErrors'], E_USER_NOTICE);
         $this->assertNull($this->vars['foo']);
         restore_error_handler();
-        $this->assertContains('does not exist', $this->error);
+        $this->assertStringContainsString('does not exist', $this->error);
     }
 
     public function values()

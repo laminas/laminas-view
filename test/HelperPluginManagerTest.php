@@ -16,19 +16,26 @@ use Laminas\ServiceManager\Config;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Exception\InvalidHelperException;
+use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\HeadTitle;
 use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Helper\Url;
 use Laminas\View\HelperPluginManager;
 use Laminas\View\Renderer\PhpRenderer;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * @group      Laminas_View
  */
 class HelperPluginManagerTest extends TestCase
 {
-    protected function setUp()
+    use ProphecyTrait;
+
+    /** @var HelperPluginManager */
+    private $helpers;
+
+    protected function setUp(): void
     {
         $this->helpers = new HelperPluginManager(new ServiceManager());
     }
@@ -240,6 +247,11 @@ class HelperPluginManagerTest extends TestCase
         );
         $config->configureServiceManager($helpers);
         $this->assertSame($helper, $helpers->get('foo'));
+    }
+
+    public function testDoctypeFactoryExists()
+    {
+        self::assertTrue($this->helpers->has(Doctype::class));
     }
 
     private function getServiceNotFoundException(HelperPluginManager $manager)

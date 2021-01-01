@@ -17,7 +17,7 @@ use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Helper\FlashMessenger;
 use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * Test class for Laminas\View\Helper\Cycle.
@@ -27,7 +27,9 @@ use Prophecy\Argument;
  */
 class FlashMessengerTest extends TestCase
 {
-    protected function setUp()
+    use ProphecyTrait;
+
+    protected function setUp(): void
     {
         $this->mvcPluginClass = class_exists(V2PluginFlashMessenger::class)
             ? V2PluginFlashMessenger::class

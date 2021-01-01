@@ -23,14 +23,14 @@ class HtmlTagTest extends TestCase
      */
     public $helper;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->view   = new View();
         $this->helper = new HtmlTag();
         $this->helper->setView($this->view);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         unset($this->helper);
     }
@@ -99,7 +99,7 @@ class HtmlTagTest extends TestCase
 
         $escape = $this->view->plugin('escapehtmlattr');
         foreach ($attribs as $name => $value) {
-            $this->assertContains(sprintf('%s="%s"', $name, $escape($value)), $tag);
+            $this->assertStringContainsString(sprintf('%s="%s"', $name, $escape($value)), $tag);
         }
     }
 
@@ -128,9 +128,9 @@ class HtmlTagTest extends TestCase
 
         $escape = $this->view->plugin('escapehtmlattr');
 
-        $this->assertContains(sprintf('%s="%s"', 'xmlns', $escape('http://www.w3.org/1999/xhtml')), $tag);
+        $this->assertStringContainsString(sprintf('%s="%s"', 'xmlns', $escape('http://www.w3.org/1999/xhtml')), $tag);
         foreach ($attribs as $name => $value) {
-            $this->assertContains(sprintf('%s="%s"', $name, $escape($value)), $tag);
+            $this->assertStringContainsString(sprintf('%s="%s"', $name, $escape($value)), $tag);
         }
     }
 }

@@ -13,9 +13,12 @@ use Laminas\View\Exception;
 use Laminas\View\Helper\Asset;
 use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class AssetTest extends TestCase
 {
+    use ProphecyTrait;
+
     /** @var array */
     protected $resourceMap = [
         'css/style.css' => 'css/style-3a97ff4ee3.css',
@@ -25,7 +28,7 @@ class AssetTest extends TestCase
     /** @var Asset */
     protected $asset;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

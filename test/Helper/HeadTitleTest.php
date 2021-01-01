@@ -11,6 +11,7 @@ namespace LaminasTest\View\Helper;
 use Laminas\I18n\Translator\Translator;
 use Laminas\View\Helper;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * Test class for Laminas\View\Helper\HeadTitle.
@@ -20,6 +21,8 @@ use PHPUnit\Framework\TestCase;
  */
 class HeadTitleTest extends TestCase
 {
+    use ProphecyTrait;
+
     /**
      * @var Helper\HeadTitle
      */
@@ -36,7 +39,7 @@ class HeadTitleTest extends TestCase
      *
      * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->basePath = __DIR__ . '/_files/modules';
         $this->helper = new Helper\HeadTitle();
@@ -48,7 +51,7 @@ class HeadTitleTest extends TestCase
      *
      * @return void
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         unset($this->helper);
     }
@@ -96,8 +99,8 @@ class HeadTitleTest extends TestCase
     {
         $this->helper->__invoke('<script type="text/javascript">alert("foo");</script>');
         $string = $this->helper->renderTitle();
-        $this->assertNotContains('<script', $string);
-        $this->assertNotContains('</script>', $string);
+        $this->assertStringNotContainsString('<script', $string);
+        $this->assertStringNotContainsString('</script>', $string);
     }
 
     public function testRenderTitleEscapesSeparator()
@@ -106,10 +109,10 @@ class HeadTitleTest extends TestCase
                      ->__invoke('Bar')
                      ->setSeparator(' <br /> ');
         $string = $this->helper->renderTitle();
-        $this->assertNotContains('<br />', $string);
-        $this->assertContains('Foo', $string);
-        $this->assertContains('Bar', $string);
-        $this->assertContains('br /', $string);
+        $this->assertStringNotContainsString('<br />', $string);
+        $this->assertStringContainsString('Foo', $string);
+        $this->assertStringContainsString('Bar', $string);
+        $this->assertStringContainsString('br /', $string);
     }
 
     public function testIndentationIsHonored()
@@ -118,7 +121,7 @@ class HeadTitleTest extends TestCase
         $this->helper->__invoke('foo');
         $string = $this->helper->toString();
 
-        $this->assertContains('    <title>', $string);
+        $this->assertStringContainsString('    <title>', $string);
     }
 
     public function testAutoEscapeIsHonored()

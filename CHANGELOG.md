@@ -2,27 +2,51 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.12.0 - TBD
+## 2.12.0 - 2021-01-01
 
 ### Added
 
-- Nothing.
+- [#59](https://github.com/laminas/laminas-view/pull/59) Adds a `Doctype` factory which applies configuration provided via the `view_helper_config` config key in **non Laminas MVC projects**.
 
-### Changed
+- [#58](https://github.com/laminas/laminas-view/pull/58) Adds PHP 8.0 support
 
-- [#52](https://github.com/laminas/laminas-view/pull/52) updates the typehint for the `$variables` parameter of the `ViewModel` constructor to also include `ArrayAccess`; this type has always been allowed, but never documented.
 
-### Deprecated
+-----
 
-- Nothing.
+### Release Notes for [2.12.0](https://github.com/laminas/laminas-view/milestone/3)
 
-### Removed
+next feature release (minor)
 
-- Nothing.
+### 2.12.0
 
-### Fixed
+- Total issues resolved: **1**
+- Total pull requests resolved: **2**
+- Total contributors: **2**
 
-- Nothing.
+#### Enhancement,hacktoberfest-accepted
+
+ - [59: Doctype ViewHelper Factory](https://github.com/laminas/laminas-view/pull/59) thanks to @rieschl
+ - [58: PHP 8.0 support](https://github.com/laminas/laminas-view/pull/58) thanks to @hummer2k
+
+## 2.11.5 - 2020-12-15
+
+### Release Notes for [2.11.5](https://github.com/laminas/laminas-view/milestone/2)
+
+bugfix release (mini)
+
+### 2.11.5
+
+- Total issues resolved: **0**
+- Total pull requests resolved: **2**
+- Total contributors: **2**
+
+#### Bug
+
+- [53: Omitting Script attribute if none or default](https://github.com/laminas/laminas-view/pull/53) thanks to @DennisDobslaf
+
+#### Enhancement
+
+- [52: Fixes #5 : added ArrayAccess to ViewModel &#95;&#95;construct $variables parameter](https://github.com/laminas/laminas-view/pull/52) thanks to @samsonasik
 
 ## 2.11.4 - 2019-12-04
 

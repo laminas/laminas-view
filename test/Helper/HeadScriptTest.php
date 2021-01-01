@@ -42,7 +42,7 @@ class HeadScriptTest extends TestCase
      *
      * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->basePath = __DIR__ . '/_files/modules';
         $this->helper = new Helper\HeadScript();
@@ -55,7 +55,7 @@ class HeadScriptTest extends TestCase
      *
      * @return void
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         unset($this->helper);
     }
@@ -282,9 +282,9 @@ class HeadScriptTest extends TestCase
         $scripts = substr_count($string, '><');
         $this->assertEquals(1, $scripts);
 
-        $this->assertContains('src="foo"', $string);
-        $this->assertContains('bar', $string);
-        $this->assertContains('baz', $string);
+        $this->assertStringContainsString('src="foo"', $string);
+        $this->assertStringContainsString('bar', $string);
+        $this->assertStringContainsString('baz', $string);
 
         $doc = new \DOMDocument;
         $dom = $doc->loadHtml($string);
@@ -299,7 +299,7 @@ class HeadScriptTest extends TestCase
         $values = $this->helper->getArrayCopy();
         $this->assertEquals(1, count($values), var_export($values, 1));
         $item = array_shift($values);
-        $this->assertContains('foobar', $item->source);
+        $this->assertStringContainsString('foobar', $item->source);
     }
 
     public function testIndentationIsHonored()
@@ -315,10 +315,10 @@ document.write(bar.strlen());');
 
         $scripts = substr_count($string, '    <script');
         $this->assertEquals(2, $scripts);
-        $this->assertContains('    //', $string);
-        $this->assertContains('var', $string);
-        $this->assertContains('document', $string);
-        $this->assertContains('    document', $string);
+        $this->assertStringContainsString('    //', $string);
+        $this->assertStringContainsString('var', $string);
+        $this->assertStringContainsString('document', $string);
+        $this->assertStringContainsString('    document', $string);
     }
 
     public function testDoesNotAllowDuplicateFiles()
@@ -332,7 +332,7 @@ document.write(bar.strlen());');
     {
         $this->helper->__invoke()->appendFile('/js/foo.js', 'text/javascript', ['bogus' => 'deferred']);
         $test = $this->helper->__invoke()->toString();
-        $this->assertNotContains('bogus="deferred"', $test);
+        $this->assertStringNotContainsString('bogus="deferred"', $test);
     }
 
     public function testCanRenderArbitraryAttributesOnRequest()
@@ -340,7 +340,7 @@ document.write(bar.strlen());');
         $this->helper->__invoke()->appendFile('/js/foo.js', 'text/javascript', ['bogus' => 'deferred'])
              ->setAllowArbitraryAttributes(true);
         $test = $this->helper->__invoke()->toString();
-        $this->assertContains('bogus="deferred"', $test);
+        $this->assertStringContainsString('bogus="deferred"', $test);
     }
 
     public function testCanPerformMultipleSerialCaptures()
@@ -365,7 +365,7 @@ document.write(bar.strlen());');
             $this->fail('Should not be able to nest captures');
         } catch (View\Exception\ExceptionInterface $e) {
             $this->helper->__invoke()->captureEnd();
-            $this->assertContains('Cannot nest', $e->getMessage());
+            $this->assertStringContainsString('Cannot nest', $e->getMessage());
         }
     }
 
@@ -386,7 +386,7 @@ document.write(bar.strlen());');
     {
         $this->helper->__invoke()->appendFile('/js/foo.js', 'text/javascript', ['conditional' => 'lt IE 7']);
         $test = $this->helper->__invoke()->toString();
-        $this->assertContains('<!--[if lt IE 7]>', $test);
+        $this->assertStringContainsString('<!--[if lt IE 7]>', $test);
     }
 
     public function testConditionalScriptWidthIndentation()
@@ -394,7 +394,7 @@ document.write(bar.strlen());');
         $this->helper->__invoke()->appendFile('/js/foo.js', 'text/javascript', ['conditional' => 'lt IE 7']);
         $this->helper->__invoke()->setIndent(4);
         $test = $this->helper->__invoke()->toString();
-        $this->assertContains('    <!--[if lt IE 7]>', $test);
+        $this->assertStringContainsString('    <!--[if lt IE 7]>', $test);
     }
 
     public function testConditionalScriptNoIE()
@@ -407,8 +407,8 @@ document.write(bar.strlen());');
         );
         $test = $this->helper->toString();
 
-        $this->assertContains('<!--[if !IE]><!--><', $test);
-        $this->assertContains('<!--<![endif]-->', $test);
+        $this->assertStringContainsString('<!--[if !IE]><!--><', $test);
+        $this->assertStringContainsString('<!--<![endif]-->', $test);
     }
 
     public function testConditionalScriptNoIEWidthSpace()
@@ -421,8 +421,8 @@ document.write(bar.strlen());');
         );
         $test = $this->helper->toString();
 
-        $this->assertContains('<!--[if ! IE]><!--><', $test);
-        $this->assertContains('<!--<![endif]-->', $test);
+        $this->assertStringContainsString('<!--[if ! IE]><!--><', $test);
+        $this->assertStringContainsString('<!--<![endif]-->', $test);
     }
 
     /**
@@ -462,7 +462,7 @@ document.write(bar.strlen());');
         $this->helper->__invoke()->appendFile('/js/foo.js', 'text/javascript', ['conditional' => 'lt IE 7']);
         $test = $this->helper->__invoke()->toString();
 
-        $this->assertNotContains('conditional', $test);
+        $this->assertStringNotContainsString('conditional', $test);
     }
 
     public function testNoEscapeWithAllowArbitraryAttributesDoesNotIncludeNoEscapeScript()
@@ -471,7 +471,7 @@ document.write(bar.strlen());');
         $this->helper->__invoke()->appendScript('// some script', 'text/javascript', ['noescape' => true]);
         $test = $this->helper->__invoke()->toString();
 
-        $this->assertNotContains('noescape', $test);
+        $this->assertStringNotContainsString('noescape', $test);
     }
 
     public function testNoEscapeDefaultsToFalse()
@@ -479,8 +479,8 @@ document.write(bar.strlen());');
         $this->helper->__invoke()->appendScript('// some script' . PHP_EOL, 'text/javascript', []);
         $test = $this->helper->__invoke()->toString();
 
-        $this->assertContains('//<!--', $test);
-        $this->assertContains('//-->', $test);
+        $this->assertStringContainsString('//<!--', $test);
+        $this->assertStringContainsString('//-->', $test);
     }
 
     public function testNoEscapeTrue()
@@ -488,8 +488,8 @@ document.write(bar.strlen());');
         $this->helper->__invoke()->appendScript('// some script' . PHP_EOL, 'text/javascript', ['noescape' => true]);
         $test = $this->helper->__invoke()->toString();
 
-        $this->assertNotContains('//<!--', $test);
-        $this->assertNotContains('//-->', $test);
+        $this->assertStringNotContainsString('//<!--', $test);
+        $this->assertStringNotContainsString('//-->', $test);
     }
 
     /**
@@ -504,7 +504,7 @@ document.write(bar.strlen());');
         );
         $test = $this->helper->__invoke()->toString();
 
-        $this->assertContains('crossorigin="', $test);
+        $this->assertStringContainsString('crossorigin="', $test);
     }
 
     /**
@@ -518,7 +518,7 @@ document.write(bar.strlen());');
 
         $this->helper->__invoke()->appendScript('// some script' . PHP_EOL, '');
         $test = $this->helper->__invoke()->toString();
-        $this->assertNotContains('type', $test);
+        $this->assertStringNotContainsString('type', $test);
     }
 
     /**
@@ -532,6 +532,20 @@ document.write(bar.strlen());');
             ['async' => true]
         );
         $test = $this->helper->__invoke()->toString();
-        $this->assertContains('async="', $test);
+        $this->assertStringContainsString('async="', $test);
+    }
+
+    /**
+     * @group 23
+     */
+    public function testOmitsTypeAttributeIfNoneGivenAndHtml5Doctype()
+    {
+        $view = new \Laminas\View\Renderer\PhpRenderer();
+        $view->plugin('doctype')->setDoctype(\Laminas\View\Helper\Doctype::HTML5);
+        $this->helper->setView($view);
+
+        $this->helper->__invoke()->appendScript('// some script' . PHP_EOL);
+        $test = $this->helper->__invoke()->toString();
+        $this->assertNotRegExp('#type="text/javascript"#i', $test);
     }
 }

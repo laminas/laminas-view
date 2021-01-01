@@ -24,7 +24,7 @@ class JsonStrategyTest extends TestCase
 {
     use EventListenerIntrospectionTrait;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->renderer = new JsonRenderer;
         $this->strategy = new JsonStrategy($this->renderer);
@@ -130,7 +130,7 @@ class JsonStrategyTest extends TestCase
         $headers = $this->response->getHeaders();
         $this->assertEquals($expected, $content);
         $this->assertTrue($headers->has('content-type'));
-        $this->assertContains('application/json', $headers->get('content-type')->getFieldValue());
+        $this->assertStringContainsString('application/json', $headers->get('content-type')->getFieldValue());
     }
 
     public function testMatchingRendererAndStringResultInjectsResponseJsonp()
@@ -146,7 +146,7 @@ class JsonStrategyTest extends TestCase
         $headers = $this->response->getHeaders();
         $this->assertEquals($expected, $content);
         $this->assertTrue($headers->has('content-type'));
-        $this->assertContains('application/javascript', $headers->get('content-type')->getFieldValue());
+        $this->assertStringContainsString('application/javascript', $headers->get('content-type')->getFieldValue());
     }
 
     public function testReturnsNullWhenCannotSelectRenderer()
@@ -233,7 +233,10 @@ class JsonStrategyTest extends TestCase
         $headers = $this->response->getHeaders();
         $this->assertEquals($expected, $content);
         $this->assertTrue($headers->has('content-type'));
-        $this->assertContains('application/javascript; charset=utf-8', $headers->get('content-type')->getFieldValue());
+        $this->assertStringContainsString(
+            'application/javascript; charset=utf-8',
+            $headers->get('content-type')->getFieldValue()
+        );
     }
 
     public function testDefaultsToUtf8CharsetWhenCreatingJsonHeader()
@@ -248,7 +251,10 @@ class JsonStrategyTest extends TestCase
         $headers = $this->response->getHeaders();
         $this->assertEquals($expected, $content);
         $this->assertTrue($headers->has('content-type'));
-        $this->assertContains('application/json; charset=utf-8', $headers->get('content-type')->getFieldValue());
+        $this->assertStringContainsString(
+            'application/json; charset=utf-8',
+            $headers->get('content-type')->getFieldValue()
+        );
     }
 
     public function testUsesProvidedCharsetWhenCreatingJavascriptHeader()
@@ -265,7 +271,10 @@ class JsonStrategyTest extends TestCase
         $headers = $this->response->getHeaders();
         $this->assertEquals($expected, $content);
         $this->assertTrue($headers->has('content-type'));
-        $this->assertContains('application/javascript; charset=utf-16', $headers->get('content-type')->getFieldValue());
+        $this->assertStringContainsString(
+            'application/javascript; charset=utf-16',
+            $headers->get('content-type')->getFieldValue()
+        );
     }
 
     public function testUsesProvidedCharsetWhenCreatingJsonHeader()
@@ -281,7 +290,10 @@ class JsonStrategyTest extends TestCase
         $headers = $this->response->getHeaders();
         $this->assertEquals($expected, $content);
         $this->assertTrue($headers->has('content-type'));
-        $this->assertContains('application/json; charset=utf-16', $headers->get('content-type')->getFieldValue());
+        $this->assertStringContainsString(
+            'application/json; charset=utf-16',
+            $headers->get('content-type')->getFieldValue()
+        );
     }
 
     public function testCharsetIsUtf8ByDefault()

@@ -43,7 +43,7 @@ class HeadLinkTest extends TestCase
      *
      * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         Helper\Doctype::unsetDoctypeRegistry();
         $this->basePath = __DIR__ . '/_files/modules';
@@ -59,7 +59,7 @@ class HeadLinkTest extends TestCase
      *
      * @return void
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         unset($this->helper);
     }
@@ -115,11 +115,11 @@ class HeadLinkTest extends TestCase
 
         foreach ($links as $link) {
             $substr = ' href="' . $attributeEscaper($link['href']) . '"';
-            $this->assertContains($substr, $string);
+            $this->assertStringContainsString($substr, $string);
             $substr = ' rel="' . $attributeEscaper($link['rel']) . '"';
-            $this->assertContains($substr, $string);
+            $this->assertStringContainsString($substr, $string);
             $substr = ' type="' . $attributeEscaper($link['type']) . '"';
-            $this->assertContains($substr, $string);
+            $this->assertStringContainsString($substr, $string);
         }
 
         $order = [];
@@ -153,11 +153,11 @@ class HeadLinkTest extends TestCase
 
         foreach ($links as $link) {
             $substr = ' href="' . $attributeEscaper($link['href']) . '"';
-            $this->assertContains($substr, $string);
+            $this->assertStringContainsString($substr, $string);
             $substr = ' rel="' . $attributeEscaper($link['rel']) . '"';
-            $this->assertContains($substr, $string);
+            $this->assertStringContainsString($substr, $string);
             $substr = ' type="' . $attributeEscaper($link['type']) . '"';
-            $this->assertContains($substr, $string);
+            $this->assertStringContainsString($substr, $string);
         }
 
         $order = [];
@@ -196,11 +196,11 @@ class HeadLinkTest extends TestCase
 
         foreach ($links as $link) {
             $substr = ' href="' . $attributeEscaper($link['href']) . '"';
-            $this->assertContains($substr, $string);
+            $this->assertStringContainsString($substr, $string);
             $substr = ' title="' . $attributeEscaper($link['title']) . '"';
-            $this->assertContains($substr, $string);
+            $this->assertStringContainsString($substr, $string);
             $substr = ' type="' . $attributeEscaper($link['type']) . '"';
-            $this->assertContains($substr, $string);
+            $this->assertStringContainsString($substr, $string);
         }
 
         $order = [];
@@ -268,10 +268,10 @@ class HeadLinkTest extends TestCase
         $attributeEscaper = $this->attributeEscaper;
 
         $string = $this->helper->toString();
-        $this->assertContains($attributeEscaper('/styles.css'), $string);
-        $this->assertNotContains('<!--[if', $string);
-        $this->assertNotContains(']>', $string);
-        $this->assertNotContains('<![endif]-->', $string);
+        $this->assertStringContainsString($attributeEscaper('/styles.css'), $string);
+        $this->assertStringNotContainsString('<!--[if', $string);
+        $this->assertStringNotContainsString(']>', $string);
+        $this->assertStringNotContainsString('<![endif]-->', $string);
     }
 
     public function testConditionalStylesheetCreationOccursWhenRequested()
@@ -284,9 +284,9 @@ class HeadLinkTest extends TestCase
         $attributeEscaper = $this->attributeEscaper;
 
         $string = $this->helper->toString();
-        $this->assertContains($attributeEscaper('/styles.css'), $string);
-        $this->assertContains('<!--[if ie6]>', $string);
-        $this->assertContains('<![endif]-->', $string);
+        $this->assertStringContainsString($attributeEscaper('/styles.css'), $string);
+        $this->assertStringContainsString('<!--[if ie6]>', $string);
+        $this->assertStringContainsString('<![endif]-->', $string);
     }
 
     public function testConditionalStylesheetCreationNoIE()
@@ -299,9 +299,9 @@ class HeadLinkTest extends TestCase
         $attributeEscaper = $this->attributeEscaper;
 
         $string = $this->helper->toString();
-        $this->assertContains($attributeEscaper('/styles.css'), $string);
-        $this->assertContains('<!--[if !IE]><!--><', $string);
-        $this->assertContains('<!--<![endif]-->', $string);
+        $this->assertStringContainsString($attributeEscaper('/styles.css'), $string);
+        $this->assertStringContainsString('<!--[if !IE]><!--><', $string);
+        $this->assertStringContainsString('<!--<![endif]-->', $string);
     }
 
     public function testConditionalStylesheetCreationNoIEWidthSpaces()
@@ -314,9 +314,9 @@ class HeadLinkTest extends TestCase
         $attributeEscaper = $this->attributeEscaper;
 
         $string = $this->helper->toString();
-        $this->assertContains($attributeEscaper('/styles.css'), $string);
-        $this->assertContains('<!--[if ! IE]><!--><', $string);
-        $this->assertContains('<!--<![endif]-->', $string);
+        $this->assertStringContainsString($attributeEscaper('/styles.css'), $string);
+        $this->assertStringContainsString('<!--[if ! IE]><!--><', $string);
+        $this->assertStringContainsString('<!--<![endif]-->', $string);
     }
 
     public function testSettingAlternateWithTooFewArgsRaisesException()
@@ -350,7 +350,7 @@ class HeadLinkTest extends TestCase
         $this->helper->__invoke(['rel' => 'icon', 'src' => '/foo/bar'])
                      ->__invoke(['rel' => 'foo', 'href' => '/bar/baz']);
         $test = $this->helper->toString();
-        $this->assertNotContains(' />', $test);
+        $this->assertStringNotContainsString(' />', $test);
     }
 
     public function testDoesNotAllowDuplicateStylesheets()
@@ -367,7 +367,7 @@ class HeadLinkTest extends TestCase
     {
         $this->helper->appendStylesheet(['href' => '/bar/baz', 'conditionalStylesheet' => false]);
         $test = $this->helper->toString();
-        $this->assertNotContains('[if false]', $test);
+        $this->assertStringNotContainsString('[if false]', $test);
     }
 
     /**
@@ -378,8 +378,8 @@ class HeadLinkTest extends TestCase
     {
         $this->helper->appendStylesheet(['href' => '/bar/baz', 'conditionalStylesheet' => true]);
         $test = $this->helper->toString();
-        $this->assertNotContains('[if 1]', $test);
-        $this->assertNotContains('[if true]', $test);
+        $this->assertStringNotContainsString('[if 1]', $test);
+        $this->assertStringNotContainsString('[if true]', $test);
     }
 
     /**
@@ -389,14 +389,14 @@ class HeadLinkTest extends TestCase
     public function testTurnOffAutoEscapeDoesNotEncodeAmpersand()
     {
         $this->helper->setAutoEscape(false)->appendStylesheet('/css/rules.css?id=123&foo=bar');
-        $this->assertContains('id=123&foo=bar', $this->helper->toString());
+        $this->assertStringContainsString('id=123&foo=bar', $this->helper->toString());
     }
 
     public function testSetAlternateWithExtras()
     {
         $this->helper->setAlternate('/mydocument.pdf', 'application/pdf', 'foo', ['media' => ['print', 'screen']]);
         $test = $this->helper->toString();
-        $this->assertContains('media="print,screen"', $test);
+        $this->assertStringContainsString('media="print,screen"', $test);
     }
 
     public function testAppendStylesheetWithExtras()
@@ -407,14 +407,14 @@ class HeadLinkTest extends TestCase
             'extras' => ['id' => 'my_link_tag']
         ]);
         $test = $this->helper->toString();
-        $this->assertContains('id="my_link_tag"', $test);
+        $this->assertStringContainsString('id="my_link_tag"', $test);
     }
 
     public function testSetStylesheetWithMediaAsArray()
     {
         $this->helper->appendStylesheet('/bar/baz', ['screen', 'print']);
         $test = $this->helper->toString();
-        $this->assertContains(' media="screen,print"', $test);
+        $this->assertStringContainsString(' media="screen,print"', $test);
     }
 
     public function testSetPrevRelationship()
@@ -424,8 +424,8 @@ class HeadLinkTest extends TestCase
 
         $attributeEscaper = $this->attributeEscaper;
 
-        $this->assertContains('href="' . $attributeEscaper('/foo/bar') . '"', $test);
-        $this->assertContains('rel="prev"', $test);
+        $this->assertStringContainsString('href="' . $attributeEscaper('/foo/bar') . '"', $test);
+        $this->assertStringContainsString('rel="prev"', $test);
     }
 
     public function testSetNextRelationship()
@@ -435,8 +435,8 @@ class HeadLinkTest extends TestCase
 
         $attributeEscaper = $this->attributeEscaper;
 
-        $this->assertContains('href="' . $attributeEscaper('/foo/bar') . '"', $test);
-        $this->assertContains('rel="next"', $test);
+        $this->assertStringContainsString('href="' . $attributeEscaper('/foo/bar') . '"', $test);
+        $this->assertStringContainsString('rel="next"', $test);
     }
 
     /**
@@ -475,7 +475,7 @@ class HeadLinkTest extends TestCase
     public function testIdAttributeIsSupported()
     {
         $this->helper->appendStylesheet(['href' => '/bar/baz', 'id' => 'foo']);
-        $this->assertContains('id="foo"', $this->helper->toString());
+        $this->assertStringContainsString('id="foo"', $this->helper->toString());
     }
 
     /**
@@ -484,18 +484,18 @@ class HeadLinkTest extends TestCase
     public function testSizesAttributeIsSupported()
     {
         $this->helper->appendStylesheet(['rel' => 'icon', 'href' => '/bar/baz', 'sizes' => '123x456']);
-        $this->assertContains('sizes="123x456"', $this->helper->toString());
+        $this->assertStringContainsString('sizes="123x456"', $this->helper->toString());
     }
 
     public function testItempropAttributeIsSupported()
     {
         $this->helper->prependAlternate(['itemprop' => 'url', 'href' => '/bar/baz', 'rel' => 'canonical']);
-        $this->assertContains('itemprop="url"', $this->helper->toString());
+        $this->assertStringContainsString('itemprop="url"', $this->helper->toString());
     }
 
     public function testAsAttributeIsSupported()
     {
         $this->helper->headLink(['as' => 'style', 'href' => '/foo/bar.css', 'rel' => 'preload']);
-        $this->assertContains('as="style"', $this->helper->toString());
+        $this->assertStringContainsString('as="style"', $this->helper->toString());
     }
 }

@@ -29,14 +29,14 @@ class HtmlFlashTest extends TestCase
      *
      * @access protected
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->view   = new View();
         $this->helper = new HtmlFlash();
         $this->helper->setView($this->view);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         unset($this->helper);
     }
@@ -49,7 +49,7 @@ class HtmlFlashTest extends TestCase
         $objectStartElement = '<object data="&#x2F;path&#x2F;to&#x2F;flash.swf" type="application&#x2F;x-shockwave-flash">';
         // @codingStandardsIgnoreEnd
 
-        $this->assertContains($objectStartElement, $htmlFlash);
-        $this->assertContains('</object>', $htmlFlash);
+        $this->assertStringContainsString($objectStartElement, $htmlFlash);
+        $this->assertStringContainsString('</object>', $htmlFlash);
     }
 }

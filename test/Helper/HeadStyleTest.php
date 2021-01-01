@@ -36,7 +36,7 @@ class HeadStyleTest extends TestCase
      *
      * @return void
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->basePath = __DIR__ . '/_files/modules';
         $this->helper = new Helper\HeadStyle();
@@ -48,7 +48,7 @@ class HeadStyleTest extends TestCase
      *
      * @return void
      */
-    protected function tearDown()
+    protected function tearDown(): void
     {
         unset($this->helper);
     }
@@ -171,8 +171,8 @@ class HeadStyleTest extends TestCase
             'bogus' => 'unused'
         ]);
         $value = $this->helper->toString();
-        $this->assertContains('<!--' . PHP_EOL, $value);
-        $this->assertContains(PHP_EOL . '-->', $value);
+        $this->assertStringContainsString('<!--' . PHP_EOL, $value);
+        $this->assertStringContainsString(PHP_EOL . '-->', $value);
     }
 
     public function testRenderedStyleTagsContainsDefaultMedia()
@@ -180,7 +180,7 @@ class HeadStyleTest extends TestCase
         $this->helper->setStyle('a {}', [
         ]);
         $value = $this->helper->toString();
-        $this->assertRegexp('#<style [^>]*?media="screen"#', $value, $value);
+        $this->assertMatchesRegularExpression('#<style [^>]*?media="screen"#', $value, $value);
     }
 
     /**
@@ -190,7 +190,7 @@ class HeadStyleTest extends TestCase
     {
         $this->helper->appendStyle('a { }', ['media' => 'screen, projection']);
         $string = $this->helper->toString();
-        $this->assertContains('media="screen,projection"', $string);
+        $this->assertStringContainsString('media="screen,projection"', $string);
     }
 
     public function testHeadStyleProxiesProperly()
@@ -204,9 +204,9 @@ class HeadStyleTest extends TestCase
                      ->__invoke($style3, 'APPEND');
         $this->assertEquals(3, count($this->helper));
         $values = $this->helper->getArrayCopy();
-        $this->assertContains($values[0]->content, $style2);
-        $this->assertContains($values[1]->content, $style1);
-        $this->assertContains($values[2]->content, $style3);
+        $this->assertStringContainsString($values[0]->content, $style2);
+        $this->assertStringContainsString($values[1]->content, $style1);
+        $this->assertStringContainsString($values[2]->content, $style3);
     }
 
     public function testToStyleGeneratesValidHtml()
@@ -227,9 +227,9 @@ class HeadStyleTest extends TestCase
         $this->assertEquals(3, $styles);
         $styles = substr_count($html, '</style>');
         $this->assertEquals(3, $styles);
-        $this->assertContains($style3, $html);
-        $this->assertContains($style2, $html);
-        $this->assertContains($style1, $html);
+        $this->assertStringContainsString($style3, $html);
+        $this->assertStringContainsString($style2, $html);
+        $this->assertStringContainsString($style1, $html);
     }
 
     public function testCapturingCapturesToObject()
@@ -240,7 +240,7 @@ class HeadStyleTest extends TestCase
         $values = $this->helper->getArrayCopy();
         $this->assertEquals(1, count($values));
         $item = array_shift($values);
-        $this->assertContains('foobar', $item->content);
+        $this->assertStringContainsString('foobar', $item->content);
     }
 
     public function testOverloadingOffsetSetWritesToSpecifiedIndex()
@@ -250,7 +250,7 @@ class HeadStyleTest extends TestCase
         $this->assertEquals(1, count($values));
         $this->assertTrue(isset($values[100]));
         $item = $values[100];
-        $this->assertContains('foobar', $item->content);
+        $this->assertStringContainsString('foobar', $item->content);
     }
 
     public function testInvalidMethodRaisesException()
@@ -286,12 +286,12 @@ h1 {
 
         $scripts = substr_count($string, '    <style');
         $this->assertEquals(2, $scripts);
-        $this->assertContains('    <!--', $string);
-        $this->assertContains('    a {', $string);
-        $this->assertContains('    h1 {', $string);
-        $this->assertContains('        display', $string);
-        $this->assertContains('        font-weight', $string);
-        $this->assertContains('    }', $string);
+        $this->assertStringContainsString('    <!--', $string);
+        $this->assertStringContainsString('    a {', $string);
+        $this->assertStringContainsString('    h1 {', $string);
+        $this->assertStringContainsString('        display', $string);
+        $this->assertStringContainsString('        font-weight', $string);
+        $this->assertStringContainsString('    }', $string);
     }
 
     public function testSerialCapturingWorks()
@@ -315,7 +315,7 @@ h1 {
             $this->fail('Nested capturing should fail');
         } catch (View\Exception\ExceptionInterface $e) {
             $this->helper->__invoke()->captureEnd();
-            $this->assertContains('Cannot nest', $e->getMessage());
+            $this->assertStringContainsString('Cannot nest', $e->getMessage());
         }
     }
 
@@ -330,9 +330,9 @@ a {
 
         $scripts = substr_count($string, '    <style');
         $this->assertEquals(1, $scripts);
-        $this->assertContains('    <!--', $string);
-        $this->assertContains('    a {', $string);
-        $this->assertContains(' media="screen,projection"', $string);
+        $this->assertStringContainsString('    <!--', $string);
+        $this->assertStringContainsString('    a {', $string);
+        $this->assertStringContainsString(' media="screen,projection"', $string);
     }
 
     public function testMediaAttributeAsCommaSeparatedString()
@@ -346,9 +346,9 @@ a {
 
         $scripts = substr_count($string, '    <style');
         $this->assertEquals(1, $scripts);
-        $this->assertContains('    <!--', $string);
-        $this->assertContains('    a {', $string);
-        $this->assertContains(' media="screen,projection"', $string);
+        $this->assertStringContainsString('    <!--', $string);
+        $this->assertStringContainsString('    a {', $string);
+        $this->assertStringContainsString(' media="screen,projection"', $string);
     }
 
     public function testConditionalScript()
@@ -358,7 +358,7 @@ a {
     display: none;
 }', ['media' => 'screen,projection', 'conditional' => 'lt IE 7']);
         $test = $this->helper->toString();
-        $this->assertContains('<!--[if lt IE 7]>', $test);
+        $this->assertStringContainsString('<!--[if lt IE 7]>', $test);
     }
 
     public function testConditionalScriptNoIE()
@@ -368,8 +368,8 @@ a {
     display: none;
 }', ['media' => 'screen,projection', 'conditional' => '!IE']);
         $test = $this->helper->toString();
-        $this->assertContains('<!--[if !IE]><!--><', $test);
-        $this->assertContains('<!--<![endif]-->', $test);
+        $this->assertStringContainsString('<!--[if !IE]><!--><', $test);
+        $this->assertStringContainsString('<!--<![endif]-->', $test);
     }
 
     public function testConditionalScriptNoIEWidthSpace()
@@ -379,8 +379,8 @@ a {
     display: none;
 }', ['media' => 'screen,projection', 'conditional' => '! IE']);
         $test = $this->helper->toString();
-        $this->assertContains('<!--[if ! IE]><!--><', $test);
-        $this->assertContains('<!--<![endif]-->', $test);
+        $this->assertStringContainsString('<!--[if ! IE]><!--><', $test);
+        $this->assertStringContainsString('<!--<![endif]-->', $test);
     }
 
     /**
@@ -420,7 +420,7 @@ a {
         ]);
         $value = $this->helper->toString();
 
-        $this->assertNotContains('<!--' . PHP_EOL, $value);
-        $this->assertNotContains(PHP_EOL . '-->', $value);
+        $this->assertStringNotContainsString('<!--' . PHP_EOL, $value);
+        $this->assertStringNotContainsString(PHP_EOL . '-->', $value);
     }
 }
