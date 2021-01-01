@@ -45,15 +45,35 @@ And then print it out on top of your layout script:
 <?php echo $this->doctype() ?>
 ```
 
-Within an application based off the [laminas-mvc-skeleton](https://github.com/laminas/laminas-mvc-skeleton),
-you can specify the doctype via configuration:
+## Usage in a Mezzio Application
+
+The factory `Laminas\View\Helper\Service\DoctypeFactory` checks the application configuration, making it possible to
+define the doctype through your configuration, e.g. `config/autoload/mezzio.global.php`
+or a `ConfigProvider.php` in a module.
+
+For example, add the following lines to your `config/autoload/mezzio.global.php` file to set the `Doctype` to HTML5:
 
 ```php
-// module/Application/config/module.config.php:
+return [
+    /* ... */
+    'view_helper_config' => [
+        'doctype' => \Laminas\View\Helper\Doctype::HTML5,
+    ],
+];
+```
+
+## Usage in a laminas-mvc Application
+
+If you're running a [laminas-mvc](https://docs.laminas.dev/laminas-mvc/) application, you should specify doctype via the
+[ViewManager](https://docs.laminas.dev/laminas-mvc/services/#viewmanager) service.
+
+Add the following lines to your `config/autoload/global.php` file to set the `Doctype` to HTML5:
+
+```php
 return [
     /* ... */
     'view_manager' => [
-        'doctype' => 'html5',
+        'doctype' => \Laminas\View\Helper\Doctype::HTML5,
         /* ... */
     ],
 ];
@@ -128,8 +148,3 @@ Here is how you check if the doctype is set to `XHTML1_RDFA`:
     <?php endif; ?>
 >
 ```
-
-## Laminas MVC View Manager
-
-If you're running a LaminasMvc application, you should specify doctype via the
-[ViewManager](https://docs.laminas.dev/laminas-mvc/services/#viewmanager) service.

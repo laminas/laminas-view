@@ -18,8 +18,6 @@
     "config": {
         "sort-packages": true
     },
-    "extra": {
-    },
     "require": {
         "php": "^7.3 || ~8.0.0",
         "laminas/laminas-eventmanager": "^3.0",
@@ -47,12 +45,15 @@
         "laminas/laminas-permissions-acl": "^2.6",
         "laminas/laminas-router": "^3.0.1",
         "laminas/laminas-serializer": "^2.6.1",
-        "laminas/laminas-servicemanager": "^3.0.3",
+        "laminas/laminas-servicemanager": "^3.3",
         "laminas/laminas-session": "^2.8.1",
         "laminas/laminas-uri": "^2.5",
         "phpspec/prophecy-phpunit": "^2.0",
         "phpspec/prophecy": "^1.12",
         "phpunit/phpunit": "^9.3"
+    },
+    "conflict": {
+        "laminas/laminas-servicemanager": "<3.3"
     },
     "suggest": {
         "laminas/laminas-authentication": "Laminas\\Authentication component",
