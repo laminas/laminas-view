@@ -8,23 +8,12 @@
 
 namespace Laminas\View\Helper\Service;
 
-use Interop\Container\ContainerInterface;
-use Laminas\ServiceManager\Factory\FactoryInterface;
-use Laminas\View\Exception;
 use Laminas\View\Helper\Doctype;
+use Psr\Container\ContainerInterface;
 
-class DoctypeFactory implements FactoryInterface
+final class DoctypeFactory
 {
-    /**
-     * {@inheritDoc}
-     *
-     * @param ContainerInterface $container
-     * @param string             $name
-     * @param null|array         $options
-     * @return Doctype
-     * @throws Exception\RuntimeException
-     */
-    public function __invoke(ContainerInterface $container, $name, array $options = null)
+    public function __invoke(ContainerInterface $container): Doctype
     {
         $helper = new Doctype();
 
