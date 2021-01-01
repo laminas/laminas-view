@@ -452,15 +452,19 @@
                     </li>
                 
                     <li class="toc__entry">
+                        <a href="#usage-in-a-mezzio-application" class="toc__link nav-link">Usage in a Mezzio Application</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#usage-in-a-laminas-mvc-application" class="toc__link nav-link">Usage in a laminas-mvc Application</a>
+                    </li>
+                
+                    <li class="toc__entry">
                         <a href="#retrieving-the-doctype" class="toc__link nav-link">Retrieving the Doctype</a>
                     </li>
                 
                     <li class="toc__entry">
                         <a href="#choosing-a-doctype-to-use-with-the-open-graph-protocol" class="toc__link nav-link">Choosing a Doctype to Use with the Open Graph Protocol</a>
-                    </li>
-                
-                    <li class="toc__entry">
-                        <a href="#laminas-mvc-view-manager" class="toc__link nav-link">Laminas MVC View Manager</a>
                     </li>
                 
             </ul>
@@ -538,13 +542,25 @@ $doctypeHelper = new Doctype();
 $doctypeHelper-&gt;doctype('XHTML1_STRICT');</code></pre>
 <p>And then print it out on top of your layout script:</p>
 <pre class="highlight"><code class="language-php">&lt;?php echo $this-&gt;doctype() ?&gt;</code></pre>
-<p>Within an application based off the <a href="https://github.com/laminas/laminas-mvc-skeleton">laminas-mvc-skeleton</a>,
-you can specify the doctype via configuration:</p>
-<pre class="highlight"><code class="language-php">// module/Application/config/module.config.php:
-return [
+<h2 id="usage-in-a-mezzio-application">Usage in a Mezzio Application</h2>
+<p>The factory <code>Laminas\View\Helper\Service\DoctypeFactory</code> checks the application configuration, making it possible to
+define the doctype through your configuration, e.g. <code>config/autoload/mezzio.global.php</code>
+or a <code>ConfigProvider.php</code> in a module.</p>
+<p>For example, add the following lines to your <code>config/autoload/mezzio.global.php</code> file to set the <code>Doctype</code> to HTML5:</p>
+<pre class="highlight"><code class="language-php">return [
+    /* ... */
+    'view_helper_config' =&gt; [
+        'doctype' =&gt; \Laminas\View\Helper\Doctype::HTML5,
+    ],
+];</code></pre>
+<h2 id="usage-in-a-laminas-mvc-application">Usage in a laminas-mvc Application</h2>
+<p>If you're running a <a href="https://docs.laminas.dev/laminas-mvc/">laminas-mvc</a> application, you should specify doctype via the
+<a href="https://docs.laminas.dev/laminas-mvc/services/#viewmanager">ViewManager</a> service.</p>
+<p>Add the following lines to your <code>config/autoload/global.php</code> file to set the <code>Doctype</code> to HTML5:</p>
+<pre class="highlight"><code class="language-php">return [
     /* ... */
     'view_manager' =&gt; [
-        'doctype' =&gt; 'html5',
+        'doctype' =&gt; \Laminas\View\Helper\Doctype::HTML5,
         /* ... */
     ],
 ];</code></pre>
@@ -591,9 +607,6 @@ Graph Protocol meta tags.</p>
       xmlns:fb="http://www.facebook.com/2008/fbml"
     &lt;?php endif; ?&gt;
 &gt;</code></pre>
-<h2 id="laminas-mvc-view-manager">Laminas MVC View Manager</h2>
-<p>If you're running a LaminasMvc application, you should specify doctype via the
-<a href="https://docs.laminas.dev/laminas-mvc/services/#viewmanager">ViewManager</a> service.</p>
 
 
 
@@ -994,7 +1007,7 @@ Graph Protocol meta tags.</p>
                         <p>
                             <!--Built with love by the Laminas team with the help of our
                             <a href="https://github.com/laminas/laminas-view/graphs/contributors">contributors</a>.<br>-->
-                            &copy; 2020 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
+                            &copy; 2021 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
                         </p>
                     </div>
                 </div>
