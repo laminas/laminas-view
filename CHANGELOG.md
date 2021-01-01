@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ## 2.12.0 - TBD
 
+### Added
+
+- [#59](https://github.com/laminas/laminas-view/pull/59) Adds a `Doctype` factory which applies configuration provided via the `view_helper_config` config key in **non Laminas MVC projects**.
+
 - [#58](https://github.com/laminas/laminas-view/pull/58) Adds PHP 8.0 support
 
 ### Changed
