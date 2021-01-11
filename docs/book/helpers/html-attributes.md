@@ -13,5 +13,5 @@ $exampleAttributes->add('class', 'example');
 Output:
 
 ```html
-<div class="example-class">
+<div class="example">
 ```
