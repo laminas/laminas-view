@@ -38,8 +38,6 @@ class HelperPluginManager extends AbstractPluginManager
     protected $aliases = [
         'asset'               => Helper\Asset::class,
         'Asset'               => Helper\Asset::class,
-        'attributes'          => Helper\AttributesHelper::class,
-        'Attributes'          => Helper\AttributesHelper::class,
         'basePath'            => Helper\BasePath::class,
         'BasePath'            => Helper\BasePath::class,
         'basepath'            => Helper\BasePath::class,
@@ -85,6 +83,9 @@ class HelperPluginManager extends AbstractPluginManager
         'headTitle'           => Helper\HeadTitle::class,
         'HeadTitle'           => Helper\HeadTitle::class,
         'headtitle'           => Helper\HeadTitle::class,
+        'htmlattributes'      => Helper\HtmlAttributes::class,
+        'htmlAttributes'      => Helper\HtmlAttributes::class,
+        'HtmlAttributes'      => Helper\HtmlAttributes::class,
         'htmlflash'           => Helper\HtmlFlash::class,
         'htmlFlash'           => Helper\HtmlFlash::class,
         'HtmlFlash'           => Helper\HtmlFlash::class,
@@ -228,7 +229,7 @@ class HelperPluginManager extends AbstractPluginManager
      */
     protected $factories = [
         Helper\Asset::class               => Helper\Service\AssetFactory::class,
-        Helper\AttributesHelper::class    => InvokableFactory::class,
+        Helper\HtmlAttributes::class      => InvokableFactory::class,
         Helper\FlashMessenger::class      => Helper\Service\FlashMessengerFactory::class,
         Helper\Identity::class            => Helper\Service\IdentityFactory::class,
         Helper\BasePath::class            => InvokableFactory::class,

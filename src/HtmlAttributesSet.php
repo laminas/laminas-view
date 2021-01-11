@@ -10,12 +10,11 @@ namespace Laminas\View;
 
 use ArrayObject;
 use Laminas\Escaper\Escaper;
-use Traversable;
 
 /**
  * Class for storing and processing HTML tag attributes.
  */
-class Attributes extends ArrayObject
+class HtmlAttributesSet extends ArrayObject
 {
     /**
      * HTML escaper

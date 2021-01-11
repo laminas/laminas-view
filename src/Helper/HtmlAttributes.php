@@ -8,21 +8,20 @@
 
 namespace Laminas\View\Helper;
 
-use Laminas\View\Attributes;
-use Traversable;
+use Laminas\View\HtmlAttributesSet;
 
 /**
- * Helper for creating Attributes objects
+ * Helper for creating HtmlAttributesSet objects
  */
-class AttributesHelper extends AbstractHelper
+class HtmlAttributes extends AbstractHelper
 {
     /**
-     * Returns a new Attributes object, optionally initializing it with the
-     * provided value.
+     * Returns a new HtmlAttributesSet object, optionally initializing it with
+     * the provided value.
      */
-    public function __invoke(iterable $attribs = []): Attributes
+    public function __invoke(iterable $attribs = []): HtmlAttributesSet
     {
-        return new Attributes(
+        return new HtmlAttributesSet(
             $this->getView()->plugin('escapehtml')->getEscaper(),
             $this->getView()->plugin('escapehtmlattr')->getEscaper(),
             $attribs
