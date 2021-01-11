@@ -49,6 +49,17 @@ class Attributes extends ArrayObject
     }
 
     /**
+     * Set several attributes at once.
+     */
+    public function set(iterable $attribs): self
+    {
+        foreach ($attribs as $name => $value) {
+            $this[$name] = $value;
+        }
+        return $this;
+    }
+
+    /**
      * Add a value to an attribute.
      *
      * Sets the attribute if it does not exist.
