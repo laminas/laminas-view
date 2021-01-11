@@ -34,11 +34,11 @@ class Attributes extends ArrayObject
     /**
      * Constructor.
      *
-     * @param Escaper $htmlEscaper HTML escaper
-     * @param Escaper $htmlAttrEscaper Attribute escaper
-     * @param array|Traversable $attribs Attributes
+     * @param Escaper $htmlEscaper General HTML escaper
+     * @param Escaper $htmlAttrEscaper Escaper for use with HTML attributes
+     * @param iterable $attribs Attributes to manage
      */
-    public function __construct($htmlEscaper, $htmlAttrEscaper, $attribs = [])
+    public function __construct(Escaper $htmlEscaper, Escaper $htmlAttrEscaper, iterable $attribs = [])
     {
         parent::__construct();
         $this->htmlEscaper = $htmlEscaper;
@@ -53,12 +53,9 @@ class Attributes extends ArrayObject
      *
      * Sets the attribute if it does not exist.
      *
-     * @param $name string Name
      * @param $value string|array Value
-     *
-     * @return Attributes
      */
-    public function add($name, $value)
+    public function add(string $name, $value): self
     {
         $this->offsetSet(
             $name,
@@ -71,12 +68,8 @@ class Attributes extends ArrayObject
 
     /**
      * Merge attributes with existing attributes.
-     *
-     * @param $attribs array|Traversable Attributes
-     *
-     * @return $this
      */
-    public function merge($attribs)
+    public function merge(iterable $attribs): self
     {
         foreach ($attribs as $name => $value) {
             $this->add($name, $value);
@@ -86,13 +79,8 @@ class Attributes extends ArrayObject
 
     /**
      * Does a specific attribute with a specific value exist?
-     *
-     * @param $name string Name
-     * @param $value string Value
-     *
-     * @return bool
      */
-    public function hasValue($name, $value)
+    public function hasValue(string $name, string $value): bool
     {
         if (! $this->offsetExists($name)) {
             return false;
@@ -108,10 +96,8 @@ class Attributes extends ArrayObject
 
     /**
      * Return a string of tag attributes.
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         $xhtml = '';
 

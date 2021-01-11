@@ -19,12 +19,8 @@ class AttributesHelper extends AbstractHelper
     /**
      * Returns a new Attributes object, optionally initializing it with the
      * provided value.
-     *
-     * @param array|Traversable $attribs Attributes
-     *
-     * @return Attributes
      */
-    public function __invoke($attribs = [])
+    public function __invoke(iterable $attribs = []): Attributes
     {
         return new Attributes(
             $this->getView()->plugin('escapehtml')->getEscaper(),
