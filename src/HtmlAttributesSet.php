@@ -28,21 +28,21 @@ class HtmlAttributesSet extends ArrayObject
      *
      * @var Escaper
      */
-    protected $htmlAttrEscaper;
+    protected $htmlAttributeEscaper;
 
     /**
      * Constructor.
      *
      * @param Escaper $htmlEscaper General HTML escaper
-     * @param Escaper $htmlAttrEscaper Escaper for use with HTML attributes
-     * @param iterable $attribs Attributes to manage
+     * @param Escaper $htmlAttributeEscaper Escaper for use with HTML attributes
+     * @param iterable $attributes Attributes to manage
      */
-    public function __construct(Escaper $htmlEscaper, Escaper $htmlAttrEscaper, iterable $attribs = [])
+    public function __construct(Escaper $htmlEscaper, Escaper $htmlAttributeEscaper, iterable $attributes = [])
     {
         parent::__construct();
         $this->htmlEscaper = $htmlEscaper;
-        $this->htmlAttrEscaper = $htmlAttrEscaper;
-        foreach ($attribs as $name => $value) {
+        $this->htmlAttributeEscaper = $htmlAttributeEscaper;
+        foreach ($attributes as $name => $value) {
             $this->offsetSet($name, $value);
         }
     }
@@ -50,9 +50,9 @@ class HtmlAttributesSet extends ArrayObject
     /**
      * Set several attributes at once.
      */
-    public function set(iterable $attribs): self
+    public function set(iterable $attributes): self
     {
-        foreach ($attribs as $name => $value) {
+        foreach ($attributes as $name => $value) {
             $this[$name] = $value;
         }
         return $this;
@@ -79,9 +79,9 @@ class HtmlAttributesSet extends ArrayObject
     /**
      * Merge attributes with existing attributes.
      */
-    public function merge(iterable $attribs): self
+    public function merge(iterable $attributes): self
     {
-        foreach ($attribs as $name => $value) {
+        foreach ($attributes as $name => $value) {
             $this->add($name, $value);
         }
         return $this;
@@ -111,24 +111,24 @@ class HtmlAttributesSet extends ArrayObject
     {
         $xhtml = '';
 
-        foreach ($this->getArrayCopy() as $key => $val) {
+        foreach ($this->getArrayCopy() as $key => $value) {
             $key = $this->htmlEscaper->escapeHtml($key);
 
-            if ((0 === strpos($key, 'on') || ('constraints' === $key)) && ! is_scalar($val)) {
+            if ((0 === strpos($key, 'on') || ('constraints' === $key)) && ! is_scalar($value)) {
                 // Don't escape event attributes; _do_ substitute double quotes with singles
                 // non-scalar data should be cast to JSON first
-                $val = json_encode($val, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
+                $value = json_encode($value, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP);
             }
 
-            if (0 !== strpos($key, 'on') && 'constraints' !== $key && is_array($val)) {
+            if (0 !== strpos($key, 'on') && 'constraints' !== $key && is_array($value)) {
                 // Non-event keys and non-constraints keys with array values
                 // should have values separated by whitespace
-                $val = implode(' ', $val);
+                $value = implode(' ', $value);
             }
 
-            $val    = $this->htmlAttrEscaper->escapeHtmlAttr($val);
-            $quote  = strpos($val, '"') !== false ? "'" : '"';
-            $xhtml .= sprintf(' %2$s=%1$s%3$s%1$s', $quote, $key, $val);
+            $value    = $this->htmlAttributeEscaper->escapeHtmlAttr($value);
+            $quote  = strpos($value, '"') !== false ? "'" : '"';
+            $xhtml .= sprintf(' %2$s=%1$s%3$s%1$s', $quote, $key, $value);
         }
 
         return $xhtml;

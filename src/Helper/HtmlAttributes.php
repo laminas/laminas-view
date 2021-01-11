@@ -19,12 +19,12 @@ class HtmlAttributes extends AbstractHelper
      * Returns a new HtmlAttributesSet object, optionally initializing it with
      * the provided value.
      */
-    public function __invoke(iterable $attribs = []): HtmlAttributesSet
+    public function __invoke(iterable $attributes = []): HtmlAttributesSet
     {
         return new HtmlAttributesSet(
             $this->getView()->plugin('escapehtml')->getEscaper(),
             $this->getView()->plugin('escapehtmlattr')->getEscaper(),
-            $attribs
+            $attributes
         );
     }
 }
