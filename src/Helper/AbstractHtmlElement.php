@@ -11,13 +11,6 @@ namespace Laminas\View\Helper;
 abstract class AbstractHtmlElement extends AbstractHelper
 {
     /**
-     * EOL character
-     *
-     * @deprecated just use PHP_EOL
-     */
-    const EOL = PHP_EOL;
-
-    /**
      * The tag closing bracket
      *
      * @var string
