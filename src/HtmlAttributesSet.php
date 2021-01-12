@@ -126,7 +126,7 @@ class HtmlAttributesSet extends ArrayObject
                 $value = implode(' ', $value);
             }
 
-            $value    = $this->htmlAttributeEscaper->escapeHtmlAttr($value);
+            $value  = $this->htmlAttributeEscaper->escapeHtmlAttr($value);
             $quote  = strpos($value, '"') !== false ? "'" : '"';
             $xhtml .= sprintf(' %2$s=%1$s%3$s%1$s', $quote, $key, $value);
         }
