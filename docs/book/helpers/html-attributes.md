@@ -157,5 +157,5 @@ $attributes = $this->htmlAttributes([
 Output:
 
 ```html
-<a title='faketitle&#x20;onmouseover&#x3D;alert&#x28;&#x2F;laminas-framework&#x2F;&#x29;&#x3B;'>click</a>
+<a title="faketitle&#x20;onmouseover&#x3D;alert&#x28;&#x2F;laminas-framework&#x2F;&#x29;&#x3B;">click</a>
 ```
