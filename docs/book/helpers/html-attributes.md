@@ -79,7 +79,21 @@ Attribute values can added using the
 The method will set the attribute if it does not exist.
 
 ```php
-$attributes->add('class', 'has-validation');
+<?php $attributes = $this->htmlAttributes(['class' => 'input-group']); ?>
+
+<div<?= $attributes ?>></div>
+
+<?php $attributes->add('class', 'has-validation'); ?>
+
+<div<?= $attributes ?>></div>
+```
+
+Output:
+
+```html
+<div class="input-group"></div>
+
+<div class="input-group&#x20;has-validation"></div>
 ```
 
 ## Merging attributes with existing attributes
