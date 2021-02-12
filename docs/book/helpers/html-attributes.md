@@ -2,8 +2,8 @@
 
 The `HtmlAttributes` helper can be used to make code related to HTML attributes
 easier to write and read. The helper initializes and returns
-`Laminas\View\HtmlAttributesSet` objects, which can then be manipulated and
-converted to strings.
+`Laminas\View\HtmlAttributesSet` object instances, which can then be manipulated
+and converted to strings.
 
 ## Basic Usage
 
@@ -24,9 +24,9 @@ Output:
 <div class="input-group&#x20;has-validation"></div>
 ```
 
-## Getting an `HtmlAttributesSet` object
+## Getting an `HtmlAttributesSet` object instance
 
-To get an empty `HtmlAttributesSet` object, call the helper without any
+To get an empty `HtmlAttributesSet` object instance, call the helper without any
 parameters.
 
 ```php
@@ -42,8 +42,8 @@ $attributes = $this->htmlAttributes([
 ]);
 ```
 
-Calling the helper always creates a new object. Several `HtmlAttributesSet`
-objects can be used in the same template.
+Calling the helper always creates a new object instance. Several
+`HtmlAttributesSet` object instances can be used in the same template.
 
 ## Using `HtmlAttributesSet` as an array
 
@@ -136,9 +136,9 @@ if ($attributes->hasValue('class', 'has-validation')) {
 
 `HtmlAttributesSet` implements PHP's
 [`__toString()`](https://www.php.net/manual/en/language.oop5.magic.php#object.tostring)
-magic method so its instances can be printed like a string.
+magic method so its object instances can be printed like a string.
 
-When an `HtmlAttributesSet` instance is converted to a string, attribute names
+When an `HtmlAttributesSet` object is converted to a string, attribute names
 and values are automatically escaped using escapers from the
 [EscapeHtml](https://docs.laminas.dev/laminas-view/helpers/escape/#escapehtml)
 and [EscapeHtmlAttr](https://docs.laminas.dev/laminas-view/helpers/escape/#escapehtmlattr)
