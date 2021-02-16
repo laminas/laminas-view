@@ -1,9 +1,7 @@
 # HtmlAttributes
 
-The `HtmlAttributes` helper can be used to make code related to HTML attributes
-easier to write and read. The helper initializes and returns
-`Laminas\View\HtmlAttributesSet` object instances, which can then be manipulated
-and converted to strings.
+The `HtmlAttributes` helper can be used when processing and outputting HTML attributes.
+The helper initializes and returns `Laminas\View\HtmlAttributesSet` object instances, which can then be manipulated and converted to strings.
 
 ## Basic Usage
 
@@ -24,10 +22,9 @@ Output:
 <div class="input-group&#x20;has-validation"></div>
 ```
 
-## Getting an `HtmlAttributesSet` object instance
+## Getting an `HtmlAttributesSet` Object Instance
 
-To get an empty `HtmlAttributesSet` object instance, call the helper without any
-parameters.
+To get an empty `HtmlAttributesSet` object instance, call the helper without any parameters.
 
 ```php
 $attributes = $this->htmlAttributes();
@@ -42,16 +39,14 @@ $attributes = $this->htmlAttributes([
 ]);
 ```
 
-Calling the helper always creates a new object instance. Several
-`HtmlAttributesSet` object instances can be used in the same template.
+Calling the helper always creates a new object instance.
+Several `HtmlAttributesSet` object instances can be used in the same template.
 
-## Using `HtmlAttributesSet` as an array
+## Using `HtmlAttributesSet` as an Array
 
-`HtmlAttributeSet` extends PHP's
-[`ArrayObject`](https://www.php.net/manual/en/class.arrayobject.php) which
-allows it to be used like an array.
+`HtmlAttributeSet` extends PHP's [`ArrayObject`](https://www.php.net/manual/en/class.arrayobject.php) which allows it to be used like an array.
 
-### Setting an attribute
+### Setting an Attribute
 
 ```php
 $attributes['id'] = 'login-username';
@@ -59,10 +54,9 @@ $attributes['id'] = 'login-username';
 $attributes['class'] = ['input-group', 'mb-3'];
 ```
 
-## Setting several attributes at once
+## Setting Several Attributes at Once
 
-Several attributes can be set at once using the
-`HtmlAttributesSet::set(iterable $attributes)` method.
+Several attributes can be set at once using the `HtmlAttributesSet::set(iterable $attributes)` method.
 
 ```php
 $attributes->set([
@@ -71,10 +65,9 @@ $attributes->set([
 ])
 ```
 
-## Adding a value to an attribute
+## Adding a Value to an Attribute
 
-Attribute values can added using the
-`HtmlAttributesSet::add(string $name, $value)` method.
+Attribute values can added using the `HtmlAttributesSet::add(string $name, $value)` method.
 
 The method will set the attribute if it does not exist.
 
@@ -96,10 +89,9 @@ Output:
 <div class="input-group&#x20;has-validation"></div>
 ```
 
-## Merging attributes with existing attributes
+## Merging Attributes with Existing Attributes
 
-Attributes and their values can be merged with existing attributes and their
-values using the `HtmlAttributesSet::merge(iterable $attributes)` method.
+Attributes and their values can be merged with existing attributes and their values using the `HtmlAttributesSet::merge(iterable $attributes)` method.
 
 ```php
 <?php
@@ -119,10 +111,9 @@ Output:
 <div id="login-username" class="input-group&#x20;mb-3"></div>
 ```
 
-## Checking if a specific attribute with a specific value exists
+## Checking If a Specific Attribute with a Specific Value Exists
 
-The existence of a specific attribute with a specific value can be checked using
-the `HtmlAttributesSet::hasValue(string $name, string $value)` method.
+The existence of a specific attribute with a specific value can be checked using the `HtmlAttributesSet::hasValue(string $name, string $value)` method.
 
 The method handles cases where the attribute does not exist or has multiple values.
 
@@ -132,22 +123,16 @@ if ($attributes->hasValue('class', 'has-validation')) {
 }
 ```
 
-## Outputting attributes
+## Outputting Attributes
 
-`HtmlAttributesSet` implements PHP's
-[`__toString()`](https://www.php.net/manual/en/language.oop5.magic.php#object.tostring)
-magic method so its object instances can be printed like a string.
+`HtmlAttributesSet` implements PHP's [`__toString()`](https://www.php.net/manual/en/language.oop5.magic.php#object.tostring) magic method so its object instances can be printed like a string.
 
-When an `HtmlAttributesSet` object is converted to a string, attribute names
-and values are automatically escaped using escapers from the
-[EscapeHtml](https://docs.laminas.dev/laminas-view/helpers/escape/#escapehtml)
-and [EscapeHtmlAttr](https://docs.laminas.dev/laminas-view/helpers/escape/#escapehtmlattr)
-view helpers.
+When an `HtmlAttributesSet` object is converted to a string, attribute names and values are automatically escaped using escapers from the [EscapeHtml](https://docs.laminas.dev/laminas-view/helpers/escape/#escapehtml) and [EscapeHtmlAttr](https://docs.laminas.dev/laminas-view/helpers/escape/#escapehtmlattr) view helpers.
 
 ```php
 <?php
 $attributes = $this->htmlAttributes([
-    'title' = 'faketitle onmouseover=alert(/laminas-framework/);'
+    'title' = 'faketitle onmouseover=alert(/laminas-project/);'
 ]);
 ?>
 
@@ -157,5 +142,5 @@ $attributes = $this->htmlAttributes([
 Output:
 
 ```html
-<a title="faketitle&#x20;onmouseover&#x3D;alert&#x28;&#x2F;laminas-framework&#x2F;&#x29;&#x3B;">click</a>
+<a title="faketitle&#x20;onmouseover&#x3D;alert&#x28;&#x2F;laminas-project&#x2F;&#x29;&#x3B;">click</a>
 ```
