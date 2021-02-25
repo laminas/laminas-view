@@ -36,7 +36,6 @@
         "laminas/laminas-filter": "^2.6.1",
         "laminas/laminas-http": "^2.15",
         "laminas/laminas-i18n": "^2.6",
-        "laminas/laminas-log": "^2.7",
         "laminas/laminas-modulemanager": "^2.7.1",
         "laminas/laminas-mvc": "^2.7.14 || ^3.0",
         "laminas/laminas-mvc-i18n": "^1.1",
