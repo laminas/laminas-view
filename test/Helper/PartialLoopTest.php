@@ -232,8 +232,8 @@ class PartialLoopTest extends TestCase
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
         $this->helper->setView($view);
 
-        $this->helper->__invoke('partialLoop.phtml', []);
-        $this->addToAssertionCount(1);
+        ($this->helper)('partialLoop.phtml', []);
+        self::assertEquals(0, $this->helper->getPartialCounter());
     }
 
     /**
