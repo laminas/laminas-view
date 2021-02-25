@@ -40,6 +40,8 @@
         "laminas/laminas-log": "^2.7",
         "laminas/laminas-modulemanager": "^2.7.1",
         "laminas/laminas-mvc": "^2.7.14 || ^3.0",
+        "laminas/laminas-mvc-i18n": "^1.1",
+        "laminas/laminas-mvc-plugin-flashmessenger": "^1.2",
         "laminas/laminas-navigation": "^2.5",
         "laminas/laminas-paginator": "^2.5",
         "laminas/laminas-permissions-acl": "^2.6",
