@@ -238,9 +238,6 @@ class BreadcrumbsTest extends AbstractTest
         $this->_helper->setPartial(['bc.phtml']);
         $this->expectException(InvalidArgumentException::class);
         $this->_helper->render();
-        $this->fail(
-            '$partial was invalid, but no Laminas\View\Exception\ExceptionInterface was thrown'
-        );
     }
 
     public function testRenderingPartialWithParams()
