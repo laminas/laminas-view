@@ -8,7 +8,7 @@
 
 namespace LaminasTest\View\Helper\Navigation;
 
-use Laminas\Config;
+use ArrayObject;
 use Laminas\Navigation\Page\AbstractPage;
 use Laminas\Navigation\Page\Uri as UriPage;
 use Laminas\Permissions\Acl;
@@ -167,7 +167,7 @@ class LinksTest extends AbstractTest
     public function testDetectRelationFromConfigInstancePropertyOfActivePage(): void
     {
         $active = $this->_helper->findOneByLabel('Page 2');
-        $active->addRel('example', new Config\Config([
+        $active->addRel('example', new ArrayObject([
             'uri' => 'http://www.example.com/',
             'label' => 'An example page'
         ]));
@@ -214,7 +214,7 @@ class LinksTest extends AbstractTest
     {
         $active = $this->_helper->findOneByLabel('Page 2');
 
-        $active->addRel('alternate', new Config\Config([
+        $active->addRel('alternate', new ArrayObject([
             [
                 'label' => 'foo',
                 'uri'   => 'bar'
