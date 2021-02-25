@@ -59,35 +59,32 @@ class HeadStyleTest extends TestCase
         $this->assertInstanceOf(Helper\HeadStyle::class, $placeholder);
     }
 
-    public function testAppendPrependAndSetThrowExceptionsWhenNonStyleValueProvided()
+    public function testAppendThrowsExceptionGivenNonStyleArgument(): void
     {
-        try {
-            $this->helper->append('foo');
-            $this->fail('Non-style value should not append');
-        } catch (View\Exception\ExceptionInterface $e) {
-            $this->addToAssertionCount(1);
-        }
+        $this->expectException(View\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid value passed to append');
+        $this->helper->append('foo');
+    }
 
-        try {
-            $this->helper->offsetSet(5, 'foo');
-            $this->fail('Non-style value should not offsetSet');
-        } catch (View\Exception\ExceptionInterface $e) {
-            $this->addToAssertionCount(1);
-        }
+    public function testPrependThrowsExceptionGivenNonStyleArgument(): void
+    {
+        $this->expectException(View\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid value passed to prepend');
+        $this->helper->prepend('foo');
+    }
 
-        try {
-            $this->helper->prepend('foo');
-            $this->fail('Non-style value should not prepend');
-        } catch (View\Exception\ExceptionInterface $e) {
-            $this->addToAssertionCount(1);
-        }
+    public function testSetThrowsExceptionGivenNonStyleArgument(): void
+    {
+        $this->expectException(View\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid value passed to set');
+        $this->helper->set('foo');
+    }
 
-        try {
-            $this->helper->set('foo');
-            $this->fail('Non-style value should not set');
-        } catch (View\Exception\ExceptionInterface $e) {
-            $this->addToAssertionCount(1);
-        }
+    public function testOffsetSetThrowsExceptionGivenNonStyleArgument(): void
+    {
+        $this->expectException(View\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid value passed to offsetSet');
+        $this->helper->offsetSet(1, 'foo');
     }
 
     public function testOverloadAppendStyleAppendsStyleToStack()

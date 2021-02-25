@@ -227,21 +227,18 @@ class HeadScriptTest extends TestCase
         $this->helper->fooBar('foo');
     }
 
-    public function testOverloadingWithTooFewArgumentsRaisesException(): void
+    public function testSetScriptRequiresAnArgument(): void
     {
-        try {
-            $this->helper->setScript();
-            $this->fail('Too few arguments should raise exception');
-        } catch (View\Exception\ExceptionInterface $e) {
-            $this->addToAssertionCount(1);
-        }
+        $this->expectException(View\Exception\BadMethodCallException::class);
+        $this->expectExceptionMessage('Method "setScript" requires at least one argument');
+        $this->helper->setScript();
+    }
 
-        try {
-            $this->helper->offsetSetScript(5);
-            $this->fail('Too few arguments should raise exception');
-        } catch (View\Exception\ExceptionInterface $e) {
-            $this->addToAssertionCount(1);
-        }
+    public function testOffsetSetScriptRequiresTwoArguments(): void
+    {
+        $this->expectException(View\Exception\BadMethodCallException::class);
+        $this->expectExceptionMessage('Method "offsetSetScript" requires at least two arguments, an index and source');
+        $this->helper->offsetSetScript(1);
     }
 
     public function testHeadScriptAppropriatelySetsScriptItems()

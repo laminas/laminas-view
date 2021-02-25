@@ -300,7 +300,6 @@ class MenuTest extends AbstractTest
         $this->_helper->setPartial(['menu.phtml']);
         $this->expectException(InvalidArgumentException::class);
         $this->_helper->render();
-        $this->fail('invalid $partial should throw Laminas\View\Exception\InvalidArgumentException');
     }
 
     public function testSetMaxDepth()

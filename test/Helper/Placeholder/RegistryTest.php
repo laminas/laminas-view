@@ -116,7 +116,6 @@ class RegistryTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid Container class specified');
         $this->registry->setContainerClass(TestAsset\BogusContainer::class);
-        $this->fail('Invalid container classes should not be accepted');
     }
 
     public function testDeletingContainerRemovesFromRegistry()
