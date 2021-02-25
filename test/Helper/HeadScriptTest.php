@@ -72,21 +72,28 @@ class HeadScriptTest extends TestCase
             $this->helper->append('foo');
             $this->fail('Append should throw exception with invalid item');
         } catch (View\Exception\ExceptionInterface $e) {
+            $this->addToAssertionCount(1);
         }
+
         try {
             $this->helper->offsetSet(1, 'foo');
             $this->fail('OffsetSet should throw exception with invalid item');
         } catch (View\Exception\ExceptionInterface $e) {
+            $this->addToAssertionCount(1);
         }
+
         try {
             $this->helper->prepend('foo');
             $this->fail('Prepend should throw exception with invalid item');
         } catch (View\Exception\ExceptionInterface $e) {
+            $this->addToAssertionCount(1);
         }
+
         try {
             $this->helper->set('foo');
             $this->fail('Set should throw exception with invalid item');
         } catch (View\Exception\ExceptionInterface $e) {
+            $this->addToAssertionCount(1);
         }
     }
 
@@ -216,27 +223,27 @@ class HeadScriptTest extends TestCase
         $this->_testOverloadOffsetSet('script');
     }
 
-    public function testOverloadingThrowsExceptionWithInvalidMethod()
+    public function testOverloadingThrowsExceptionWithInvalidMethod(): void
     {
-        try {
-            $this->helper->fooBar('foo');
-            $this->fail('Invalid method should raise exception');
-        } catch (View\Exception\ExceptionInterface $e) {
-        }
+        $this->expectException(View\Exception\BadMethodCallException::class);
+        $this->expectExceptionMessage('Method "fooBar" does not exist');
+        $this->helper->fooBar('foo');
     }
 
-    public function testOverloadingWithTooFewArgumentsRaisesException()
+    public function testOverloadingWithTooFewArgumentsRaisesException(): void
     {
         try {
             $this->helper->setScript();
             $this->fail('Too few arguments should raise exception');
         } catch (View\Exception\ExceptionInterface $e) {
+            $this->addToAssertionCount(1);
         }
 
         try {
             $this->helper->offsetSetScript(5);
             $this->fail('Too few arguments should raise exception');
         } catch (View\Exception\ExceptionInterface $e) {
+            $this->addToAssertionCount(1);
         }
     }
 
@@ -343,16 +350,18 @@ document.write(bar.strlen());');
         $this->assertStringContainsString('bogus="deferred"', $test);
     }
 
-    public function testCanPerformMultipleSerialCaptures()
+    public function testCanPerformMultipleSerialCaptures(): void
     {
         $this->helper->__invoke()->captureStart();
-        echo "this is something captured";
+        echo 'first capture';
         $this->helper->__invoke()->captureEnd();
 
         $this->helper->__invoke()->captureStart();
-
-        echo "this is something else captured";
+        echo 'second capture';
         $this->helper->__invoke()->captureEnd();
+
+        self::assertStringContainsString('first capture', (string) $this->helper);
+        self::assertStringContainsString('second capture', (string) $this->helper);
     }
 
     public function testCannotNestCaptures()
@@ -546,6 +555,6 @@ document.write(bar.strlen());');
 
         $this->helper->__invoke()->appendScript('// some script' . PHP_EOL);
         $test = $this->helper->__invoke()->toString();
-        $this->assertNotRegExp('#type="text/javascript"#i', $test);
+        $this->assertDoesNotMatchRegularExpression('#type="text/javascript"#i', $test);
     }
 }

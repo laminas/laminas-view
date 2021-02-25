@@ -65,21 +65,28 @@ class HeadStyleTest extends TestCase
             $this->helper->append('foo');
             $this->fail('Non-style value should not append');
         } catch (View\Exception\ExceptionInterface $e) {
+            $this->addToAssertionCount(1);
         }
+
         try {
             $this->helper->offsetSet(5, 'foo');
             $this->fail('Non-style value should not offsetSet');
         } catch (View\Exception\ExceptionInterface $e) {
+            $this->addToAssertionCount(1);
         }
+
         try {
             $this->helper->prepend('foo');
             $this->fail('Non-style value should not prepend');
         } catch (View\Exception\ExceptionInterface $e) {
+            $this->addToAssertionCount(1);
         }
+
         try {
             $this->helper->set('foo');
             $this->fail('Non-style value should not set');
         } catch (View\Exception\ExceptionInterface $e) {
+            $this->addToAssertionCount(1);
         }
     }
 
@@ -253,22 +260,18 @@ class HeadStyleTest extends TestCase
         $this->assertStringContainsString('foobar', $item->content);
     }
 
-    public function testInvalidMethodRaisesException()
+    public function testInvalidMethodRaisesException(): void
     {
-        try {
-            $this->helper->bogusMethod();
-            $this->fail('Invalid method should raise exception');
-        } catch (View\Exception\ExceptionInterface $e) {
-        }
+        $this->expectException(View\Exception\BadMethodCallException::class);
+        $this->expectExceptionMessage('Method "bogusMethod" does not exist');
+        $this->helper->bogusMethod();
     }
 
-    public function testTooFewArgumentsRaisesException()
+    public function testTooFewArgumentsRaisesException(): void
     {
-        try {
-            $this->helper->appendStyle();
-            $this->fail('Too few arguments should raise exception');
-        } catch (View\Exception\ExceptionInterface $e) {
-        }
+        $this->expectException(View\Exception\BadMethodCallException::class);
+        $this->expectExceptionMessage('Method "appendStyle" requires minimally content for the stylesheet');
+        $this->helper->appendStyle();
     }
 
     public function testIndentationIsHonored()
@@ -294,15 +297,18 @@ h1 {
         $this->assertStringContainsString('    }', $string);
     }
 
-    public function testSerialCapturingWorks()
+    public function testSerialCapturingWorks(): void
     {
         $this->helper->__invoke()->captureStart();
-        echo "Captured text";
+        echo 'first capture';
         $this->helper->__invoke()->captureEnd();
 
         $this->helper->__invoke()->captureStart();
-
+        echo 'second capture';
         $this->helper->__invoke()->captureEnd();
+
+        self::assertStringContainsString('first capture', (string) $this->helper);
+        self::assertStringContainsString('second capture', (string) $this->helper);
     }
 
     public function testNestedCapturingFails()

@@ -77,27 +77,34 @@ class HeadMetaTest extends TestCase
         $this->assertInstanceOf(Helper\HeadMeta::class, $placeholder);
     }
 
-    public function testAppendPrependAndSetThrowExceptionsWhenNonMetaValueProvided()
+    public function testAppendPrependAndSetThrowExceptionsWhenNonMetaValueProvided(): void
     {
         try {
             $this->helper->append('foo');
             $this->fail('Non-meta value should not append');
         } catch (ViewException $e) {
+            $this->addToAssertionCount(1);
         }
+
         try {
             $this->helper->offsetSet(3, 'foo');
             $this->fail('Non-meta value should not offsetSet');
         } catch (ViewException $e) {
+            $this->addToAssertionCount(1);
         }
+
         try {
             $this->helper->prepend('foo');
             $this->fail('Non-meta value should not prepend');
         } catch (ViewException $e) {
+            $this->addToAssertionCount(1);
         }
+
         try {
             $this->helper->set('foo');
             $this->fail('Non-meta value should not set');
         } catch (ViewException $e) {
+            $this->addToAssertionCount(1);
         }
     }
 

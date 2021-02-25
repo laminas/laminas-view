@@ -9,7 +9,7 @@
 namespace LaminasTest\View\Helper\Navigation;
 
 use Laminas\Navigation\Navigation;
-use Laminas\View\Exception\ExceptionInterface;
+use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\Navigation\Breadcrumbs;
 
 /**
@@ -233,17 +233,14 @@ class BreadcrumbsTest extends AbstractTest
         $this->assertEquals($expected, $this->_helper->render());
     }
 
-    public function testRenderingPartialShouldFailOnInvalidPartialArray()
+    public function testRenderingPartialShouldFailOnInvalidPartialArray(): void
     {
         $this->_helper->setPartial(['bc.phtml']);
-
-        try {
-            $this->_helper->render();
-            $this->fail(
-                '$partial was invalid, but no Laminas\View\Exception\ExceptionInterface was thrown'
-            );
-        } catch (ExceptionInterface $e) {
-        }
+        $this->expectException(InvalidArgumentException::class);
+        $this->_helper->render();
+        $this->fail(
+            '$partial was invalid, but no Laminas\View\Exception\ExceptionInterface was thrown'
+        );
     }
 
     public function testRenderingPartialWithParams()

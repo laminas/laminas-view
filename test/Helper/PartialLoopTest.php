@@ -119,7 +119,7 @@ class PartialLoopTest extends TestCase
         }
     }
 
-    public function testPartialLoopThrowsExceptionWithBadIterator()
+    public function testPartialLoopThrowsExceptionWithBadIterator(): void
     {
         $data = [
             ['message' => 'foo'],
@@ -133,11 +133,10 @@ class PartialLoopTest extends TestCase
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
         $this->helper->setView($view);
 
-        try {
-            $result = $this->helper->__invoke('partialLoop.phtml', $o);
-            $this->fail('PartialLoop should only work with arrays and iterators');
-        } catch (\Exception $e) {
-        }
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('PartialLoop helper requires iterable data');
+        $this->helper->__invoke('partialLoop.phtml', $o);
+        $this->fail('PartialLoop should only work with arrays and iterators');
     }
 
     public function testPassingNullDataThrowsException()
@@ -227,13 +226,14 @@ class PartialLoopTest extends TestCase
     /**
      * @group Laminas-3083
      */
-    public function testEmptyArrayPassedToPartialLoopShouldNotThrowException()
+    public function testEmptyArrayPassedToPartialLoopShouldNotThrowException(): void
     {
         $view = new View();
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
         $this->helper->setView($view);
 
         $this->helper->__invoke('partialLoop.phtml', []);
+        $this->addToAssertionCount(1);
     }
 
     /**
@@ -436,7 +436,7 @@ class PartialLoopTest extends TestCase
         }
     }
 
-    public function testPartialLoopThrowsExceptionWithBadIteratorInLoopMethod()
+    public function testPartialLoopThrowsExceptionWithBadIteratorInLoopMethod(): void
     {
         $data = [
             ['message' => 'foo'],
@@ -449,12 +449,10 @@ class PartialLoopTest extends TestCase
         $view = new View();
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
         $this->helper->setView($view);
-
-        try {
-            $result = $this->helper->Loop('partialLoop.phtml', $o);
-            $this->fail('PartialLoop should only work with arrays and iterators');
-        } catch (\Exception $e) {
-        }
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('PartialLoop helper requires iterable data');
+        $this->helper->Loop('partialLoop.phtml', $o);
+        $this->fail('PartialLoop should only work with arrays and iterators');
     }
 
     public function testPassingNullDataThrowsExceptionInLoopMethod()
@@ -538,13 +536,14 @@ class PartialLoopTest extends TestCase
     /**
      * @group Laminas-3083
      */
-    public function testEmptyArrayPassedToPartialLoopShouldNotThrowExceptionInLoopMethod()
+    public function testEmptyArrayPassedToPartialLoopShouldNotThrowExceptionInLoopMethod(): void
     {
         $view = new View();
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
         $this->helper->setView($view);
 
         $this->helper->loop('partialLoop.phtml', []);
+        $this->addToAssertionCount(1);
     }
 
     /**

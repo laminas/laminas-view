@@ -8,6 +8,7 @@
 
 namespace LaminasTest\View\Helper\Navigation;
 
+use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\Navigation\Menu;
 
 /**
@@ -294,15 +295,12 @@ class MenuTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testRenderingPartialShouldFailOnInvalidPartialArray()
+    public function testRenderingPartialShouldFailOnInvalidPartialArray(): void
     {
         $this->_helper->setPartial(['menu.phtml']);
-
-        try {
-            $this->_helper->render();
-            $this->fail('invalid $partial should throw Laminas\View\Exception\InvalidArgumentException');
-        } catch (\Laminas\View\Exception\ExceptionInterface $e) {
-        }
+        $this->expectException(InvalidArgumentException::class);
+        $this->_helper->render();
+        $this->fail('invalid $partial should throw Laminas\View\Exception\InvalidArgumentException');
     }
 
     public function testSetMaxDepth()

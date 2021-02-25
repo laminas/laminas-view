@@ -9,10 +9,12 @@
 namespace LaminasTest\View\Helper;
 
 use Laminas\View\Exception;
-use Laminas\View\Exception\ExceptionInterface as ViewException;
 use Laminas\View\Helper;
 use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
+
+use function array_fill;
+use function sprintf;
 
 /**
  * Test class for Laminas\View\Helper\HeadLink.
@@ -319,18 +321,24 @@ class HeadLinkTest extends TestCase
         $this->assertStringContainsString('<!--<![endif]-->', $string);
     }
 
-    public function testSettingAlternateWithTooFewArgsRaisesException()
+    public function argumentCountProvider() : iterable
     {
-        try {
-            $this->helper->setAlternate('foo');
-            $this->fail('Setting alternate with fewer than 3 args should raise exception');
-        } catch (ViewException $e) {
-        }
-        try {
-            $this->helper->setAlternate('foo', 'bar');
-            $this->fail('Setting alternate with fewer than 3 args should raise exception');
-        } catch (ViewException $e) {
-        }
+        return [
+            'One' => [1],
+            'Two' => [2],
+        ];
+    }
+
+    /** @dataProvider argumentCountProvider */
+    public function testSettingAlternateWithTooFewArgsRaisesException(int $argumentCount): void
+    {
+        $arguments = array_fill(0, $argumentCount, 'foo');
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage(sprintf(
+            'Alternate tags require 3 arguments; %d provided',
+            $argumentCount
+        ));
+        $this->helper->setAlternate(...$arguments);
     }
 
     public function testIndentationIsHonored()
