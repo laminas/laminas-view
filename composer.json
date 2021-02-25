@@ -22,7 +22,6 @@
         "php": "^7.4 || ~8.0.0 || ~8.1.0",
         "ext-json": "*",
         "laminas/laminas-eventmanager": "^3.4",
-        "laminas/laminas-json": "^3.3",
         "laminas/laminas-stdlib": "^3.6"
     },
     "require-dev": {
