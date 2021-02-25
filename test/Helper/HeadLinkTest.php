@@ -321,7 +321,7 @@ class HeadLinkTest extends TestCase
         $this->assertStringContainsString('<!--<![endif]-->', $string);
     }
 
-    public function argumentCountProvider() : iterable
+    public function argumentCountProvider(): iterable
     {
         return [
             'One' => [1],
