@@ -6,9 +6,12 @@ namespace LaminasTest\View\Helper;
 
 use Laminas\Http\Header\HeaderInterface;
 use Laminas\Http\Response;
-use Laminas\Json\Json as JsonFormatter;
 use Laminas\View\Helper\Json as JsonHelper;
 use PHPUnit\Framework\TestCase;
+
+use function json_encode;
+
+use const JSON_THROW_ON_ERROR;
 
 /**
  * Test class for Laminas\View\Helper\Json
@@ -34,7 +37,7 @@ class JsonTest extends TestCase
         $this->helper->setResponse($this->response);
     }
 
-    public function verifyJsonHeader(): void
+    private function verifyJsonHeader(): void
     {
         $headers = $this->response->getHeaders();
         $this->assertTrue($headers->has('Content-Type'));
@@ -51,9 +54,13 @@ class JsonTest extends TestCase
 
     public function testJsonHelperReturnsJsonEncodedString(): void
     {
-        $data = $this->helper->__invoke('foobar');
-        $this->assertIsString($data);
-        $this->assertEquals('foobar', JsonFormatter::decode($data));
+        $input = [
+            'dory' => 'blue',
+            'nemo' => 'orange',
+        ];
+        $expect = json_encode($input, JSON_THROW_ON_ERROR);
+
+        self::assertJsonStringEqualsJsonString($expect, ($this->helper)($input));
     }
 
     public function testThatADeprecationErrorIsTriggeredWhenExpressionFinderOptionIsUsed(): void
