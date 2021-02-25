@@ -9,6 +9,7 @@
 namespace LaminasTest\View\Helper;
 
 use Laminas\Escaper\Escaper;
+use Laminas\Escaper\Exception\InvalidArgumentException;
 use Laminas\View\Helper\EscapeCss as EscapeHelper;
 use PHPUnit\Framework\TestCase;
 use stdClass;
@@ -27,9 +28,20 @@ class EscapeCssTest extends TestCase
         'eucjp-win',    'macroman'
     ];
 
+    /** @var EscapeHelper */
+    private $helper;
+
     protected function setUp(): void
     {
         $this->helper = new EscapeHelper;
+    }
+
+    /** @return iterable<string, array<int, string>> */
+    public function supportedEncodingsProvider() : iterable
+    {
+        foreach ($this->supportedEncodings as $encoding) {
+            yield $encoding => [$encoding];
+        }
     }
 
     public function testUsesUtf8EncodingByDefault()
@@ -62,12 +74,14 @@ class EscapeCssTest extends TestCase
         $this->assertEquals('big5-hkscs', $escaper->getEncoding());
     }
 
-    public function testEscapehtmlCalledOnEscaperObject()
+    public function testEscapeCssIsCalledOnTheEscaperObjectWhenTheHelperIsInvoked(): void
     {
-        $escaper = $this->getMockBuilder(Escaper::class)->getMock();
-        $escaper->expects($this->any())->method('escapeCss');
+        $escaper = $this->createMock(Escaper::class);
+        $escaper->expects(self::once())
+            ->method('escapeCss')
+            ->with(self::identicalTo('foo'));
         $this->helper->setEscaper($escaper);
-        $this->helper->__invoke('foo');
+        ($this->helper)('foo');
     }
 
     public function testAllowsRecursiveEscapingOfArrays()
@@ -168,18 +182,16 @@ class EscapeCssTest extends TestCase
      */
     public function testSettingEncodingToEmptyStringShouldThrowException()
     {
-        $this->expectException(\Laminas\Escaper\Exception\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->helper->setEncoding('');
         $this->helper->getEscaper();
     }
 
-    public function testSettingValidEncodingShouldNotThrowExceptions()
+    /** @dataProvider supportedEncodingsProvider */
+    public function testSettingValidEncodingShouldNotThrowExceptions(string $encoding): void
     {
-        foreach ($this->supportedEncodings as $value) {
-            $helper = new EscapeHelper;
-            $helper->setEncoding($value);
-            $helper->getEscaper();
-        }
+        $this->helper->setEncoding($encoding);
+        self::assertEquals($encoding, $this->helper->getEncoding());
     }
 
     /**
@@ -190,7 +202,7 @@ class EscapeCssTest extends TestCase
      */
     public function testSettingEncodingToInvalidValueShouldThrowException()
     {
-        $this->expectException(\Laminas\Escaper\Exception\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->helper->setEncoding('completely-invalid');
         $this->helper->getEscaper();
     }
