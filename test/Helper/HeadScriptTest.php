@@ -66,35 +66,32 @@ class HeadScriptTest extends TestCase
         $this->assertInstanceOf(Helper\HeadScript::class, $placeholder);
     }
 
-    public function testSetPrependAppendAndOffsetSetThrowExceptionsOnInvalidItems()
+    public function testAppendThrowsExceptionWithInvalidArguments(): void
     {
-        try {
-            $this->helper->append('foo');
-            $this->fail('Append should throw exception with invalid item');
-        } catch (View\Exception\ExceptionInterface $e) {
-            $this->addToAssertionCount(1);
-        }
+        $this->expectException(View\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid argument passed to append');
+        $this->helper->append('foo');
+    }
 
-        try {
-            $this->helper->offsetSet(1, 'foo');
-            $this->fail('OffsetSet should throw exception with invalid item');
-        } catch (View\Exception\ExceptionInterface $e) {
-            $this->addToAssertionCount(1);
-        }
+    public function testPrependThrowsExceptionWithInvalidArguments(): void
+    {
+        $this->expectException(View\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid argument passed to prepend');
+        $this->helper->prepend('foo');
+    }
 
-        try {
-            $this->helper->prepend('foo');
-            $this->fail('Prepend should throw exception with invalid item');
-        } catch (View\Exception\ExceptionInterface $e) {
-            $this->addToAssertionCount(1);
-        }
+    public function testSetThrowsExceptionWithInvalidArguments(): void
+    {
+        $this->expectException(View\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid argument passed to set');
+        $this->helper->set('foo');
+    }
 
-        try {
-            $this->helper->set('foo');
-            $this->fail('Set should throw exception with invalid item');
-        } catch (View\Exception\ExceptionInterface $e) {
-            $this->addToAssertionCount(1);
-        }
+    public function testOffsetSetThrowsExceptionWithInvalidArguments(): void
+    {
+        $this->expectException(View\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid argument passed to offsetSet');
+        $this->helper->offsetSet(1, 'foo');
     }
 
     // @codingStandardsIgnoreStart
