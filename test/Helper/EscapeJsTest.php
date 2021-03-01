@@ -15,17 +15,10 @@ use stdClass;
 
 class EscapeJsTest extends TestCase
 {
-    protected $supportedEncodings = [
-        'iso-8859-1',   'iso8859-1',    'iso-8859-5',   'iso8859-5',
-        'iso-8859-15',  'iso8859-15',   'utf-8',        'cp866',
-        'ibm866',       '866',          'cp1251',       'windows-1251',
-        'win-1251',     '1251',         'cp1252',       'windows-1252',
-        '1252',         'koi8-r',       'koi8-ru',      'koi8r',
-        'big5',         '950',          'gb2312',       '936',
-        'big5-hkscs',   'shift_jis',    'sjis',         'sjis-win',
-        'cp932',        '932',          'euc-jp',       'eucjp',
-        'eucjp-win',    'macroman'
-    ];
+    use EscaperEncodingsTrait;
+
+    /** @var EscapeHelper */
+    private $helper;
 
     protected function setUp(): void
     {
@@ -62,12 +55,14 @@ class EscapeJsTest extends TestCase
         $this->assertEquals('big5-hkscs', $escaper->getEncoding());
     }
 
-    public function testEscapehtmlCalledOnEscaperObject()
+    public function testEscapeJsIsCalledOnTheEscaperObjectWhenHelperInvoked(): void
     {
-        $escaper = $this->getMockBuilder(Escaper::class)->getMock();
-        $escaper->expects($this->any())->method('escapeJs');
+        $escaper = $this->createMock(Escaper::class);
+        $escaper->expects(self::once())
+            ->method('escapeJs')
+            ->with('foo');
         $this->helper->setEscaper($escaper);
-        $this->helper->__invoke('foo');
+        ($this->helper)('foo');
     }
 
     public function testAllowsRecursiveEscapingOfArrays()
@@ -173,13 +168,11 @@ class EscapeJsTest extends TestCase
         $this->helper->getEscaper();
     }
 
-    public function testSettingValidEncodingShouldNotThrowExceptions()
+    /** @dataProvider supportedEncodingsProvider */
+    public function testSettingValidEncodingShouldNotThrowExceptions(string $encoding): void
     {
-        foreach ($this->supportedEncodings as $value) {
-            $helper = new EscapeHelper;
-            $helper->setEncoding($value);
-            $helper->getEscaper();
-        }
+        $this->helper->setEncoding($encoding);
+        self::assertEquals($encoding, $this->helper->getEncoding());
     }
 
     /**
