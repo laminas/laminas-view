@@ -11,12 +11,10 @@ namespace LaminasTest\View\Helper;
 use Laminas\Console\Console;
 use Laminas\Console\Request;
 use Laminas\Http\Request as HttpRequest;
-use Laminas\Mvc\Console\ConfigProvider as MvcConsoleConfigProvider;
-use Laminas\Mvc\Router\Http as V2HttpRoute;
 use Laminas\Mvc\Service\ServiceListenerFactory;
 use Laminas\Mvc\Service\ServiceManagerConfig;
 use Laminas\Router\ConfigProvider as RouterConfigProvider;
-use Laminas\Router\Http as V3HttpRoute;
+use Laminas\Router\Http;
 use Laminas\ServiceManager\Config;
 use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
@@ -29,16 +27,15 @@ use PHPUnit\Framework\TestCase;
  */
 class UrlIntegrationTest extends TestCase
 {
+    private $serviceManager;
+
     protected function setUp(): void
     {
-        $this->literalRouteType = class_exists(V2HttpRoute\Literal::class)
-            ? V2HttpRoute\Literal::class
-            : V3HttpRoute\Literal::class;
         $config = [
             'router' => [
                 'routes' => [
                     'test' => [
-                        'type' => $this->literalRouteType,
+                        'type' => Http\Literal::class,
                         'options' => [
                             'route' => '/test',
                             'defaults' => [
@@ -74,15 +71,8 @@ class UrlIntegrationTest extends TestCase
         $this->serviceManager = new ServiceManager();
         (new ServiceManagerConfig($serviceConfig))->configureServiceManager($this->serviceManager);
 
-        if (! class_exists(V2HttpRoute\Literal::class) && class_exists(RouterConfigProvider::class)) {
-            $routerConfig = new Config((new RouterConfigProvider())->getDependencyConfig());
-            $routerConfig->configureServiceManager($this->serviceManager);
-        }
-
-        if (class_exists(MvcConsoleConfigProvider::class)) {
-            $mvcConsoleConfig = new Config((new MvcConsoleConfigProvider())->getDependencyConfig());
-            $mvcConsoleConfig->configureServiceManager($this->serviceManager);
-        }
+        $routerConfig = new Config((new RouterConfigProvider())->getDependencyConfig());
+        $routerConfig->configureServiceManager($this->serviceManager);
 
         $this->serviceManager->setAllowOverride(true);
         $this->serviceManager->setService('config', $config);
