@@ -1,8 +1,9 @@
 # Doctype
 
-Valid HTML and XHTML documents should include a `DOCTYPE` declaration. Besides being difficult
-to remember, these can also affect how certain elements in your document should be rendered (for
-instance, `CDATA` escaping in `<script>` and `<style>` elements.
+Valid HTML and XHTML documents should include a `DOCTYPE` declaration. Besides
+being difficult to remember, these can also affect how certain elements in your
+document should be rendered (for instance, `CDATA`
+escaping in `<script>` and `<style>` elements.
 
 The `Doctype` helper allows you to specify one of the following types:
 
@@ -47,11 +48,13 @@ And then print it out on top of your layout script:
 
 ## Usage in a Mezzio Application
 
-The factory `Laminas\View\Helper\Service\DoctypeFactory` checks the application configuration, making it possible to
-define the doctype through your configuration, e.g. `config/autoload/mezzio.global.php`
-or a `ConfigProvider.php` in a module.
+The factory `Laminas\View\Helper\Service\DoctypeFactory` checks the application
+configuration, making it possible to define the doctype through your
+configuration, e.g. `config/autoload/mezzio.global.php` or
+a `ConfigProvider.php` in a module.
 
-For example, add the following lines to your `config/autoload/mezzio.global.php` file to set the `Doctype` to HTML5:
+For example, add the following lines to your `config/autoload/mezzio.global.php`
+file to set the `Doctype` to HTML5:
 
 ```php
 return [
@@ -64,10 +67,13 @@ return [
 
 ## Usage in a laminas-mvc Application
 
-If you're running a [laminas-mvc](https://docs.laminas.dev/laminas-mvc/) application, you should specify doctype via the
-[ViewManager](https://docs.laminas.dev/laminas-mvc/services/#viewmanager) service.
+If you're running a [laminas-mvc](https://docs.laminas.dev/laminas-mvc/)
+application, you should specify doctype via the
+[ViewManager](https://docs.laminas.dev/laminas-mvc/services/#viewmanager)
+service.
 
-Add the following lines to your `config/autoload/global.php` file to set the `Doctype` to HTML5:
+Add the following lines to your `config/autoload/global.php` file to set
+the `Doctype` to HTML5:
 
 ```php
 return [
@@ -132,8 +138,9 @@ is used per the Open Graph Protocol spec. Example within a view script:
 
 In the previous example, we set the property to `og:type`. The `og` references
 the Open Graph namespace we specified in the html tag. The content identifies
-the page as being about a musician. See the [Open Graph Protocol
-documentation](http://opengraphprotocol.org/) for supported properties. The
+the page as being about a musician. See
+the [Open Graph Protocol documentation](http://opengraphprotocol.org/) for
+supported properties. The
 [HeadMeta helper](head-meta.md) may be used to programmatically set these Open
 Graph Protocol meta tags.
 

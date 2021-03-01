@@ -42,8 +42,8 @@ Each is described in the following sections.
 
 ### Listeners
 
-The following classes are listening to this event (they are sorted from higher priority to lower
-priority):
+The following classes are listening to this event (they are sorted from
+higher priority to lower priority):
 
 #### For PhpStrategy
 
@@ -95,8 +95,8 @@ Class            | In method | Description
 
 ### Listeners
 
-The following classes are listening to this event (they are sorted from higher priority to lower
-priority):
+The following classes are listening to this event (they are sorted from
+higher priority to lower priority):
 
 #### For PhpStrategy
 

@@ -68,7 +68,9 @@ decoding the contents:
 ```php
 'view_helper_config' => [
     'asset' => [
-        'resource_map' => json_decode(file_get_contents('path/to/rev-manifest.json'), true),
+        'resource_map' => json_decode(file_get_contents(
+            'path/to/rev-manifest.json'
+        ), true),
     ],
 ],
 ```

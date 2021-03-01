@@ -85,7 +85,8 @@ The `HeadScript` helper is a concrete implementation of the
 
 > ### Arbitrary Attributes are Disabled by Default
 >
-> By default, `HeadScript` only will render `<script>` attributes that are blessed by the W3C.
+> By default, `HeadScript` only will render `<script>` attributes that are
+> blessed by the W3C.
 > These include `id`, `charset`, `crossorigin`, `defer`, `integrity`,
 > `language`, `src`, and `type`. However, some JavaScript frameworks, notably
 > [Dojo](http://www.dojotoolkit.org/), utilize custom attributes in order to

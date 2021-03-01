@@ -57,7 +57,8 @@ The `HeadStyle` helper is a concrete implementation of the
 > use another encoding with `headStyle`, you must:
 >
 > 1. Create a custom renderer and implement a `getEncoding()` method;
-> 2. Create a custom rendering strategy that will return an instance of your custom renderer;
+> 2. Create a custom rendering strategy that will return an instance of your
+> custom renderer;
 > 3. Attach the custom strategy in the `ViewEvent`.
 >
 > First we have to write the custom renderer:
@@ -66,7 +67,8 @@ The `HeadStyle` helper is a concrete implementation of the
 > // module/MyModule/View/Renderer/MyRenderer.php
 > namespace MyModule\View\Renderer;
 >
-> // Since we just want to implement the getEncoding() method, we can extend the Laminas native renderer
+> // Since we just want to implement the getEncoding() method,
+> // we can extend the Laminas native renderer
 > use Laminas\View\Renderer\PhpRenderer;
 >
 > class MyRenderer extends PhpRenderer
@@ -148,7 +150,11 @@ The `HeadStyle` helper is a concrete implementation of the
 >     {
 >         // Register a render event
 >         $app = $e->getParam('application');
->         $app->getEventManager()->attach('render', [$this, 'registerMyStrategy'], 100);
+>         $app->getEventManager()->attach(
+>            'render',
+>            [$this, 'registerMyStrategy'],
+>            100
+>         );
 >     }
 >
 >     public function registerMyStrategy(MvcEvent $e)
@@ -164,7 +170,8 @@ The `HeadStyle` helper is a concrete implementation of the
 > }
 > ```
 >
-> See the quick start [Creating and Registering Alternate Rendering and Response Strategies](../quick-start.md#creating-and-registering-alternate-rendering-and-response-strategies)
+> See the quick start [Creating and Registering Alternate Rendering and
+> Response Strategies](../quick-start.md#creating-and-registering-alternate-rendering-and-response-strategies)
 > chapter for more information on how to create and register custom strategies
 > to your view.
 

@@ -7,7 +7,7 @@ substitution, and more.
 The components of the view layer are as follows:
 
 - **Variables Containers** hold variables and callbacks that you wish to
-  represent in the view.  Often-times, a Variables Container will also provide
+  represent in the view. Often-times, a Variables Container will also provide
   mechanisms for context-specific escaping of variables and more.
 - **View Models** hold Variables Containers, specify the template to use (if
   any), and optionally provide rendering options (more on that below). View
@@ -22,20 +22,22 @@ The components of the view layer are as follows:
 - The **View** consists of strategies that map the current Request to a
   Renderer, and strategies for injecting the result of rendering to the
   Response.
-- **Rendering Strategies** listen to the `Laminas\View\ViewEvent::EVENT_RENDERER`
-  event of the View and decide which Renderer should be selected based on the
-  Request or other criteria.
+- **Rendering Strategies** listen to
+  the `Laminas\View\ViewEvent::EVENT_RENDERER` event of the View and decide
+  which Renderer should be selected based on the Request or other criteria.
 - **Response Strategies** are used to inject the Response object with the
   results of rendering. That may also include taking actions such as setting
   Content-Type headers.
 
-Additionally, laminas-mvc integrates with laminas-view via a number of event listeners
-in the `Laminas\Mvc\View` namespace.
+Additionally, laminas-mvc integrates with laminas-view via a number of event
+listeners in the `Laminas\Mvc\View` namespace.
 
 This section of the manual is designed to show you typical usage patterns of the
-view layer when using it with [laminas-mvc](https://docs.laminas.dev/laminas-mvc/).
-The assumption is that you are using the [service manager](https://docs.laminas.dev/laminas-servicemanager/)
-and the default MVC view strategies.
+view layer when using it
+with [laminas-mvc](https://docs.laminas.dev/laminas-mvc/). The assumption is
+that you are using
+the [service manager](https://docs.laminas.dev/laminas-servicemanager/) and the
+default MVC view strategies.
 
 ## Configuration
 
@@ -43,10 +45,10 @@ The default configuration will typically work out-of-the-box. However, you will
 still need to select Resolver Strategies and configure them, as well as
 potentially indicate alternate template names for things like the site layout,
 404 (not found) pages, and error pages. The code snippets below can be added to
-your configuration to accomplish this. We recommend adding it to a
-site-specific module, such as the "Application" module from the framework's
-[laminas-mvc-skeleton](https://github.com/laminas/laminas-mvc-skeleton),
-or to one of your autoloaded configurations within the `config/autoload/`
+your configuration to accomplish this. We recommend adding it to a site-specific
+module, such as the "Application" module from the framework's
+[laminas-mvc-skeleton](https://github.com/laminas/laminas-mvc-skeleton), or to
+one of your autoloaded configurations within the `config/autoload/`
 directory.
 
 ```php
@@ -124,8 +126,8 @@ return [
 
 ## Controllers and View Models
 
-`Laminas\View\View` consumes `ViewModel`s, passing them to the selected renderer.
-Where do you create these, though?
+`Laminas\View\View` consumes `ViewModel`s, passing them to the selected
+renderer. Where do you create these, though?
 
 The most explicit way is to create them in your controllers and return them.
 
@@ -153,7 +155,7 @@ This sets a "message" variable in the View Model, and sets the template name
 
 In most cases, you'll likely have a template name based on the module namespace,
 controller, and action. Considering that, and if you're simply passing some
-variables, could this be made simpler?  Definitely.
+variables, could this be made simpler? Definitely.
 
 The MVC registers a couple of listeners for controllers to automate this. The
 first will look to see if you returned an associative array from your
@@ -355,9 +357,11 @@ Most sites enforce a cohesive look-and-feel which we typically call the site's
 as well as the basic markup structure into which all site content will be
 injected.
 
-Within laminas-mvc, layouts are handled via nesting of View Models ([see the
-previous example](#nesting-view-models) for examples of View Model nesting). The
-`Laminas\Mvc\View\Http\ViewManager` composes a View Model which acts as the "root"
+Within laminas-mvc, layouts are handled via nesting of View
+Models ([see the previous example](#nesting-view-models) for examples of View
+Model nesting). The
+`Laminas\Mvc\View\Http\ViewManager` composes a View Model which acts as the "
+root"
 for nested View Models. As such, it should contain the skeleton (or layout)
 template for the site. All other content is then rendered and captured to view
 variables of this root View Model.
@@ -502,10 +506,11 @@ class ArticleController extends AbstractActionController
 
 Sometimes, you may want to access the layout from within your actual view
 scripts when using the `PhpRenderer`. Reasons might include wanting to change
-the layout template, or wanting to either access or inject layout view variables.
-Similar to the `layout()` controller plugin, you can use the `layout()` View Helper.
-If you provide a string argument to it, you will change the template; if you
-provide no arguments, the root layout View Model is returned.
+the layout template, or wanting to either access or inject layout view
+variables. Similar to the `layout()` controller plugin, you can use
+the `layout()` View Helper. If you provide a string argument to it, you will
+change the template; if you provide no arguments, the root layout View Model is
+returned.
 
 ```php
 //In a view script
@@ -588,16 +593,16 @@ laminas-view ships with three Rendering and Response Strategies that you can use
 within your application.
 
 - `Laminas\View\Strategy\PhpRendererStrategy`. This strategy is a "catch-all" in
-  that it will always return the `Laminas\View\Renderer\PhpRenderer` and populate
-  the Response body with the results of rendering.
+  that it will always return the `Laminas\View\Renderer\PhpRenderer` and
+  populate the Response body with the results of rendering.
 - `Laminas\View\Strategy\JsonStrategy`. This strategy will return the
   `Laminas\View\Renderer\JsonRenderer`, and populate the Response body with the
   JSON value returned, as well as set a `Content-Type` header with a value of
   `application/json`.
 - `Laminas\View\Strategy\FeedStrategy`. This strategy will return the
-  `Laminas\View\Renderer\FeedRenderer`, setting the feed type to
-  either "rss" or "atom", based on what was matched. Its Response strategy will
-  populate the Response body with the generated feed, as well as set a
+  `Laminas\View\Renderer\FeedRenderer`, setting the feed type to either "rss"
+  or "atom", based on what was matched. Its Response strategy will populate the
+  Response body with the generated feed, as well as set a
   `Content-Type` header with the appropriate value based on feed type.
 
 By default, only the `PhpRendererStrategy` is registered, meaning you will need
@@ -622,7 +627,11 @@ class Module
         // Register a "render" event, at high priority (so it executes prior
         // to the view attempting to render)
         $app = $e->getApplication();
-        $app->getEventManager()->attach('render', [$this, 'registerJsonStrategy'], 100);
+        $app->getEventManager()->attach(
+            'render',
+            [$this, 'registerJsonStrategy'],
+            100
+        );
     }
 
     /**
@@ -647,6 +656,7 @@ executes prior to the `PhpRendererStrategy`, and thus ensure that a JSON payload
 is created when the controller returns a `JsonModel`.
 
 You could also use the module configuration to add the strategies:
+
 ```php
 namespace Application;
 
@@ -694,7 +704,11 @@ class Module
     {
         // Register a render event
         $app = $e->getParam('application');
-        $app->getEventManager()->attach('render', [$this, 'registerJsonStrategy'], 100);
+        $app->getEventManager()->attach(
+            'render',
+            [$this, 'registerJsonStrategy'],
+            100
+        );
     }
 
     /**
@@ -729,7 +743,9 @@ class Module
 While the above examples detail using the `JsonStrategy`, the same could be done
 for the `FeedStrategy`.
 
-If you successfully registered the Strategy you need to use the appropriate `ViewModel`:
+If you successfully registered the Strategy you need to use the
+appropriate `ViewModel`:
+
 ```php
 namespace Application;
 
@@ -775,5 +791,7 @@ class MyController extends AbstractActionController
 }
 ```
 
-Or you could switch the `ViewModel` dynamically based on the "Accept" HTTP Header with the
-[Laminas-Mvc-Plugin AcceptableViewModelSelector](https://docs.laminas.dev/laminas-mvc/plugins/#acceptableviewmodelselector-plugin).
+Or you could switch the `ViewModel` dynamically based on the "Accept" HTTP
+Header with the
+[Laminas-Mvc-Plugin AcceptableViewModelSelector](https://docs.laminas.dev/laminas-mvc/plugins/#acceptableviewmodelselector-plugin)
+.

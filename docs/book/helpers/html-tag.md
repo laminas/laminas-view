@@ -23,35 +23,39 @@ Output:
 
 ### Set a single Attribute
 
-=== "Invoke Usage"
-    ```php
-    $this->htmlTag(['lang' => 'en']);
-    
-    echo $this->htmlTag()->openTag(); // <html lang="en">
-    ```
+#### Invoke Usage
 
-=== "Setter Usage"
-    ```php
-    $this->htmlTag()->setAttribute('lang', 'en');
-    
-    echo $this->htmlTag()->openTag(); // <html lang="en">
-    ```
+```php
+$this->htmlTag(['lang' => 'en']);
+
+echo $this->htmlTag()->openTag(); // <html lang="en">
+```
+
+#### Setter Usage
+
+```php
+$this->htmlTag()->setAttribute('lang', 'en');
+
+echo $this->htmlTag()->openTag(); // <html lang="en">
+```
 
 ### Set multiple Attributes
 
-=== "Invoke Usage"
-    ```php
-    $this->htmlTag(['lang' => 'en', 'id' => 'example']);
-    
-    echo $this->htmlTag()->openTag(); // <html lang="en" id="example">
-    ```
+#### Invoke Usage
 
-=== "Setter Usage"
-    ```php
-    $this->htmlTag()->setAttributes(['lang' => 'en', 'id' => 'example']);
-    
-    echo $this->htmlTag()->openTag(); // <html lang="en" id="example">
-    ```
+```php
+$this->htmlTag(['lang' => 'en', 'id' => 'example']);
+
+echo $this->htmlTag()->openTag(); // <html lang="en" id="example">
+```
+
+#### Setter Usage
+
+```php
+$this->htmlTag()->setAttributes(['lang' => 'en', 'id' => 'example']);
+
+echo $this->htmlTag()->openTag(); // <html lang="en" id="example">
+```
 
 ### Get current Value
 
@@ -60,7 +64,8 @@ To get the current value, use the `getAttributes()` method.
 ```php
 $this->htmlTag(['lang' => 'en', 'id' => 'example']);
 
-var_dump($this->htmlTag()->getAttributes()); // ['lang' => 'en', 'id' => 'example']
+var_dump($this->htmlTag()->getAttributes());
+// ['lang' => 'en', 'id' => 'example']
 ```
 
 ### Default Value

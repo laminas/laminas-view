@@ -6,7 +6,8 @@ tags may be either of the `http-equiv` or `name` types, must contain a `content`
 attribute, and can also have either of the `lang` or `scheme` modifier
 attributes.
 
-The `HeadMeta` helper supports the following methods for setting and adding meta tags:
+The `HeadMeta` helper supports the following methods for setting and
+adding meta tags:
 
 - `appendName($keyValue, $content, $conditionalName)`
 - `offsetSetName($index, $keyValue, $content, $conditionalName)`

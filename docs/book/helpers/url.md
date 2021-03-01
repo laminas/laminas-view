@@ -41,8 +41,8 @@ is called `news` and it has two **optional** parameters called `action` and
 ],
 ```
 
-First, let's use the view helper to create the output for the URL `/news` without any of the
-optional parameters being used:
+First, let's use the view helper to create the output for the URL `/news`
+without any of the optional parameters being used:
 
 ```php
 <a href="<?= $this->url('news'); ?>">News Index</a>

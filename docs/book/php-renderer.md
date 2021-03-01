@@ -39,8 +39,8 @@ with the `PhpRenderer` are:
   aforesaid resolvers. For example, this allows usage of partial template paths
   such as `my/module/script/path/my-view/some/partial.phtml`, while rendering
   template `my/module/script/path/my-view` by short name `some/partial`.
-- `Laminas\View\Resolver\AggregateResolver`, which allows attaching a FIFO queue of
-  resolvers to consult.
+- `Laminas\View\Resolver\AggregateResolver`, which allows attaching a FIFO
+  queue of resolvers to consult.
 
 We suggest using the `AggregateResolver`, as it allows you to create a
 multi-tiered strategy for resolving template names.
@@ -72,7 +72,8 @@ $stack = new Resolver\TemplatePathStack([
 $resolver
     ->attach($map)    // this will be consulted first, and is the fastest lookup
     ->attach($stack)  // filesystem-based lookup
-    ->attach(new Resolver\RelativeFallbackResolver($map)) // allow short template names
+    // allow short template names:
+    ->attach(new Resolver\RelativeFallbackResolver($map))
     ->attach(new Resolver\RelativeFallbackResolver($stack));
 ```
 

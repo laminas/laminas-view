@@ -8,10 +8,14 @@ elements for later retrieval and output in your layout script.
 The `HeadLink` helper has special methods for adding stylesheet links to its
 stack:
 
-- `appendStylesheet($href, $media = 'screen', $conditionalStylesheet = '', $extras = [])`
-- `offsetSetStylesheet($index, $href, $media = 'screen', $conditionalStylesheet = '', $extras = [])`
-- `prependStylesheet($href, $media = 'screen', $conditionalStylesheet = '', $extras = [])`
-- `setStylesheet($href, $media = 'screen', $conditionalStylesheet = '', $extras = [])`
+- `appendStylesheet($href, $media = 'screen',
+  $conditionalStylesheet = '', $extras = [])`
+- `offsetSetStylesheet($index, $href, $media = 'screen',
+  $conditionalStylesheet = '', $extras = [])`
+- `prependStylesheet($href, $media = 'screen',
+  $conditionalStylesheet = '', $extras = [])`
+- `setStylesheet($href, $media = 'screen',
+  $conditionalStylesheet = '', $extras = [])`
 
 The `$media` value defaults to 'screen', but may be any valid media value.
 `$conditionalStylesheet` is a string or boolean `false`, and will be used at

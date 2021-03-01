@@ -4,7 +4,8 @@ The HTML `<title>` element is used to **provide a title for an HTML document**.
 The `HeadTitle` helper allows you to programmatically create and store the title
 for later retrieval and output.
 
-The `HeadTitle` helper is a concrete implementation of the [Placeholder helper](placeholder.md).
+The `HeadTitle` helper is a concrete implementation of the
+[Placeholder helper](placeholder.md).
 It overrides the `toString()` method to enforce generating a `<title>` element,
 and adds a `headTitle()` method for overwriting and aggregation of title
 elements. The signature for that method is `headTitle($title, $setType = null)`;
@@ -71,45 +72,49 @@ echo $this->headTitle(); // <title>My albumsMusic</title>
 To explicitly append content, the second paramater `$setType` or the concrete
 method `append()` of the helper can be used:
 
-=== "Invoke Usage"
-    ```php
-    $this->headTitle('My albums')
-    $this->headTitle('Music', 'APPEND');
-    
-    echo $this->headTitle(); // <title>My albumsMusic</title>
-    ```
+#### Invoke Usage
 
-=== "Setter Usage"
-    ```php
-    $this->headTitle('My albums')
-    $this->headTitle()->append('Music');
-    
-    echo $this->headTitle(); // <title>My albumsMusic</title>
-    ```
+```php
+$this->headTitle('My albums');
+$this->headTitle('Music', 'APPEND');
+
+echo $this->headTitle(); // <title>My albumsMusic</title>
+```
+
+#### Setter Usage
+
+```php
+$this->headTitle('My albums');
+$this->headTitle()->append('Music');
+
+echo $this->headTitle(); // <title>My albumsMusic</title>
+```
 
 The constant `Laminas\View\Helper\Placeholder\Container\AbstractContainer::APPEND`
 can also be used as value for the second parameter `$setType`.
 
 ### Prepend Content
 
-To prepend content, the second paramater `$setType` or the concrete method
+To prepend content, the second parameter `$setType` or the concrete method
 `prepend()` of the helper can be used:
 
-=== "Invoke Usage"
-    ```php
-    $this->headTitle('My albums')
-    $this->headTitle('Music', 'PREPEND');
-    
-    echo $this->headTitle(); // <title>MusicMy albums</title>
-    ```
+#### Invoke Usage
 
-=== "Setter Usage"
-    ```php
-    $this->headTitle('My albums')
-    $this->headTitle()->prepend('Music');
-    
-    echo $this->headTitle(); // <title>MusicMy albums</title>
-    ```
+```php
+$this->headTitle('My albums');
+$this->headTitle('Music', 'PREPEND');
+
+echo $this->headTitle(); // <title>MusicMy albums</title>
+```
+
+#### Setter Usage
+
+```php
+$this->headTitle('My albums')
+$this->headTitle()->prepend('Music');
+
+echo $this->headTitle(); // <title>MusicMy albums</title>
+```
 
 The constant `Laminas\View\Helper\Placeholder\Container\AbstractContainer::PREPEND`
 can also be used as value for the second parameter `$setType`.
@@ -119,21 +124,23 @@ can also be used as value for the second parameter `$setType`.
 To overwrite the entire content of title helper, the second parameter `$setType`
 or the concrete method `set()` of the helper can be used:
 
-=== "Invoke Usage"
-    ```php
-    $this->headTitle('My albums')
-    $this->headTitle('Music', 'SET');
-    
-    echo $this->headTitle(); // <title>Music</title>
-    ```
+#### Invoke Usage
 
-=== "Setter Usage"
-    ```php
-    $this->headTitle('My albums')
-    $this->headTitle()->set('Music');
-    
-    echo $this->headTitle(); // <title>Music</title>
-    ```
+```php
+$this->headTitle('My albums');
+$this->headTitle('Music', 'SET');
+
+echo $this->headTitle(); // <title>Music</title>
+```
+
+#### Setter Usage
+
+```php
+$this->headTitle('My albums');
+$this->headTitle()->set('Music');
+
+echo $this->headTitle(); // <title>Music</title>
+```
 
 The constant `Laminas\View\Helper\Placeholder\Container\AbstractContainer::SET`
 can also be used as value for the second parameter `$setType`.

@@ -3,11 +3,12 @@
 ## Registering Helpers
 
 `Laminas\View\Renderer\PhpRenderer` composes a *plugin manager* for managing
-helpers, specifically an instance of `Laminas\View\HelperPluginManager`, which
-extends `Laminas\ServiceManager\AbstractPluginManager`, which is itself an
-extension of `Laminas\ServiceManager\ServiceManager`.  `HelperPluginManager` is a
-specialized service manager, so you can register a helper/plugin like any other
-service (see the [Service Manager documentation](https://docs.laminas.dev/laminas-servicemanager/configuring-the-service-manager/)
+helpers, specifically an instance of `Laminas\View\HelperPluginManager`,
+which extends `Laminas\ServiceManager\AbstractPluginManager`, which is itself
+an extension of `Laminas\ServiceManager\ServiceManager`.
+`HelperPluginManager` is a specialized service manager, so you can register a
+helper/plugin like any other service (see the
+[Service Manager documentation](https://docs.laminas.dev/laminas-servicemanager/configuring-the-service-manager/)
 for more information).
 
 Programmatically, this is done as follows:
@@ -53,8 +54,9 @@ return [
 ];
 ```
 
-If your module class implements `Laminas\ModuleManager\Feature\ViewHelperProviderInterface`,
-or just the method `getViewHelperConfig()`, you could also do the following
+If your module class
+implements `Laminas\ModuleManager\Feature\ViewHelperProviderInterface`, or just
+the method `getViewHelperConfig()`, you could also do the following
 (it's the same as the previous example).
 
 ```php
@@ -86,8 +88,8 @@ class will actually be registered!
 ## Writing Custom Helpers
 
 Writing custom helpers is easy. We recommend extending
-`Laminas\View\Helper\AbstractHelper`, but at the minimum, you need only implement
-the `Laminas\View\Helper\HelperInterface` interface:
+`Laminas\View\Helper\AbstractHelper`, but at the minimum, you need only
+implement the `Laminas\View\Helper\HelperInterface` interface:
 
 ```php
 namespace Laminas\View\Helper;
@@ -113,11 +115,13 @@ interface HelperInterface
 }
 ```
 
-If you want your helper to be capable of being invoked as if it were a method call of the
-`PhpRenderer`, you should also implement an `__invoke()` method within your helper.
+If you want your helper to be capable of being invoked as if it were a method
+call of the `PhpRenderer`, you should also implement an `__invoke()` method
+within your helper.
 
-As previously noted, we recommend extending `Laminas\View\Helper\AbstractHelper`, as it implements the
-methods defined in `HelperInterface`, giving you a headstart in your development.
+As previously noted, we recommend extending `Laminas\View\Helper\AbstractHelper`
+, as it implements the methods defined in `HelperInterface`, giving you a
+head-start in your development.
 
 > ### Invokable helpers
 >
@@ -156,7 +160,8 @@ you like; it will be instantiated once, and then it persists for the life of
 that `PhpRenderer` instance.
 
 ```php
-// remember, in a view script, $this refers to the Laminas\View\Renderer\PhpRenderer instance.
+// remember, in a view script, $this refers to the
+// Laminas\View\Renderer\PhpRenderer instance.
 echo $this->specialPurpose();
 echo $this->specialPurpose();
 echo $this->specialPurpose();
@@ -260,7 +265,7 @@ class SpecialPurpose extends AbstractHelper
 ## Registering Concrete Helpers
 
 Sometimes it is convenient to instantiate a view helper, and then register it
-with the renderer.  This can be done by injecting it directly into the plugin
+with the renderer. This can be done by injecting it directly into the plugin
 manager.
 
 ```php
