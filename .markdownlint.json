@@ -1,0 +1,32 @@
+{
+  "default": true,
+  "MD001": false,
+  "MD013": {
+      "line_length": 80,
+      "heading_line_length": 80,
+      "code_block_line_length": 80,
+      "code_blocks": true,
+      "tables": false,
+      "headings": true,
+      "headers": true,
+      "strict": false,
+      "stern": false
+  },
+  "MD024": false,
+  "MD033": false,
+  "problemMatcher": [
+    {
+      "owner": "markdownlint",
+      "pattern": [
+        {
+          "regexp": "^([^:]*):(\\d+):?(\\d+)?\\s([\\w-\\/]*)\\s(.*)$",
+          "file": 1,
+          "line": 2,
+          "column": 3,
+          "code": 4,
+          "message": 5
+        }
+      ]
+    }
+  ]
+}
