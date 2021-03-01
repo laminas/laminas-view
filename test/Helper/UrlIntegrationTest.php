@@ -9,6 +9,7 @@
 namespace LaminasTest\View\Helper;
 
 use Laminas\Console\Console;
+use Laminas\Console\Request as ConsoleRequest;
 use Laminas\Http\Request as HttpRequest;
 use Laminas\Mvc\Service\ServiceListenerFactory;
 use Laminas\Mvc\Service\ServiceManagerConfig;
@@ -16,7 +17,6 @@ use Laminas\Router\ConfigProvider as RouterConfigProvider;
 use Laminas\Router\Http;
 use Laminas\ServiceManager\Config;
 use Laminas\ServiceManager\ServiceManager;
-use Laminas\Stdlib\RequestInterface;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -27,6 +27,7 @@ use PHPUnit\Framework\TestCase;
  */
 class UrlIntegrationTest extends TestCase
 {
+    /** @var ServiceManager */
     private $serviceManager;
 
     protected function setUp(): void
@@ -110,12 +111,11 @@ class UrlIntegrationTest extends TestCase
     public function testUrlHelperUnderConsoleParadigmShouldReturnHttpRoutes()
     {
         Console::overrideIsConsole(true);
+        $this->serviceManager->setAllowOverride(true);
+        $this->serviceManager->setService('Request', new ConsoleRequest());
         $this->serviceManager->get('Application')->bootstrap();
         $request = $this->serviceManager->get('Request');
-        /**
-         * Who care what type of request it is? The important thing is that the given path is correct.
-         */
-        $this->assertInstanceOf(RequestInterface::class, $request);
+        $this->assertInstanceOf(ConsoleRequest::class, $request);
         $viewHelpers = $this->serviceManager->get('ViewHelperManager');
         $urlHelper   = $viewHelpers->get('url');
         $test        = $urlHelper('test');
