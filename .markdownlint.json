@@ -16,6 +16,7 @@
     "MD026": {
         "punctuation": ".,;:。，；：！"
     },
+    "MD028": false,
     "MD033": false,
     "problemMatcher": [
         {
