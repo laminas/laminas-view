@@ -66,28 +66,32 @@ class HeadScriptTest extends TestCase
         $this->assertInstanceOf(Helper\HeadScript::class, $placeholder);
     }
 
-    public function testSetPrependAppendAndOffsetSetThrowExceptionsOnInvalidItems()
+    public function testAppendThrowsExceptionWithInvalidArguments(): void
     {
-        try {
-            $this->helper->append('foo');
-            $this->fail('Append should throw exception with invalid item');
-        } catch (View\Exception\ExceptionInterface $e) {
-        }
-        try {
-            $this->helper->offsetSet(1, 'foo');
-            $this->fail('OffsetSet should throw exception with invalid item');
-        } catch (View\Exception\ExceptionInterface $e) {
-        }
-        try {
-            $this->helper->prepend('foo');
-            $this->fail('Prepend should throw exception with invalid item');
-        } catch (View\Exception\ExceptionInterface $e) {
-        }
-        try {
-            $this->helper->set('foo');
-            $this->fail('Set should throw exception with invalid item');
-        } catch (View\Exception\ExceptionInterface $e) {
-        }
+        $this->expectException(View\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid argument passed to append');
+        $this->helper->append('foo');
+    }
+
+    public function testPrependThrowsExceptionWithInvalidArguments(): void
+    {
+        $this->expectException(View\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid argument passed to prepend');
+        $this->helper->prepend('foo');
+    }
+
+    public function testSetThrowsExceptionWithInvalidArguments(): void
+    {
+        $this->expectException(View\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid argument passed to set');
+        $this->helper->set('foo');
+    }
+
+    public function testOffsetSetThrowsExceptionWithInvalidArguments(): void
+    {
+        $this->expectException(View\Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid argument passed to offsetSet');
+        $this->helper->offsetSet(1, 'foo');
     }
 
     // @codingStandardsIgnoreStart
@@ -216,28 +220,25 @@ class HeadScriptTest extends TestCase
         $this->_testOverloadOffsetSet('script');
     }
 
-    public function testOverloadingThrowsExceptionWithInvalidMethod()
+    public function testOverloadingThrowsExceptionWithInvalidMethod(): void
     {
-        try {
-            $this->helper->fooBar('foo');
-            $this->fail('Invalid method should raise exception');
-        } catch (View\Exception\ExceptionInterface $e) {
-        }
+        $this->expectException(View\Exception\BadMethodCallException::class);
+        $this->expectExceptionMessage('Method "fooBar" does not exist');
+        $this->helper->fooBar('foo');
     }
 
-    public function testOverloadingWithTooFewArgumentsRaisesException()
+    public function testSetScriptRequiresAnArgument(): void
     {
-        try {
-            $this->helper->setScript();
-            $this->fail('Too few arguments should raise exception');
-        } catch (View\Exception\ExceptionInterface $e) {
-        }
+        $this->expectException(View\Exception\BadMethodCallException::class);
+        $this->expectExceptionMessage('Method "setScript" requires at least one argument');
+        $this->helper->setScript();
+    }
 
-        try {
-            $this->helper->offsetSetScript(5);
-            $this->fail('Too few arguments should raise exception');
-        } catch (View\Exception\ExceptionInterface $e) {
-        }
+    public function testOffsetSetScriptRequiresTwoArguments(): void
+    {
+        $this->expectException(View\Exception\BadMethodCallException::class);
+        $this->expectExceptionMessage('Method "offsetSetScript" requires at least two arguments, an index and source');
+        $this->helper->offsetSetScript(1);
     }
 
     public function testHeadScriptAppropriatelySetsScriptItems()
@@ -343,16 +344,18 @@ document.write(bar.strlen());');
         $this->assertStringContainsString('bogus="deferred"', $test);
     }
 
-    public function testCanPerformMultipleSerialCaptures()
+    public function testCanPerformMultipleSerialCaptures(): void
     {
         $this->helper->__invoke()->captureStart();
-        echo "this is something captured";
+        echo 'first capture';
         $this->helper->__invoke()->captureEnd();
 
         $this->helper->__invoke()->captureStart();
-
-        echo "this is something else captured";
+        echo 'second capture';
         $this->helper->__invoke()->captureEnd();
+
+        self::assertStringContainsString('first capture', (string) $this->helper);
+        self::assertStringContainsString('second capture', (string) $this->helper);
     }
 
     public function testCannotNestCaptures()
@@ -546,6 +549,6 @@ document.write(bar.strlen());');
 
         $this->helper->__invoke()->appendScript('// some script' . PHP_EOL);
         $test = $this->helper->__invoke()->toString();
-        $this->assertNotRegExp('#type="text/javascript"#i', $test);
+        $this->assertDoesNotMatchRegularExpression('#type="text/javascript"#i', $test);
     }
 }

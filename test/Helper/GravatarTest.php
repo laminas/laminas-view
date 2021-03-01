@@ -11,9 +11,10 @@ namespace LaminasTest\View\Helper;
 use Laminas\View\Exception;
 use Laminas\View\Helper\Gravatar;
 use Laminas\View\Renderer\PhpRenderer as View;
-use PHPUnit\Framework\Error\Deprecated as DeprecatedError;
 use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
+
+use function method_exists;
 
 /**
  * @group      Laminasview
@@ -266,13 +267,14 @@ class GravatarTest extends TestCase
         );
     }
 
-    public function testReturnThisObject()
+    public function testInvokeReturnsSelf(): void
     {
-        $this->assertInstanceOf(Gravatar::class, $this->helper->__invoke());
+        self::assertSame($this->helper, ($this->helper)());
     }
 
-    public function testInvalidKeyPassedToSetOptionsMethod()
+    public function testInvalidKeyWithoutMatchingSetterPassedToSetOptionsMethodIsIgnored(): void
     {
+        self::assertFalse(method_exists($this->helper, 'setUnknown'));
         $options = [
             'unknown' => ['val' => 1]
         ];

@@ -77,28 +77,32 @@ class HeadMetaTest extends TestCase
         $this->assertInstanceOf(Helper\HeadMeta::class, $placeholder);
     }
 
-    public function testAppendPrependAndSetThrowExceptionsWhenNonMetaValueProvided()
+    public function testThatAppendThrowsExceptionWhenNonMetaValueIsProvided(): void
     {
-        try {
-            $this->helper->append('foo');
-            $this->fail('Non-meta value should not append');
-        } catch (ViewException $e) {
-        }
-        try {
-            $this->helper->offsetSet(3, 'foo');
-            $this->fail('Non-meta value should not offsetSet');
-        } catch (ViewException $e) {
-        }
-        try {
-            $this->helper->prepend('foo');
-            $this->fail('Non-meta value should not prepend');
-        } catch (ViewException $e) {
-        }
-        try {
-            $this->helper->set('foo');
-            $this->fail('Non-meta value should not set');
-        } catch (ViewException $e) {
-        }
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid value passed to append');
+        $this->helper->append('foo');
+    }
+
+    public function testThatOffsetSetThrowsExceptionWhenNonMetaValueIsProvided(): void
+    {
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid value passed to offsetSet');
+        $this->helper->offsetSet(3, 'foo');
+    }
+
+    public function testThatPrependThrowsExceptionWhenNonMetaValueIsProvided(): void
+    {
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid value passed to prepend');
+        $this->helper->prepend('foo');
+    }
+
+    public function testThatSetThrowsExceptionWhenNonMetaValueIsProvided(): void
+    {
+        $this->expectException(Exception\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid value passed to set');
+        $this->helper->set('foo');
     }
 
     // @codingStandardsIgnoreStart

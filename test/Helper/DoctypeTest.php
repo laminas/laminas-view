@@ -8,6 +8,7 @@
 
 namespace LaminasTest\View\Helper;
 
+use Laminas\View\Exception\DomainException;
 use Laminas\View\Helper;
 use PHPUnit\Framework\TestCase;
 
@@ -192,13 +193,11 @@ class DoctypeTest extends TestCase
         $this->assertFalse($doctype->isXhtml());
     }
 
-    public function testMalformedCustomDoctypeRaisesException()
+    public function testMalformedCustomDoctypeRaisesException(): void
     {
-        try {
-            $doctype = $this->helper->__invoke('<!FOO HTML>');
-            $this->fail('Malformed doctype should raise exception');
-        } catch (\Exception $e) {
-        }
+        $this->expectException(DomainException::class);
+        $this->expectExceptionMessage('The specified doctype is malformed');
+        $this->helper->__invoke('<!FOO HTML>');
     }
 
     public function testStringificationReturnsDoctypeString()

@@ -8,6 +8,7 @@
 
 namespace LaminasTest\View\Helper\Placeholder;
 
+use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\Placeholder\Container;
 use Laminas\View\Helper\Placeholder\Registry;
 use LaminasTest\View\Helper\TestAsset;
@@ -110,13 +111,11 @@ class RegistryTest extends TestCase
         );
     }
 
-    public function testSetContainerClassThrowsExceptionWithInvalidContainerClass()
+    public function testSetContainerClassThrowsExceptionWithInvalidContainerClass(): void
     {
-        try {
-            $this->registry->setContainerClass(TestAsset\BogusContainer::class);
-            $this->fail('Invalid container classes should not be accepted');
-        } catch (\Exception $e) {
-        }
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid Container class specified');
+        $this->registry->setContainerClass(TestAsset\BogusContainer::class);
     }
 
     public function testDeletingContainerRemovesFromRegistry()
