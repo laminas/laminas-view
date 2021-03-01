@@ -55,7 +55,8 @@
         "phpunit/phpunit": "^9.3"
     },
     "conflict": {
-        "laminas/laminas-servicemanager": "<3.3"
+        "laminas/laminas-servicemanager": "<3.3",
+        "laminas/laminas-router": "<3.0.1"
     },
     "suggest": {
         "laminas/laminas-authentication": "Laminas\\Authentication component",
