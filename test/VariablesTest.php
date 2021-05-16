@@ -8,7 +8,7 @@
 
 namespace LaminasTest\View;
 
-use Laminas\Config\Config;
+use ArrayObject;
 use Laminas\View\Variables;
 use PHPUnit\Framework\TestCase;
 
@@ -63,7 +63,7 @@ class VariablesTest extends TestCase
             'foo' => 'bar',
             'bar' => 'baz',
         ];
-        $config = new Config($vars);
+        $config = new ArrayObject($vars);
         $this->vars->assign($config);
         $this->assertEquals('bar', $this->vars['foo']);
         $this->assertEquals('baz', $this->vars['bar']);
