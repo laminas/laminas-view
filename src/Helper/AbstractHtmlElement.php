@@ -64,39 +64,15 @@ abstract class AbstractHtmlElement extends AbstractHelper
      */
     protected function htmlAttribs($attribs)
     {
-        $xhtml          = '';
-        $escaper        = $this->getView()->plugin('escapehtml');
-        $escapeHtmlAttr = $this->getView()->plugin('escapehtmlattr');
-
         foreach ((array) $attribs as $key => $val) {
-            $key = $escaper($key);
-
-            if (0 === strpos($key, 'on') || ('constraints' == $key)) {
-                // Don't escape event attributes; _do_ substitute double quotes with singles
-                if (! is_scalar($val)) {
-                    // non-scalar data should be cast to JSON first
-                    $val = \Laminas\Json\Json::encode($val);
-                }
-            } else {
-                if (is_array($val)) {
-                    $val = implode(' ', $val);
-                }
-            }
-
-            $val = $escapeHtmlAttr($val);
-
             if ('id' == $key) {
-                $val = $this->normalizeId($val);
-            }
-
-            if (strpos($val, '"') !== false) {
-                $xhtml .= " $key='$val'";
-            } else {
-                $xhtml .= " $key=\"$val\"";
+                $attribs[$key] = $this->normalizeId($val);
             }
         }
 
-        return $xhtml;
+        $attribs = $this->getView()->plugin('htmlAttributes')($attribs);
+
+        return (string) $attribs;
     }
 
     /**
