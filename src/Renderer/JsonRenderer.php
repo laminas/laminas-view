@@ -8,8 +8,8 @@
 
 namespace Laminas\View\Renderer;
 
+use JsonException;
 use JsonSerializable;
-use Laminas\Json\Json;
 use Laminas\Stdlib\ArrayUtils;
 use Laminas\View\Exception;
 use Laminas\View\Model\JsonModel;
@@ -17,6 +17,10 @@ use Laminas\View\Model\ModelInterface as Model;
 use Laminas\View\Renderer\RendererInterface as Renderer;
 use Laminas\View\Resolver\ResolverInterface as Resolver;
 use Traversable;
+
+use function json_encode;
+
+use const JSON_THROW_ON_ERROR;
 
 /**
  * JSON renderer
@@ -65,6 +69,8 @@ class JsonRenderer implements Renderer, TreeRendererInterface
     public function setResolver(Resolver $resolver)
     {
         $this->resolver = $resolver;
+
+        return $this;
     }
 
     /**
@@ -131,28 +137,27 @@ class JsonRenderer implements Renderer, TreeRendererInterface
             if ($nameOrModel instanceof JsonModel) {
                 $children = $this->recurseModel($nameOrModel, false);
                 $this->injectChildren($nameOrModel, $children);
-                $values = $nameOrModel->serialize();
+                $output = $nameOrModel->serialize();
             } else {
-                $values = $this->recurseModel($nameOrModel);
-                $values = Json::encode($values);
+                $output = $this->recurseModel($nameOrModel);
+                $output = $this->jsonEncode($output);
             }
 
             if ($this->hasJsonpCallback()) {
-                $values = $this->jsonpCallback . '(' . $values . ');';
+                $output = $this->jsonpCallback . '(' . $output . ');';
             }
-            return $values;
+            return $output;
         }
 
         // use case 2: $nameOrModel is populated, $values is not
         // Serialize $nameOrModel
         if (null === $values) {
             if (! is_object($nameOrModel) || $nameOrModel instanceof JsonSerializable) {
-                $return = Json::encode($nameOrModel);
+                $return = $this->jsonEncode($nameOrModel);
             } elseif ($nameOrModel instanceof Traversable) {
-                $nameOrModel = ArrayUtils::iteratorToArray($nameOrModel);
-                $return = Json::encode($nameOrModel);
+                $return = $this->jsonEncode(ArrayUtils::iteratorToArray($nameOrModel));
             } else {
-                $return = Json::encode(get_object_vars($nameOrModel));
+                $return = $this->jsonEncode(get_object_vars($nameOrModel));
             }
 
             if ($this->hasJsonpCallback()) {
@@ -237,6 +242,15 @@ class JsonRenderer implements Renderer, TreeRendererInterface
         foreach ($children as $child => $value) {
             // TODO detect collisions and decide whether to append and/or aggregate?
             $model->setVariable($child, $value);
+        }
+    }
+
+    private function jsonEncode($data): string
+    {
+        try {
+            return json_encode($data, JSON_THROW_ON_ERROR);
+        } catch (JsonException $e) {
+            throw new Exception\DomainException('Json encoding failed', $e->getCode(), $e);
         }
     }
 }

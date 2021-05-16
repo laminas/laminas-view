@@ -8,6 +8,8 @@
 
 namespace Laminas\View\Helper;
 
+use function json_encode;
+
 abstract class AbstractHtmlElement extends AbstractHelper
 {
     /**
@@ -75,7 +77,7 @@ abstract class AbstractHtmlElement extends AbstractHelper
                 // Don't escape event attributes; _do_ substitute double quotes with singles
                 if (! is_scalar($val)) {
                     // non-scalar data should be cast to JSON first
-                    $val = \Laminas\Json\Json::encode($val);
+                    $val = json_encode($val, JSON_THROW_ON_ERROR);
                 }
             } else {
                 if (is_array($val)) {

@@ -9,9 +9,12 @@
 namespace LaminasTest\View\Helper;
 
 use Laminas\Http\Response;
-use Laminas\Json\Json as JsonFormatter;
 use Laminas\View\Helper\Json as JsonHelper;
 use PHPUnit\Framework\TestCase;
+
+use function json_encode;
+
+use const JSON_THROW_ON_ERROR;
 
 /**
  * Test class for Laminas\View\Helper\Json
@@ -21,6 +24,11 @@ use PHPUnit\Framework\TestCase;
  */
 class JsonTest extends TestCase
 {
+    /** @var Response */
+    private $response;
+    /** @var JsonHelper */
+    private $helper;
+
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.
@@ -34,7 +42,7 @@ class JsonTest extends TestCase
         $this->helper->setResponse($this->response);
     }
 
-    public function verifyJsonHeader()
+    private function verifyJsonHeader(): void
     {
         $headers = $this->response->getHeaders();
         $this->assertTrue($headers->has('Content-Type'));
@@ -42,16 +50,20 @@ class JsonTest extends TestCase
         $this->assertEquals('application/json', $header->getFieldValue());
     }
 
-    public function testJsonHelperSetsResponseHeader()
+    public function testJsonHelperSetsResponseHeader(): void
     {
-        $json = $this->helper->__invoke('foobar');
+        $this->helper->__invoke('foobar');
         $this->verifyJsonHeader();
     }
 
-    public function testJsonHelperReturnsJsonEncodedString()
+    public function testJsonHelperReturnsJsonEncodedString(): void
     {
-        $data = $this->helper->__invoke('foobar');
-        $this->assertIsString($data);
-        $this->assertEquals('foobar', JsonFormatter::decode($data));
+        $input = [
+            'dory' => 'blue',
+            'nemo' => 'orange',
+        ];
+        $expect = json_encode($input, JSON_THROW_ON_ERROR);
+
+        self::assertJsonStringEqualsJsonString($expect, ($this->helper)($input));
     }
 }
