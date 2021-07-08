@@ -11,6 +11,7 @@ used to retrieve that instance.  `Laminas\View\Renderer\PhpRenderer` composes a
 *plugin manager*, allowing you to retrieve helpers, and also provides some
 method overloading capabilities that allow proxying method calls to helpers.
 
+<!-- markdownlint-disable-next-line header-increment -->
 > ### Callable helpers
 >
 > Starting in version 2.7.0, if your helper does not need access to the view,
@@ -77,7 +78,7 @@ for, and rendering, the various HTML `<head>` tags, such as `HeadTitle`,
 - [Placeholder](placeholder.md)
 - [Url](url.md)
 
-> ### Help document!
+> ### Help us document the helpers
 >
 > Not all helpers are documented! Some that could use documentation include the
 > various escaper helpers, the layout helper, and the `serverUrl` helper. Click

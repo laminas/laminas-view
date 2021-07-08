@@ -20,6 +20,7 @@ script to load; this is usually in the form of a URL or a path. For the
 `*Script()` methods, `$script` is the client-side scripting directives you wish
 to use in the element.
 
+<!-- markdownlint-disable-next-line header-increment -->
 > ### Setting Conditional Comments
 >
 > `HeadScript` allows you to wrap the script tag in conditional comments, which
