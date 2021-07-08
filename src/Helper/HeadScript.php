@@ -11,6 +11,9 @@ namespace Laminas\View\Helper;
 use Laminas\View\Exception;
 use stdClass;
 
+use function in_array;
+use function strtolower;
+
 /**
  * Helper for setting and retrieving script elements for HTML head section
  *
@@ -89,6 +92,19 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
         'src',
         'id',
         'nonce',
+        'nomodule',
+        'referrerpolicy',
+    ];
+
+    /**
+     * Script attributes that behave as booleans
+     *
+     * @var string[]
+     */
+    private $booleanAttributes = [
+        'nomodule',
+        'defer',
+        'async',
     ];
 
     /**
@@ -390,11 +406,8 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
                     || in_array($key, ['conditional', 'noescape'])) {
                     continue;
                 }
-                if ('defer' == $key) {
-                    $value = 'defer';
-                }
-                if ('async' == $key) {
-                    $value = 'async';
+                if (in_array(strtolower($key), $this->booleanAttributes, true)) {
+                    $value = strtolower($key);
                 }
                 $attrString .= sprintf(
                     ' %s="%s"',

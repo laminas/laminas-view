@@ -8,9 +8,12 @@
 
 namespace LaminasTest\View\Helper;
 
+use Generator;
 use Laminas\View;
 use Laminas\View\Helper;
 use PHPUnit\Framework\TestCase;
+
+use function sprintf;
 
 /**
  * Test class for Laminas\View\Helper\HeadScript.
@@ -562,6 +565,31 @@ document.write(bar.strlen());');
 
         self::assertStringContainsString(
             'nonce="random"',
+            (string) ($this->helper)()
+        );
+    }
+
+    /** @return Generator<string, array<int, string> */
+    public function booleanAttributeDataProvider(): Generator
+    {
+        $values = ['async', 'defer', 'nomodule'];
+
+        foreach ($values as $name) {
+            yield $name => [$name];
+        }
+    }
+
+    /** @dataProvider booleanAttributeDataProvider */
+    public function testBooleanAttributesUseTheKeyNameAsTheValue(string $attribute): void
+    {
+        ($this->helper)()->appendScript(
+            '// some js',
+            'text/javascript',
+            [$attribute => 'whatever']
+        );
+
+        self::assertStringContainsString(
+            sprintf('%1$s="%1$s"', $attribute),
             (string) ($this->helper)()
         );
     }
