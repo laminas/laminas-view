@@ -88,6 +88,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
         'language',
         'src',
         'id',
+        'nonce',
     ];
 
     /**

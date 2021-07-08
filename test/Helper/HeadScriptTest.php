@@ -551,4 +551,18 @@ document.write(bar.strlen());');
         $test = $this->helper->__invoke()->toString();
         $this->assertDoesNotMatchRegularExpression('#type="text/javascript"#i', $test);
     }
+
+    public function testSupportsNonceAttribute(): void
+    {
+        ($this->helper)()->appendScript(
+            '// some js',
+            'text/javascript',
+            ['nonce' => 'random']
+        );
+
+        self::assertStringContainsString(
+            'nonce="random"',
+            (string) ($this->helper)()
+        );
+    }
 }
