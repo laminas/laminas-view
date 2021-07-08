@@ -647,6 +647,7 @@ executes prior to the `PhpRendererStrategy`, and thus ensure that a JSON payload
 is created when the controller returns a `JsonModel`.
 
 You could also use the module configuration to add the strategies:
+
 ```php
 namespace Application;
 
@@ -730,6 +731,7 @@ While the above examples detail using the `JsonStrategy`, the same could be done
 for the `FeedStrategy`.
 
 If you successfully registered the Strategy you need to use the appropriate `ViewModel`:
+
 ```php
 namespace Application;
 

@@ -1,1 +1,2 @@
+<!-- markdownlint-disable -->
 ../../README.md

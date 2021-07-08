@@ -1,3 +1,8 @@
+<!-- markdownlint-configure-file {
+    "no-trailing-spaces": false,
+    "code-block-style": false
+} -->
+
 # HtmlTag
 
 The `HtmlTag` helper is used to **create the root of an HTML document**, the

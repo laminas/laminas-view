@@ -14,6 +14,7 @@ More information to the operation and the background of security can be found
 in the
 [documentation of laminas-escaper](https://docs.laminas.dev/laminas-escaper/configuration/).
 
+<!-- markdownlint-disable-next-line header-increment -->
 > ### Installation Requirements
 >
 > The escape helpers depends on the laminas-escaper component, so be sure to have

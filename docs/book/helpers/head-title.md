@@ -1,3 +1,8 @@
+<!-- markdownlint-configure-file {
+    "no-trailing-spaces": false,
+    "code-block-style": false
+} -->
+
 # HeadTitle
 
 The HTML `<title>` element is used to **provide a title for an HTML document**.
