@@ -1,3 +1,7 @@
+<!-- markdownlint-configure-file {
+    "no-inline-html": false
+} -->
+
 # Stand-Alone
 
 The view and all view-helpers of laminas-view can also be used stand-alone.
