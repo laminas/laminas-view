@@ -593,4 +593,24 @@ document.write(bar.strlen());');
             (string) ($this->helper)()
         );
     }
+
+    /** @dataProvider booleanAttributeDataProvider */
+    public function testBooleanAttributesCanBeAppliedToModules(string $attribute): void
+    {
+        ($this->helper)()->appendScript(
+            '// some js',
+            'module',
+            [$attribute => 'whatever']
+        );
+
+        self::assertStringContainsString(
+            sprintf('%1$s="%1$s"', $attribute),
+            (string) ($this->helper)()
+        );
+
+        self::assertStringContainsString(
+            'type="module"',
+            (string) ($this->helper)()
+        );
+    }
 }
