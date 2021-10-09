@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="4.10.0@916b098b008f6de4543892b1e0651c1c3b92cbfa">
+  <file src="src/Helper/FlashMessenger.php">
+    <UndefinedDocblockClass occurrences="7">
+      <code>$flashMessenger</code>
+      <code>$flashMessenger</code>
+      <code>$flashMessenger</code>
+      <code>FlashMessenger|V2PluginFlashMessenger|PluginFlashMessenger</code>
+      <code>V2PluginFlashMessenger|PluginFlashMessenger</code>
+      <code>V2PluginFlashMessenger|PluginFlashMessenger</code>
+      <code>V2PluginFlashMessenger|PluginFlashMessenger</code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="src/Helper/HeadLink.php">
+    <ParamNameMismatch occurrences="1">
+      <code>$index</code>
+    </ParamNameMismatch>
+  </file>
+  <file src="src/Helper/HeadMeta.php">
+    <ParamNameMismatch occurrences="2">
+      <code>$index</code>
+      <code>$index</code>
+    </ParamNameMismatch>
+  </file>
+  <file src="src/Helper/HeadScript.php">
+    <ParamNameMismatch occurrences="1">
+      <code>$index</code>
+    </ParamNameMismatch>
+  </file>
+  <file src="src/Helper/HeadStyle.php">
+    <ParamNameMismatch occurrences="1">
+      <code>$index</code>
+    </ParamNameMismatch>
+  </file>
+  <file src="src/Helper/HtmlList.php">
+    <InvalidParamDefault occurrences="1">
+      <code>array</code>
+    </InvalidParamDefault>
+  </file>
+  <file src="src/Helper/Navigation.php">
+    <InvalidThrow occurrences="2">
+      <code>\Laminas\Navigation\Exception\ExceptionInterface</code>
+      <code>\Laminas\View\Exception\ExceptionInterface</code>
+    </InvalidThrow>
+  </file>
+  <file src="src/Helper/Navigation/AbstractHelper.php">
+    <InvalidThrow occurrences="1">
+      <code>Navigation\Exception\ExceptionInterface</code>
+    </InvalidThrow>
+    <ParamNameMismatch occurrences="1">
+      <code>$events</code>
+    </ParamNameMismatch>
+  </file>
+  <file src="src/Helper/Navigation/HelperInterface.php">
+    <InvalidThrow occurrences="2">
+      <code>\Laminas\View\Exception\ExceptionInterface</code>
+      <code>\Laminas\View\Exception\ExceptionInterface</code>
+    </InvalidThrow>
+  </file>
+  <file src="src/Helper/Navigation/Links.php">
+    <InvalidThrow occurrences="1">
+      <code>Exception\ExceptionInterface</code>
+    </InvalidThrow>
+  </file>
+  <file src="src/Helper/Navigation/PluginManager.php">
+    <UndefinedDocblockClass occurrences="1">
+      <code>null|ConfigInterface|ContainerInterface</code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="src/Helper/Service/FlashMessengerFactory.php">
+    <ParamNameMismatch occurrences="1">
+      <code>$container</code>
+    </ParamNameMismatch>
+  </file>
+  <file src="src/HelperPluginManager.php">
+    <UndefinedDocblockClass occurrences="1">
+      <code>null|ConfigInterface|ContainerInterface</code>
+    </UndefinedDocblockClass>
+  </file>
+  <file src="src/Renderer/ConsoleRenderer.php">
+    <ParamNameMismatch occurrences="1">
+      <code>$model</code>
+    </ParamNameMismatch>
+  </file>
+  <file src="src/View.php">
+    <AssignmentToVoid occurrences="1">
+      <code>$result</code>
+    </AssignmentToVoid>
+    <ParamNameMismatch occurrences="1">
+      <code>$events</code>
+    </ParamNameMismatch>
+  </file>
+  <file src="vendor/laminas/laminas-servicemanager/src/Exception/CyclicAliasException.php">
+    <ParseError occurrences="7">
+      <code>)</code>
+      <code>,</code>
+      <code>,</code>
+      <code>:</code>
+      <code>=&gt;</code>
+      <code>fn</code>
+      <code>fn</code>
+    </ParseError>
+  </file>
+  <file src="vendor/laminas/laminas-servicemanager/src/ServiceManager.php">
+    <ParseError occurrences="2">
+      <code>=&gt;</code>
+      <code>fn</code>
+    </ParseError>
+  </file>
+</files>

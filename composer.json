@@ -48,7 +48,8 @@
         "laminas/laminas-uri": "^2.5",
         "phpspec/prophecy": "^1.12",
         "phpspec/prophecy-phpunit": "^2.0",
-        "phpunit/phpunit": "^9.5.5"
+        "phpunit/phpunit": "^9.5.5",
+        "vimeo/psalm": "^4.10"
     },
     "conflict": {
         "laminas/laminas-servicemanager": "<3.3",
@@ -94,6 +95,7 @@
         ],
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
+        "static-analysis": "psalm --shepherd --stats",
         "test": "phpunit --colors=always",
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
     }
