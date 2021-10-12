@@ -95,12 +95,12 @@ class HtmlAttributesSet extends ArrayObject
         if (! $this->offsetExists($name)) {
             return false;
         }
-        
+
         $storeValue = $this->offsetGet($name);
         if (is_array($storeValue)) {
             return in_array($value, $storeValue);
         }
-        
+
         return $value === $storeValue;
     }
 
