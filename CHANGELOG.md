@@ -2,27 +2,40 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.12.1 - TBD
+## 2.12.1 - 2021-10-12
 
-### Added
 
-- Nothing.
+-----
 
-### Changed
+### Release Notes for [2.12.1](https://github.com/laminas/laminas-view/milestone/6)
 
-- Nothing.
 
-### Deprecated
 
-- Nothing.
+### 2.12.1
 
-### Removed
+- Total issues resolved: **1**
+- Total pull requests resolved: **7**
+- Total contributors: **3**
 
-- Nothing.
+#### Bug,Documentation
 
-### Fixed
+ - [78: Fix Markdown Formatting for CI Round 2](https://github.com/laminas/laminas-view/pull/78) thanks to @gsteel and @Ocramius
 
-- Nothing.
+ - [74: Correctly attach Json Strategy.](https://github.com/laminas/laminas-view/pull/74) thanks to @nafetsrybak
+
+#### Bug
+
+ - [70: Update Composer lock file and fix test failures](https://github.com/laminas/laminas-view/pull/70) thanks to @gsteel
+ - [66: Missing dev dependencies causing tests to fail](https://github.com/laminas/laminas-view/pull/66) thanks to @gsteel
+
+#### Bug,Enhancement
+
+ - [69: Fix CI pipeline according to newer test dependency requirements](https://github.com/laminas/laminas-view/pull/69) thanks to @Ocramius
+
+#### Enhancement
+
+ - [67: Switch to GHA CI Setup](https://github.com/laminas/laminas-view/pull/67) thanks to @gsteel
+ - [64: Fix tests without assertions](https://github.com/laminas/laminas-view/pull/64) thanks to @gsteel
 
 ## 2.12.0 - 2021-01-01
 
