@@ -55,7 +55,7 @@
     "conflict": {
         "laminas/laminas-servicemanager": "<3.3",
         "laminas/laminas-router": "<3.0.1",
-        "zendframework/zend-router": "*"
+        "zendframework/zend-view": "*"
     },
     "suggest": {
         "laminas/laminas-authentication": "Laminas\\Authentication component",
