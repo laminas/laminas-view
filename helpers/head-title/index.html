@@ -532,7 +532,7 @@ explicitly pass a different attach order as the second parameter.</p>
 <pre class="highlight"><code class="language-php">&lt;?= $this-&gt;headTitle() ?&gt;</code></pre>
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&lt;title&gt;My albums&lt;/title&gt;</code></pre>
-<h3>Add the Website Name</h3>
+<h3 id="add-the-website-name">Add the Website Name</h3>
 <p>A typical usage includes the website name in the title. Add the name and <a href="#using-separator">set a
 separator</a> in the layout script, e.g.
 <code>module/Application/view/layout/layout.phtml</code></p>
@@ -545,73 +545,100 @@ separator</a> in the layout script, e.g.
 $this-&gt;headTitle('Music');
 
 echo $this-&gt;headTitle(); // &lt;title&gt;My albumsMusic&lt;/title&gt;</code></pre>
-<h3>Append Content</h3>
+<h3 id="append-content">Append Content</h3>
 <p>To explicitly append content, the second paramater <code>$setType</code> or the concrete
 method <code>append()</code> of the helper can be used:</p>
-<div class="tabbed-set" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Invoke Usage</label><div class="tabbed-content">
-<pre class="highlight"><code class="language-php">$this-&gt;headTitle('My albums')
+<div class="tabbed-set" data-tabs="1:1"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">Invoke Usage</label><div class="tabbed-content"></div>
+</div>
+<!-- markdownlint-disable-next-line code-block-style -->
+<pre class="codehilite"><code>```php
+$this-&gt;headTitle('My albums')
 $this-&gt;headTitle('Music', 'APPEND');
 
-echo $this-&gt;headTitle(); // &lt;title&gt;My albumsMusic&lt;/title&gt;</code></pre>
+echo $this-&gt;headTitle(); // &lt;title&gt;My albumsMusic&lt;/title&gt;
+```
+</code></pre>
+
+<div class="tabbed-set" data-tabs="2:1"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Setter Usage</label><div class="tabbed-content"></div>
 </div>
-<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">Setter Usage</label><div class="tabbed-content">
-<pre class="highlight"><code class="language-php">$this-&gt;headTitle('My albums')
+<!-- markdownlint-disable-next-line code-block-style -->
+<pre class="codehilite"><code>```php
+$this-&gt;headTitle('My albums')
 $this-&gt;headTitle()-&gt;append('Music');
 
-echo $this-&gt;headTitle(); // &lt;title&gt;My albumsMusic&lt;/title&gt;</code></pre>
-</div>
-</div>
+echo $this-&gt;headTitle(); // &lt;title&gt;My albumsMusic&lt;/title&gt;
+```
+</code></pre>
+
 <p>The constant <code>Laminas\View\Helper\Placeholder\Container\AbstractContainer::APPEND</code>
 can also be used as value for the second parameter <code>$setType</code>.</p>
-<h3>Prepend Content</h3>
+<h3 id="prepend-content">Prepend Content</h3>
 <p>To prepend content, the second paramater <code>$setType</code> or the concrete method
 <code>prepend()</code> of the helper can be used:</p>
-<div class="tabbed-set" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">Invoke Usage</label><div class="tabbed-content">
-<pre class="highlight"><code class="language-php">$this-&gt;headTitle('My albums')
+<div class="tabbed-set" data-tabs="3:1"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">Invoke Usage</label><div class="tabbed-content"></div>
+</div>
+<!-- markdownlint-disable-next-line code-block-style -->
+<pre class="codehilite"><code>```php
+$this-&gt;headTitle('My albums')
 $this-&gt;headTitle('Music', 'PREPEND');
 
-echo $this-&gt;headTitle(); // &lt;title&gt;MusicMy albums&lt;/title&gt;</code></pre>
+echo $this-&gt;headTitle(); // &lt;title&gt;MusicMy albums&lt;/title&gt;
+```
+</code></pre>
+
+<div class="tabbed-set" data-tabs="4:1"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><label for="__tabbed_4_1">Setter Usage</label><div class="tabbed-content"></div>
 </div>
-<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">Setter Usage</label><div class="tabbed-content">
-<pre class="highlight"><code class="language-php">$this-&gt;headTitle('My albums')
+<!-- markdownlint-disable-next-line code-block-style -->
+<pre class="codehilite"><code>```php
+$this-&gt;headTitle('My albums')
 $this-&gt;headTitle()-&gt;prepend('Music');
 
-echo $this-&gt;headTitle(); // &lt;title&gt;MusicMy albums&lt;/title&gt;</code></pre>
-</div>
-</div>
+echo $this-&gt;headTitle(); // &lt;title&gt;MusicMy albums&lt;/title&gt;
+```
+</code></pre>
+
 <p>The constant <code>Laminas\View\Helper\Placeholder\Container\AbstractContainer::PREPEND</code>
 can also be used as value for the second parameter <code>$setType</code>.</p>
-<h3>Overwrite existing Content</h3>
+<h3 id="overwrite-existing-content">Overwrite existing Content</h3>
 <p>To overwrite the entire content of title helper, the second parameter <code>$setType</code>
 or the concrete method <code>set()</code> of the helper can be used:</p>
-<div class="tabbed-set" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">Invoke Usage</label><div class="tabbed-content">
-<pre class="highlight"><code class="language-php">$this-&gt;headTitle('My albums')
+<div class="tabbed-set" data-tabs="5:1"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><label for="__tabbed_5_1">Invoke Usage</label><div class="tabbed-content"></div>
+</div>
+<!-- markdownlint-disable-next-line code-block-style -->
+<pre class="codehilite"><code>```php
+$this-&gt;headTitle('My albums')
 $this-&gt;headTitle('Music', 'SET');
 
-echo $this-&gt;headTitle(); // &lt;title&gt;Music&lt;/title&gt;</code></pre>
+echo $this-&gt;headTitle(); // &lt;title&gt;Music&lt;/title&gt;
+```
+</code></pre>
+
+<div class="tabbed-set" data-tabs="6:1"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><label for="__tabbed_6_1">Setter Usage</label><div class="tabbed-content"></div>
 </div>
-<input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><label for="__tabbed_3_2">Setter Usage</label><div class="tabbed-content">
-<pre class="highlight"><code class="language-php">$this-&gt;headTitle('My albums')
+<!-- markdownlint-disable-next-line code-block-style -->
+<pre class="codehilite"><code>```php
+$this-&gt;headTitle('My albums')
 $this-&gt;headTitle()-&gt;set('Music');
 
-echo $this-&gt;headTitle(); // &lt;title&gt;Music&lt;/title&gt;</code></pre>
-</div>
-</div>
+echo $this-&gt;headTitle(); // &lt;title&gt;Music&lt;/title&gt;
+```
+</code></pre>
+
 <p>The constant <code>Laminas\View\Helper\Placeholder\Container\AbstractContainer::SET</code>
 can also be used as value for the second parameter <code>$setType</code>.</p>
-<h3>Set a default Order to add Content</h3>
+<h3 id="set-a-default-order-to-add-content">Set a default Order to add Content</h3>
 <pre class="highlight"><code class="language-php">$this-&gt;headTitle()-&gt;setDefaultAttachOrder('PREPEND');
 $this-&gt;headTitle('My albums');
 $this-&gt;headTitle('Music');
 
 echo $this-&gt;headTitle(); // &lt;title&gt;MusicMy albums&lt;/title&gt;</code></pre>
-<h4>Get Current Value</h4>
+<h4 id="get-current-value">Get Current Value</h4>
 <p>To get the current value of this option, use the <code>getDefaultAttachOrder()</code>
 method.</p>
 <pre class="highlight"><code class="language-php">$this-&gt;headTitle()-&gt;setDefaultAttachOrder('PREPEND');
 
 echo $this-&gt;headTitle()-&gt;getDefaultAttachOrder(); // PREPEND</code></pre>
-<h4>Default Value</h4>
+<h4 id="default-value">Default Value</h4>
 <p>The default value is
 <code>Laminas\View\Helper\Placeholder\Container\AbstractContainer::APPEND</code> which
 corresponds to the value <code>APPEND</code>.</p>
@@ -621,13 +648,13 @@ $this-&gt;headTitle('My albums');
 $this-&gt;headTitle('Music');
 
 echo $this-&gt;headTitle(); // &lt;title&gt;My albums | Music&lt;/title&gt;</code></pre>
-<h3>Get Current Value</h3>
+<h3 id="get-current-value_1">Get Current Value</h3>
 <p>To get the current value of this option, use the <code>getSeparator()</code>
 method.</p>
 <pre class="highlight"><code class="language-php">$this-&gt;headTitle()-&gt;setSeparator(' | ');
 
 echo $this-&gt;headTitle()-&gt;getSeparator(); //  |</code></pre>
-<h3>Default Value</h3>
+<h3 id="default-value_1">Default Value</h3>
 <p>The default value is an empty <code>string</code> that means no extra content is added
 between the titles on rendering.</p>
 <h2 id="add-prefix-and-postfix">Add Prefix and Postfix</h2>
@@ -669,16 +696,6 @@ echo $this-&gt;headTitle(); // &lt;title&gt;Music: My albums 𝄞&lt;/title&gt;<
 </nav>
 
 
-
-
-    <div class="help-wanted">
-        <p>
-            Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/laminas/laminas-view/edit/master/docs/book/helpers/head-title.md" target="_blank" class="help-wanted__link">
-                Edit this page on GitHub!
-            </a>
-        </p>
-    </div>
 
                 
             </div>
@@ -969,6 +986,7 @@ echo $this-&gt;headTitle(); // &lt;title&gt;Music: My albums 𝄞&lt;/title&gt;<
         </ul>
     </div>
 
+                    
                 
             </div>
         </div>

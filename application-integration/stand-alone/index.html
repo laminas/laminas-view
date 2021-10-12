@@ -506,8 +506,8 @@
 `-- templates/
     |-- index.phtml
     `-- layout.phtml</code></pre>
-<h3>Basic Example</h3>
-<h4>Setup</h4>
+<h3 id="basic-example">Basic Example</h3>
+<h4 id="setup">Setup</h4>
 <p><a href="../../php-renderer/#usage">Create a renderer, set a resolver for templates</a>
 and initialize the view in <code>public/index.php</code>:</p>
 <pre class="highlight"><code class="language-php">// Create template resolver
@@ -527,7 +527,7 @@ $view-&gt;getEventManager()-&gt;attach(
         return $renderer;
     }
 );</code></pre>
-<h4>Create View Script</h4>
+<h4 id="create-view-script">Create View Script</h4>
 <p><a href="../../view-scripts/">Create a view script</a> in <code>templates/index.phtml</code>:</p>
 <pre class="highlight"><code class="language-php">&lt;?php
 /**
@@ -536,7 +536,7 @@ $view-&gt;getEventManager()-&gt;attach(
  */
 ?&gt;
 &lt;h1&gt;&lt;?= $headline ?&gt;&lt;/h1&gt;</code></pre>
-<h4>Create View Model and render Output</h4>
+<h4 id="create-view-model-and-render-output">Create View Model and render Output</h4>
 <p>Extend the script in <code>public/index.php</code> to add a <a href="../../quick-start/">view model</a>:</p>
 <pre class="highlight"><code class="language-php">$viewModel = new Laminas\View\Model\ViewModel(['headline' =&gt; 'Example']);
 $viewModel-&gt;setTemplate('index');
@@ -545,6 +545,7 @@ $viewModel-&gt;setTemplate('index');
 $viewModel-&gt;setOption('has_parent', true);
 
 echo $view-&gt;render($viewModel); // &lt;h1&gt;Example&lt;/h1&gt;</code></pre>
+<!-- markdownlint-disable-next-line no-inline-html -->
 <details><summary>Show full code example</summary>
 
 <pre class="highlight"><code class="language-php">&lt;?php
@@ -579,10 +580,11 @@ $viewModel-&gt;setOption('has_parent', true);
 // Render
 echo $view-&gt;render($viewModel);</code></pre>
 
+<!-- markdownlint-disable-next-line no-inline-html -->
 </details>
 
-<h3>Example with Layout</h3>
-<h4>Add Layout Script</h4>
+<h3 id="example-with-layout">Example with Layout</h3>
+<h4 id="add-layout-script">Add Layout Script</h4>
 <p>Create a new file <code>templates/layout.phtml</code> and add the following content:</p>
 <pre class="highlight"><code class="language-php">&lt;?php
 /**
@@ -593,7 +595,7 @@ echo $view-&gt;render($viewModel);</code></pre>
 &lt;body&gt;
 &lt;?= $content ?&gt;
 &lt;/body&gt;</code></pre>
-<h4>Create Layout Model and render Output</h4>
+<h4 id="create-layout-model-and-render-output">Create Layout Model and render Output</h4>
 <p>Update the script in <code>public/index.php</code> to add a view model for layout:</p>
 <pre class="highlight"><code class="language-php">// Create layout model
 $layout = new Laminas\View\Model\ViewModel();
@@ -607,6 +609,7 @@ $layout-&gt;addChild($viewModel);
 
 // Render
 echo $view-&gt;render($layout);</code></pre>
+<!-- markdownlint-disable-next-line no-inline-html -->
 <details><summary>Show full code example</summary>
 
 <pre class="highlight"><code class="language-php">&lt;?php
@@ -648,13 +651,14 @@ $layout-&gt;addChild($viewModel);
 // Render
 echo $view-&gt;render($layout);</code></pre>
 
+<!-- markdownlint-disable-next-line no-inline-html -->
 </details>
 
 <h2 id="view-helpers">View Helpers</h2>
-<h3>Setup</h3>
+<h3 id="setup_1">Setup</h3>
 <p>Create the renderer:</p>
 <pre class="highlight"><code class="language-php">$renderer = new Laminas\View\Renderer\PhpRenderer();</code></pre>
-<h3>Using Helper</h3>
+<h3 id="using-helper">Using Helper</h3>
 <pre class="highlight"><code class="language-php">echo $renderer-&gt;doctype(Laminas\View\Helper\Doctype::HTML5); // &lt;!DOCTYPE html&gt;</code></pre>
 
 
@@ -684,16 +688,6 @@ echo $view-&gt;render($layout);</code></pre>
 </nav>
 
 
-
-
-    <div class="help-wanted">
-        <p>
-            Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/laminas/laminas-view/edit/master/docs/book/application-integration/stand-alone.md" target="_blank" class="help-wanted__link">
-                Edit this page on GitHub!
-            </a>
-        </p>
-    </div>
 
                 
             </div>
@@ -984,6 +978,7 @@ echo $view-&gt;render($layout);</code></pre>
         </ul>
     </div>
 
+                    
                 
             </div>
         </div>

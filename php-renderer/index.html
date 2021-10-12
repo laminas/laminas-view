@@ -694,7 +694,7 @@ could look like this:</p>
 
 &lt;?php endif;?&gt;</code></pre>
 <blockquote>
-<h3>Escape Output</h3>
+<h3 id="escape-output">Escape Output</h3>
 <p>The security mantra is "Filter input, escape output." If you are unsure of the
 source of a given variable &mdash; which is likely most of the time &mdash;
 you should escape it based on which HTML context it is being injected into.
@@ -719,20 +719,20 @@ and/or create view models, create view scripts, and render view scripts.</p>
 <p><code>Laminas\View\Renderer\PhpRenderer</code> utilizes several collaborators in order to do
 its work. Use the following methods to configure the renderer.</p>
 <p>Unless otherwise noted, class names are relative to the <code>Laminas\View</code> namespace.</p>
-<h3>setHelperPluginManager</h3>
+<h3 id="sethelperpluginmanager">setHelperPluginManager</h3>
 <pre class="highlight"><code class="language-php">setHelperPluginManager(string|HelperPluginManager $helpers): void</code></pre>
 <p>Set the helper plugin manager instance used to load, register, and retrieve
 <a href="../helpers/intro/">helpers</a>.</p>
-<h3>setResolver</h3>
+<h3 id="setresolver">setResolver</h3>
 <pre class="highlight"><code class="language-php">setResolver(Resolver\\ResolverInterface $resolver) : void</code></pre>
 <p>Set the resolver instance.</p>
-<h3>setFilterChain</h3>
+<h3 id="setfilterchain">setFilterChain</h3>
 <pre class="highlight"><code class="language-php">setFilterChain(\Laminas\Filter\FilterChain $filters) : void</code></pre>
 <p>Set a filter chain to use as an output filter on rendered content.</p>
-<h3>setVars</h3>
+<h3 id="setvars">setVars</h3>
 <pre class="highlight"><code class="language-php">setVars(array|\ArrayAccess|Variables $variables) : void</code></pre>
 <p>Set the variables to use when rendering a view script/template.</p>
-<h3>setCanRenderTrees</h3>
+<h3 id="setcanrendertrees">setCanRenderTrees</h3>
 <pre class="highlight"><code class="language-php">setCanRenderTrees(boolean $canRenderTrees) : void</code></pre>
 <p>Set the flag indicating whether or not we should render trees of view models. If
 set to true, the <code>Laminas\View\View</code> instance will not attempt to render children
@@ -745,7 +745,7 @@ script. This is typically done using the <code>RenderChildModel</code> helper:
 within your view scripts or when interacting with the <code>PhpRenderer</code>. However,
 there are a few additional methods you may be interested in.</p>
 <p>Unless otherwise noted, class names are relative to the <code>Laminas\View</code> namespace.</p>
-<h3>render</h3>
+<h3 id="render">render</h3>
 <pre class="highlight"><code class="language-php">render(
     string|Model\ModelInterface $nameOrModel,
     array|\Traversable $values = null
@@ -763,20 +763,20 @@ retrieved from it and used.  Additionally, if the model contains any variables,
 these will be used when rendering; otherwise, the variables container already
 present, if any, will be used.</p>
 <p>The method returns the script output.</p>
-<h3>resolver</h3>
+<h3 id="resolver">resolver</h3>
 <pre class="highlight"><code class="language-php">resolver() : Resolver\ResolverInterface</code></pre>
 <p>Retrieves the current <code>Resolver</code> instance.</p>
-<h3>vars</h3>
+<h3 id="vars">vars</h3>
 <pre class="highlight"><code class="language-php">vars(string $key = null) : mixed</code></pre>
 <p>Retrieve a single variable from the container if a key is provided; otherwise it
 will return the variables container.</p>
-<h3>plugin</h3>
+<h3 id="plugin">plugin</h3>
 <pre class="highlight"><code class="language-php">plugin(string $name, array $options = null) : Helper\HelperInterface</code></pre>
 <p>Retrieve a plugin/helper instance. Proxies to the plugin manager's <code>get()</code>
 method; as such, any <code>$options</code> you pass will be passed to the plugin's
 constructor if this is the first time the plugin has been retrieved. See the
 section on <a href="../helpers/intro/">helpers</a> for more information.</p>
-<h3>addTemplate</h3>
+<h3 id="addtemplate">addTemplate</h3>
 <pre class="highlight"><code class="language-php">addTemplate(string $template) : void</code></pre>
 <p>Add a template to the stack. When used, the next call to <code>render()</code> will loop
 through all templates added using this method, rendering them one by one; the
@@ -809,16 +809,6 @@ output of the last will be returned.</p>
 </nav>
 
 
-
-
-    <div class="help-wanted">
-        <p>
-            Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/laminas/laminas-view/edit/master/docs/book/php-renderer.md" target="_blank" class="help-wanted__link">
-                Edit this page on GitHub!
-            </a>
-        </p>
-    </div>
 
                 
             </div>
@@ -1109,6 +1099,7 @@ output of the last will be returned.</p>
         </ul>
     </div>
 
+                    
                 
             </div>
         </div>

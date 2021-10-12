@@ -499,8 +499,9 @@
     <h1 id="headstyle">HeadStyle</h1>
 <p>The HTML <code>&lt;style&gt;</code> element is used to include CSS stylesheets inline in the HTML
 <code>&lt;head&gt;</code> element.</p>
+<!-- markdownlint-disable-next-line header-increment -->
 <blockquote>
-<h3>Use HeadLink to link CSS files</h3>
+<h3 id="use-headlink-to-link-css-files">Use HeadLink to link CSS files</h3>
 <p><a href="../head-link/">HeadLink</a> should be used to create <code>&lt;link&gt;</code> elements for
 including external stylesheets. <code>HeadStyle</code> is used when you wish to define
 your stylesheets inline.</p>
@@ -517,7 +518,7 @@ declarations:</p>
 additional attributes you wish to provide to the <code>style</code> tag: lang, title,
 media, or dir are all permissible.</p>
 <blockquote>
-<h3>Setting Conditional Comments</h3>
+<h3 id="setting-conditional-comments">Setting Conditional Comments</h3>
 <p><code>HeadStyle</code> allows you to wrap the style tag in conditional comments, which
 allows you to hide it from specific browsers. To add the conditional tags,
 pass the conditional value as part of the <code>$attributes</code> parameter in the
@@ -540,7 +541,7 @@ stack, and optionally modify these items by modifying the object returned.</p>
 <p>The <code>HeadStyle</code> helper is a concrete implementation of the
 <a href="../placeholder/">Placeholder helper</a>.</p>
 <blockquote>
-<h3>UTF-8 encoding used by default</h3>
+<h3 id="utf-8-encoding-used-by-default">UTF-8 encoding used by default</h3>
 <p>By default, laminas-view uses <em>UTF-8</em> as its default encoding.  If you want to
 use another encoding with <code>headStyle</code>, you must:</p>
 <ol>
@@ -714,16 +715,6 @@ body {
 </nav>
 
 
-
-
-    <div class="help-wanted">
-        <p>
-            Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/laminas/laminas-view/edit/master/docs/book/helpers/head-style.md" target="_blank" class="help-wanted__link">
-                Edit this page on GitHub!
-            </a>
-        </p>
-    </div>
 
                 
             </div>
@@ -1014,6 +1005,7 @@ body {
         </ul>
     </div>
 
+                    
                 
             </div>
         </div>

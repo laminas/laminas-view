@@ -515,8 +515,9 @@ code. The <code>HeadScript</code> helper allows you to manage both.</p>
 script to load; this is usually in the form of a URL or a path. For the
 <code>*Script()</code> methods, <code>$script</code> is the client-side scripting directives you wish
 to use in the element.</p>
+<!-- markdownlint-disable-next-line header-increment -->
 <blockquote>
-<h3>Setting Conditional Comments</h3>
+<h3 id="setting-conditional-comments">Setting Conditional Comments</h3>
 <p><code>HeadScript</code> allows you to wrap the script tag in conditional comments, which
 allows you to hide it from specific browsers. To add the conditional tags,
 pass the conditional value as part of the <code>$attrs</code> parameter in the method
@@ -527,7 +528,7 @@ $this-&gt;headScript()-&gt;appendFile(
     'text/javascript',
     ['conditional' =&gt; 'lt IE 7']
 );</code></pre>
-<h3>Preventing HTML style comments or CDATA wrapping of scripts</h3>
+<h3 id="preventing-html-style-comments-or-cdata-wrapping-of-scripts">Preventing HTML style comments or CDATA wrapping of scripts</h3>
 <p>By default, <code>HeadScript</code> will wrap scripts with HTML comments or it wraps
 scripts with XHTML CDATA.  This behavior can be problematic when you intend to
 use the script tag in an alternative way by setting the type to something
@@ -560,12 +561,12 @@ stack, and optionally modify these items by modifying the object returned.</p>
 <p>The <code>HeadScript</code> helper is a concrete implementation of the
 <a href="../placeholder/">Placeholder helper</a>.</p>
 <blockquote>
-<h3>Use InlineScript for HTML Body Scripts</h3>
+<h3 id="use-inlinescript-for-html-body-scripts">Use InlineScript for HTML Body Scripts</h3>
 <p><code>HeadScript</code>'s sibling helper, <a href="../inline-script/">InlineScript</a>, should be
 used when you wish to include scripts inline in the HTML <strong>body</strong>. Placing
 scripts at the end of your document is a good practice for speeding up
 delivery of your page, particularly when using 3rd party analytics scripts.</p>
-<h3>Arbitrary Attributes are Disabled by Default</h3>
+<h3 id="arbitrary-attributes-are-disabled-by-default">Arbitrary Attributes are Disabled by Default</h3>
 <p>By default, <code>HeadScript</code> only will render <code>&lt;script&gt;</code> attributes that are blessed by the W3C.
 These include <code>id</code>, <code>charset</code>, <code>crossorigin</code>, <code>defer</code>, <code>integrity</code>,
 <code>language</code>, <code>src</code>, and <code>type</code>. However, some JavaScript frameworks, notably
@@ -645,16 +646,6 @@ $('foo_form').action = action;
 </nav>
 
 
-
-
-    <div class="help-wanted">
-        <p>
-            Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/laminas/laminas-view/edit/master/docs/book/helpers/head-script.md" target="_blank" class="help-wanted__link">
-                Edit this page on GitHub!
-            </a>
-        </p>
-    </div>
 
                 
             </div>
@@ -945,6 +936,7 @@ $('foo_form').action = action;
         </ul>
     </div>
 
+                    
                 
             </div>
         </div>

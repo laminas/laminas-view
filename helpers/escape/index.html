@@ -534,8 +534,9 @@ laminas-view provides the following helpers:</p>
 <p>More information to the operation and the background of security can be found
 in the
 <a href="https://docs.laminas.dev/laminas-escaper/configuration/">documentation of laminas-escaper</a>.</p>
+<!-- markdownlint-disable-next-line header-increment -->
 <blockquote>
-<h3>Installation Requirements</h3>
+<h3 id="installation-requirements">Installation Requirements</h3>
 <p>The escape helpers depends on the laminas-escaper component, so be sure to have
 it installed before getting started:</p>
 <pre class="highlight"><code class="language-bash">$ composer require laminas/laminas-escaper</code></pre>
@@ -582,17 +583,17 @@ JS;
 <pre class="highlight"><code class="language-php">$this-&gt;escapeHtml()-&gt;setEncoding('iso-8859-15');</code></pre>
 <p>All allowed encodings can be found in the
 <a href="https://docs.laminas.dev/laminas-escaper/configuration/">documentation of laminas-escaper</a>.</p>
-<h3>Get Current Value</h3>
+<h3 id="get-current-value">Get Current Value</h3>
 <p>To get the current value of this option, use the <code>getEncoding()</code> method.</p>
 <pre class="highlight"><code class="language-php">$this-&gt;escapeHtml()-&gt;setEncoding('iso-8859-15');
 
 echo $this-&gt;escapeHtml()-&gt;getEncoding(); // iso-8859-15</code></pre>
-<h3>Default Value</h3>
+<h3 id="default-value">Default Value</h3>
 <p>The default value for all escape helpers is <code>utf-8</code>.</p>
 <h2 id="using-recursion">Using Recursion</h2>
 <p>All escape helpers can use recursion for the given values during the escape
 operation. This allows the escaping of the datatypes <code>array</code> and <code>object</code>.</p>
-<h3>Escape an Array</h3>
+<h3 id="escape-an-array">Escape an Array</h3>
 <p>To escape an <code>array</code>, the second parameter <code>$recurse</code> must be use the constant
 <code>RECURSE_ARRAY</code> of an escape helper:</p>
 <pre class="highlight"><code class="language-php">$html = [
@@ -613,7 +614,7 @@ var_dump($this-&gt;escapeHtml($html, Laminas\View\Helper\EscapeHtml::RECURSE_ARR
     string(22) "&amp;lt;p&amp;gt;Bar&amp;lt;/p&amp;gt;"
   }
 }</code></pre>
-<h3>Escape an Object</h3>
+<h3 id="escape-an-object">Escape an Object</h3>
 <p>An escape helper can use the <code>__toString()</code> method of an object. No additional
 parameter is needed:</p>
 <pre class="highlight"><code class="language-php">$object = new class {
@@ -658,14 +659,14 @@ helpers:</p>
 <pre class="highlight"><code class="language-php">$escaper = new Laminas\Escaper\Escaper('utf-8');
 
 $this-&gt;escapeHtml()-&gt;setEscaper($escaper);</code></pre>
-<h3>Get Current Value</h3>
+<h3 id="get-current-value_1">Get Current Value</h3>
 <p>To get the current value, use the <code>getEscaper()</code> method.</p>
 <pre class="highlight"><code class="language-php">&lt;?php
 $escaper = new Laminas\Escaper\Escaper('utf-8');
 $this-&gt;escapeHtml()-&gt;setEscaper($escaper);
 
 var_dump($this-&gt;escapeHtml()-&gt;getEscaper()); // instance of Laminas\Escaper\Escaper</code></pre>
-<h3>Default Value</h3>
+<h3 id="default-value_1">Default Value</h3>
 <p>The default value is an instance of <code>Laminas\Escaper\Escaper</code>, created by the
 helper.</p>
 
@@ -696,16 +697,6 @@ helper.</p>
 </nav>
 
 
-
-
-    <div class="help-wanted">
-        <p>
-            Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/laminas/laminas-view/edit/master/docs/book/helpers/escape.md" target="_blank" class="help-wanted__link">
-                Edit this page on GitHub!
-            </a>
-        </p>
-    </div>
 
                 
             </div>
@@ -996,6 +987,7 @@ helper.</p>
         </ul>
     </div>
 
+                    
                 
             </div>
         </div>

@@ -599,7 +599,7 @@ interface HelperInterface
 <p>As previously noted, we recommend extending <code>Laminas\View\Helper\AbstractHelper</code>, as it implements the
 methods defined in <code>HelperInterface</code>, giving you a headstart in your development.</p>
 <blockquote>
-<h3>Invokable helpers</h3>
+<h3 id="invokable-helpers">Invokable helpers</h3>
 <p>Starting with version 2.7.0, helpers no longer need to be instances of
 <code>HelperInterface</code>, but can be <em>any</em> PHP callable. We recommend writing helpers
 as invokable classes (classes implementing <code>__invoke()</code>.</p>
@@ -657,7 +657,7 @@ class SpecialPurpose extends AbstractHelper
     }
 }</code></pre>
 <blockquote>
-<h3>Accessing the view or other helpers in callables</h3>
+<h3 id="accessing-the-view-or-other-helpers-in-callables">Accessing the view or other helpers in callables</h3>
 <p>As noted earlier, starting in version 2.7.0, you may use any PHP callable as a
 helper. If you do, however, how can you access the renderer or other plugins?</p>
 <p>The answer is: dependency injection.</p>
@@ -747,16 +747,6 @@ passes, the helper/plugin will be registered.</p>
 </nav>
 
 
-
-
-    <div class="help-wanted">
-        <p>
-            Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/laminas/laminas-view/edit/master/docs/book/helpers/advanced-usage.md" target="_blank" class="help-wanted__link">
-                Edit this page on GitHub!
-            </a>
-        </p>
-    </div>
 
                 
             </div>
@@ -1047,6 +1037,7 @@ passes, the helper/plugin will be registered.</p>
         </ul>
     </div>
 
+                    
                 
             </div>
         </div>

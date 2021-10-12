@@ -502,8 +502,9 @@ variable scope. The primary use is for reusable template fragments with which
 you do not need to worry about variable name clashes.</p>
 <p>A sibling to the <code>Partial</code>, the <code>PartialLoop</code> view helper allows you to pass
 iterable data, and render a partial for each item.</p>
+<!-- markdownlint-disable-next-line header-increment -->
 <blockquote>
-<h3>PartialLoop Counter</h3>
+<h3 id="partialloop-counter">PartialLoop Counter</h3>
 <p>The <code>PartialLoop</code> view helper gives access to the current position of the
 array within the view script via <code>$this-&gt;partialLoop()-&gt;getPartialCounter()</code>.
 This provides a way to have alternating colors on table rows, for example.</p>
@@ -527,7 +528,7 @@ Consider the following partial script:</p>
     &lt;li&gt;Subject: view partials&lt;/li&gt;
 &lt;/ul&gt;</code></pre>
 <blockquote>
-<h3>What is a model?</h3>
+<h3 id="what-is-a-model">What is a model?</h3>
 <p>A model used with the <code>Partial</code> view helper can be one of the following:</p>
 <ul>
 <li><strong><code>array</code></strong>: If an array is passed, it should be associative, as its key/value
@@ -619,16 +620,6 @@ in the iterator may be any model the <code>Partial</code> view helper allows.</p
 </nav>
 
 
-
-
-    <div class="help-wanted">
-        <p>
-            Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/laminas/laminas-view/edit/master/docs/book/helpers/partial.md" target="_blank" class="help-wanted__link">
-                Edit this page on GitHub!
-            </a>
-        </p>
-    </div>
 
                 
             </div>
@@ -919,6 +910,7 @@ in the iterator may be any model the <code>Partial</code> view helper allows.</p
         </ul>
     </div>
 
+                    
                 
             </div>
         </div>

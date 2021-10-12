@@ -1048,7 +1048,7 @@ class Module
 <p>The above will register the <code>JsonStrategy</code> with the "render" event, such that it
 executes prior to the <code>PhpRendererStrategy</code>, and thus ensure that a JSON payload
 is created when the controller returns a <code>JsonModel</code>.</p>
-<p>You could also use the module configuration to add the strategies:
+<p>You could also use the module configuration to add the strategies:</p>
 <pre class="highlight"><code class="language-php">namespace Application;
 
 use Laminas\ModuleManager\Feature\ConfigProviderInterface;
@@ -1072,7 +1072,7 @@ class Module implements ConfigProviderInterface
             ],
         ];
     }
-}</code></pre></p>
+}</code></pre>
 <p>What if you want this to happen only in specific modules, or specific
 controllers? One way is similar to the last example in the
 <a href="#dealing-with-layouts">previous section on layouts</a>, where we detailed changing
@@ -1118,12 +1118,12 @@ class Module
         $jsonStrategy = $locator-&gt;get('ViewJsonStrategy');
 
         // Attach strategy, which is a listener aggregate, at high priority
-        $view-&gt;getEventManager()-&gt;attach($jsonStrategy, 100);
+        $jsonStrategy-&gt;attach($view-&gt;getEventManager(), 100);
     }
 }</code></pre>
 <p>While the above examples detail using the <code>JsonStrategy</code>, the same could be done
 for the <code>FeedStrategy</code>.</p>
-<p>If you successfully registered the Strategy you need to use the appropriate <code>ViewModel</code>:
+<p>If you successfully registered the Strategy you need to use the appropriate <code>ViewModel</code>:</p>
 <pre class="highlight"><code class="language-php">namespace Application;
 
 use Laminas\Mvc\Controller\AbstractActionController;
@@ -1165,7 +1165,7 @@ class MyController extends AbstractActionController
         $viewModel-&gt;setVariable('items', $items);
         return $viewModel;
     }
-}</code></pre></p>
+}</code></pre>
 <p>Or you could switch the <code>ViewModel</code> dynamically based on the "Accept" HTTP Header with the
 <a href="https://docs.laminas.dev/laminas-mvc/plugins/#acceptableviewmodelselector-plugin">Laminas-Mvc-Plugin AcceptableViewModelSelector</a>.</p>
 
@@ -1196,16 +1196,6 @@ class MyController extends AbstractActionController
 </nav>
 
 
-
-
-    <div class="help-wanted">
-        <p>
-            Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/laminas/laminas-view/edit/master/docs/book/quick-start.md" target="_blank" class="help-wanted__link">
-                Edit this page on GitHub!
-            </a>
-        </p>
-    </div>
 
                 
             </div>
@@ -1496,6 +1486,7 @@ class MyController extends AbstractActionController
         </ul>
     </div>
 
+                    
                 
             </div>
         </div>

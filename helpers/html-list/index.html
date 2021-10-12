@@ -499,7 +499,7 @@ array, a nested list will be built. If the <code>$escape</code> flag is <code>tr
 individual items will be escaped using the view objects registered escaping
 mechanisms; pass a <code>false</code> value if you want to allow markup in your lists.</p>
 <h2 id="basic-usage">Basic Usage</h2>
-<h3>Unordered list</h3>
+<h3 id="unordered-list">Unordered list</h3>
 <pre class="highlight"><code class="language-php">$items = [
     'Level one, number one',
     [
@@ -529,7 +529,7 @@ echo $this-&gt;htmlList($items);</code></pre>
     &lt;/li&gt;
     &lt;li&gt;Level one, number two&lt;/li&gt;
 &lt;/ul&gt;</code></pre>
-<h3>Ordered list</h3>
+<h3 id="ordered-list">Ordered list</h3>
 <pre class="highlight"><code class="language-php">echo $this-&gt;htmlList($items, true);</code></pre>
 <p>Output:</p>
 <pre class="highlight"><code class="language-html">&lt;ol&gt;
@@ -546,7 +546,7 @@ echo $this-&gt;htmlList($items);</code></pre>
     &lt;/li&gt;
     &lt;li&gt;Level one, number two&lt;/li&gt;
 &lt;/ol&gt;</code></pre>
-<h3>HTML attributes</h3>
+<h3 id="html-attributes">HTML attributes</h3>
 <pre class="highlight"><code class="language-php">$attribs = ['class' =&gt; 'foo'];
 
 echo $this-&gt;htmlList($items, false, $attribs);</code></pre>
@@ -565,7 +565,7 @@ echo $this-&gt;htmlList($items, false, $attribs);</code></pre>
     &lt;/li&gt;
     &lt;li&gt;Level one, number two&lt;/li&gt;
 &lt;/ul&gt;</code></pre>
-<h3>Escape Output</h3>
+<h3 id="escape-output">Escape Output</h3>
 <pre class="highlight"><code class="language-php">$items = [
     'Level one, number &lt;strong&gt;one&lt;/strong&gt;',
     'Level one, number &lt;em&gt;two&lt;/em&gt;',
@@ -616,16 +616,6 @@ echo $this-&gt;htmlList($items, false, false, false);</code></pre>
 </nav>
 
 
-
-
-    <div class="help-wanted">
-        <p>
-            Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/laminas/laminas-view/edit/master/docs/book/helpers/html-list.md" target="_blank" class="help-wanted__link">
-                Edit this page on GitHub!
-            </a>
-        </p>
-    </div>
 
                 
             </div>
@@ -916,6 +906,7 @@ echo $this-&gt;htmlList($items, false, false, false);</code></pre>
         </ul>
     </div>
 
+                    
                 
             </div>
         </div>
