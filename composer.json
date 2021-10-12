@@ -80,6 +80,7 @@
     },
     "autoload-dev": {
         "files": [
+            "polyfill/autoload.php",
             "test/autoload.php"
         ],
         "psr-4": {

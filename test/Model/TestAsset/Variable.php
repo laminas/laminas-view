@@ -9,25 +9,31 @@
 namespace LaminasTest\View\Model\TestAsset;
 
 use Iterator;
+use ReturnTypeWillChange;
 
 class Variable implements Iterator
 {
+    #[ReturnTypeWillChange]
     public function current()
     {
     }
 
+    #[ReturnTypeWillChange]
     public function key()
     {
     }
 
+    #[ReturnTypeWillChange]
     public function next()
     {
     }
 
+    #[ReturnTypeWillChange]
     public function rewind()
     {
     }
 
+    #[ReturnTypeWillChange]
     public function valid()
     {
     }
