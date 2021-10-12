@@ -8,9 +8,12 @@
 
 namespace LaminasTest\View\Helper;
 
+use Generator;
 use Laminas\View;
 use Laminas\View\Helper;
 use PHPUnit\Framework\TestCase;
+
+use function sprintf;
 
 /**
  * Test class for Laminas\View\Helper\HeadScript.
@@ -550,5 +553,64 @@ document.write(bar.strlen());');
         $this->helper->__invoke()->appendScript('// some script' . PHP_EOL);
         $test = $this->helper->__invoke()->toString();
         $this->assertDoesNotMatchRegularExpression('#type="text/javascript"#i', $test);
+    }
+
+    public function testSupportsNonceAttribute(): void
+    {
+        ($this->helper)()->appendScript(
+            '// some js',
+            'text/javascript',
+            ['nonce' => 'random']
+        );
+
+        self::assertStringContainsString(
+            'nonce="random"',
+            (string) ($this->helper)()
+        );
+    }
+
+    /** @return Generator<string, array<int, string> */
+    public function booleanAttributeDataProvider(): Generator
+    {
+        $values = ['async', 'defer', 'nomodule'];
+
+        foreach ($values as $name) {
+            yield $name => [$name];
+        }
+    }
+
+    /** @dataProvider booleanAttributeDataProvider */
+    public function testBooleanAttributesUseTheKeyNameAsTheValue(string $attribute): void
+    {
+        ($this->helper)()->appendScript(
+            '// some js',
+            'text/javascript',
+            [$attribute => 'whatever']
+        );
+
+        self::assertStringContainsString(
+            sprintf('%1$s="%1$s"', $attribute),
+            (string) ($this->helper)()
+        );
+    }
+
+    /** @dataProvider booleanAttributeDataProvider */
+    public function testBooleanAttributesCanBeAppliedToModules(string $attribute): void
+    {
+        ($this->helper)()->appendScript(
+            '// some js',
+            'module',
+            [$attribute => 'whatever']
+        );
+
+        self::assertStringContainsString(
+            sprintf('%1$s="%1$s"', $attribute),
+            (string) ($this->helper)()
+        );
+
+        self::assertStringContainsString(
+            'type="module"',
+            (string) ($this->helper)()
+        );
     }
 }
