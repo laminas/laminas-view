@@ -24,32 +24,36 @@ Output:
 ### Set a single Attribute
 
 === "Invoke Usage"
+<!-- markdownlint-disable-next-line code-block-style -->
     ```php
     $this->htmlTag(['lang' => 'en']);
-    
+
     echo $this->htmlTag()->openTag(); // <html lang="en">
     ```
 
 === "Setter Usage"
+<!-- markdownlint-disable-next-line code-block-style -->
     ```php
     $this->htmlTag()->setAttribute('lang', 'en');
-    
+
     echo $this->htmlTag()->openTag(); // <html lang="en">
     ```
 
 ### Set multiple Attributes
 
 === "Invoke Usage"
+<!-- markdownlint-disable-next-line code-block-style -->
     ```php
     $this->htmlTag(['lang' => 'en', 'id' => 'example']);
-    
+
     echo $this->htmlTag()->openTag(); // <html lang="en" id="example">
     ```
 
 === "Setter Usage"
+<!-- markdownlint-disable-next-line code-block-style -->
     ```php
     $this->htmlTag()->setAttributes(['lang' => 'en', 'id' => 'example']);
-    
+
     echo $this->htmlTag()->openTag(); // <html lang="en" id="example">
     ```
 

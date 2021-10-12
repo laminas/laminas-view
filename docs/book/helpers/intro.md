@@ -11,7 +11,8 @@ used to retrieve that instance.  `Laminas\View\Renderer\PhpRenderer` composes a
 *plugin manager*, allowing you to retrieve helpers, and also provides some
 method overloading capabilities that allow proxying method calls to helpers.
 
-> ### Callable helpers
+<!-- markdownlint-disable-next-line header-increment -->
+> ### Callable Helpers
 >
 > Starting in version 2.7.0, if your helper does not need access to the view,
 > you can also use any PHP callable as a helper, including arbitrary objects
@@ -77,38 +78,38 @@ for, and rendering, the various HTML `<head>` tags, such as `HeadTitle`,
 - [Placeholder](placeholder.md)
 - [Url](url.md)
 
-> ### Help document!
+> ### Help Us Document the Helpers
 >
 > Not all helpers are documented! Some that could use documentation include the
 > various escaper helpers, the layout helper, and the `serverUrl` helper. Click
 > the "GitHub" octocat link in the top navbar to go to the repository and start
 > writing documentation!
 
-> ### i18n helpers
+> ### i18n Helpers
 >
 > View helpers related to **Internationalization** are documented in the
 > [I18n View Helpers](https://docs.laminas.dev/laminas-i18n/view-helpers/)
 > documentation.
 
-> ### Form helpers
+> ### Form Helpers
 >
 > View helpers related to **form** are documented in the
 > [Form View Helpers](https://docs.laminas.dev/laminas-form/helper/intro/)
 > documentation.
 
-> ### Navigation helpers
+> ### Navigation Helpers
 >
 > View helpers related to **navigation** are documented in the
 > [Navigation View Helpers](https://docs.laminas.dev/laminas-navigation/helpers/intro/)
 > documentation.
 
-> ### Pagination helpers
+> ### Pagination Helpers
 >
 > View helpers related to **paginator** are documented in the
 > [Paginator Usage](https://docs.laminas.dev/laminas-paginator/usage/#rendering-pages-with-view-scripts)
 > documentation.
 
-> ### Custom helpers
+> ### Custom Helpers
 >
 > For documentation on writing **custom view helpers** see the
 > [Advanced usage](advanced-usage.md) chapter.

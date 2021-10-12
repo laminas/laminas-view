@@ -6,6 +6,7 @@ code. The `InlineScript` helper allows you to manage both. It is derived from
 [HeadScript](head-script.md), and any method of that helper is available;
 replace the usage of `headScript()` in those examples with `inlineScript()`.
 
+<!-- markdownlint-disable-next-line header-increment -->
 > ### Use InlineScript for HTML body scripts
 >
 > `InlineScript` should be used when you wish to include scripts inline in the
