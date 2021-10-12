@@ -160,7 +160,7 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testDetectRelationFromConfigInstancePropertyOfActivePage(): void
+    public function testDetectRelationFromArrayObjectInstancePropertyOfActivePage(): void
     {
         $active = $this->_helper->findOneByLabel('Page 2');
         $active->addRel('example', new ArrayObject([
@@ -206,7 +206,7 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testDetectMultipleRelationsFromConfigPropertyOfActivePage(): void
+    public function testDetectMultipleRelationsFromArrayObjectPropertyOfActivePage(): void
     {
         $active = $this->_helper->findOneByLabel('Page 2');
 
