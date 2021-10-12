@@ -21,6 +21,7 @@ nav:
         - HeadScript: helpers/head-script.md
         - HeadStyle: helpers/head-style.md
         - HeadTitle: helpers/head-title.md
+        - HtmlAttributes: helpers/html-attributes.md
         - HtmlList: helpers/html-list.md
         - HtmlObject: helpers/html-object.md
         - HtmlTag: helpers/html-tag.md
