@@ -101,6 +101,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://docs.laminas.dev/laminas-view/helpers/html-attributes/</loc>
+         <lastmod>2021-10-12</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://docs.laminas.dev/laminas-view/helpers/html-list/</loc>
          <lastmod>2021-10-12</lastmod>
          <changefreq>daily</changefreq>
