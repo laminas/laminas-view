@@ -251,8 +251,8 @@ abstract class AbstractContainer extends ArrayObject
     /**
      * Set a single value
      *
-     * @param  mixed $value
-     * @return void
+     * @param mixed $value
+     * @return static
      */
     public function set($value)
     {

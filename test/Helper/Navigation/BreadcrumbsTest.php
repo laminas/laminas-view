@@ -36,7 +36,7 @@ class BreadcrumbsTest extends AbstractTest
     protected $_helper;
     // @codingStandardsIgnoreEnd
 
-    public function testCanRenderStraightFromServiceAlias()
+    public function testCanRenderStraightFromServiceAlias(): void
     {
         $this->_helper->setServiceLocator($this->serviceManager);
 
@@ -44,7 +44,7 @@ class BreadcrumbsTest extends AbstractTest
         $this->assertEquals($returned, $this->_getExpected('bc/default.html'));
     }
 
-    public function testCanRenderPartialFromServiceAlias()
+    public function testCanRenderPartialFromServiceAlias(): void
     {
         $this->_helper->setPartial('bc.phtml');
         $this->_helper->setServiceLocator($this->serviceManager);
@@ -53,21 +53,21 @@ class BreadcrumbsTest extends AbstractTest
         $this->assertEquals($returned, $this->_getExpected('bc/partial.html'));
     }
 
-    public function testHelperEntryPointWithoutAnyParams()
+    public function testHelperEntryPointWithoutAnyParams(): void
     {
         $returned = $this->_helper->__invoke();
         $this->assertEquals($this->_helper, $returned);
         $this->assertEquals($this->_nav1, $returned->getContainer());
     }
 
-    public function testHelperEntryPointWithContainerParam()
+    public function testHelperEntryPointWithContainerParam(): void
     {
         $returned = $this->_helper->__invoke($this->_nav2);
         $this->assertEquals($this->_helper, $returned);
         $this->assertEquals($this->_nav2, $returned->getContainer());
     }
 
-    public function testHelperEntryPointWithContainerStringParam()
+    public function testHelperEntryPointWithContainerStringParam(): void
     {
         $pm = new \Laminas\View\HelperPluginManager($this->serviceManager);
         $this->_helper->setServiceLocator($pm);
@@ -77,7 +77,7 @@ class BreadcrumbsTest extends AbstractTest
         $this->assertEquals($this->_nav1, $returned->getContainer());
     }
 
-    public function testNullOutContainer()
+    public function testNullOutContainer(): void
     {
         $old = $this->_helper->getContainer();
         $this->_helper->setContainer();
@@ -86,7 +86,7 @@ class BreadcrumbsTest extends AbstractTest
         $this->assertNotEquals($old, $new);
     }
 
-    public function testSetSeparator()
+    public function testSetSeparator(): void
     {
         $this->_helper->setSeparator('foo');
 
@@ -94,7 +94,7 @@ class BreadcrumbsTest extends AbstractTest
         $this->assertEquals($expected, $this->_helper->render());
     }
 
-    public function testSetMaxDepth()
+    public function testSetMaxDepth(): void
     {
         $this->_helper->setMaxDepth(1);
 
@@ -102,7 +102,7 @@ class BreadcrumbsTest extends AbstractTest
         $this->assertEquals($expected, $this->_helper->render());
     }
 
-    public function testSetMinDepth()
+    public function testSetMinDepth(): void
     {
         $this->_helper->setMinDepth(1);
 
@@ -110,7 +110,7 @@ class BreadcrumbsTest extends AbstractTest
         $this->assertEquals($expected, $this->_helper->render($this->_nav2));
     }
 
-    public function testLinkLastElement()
+    public function testLinkLastElement(): void
     {
         $this->_helper->setLinkLast(true);
 
@@ -118,7 +118,7 @@ class BreadcrumbsTest extends AbstractTest
         $this->assertEquals($expected, $this->_helper->render());
     }
 
-    public function testSetIndent()
+    public function testSetIndent(): void
     {
         $this->_helper->setIndent(8);
 
@@ -128,7 +128,7 @@ class BreadcrumbsTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testRenderSuppliedContainerWithoutInterfering()
+    public function testRenderSuppliedContainerWithoutInterfering(): void
     {
         $this->_helper->setMinDepth(0);
 
@@ -150,7 +150,7 @@ class BreadcrumbsTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testUseAclResourceFromPages()
+    public function testUseAclResourceFromPages(): void
     {
         $acl = $this->_getAcl();
         $this->_helper->setAcl($acl['acl']);
@@ -160,7 +160,7 @@ class BreadcrumbsTest extends AbstractTest
         $this->assertEquals($expected, $this->_helper->render());
     }
 
-    public function testTranslationUsingLaminasTranslate()
+    public function testTranslationUsingLaminasTranslate(): void
     {
         if (! extension_loaded('intl')) {
             $this->markTestSkipped('ext/intl not enabled');
@@ -172,7 +172,7 @@ class BreadcrumbsTest extends AbstractTest
         $this->assertEquals($expected, $this->_helper->render());
     }
 
-    public function testTranslationUsingLaminasTranslateAndCustomTextDomain()
+    public function testTranslationUsingLaminasTranslateAndCustomTextDomain(): void
     {
         if (! extension_loaded('intl')) {
             $this->markTestSkipped('ext/intl not enabled');
@@ -186,7 +186,7 @@ class BreadcrumbsTest extends AbstractTest
         $this->assertEquals(trim($expected), trim($test));
     }
 
-    public function testTranslationUsingLaminasTranslateAdapter()
+    public function testTranslationUsingLaminasTranslateAdapter(): void
     {
         if (! extension_loaded('intl')) {
             $this->markTestSkipped('ext/intl not enabled');
@@ -199,7 +199,7 @@ class BreadcrumbsTest extends AbstractTest
         $this->assertEquals($expected, $this->_helper->render());
     }
 
-    public function testDisablingTranslation()
+    public function testDisablingTranslation(): void
     {
         $translator = $this->_getTranslator();
         $this->_helper->setTranslator($translator);
@@ -209,7 +209,7 @@ class BreadcrumbsTest extends AbstractTest
         $this->assertEquals($expected, $this->_helper->render());
     }
 
-    public function testRenderingPartial()
+    public function testRenderingPartial(): void
     {
         $this->_helper->setPartial('bc.phtml');
 
@@ -217,7 +217,7 @@ class BreadcrumbsTest extends AbstractTest
         $this->assertEquals($expected, $this->_helper->render());
     }
 
-    public function testRenderingPartialWithSeparator()
+    public function testRenderingPartialWithSeparator(): void
     {
         $this->_helper->setPartial('bc_separator.phtml')->setSeparator(' / ');
 
@@ -225,7 +225,7 @@ class BreadcrumbsTest extends AbstractTest
         $this->assertEquals($expected, $this->_helper->render());
     }
 
-    public function testRenderingPartialBySpecifyingAnArrayAsPartial()
+    public function testRenderingPartialBySpecifyingAnArrayAsPartial(): void
     {
         $this->_helper->setPartial(['bc.phtml', 'application']);
 
@@ -240,7 +240,7 @@ class BreadcrumbsTest extends AbstractTest
         $this->_helper->render();
     }
 
-    public function testRenderingPartialWithParams()
+    public function testRenderingPartialWithParams(): void
     {
         $this->_helper->setPartial('bc_with_partial_params.phtml')->setSeparator(' / ');
         $expected = $this->_getExpected('bc/partial_with_params.html');
@@ -248,7 +248,7 @@ class BreadcrumbsTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testLastBreadcrumbShouldBeEscaped()
+    public function testLastBreadcrumbShouldBeEscaped(): void
     {
         $container = new Navigation([
             [

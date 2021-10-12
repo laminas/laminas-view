@@ -81,7 +81,7 @@ class UrlIntegrationTest extends TestCase
         $this->serviceManager->setAllowOverride(false);
     }
 
-    public function testUrlHelperWorksUnderNormalHttpParadigms()
+    public function testUrlHelperWorksUnderNormalHttpParadigms(): void
     {
         Console::overrideIsConsole(false);
         $this->serviceManager->get('Application')->bootstrap();
@@ -93,7 +93,7 @@ class UrlIntegrationTest extends TestCase
         $this->assertEquals('/test', $test);
     }
 
-    public function testUrlHelperWorksWithForceCanonicalFlag()
+    public function testUrlHelperWorksWithForceCanonicalFlag(): void
     {
         Console::overrideIsConsole(false);
         $this->serviceManager->get('Application')->bootstrap();
@@ -108,7 +108,7 @@ class UrlIntegrationTest extends TestCase
         $this->assertStringContainsString('/test', $test);
     }
 
-    public function testUrlHelperUnderConsoleParadigmShouldReturnHttpRoutes()
+    public function testUrlHelperUnderConsoleParadigmShouldReturnHttpRoutes(): void
     {
         Console::overrideIsConsole(true);
         $this->serviceManager->setAllowOverride(true);

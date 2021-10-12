@@ -46,21 +46,21 @@ class NavigationTest extends AbstractTest
     protected $_helper;
     // @codingStandardsIgnoreEnd
 
-    public function testHelperEntryPointWithoutAnyParams()
+    public function testHelperEntryPointWithoutAnyParams(): void
     {
         $returned = $this->_helper->__invoke();
         $this->assertEquals($this->_helper, $returned);
         $this->assertEquals($this->_nav1, $returned->getContainer());
     }
 
-    public function testHelperEntryPointWithContainerParam()
+    public function testHelperEntryPointWithContainerParam(): void
     {
         $returned = $this->_helper->__invoke($this->_nav2);
         $this->assertEquals($this->_helper, $returned);
         $this->assertEquals($this->_nav2, $returned->getContainer());
     }
 
-    public function testAcceptAclShouldReturnGracefullyWithUnknownResource()
+    public function testAcceptAclShouldReturnGracefullyWithUnknownResource(): void
     {
         // setup
         $acl = $this->_getAcl();
@@ -77,7 +77,7 @@ class NavigationTest extends AbstractTest
         $this->assertEquals($accepted, false);
     }
 
-    public function testShouldProxyToMenuHelperByDefault()
+    public function testShouldProxyToMenuHelperByDefault(): void
     {
         $this->_helper->setContainer($this->_nav1);
         $this->_helper->setServiceLocator(new ServiceManager());
@@ -89,7 +89,7 @@ class NavigationTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testHasContainer()
+    public function testHasContainer(): void
     {
         $oldContainer = $this->_helper->getContainer();
         $this->_helper->setContainer(null);
@@ -97,7 +97,7 @@ class NavigationTest extends AbstractTest
         $this->_helper->setContainer($oldContainer);
     }
 
-    public function testInjectingContainer()
+    public function testInjectingContainer(): void
     {
         // setup
         $this->_helper->setContainer($this->_nav2);
@@ -116,7 +116,7 @@ class NavigationTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testDisablingContainerInjection()
+    public function testDisablingContainerInjection(): void
     {
         // setup
         $this->_helper->setServiceLocator(new ServiceManager());
@@ -138,7 +138,7 @@ class NavigationTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testMultipleNavigationsAndOneMenuDisplayedTwoTimes()
+    public function testMultipleNavigationsAndOneMenuDisplayedTwoTimes(): void
     {
         $this->_helper->setServiceLocator(new ServiceManager());
         $expected = $this->_helper->setContainer($this->_nav1)->menu()->getContainer();
@@ -148,13 +148,13 @@ class NavigationTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testServiceManagerIsUsedToRetrieveContainer()
+    public function testServiceManagerIsUsedToRetrieveContainer(): void
     {
         $container      = new Container;
         $serviceManager = new ServiceManager;
         $serviceManager->setService('navigation', $container);
 
-        $pluginManager  = new View\HelperPluginManager($serviceManager);
+        new View\HelperPluginManager($serviceManager);
 
         $this->_helper->setServiceLocator($serviceManager);
         $this->_helper->setContainer('navigation');
@@ -164,7 +164,7 @@ class NavigationTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testInjectingAcl()
+    public function testInjectingAcl(): void
     {
         // setup
         $acl = $this->_getAcl();
@@ -178,7 +178,7 @@ class NavigationTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testDisablingAclInjection()
+    public function testDisablingAclInjection(): void
     {
         // setup
         $acl = $this->_getAcl();
@@ -193,7 +193,7 @@ class NavigationTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testInjectingTranslator()
+    public function testInjectingTranslator(): void
     {
         if (! extension_loaded('intl')) {
             $this->markTestSkipped('ext/intl not enabled');
@@ -208,7 +208,7 @@ class NavigationTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testDisablingTranslatorInjection()
+    public function testDisablingTranslatorInjection(): void
     {
         $this->_helper->setTranslator($this->_getTranslator());
         $this->_helper->setInjectTranslator(false);
@@ -220,7 +220,7 @@ class NavigationTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testTranslatorMethods()
+    public function testTranslatorMethods(): void
     {
         $translatorMock = $this->prophesize(Translator::class)->reveal();
         $this->_helper->setTranslator($translatorMock, 'foo');
@@ -234,7 +234,7 @@ class NavigationTest extends AbstractTest
         $this->assertFalse($this->_helper->isTranslatorEnabled());
     }
 
-    public function testSpecifyingDefaultProxy()
+    public function testSpecifyingDefaultProxy(): void
     {
         $expected = [
             'breadcrumbs' => $this->_getExpected('bc/default.html'),
@@ -252,19 +252,19 @@ class NavigationTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testGetAclReturnsNullIfNoAclInstance()
+    public function testGetAclReturnsNullIfNoAclInstance(): void
     {
         $this->assertNull($this->_helper->getAcl());
     }
 
-    public function testGetAclReturnsAclInstanceSetWithSetAcl()
+    public function testGetAclReturnsAclInstanceSetWithSetAcl(): void
     {
         $acl = new Acl\Acl();
         $this->_helper->setAcl($acl);
         $this->assertEquals($acl, $this->_helper->getAcl());
     }
 
-    public function testGetAclReturnsAclInstanceSetWithSetDefaultAcl()
+    public function testGetAclReturnsAclInstanceSetWithSetDefaultAcl(): void
     {
         $acl = new Acl\Acl();
         Navigation\AbstractHelper::setDefaultAcl($acl);
@@ -273,7 +273,7 @@ class NavigationTest extends AbstractTest
         $this->assertEquals($acl, $actual);
     }
 
-    public function testSetDefaultAclAcceptsNull()
+    public function testSetDefaultAclAcceptsNull(): void
     {
         $acl = new Acl\Acl();
         Navigation\AbstractHelper::setDefaultAcl($acl);
@@ -281,7 +281,7 @@ class NavigationTest extends AbstractTest
         $this->assertNull($this->_helper->getAcl());
     }
 
-    public function testSetDefaultAclAcceptsNoParam()
+    public function testSetDefaultAclAcceptsNoParam(): void
     {
         $acl = new Acl\Acl();
         Navigation\AbstractHelper::setDefaultAcl($acl);
@@ -289,32 +289,32 @@ class NavigationTest extends AbstractTest
         $this->assertNull($this->_helper->getAcl());
     }
 
-    public function testSetRoleAcceptsString()
+    public function testSetRoleAcceptsString(): void
     {
         $this->_helper->setRole('member');
         $this->assertEquals('member', $this->_helper->getRole());
     }
 
-    public function testSetRoleAcceptsRoleInterface()
+    public function testSetRoleAcceptsRoleInterface(): void
     {
         $role = new Role\GenericRole('member');
         $this->_helper->setRole($role);
         $this->assertEquals($role, $this->_helper->getRole());
     }
 
-    public function testSetRoleAcceptsNull()
+    public function testSetRoleAcceptsNull(): void
     {
         $this->_helper->setRole('member')->setRole(null);
         $this->assertNull($this->_helper->getRole());
     }
 
-    public function testSetRoleAcceptsNoParam()
+    public function testSetRoleAcceptsNoParam(): void
     {
         $this->_helper->setRole('member')->setRole();
         $this->assertNull($this->_helper->getRole());
     }
 
-    public function testSetRoleThrowsExceptionWhenGivenAnInt()
+    public function testSetRoleThrowsExceptionWhenGivenAnInt(): void
     {
         try {
             $this->_helper->setRole(1337);
@@ -325,7 +325,7 @@ class NavigationTest extends AbstractTest
         }
     }
 
-    public function testSetRoleThrowsExceptionWhenGivenAnArbitraryObject()
+    public function testSetRoleThrowsExceptionWhenGivenAnArbitraryObject(): void
     {
         try {
             $this->_helper->setRole(new \stdClass());
@@ -336,7 +336,7 @@ class NavigationTest extends AbstractTest
         }
     }
 
-    public function testSetDefaultRoleAcceptsString()
+    public function testSetDefaultRoleAcceptsString(): void
     {
         $expected = 'member';
         Navigation\AbstractHelper::setDefaultRole($expected);
@@ -345,7 +345,7 @@ class NavigationTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testSetDefaultRoleAcceptsRoleInterface()
+    public function testSetDefaultRoleAcceptsRoleInterface(): void
     {
         $expected = new Role\GenericRole('member');
         Navigation\AbstractHelper::setDefaultRole($expected);
@@ -354,19 +354,19 @@ class NavigationTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testSetDefaultRoleAcceptsNull()
+    public function testSetDefaultRoleAcceptsNull(): void
     {
         Navigation\AbstractHelper::setDefaultRole(null);
         $this->assertNull($this->_helper->getRole());
     }
 
-    public function testSetDefaultRoleAcceptsNoParam()
+    public function testSetDefaultRoleAcceptsNoParam(): void
     {
         Navigation\AbstractHelper::setDefaultRole();
         $this->assertNull($this->_helper->getRole());
     }
 
-    public function testSetDefaultRoleThrowsExceptionWhenGivenAnInt()
+    public function testSetDefaultRoleThrowsExceptionWhenGivenAnInt(): void
     {
         try {
             Navigation\AbstractHelper::setDefaultRole(1337);
@@ -377,7 +377,7 @@ class NavigationTest extends AbstractTest
         }
     }
 
-    public function testSetDefaultRoleThrowsExceptionWhenGivenAnArbitraryObject()
+    public function testSetDefaultRoleThrowsExceptionWhenGivenAnArbitraryObject(): void
     {
         try {
             Navigation\AbstractHelper::setDefaultRole(new \stdClass());
@@ -390,12 +390,12 @@ class NavigationTest extends AbstractTest
     // @codingStandardsIgnoreStart
     private $_errorMessage;
     // @codingStandardsIgnoreEnd
-    public function toStringErrorHandler($code, $msg, $file, $line, array $c = [])
+    public function toStringErrorHandler($code, $msg, $file, $line, array $c = []): void
     {
         $this->_errorMessage = $msg;
     }
 
-    public function testMagicToStringShouldNotThrowException()
+    public function testMagicToStringShouldNotThrowException(): void
     {
         set_error_handler([$this, 'toStringErrorHandler']);
         $this->_helper->menu()->setPartial([1337]);
@@ -405,7 +405,7 @@ class NavigationTest extends AbstractTest
         $this->assertStringContainsString('array must contain', $this->_errorMessage);
     }
 
-    public function testPageIdShouldBeNormalized()
+    public function testPageIdShouldBeNormalized(): void
     {
         $nl = PHP_EOL;
 
@@ -439,8 +439,10 @@ class NavigationTest extends AbstractTest
 
     /**
      * @group Laminas-6854
+     *
+     * @return void
      */
-    public function testRenderInvisibleItem()
+    public function testRenderInvisibleItem(): void
     {
         $container = new \Laminas\Navigation\Navigation([
             [
@@ -468,7 +470,7 @@ class NavigationTest extends AbstractTest
         $this->assertStringContainsString('p2', $render);
     }
 
-    public function testMultipleNavigations()
+    public function testMultipleNavigations(): void
     {
         $sm   = new ServiceManager();
         $nav1 = new Container();
@@ -492,8 +494,10 @@ class NavigationTest extends AbstractTest
 
     /**
      * @group #3859
+     *
+     * @return void
      */
-    public function testMultipleNavigationsWithDifferentHelpersAndDifferentContainers()
+    public function testMultipleNavigationsWithDifferentHelpersAndDifferentContainers(): void
     {
         $sm   = new ServiceManager();
         $nav1 = new Container();
@@ -521,8 +525,10 @@ class NavigationTest extends AbstractTest
 
     /**
      * @group #3859
+     *
+     * @return void
      */
-    public function testMultipleNavigationsWithDifferentHelpersAndSameContainer()
+    public function testMultipleNavigationsWithDifferentHelpersAndSameContainer(): void
     {
         $sm   = new ServiceManager();
         $nav1 = new Container();
@@ -548,8 +554,10 @@ class NavigationTest extends AbstractTest
 
     /**
      * @group #3859
+     *
+     * @return void
      */
-    public function testMultipleNavigationsWithSameHelperAndSameContainer()
+    public function testMultipleNavigationsWithSameHelperAndSameContainer(): void
     {
         $sm   = new ServiceManager();
         $nav1 = new Container();
@@ -573,7 +581,7 @@ class NavigationTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testSetPluginManagerAndView()
+    public function testSetPluginManagerAndView(): void
     {
         $pluginManager = new Navigation\PluginManager(new ServiceManager());
         $view = new PhpRenderer();
@@ -587,8 +595,10 @@ class NavigationTest extends AbstractTest
 
     /**
      * @group 49
+     *
+     * @return void
      */
-    public function testInjectsLazyInstantiatedPluginManagerWithCurrentServiceLocator()
+    public function testInjectsLazyInstantiatedPluginManagerWithCurrentServiceLocator(): void
     {
         $services = $this->prophesize(ContainerInterface::class)->reveal();
         $helper = new $this->_helperName;

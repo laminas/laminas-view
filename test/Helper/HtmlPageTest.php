@@ -41,7 +41,7 @@ class HtmlPageTest extends TestCase
         unset($this->helper);
     }
 
-    public function testMakeHtmlPage()
+    public function testMakeHtmlPage(): void
     {
         $htmlPage = $this->helper->__invoke('/path/to/page.html');
 

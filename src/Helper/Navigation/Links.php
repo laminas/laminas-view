@@ -225,6 +225,7 @@ class Links extends AbstractHelper
      * Finds all relations (forward and reverse) for the given $page
      *
      * The form of the returned array:
+     *
      * <code>
      * // $page denotes an instance of Laminas\Navigation\Page\AbstractPage
      * $returned = array(
@@ -241,11 +242,12 @@ class Links extends AbstractHelper
      * );
      * </code>
      *
-     * @param  AbstractPage $page  page to find links for
-     * @param  null|int
-     * @return array
+     * @param AbstractPage $page  page to find links for
+     * @param int|null $flag
+     * @return array[][]
+     * @psalm-return array{rel: array<array>, rev: array<array>}
      */
-    public function findAllRelations(AbstractPage $page, $flag = null)
+    public function findAllRelations(AbstractPage $page, ?int $flag = null): array
     {
         if (! is_int($flag)) {
             $flag = self::RENDER_ALL;

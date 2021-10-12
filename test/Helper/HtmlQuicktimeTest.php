@@ -41,7 +41,7 @@ class HtmlQuicktimeTest extends TestCase
         unset($this->helper);
     }
 
-    public function testMakeHtmlQuicktime()
+    public function testMakeHtmlQuicktime(): void
     {
         $htmlQuicktime = $this->helper->__invoke('/path/to/quicktime.mov');
 

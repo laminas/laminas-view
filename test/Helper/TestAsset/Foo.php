@@ -7,7 +7,7 @@ class Foo extends \Laminas\View\Helper\Placeholder\Container\AbstractStandalone
     // @codingStandardsIgnoreStart
     protected $_regKey = 'foo';
     // @codingStandardsIgnoreEnd
-    public function direct()
+    public function direct(): void
     {
     }
 }

@@ -28,7 +28,7 @@ class RelativeFallbackResolverTest extends TestCase
 {
     use ProphecyTrait;
 
-    public function testReturnsResourceFromTheSameNameSpaceWithMapResolver()
+    public function testReturnsResourceFromTheSameNameSpaceWithMapResolver(): void
     {
         $tplMapResolver = new TemplateMapResolver([
             'foo/bar' => 'foo/baz',
@@ -45,7 +45,7 @@ class RelativeFallbackResolverTest extends TestCase
         $this->assertEquals('foo/baz', $test);
     }
 
-    public function testReturnsResourceFromTheSameNameSpaceWithPathStack()
+    public function testReturnsResourceFromTheSameNameSpaceWithPathStack(): void
     {
         $pathStack = new TemplatePathStack();
         $pathStack->addPath(__DIR__ . '/../_templates');
@@ -61,7 +61,7 @@ class RelativeFallbackResolverTest extends TestCase
         $this->assertEquals(realpath(__DIR__ . '/../_templates/name-space/bar.phtml'), $test);
     }
 
-    public function testReturnsResourceFromTopLevelIfExistsInsteadOfTheSameNameSpace()
+    public function testReturnsResourceFromTopLevelIfExistsInsteadOfTheSameNameSpace(): void
     {
         $tplMapResolver = new TemplateMapResolver([
             'foo/bar' => 'foo/baz',
@@ -81,7 +81,7 @@ class RelativeFallbackResolverTest extends TestCase
         $this->assertEquals('baz', $test);
     }
 
-    public function testSkipsResolutionOnViewRendererWithoutPlugins()
+    public function testSkipsResolutionOnViewRendererWithoutPlugins(): void
     {
         $baseResolver = $this->prophesize(ResolverInterface::class);
         $baseResolver->resolve()->shouldNotBeCalled();
@@ -92,7 +92,7 @@ class RelativeFallbackResolverTest extends TestCase
         $this->assertFalse($fallback->resolve('foo/bar', $renderer));
     }
 
-    public function testSkipsResolutionOnViewRendererWithoutCorrectCurrentPlugin()
+    public function testSkipsResolutionOnViewRendererWithoutCorrectCurrentPlugin(): void
     {
         $baseResolver = $this->prophesize(ResolverInterface::class);
         $baseResolver->resolve()->shouldNotBeCalled();
@@ -105,7 +105,7 @@ class RelativeFallbackResolverTest extends TestCase
         $this->assertFalse($fallback->resolve('foo/bar', $renderer->reveal()));
     }
 
-    public function testSkipsResolutionOnNonExistingCurrentViewModel()
+    public function testSkipsResolutionOnNonExistingCurrentViewModel(): void
     {
         $baseResolver = $this->prophesize(ResolverInterface::class);
         $baseResolver->resolve()->shouldNotBeCalled();

@@ -572,7 +572,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     /**
      * Make sure View variables are cloned when the view is cloned.
      *
-     * @return PhpRenderer
+     * @return void
      */
     public function __clone()
     {

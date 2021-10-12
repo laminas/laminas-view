@@ -31,14 +31,14 @@ class JsonRendererTest extends TestCase
         $this->renderer = new JsonRenderer();
     }
 
-    public function testRendersViewModelsWithoutChildren()
+    public function testRendersViewModelsWithoutChildren(): void
     {
         $model = new ViewModel(['foo' => 'bar']);
         $test  = $this->renderer->render($model);
         $this->assertEquals(json_encode(['foo' => 'bar']), $test);
     }
 
-    public function testRendersViewModelsWithChildrenUsingCaptureToValue()
+    public function testRendersViewModelsWithChildrenUsingCaptureToValue(): void
     {
         $root   = new ViewModel(['foo' => 'bar']);
         $child1 = new ViewModel(['foo' => 'bar']);
@@ -61,7 +61,7 @@ class JsonRendererTest extends TestCase
         $this->assertEquals(json_encode($expected), $test);
     }
 
-    public function testThrowsAwayChildModelsWithoutCaptureToValueByDefault()
+    public function testThrowsAwayChildModelsWithoutCaptureToValueByDefault(): void
     {
         $root   = new ViewModel(['foo' => 'bar']);
         $child1 = new ViewModel(['foo' => 'baz']);
@@ -81,7 +81,7 @@ class JsonRendererTest extends TestCase
         $this->assertEquals(json_encode($expected), $test);
     }
 
-    public function testCanMergeChildModelsWithoutCaptureToValues()
+    public function testCanMergeChildModelsWithoutCaptureToValues(): void
     {
         $this->renderer->setMergeUnnamedChildren(true);
         $root   = new ViewModel(['foo' => 'bar']);
@@ -102,7 +102,10 @@ class JsonRendererTest extends TestCase
         $this->assertEquals(json_encode($expected), $test);
     }
 
-    public function getNonObjectModels()
+    /**
+     * @psalm-return array<array-key, array{0: mixed}>
+     */
+    public function getNonObjectModels(): array
     {
         return [
             ['string'],
@@ -115,15 +118,17 @@ class JsonRendererTest extends TestCase
 
     /**
      * @dataProvider getNonObjectModels
+     *
+     * @return void
      */
-    public function testRendersNonObjectModelAsJson($model)
+    public function testRendersNonObjectModelAsJson($model): void
     {
         $expected = json_encode($model);
         $test     = $this->renderer->render($model);
         $this->assertEquals($expected, $test);
     }
 
-    public function testRendersJsonSerializableModelsAsJson()
+    public function testRendersJsonSerializableModelsAsJson(): void
     {
         if (version_compare(PHP_VERSION, '5.4.0', '<')) {
             $this->markTestSkipped('Can only test JsonSerializable models in PHP 5.4.0 and up');
@@ -135,7 +140,7 @@ class JsonRendererTest extends TestCase
         $this->assertEquals($expected, $test);
     }
 
-    public function testRendersTraversableObjectsAsJsonObjects()
+    public function testRendersTraversableObjectsAsJsonObjects(): void
     {
         $model = new ArrayObject([
             'foo' => 'bar',
@@ -146,7 +151,7 @@ class JsonRendererTest extends TestCase
         $this->assertEquals($expected, $test);
     }
 
-    public function testRendersNonTraversableNonJsonSerializableObjectsAsJsonObjects()
+    public function testRendersNonTraversableNonJsonSerializableObjectsAsJsonObjects(): void
     {
         $model      = new stdClass;
         $model->foo = 'bar';
@@ -156,18 +161,18 @@ class JsonRendererTest extends TestCase
         $this->assertEquals($expected, $test);
     }
 
-    public function testNonViewModelInitialArgumentWithValuesRaisesException()
+    public function testNonViewModelInitialArgumentWithValuesRaisesException(): void
     {
         $this->expectException(Exception\DomainException::class);
         $this->renderer->render('foo', ['bar' => 'baz']);
     }
 
-    public function testRendersTreesOfViewModelsByDefault()
+    public function testRendersTreesOfViewModelsByDefault(): void
     {
         $this->assertTrue($this->renderer->canRenderTrees());
     }
 
-    public function testSetHasJsonpCallback()
+    public function testSetHasJsonpCallback(): void
     {
         $this->assertFalse($this->renderer->hasJsonpCallback());
         $this->renderer->setJsonpCallback(0);
@@ -176,7 +181,7 @@ class JsonRendererTest extends TestCase
         $this->assertTrue($this->renderer->hasJsonpCallback());
     }
 
-    public function testRendersViewModelsWithoutChildrenWithJsonpCallback()
+    public function testRendersViewModelsWithoutChildrenWithJsonpCallback(): void
     {
         $model = new ViewModel(['foo' => 'bar']);
         $this->renderer->setJsonpCallback('callback');
@@ -187,8 +192,10 @@ class JsonRendererTest extends TestCase
 
     /**
      * @dataProvider getNonObjectModels
+     *
+     * @return void
      */
-    public function testRendersNonObjectModelAsJsonWithJsonpCallback($model)
+    public function testRendersNonObjectModelAsJsonWithJsonpCallback($model): void
     {
         $expected = 'callback(' . json_encode($model) . ');';
         $this->renderer->setJsonpCallback('callback');
@@ -196,7 +203,7 @@ class JsonRendererTest extends TestCase
         $this->assertEquals($expected, $test);
     }
 
-    public function testRendersJsonSerializableModelsAsJsonWithJsonpCallback()
+    public function testRendersJsonSerializableModelsAsJsonWithJsonpCallback(): void
     {
         if (version_compare(PHP_VERSION, '5.4.0', '<')) {
             $this->markTestSkipped('Can only test JsonSerializable models in PHP 5.4.0 and up');
@@ -209,7 +216,7 @@ class JsonRendererTest extends TestCase
         $this->assertEquals($expected, $test);
     }
 
-    public function testRendersTraversableObjectsAsJsonObjectsWithJsonpCallback()
+    public function testRendersTraversableObjectsAsJsonObjectsWithJsonpCallback(): void
     {
         $model = new ArrayObject([
             'foo' => 'bar',
@@ -221,7 +228,7 @@ class JsonRendererTest extends TestCase
         $this->assertEquals($expected, $test);
     }
 
-    public function testRendersNonTraversableNonJsonSerializableObjectsAsJsonObjectsWithJsonpCallback()
+    public function testRendersNonTraversableNonJsonSerializableObjectsAsJsonObjectsWithJsonpCallback(): void
     {
         $model      = new stdClass;
         $model->foo = 'bar';
@@ -234,8 +241,10 @@ class JsonRendererTest extends TestCase
 
     /**
      * @group 2463
+     *
+     * @return void
      */
-    public function testRecursesJsonModelChildrenWhenRendering()
+    public function testRecursesJsonModelChildrenWhenRendering(): void
     {
         $root   = new JsonModel(['foo' => 'bar']);
         $child1 = new JsonModel(['foo' => 'bar']);

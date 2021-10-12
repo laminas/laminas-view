@@ -53,7 +53,7 @@ class HeadStyleTest extends TestCase
         unset($this->helper);
     }
 
-    public function testHeadStyleReturnsObjectInstance()
+    public function testHeadStyleReturnsObjectInstance(): void
     {
         $placeholder = $this->helper->__invoke();
         $this->assertInstanceOf(Helper\HeadStyle::class, $placeholder);
@@ -87,7 +87,7 @@ class HeadStyleTest extends TestCase
         $this->helper->offsetSet(1, 'foo');
     }
 
-    public function testOverloadAppendStyleAppendsStyleToStack()
+    public function testOverloadAppendStyleAppendsStyleToStack(): void
     {
         $string = 'a {}';
         for ($i = 0; $i < 3; ++$i) {
@@ -104,7 +104,7 @@ class HeadStyleTest extends TestCase
         }
     }
 
-    public function testOverloadPrependStylePrependsStyleToStack()
+    public function testOverloadPrependStylePrependsStyleToStack(): void
     {
         $string = 'a {}';
         for ($i = 0; $i < 3; ++$i) {
@@ -121,7 +121,7 @@ class HeadStyleTest extends TestCase
         }
     }
 
-    public function testOverloadSetOversitesStack()
+    public function testOverloadSetOversitesStack(): void
     {
         $string = 'a {}';
         for ($i = 0; $i < 3; ++$i) {
@@ -139,7 +139,7 @@ class HeadStyleTest extends TestCase
         $this->assertEquals($string, $item->content);
     }
 
-    public function testCanBuildStyleTagsWithAttributes()
+    public function testCanBuildStyleTagsWithAttributes(): void
     {
         $this->helper->setStyle('a {}', [
             'lang'  => 'us_en',
@@ -165,7 +165,7 @@ class HeadStyleTest extends TestCase
         $this->assertEquals('unused', $attributes['bogus']);
     }
 
-    public function testRenderedStyleTagsContainHtmlEscaping()
+    public function testRenderedStyleTagsContainHtmlEscaping(): void
     {
         $this->helper->setStyle('a {}', [
             'lang'  => 'us_en',
@@ -179,7 +179,7 @@ class HeadStyleTest extends TestCase
         $this->assertStringContainsString(PHP_EOL . '-->', $value);
     }
 
-    public function testRenderedStyleTagsContainsDefaultMedia()
+    public function testRenderedStyleTagsContainsDefaultMedia(): void
     {
         $this->helper->setStyle('a {}', [
         ]);
@@ -189,15 +189,17 @@ class HeadStyleTest extends TestCase
 
     /**
      * @group Laminas-8056
+     *
+     * @return void
      */
-    public function testMediaAttributeCanHaveSpaceInCommaSeparatedString()
+    public function testMediaAttributeCanHaveSpaceInCommaSeparatedString(): void
     {
         $this->helper->appendStyle('a { }', ['media' => 'screen, projection']);
         $string = $this->helper->toString();
         $this->assertStringContainsString('media="screen,projection"', $string);
     }
 
-    public function testHeadStyleProxiesProperly()
+    public function testHeadStyleProxiesProperly(): void
     {
         $style1 = 'a {}';
         $style2 = 'a {}' . PHP_EOL . 'h1 {}';
@@ -213,7 +215,7 @@ class HeadStyleTest extends TestCase
         $this->assertStringContainsString($values[2]->content, $style3);
     }
 
-    public function testToStyleGeneratesValidHtml()
+    public function testToStyleGeneratesValidHtml(): void
     {
         $style1 = 'a {}';
         $style2 = 'body {}' . PHP_EOL . 'h1 {}';
@@ -236,7 +238,7 @@ class HeadStyleTest extends TestCase
         $this->assertStringContainsString($style1, $html);
     }
 
-    public function testCapturingCapturesToObject()
+    public function testCapturingCapturesToObject(): void
     {
         $this->helper->captureStart();
         echo 'foobar';
@@ -247,7 +249,7 @@ class HeadStyleTest extends TestCase
         $this->assertStringContainsString('foobar', $item->content);
     }
 
-    public function testOverloadingOffsetSetWritesToSpecifiedIndex()
+    public function testOverloadingOffsetSetWritesToSpecifiedIndex(): void
     {
         $this->helper->offsetSetStyle(100, 'foobar');
         $values = $this->helper->getArrayCopy();
@@ -271,7 +273,7 @@ class HeadStyleTest extends TestCase
         $this->helper->appendStyle();
     }
 
-    public function testIndentationIsHonored()
+    public function testIndentationIsHonored(): void
     {
         $this->helper->setIndent(4);
         $this->helper->appendStyle('
@@ -308,7 +310,7 @@ h1 {
         self::assertStringContainsString('second capture', (string) $this->helper);
     }
 
-    public function testNestedCapturingFails()
+    public function testNestedCapturingFails(): void
     {
         $this->helper->__invoke()->captureStart();
         echo "Captured text";
@@ -322,7 +324,7 @@ h1 {
         }
     }
 
-    public function testMediaAttributeAsArray()
+    public function testMediaAttributeAsArray(): void
     {
         $this->helper->setIndent(4);
         $this->helper->appendStyle('
@@ -338,7 +340,7 @@ a {
         $this->assertStringContainsString(' media="screen,projection"', $string);
     }
 
-    public function testMediaAttributeAsCommaSeparatedString()
+    public function testMediaAttributeAsCommaSeparatedString(): void
     {
         $this->helper->setIndent(4);
         $this->helper->appendStyle('
@@ -354,7 +356,7 @@ a {
         $this->assertStringContainsString(' media="screen,projection"', $string);
     }
 
-    public function testConditionalScript()
+    public function testConditionalScript(): void
     {
         $this->helper->appendStyle('
 a {
@@ -364,7 +366,7 @@ a {
         $this->assertStringContainsString('<!--[if lt IE 7]>', $test);
     }
 
-    public function testConditionalScriptNoIE()
+    public function testConditionalScriptNoIE(): void
     {
         $this->helper->appendStyle('
 a {
@@ -375,7 +377,7 @@ a {
         $this->assertStringContainsString('<!--<![endif]-->', $test);
     }
 
-    public function testConditionalScriptNoIEWidthSpace()
+    public function testConditionalScriptNoIEWidthSpace(): void
     {
         $this->helper->appendStyle('
 a {
@@ -388,8 +390,10 @@ a {
 
     /**
      * @issue Laminas-5435
+     *
+     * @return void
      */
-    public function testContainerMaintainsCorrectOrderOfItems()
+    public function testContainerMaintainsCorrectOrderOfItems(): void
     {
         $style1 = 'a {display: none;}';
         $this->helper->offsetSetStyle(10, $style1);
@@ -414,8 +418,10 @@ a {
 
     /**
      * @group Laminas-9532
+     *
+     * @return void
      */
-    public function testRenderConditionalCommentsShouldNotContainHtmlEscaping()
+    public function testRenderConditionalCommentsShouldNotContainHtmlEscaping(): void
     {
         $style = 'a{display:none;}';
         $this->helper->appendStyle($style, [

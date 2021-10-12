@@ -20,7 +20,10 @@ class RecursiveIteratorTest implements Iterator
         $this->items = [];
     }
 
-    public function addItem(Iterator $iterator)
+    /**
+     * @return static
+     */
+    public function addItem(Iterator $iterator): self
     {
         $this->items[] = $iterator;
         return $this;

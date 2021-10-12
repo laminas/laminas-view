@@ -232,8 +232,9 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     /**
      * Verifies container and eventually fetches it from service locator if it is a string
      *
-     * @param  Navigation\AbstractContainer|string|null $container
+     * @param Navigation\AbstractContainer|string|null $container
      * @throws Exception\InvalidArgumentException
+     * @return void
      */
     protected function parseContainer(&$container = null)
     {
@@ -858,6 +859,8 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
 
     /**
      * Attaches default ACL listeners, if ACLs are in use
+     *
+     * @return void
      */
     protected function setDefaultListeners()
     {

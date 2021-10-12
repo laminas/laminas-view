@@ -194,7 +194,7 @@ abstract class AbstractStandalone extends AbstractHelper implements
     /**
      * Return whether autoEscaping is enabled or disabled
      *
-     * return bool
+     * @return bool
      */
     public function getAutoEscape()
     {

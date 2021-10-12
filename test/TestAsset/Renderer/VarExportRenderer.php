@@ -19,6 +19,9 @@ class VarExportRenderer implements Renderer
         return 'var_export';
     }
 
+    /**
+     * @return void
+     */
     public function setResolver(Resolver $resolver)
     {
         // Deliberately empty

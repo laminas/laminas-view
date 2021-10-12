@@ -44,7 +44,7 @@ class ServerUrlTest extends TestCase
         $_SERVER = $this->serverBackup;
     }
 
-    public function testConstructorWithOnlyHost()
+    public function testConstructorWithOnlyHost(): void
     {
         $_SERVER['HTTP_HOST'] = 'example.com';
 
@@ -52,7 +52,7 @@ class ServerUrlTest extends TestCase
         $this->assertEquals('http://example.com', $url->__invoke());
     }
 
-    public function testConstructorWithOnlyHostIncludingPort()
+    public function testConstructorWithOnlyHostIncludingPort(): void
     {
         $_SERVER['HTTP_HOST'] = 'example.com:8000';
 
@@ -60,7 +60,7 @@ class ServerUrlTest extends TestCase
         $this->assertEquals('http://example.com:8000', $url->__invoke());
     }
 
-    public function testConstructorWithHostAndHttpsOn()
+    public function testConstructorWithHostAndHttpsOn(): void
     {
         $_SERVER['HTTP_HOST'] = 'example.com';
         $_SERVER['HTTPS']     = 'on';
@@ -69,7 +69,7 @@ class ServerUrlTest extends TestCase
         $this->assertEquals('https://example.com', $url->__invoke());
     }
 
-    public function testConstructorWithHostAndHttpsTrue()
+    public function testConstructorWithHostAndHttpsTrue(): void
     {
         $_SERVER['HTTP_HOST'] = 'example.com';
         $_SERVER['HTTPS'] = true;
@@ -78,7 +78,7 @@ class ServerUrlTest extends TestCase
         $this->assertEquals('https://example.com', $url->__invoke());
     }
 
-    public function testConstructorWithHostIncludingPortAndHttpsTrue()
+    public function testConstructorWithHostIncludingPortAndHttpsTrue(): void
     {
         $_SERVER['HTTP_HOST'] = 'example.com:8181';
         $_SERVER['HTTPS'] = true;
@@ -87,7 +87,7 @@ class ServerUrlTest extends TestCase
         $this->assertEquals('https://example.com:8181', $url->__invoke());
     }
 
-    public function testConstructorWithHostReversedProxyHttpsTrue()
+    public function testConstructorWithHostReversedProxyHttpsTrue(): void
     {
         $_SERVER['HTTP_HOST'] = 'example.com';
         $_SERVER['HTTP_X_FORWARDED_PROTO'] = 'https';
@@ -97,7 +97,7 @@ class ServerUrlTest extends TestCase
         $this->assertEquals('https://example.com', $url->__invoke());
     }
 
-    public function testConstructorWithHttpHostIncludingPortAndPortSet()
+    public function testConstructorWithHttpHostIncludingPortAndPortSet(): void
     {
         $_SERVER['HTTP_HOST'] = 'example.com:8181';
         $_SERVER['SERVER_PORT'] = 8181;
@@ -106,7 +106,7 @@ class ServerUrlTest extends TestCase
         $this->assertEquals('http://example.com:8181', $url->__invoke());
     }
 
-    public function testConstructorWithHttpHostAndServerNameAndPortSet()
+    public function testConstructorWithHttpHostAndServerNameAndPortSet(): void
     {
         $_SERVER['HTTP_HOST'] = 'example.com';
         $_SERVER['SERVER_NAME'] = 'example.org';
@@ -116,7 +116,7 @@ class ServerUrlTest extends TestCase
         $this->assertEquals('http://example.com:8080', $url->__invoke());
     }
 
-    public function testConstructorWithNoHttpHostButServerNameAndPortSet()
+    public function testConstructorWithNoHttpHostButServerNameAndPortSet(): void
     {
         unset($_SERVER['HTTP_HOST']);
         $_SERVER['SERVER_NAME'] = 'example.org';
@@ -126,7 +126,7 @@ class ServerUrlTest extends TestCase
         $this->assertEquals('http://example.org:8080', $url->__invoke());
     }
 
-    public function testServerUrlWithTrueParam()
+    public function testServerUrlWithTrueParam(): void
     {
         $_SERVER['HTTPS']       = 'off';
         $_SERVER['HTTP_HOST']   = 'example.com';
@@ -136,7 +136,7 @@ class ServerUrlTest extends TestCase
         $this->assertEquals('http://example.com/foo.html', $url->__invoke(true));
     }
 
-    public function testServerUrlWithInteger()
+    public function testServerUrlWithInteger(): void
     {
         $_SERVER['HTTPS']     = 'off';
         $_SERVER['HTTP_HOST'] = 'example.com';
@@ -146,7 +146,7 @@ class ServerUrlTest extends TestCase
         $this->assertEquals('http://example.com', $url->__invoke(1337));
     }
 
-    public function testServerUrlWithObject()
+    public function testServerUrlWithObject(): void
     {
         $_SERVER['HTTPS']     = 'off';
         $_SERVER['HTTP_HOST'] = 'example.com';
@@ -158,8 +158,10 @@ class ServerUrlTest extends TestCase
 
     /**
      * @group Laminas-9919
+     *
+     * @return void
      */
-    public function testServerUrlWithScheme()
+    public function testServerUrlWithScheme(): void
     {
         $_SERVER['HTTP_SCHEME'] = 'https';
         $_SERVER['HTTP_HOST'] = 'example.com';
@@ -169,8 +171,10 @@ class ServerUrlTest extends TestCase
 
     /**
      * @group Laminas-9919
+     *
+     * @return void
      */
-    public function testServerUrlWithPort()
+    public function testServerUrlWithPort(): void
     {
         $_SERVER['SERVER_PORT'] = 443;
         $_SERVER['HTTP_HOST'] = 'example.com';
@@ -180,8 +184,10 @@ class ServerUrlTest extends TestCase
 
     /**
      * @group Laminas-508
+     *
+     * @return void
      */
-    public function testServerUrlWithProxy()
+    public function testServerUrlWithProxy(): void
     {
         $_SERVER['HTTP_HOST'] = 'proxyserver.com';
         $_SERVER['HTTP_X_FORWARDED_HOST'] = 'www.firsthost.org';
@@ -192,8 +198,10 @@ class ServerUrlTest extends TestCase
 
     /**
      * @group Laminas-508
+     *
+     * @return void
      */
-    public function testServerUrlWithMultipleProxies()
+    public function testServerUrlWithMultipleProxies(): void
     {
         $_SERVER['HTTP_HOST'] = 'proxyserver.com';
         $_SERVER['HTTP_X_FORWARDED_HOST'] = 'www.firsthost.org, www.secondhost.org';
@@ -202,7 +210,7 @@ class ServerUrlTest extends TestCase
         $this->assertEquals('http://www.secondhost.org', $url->__invoke());
     }
 
-    public function testDoesNotUseProxyByDefault()
+    public function testDoesNotUseProxyByDefault(): void
     {
         $_SERVER['HTTP_HOST'] = 'proxyserver.com';
         $_SERVER['HTTP_X_FORWARDED_HOST'] = 'www.firsthost.org, www.secondhost.org';
@@ -210,7 +218,7 @@ class ServerUrlTest extends TestCase
         $this->assertEquals('http://proxyserver.com', $url->__invoke());
     }
 
-    public function testCanUseXForwardedPortIfProvided()
+    public function testCanUseXForwardedPortIfProvided(): void
     {
         $_SERVER['HTTP_HOST'] = 'proxyserver.com';
         $_SERVER['HTTP_X_FORWARDED_HOST'] = 'www.firsthost.org, www.secondhost.org';
@@ -220,7 +228,7 @@ class ServerUrlTest extends TestCase
         $this->assertEquals('http://www.secondhost.org:8888', $url->__invoke());
     }
 
-    public function testUsesHostHeaderWhenPortForwardingDetected()
+    public function testUsesHostHeaderWhenPortForwardingDetected(): void
     {
         $_SERVER['HTTP_HOST'] = 'localhost:10088';
         $_SERVER['SERVER_PORT'] = 10081;

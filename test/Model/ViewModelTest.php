@@ -18,40 +18,40 @@ use stdClass;
 
 class ViewModelTest extends TestCase
 {
-    public function testImplementsModelInterface()
+    public function testImplementsModelInterface(): void
     {
         $model = new ViewModel();
         $this->assertInstanceOf('Laminas\View\Model\ModelInterface', $model);
     }
 
-    public function testImplementsClearableModelInterface()
+    public function testImplementsClearableModelInterface(): void
     {
         $model = new ViewModel();
         $this->assertInstanceOf('Laminas\View\Model\ClearableModelInterface', $model);
     }
 
-    public function testAllowsEmptyConstructor()
+    public function testAllowsEmptyConstructor(): void
     {
         $model = new ViewModel();
         $this->assertInstanceOf('Laminas\View\Variables', $model->getVariables());
         $this->assertEquals([], $model->getOptions());
     }
 
-    public function testAllowsEmptyOptionsArgumentToConstructor()
+    public function testAllowsEmptyOptionsArgumentToConstructor(): void
     {
         $model = new ViewModel(['foo' => 'bar']);
         $this->assertEquals(['foo' => 'bar'], $model->getVariables());
         $this->assertEquals([], $model->getOptions());
     }
 
-    public function testAllowsPassingBothVariablesAndOptionsArgumentsToConstructor()
+    public function testAllowsPassingBothVariablesAndOptionsArgumentsToConstructor(): void
     {
         $model = new ViewModel(['foo' => 'bar'], ['template' => 'foo/bar']);
         $this->assertEquals(['foo' => 'bar'], $model->getVariables());
         $this->assertEquals(['template' => 'foo/bar'], $model->getOptions());
     }
 
-    public function testAllowsPassingTraversableArgumentsToVariablesAndOptionsInConstructor()
+    public function testAllowsPassingTraversableArgumentsToVariablesAndOptionsInConstructor(): void
     {
         $vars    = new ArrayObject;
         $options = new ArrayObject;
@@ -60,28 +60,28 @@ class ViewModelTest extends TestCase
         $this->assertSame(iterator_to_array($options), $model->getOptions());
     }
 
-    public function testAllowsPassingNonArrayAccessObjectsAsArrayInConstructor()
+    public function testAllowsPassingNonArrayAccessObjectsAsArrayInConstructor(): void
     {
         $vars  = ['foo' => new Variable];
         $model = new ViewModel($vars);
         $this->assertSame($vars, $model->getVariables());
     }
 
-    public function testCanSetVariablesSingly()
+    public function testCanSetVariablesSingly(): void
     {
         $model = new ViewModel(['foo' => 'bar']);
         $model->setVariable('bar', 'baz');
         $this->assertEquals(['foo' => 'bar', 'bar' => 'baz'], $model->getVariables());
     }
 
-    public function testCanOverwriteVariablesSingly()
+    public function testCanOverwriteVariablesSingly(): void
     {
         $model = new ViewModel(['foo' => 'bar']);
         $model->setVariable('foo', 'baz');
         $this->assertEquals(['foo' => 'baz'], $model->getVariables());
     }
 
-    public function testSetVariablesMergesWithPreviouslyStoredVariables()
+    public function testSetVariablesMergesWithPreviouslyStoredVariables(): ViewModel
     {
         $model = new ViewModel(['foo' => 'bar', 'bar' => 'baz']);
         $model->setVariables(['bar' => 'BAZBAT']);
@@ -89,7 +89,7 @@ class ViewModelTest extends TestCase
         return $model;
     }
 
-    public function testCanUnsetVariable()
+    public function testCanUnsetVariable(): void
     {
         $model = new ViewModel(['foo' => 'bar']);
         $model->__unset('foo');
@@ -98,29 +98,31 @@ class ViewModelTest extends TestCase
 
     /**
      * @depends testSetVariablesMergesWithPreviouslyStoredVariables
+     *
+     * @return void
      */
-    public function testCanClearAllVariables(ViewModel $model)
+    public function testCanClearAllVariables(ViewModel $model): void
     {
         $model->clearVariables();
         $vars = $model->getVariables();
         $this->assertEquals(0, count($vars));
     }
 
-    public function testCanSetOptionsSingly()
+    public function testCanSetOptionsSingly(): void
     {
         $model = new ViewModel([], ['foo' => 'bar']);
         $model->setOption('bar', 'baz');
         $this->assertEquals(['foo' => 'bar', 'bar' => 'baz'], $model->getOptions());
     }
 
-    public function testCanOverwriteOptionsSingly()
+    public function testCanOverwriteOptionsSingly(): void
     {
         $model = new ViewModel([], ['foo' => 'bar']);
         $model->setOption('foo', 'baz');
         $this->assertEquals(['foo' => 'baz'], $model->getOptions());
     }
 
-    public function testSetOptionsOverwritesAllPreviouslyStored()
+    public function testSetOptionsOverwritesAllPreviouslyStored(): ViewModel
     {
         $model = new ViewModel([], ['foo' => 'bar', 'bar' => 'baz']);
         $model->setOptions(['bar' => 'BAZBAT']);
@@ -128,7 +130,7 @@ class ViewModelTest extends TestCase
         return $model;
     }
 
-    public function testOptionsAreInternallyConvertedToAnArrayFromTraversables()
+    public function testOptionsAreInternallyConvertedToAnArrayFromTraversables(): void
     {
         $options = new ArrayObject(['foo' => 'bar']);
         $model = new ViewModel();
@@ -138,14 +140,16 @@ class ViewModelTest extends TestCase
 
     /**
      * @depends testSetOptionsOverwritesAllPreviouslyStored
+     *
+     * @return void
      */
-    public function testCanClearOptions(ViewModel $model)
+    public function testCanClearOptions(ViewModel $model): void
     {
         $model->clearOptions();
         $this->assertEquals([], $model->getOptions());
     }
 
-    public function testPassingAnInvalidArgumentToSetVariablesRaisesAnException()
+    public function testPassingAnInvalidArgumentToSetVariablesRaisesAnException(): void
     {
         $model = new ViewModel();
         $this->expectException(Exception\InvalidArgumentException::class);
@@ -153,7 +157,7 @@ class ViewModelTest extends TestCase
         $model->setVariables(new stdClass);
     }
 
-    public function testPassingAnInvalidArgumentToSetOptionsRaisesAnException()
+    public function testPassingAnInvalidArgumentToSetOptionsRaisesAnException(): void
     {
         $model = new ViewModel();
         $this->expectException(Exception\InvalidArgumentException::class);
@@ -161,32 +165,32 @@ class ViewModelTest extends TestCase
         $model->setOptions(new stdClass);
     }
 
-    public function testCaptureToDefaultsToContent()
+    public function testCaptureToDefaultsToContent(): void
     {
         $model = new ViewModel();
         $this->assertEquals('content', $model->captureTo());
     }
 
-    public function testCaptureToValueIsMutable()
+    public function testCaptureToValueIsMutable(): void
     {
         $model = new ViewModel();
         $model->setCaptureTo('foo');
         $this->assertEquals('foo', $model->captureTo());
     }
 
-    public function testHasNoChildrenByDefault()
+    public function testHasNoChildrenByDefault(): void
     {
         $model = new ViewModel();
         $this->assertFalse($model->hasChildren());
     }
 
-    public function testWhenNoChildrenCountIsZero()
+    public function testWhenNoChildrenCountIsZero(): void
     {
         $model = new ViewModel();
         $this->assertEquals(0, count($model));
     }
 
-    public function testCanAddChildren()
+    public function testCanAddChildren(): void
     {
         $model = new ViewModel();
         $child = new ViewModel();
@@ -194,7 +198,7 @@ class ViewModelTest extends TestCase
         $this->assertTrue($model->hasChildren());
     }
 
-    public function testCanCountChildren()
+    public function testCanCountChildren(): ViewModel
     {
         $model = new ViewModel();
         $child = new ViewModel();
@@ -205,7 +209,7 @@ class ViewModelTest extends TestCase
         return $model;
     }
 
-    public function testCanIterateChildren()
+    public function testCanIterateChildren(): void
     {
         $model = new ViewModel();
         $child = new ViewModel();
@@ -223,41 +227,43 @@ class ViewModelTest extends TestCase
 
     /**
      * @depends testCanCountChildren
+     *
+     * @return void
      */
-    public function testCanClearChildren(ViewModel $model)
+    public function testCanClearChildren(ViewModel $model): void
     {
         $model->clearChildren();
         $this->assertEquals(0, count($model));
     }
 
-    public function testTemplateIsEmptyByDefault()
+    public function testTemplateIsEmptyByDefault(): void
     {
         $model    = new ViewModel();
         $template = $model->getTemplate();
         $this->assertEmpty($template);
     }
 
-    public function testTemplateIsMutable()
+    public function testTemplateIsMutable(): void
     {
         $model = new ViewModel();
         $model->setTemplate('foo');
         $this->assertEquals('foo', $model->getTemplate());
     }
 
-    public function testIsNotTerminatedByDefault()
+    public function testIsNotTerminatedByDefault(): void
     {
         $model = new ViewModel();
         $this->assertFalse($model->terminate());
     }
 
-    public function testTerminationFlagIsMutable()
+    public function testTerminationFlagIsMutable(): void
     {
         $model = new ViewModel();
         $model->setTerminal(true);
         $this->assertTrue($model->terminate());
     }
 
-    public function testAddChildAllowsSpecifyingCaptureToValue()
+    public function testAddChildAllowsSpecifyingCaptureToValue(): void
     {
         $model = new ViewModel();
         $child = new ViewModel();
@@ -266,14 +272,14 @@ class ViewModelTest extends TestCase
         $this->assertEquals('foo', $child->captureTo());
     }
 
-    public function testAllowsPassingViewVariablesContainerAsVariablesToConstructor()
+    public function testAllowsPassingViewVariablesContainerAsVariablesToConstructor(): void
     {
         $variables = new ViewVariables();
         $model     = new ViewModel($variables);
         $this->assertSame($variables, $model->getVariables());
     }
 
-    public function testPassingOverwriteFlagWhenSettingVariablesOverwritesContainer()
+    public function testPassingOverwriteFlagWhenSettingVariablesOverwritesContainer(): void
     {
         $variables = new ViewVariables(['foo' => 'bar']);
         $model     = new ViewModel($variables);
@@ -282,7 +288,7 @@ class ViewModelTest extends TestCase
         $this->assertSame($overwrite, $model->getVariables());
     }
 
-    public function testPropertyOverloadingGivesAccessToProperties()
+    public function testPropertyOverloadingGivesAccessToProperties(): void
     {
         $model      = new ViewModel();
         $variables  = $model->getVariables();
@@ -296,7 +302,7 @@ class ViewModelTest extends TestCase
         $this->assertFalse(isset($variables['foo']));
     }
 
-    public function testPropertyOverloadingAllowsWritingPropertiesAfterSetVariablesHasBeenCalled()
+    public function testPropertyOverloadingAllowsWritingPropertiesAfterSetVariablesHasBeenCalled(): void
     {
         $model = new ViewModel();
         $model->setVariables(['foo' => 'bar']);
@@ -309,7 +315,7 @@ class ViewModelTest extends TestCase
         $this->assertEquals('baz', $variables['bar']);
     }
 
-    public function testGetChildrenByCaptureTo()
+    public function testGetChildrenByCaptureTo(): void
     {
         $model = new ViewModel();
         $child = new ViewModel();
@@ -318,7 +324,7 @@ class ViewModelTest extends TestCase
         $this->assertEquals([$child], $model->getChildrenByCaptureTo('foo'));
     }
 
-    public function testGetChildrenByCaptureToRecursive()
+    public function testGetChildrenByCaptureToRecursive(): void
     {
         $model = new ViewModel();
         $child = new ViewModel();
@@ -329,7 +335,7 @@ class ViewModelTest extends TestCase
         $this->assertEquals([$subChild], $model->getChildrenByCaptureTo('bar'));
     }
 
-    public function testGetChildrenByCaptureToNonRecursive()
+    public function testGetChildrenByCaptureToNonRecursive(): void
     {
         $model = new ViewModel();
         $child = new ViewModel();
@@ -340,7 +346,7 @@ class ViewModelTest extends TestCase
         $this->assertEmpty($model->getChildrenByCaptureTo('bar', false));
     }
 
-    public function testCloneCopiesVariables()
+    public function testCloneCopiesVariables(): void
     {
         $model1 = new ViewModel();
         $model1->setVariables(['a' => 'foo']);
@@ -351,7 +357,7 @@ class ViewModelTest extends TestCase
         $this->assertEquals('bar', $model2->getVariable('a'));
     }
 
-    public function testCloneWithArray()
+    public function testCloneWithArray(): void
     {
         $model1 = new ViewModel(['a' => 'foo']);
         $model2 = clone $model1;
@@ -361,7 +367,14 @@ class ViewModelTest extends TestCase
         $this->assertEquals('bar', $model2->getVariable('a'));
     }
 
-    public function variableValue()
+    /**
+     * @psalm-return array<array-key, array{
+     *     0: array<string, null|string>|ArrayObject<string, null|string>,
+     *     1: null|string,
+     *     2: null|string
+     * }>
+     */
+    public function variableValue(): array
     {
         return [
             // variables                     default   expected
@@ -390,8 +403,10 @@ class ViewModelTest extends TestCase
      * @param array|ArrayObject $variables
      * @param string|null $default
      * @param string|null $expected
+     *
+     * @return void
      */
-    public function testGetVariableSetByConstruct($variables, $default, $expected)
+    public function testGetVariableSetByConstruct($variables, $default, $expected): void
     {
         $model = new ViewModel($variables);
 
@@ -404,8 +419,10 @@ class ViewModelTest extends TestCase
      * @param array|ArrayObject $variables
      * @param string|null $default
      * @param string|null $expected
+     *
+     * @return void
      */
-    public function testGetVariableSetBySetter($variables, $default, $expected)
+    public function testGetVariableSetBySetter($variables, $default, $expected): void
     {
         $model = new ViewModel();
         $model->setVariables($variables);

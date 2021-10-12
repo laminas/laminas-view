@@ -113,9 +113,9 @@ class ServerUrl extends AbstractHelper
     /**
      * Detect the port
      *
-     * @return null
+     * @return void
      */
-    protected function detectPort()
+    protected function detectPort(): void
     {
         if ($this->setPortFromProxy()) {
             return;
@@ -134,9 +134,9 @@ class ServerUrl extends AbstractHelper
     /**
      * Detect the scheme
      *
-     * @return null
+     * @return void
      */
-    protected function detectScheme()
+    protected function detectScheme(): void
     {
         if ($this->setSchemeFromProxy()) {
             return;
@@ -157,7 +157,7 @@ class ServerUrl extends AbstractHelper
         $this->setScheme($scheme);
     }
 
-    protected function isReversedProxy()
+    protected function isReversedProxy(): bool
     {
         return isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https';
     }

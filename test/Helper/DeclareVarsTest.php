@@ -32,7 +32,7 @@ class DeclareVarsTest extends TestCase
         unset($this->view);
     }
     // @codingStandardsIgnoreStart
-    protected function _declareVars()
+    protected function _declareVars(): void
     {
         // @codingStandardsIgnoreEnd
         $this->view->plugin('declareVars')->__invoke(
@@ -45,7 +45,7 @@ class DeclareVarsTest extends TestCase
         );
     }
 
-    public function testDeclareUndeclaredVars()
+    public function testDeclareUndeclaredVars(): void
     {
         $this->_declareVars();
 
@@ -59,7 +59,7 @@ class DeclareVarsTest extends TestCase
         $this->assertEquals([], $vars->varName4);
     }
 
-    public function testDeclareDeclaredVars()
+    public function testDeclareDeclaredVars(): void
     {
         $vars = $this->view->vars();
         $vars->varName2 = 'alreadySet';

@@ -99,7 +99,7 @@ class Cycle extends AbstractHelper implements Iterator
     /**
      * Sets actual name of cycle
      *
-     * @param  $name
+     * @param  string $name
      * @return Cycle
      */
     public function setName($name = self::DEFAULT_NAME)

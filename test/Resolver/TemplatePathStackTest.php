@@ -42,7 +42,7 @@ class TemplatePathStackTest extends TestCase
         ];
     }
 
-    public function testAddPathAddsPathToStack()
+    public function testAddPathAddsPathToStack(): void
     {
         $this->stack->addPath($this->baseDir);
         $paths = $this->stack->getPaths();
@@ -50,7 +50,7 @@ class TemplatePathStackTest extends TestCase
         $this->assertEquals(TemplatePathStack::normalizePath($this->baseDir), $paths->pop());
     }
 
-    public function testPathsAreProcessedAsStack()
+    public function testPathsAreProcessedAsStack(): void
     {
         $paths = [
             TemplatePathStack::normalizePath($this->baseDir),
@@ -63,7 +63,7 @@ class TemplatePathStackTest extends TestCase
         $this->assertEquals(array_reverse($paths), $test);
     }
 
-    public function testAddPathsAddsPathsToStack()
+    public function testAddPathsAddsPathsToStack(): void
     {
         $this->stack->addPath($this->baseDir . '/Helper');
         $paths = [
@@ -75,7 +75,7 @@ class TemplatePathStackTest extends TestCase
         $this->assertEquals(array_reverse($paths), $this->stack->getPaths()->toArray());
     }
 
-    public function testSetPathsOverwritesStack()
+    public function testSetPathsOverwritesStack(): void
     {
         $this->stack->addPath($this->baseDir . '/Helper');
         $paths = [
@@ -86,7 +86,7 @@ class TemplatePathStackTest extends TestCase
         $this->assertEquals(array_reverse($paths), $this->stack->getPaths()->toArray());
     }
 
-    public function testClearPathsClearsStack()
+    public function testClearPathsClearsStack(): void
     {
         $paths = [
             $this->baseDir,
@@ -97,23 +97,23 @@ class TemplatePathStackTest extends TestCase
         $this->assertEquals(0, $this->stack->getPaths()->count());
     }
 
-    public function testLfiProtectionEnabledByDefault()
+    public function testLfiProtectionEnabledByDefault(): void
     {
         $this->assertTrue($this->stack->isLfiProtectionOn());
     }
 
-    public function testMayDisableLfiProtection()
+    public function testMayDisableLfiProtection(): void
     {
         $this->stack->setLfiProtection(false);
         $this->assertFalse($this->stack->isLfiProtectionOn());
     }
 
-    public function testStreamWrapperDisabledByDefault()
+    public function testStreamWrapperDisabledByDefault(): void
     {
         $this->assertFalse($this->stack->useStreamWrapper());
     }
 
-    public function testMayEnableStreamWrapper()
+    public function testMayEnableStreamWrapper(): void
     {
         $flag = (bool) ini_get('short_open_tag');
         if (! $flag) {
@@ -123,7 +123,7 @@ class TemplatePathStackTest extends TestCase
         $this->assertTrue($this->stack->useStreamWrapper());
     }
 
-    public function testDoesNotAllowParentDirectoryTraversalByDefault()
+    public function testDoesNotAllowParentDirectoryTraversalByDefault(): void
     {
         $this->stack->addPath($this->baseDir . '/_templates');
 
@@ -132,7 +132,7 @@ class TemplatePathStackTest extends TestCase
         $this->stack->resolve('../_stubs/scripts/LfiProtectionCheck.phtml');
     }
 
-    public function testDisablingLfiProtectionAllowsParentDirectoryTraversal()
+    public function testDisablingLfiProtectionAllowsParentDirectoryTraversal(): void
     {
         $this->stack->setLfiProtection(false)
                     ->addPath($this->baseDir . '/_templates');
@@ -141,20 +141,20 @@ class TemplatePathStackTest extends TestCase
         $this->assertStringContainsString('LfiProtectionCheck.phtml', $test);
     }
 
-    public function testReturnsFalseWhenRetrievingScriptIfNoPathsRegistered()
+    public function testReturnsFalseWhenRetrievingScriptIfNoPathsRegistered(): void
     {
         $this->assertFalse($this->stack->resolve('test.phtml'));
         $this->assertEquals(TemplatePathStack::FAILURE_NO_PATHS, $this->stack->getLastLookupFailure());
     }
 
-    public function testReturnsFalseWhenUnableToResolveScriptToPath()
+    public function testReturnsFalseWhenUnableToResolveScriptToPath(): void
     {
         $this->stack->addPath($this->baseDir . '/_templates');
         $this->assertFalse($this->stack->resolve('bogus-script.txt'));
         $this->assertEquals(TemplatePathStack::FAILURE_NOT_FOUND, $this->stack->getLastLookupFailure());
     }
 
-    public function testReturnsFullPathNameWhenAbleToResolveScriptPath()
+    public function testReturnsFullPathNameWhenAbleToResolveScriptPath(): void
     {
         $this->stack->addPath($this->baseDir . '/_templates');
         $expected = realpath($this->baseDir . '/_templates/test.phtml');
@@ -162,7 +162,7 @@ class TemplatePathStackTest extends TestCase
         $this->assertEquals($expected, $test);
     }
 
-    public function testReturnsPathWithStreamProtocolWhenStreamWrapperEnabled()
+    public function testReturnsPathWithStreamProtocolWhenStreamWrapperEnabled(): void
     {
         $flag = (bool) ini_get('short_open_tag');
         if (! $flag) {
@@ -175,7 +175,10 @@ class TemplatePathStackTest extends TestCase
         $this->assertEquals($expected, $test);
     }
 
-    public function invalidOptions()
+    /**
+     * @psalm-return array<array-key, array{0: mixed}>
+     */
+    public function invalidOptions(): array
     {
         return [
             [true],
@@ -190,8 +193,10 @@ class TemplatePathStackTest extends TestCase
      * @param mixed $options
      *
      * @dataProvider invalidOptions
+     *
+     * @return void
      */
-    public function testSettingOptionsWithInvalidArgumentRaisesException($options)
+    public function testSettingOptionsWithInvalidArgumentRaisesException($options): void
     {
         $this->expectException(Exception\ExceptionInterface::class);
         $this->stack->setOptions($options);
@@ -217,8 +222,10 @@ class TemplatePathStackTest extends TestCase
      * @param array|\ArrayObject $options
      *
      * @dataProvider validOptions
+     *
+     * @return void
      */
-    public function testAllowsSettingOptions($options)
+    public function testAllowsSettingOptions($options): void
     {
         $options['script_paths'] = $this->paths;
         $this->stack->setOptions($options);
@@ -236,8 +243,10 @@ class TemplatePathStackTest extends TestCase
      * @param array $options
      *
      * @dataProvider validOptions
+     *
+     * @return void
      */
-    public function testAllowsPassingOptionsToConstructor($options)
+    public function testAllowsPassingOptionsToConstructor($options): void
     {
         $options['script_paths'] = $this->paths;
         $stack = new TemplatePathStack($options);
@@ -249,7 +258,7 @@ class TemplatePathStackTest extends TestCase
         $this->assertEquals(array_reverse($this->paths), $stack->getPaths()->toArray());
     }
 
-    public function testAllowsRelativePharPath()
+    public function testAllowsRelativePharPath(): void
     {
         $path = 'phar://' . $this->baseDir
             . DIRECTORY_SEPARATOR . '_templates'
@@ -263,18 +272,18 @@ class TemplatePathStackTest extends TestCase
         $this->assertEquals($path . DIRECTORY_SEPARATOR . 'foo' . DIRECTORY_SEPARATOR . 'hello.phtml', $test);
     }
 
-    public function testDefaultFileSuffixIsPhtml()
+    public function testDefaultFileSuffixIsPhtml(): void
     {
         $this->assertEquals('phtml', $this->stack->getDefaultSuffix());
     }
 
-    public function testDefaultFileSuffixIsMutable()
+    public function testDefaultFileSuffixIsMutable(): void
     {
         $this->stack->setDefaultSuffix('php');
         $this->assertEquals('php', $this->stack->getDefaultSuffix());
     }
 
-    public function testSettingDefaultSuffixStripsLeadingDot()
+    public function testSettingDefaultSuffixStripsLeadingDot(): void
     {
         $this->stack->setDefaultSuffix('.config.php');
         $this->assertEquals('config.php', $this->stack->getDefaultSuffix());

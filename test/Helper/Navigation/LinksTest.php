@@ -67,7 +67,7 @@ class LinksTest extends AbstractTest
         $this->_doctypeHelper->setDoctype($this->_oldDoctype);
     }
 
-    public function testCanRenderFromServiceAlias()
+    public function testCanRenderFromServiceAlias(): void
     {
         $sm = $this->serviceManager;
         $this->_helper->setServiceLocator($sm);
@@ -76,26 +76,26 @@ class LinksTest extends AbstractTest
         $this->assertEquals($returned, $this->_getExpected('links/default.html'));
     }
 
-    public function testHelperEntryPointWithoutAnyParams()
+    public function testHelperEntryPointWithoutAnyParams(): void
     {
         $returned = $this->_helper->__invoke();
         $this->assertEquals($this->_helper, $returned);
         $this->assertEquals($this->_nav1, $returned->getContainer());
     }
 
-    public function testHelperEntryPointWithContainerParam()
+    public function testHelperEntryPointWithContainerParam(): void
     {
         $returned = $this->_helper->__invoke($this->_nav2);
         $this->assertEquals($this->_helper, $returned);
         $this->assertEquals($this->_nav2, $returned->getContainer());
     }
 
-    public function testDoNotRenderIfNoPageIsActive()
+    public function testDoNotRenderIfNoPageIsActive(): void
     {
         $this->assertEquals('', $this->_helper->render());
     }
 
-    public function testDetectRelationFromStringPropertyOfActivePage()
+    public function testDetectRelationFromStringPropertyOfActivePage(): void
     {
         $active = $this->_helper->findOneByLabel('Page 2');
         $active->addRel('example', 'http://www.example.com/');
@@ -116,7 +116,7 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testDetectRelationFromPageInstancePropertyOfActivePage()
+    public function testDetectRelationFromPageInstancePropertyOfActivePage(): void
     {
         $active = $this->_helper->findOneByLabel('Page 2');
         $active->addRel('example', AbstractPage::factory([
@@ -140,7 +140,7 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testDetectRelationFromArrayPropertyOfActivePage()
+    public function testDetectRelationFromArrayPropertyOfActivePage(): void
     {
         $active = $this->_helper->findOneByLabel('Page 2');
         $active->addRel('example', [
@@ -164,7 +164,7 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testDetectRelationFromConfigInstancePropertyOfActivePage()
+    public function testDetectRelationFromConfigInstancePropertyOfActivePage(): void
     {
         $active = $this->_helper->findOneByLabel('Page 2');
         $active->addRel('example', new Config\Config([
@@ -188,7 +188,7 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testDetectMultipleRelationsFromArrayPropertyOfActivePage()
+    public function testDetectMultipleRelationsFromArrayPropertyOfActivePage(): void
     {
         $active = $this->_helper->findOneByLabel('Page 2');
 
@@ -210,7 +210,7 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testDetectMultipleRelationsFromConfigPropertyOfActivePage()
+    public function testDetectMultipleRelationsFromConfigPropertyOfActivePage(): void
     {
         $active = $this->_helper->findOneByLabel('Page 2');
 
@@ -232,7 +232,7 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testExtractingRelationsFromPageProperties()
+    public function testExtractingRelationsFromPageProperties(): void
     {
         $types = [
             'alternate', 'stylesheet', 'start', 'next', 'prev', 'contents',
@@ -262,7 +262,7 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testFindStartPageByTraversal()
+    public function testFindStartPageByTraversal(): void
     {
         $active = $this->_helper->findOneByLabel('Page 2.1');
         $expected = 'Home';
@@ -270,14 +270,14 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testDoNotFindStartWhenGivenPageIsTheFirstPage()
+    public function testDoNotFindStartWhenGivenPageIsTheFirstPage(): void
     {
         $active = $this->_helper->findOneByLabel('Home');
         $actual = $this->_helper->findRelStart($active);
         $this->assertNull($actual, 'Should not find any start page');
     }
 
-    public function testFindNextPageByTraversalShouldFindChildPage()
+    public function testFindNextPageByTraversalShouldFindChildPage(): void
     {
         $active = $this->_helper->findOneByLabel('Page 2');
         $expected = 'Page 2.1';
@@ -285,7 +285,7 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testFindNextPageByTraversalShouldFindSiblingPage()
+    public function testFindNextPageByTraversalShouldFindSiblingPage(): void
     {
         $active = $this->_helper->findOneByLabel('Page 2.1');
         $expected = 'Page 2.2';
@@ -293,7 +293,7 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testFindNextPageByTraversalShouldWrap()
+    public function testFindNextPageByTraversalShouldWrap(): void
     {
         $active = $this->_helper->findOneByLabel('Page 2.2.2');
         $expected = 'Page 2.3';
@@ -301,7 +301,7 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testFindPrevPageByTraversalShouldFindParentPage()
+    public function testFindPrevPageByTraversalShouldFindParentPage(): void
     {
         $active = $this->_helper->findOneByLabel('Page 2.1');
         $expected = 'Page 2';
@@ -309,7 +309,7 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testFindPrevPageByTraversalShouldFindSiblingPage()
+    public function testFindPrevPageByTraversalShouldFindSiblingPage(): void
     {
         $active = $this->_helper->findOneByLabel('Page 2.2');
         $expected = 'Page 2.1';
@@ -317,7 +317,7 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testFindPrevPageByTraversalShouldWrap()
+    public function testFindPrevPageByTraversalShouldWrap(): void
     {
         $active = $this->_helper->findOneByLabel('Page 2.3');
         $expected = 'Page 2.2.2';
@@ -325,7 +325,7 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testShouldFindChaptersFromFirstLevelOfPagesInContainer()
+    public function testShouldFindChaptersFromFirstLevelOfPagesInContainer(): void
     {
         $active = $this->_helper->findOneByLabel('Page 2.3');
         $found = $this->_helper->findRelChapter($active);
@@ -339,7 +339,7 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testFindingChaptersShouldExcludeSelfIfChapter()
+    public function testFindingChaptersShouldExcludeSelfIfChapter(): void
     {
         $active = $this->_helper->findOneByLabel('Page 2');
         $found = $this->_helper->findRelChapter($active);
@@ -353,7 +353,7 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testFindSectionsWhenActiveChapterPage()
+    public function testFindSectionsWhenActiveChapterPage(): void
     {
         $active = $this->_helper->findOneByLabel('Page 2');
         $found = $this->_helper->findRelSection($active);
@@ -365,21 +365,21 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testDoNotFindSectionsWhenActivePageIsASection()
+    public function testDoNotFindSectionsWhenActivePageIsASection(): void
     {
         $active = $this->_helper->findOneByLabel('Page 2.2');
         $found = $this->_helper->findRelSection($active);
         $this->assertNull($found);
     }
 
-    public function testDoNotFindSectionsWhenActivePageIsASubsection()
+    public function testDoNotFindSectionsWhenActivePageIsASubsection(): void
     {
         $active = $this->_helper->findOneByLabel('Page 2.2.1');
         $found = $this->_helper->findRelation($active, 'rel', 'section');
         $this->assertNull($found);
     }
 
-    public function testFindSubsectionWhenActivePageIsSection()
+    public function testFindSubsectionWhenActivePageIsSection(): void
     {
         $active = $this->_helper->findOneByLabel('Page 2.2');
         $found = $this->_helper->findRelSubsection($active);
@@ -392,35 +392,35 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testDoNotFindSubsectionsWhenActivePageIsASubSubsection()
+    public function testDoNotFindSubsectionsWhenActivePageIsASubSubsection(): void
     {
         $active = $this->_helper->findOneByLabel('Page 2.2.1');
         $found = $this->_helper->findRelSubsection($active);
         $this->assertNull($found);
     }
 
-    public function testDoNotFindSubsectionsWhenActivePageIsAChapter()
+    public function testDoNotFindSubsectionsWhenActivePageIsAChapter(): void
     {
         $active = $this->_helper->findOneByLabel('Page 2');
         $found = $this->_helper->findRelSubsection($active);
         $this->assertNull($found);
     }
 
-    public function testFindRevSectionWhenPageIsSection()
+    public function testFindRevSectionWhenPageIsSection(): void
     {
         $active = $this->_helper->findOneByLabel('Page 2.2');
         $found = $this->_helper->findRevSection($active);
         $this->assertEquals('Page 2', $found->getLabel());
     }
 
-    public function testFindRevSubsectionWhenPageIsSubsection()
+    public function testFindRevSubsectionWhenPageIsSubsection(): void
     {
         $active = $this->_helper->findOneByLabel('Page 2.2.1');
         $found = $this->_helper->findRevSubsection($active);
         $this->assertEquals('Page 2.2', $found->getLabel());
     }
 
-    public function testAclFiltersAwayPagesFromPageProperty()
+    public function testAclFiltersAwayPagesFromPageProperty(): void
     {
         $acl = new Acl\Acl();
         $acl->addRole(new Role\GenericRole('member'));
@@ -472,7 +472,7 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testAclFiltersAwayPagesFromContainerSearch()
+    public function testAclFiltersAwayPagesFromContainerSearch(): void
     {
         $acl = new Acl\Acl();
         $acl->addRole(new Role\GenericRole('member'));
@@ -482,7 +482,7 @@ class LinksTest extends AbstractTest
         $this->_helper->setAcl($acl);
         $this->_helper->setRole($acl->getRole('member'));
 
-        $oldContainer = $this->_helper->getContainer();
+        $this->_helper->getContainer();
         $container = $this->_helper->getContainer();
         $iterator = new \RecursiveIteratorIterator(
             $container,
@@ -493,7 +493,7 @@ class LinksTest extends AbstractTest
         }
         $this->_helper->setContainer($container);
 
-        $active = $this->_helper->findOneByLabel('Home');
+        $this->_helper->findOneByLabel('Home');
         $search = [
             'start'      => 'Page 1',
             'next'       => 'Page 1',
@@ -524,7 +524,7 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testFindRelationMustSpecifyRelOrRev()
+    public function testFindRelationMustSpecifyRelOrRev(): void
     {
         $active = $this->_helper->findOneByLabel('Home');
         try {
@@ -536,7 +536,7 @@ class LinksTest extends AbstractTest
         }
     }
 
-    public function testRenderLinkMustSpecifyRelOrRev()
+    public function testRenderLinkMustSpecifyRelOrRev(): void
     {
         $active = $this->_helper->findOneByLabel('Home');
         try {
@@ -548,7 +548,7 @@ class LinksTest extends AbstractTest
         }
     }
 
-    public function testFindAllRelations()
+    public function testFindAllRelations(): void
     {
         $expectedRelations = [
             'alternate'  => ['Forced page'],
@@ -603,7 +603,12 @@ class LinksTest extends AbstractTest
     }
 
     // @codingStandardsIgnoreStart
-    private function _getFlags()
+    /**
+     * @return string[]
+     *
+     * @psalm-return array{1: 'alternate', 2: 'stylesheet', 4: 'start', 8: 'next', 16: 'prev', 32: 'contents', 64: 'index', 128: 'glossary', 512: 'chapter', 1024: 'section', 2048: 'subsection', 4096: 'appendix', 8192: 'help', 16384: 'bookmark', 32768: 'canonical'}
+     */
+    private function _getFlags(): array
     {
         // @codingStandardsIgnoreEnd
         return [
@@ -625,7 +630,7 @@ class LinksTest extends AbstractTest
         ];
     }
 
-    public function testSingleRenderFlags()
+    public function testSingleRenderFlags(): void
     {
         $active = $this->_helper->findOneByLabel('Home');
         $active->active = true;
@@ -659,7 +664,7 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testRenderFlagBitwiseOr()
+    public function testRenderFlagBitwiseOr(): void
     {
         $newFlag = Navigation\Links::RENDER_NEXT |
                    Navigation\Links::RENDER_PREV;
@@ -676,7 +681,7 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testIndenting()
+    public function testIndenting(): void
     {
         $active = $this->_helper->findOneByLabel('Page 1.1');
         $newFlag = Navigation\Links::RENDER_NEXT |
@@ -694,7 +699,7 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testSetMaxDepth()
+    public function testSetMaxDepth(): void
     {
         $this->_helper->setMaxDepth(1);
         $this->_helper->findOneByLabel('Page 2.3.3')->setActive(); // level 2
@@ -706,7 +711,7 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testSetMinDepth()
+    public function testSetMinDepth(): void
     {
         $this->_helper->setMinDepth(2);
         $this->_helper->findOneByLabel('Page 2.3')->setActive(); // level 1

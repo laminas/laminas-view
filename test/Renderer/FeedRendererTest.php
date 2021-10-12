@@ -22,7 +22,11 @@ class FeedRendererTest extends TestCase
         $this->renderer = new FeedRenderer();
     }
 
-    protected function getFeedData($type)
+    /**
+     * @param string $type
+     * @psalm-return array<string, mixed>
+     */
+    protected function getFeedData(string $type): array
     {
         return [
             'copyright' => date('Y'),
@@ -63,7 +67,7 @@ class FeedRendererTest extends TestCase
         ];
     }
 
-    public function testRendersFeedModelAccordingToTypeProvidedInModel()
+    public function testRendersFeedModelAccordingToTypeProvidedInModel(): void
     {
         $model = new FeedModel($this->getFeedData('atom'));
         $model->setOption('feed_type', 'atom');
@@ -72,7 +76,7 @@ class FeedRendererTest extends TestCase
         $this->assertStringContainsString('atom', $xml);
     }
 
-    public function testRendersFeedModelAccordingToRenderTypeIfNoTypeProvidedInModel()
+    public function testRendersFeedModelAccordingToRenderTypeIfNoTypeProvidedInModel(): void
     {
         $this->renderer->setFeedType('atom');
         $model = new FeedModel($this->getFeedData('atom'));
@@ -81,7 +85,7 @@ class FeedRendererTest extends TestCase
         $this->assertStringContainsString('atom', $xml);
     }
 
-    public function testCastsViewModelToFeedModelUsingFeedTypeOptionProvided()
+    public function testCastsViewModelToFeedModelUsingFeedTypeOptionProvided(): void
     {
         $model = new ViewModel($this->getFeedData('atom'));
         $model->setOption('feed_type', 'atom');
@@ -90,7 +94,7 @@ class FeedRendererTest extends TestCase
         $this->assertStringContainsString('atom', $xml);
     }
 
-    public function testCastsViewModelToFeedModelUsingRendererFeedTypeIfNoFeedTypeOptionInModel()
+    public function testCastsViewModelToFeedModelUsingRendererFeedTypeIfNoFeedTypeOptionInModel(): void
     {
         $this->renderer->setFeedType('atom');
         $model = new ViewModel($this->getFeedData('atom'));
@@ -99,7 +103,7 @@ class FeedRendererTest extends TestCase
         $this->assertStringContainsString('atom', $xml);
     }
 
-    public function testStringModelWithValuesProvidedCastsToFeed()
+    public function testStringModelWithValuesProvidedCastsToFeed(): void
     {
         $this->renderer->setFeedType('atom');
         $xml = $this->renderer->render('layout', $this->getFeedData('atom'));
@@ -107,28 +111,28 @@ class FeedRendererTest extends TestCase
         $this->assertStringContainsString('atom', $xml);
     }
 
-    public function testNonStringNonModelArgumentRaisesException()
+    public function testNonStringNonModelArgumentRaisesException(): void
     {
         $this->expectException(Exception\InvalidArgumentException::class);
         $this->expectExceptionMessage('expects');
         $this->renderer->render(['foo']);
     }
 
-    public function testSettingUnacceptableFeedTypeRaisesException()
+    public function testSettingUnacceptableFeedTypeRaisesException(): void
     {
         $this->expectException(Exception\InvalidArgumentException::class);
         $this->expectExceptionMessage('expects a string of either "rss" or "atom"');
         $this->renderer->setFeedType('foobar');
     }
 
-    public function testReturnsSameRendererInstanceWhenResolverIsSet()
+    public function testReturnsSameRendererInstanceWhenResolverIsSet(): void
     {
         $resolver = new PrefixPathStackResolver();
         $returnValue = $this->renderer->setResolver($resolver);
         $this->assertSame($returnValue, $this->renderer);
     }
 
-    public function testReturnsSameRendererInstanceWhenFieldTypeIsSet()
+    public function testReturnsSameRendererInstanceWhenFieldTypeIsSet(): void
     {
         $returnValue = $this->renderer->setFeedType('rss');
         $this->assertSame($returnValue, $this->renderer);

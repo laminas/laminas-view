@@ -28,7 +28,8 @@ class HelperPluginManagerCompatibilityTest extends TestCase
         $factories = [];
 
         if (class_exists(ControllerPluginManager::class)) {
-            $factories['ControllerPluginManager'] = function ($services, $name, $options) {
+            // @codingStandardsIgnoreLine
+            $factories['ControllerPluginManager'] = function ($services, $name, $options): \Laminas\Mvc\Controller\PluginManager {
                 return new ControllerPluginManager($services, [
                     'invokables' => [
                         'flashmessenger' => class_exists(FlashMessenger::class)
@@ -57,7 +58,12 @@ class HelperPluginManagerCompatibilityTest extends TestCase
         return InvalidHelperException::class;
     }
 
-    public function aliasProvider()
+    /**
+     * @return \Generator
+     *
+     * @psalm-return \Generator<mixed, array{0: mixed, 1: mixed}, mixed, void>
+     */
+    public function aliasProvider(): \Generator
     {
         $pluginManager = $this->getPluginManager();
         $r = new ReflectionProperty($pluginManager, 'aliases');
@@ -79,11 +85,17 @@ class HelperPluginManagerCompatibilityTest extends TestCase
         }
     }
 
+    /**
+     * @return void
+     */
     public function getInstanceOf()
     {
         // no-op; instanceof is not used in this implementation
     }
 
+    /**
+     * @return never
+     */
     public function testInstanceOfMatches()
     {
         $this->markTestSkipped('instanceOf is not used with this implementation');
@@ -91,8 +103,10 @@ class HelperPluginManagerCompatibilityTest extends TestCase
 
     /**
      * @todo remove this test once we set the minimum laminas-servicemanager version to 3
+     *
+     * @return void
      */
-    public function testRegisteringInvalidElementRaisesException()
+    public function testRegisteringInvalidElementRaisesException(): void
     {
         $this->expectException($this->getServiceNotFoundException());
         $this->getPluginManager()->setService('test', $this);
@@ -100,8 +114,10 @@ class HelperPluginManagerCompatibilityTest extends TestCase
 
     /**
      * @todo remove this test once we set the minimum laminas-servicemanager version to 3
+     *
+     * @return void
      */
-    public function testLoadingInvalidElementRaisesException()
+    public function testLoadingInvalidElementRaisesException(): void
     {
         $manager = $this->getPluginManager();
         $manager->setInvokableClass('test', get_class($this));

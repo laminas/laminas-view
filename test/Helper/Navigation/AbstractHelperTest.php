@@ -42,7 +42,7 @@ class AbstractHelperTest extends AbstractTest
         }
     }
 
-    public function testHasACLChecksDefaultACL()
+    public function testHasACLChecksDefaultACL(): void
     {
         $aclContainer = $this->_getAcl();
         $acl = $aclContainer['acl'];
@@ -52,7 +52,7 @@ class AbstractHelperTest extends AbstractTest
         $this->assertEquals(true, $this->_helper->hasAcl());
     }
 
-    public function testHasACLChecksMemberVariable()
+    public function testHasACLChecksMemberVariable(): void
     {
         $aclContainer = $this->_getAcl();
         $acl = $aclContainer['acl'];
@@ -62,7 +62,7 @@ class AbstractHelperTest extends AbstractTest
         $this->assertEquals(true, $this->_helper->hasAcl());
     }
 
-    public function testHasRoleChecksDefaultRole()
+    public function testHasRoleChecksDefaultRole(): void
     {
         $aclContainer = $this->_getAcl();
         $role = $aclContainer['role'];
@@ -72,7 +72,7 @@ class AbstractHelperTest extends AbstractTest
         $this->assertEquals(true, $this->_helper->hasRole());
     }
 
-    public function testHasRoleChecksMemberVariable()
+    public function testHasRoleChecksMemberVariable(): void
     {
         $aclContainer = $this->_getAcl();
         $role = $aclContainer['role'];
@@ -82,12 +82,12 @@ class AbstractHelperTest extends AbstractTest
         $this->assertEquals(true, $this->_helper->hasRole());
     }
 
-    public function testEventManagerIsNullByDefault()
+    public function testEventManagerIsNullByDefault(): void
     {
         $this->assertNull($this->_helper->getEventManager());
     }
 
-    public function testFallBackForContainerNames()
+    public function testFallBackForContainerNames(): void
     {
         // Register navigation service with name equal to the documentation
         $this->serviceManager->setAllowOverride(true);

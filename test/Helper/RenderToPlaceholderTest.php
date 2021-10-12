@@ -27,7 +27,7 @@ class RenderToPlaceholderTest extends TestCase
         $this->_view->resolver()->addPath(__DIR__.'/_files/scripts/');
     }
 
-    public function testDefaultEmpty()
+    public function testDefaultEmpty(): void
     {
         $this->_view->plugin('renderToPlaceholder')->__invoke('rendertoplaceholderscript.phtml', 'fooPlaceholder');
         $placeholder = $this->_view->plugin('placeholder');

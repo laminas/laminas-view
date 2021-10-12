@@ -14,11 +14,17 @@ use ReturnTypeWillChange;
 class Variable implements Iterator
 {
     #[ReturnTypeWillChange]
+    /**
+     * @return void
+     */
     public function current()
     {
     }
 
     #[ReturnTypeWillChange]
+    /**
+     * @return void
+     */
     public function key()
     {
     }
@@ -34,6 +40,9 @@ class Variable implements Iterator
     }
 
     #[ReturnTypeWillChange]
+    /**
+     * @return void
+     */
     public function valid()
     {
     }

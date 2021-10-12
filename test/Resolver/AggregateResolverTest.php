@@ -13,13 +13,13 @@ use PHPUnit\Framework\TestCase;
 
 class AggregateResolverTest extends TestCase
 {
-    public function testAggregateIsEmptyByDefault()
+    public function testAggregateIsEmptyByDefault(): void
     {
         $resolver = new Resolver\AggregateResolver();
         $this->assertEquals(0, count($resolver));
     }
 
-    public function testCanAttachResolvers()
+    public function testCanAttachResolvers(): void
     {
         $resolver = new Resolver\AggregateResolver();
         $resolver->attach(new Resolver\TemplateMapResolver);
@@ -28,7 +28,7 @@ class AggregateResolverTest extends TestCase
         $this->assertEquals(2, count($resolver));
     }
 
-    public function testReturnsNonFalseValueWhenAtLeastOneResolverSucceeds()
+    public function testReturnsNonFalseValueWhenAtLeastOneResolverSucceeds(): void
     {
         $resolver = new Resolver\AggregateResolver();
         $resolver->attach(new Resolver\TemplateMapResolver([
@@ -41,13 +41,13 @@ class AggregateResolverTest extends TestCase
         $this->assertEquals('baz', $test);
     }
 
-    public function testLastSuccessfulResolverIsNullInitially()
+    public function testLastSuccessfulResolverIsNullInitially(): void
     {
         $resolver = new Resolver\AggregateResolver();
         $this->assertNull($resolver->getLastSuccessfulResolver());
     }
 
-    public function testCanAccessResolverThatLastSucceeded()
+    public function testCanAccessResolverThatLastSucceeded(): void
     {
         $resolver = new Resolver\AggregateResolver();
         $fooResolver = new Resolver\TemplateMapResolver([
@@ -68,7 +68,7 @@ class AggregateResolverTest extends TestCase
         $this->assertSame($barResolver, $resolver->getLastSuccessfulResolver());
     }
 
-    public function testReturnsFalseWhenNoResolverSucceeds()
+    public function testReturnsFalseWhenNoResolverSucceeds(): void
     {
         $resolver = new Resolver\AggregateResolver();
         $resolver->attach(new Resolver\TemplateMapResolver([
@@ -78,18 +78,18 @@ class AggregateResolverTest extends TestCase
         $this->assertEquals(Resolver\AggregateResolver::FAILURE_NOT_FOUND, $resolver->getLastLookupFailure());
     }
 
-    public function testLastSuccessfulResolverIsNullWhenNoResolverSucceeds()
+    public function testLastSuccessfulResolverIsNullWhenNoResolverSucceeds(): void
     {
         $resolver    = new Resolver\AggregateResolver();
         $fooResolver = new Resolver\TemplateMapResolver([
             'foo' => 'bar',
         ]);
         $resolver->attach($fooResolver);
-        $test = $resolver->resolve('foo');
+        $resolver->resolve('foo');
         $this->assertSame($fooResolver, $resolver->getLastSuccessfulResolver());
 
         try {
-            $test = $resolver->resolve('bar');
+            $resolver->resolve('bar');
             $this->fail('Should not have resolved!');
         } catch (\Exception $e) {
             // exception is expected
@@ -97,7 +97,7 @@ class AggregateResolverTest extends TestCase
         $this->assertNull($resolver->getLastSuccessfulResolver());
     }
 
-    public function testResolvesInOrderOfPriorityProvided()
+    public function testResolvesInOrderOfPriorityProvided(): void
     {
         $resolver = new Resolver\AggregateResolver();
         $fooResolver = new Resolver\TemplateMapResolver([
@@ -117,7 +117,7 @@ class AggregateResolverTest extends TestCase
         $this->assertEquals('bar', $test);
     }
 
-    public function testReturnsFalseWhenAttemptingToResolveWhenNoResolversAreAttached()
+    public function testReturnsFalseWhenAttemptingToResolveWhenNoResolversAreAttached(): void
     {
         $resolver = new Resolver\AggregateResolver();
         $this->assertFalse($resolver->resolve('foo'));

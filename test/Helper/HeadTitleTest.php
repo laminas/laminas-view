@@ -56,46 +56,46 @@ class HeadTitleTest extends TestCase
         unset($this->helper);
     }
 
-    public function testHeadTitleReturnsObjectInstance()
+    public function testHeadTitleReturnsObjectInstance(): void
     {
         $placeholder = $this->helper->__invoke();
         $this->assertInstanceOf(Helper\HeadTitle::class, $placeholder);
     }
 
-    public function testCanSetTitleViaHeadTitle()
+    public function testCanSetTitleViaHeadTitle(): void
     {
         $placeholder = $this->helper->__invoke('Foo Bar', 'SET');
         $this->assertEquals('Foo Bar', $placeholder->renderTitle());
     }
 
-    public function testToStringWrapsToTitleTag()
+    public function testToStringWrapsToTitleTag(): void
     {
         $placeholder = $this->helper->__invoke('Foo Bar', 'SET');
         $this->assertEquals('<title>Foo Bar</title>', $placeholder->toString());
     }
 
-    public function testCanAppendTitleViaHeadTitle()
+    public function testCanAppendTitleViaHeadTitle(): void
     {
-        $placeholder = $this->helper->__invoke('Foo');
+        $this->helper->__invoke('Foo');
         $placeholder = $this->helper->__invoke('Bar');
         $this->assertEquals('FooBar', $placeholder->renderTitle());
     }
 
-    public function testCanPrependTitleViaHeadTitle()
+    public function testCanPrependTitleViaHeadTitle(): void
     {
-        $placeholder = $this->helper->__invoke('Foo');
+        $this->helper->__invoke('Foo');
         $placeholder = $this->helper->__invoke('Bar', 'PREPEND');
         $this->assertEquals('BarFoo', $placeholder->renderTitle());
     }
 
-    public function testReturnedPlaceholderRenderTitleContainsFullTitleElement()
+    public function testReturnedPlaceholderRenderTitleContainsFullTitleElement(): void
     {
-        $placeholder = $this->helper->__invoke('Foo');
+        $this->helper->__invoke('Foo');
         $placeholder = $this->helper->__invoke('Bar', 'APPEND')->setSeparator(' :: ');
         $this->assertEquals('Foo :: Bar', $placeholder->renderTitle());
     }
 
-    public function testRenderTitleEscapesEntries()
+    public function testRenderTitleEscapesEntries(): void
     {
         $this->helper->__invoke('<script type="text/javascript">alert("foo");</script>');
         $string = $this->helper->renderTitle();
@@ -103,7 +103,7 @@ class HeadTitleTest extends TestCase
         $this->assertStringNotContainsString('</script>', $string);
     }
 
-    public function testRenderTitleEscapesSeparator()
+    public function testRenderTitleEscapesSeparator(): void
     {
         $this->helper->__invoke('Foo')
                      ->__invoke('Bar')
@@ -115,7 +115,7 @@ class HeadTitleTest extends TestCase
         $this->assertStringContainsString('br /', $string);
     }
 
-    public function testIndentationIsHonored()
+    public function testIndentationIsHonored(): void
     {
         $this->helper->setIndent(4);
         $this->helper->__invoke('foo');
@@ -124,7 +124,7 @@ class HeadTitleTest extends TestCase
         $this->assertStringContainsString('    <title>', $string);
     }
 
-    public function testAutoEscapeIsHonored()
+    public function testAutoEscapeIsHonored(): void
     {
         $this->helper->__invoke('Some Title &copyright;');
         $this->assertEquals('Some Title &amp;copyright;', $this->helper->renderTitle());
@@ -139,9 +139,12 @@ class HeadTitleTest extends TestCase
 
     /**
      * @issue Laminas-2918
+     *
      * @link https://getlaminas.org/issues/browse/Laminas-2918
+     *
+     * @return void
      */
-    public function testLaminas918()
+    public function testLaminas918(): void
     {
         $this->helper->__invoke('Some Title');
         $this->helper->setPrefix('Prefix: ');
@@ -152,9 +155,12 @@ class HeadTitleTest extends TestCase
 
     /**
      * @issue Laminas-3577
+     *
      * @link https://getlaminas.org/issues/browse/Laminas-3577
+     *
+     * @return void
      */
-    public function testLaminas577()
+    public function testLaminas577(): void
     {
         $this->helper->setAutoEscape(true);
         $this->helper->__invoke('Some Title');
@@ -164,6 +170,9 @@ class HeadTitleTest extends TestCase
         $this->assertEquals('Prefix &amp; Some Title &amp; Postfix', $this->helper->renderTitle());
     }
 
+    /**
+     * @return never
+     */
     public function testCanTranslateTitle()
     {
         $this->markTestIncomplete('Re-enable after laminas-i18n is updated to laminas-servicemanager v3');
@@ -186,7 +195,7 @@ class HeadTitleTest extends TestCase
         $this->assertEquals('Message 1 (en)', $this->helper->renderTitle());
     }
 
-    public function testTranslatorMethods()
+    public function testTranslatorMethods(): void
     {
         $translatorMock = $this->prophesize(Translator::class)->reveal();
         $this->helper->setTranslator($translatorMock, 'foo');
@@ -202,26 +211,30 @@ class HeadTitleTest extends TestCase
 
     /**
      * @group Laminas-8036
+     *
+     * @return void
      */
-    public function testHeadTitleZero()
+    public function testHeadTitleZero(): void
     {
         $this->helper->__invoke('0');
         $this->assertEquals('0', $this->helper->renderTitle());
     }
 
-    public function testCanPrependTitlesUsingDefaultAttachOrder()
+    public function testCanPrependTitlesUsingDefaultAttachOrder(): void
     {
         $this->helper->setDefaultAttachOrder('PREPEND');
-        $placeholder = $this->helper->__invoke('Foo');
+        $this->helper->__invoke('Foo');
         $placeholder = $this->helper->__invoke('Bar');
         $this->assertEquals('BarFoo', $placeholder->renderTitle());
     }
 
 
     /**
-     *  @group Laminas-10284
+     * @group Laminas-10284
+     *
+     * @return void
      */
-    public function testReturnTypeDefaultAttachOrder()
+    public function testReturnTypeDefaultAttachOrder(): void
     {
         $this->assertInstanceOf(Helper\HeadTitle::class, $this->helper->setDefaultAttachOrder('PREPEND'));
         $this->assertEquals('PREPEND', $this->helper->getDefaultAttachOrder());
