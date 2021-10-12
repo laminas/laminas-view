@@ -21,19 +21,18 @@ class MenuTest extends AbstractTest
 {
     // @codingStandardsIgnoreStart
     /**
-     * Class name for view helper to test.
-     *
-     * @var string
-     */
-    protected $_helperName = Menu::class;
-
-    /**
      * View helper.
      *
      * @var Menu
      */
     protected $_helper;
     // @codingStandardsIgnoreEnd
+
+    protected function setUp(): void
+    {
+        $this->_helper = new Menu();
+        parent::setUp();
+    }
 
     public function testCanRenderMenuFromServiceAlias(): void
     {

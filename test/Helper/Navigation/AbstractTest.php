@@ -46,13 +46,6 @@ abstract class AbstractTest extends TestCase
     protected $_files;
 
     /**
-     * Class name for view helper to test
-     *
-     * @var string
-     */
-    protected $_helperName;
-
-    /**
      * View helper
      *
      * @var AbstractHelper
@@ -106,8 +99,7 @@ abstract class AbstractTest extends TestCase
         assert($resolver instanceof TemplatePathStack);
         $resolver->addPath($cwd . '/_files/mvc/views');
 
-        // create helper
-        $this->_helper = new $this->_helperName;
+        // inject view into test subject helper
         $this->_helper->setView($view);
 
         // set nav1 in helper as default

@@ -25,13 +25,6 @@ class SitemapTest extends AbstractTest
     protected $_oldServer = [];
 
     /**
-     * Class name for view helper to test
-     *
-     * @var string
-     */
-    protected $_helperName = Sitemap::class;
-
-    /**
      * View helper
      *
      * @var Sitemap
@@ -47,6 +40,7 @@ class SitemapTest extends AbstractTest
 
     protected function setUp(): void
     {
+        $this->_helper = new Sitemap();
         $this->_originaltimezone = date_default_timezone_get();
         date_default_timezone_set('Europe/Berlin');
 

@@ -9,18 +9,11 @@
 namespace LaminasTest\View\Helper\Navigation;
 
 use Laminas\Navigation\Navigation;
-use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Helper\Navigation as NavigationHelper;
 
 class AbstractHelperTest extends AbstractTest
 {
     // @codingStandardsIgnoreStart
-    /**
-     * Class name for view helper to test
-     *
-     * @var string
-     */
-    protected $_helperName = NavigationHelper::class;
 
     /**
      * View helper
@@ -29,6 +22,12 @@ class AbstractHelperTest extends AbstractTest
      */
     protected $_helper;
     // @codingStandardsIgnoreEnd
+
+    protected function setUp(): void
+    {
+        $this->_helper = new NavigationHelper\Breadcrumbs();
+        parent::setUp();
+    }
 
     protected function tearDown(): void
     {

@@ -21,12 +21,6 @@ use Laminas\View\Helper\Navigation\Breadcrumbs;
 class BreadcrumbsTest extends AbstractTest
 {
     // @codingStandardsIgnoreStart
-    /**
-     * Class name for view helper to test.
-     *
-     * @var string
-     */
-    protected $_helperName = Breadcrumbs::class;
 
     /**
      * View helper.
@@ -35,6 +29,12 @@ class BreadcrumbsTest extends AbstractTest
      */
     protected $_helper;
     // @codingStandardsIgnoreEnd
+
+    protected function setUp(): void
+    {
+        $this->_helper = new Breadcrumbs();
+        parent::setUp();
+    }
 
     public function testCanRenderStraightFromServiceAlias(): void
     {

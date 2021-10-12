@@ -27,13 +27,6 @@ class LinksTest extends AbstractTest
 {
     // @codingStandardsIgnoreStart
     /**
-     * Class name for view helper to test
-     *
-     * @var string
-     */
-    protected $_helperName = Navigation\Links::class;
-
-    /**
      * View helper
      *
      * @var Navigation\Links
@@ -46,6 +39,7 @@ class LinksTest extends AbstractTest
 
     protected function setUp(): void
     {
+        $this->_helper = new Navigation\Links();
         parent::setUp();
 
         // doctype fix (someone forgot to clean up after their unit tests)
