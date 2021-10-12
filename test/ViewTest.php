@@ -38,7 +38,7 @@ class ViewTest extends TestCase
         $this->view->setResponse($this->response);
     }
 
-    public function attachTestStrategies()
+    public function attachTestStrategies(): void
     {
         $this->view->addRenderingStrategy(function ($e) {
             return new TestAsset\Renderer\VarExportRenderer();
@@ -49,7 +49,7 @@ class ViewTest extends TestCase
         });
     }
 
-    public function testRendersViewModelWithNoChildren()
+    public function testRendersViewModelWithNoChildren(): void
     {
         $this->attachTestStrategies();
         $variables = [
@@ -65,7 +65,7 @@ class ViewTest extends TestCase
         }
     }
 
-    public function testRendersViewModelWithChildren()
+    public function testRendersViewModelWithChildren(): void
     {
         $this->attachTestStrategies();
 
@@ -87,7 +87,7 @@ class ViewTest extends TestCase
         $this->assertEquals($expected, $this->result->content);
     }
 
-    public function testRendersTreeOfModels()
+    public function testRendersTreeOfModels(): void
     {
         $this->attachTestStrategies();
 
@@ -113,7 +113,7 @@ class ViewTest extends TestCase
         $this->assertEquals($expected, $this->result->content);
     }
 
-    public function testChildrenMayInvokeDifferentRenderingStrategiesThanParents()
+    public function testChildrenMayInvokeDifferentRenderingStrategiesThanParents(): void
     {
         $this->view->addRenderingStrategy(function ($e) {
             $model = $e->getModel();
@@ -155,7 +155,7 @@ class ViewTest extends TestCase
         $this->assertEquals($expected, $this->result->content);
     }
 
-    public function testTerminalChildRaisesException()
+    public function testTerminalChildRaisesException(): void
     {
         $this->attachTestStrategies();
 
@@ -170,13 +170,13 @@ class ViewTest extends TestCase
         $this->view->render($this->model);
     }
 
-    public function testChildrenAreCapturedToParentVariables()
+    public function testChildrenAreCapturedToParentVariables(): void
     {
         // I wish there were a "markTestRedundant()" method in PHPUnit
         $this->testRendersViewModelWithChildren();
     }
 
-    public function testOmittingCaptureToValueInChildLeadsToOmissionInParent()
+    public function testOmittingCaptureToValueInChildLeadsToOmissionInParent(): void
     {
         $this->attachTestStrategies();
 
@@ -200,13 +200,13 @@ class ViewTest extends TestCase
         $this->assertEquals($expected, $this->result->content);
     }
 
-    public function testResponseStrategyIsTriggeredForParentModel()
+    public function testResponseStrategyIsTriggeredForParentModel(): void
     {
         // I wish there were a "markTestRedundant()" method in PHPUnit
         $this->testRendersViewModelWithChildren();
     }
 
-    public function testResponseStrategyIsNotTriggeredForChildModel()
+    public function testResponseStrategyIsNotTriggeredForChildModel(): void
     {
         $this->view->addRenderingStrategy(function ($e) {
             return new Renderer\JsonRenderer();
@@ -232,7 +232,7 @@ class ViewTest extends TestCase
         $this->assertEquals(1, count($result));
     }
 
-    public function testUsesTreeRendererInterfaceToDetermineWhetherOrNotToPassOnlyRootViewModelToPhpRenderer()
+    public function testUsesTreeRendererInterfaceToDetermineWhetherOrNotToPassOnlyRootViewModelToPhpRenderer(): void
     {
         $resolver    = new Resolver\TemplateMapResolver([
             'layout'  => __DIR__ . '/_templates/nested-view-model-layout.phtml',
@@ -265,7 +265,7 @@ class ViewTest extends TestCase
         $this->assertStringContainsString('Layout end', $result->content);
     }
 
-    public function testUsesTreeRendererInterfaceToDetermineWhetherOrNotToPassOnlyRootViewModelToJsonRenderer()
+    public function testUsesTreeRendererInterfaceToDetermineWhetherOrNotToPassOnlyRootViewModelToJsonRenderer(): void
     {
         $jsonRenderer = new Renderer\JsonRenderer();
 
@@ -293,7 +293,7 @@ class ViewTest extends TestCase
         $this->assertEquals($expected, $result->content);
     }
 
-    public function testCanTriggerPostRendererEvent()
+    public function testCanTriggerPostRendererEvent(): void
     {
         $this->attachTestStrategies();
         $test = (object) ['flag' => false];
@@ -313,8 +313,10 @@ class ViewTest extends TestCase
      * Test the view model can be swapped out
      *
      * @see https://github.com/zendframework/zf2/pull/4164
+     *
+     * @return void
      */
-    public function testModelFromEventIsUsedByRenderer()
+    public function testModelFromEventIsUsedByRenderer(): void
     {
         $renderer = $this->getMockBuilder(PhpRenderer::class)
             ->setMethods(['render'])

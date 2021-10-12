@@ -66,12 +66,12 @@ class HeadMetaTest extends TestCase
         unset($this->helper);
     }
 
-    public function handleErrors($errno, $errstr)
+    public function handleErrors($errno, $errstr): void
     {
         $this->error = $errstr;
     }
 
-    public function testHeadMetaReturnsObjectInstance()
+    public function testHeadMetaReturnsObjectInstance(): void
     {
         $placeholder = $this->helper->__invoke();
         $this->assertInstanceOf(Helper\HeadMeta::class, $placeholder);
@@ -106,7 +106,7 @@ class HeadMetaTest extends TestCase
     }
 
     // @codingStandardsIgnoreStart
-    protected function _inflectAction($type)
+    protected function _inflectAction($type): string
     {
         // @codingStandardsIgnoreEnd
         $type = str_replace('-', ' ', $type);
@@ -116,7 +116,7 @@ class HeadMetaTest extends TestCase
     }
 
     // @codingStandardsIgnoreStart
-    protected function _testOverloadAppend($type)
+    protected function _testOverloadAppend(string $type): void
     {
         // @codingStandardsIgnoreEnd
         $action = 'append' . $this->_inflectAction($type);
@@ -138,7 +138,7 @@ class HeadMetaTest extends TestCase
     }
 
     // @codingStandardsIgnoreStart
-    protected function _testOverloadPrepend($type)
+    protected function _testOverloadPrepend(string $type): void
     {
         // @codingStandardsIgnoreEnd
         $action = 'prepend' . $this->_inflectAction($type);
@@ -160,7 +160,7 @@ class HeadMetaTest extends TestCase
     }
 
     // @codingStandardsIgnoreStart
-    protected function _testOverloadSet($type)
+    protected function _testOverloadSet(string $type): void
     {
         // @codingStandardsIgnoreEnd
         $setAction = 'set' . $this->_inflectAction($type);
@@ -183,49 +183,49 @@ class HeadMetaTest extends TestCase
         $this->assertEquals($string, $item->content);
     }
 
-    public function testOverloadingAppendNameAppendsMetaTagToStack()
+    public function testOverloadingAppendNameAppendsMetaTagToStack(): void
     {
         $this->_testOverloadAppend('name');
     }
 
-    public function testOverloadingPrependNamePrependsMetaTagToStack()
+    public function testOverloadingPrependNamePrependsMetaTagToStack(): void
     {
         $this->_testOverloadPrepend('name');
     }
 
-    public function testOverloadingSetNameOverwritesMetaTagStack()
+    public function testOverloadingSetNameOverwritesMetaTagStack(): void
     {
         $this->_testOverloadSet('name');
     }
 
-    public function testOverloadingAppendHttpEquivAppendsMetaTagToStack()
+    public function testOverloadingAppendHttpEquivAppendsMetaTagToStack(): void
     {
         $this->_testOverloadAppend('http-equiv');
     }
 
-    public function testOverloadingPrependHttpEquivPrependsMetaTagToStack()
+    public function testOverloadingPrependHttpEquivPrependsMetaTagToStack(): void
     {
         $this->_testOverloadPrepend('http-equiv');
     }
 
-    public function testOverloadingSetHttpEquivOverwritesMetaTagStack()
+    public function testOverloadingSetHttpEquivOverwritesMetaTagStack(): void
     {
         $this->_testOverloadSet('http-equiv');
     }
 
-    public function testOverloadingThrowsExceptionWithFewerThanTwoArgs()
+    public function testOverloadingThrowsExceptionWithFewerThanTwoArgs(): void
     {
         $this->expectException(Exception\ExceptionInterface::class);
         $this->helper->setName('foo');
     }
 
-    public function testOverloadingThrowsExceptionWithInvalidMethodType()
+    public function testOverloadingThrowsExceptionWithInvalidMethodType(): void
     {
         $this->expectException(Exception\ExceptionInterface::class);
         $this->helper->setFoo('foo');
     }
 
-    public function testCanBuildMetaTagsWithAttributes()
+    public function testCanBuildMetaTagsWithAttributes(): void
     {
         $this->helper->setName('keywords', 'foo bar', ['lang' => 'us_en', 'scheme' => 'foo', 'bogus' => 'unused']);
         $value = $this->helper->getValue();
@@ -238,7 +238,7 @@ class HeadMetaTest extends TestCase
         $this->assertEquals('foo', $modifiers['scheme']);
     }
 
-    public function testToStringReturnsValidHtml()
+    public function testToStringReturnsValidHtml(): void
     {
         $this->helper->setName('keywords', 'foo bar', ['lang' => 'us_en', 'scheme' => 'foo', 'bogus' => 'unused'])
                      ->prependName('title', 'boo bah')
@@ -267,8 +267,10 @@ class HeadMetaTest extends TestCase
 
     /**
      * @group Laminas-6637
+     *
+     * @return void
      */
-    public function testToStringWhenInvalidKeyProvidedShouldConvertThrownException()
+    public function testToStringWhenInvalidKeyProvidedShouldConvertThrownException(): void
     {
         $this->helper->__invoke('some-content', 'tag value', 'not allowed key');
         set_error_handler([$this, 'handleErrors']);
@@ -277,7 +279,7 @@ class HeadMetaTest extends TestCase
         $this->assertIsString($this->error);
     }
 
-    public function testHeadMetaHelperCreatesItemEntry()
+    public function testHeadMetaHelperCreatesItemEntry(): void
     {
         $this->helper->__invoke('foo', 'keywords');
         $values = $this->helper->getArrayCopy();
@@ -288,7 +290,7 @@ class HeadMetaTest extends TestCase
         $this->assertEquals('keywords', $item->name);
     }
 
-    public function testOverloadingOffsetInsertsAtOffset()
+    public function testOverloadingOffsetInsertsAtOffset(): void
     {
         $this->helper->offsetSetName(100, 'keywords', 'foo');
         $values = $this->helper->getArrayCopy();
@@ -300,7 +302,7 @@ class HeadMetaTest extends TestCase
         $this->assertEquals('keywords', $item->name);
     }
 
-    public function testIndentationIsHonored()
+    public function testIndentationIsHonored(): void
     {
         $this->helper->setIndent(4);
         $this->helper->appendName('keywords', 'foo bar');
@@ -311,7 +313,7 @@ class HeadMetaTest extends TestCase
         $this->assertEquals(2, $scripts);
     }
 
-    public function testStringRepresentationReflectsDoctype()
+    public function testStringRepresentationReflectsDoctype(): void
     {
         $this->view->plugin('doctype')->__invoke('HTML4_STRICT');
         $this->helper->__invoke('some content', 'foo');
@@ -327,8 +329,10 @@ class HeadMetaTest extends TestCase
 
     /**
      * @issue Laminas-2663
+     *
+     * @return void
      */
-    public function testSetNameDoesntClobber()
+    public function testSetNameDoesntClobber(): void
     {
         $view = new View();
         $view->plugin('headMeta')->setName('keywords', 'foo');
@@ -345,8 +349,10 @@ class HeadMetaTest extends TestCase
 
     /**
      * @issue Laminas-2663
+     *
+     * @return void
      */
-    public function testSetNameDoesntClobberPart2()
+    public function testSetNameDoesntClobberPart2(): void
     {
         $view = new View();
         $view->plugin('headMeta')->setName('keywords', 'foo');
@@ -368,9 +374,12 @@ class HeadMetaTest extends TestCase
 
     /**
      * @issue Laminas-3780
+     *
      * @link https://getlaminas.org/issues/browse/Laminas-3780
+     *
+     * @return void
      */
-    public function testPlacesMetaTagsInProperOrder()
+    public function testPlacesMetaTagsInProperOrder(): void
     {
         $view = new View();
         $view->plugin('headMeta')->setName('keywords', 'foo');
@@ -395,8 +404,10 @@ class HeadMetaTest extends TestCase
 
     /**
      * @issue Laminas-5435
+     *
+     * @return void
      */
-    public function testContainerMaintainsCorrectOrderOfItems()
+    public function testContainerMaintainsCorrectOrderOfItems(): void
     {
         $this->helper->offsetSetName(1, 'keywords', 'foo');
         $this->helper->offsetSetName(10, 'description', 'foo');
@@ -418,8 +429,10 @@ class HeadMetaTest extends TestCase
 
     /**
      * @issue Laminas-7722
+     *
+     * @return void
      */
-    public function testCharsetValidateFail()
+    public function testCharsetValidateFail(): void
     {
         $view = new View();
         $view->plugin('doctype')->__invoke('HTML4_STRICT');
@@ -430,8 +443,10 @@ class HeadMetaTest extends TestCase
 
     /**
      * @issue Laminas-7722
+     *
+     * @return void
      */
-    public function testCharset()
+    public function testCharset(): void
     {
         $view = new View();
         $view->plugin('doctype')->__invoke('HTML5');
@@ -450,7 +465,7 @@ class HeadMetaTest extends TestCase
         );
     }
 
-    public function testCharsetPosition()
+    public function testCharsetPosition(): void
     {
         $view = new View();
         $view->plugin('doctype')->__invoke('HTML5');
@@ -466,7 +481,7 @@ class HeadMetaTest extends TestCase
         );
     }
 
-    public function testCarsetWithXhtmlDoctypeGotException()
+    public function testCarsetWithXhtmlDoctypeGotException(): void
     {
         $this->expectException(Exception\InvalidArgumentException::class);
         $this->expectExceptionMessage('XHTML* doctype has no attribute charset; please use appendHttpEquiv()');
@@ -480,8 +495,10 @@ class HeadMetaTest extends TestCase
 
      /**
      * @group Laminas-9743
+     *
+     * @return void
      */
-    public function testPropertyIsSupportedWithRdfaDoctype()
+    public function testPropertyIsSupportedWithRdfaDoctype(): void
     {
         $this->view->doctype('XHTML1_RDFA');
         $this->helper->__invoke('foo', 'og:title', 'property');
@@ -494,8 +511,10 @@ class HeadMetaTest extends TestCase
 
     /**
      * @group Laminas-9743
+     *
+     * @return void
      */
-    public function testPropertyIsNotSupportedByDefaultDoctype()
+    public function testPropertyIsNotSupportedByDefaultDoctype(): void
     {
         try {
             $this->helper->__invoke('foo', 'og:title', 'property');
@@ -507,9 +526,12 @@ class HeadMetaTest extends TestCase
 
     /**
      * @group Laminas-9743
+     *
      * @depends testPropertyIsSupportedWithRdfaDoctype
+     *
+     * @return void
      */
-    public function testOverloadingAppendPropertyAppendsMetaTagToStack()
+    public function testOverloadingAppendPropertyAppendsMetaTagToStack(): void
     {
         $this->view->doctype('XHTML1_RDFA');
         $this->_testOverloadAppend('property');
@@ -517,9 +539,12 @@ class HeadMetaTest extends TestCase
 
     /**
      * @group Laminas-9743
+     *
      * @depends testPropertyIsSupportedWithRdfaDoctype
+     *
+     * @return void
      */
-    public function testOverloadingPrependPropertyPrependsMetaTagToStack()
+    public function testOverloadingPrependPropertyPrependsMetaTagToStack(): void
     {
         $this->view->doctype('XHTML1_RDFA');
         $this->_testOverloadPrepend('property');
@@ -527,9 +552,12 @@ class HeadMetaTest extends TestCase
 
     /**
      * @group Laminas-9743
+     *
      * @depends testPropertyIsSupportedWithRdfaDoctype
+     *
+     * @return void
      */
-    public function testOverloadingSetPropertyOverwritesMetaTagStack()
+    public function testOverloadingSetPropertyOverwritesMetaTagStack(): void
     {
         $this->view->doctype('XHTML1_RDFA');
         $this->_testOverloadSet('property');
@@ -537,8 +565,10 @@ class HeadMetaTest extends TestCase
 
      /**
      * @issue 3751
+     *
+     * @return void
      */
-    public function testItempropIsSupportedWithHtml5Doctype()
+    public function testItempropIsSupportedWithHtml5Doctype(): void
     {
         $this->view->doctype('HTML5');
         $this->helper->__invoke('HeadMeta with Microdata', 'description', 'itemprop');
@@ -551,8 +581,10 @@ class HeadMetaTest extends TestCase
 
     /**
      * @issue 3751
+     *
+     * @return void
      */
-    public function testItempropIsNotSupportedByDefaultDoctype()
+    public function testItempropIsNotSupportedByDefaultDoctype(): void
     {
         try {
             $this->helper->__invoke('HeadMeta with Microdata', 'description', 'itemprop');
@@ -564,9 +596,12 @@ class HeadMetaTest extends TestCase
 
     /**
      * @issue 3751
+     *
      * @depends testItempropIsSupportedWithHtml5Doctype
+     *
+     * @return void
      */
-    public function testOverloadingAppendItempropAppendsMetaTagToStack()
+    public function testOverloadingAppendItempropAppendsMetaTagToStack(): void
     {
         $this->view->doctype('HTML5');
         $this->_testOverloadAppend('itemprop');
@@ -574,9 +609,12 @@ class HeadMetaTest extends TestCase
 
     /**
      * @issue 3751
+     *
      * @depends testItempropIsSupportedWithHtml5Doctype
+     *
+     * @return void
      */
-    public function testOverloadingPrependItempropPrependsMetaTagToStack()
+    public function testOverloadingPrependItempropPrependsMetaTagToStack(): void
     {
         $this->view->doctype('HTML5');
         $this->_testOverloadPrepend('itemprop');
@@ -584,9 +622,12 @@ class HeadMetaTest extends TestCase
 
     /**
      * @issue 3751
+     *
      * @depends testItempropIsSupportedWithHtml5Doctype
+     *
+     * @return void
      */
-    public function testOverloadingSetItempropOverwritesMetaTagStack()
+    public function testOverloadingSetItempropOverwritesMetaTagStack(): void
     {
         $this->view->doctype('HTML5');
         $this->_testOverloadSet('itemprop');
@@ -594,8 +635,10 @@ class HeadMetaTest extends TestCase
 
     /**
      * @group Laminas-11835
+     *
+     * @return void
      */
-    public function testConditional()
+    public function testConditional(): void
     {
         $html = $this->helper->appendHttpEquiv('foo', 'bar', ['conditional' => 'lt IE 7'])->toString();
 
@@ -603,7 +646,7 @@ class HeadMetaTest extends TestCase
         $this->assertMatchesRegularExpression("|<!\[endif\]-->$|", $html);
     }
 
-    public function testConditionalNoIE()
+    public function testConditionalNoIE(): void
     {
         $html = $this->helper->appendHttpEquiv('foo', 'bar', ['conditional' => '!IE'])->toString();
 
@@ -611,7 +654,7 @@ class HeadMetaTest extends TestCase
         $this->assertStringContainsString('<!--<![endif]-->', $html);
     }
 
-    public function testConditionalNoIEWidthSpace()
+    public function testConditionalNoIEWidthSpace(): void
     {
         $html = $this->helper->appendHttpEquiv('foo', 'bar', ['conditional' => '! IE'])->toString();
 
@@ -619,7 +662,7 @@ class HeadMetaTest extends TestCase
         $this->assertStringContainsString('<!--<![endif]-->', $html);
     }
 
-    public function testTurnOffAutoEscapeDoesNotEncode()
+    public function testTurnOffAutoEscapeDoesNotEncode(): void
     {
         $this->helper->setAutoEscape(false)->appendHttpEquiv('foo', 'bar=baz');
         $this->assertEquals('<meta http-equiv="foo" content="bar=baz" />', $this->helper->toString());

@@ -92,7 +92,7 @@ class PartialTest extends TestCase
         $this->assertSame($view, $this->helper->getView());
     }
 
-    public function testObjectModelWithPublicPropertiesSetsViewVariables()
+    public function testObjectModelWithPublicPropertiesSetsViewVariables(): void
     {
         $model = new \stdClass();
         $model->foo = 'bar';
@@ -109,7 +109,7 @@ class PartialTest extends TestCase
         }
     }
 
-    public function testObjectModelWithToArraySetsViewVariables()
+    public function testObjectModelWithToArraySetsViewVariables(): void
     {
         $model = new Aggregate();
 
@@ -124,13 +124,13 @@ class PartialTest extends TestCase
         }
     }
 
-    public function testPassingNoArgsReturnsHelperInstance()
+    public function testPassingNoArgsReturnsHelperInstance(): void
     {
         $test = $this->helper->__invoke();
         $this->assertSame($this->helper, $test);
     }
 
-    public function testCanPassViewModelAsSecondArgument()
+    public function testCanPassViewModelAsSecondArgument(): void
     {
         $model = new ViewModel([
             'foo' => 'bar',
@@ -148,7 +148,7 @@ class PartialTest extends TestCase
         }
     }
 
-    public function testCanPassArrayObjectAsSecondArgument()
+    public function testCanPassArrayObjectAsSecondArgument(): void
     {
         $model = new ArrayObject([
             'foo' => 'bar',
@@ -166,7 +166,7 @@ class PartialTest extends TestCase
         }
     }
 
-    public function testCanPassViewModelAsSoleArgument()
+    public function testCanPassViewModelAsSoleArgument(): void
     {
         $model = new ViewModel([
             'foo' => 'bar',

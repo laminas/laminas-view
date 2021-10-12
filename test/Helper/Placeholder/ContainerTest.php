@@ -128,7 +128,7 @@ class ContainerTest extends TestCase
         $this->assertSame($this->container, $result);
     }
 
-    public function testAppendImplementsFluentInterface()
+    public function testAppendImplementsFluentInterface(): void
     {
         $result = $this->container->append('test');
         $this->assertSame($this->container, $result);
@@ -140,6 +140,7 @@ class ContainerTest extends TestCase
     public function testSetImplementsFluentInterface()
     {
         $result = $this->container->set('test');
+        $this->container->set('test');
         $this->assertSame($this->container, $result);
     }
 
@@ -415,7 +416,7 @@ class ContainerTest extends TestCase
         $this->assertSame($expected, $array);
     }
 
-    public function testIndentationIsHonored()
+    public function testIndentationIsHonored(): void
     {
         $this->container->setIndent(4)
                         ->setPrefix("<ul>\n    <li>")
@@ -434,8 +435,10 @@ class ContainerTest extends TestCase
 
     /**
      * @see https://github.com/zendframework/zend-view/pull/133
+     *
+     * @return void
      */
-    public function testNoPrefixOrPostfixAreRenderedIfNoItemsArePresentInTheContainer()
+    public function testNoPrefixOrPostfixAreRenderedIfNoItemsArePresentInTheContainer(): void
     {
         $this->container
             ->setPrefix("<h1>")

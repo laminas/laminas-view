@@ -92,7 +92,7 @@ class RegistryTest extends TestCase
         $this->assertTrue($this->registry->containerExists('foo'));
     }
 
-    public function testSetContainerCreatesRegistersContainerInstance()
+    public function testSetContainerCreatesRegistersContainerInstance(): void
     {
         $foo = new Container(['foo', 'bar']);
         $this->assertFalse($this->registry->containerExists('foo'));
@@ -101,7 +101,7 @@ class RegistryTest extends TestCase
         $this->assertSame($foo, $container);
     }
 
-    public function testContainerClassAccessorsSetState()
+    public function testContainerClassAccessorsSetState(): void
     {
         $this->assertEquals(Container::class, $this->registry->getContainerClass());
         $this->registry->setContainerClass(TestAsset\MockContainer::class);
@@ -118,7 +118,7 @@ class RegistryTest extends TestCase
         $this->registry->setContainerClass(TestAsset\BogusContainer::class);
     }
 
-    public function testDeletingContainerRemovesFromRegistry()
+    public function testDeletingContainerRemovesFromRegistry(): void
     {
         $this->registry->createContainer('foo');
         $this->assertTrue($this->registry->containerExists('foo'));
@@ -127,13 +127,13 @@ class RegistryTest extends TestCase
         $this->assertTrue($result);
     }
 
-    public function testDeleteContainerReturnsFalseIfContainerDoesNotExist()
+    public function testDeleteContainerReturnsFalseIfContainerDoesNotExist(): void
     {
         $result = $this->registry->deleteContainer('foo');
         $this->assertFalse($result);
     }
 
-    public function testUsingCustomContainerClassCreatesContainersOfCustomClass()
+    public function testUsingCustomContainerClassCreatesContainersOfCustomClass(): void
     {
         $this->registry->setContainerClass(TestAsset\MockContainer::class);
         $container = $this->registry->createContainer('foo');
@@ -142,8 +142,10 @@ class RegistryTest extends TestCase
 
     /**
      * @group Laminas-10793
+     *
+     * @return void
      */
-    public function testSetValueCreateContainer()
+    public function testSetValueCreateContainer(): void
     {
         $this->registry->setContainerClass(TestAsset\MockContainer::class);
         $data = [

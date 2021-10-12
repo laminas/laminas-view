@@ -139,6 +139,11 @@ class Sitemap extends AbstractHelper
             $container = $this->getContainer();
         }
 
+        $locValidator        = null;
+        $lastmodValidator    = null;
+        $changefreqValidator = null;
+        $priorityValidator   = null;
+
         // check if we should validate using our own validators
         if ($this->getUseSitemapValidators()) {
             // create validators
@@ -259,8 +264,8 @@ class Sitemap extends AbstractHelper
     /**
      * Returns an escaped absolute URL for the given page
      *
-     * @param  AbstractPage $page
-     * @return string
+     * @param AbstractPage $page
+     * @return null|string
      */
     public function url(AbstractPage $page)
     {
@@ -290,7 +295,7 @@ class Sitemap extends AbstractHelper
             return $this->xmlEscape($url);
         }
 
-        return;
+        return null;
     }
 
     /**

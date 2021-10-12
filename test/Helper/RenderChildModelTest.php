@@ -41,13 +41,13 @@ class RenderChildModelTest extends TestCase
         $this->viewModelHelper->setCurrent($this->parent);
     }
 
-    public function testRendersEmptyStringWhenUnableToResolveChildModel()
+    public function testRendersEmptyStringWhenUnableToResolveChildModel(): void
     {
         $result = $this->helper->render('child1');
         $this->assertSame('', $result);
     }
 
-    public function setupFirstChild()
+    public function setupFirstChild(): ViewModel
     {
         $child1 = new ViewModel();
         $child1->setTemplate('child1');
@@ -56,14 +56,14 @@ class RenderChildModelTest extends TestCase
         return $child1;
     }
 
-    public function testRendersChildTemplateWhenAbleToResolveChildModelByCaptureToValue()
+    public function testRendersChildTemplateWhenAbleToResolveChildModelByCaptureToValue(): void
     {
         $this->setupFirstChild();
         $result = $this->helper->render('child1');
         $this->assertStringContainsString('Content for layout', $result, $result);
     }
 
-    public function setupSecondChild()
+    public function setupSecondChild(): ViewModel
     {
         $child2 = new ViewModel();
         $child2->setTemplate('child2');
@@ -73,7 +73,7 @@ class RenderChildModelTest extends TestCase
     }
 
 
-    public function testRendersSiblingChildrenWhenCalledInSequence()
+    public function testRendersSiblingChildrenWhenCalledInSequence(): void
     {
         $this->setupFirstChild();
         $this->setupSecondChild();
@@ -83,7 +83,7 @@ class RenderChildModelTest extends TestCase
         $this->assertStringContainsString('Second child', $result, $result);
     }
 
-    public function testRendersNestedChildren()
+    public function testRendersNestedChildren(): void
     {
         $child1 = $this->setupFirstChild();
         $child1->setTemplate('layout');
@@ -98,7 +98,7 @@ class RenderChildModelTest extends TestCase
         $this->assertStringContainsString('Layout end', $result, $result);
     }
 
-    public function testRendersSequentialChildrenWithNestedChildren()
+    public function testRendersSequentialChildrenWithNestedChildren(): void
     {
         $this->parent->setTemplate('complex');
         $child1 = $this->setupFirstChild();
@@ -121,7 +121,7 @@ class RenderChildModelTest extends TestCase
         );
     }
 
-    public function testAttemptingToRenderWithNoCurrentModelRaisesException()
+    public function testAttemptingToRenderWithNoCurrentModelRaisesException(): void
     {
         $renderer = new PhpRenderer();
         $renderer->setResolver($this->resolver);

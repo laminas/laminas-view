@@ -15,14 +15,14 @@ use PHPUnit\Framework\TestCase;
 
 class JsonModelTest extends TestCase
 {
-    public function testAllowsEmptyConstructor()
+    public function testAllowsEmptyConstructor(): void
     {
         $model = new JsonModel();
         $this->assertInstanceOf(Variables::class, $model->getVariables());
         $this->assertEquals([], $model->getOptions());
     }
 
-    public function testCanSerializeVariablesToJson()
+    public function testCanSerializeVariablesToJson(): void
     {
         $array = ['foo' => 'bar'];
         $model = new JsonModel($array);
@@ -30,7 +30,7 @@ class JsonModelTest extends TestCase
         $this->assertEquals(Json::encode($array), $model->serialize());
     }
 
-    public function testCanSerializeWithJsonpCallback()
+    public function testCanSerializeWithJsonpCallback(): void
     {
         $array = ['foo' => 'bar'];
         $model = new JsonModel($array);
@@ -38,7 +38,7 @@ class JsonModelTest extends TestCase
         $this->assertEquals('callback(' . Json::encode($array) . ');', $model->serialize());
     }
 
-    public function testPrettyPrint()
+    public function testPrettyPrint(): void
     {
         $array = [
             'simple' => 'simple test string',

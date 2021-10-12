@@ -50,7 +50,7 @@ class IteratorTest implements Iterator
         return (current($this->items) !== false);
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return $this->items;
     }

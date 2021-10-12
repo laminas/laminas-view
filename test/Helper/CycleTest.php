@@ -46,31 +46,31 @@ class CycleTest extends TestCase
         unset($this->helper);
     }
 
-    public function testCycleMethodReturnsObjectInstance()
+    public function testCycleMethodReturnsObjectInstance(): void
     {
         $cycle = $this->helper->__invoke();
         $this->assertInstanceOf(Helper\Cycle::class, $cycle);
     }
 
-    public function testAssignAndGetValues()
+    public function testAssignAndGetValues(): void
     {
         $this->helper->assign(['a', 1, 'asd']);
         $this->assertEquals(['a', 1, 'asd'], $this->helper->getAll());
     }
 
-    public function testCycleMethod()
+    public function testCycleMethod(): void
     {
         $this->helper->__invoke(['a', 1, 'asd']);
         $this->assertEquals(['a', 1, 'asd'], $this->helper->getAll());
     }
 
-    public function testToString()
+    public function testToString(): void
     {
         $this->helper->__invoke(['a', 1, 'asd']);
         $this->assertEquals('a', (string) $this->helper->toString());
     }
 
-    public function testNextValue()
+    public function testNextValue(): void
     {
         $this->helper->assign(['a', 1, 3]);
         $this->assertEquals('a', (string) $this->helper->next());
@@ -80,7 +80,7 @@ class CycleTest extends TestCase
         $this->assertEquals(1, (string) $this->helper->next());
     }
 
-    public function testPrevValue()
+    public function testPrevValue(): void
     {
         $this->helper->assign([4, 1, 3]);
         $this->assertEquals(3, (string) $this->helper->prev());
@@ -90,7 +90,7 @@ class CycleTest extends TestCase
         $this->assertEquals(1, (string) $this->helper->prev());
     }
 
-    public function testRewind()
+    public function testRewind(): void
     {
         $this->helper->assign([5, 8, 3]);
         $this->assertEquals(5, (string) $this->helper->next());
@@ -100,7 +100,7 @@ class CycleTest extends TestCase
         $this->assertEquals(8, (string) $this->helper->next());
     }
 
-    public function testMixedMethods()
+    public function testMixedMethods(): void
     {
         $this->helper->assign([5, 8, 3]);
         $this->assertEquals(5, (string) $this->helper->next());
@@ -109,7 +109,7 @@ class CycleTest extends TestCase
         $this->assertEquals(5, (string) $this->helper->prev());
     }
 
-    public function testTwoCycles()
+    public function testTwoCycles(): void
     {
         $this->helper->assign([5, 8, 3]);
         $this->assertEquals(5, (string) $this->helper->next());
@@ -118,7 +118,7 @@ class CycleTest extends TestCase
         $this->assertEquals(38, (string) $this->helper->setName('cycle2')->next());
     }
 
-    public function testTwoCyclesInLoop()
+    public function testTwoCyclesInLoop(): void
     {
         $expected = [5,4,2,3];
         $expected2 = [7,34,8,6];

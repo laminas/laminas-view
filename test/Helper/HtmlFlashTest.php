@@ -41,7 +41,7 @@ class HtmlFlashTest extends TestCase
         unset($this->helper);
     }
 
-    public function testMakeHtmlFlash()
+    public function testMakeHtmlFlash(): void
     {
         $htmlFlash = $this->helper->__invoke('/path/to/flash.swf');
 

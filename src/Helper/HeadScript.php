@@ -194,6 +194,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
             $action  = $matches['action'];
             $mode    = strtolower($matches['mode']);
             $type    = self::DEFAULT_SCRIPT_TYPE;
+            $index   = 0;
             $attrs   = [];
 
             if ('offsetSet' == $action) {
@@ -465,9 +466,9 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
     /**
      * Override append
      *
-     * @param  string $value Append script or file
+     * @param string $value Append script or file
      * @throws Exception\InvalidArgumentException
-     * @return void
+     * @return Placeholder\Container\AbstractContainer
      */
     public function append($value)
     {
@@ -484,9 +485,9 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
     /**
      * Override prepend
      *
-     * @param  string $value Prepend script or file
+     * @param string $value Prepend script or file
      * @throws Exception\InvalidArgumentException
-     * @return void
+     * @return Placeholder\Container\AbstractContainer
      */
     public function prepend($value)
     {

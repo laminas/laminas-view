@@ -80,27 +80,27 @@ class SitemapTest extends AbstractTest
         date_default_timezone_set($this->_originaltimezone);
     }
 
-    public function testHelperEntryPointWithoutAnyParams()
+    public function testHelperEntryPointWithoutAnyParams(): void
     {
         $returned = $this->_helper->__invoke();
         $this->assertEquals($this->_helper, $returned);
         $this->assertEquals($this->_nav1, $returned->getContainer());
     }
 
-    public function testHelperEntryPointWithContainerParam()
+    public function testHelperEntryPointWithContainerParam(): void
     {
         $returned = $this->_helper->__invoke($this->_nav2);
         $this->assertEquals($this->_helper, $returned);
         $this->assertEquals($this->_nav2, $returned->getContainer());
     }
 
-    public function testNullingOutNavigation()
+    public function testNullingOutNavigation(): void
     {
         $this->_helper->setContainer();
         $this->assertEquals(0, count($this->_helper->getContainer()));
     }
 
-    public function testRenderSuppliedContainerWithoutInterfering()
+    public function testRenderSuppliedContainerWithoutInterfering(): void
     {
         $rendered1 = trim($this->_getExpected('sitemap/default1.xml'));
         $rendered2 = trim($this->_getExpected('sitemap/default2.xml'));
@@ -119,7 +119,7 @@ class SitemapTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testUseAclRoles()
+    public function testUseAclRoles(): void
     {
         $acl = $this->_getAcl();
         $this->_helper->setAcl($acl['acl']);
@@ -129,7 +129,7 @@ class SitemapTest extends AbstractTest
         $this->assertEquals(trim($expected), $this->_helper->render());
     }
 
-    public function testUseAclButNoRole()
+    public function testUseAclButNoRole(): void
     {
         $acl = $this->_getAcl();
         $this->_helper->setAcl($acl['acl']);
@@ -139,7 +139,7 @@ class SitemapTest extends AbstractTest
         $this->assertEquals(trim($expected), $this->_helper->render());
     }
 
-    public function testSettingMaxDepth()
+    public function testSettingMaxDepth(): void
     {
         $this->_helper->setMaxDepth(0);
 
@@ -147,7 +147,7 @@ class SitemapTest extends AbstractTest
         $this->assertEquals(trim($expected), $this->_helper->render());
     }
 
-    public function testSettingMinDepth()
+    public function testSettingMinDepth(): void
     {
         $this->_helper->setMinDepth(1);
 
@@ -155,7 +155,7 @@ class SitemapTest extends AbstractTest
         $this->assertEquals(trim($expected), $this->_helper->render());
     }
 
-    public function testSettingBothDepths()
+    public function testSettingBothDepths(): void
     {
         $this->_helper->setMinDepth(1)->setMaxDepth(2);
 
@@ -163,7 +163,7 @@ class SitemapTest extends AbstractTest
         $this->assertEquals(trim($expected), $this->_helper->render());
     }
 
-    public function testDropXmlDeclaration()
+    public function testDropXmlDeclaration(): void
     {
         $this->_helper->setUseXmlDeclaration(false);
 
@@ -171,6 +171,9 @@ class SitemapTest extends AbstractTest
         $this->assertEquals(trim($expected), $this->_helper->render($this->_nav2));
     }
 
+    /**
+     * @return never
+     */
     public function testThrowExceptionOnInvalidLoc()
     {
         $this->markTestIncomplete('Laminas\URI changes affect this test');
@@ -192,7 +195,7 @@ class SitemapTest extends AbstractTest
         $this->fail('A Laminas\View\Exception\InvalidArgumentException was not thrown on invalid <loc />');
     }
 
-    public function testDisablingValidators()
+    public function testDisablingValidators(): void
     {
         $nav = clone $this->_nav2;
         $nav->addPage(['label' => 'Invalid', 'uri' => 'http://w.']);
@@ -208,6 +211,9 @@ class SitemapTest extends AbstractTest
         $this->assertEquals($expectedDom->saveXML(), $receivedDom->saveXML());
     }
 
+    /**
+     * @return never
+     */
     public function testSetServerUrlRequiresValidUri()
     {
         $this->markTestIncomplete('Laminas\URI changes affect this test');
@@ -220,7 +226,7 @@ class SitemapTest extends AbstractTest
         }
     }
 
-    public function testSetServerUrlWithSchemeAndHost()
+    public function testSetServerUrlWithSchemeAndHost(): void
     {
         $this->_helper->setServerUrl('http://sub.example.org');
 
@@ -228,7 +234,7 @@ class SitemapTest extends AbstractTest
         $this->assertEquals(trim($expected), $this->_helper->render());
     }
 
-    public function testSetServerUrlWithSchemeAndPortAndHostAndPath()
+    public function testSetServerUrlWithSchemeAndPortAndHostAndPath(): void
     {
         $this->_helper->setServerUrl('http://sub.example.org:8080/foo/');
 
@@ -236,7 +242,7 @@ class SitemapTest extends AbstractTest
         $this->assertEquals(trim($expected), $this->_helper->render());
     }
 
-    public function testGetUserSchemaValidation()
+    public function testGetUserSchemaValidation(): void
     {
         $this->_helper->setUseSchemaValidation(true);
         $this->assertTrue($this->_helper->getUseSchemaValidation());
@@ -244,6 +250,9 @@ class SitemapTest extends AbstractTest
         $this->assertFalse($this->_helper->getUseSchemaValidation());
     }
 
+    /**
+     * @return never
+     */
     public function testUseSchemaValidation()
     {
         $this->markTestSkipped('Skipped because it fetches XSD from web');

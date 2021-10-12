@@ -42,7 +42,7 @@ class HtmlListTest extends TestCase
         unset($this->helper);
     }
 
-    public function testMakeUnorderedList()
+    public function testMakeUnorderedList(): void
     {
         $items = ['one', 'two', 'three'];
 
@@ -55,7 +55,7 @@ class HtmlListTest extends TestCase
         }
     }
 
-    public function testMakeOrderedList()
+    public function testMakeOrderedList(): void
     {
         $items = ['one', 'two', 'three'];
 
@@ -68,7 +68,7 @@ class HtmlListTest extends TestCase
         }
     }
 
-    public function testMakeUnorderedListWithAttribs()
+    public function testMakeUnorderedListWithAttribs(): void
     {
         $items = ['one', 'two', 'three'];
         $attribs = ['class' => 'selected', 'name' => 'list'];
@@ -84,7 +84,7 @@ class HtmlListTest extends TestCase
         }
     }
 
-    public function testMakeOrderedListWithAttribs()
+    public function testMakeOrderedListWithAttribs(): void
     {
         $items = ['one', 'two', 'three'];
         $attribs = ['class' => 'selected', 'name' => 'list'];
@@ -103,7 +103,7 @@ class HtmlListTest extends TestCase
     /*
      * @group Laminas-5018
      */
-    public function testMakeNestedUnorderedList()
+    public function testMakeNestedUnorderedList(): void
     {
         $items = ['one', ['four', 'five', 'six'], 'two', 'three'];
 
@@ -119,7 +119,7 @@ class HtmlListTest extends TestCase
     /*
      * @group Laminas-5018
      */
-    public function testMakeNestedDeepUnorderedList()
+    public function testMakeNestedDeepUnorderedList(): void
     {
         $items = ['one', ['four', ['six', 'seven', 'eight'], 'five'], 'two', 'three'];
 
@@ -133,7 +133,7 @@ class HtmlListTest extends TestCase
             PHP_EOL . '</li>' . PHP_EOL . '<li>two', $list);
     }
 
-    public function testListWithValuesToEscapeForLaminas2283()
+    public function testListWithValuesToEscapeForLaminas2283(): void
     {
         $items = ['one <small> test', 'second & third', 'And \'some\' "final" test'];
 
@@ -147,7 +147,7 @@ class HtmlListTest extends TestCase
         $this->assertStringContainsString('<li>And &#039;some&#039; &quot;final&quot; test</li>', $list);
     }
 
-    public function testListEscapeSwitchedOffForLaminas2283()
+    public function testListEscapeSwitchedOffForLaminas2283(): void
     {
         $items = ['one <b>small</b> test'];
 
@@ -161,8 +161,10 @@ class HtmlListTest extends TestCase
 
     /**
      * @group Laminas-2527
+     *
+     * @return void
      */
-    public function testEscapeFlagHonoredForMultidimensionalLists()
+    public function testEscapeFlagHonoredForMultidimensionalLists(): void
     {
         $items = ['<b>one</b>', ['<b>four</b>', '<b>five</b>', '<b>six</b>'], '<b>two</b>', '<b>three</b>'];
 
@@ -176,8 +178,10 @@ class HtmlListTest extends TestCase
     /**
      * @group Laminas-2527
      * Added the s modifier to match newlines after Laminas-5018
+     *
+     * @return void
      */
-    public function testAttribsPassedIntoMultidimensionalLists()
+    public function testAttribsPassedIntoMultidimensionalLists(): void
     {
         $items = ['one', ['four', 'five', 'six'], 'two', 'three'];
 
@@ -190,8 +194,10 @@ class HtmlListTest extends TestCase
 
     /**
      * @group Laminas-2870
+     *
+     * @return void
      */
-    public function testEscapeFlagShouldBePassedRecursively()
+    public function testEscapeFlagShouldBePassedRecursively(): void
     {
         $items = [
             '<b>one</b>',
@@ -214,15 +220,17 @@ class HtmlListTest extends TestCase
         array_walk_recursive($items, [$this, 'validateItems'], $list);
     }
 
-    public function validateItems($value, $key, $userdata)
+    public function validateItems($value, $key, $userdata): void
     {
         $this->assertStringContainsString('<li>' . $value, $userdata);
     }
 
     /**
      * @group Laminas-6063
+     *
+     * @return void
      */
-    public function testEmptyItems()
+    public function testEmptyItems(): void
     {
         $this->expectException(Exception\InvalidArgumentException::class);
         $this->helper->__invoke([]);

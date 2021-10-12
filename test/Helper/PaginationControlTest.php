@@ -60,7 +60,7 @@ class PaginationControlTest extends TestCase
         unset($this->_paginator);
     }
 
-    public function testGetsAndSetsView()
+    public function testGetsAndSetsView(): void
     {
         $view   = new View();
         $helper = new Helper\PaginationControl();
@@ -69,7 +69,7 @@ class PaginationControlTest extends TestCase
         $this->assertInstanceOf(RendererInterface::class, $helper->getView());
     }
 
-    public function testGetsAndSetsDefaultViewPartial()
+    public function testGetsAndSetsDefaultViewPartial(): void
     {
         $this->assertNull(Helper\PaginationControl::getDefaultViewPartial());
         Helper\PaginationControl::setDefaultViewPartial('partial');
@@ -77,7 +77,7 @@ class PaginationControlTest extends TestCase
         Helper\PaginationControl::setDefaultViewPartial(null);
     }
 
-    public function testUsesDefaultViewPartialIfNoneSupplied()
+    public function testUsesDefaultViewPartialIfNoneSupplied(): void
     {
         Helper\PaginationControl::setDefaultViewPartial('testPagination.phtml');
         $output = $this->_viewHelper->__invoke($this->_paginator);
@@ -85,7 +85,7 @@ class PaginationControlTest extends TestCase
         Helper\PaginationControl::setDefaultViewPartial(null);
     }
 
-    public function testThrowsExceptionIfNoViewPartialFound()
+    public function testThrowsExceptionIfNoViewPartialFound(): void
     {
         try {
             $this->_viewHelper->__invoke($this->_paginator);
@@ -97,8 +97,10 @@ class PaginationControlTest extends TestCase
 
     /**
      * @group Laminas-4037
+     *
+     * @return void
      */
-    public function testUsesDefaultScrollingStyleIfNoneSupplied()
+    public function testUsesDefaultScrollingStyleIfNoneSupplied(): void
     {
         // First we'll make sure the base case works
         $output = $this->_viewHelper->__invoke($this->_paginator, 'All', 'testPagination.phtml');
@@ -115,8 +117,10 @@ class PaginationControlTest extends TestCase
 
     /**
      * @group Laminas-4153
+     *
+     * @return void
      */
-    public function testUsesPaginatorFromViewIfNoneSupplied()
+    public function testUsesPaginatorFromViewIfNoneSupplied(): void
     {
         $this->_viewHelper->getView()->paginator = $this->_paginator;
         Helper\PaginationControl::setDefaultViewPartial('testPagination.phtml');
@@ -128,8 +132,10 @@ class PaginationControlTest extends TestCase
 
     /**
      * @group Laminas-4153
+     *
+     * @return void
      */
-    public function testThrowsExceptionIfNoPaginatorFound()
+    public function testThrowsExceptionIfNoPaginatorFound(): void
     {
         Helper\PaginationControl::setDefaultViewPartial('testPagination.phtml');
 
@@ -140,8 +146,10 @@ class PaginationControlTest extends TestCase
 
     /**
      * @group Laminas-4233
+     *
+     * @return void
      */
-    public function testAcceptsViewPartialInOtherModule()
+    public function testAcceptsViewPartialInOtherModule(): void
     {
         try {
             $this->_viewHelper->__invoke($this->_paginator, null, ['partial.phtml', 'test']);
@@ -164,8 +172,10 @@ class PaginationControlTest extends TestCase
 
     /**
      * @group Laminas-4328
+     *
+     * @return void
      */
-    public function testUsesPaginatorFromViewOnlyIfNoneSupplied()
+    public function testUsesPaginatorFromViewOnlyIfNoneSupplied(): void
     {
         $this->_viewHelper->getView()->vars()->paginator  = $this->_paginator;
         $paginator = new Paginator\Paginator(new Paginator\Adapter\ArrayAdapter(range(1, 30)));
@@ -177,8 +187,10 @@ class PaginationControlTest extends TestCase
 
     /**
      * @group Laminas-4878
+     *
+     * @return void
      */
-    public function testCanUseObjectForScrollingStyle()
+    public function testCanUseObjectForScrollingStyle(): void
     {
         $all = new Paginator\ScrollingStyle\All();
 

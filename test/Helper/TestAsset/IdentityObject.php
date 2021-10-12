@@ -22,8 +22,10 @@ class IdentityObject
 
     /**
      * @param string $password
+     *
+     * @return void
      */
-    public function setPassword($password)
+    public function setPassword($password): void
     {
         $this->password = (string) $password;
     }
@@ -38,8 +40,10 @@ class IdentityObject
 
     /**
      * @param string $username
+     *
+     * @return void
      */
-    public function setUsername($username)
+    public function setUsername($username): void
     {
         $this->username = (string) $username;
     }

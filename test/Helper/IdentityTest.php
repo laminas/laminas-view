@@ -23,7 +23,7 @@ use PHPUnit\Framework\TestCase;
  */
 class IdentityTest extends TestCase
 {
-    public function testGetIdentity()
+    public function testGetIdentity(): void
     {
         $identity = new TestAsset\IdentityObject();
         $identity->setUsername('a username');

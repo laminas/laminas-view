@@ -34,7 +34,7 @@ class JsonTest extends TestCase
         $this->helper->setResponse($this->response);
     }
 
-    public function verifyJsonHeader()
+    public function verifyJsonHeader(): void
     {
         $headers = $this->response->getHeaders();
         $this->assertTrue($headers->has('Content-Type'));
@@ -42,13 +42,13 @@ class JsonTest extends TestCase
         $this->assertEquals('application/json', $header->getFieldValue());
     }
 
-    public function testJsonHelperSetsResponseHeader()
+    public function testJsonHelperSetsResponseHeader(): void
     {
-        $json = $this->helper->__invoke('foobar');
+        $this->helper->__invoke('foobar');
         $this->verifyJsonHeader();
     }
 
-    public function testJsonHelperReturnsJsonEncodedString()
+    public function testJsonHelperReturnsJsonEncodedString(): void
     {
         $data = $this->helper->__invoke('foobar');
         $this->assertIsString($data);

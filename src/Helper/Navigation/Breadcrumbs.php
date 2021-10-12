@@ -252,10 +252,10 @@ class Breadcrumbs extends AbstractHelper
     /**
      * Render a partial with the given "model".
      *
-     * @param  array                  $params
-     * @param  null|AbstractContainer $container
-     * @param  null|string|array      $partial
-     * @return string
+     * @param array                  $params
+     * @param null|AbstractContainer $container
+     * @param null|string|array      $partial
+     * @return View\Helper\Partial|string
      * @throws Exception\RuntimeException         if no partial provided
      * @throws Exception\InvalidArgumentException if partial is invalid array
      */

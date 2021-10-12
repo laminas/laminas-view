@@ -35,7 +35,7 @@ class PrefixPathStackResolverTest extends TestCase
         $this->basePath = realpath(__DIR__ . '/../_templates/prefix-path-stack-resolver');
     }
 
-    public function testResolveWithoutPathPrefixes()
+    public function testResolveWithoutPathPrefixes(): void
     {
         $resolver = new PrefixPathStackResolver();
 
@@ -45,7 +45,7 @@ class PrefixPathStackResolverTest extends TestCase
         $this->assertNull($resolver->resolve('path/to/bar'));
     }
 
-    public function testResolve()
+    public function testResolve(): void
     {
         $resolver = new PrefixPathStackResolver([
             'base1'  => $this->basePath,
@@ -58,7 +58,7 @@ class PrefixPathStackResolverTest extends TestCase
         $this->assertSame(realpath($this->basePath . '/baz/taz.phtml'), $resolver->resolve('base2/taz'));
     }
 
-    public function testResolveWithCongruentPrefix()
+    public function testResolveWithCongruentPrefix(): void
     {
         $resolver = new PrefixPathStackResolver([
             'foo'    => $this->basePath,
@@ -69,7 +69,7 @@ class PrefixPathStackResolverTest extends TestCase
         $this->assertSame(realpath($this->basePath . '/baz/taz.phtml'), $resolver->resolve('foobar/taz'));
     }
 
-    public function testSetCustomPathStackResolver()
+    public function testSetCustomPathStackResolver(): void
     {
         $mockResolver = $this->prophesize(ResolverInterface::class);
         $mockResolver->resolve('/bar', null)->willReturn('1111');

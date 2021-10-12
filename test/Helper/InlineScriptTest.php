@@ -52,7 +52,7 @@ class InlineScriptTest extends TestCase
         unset($this->helper);
     }
 
-    public function testInlineScriptReturnsObjectInstance()
+    public function testInlineScriptReturnsObjectInstance(): void
     {
         $placeholder = $this->helper->__invoke();
         $this->assertInstanceOf(Helper\InlineScript::class, $placeholder);

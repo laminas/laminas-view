@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 class ConsoleModelTest extends TestCase
 {
-    public function testImplementsModelInterface()
+    public function testImplementsModelInterface(): void
     {
         $model = new ConsoleModel();
         $this->assertInstanceOf(ModelInterface::class, $model);
@@ -22,8 +22,10 @@ class ConsoleModelTest extends TestCase
 
     /**
      * @see https://github.com/zendframework/zend-view/issues/152
+     *
+     * @return void
      */
-    public function testSetErrorLevelImplementsFluentInterface()
+    public function testSetErrorLevelImplementsFluentInterface(): void
     {
         $model = new ConsoleModel();
         $actual = $model->setErrorLevel(0);

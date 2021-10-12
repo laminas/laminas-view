@@ -365,6 +365,7 @@ class HelperPluginManager extends AbstractPluginManager
      * @param ContainerInterface|Helper\HelperInterface $second
      *     ContainerInterface under laminas-servicemanager v3, helper instance
      *     under v2. Ignored regardless.
+     * @return void
      */
     public function injectRenderer($first, $second)
     {
@@ -391,6 +392,7 @@ class HelperPluginManager extends AbstractPluginManager
      * @param ContainerInterface|Helper\HelperInterface $second
      *     ContainerInterface under laminas-servicemanager v3, helper instance
      *     under v2. Ignored regardless.
+     * @return void
      */
     public function injectTranslator($first, $second)
     {
@@ -446,6 +448,8 @@ class HelperPluginManager extends AbstractPluginManager
      * @param ContainerInterface|Helper\HelperInterface $second
      *     ContainerInterface under laminas-servicemanager v3, helper instance
      *     under v2. Ignored regardless.
+     *
+     * @return void
      */
     public function injectEventManager($first, $second)
     {
@@ -509,6 +513,7 @@ class HelperPluginManager extends AbstractPluginManager
      * Proxies to `validate()`.
      *
      * @param mixed $instance
+     * @return void
      * @throws InvalidHelperException
      */
     public function validatePlugin($instance)

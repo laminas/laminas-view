@@ -99,6 +99,7 @@ class PaginationControl extends AbstractHelper
      * Sets the default Scrolling Style
      *
      * @param string $style string 'all' | 'elastic' | 'sliding' | 'jumping'
+     * @return void
      */
     public static function setDefaultScrollingStyle($style)
     {
@@ -119,6 +120,7 @@ class PaginationControl extends AbstractHelper
      * Sets the default view partial.
      *
      * @param string|array $partial View partial
+     * @return void
      */
     public static function setDefaultViewPartial($partial)
     {

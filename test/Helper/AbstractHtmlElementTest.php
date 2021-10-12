@@ -36,8 +36,10 @@ class AbstractHtmlElementTest extends TestCase
 
     /**
      * @group #5991
+     *
+     * @return void
      */
-    public function testWillEscapeValueAttributeValuesCorrectly()
+    public function testWillEscapeValueAttributeValuesCorrectly(): void
     {
         $reflectionMethod = new \ReflectionMethod($this->helper, 'htmlAttribs');
 

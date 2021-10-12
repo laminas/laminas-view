@@ -66,37 +66,37 @@ class HeadLinkTest extends TestCase
         unset($this->helper);
     }
 
-    public function testHeadLinkReturnsObjectInstance()
+    public function testHeadLinkReturnsObjectInstance(): void
     {
         $placeholder = $this->helper->__invoke();
         $this->assertInstanceOf(Helper\HeadLink::class, $placeholder);
     }
 
-    public function testPrependThrowsExceptionWithoutArrayArgument()
+    public function testPrependThrowsExceptionWithoutArrayArgument(): void
     {
         $this->expectException(Exception\ExceptionInterface::class);
         $this->helper->prepend('foo');
     }
 
-    public function testAppendThrowsExceptionWithoutArrayArgument()
+    public function testAppendThrowsExceptionWithoutArrayArgument(): void
     {
         $this->expectException(Exception\ExceptionInterface::class);
         $this->helper->append('foo');
     }
 
-    public function testSetThrowsExceptionWithoutArrayArgument()
+    public function testSetThrowsExceptionWithoutArrayArgument(): void
     {
         $this->expectException(Exception\ExceptionInterface::class);
         $this->helper->set('foo');
     }
 
-    public function testOffsetSetThrowsExceptionWithoutArrayArgument()
+    public function testOffsetSetThrowsExceptionWithoutArrayArgument(): void
     {
         $this->expectException(Exception\ExceptionInterface::class);
         $this->helper->offsetSet(1, 'foo');
     }
 
-    public function testCreatingLinkStackViaHeadLinkCreatesAppropriateOutput()
+    public function testCreatingLinkStackViaHeadLinkCreatesAppropriateOutput(): void
     {
         $links = [
             'link1' => ['rel' => 'stylesheet', 'type' => 'text/css', 'href' => 'foo'],
@@ -134,7 +134,7 @@ class HeadLinkTest extends TestCase
         $this->assertSame($expected, $order);
     }
 
-    public function testCreatingLinkStackViaStyleSheetMethodsCreatesAppropriateOutput()
+    public function testCreatingLinkStackViaStyleSheetMethodsCreatesAppropriateOutput(): void
     {
         $links = [
             'link1' => ['rel' => 'stylesheet', 'type' => 'text/css', 'href' => 'foo'],
@@ -172,7 +172,7 @@ class HeadLinkTest extends TestCase
         $this->assertSame($expected, $order);
     }
 
-    public function testCreatingLinkStackViaAlternateMethodsCreatesAppropriateOutput()
+    public function testCreatingLinkStackViaAlternateMethodsCreatesAppropriateOutput(): void
     {
         $links = [
             'link1' => ['title' => 'stylesheet', 'type' => 'text/css', 'href' => 'foo'],
@@ -215,26 +215,26 @@ class HeadLinkTest extends TestCase
         $this->assertSame($expected, $order);
     }
 
-    public function testOverloadingThrowsExceptionWithNoArguments()
+    public function testOverloadingThrowsExceptionWithNoArguments(): void
     {
         $this->expectException(Exception\ExceptionInterface::class);
         $this->helper->appendStylesheet();
     }
 
-    public function testOverloadingShouldAllowSingleArrayArgument()
+    public function testOverloadingShouldAllowSingleArrayArgument(): void
     {
         $this->helper->setStylesheet(['href' => '/styles.css']);
         $link = $this->helper->getValue();
         $this->assertEquals('/styles.css', $link->href);
     }
 
-    public function testOverloadingUsingSingleArrayArgumentWithInvalidValuesThrowsException()
+    public function testOverloadingUsingSingleArrayArgumentWithInvalidValuesThrowsException(): void
     {
         $this->expectException(Exception\ExceptionInterface::class);
         $this->helper->setStylesheet(['bogus' => 'unused']);
     }
 
-    public function testOverloadingOffsetSetWorks()
+    public function testOverloadingOffsetSetWorks(): void
     {
         $this->helper->offsetSetStylesheet(100, '/styles.css');
         $items = $this->helper->getArrayCopy();
@@ -243,13 +243,13 @@ class HeadLinkTest extends TestCase
         $this->assertEquals('/styles.css', $link->href);
     }
 
-    public function testOverloadingThrowsExceptionWithInvalidMethod()
+    public function testOverloadingThrowsExceptionWithInvalidMethod(): void
     {
         $this->expectException(Exception\ExceptionInterface::class);
         $this->helper->bogusMethod();
     }
 
-    public function testStylesheetAttributesGetSet()
+    public function testStylesheetAttributesGetSet(): void
     {
         $this->helper->setStylesheet('/styles.css', 'projection', 'ie6');
         $item = $this->helper->getValue();
@@ -260,7 +260,7 @@ class HeadLinkTest extends TestCase
         $this->assertEquals('ie6', $item->conditionalStylesheet);
     }
 
-    public function testConditionalStylesheetNotCreatedByDefault()
+    public function testConditionalStylesheetNotCreatedByDefault(): void
     {
         $this->helper->setStylesheet('/styles.css');
         $item = $this->helper->getValue();
@@ -276,7 +276,7 @@ class HeadLinkTest extends TestCase
         $this->assertStringNotContainsString('<![endif]-->', $string);
     }
 
-    public function testConditionalStylesheetCreationOccursWhenRequested()
+    public function testConditionalStylesheetCreationOccursWhenRequested(): void
     {
         $this->helper->setStylesheet('/styles.css', 'screen', 'ie6');
         $item = $this->helper->getValue();
@@ -291,7 +291,7 @@ class HeadLinkTest extends TestCase
         $this->assertStringContainsString('<![endif]-->', $string);
     }
 
-    public function testConditionalStylesheetCreationNoIE()
+    public function testConditionalStylesheetCreationNoIE(): void
     {
         $this->helper->setStylesheet('/styles.css', 'screen', '!IE');
         $item = $this->helper->getValue();
@@ -306,7 +306,7 @@ class HeadLinkTest extends TestCase
         $this->assertStringContainsString('<!--<![endif]-->', $string);
     }
 
-    public function testConditionalStylesheetCreationNoIEWidthSpaces()
+    public function testConditionalStylesheetCreationNoIEWidthSpaces(): void
     {
         $this->helper->setStylesheet('/styles.css', 'screen', '! IE');
         $item = $this->helper->getValue();
@@ -341,7 +341,7 @@ class HeadLinkTest extends TestCase
         $this->helper->setAlternate(...$arguments);
     }
 
-    public function testIndentationIsHonored()
+    public function testIndentationIsHonored(): void
     {
         $this->helper->setIndent(4);
         $this->helper->appendStylesheet('/css/screen.css');
@@ -352,7 +352,7 @@ class HeadLinkTest extends TestCase
         $this->assertEquals(2, $scripts);
     }
 
-    public function testLinkRendersAsPlainHtmlIfDoctypeNotXhtml()
+    public function testLinkRendersAsPlainHtmlIfDoctypeNotXhtml(): void
     {
         $this->view->plugin('doctype')->__invoke('HTML4_STRICT');
         $this->helper->__invoke(['rel' => 'icon', 'src' => '/foo/bar'])
@@ -361,7 +361,7 @@ class HeadLinkTest extends TestCase
         $this->assertStringNotContainsString(' />', $test);
     }
 
-    public function testDoesNotAllowDuplicateStylesheets()
+    public function testDoesNotAllowDuplicateStylesheets(): void
     {
         $this->helper->appendStylesheet('foo');
         $this->helper->appendStylesheet('foo');
@@ -370,8 +370,10 @@ class HeadLinkTest extends TestCase
 
     /**
      * test for Laminas-2889
+     *
+     * @return void
      */
-    public function testBooleanStylesheet()
+    public function testBooleanStylesheet(): void
     {
         $this->helper->appendStylesheet(['href' => '/bar/baz', 'conditionalStylesheet' => false]);
         $test = $this->helper->toString();
@@ -381,8 +383,9 @@ class HeadLinkTest extends TestCase
     /**
      * test for Laminas-3271
      *
+     * @return void
      */
-    public function testBooleanTrueConditionalStylesheet()
+    public function testBooleanTrueConditionalStylesheet(): void
     {
         $this->helper->appendStylesheet(['href' => '/bar/baz', 'conditionalStylesheet' => true]);
         $test = $this->helper->toString();
@@ -392,22 +395,25 @@ class HeadLinkTest extends TestCase
 
     /**
      * @issue Laminas-3928
+     *
      * @link https://getlaminas.org/issues/browse/Laminas-3928
+     *
+     * @return void
      */
-    public function testTurnOffAutoEscapeDoesNotEncodeAmpersand()
+    public function testTurnOffAutoEscapeDoesNotEncodeAmpersand(): void
     {
         $this->helper->setAutoEscape(false)->appendStylesheet('/css/rules.css?id=123&foo=bar');
         $this->assertStringContainsString('id=123&foo=bar', $this->helper->toString());
     }
 
-    public function testSetAlternateWithExtras()
+    public function testSetAlternateWithExtras(): void
     {
         $this->helper->setAlternate('/mydocument.pdf', 'application/pdf', 'foo', ['media' => ['print', 'screen']]);
         $test = $this->helper->toString();
         $this->assertStringContainsString('media="print,screen"', $test);
     }
 
-    public function testAppendStylesheetWithExtras()
+    public function testAppendStylesheetWithExtras(): void
     {
         $this->helper->appendStylesheet([
             'href' => '/bar/baz',
@@ -418,14 +424,14 @@ class HeadLinkTest extends TestCase
         $this->assertStringContainsString('id="my_link_tag"', $test);
     }
 
-    public function testSetStylesheetWithMediaAsArray()
+    public function testSetStylesheetWithMediaAsArray(): void
     {
         $this->helper->appendStylesheet('/bar/baz', ['screen', 'print']);
         $test = $this->helper->toString();
         $this->assertStringContainsString(' media="screen,print"', $test);
     }
 
-    public function testSetPrevRelationship()
+    public function testSetPrevRelationship(): void
     {
         $this->helper->appendPrev('/foo/bar');
         $test = $this->helper->toString();
@@ -436,7 +442,7 @@ class HeadLinkTest extends TestCase
         $this->assertStringContainsString('rel="prev"', $test);
     }
 
-    public function testSetNextRelationship()
+    public function testSetNextRelationship(): void
     {
         $this->helper->appendNext('/foo/bar');
         $test = $this->helper->toString();
@@ -449,8 +455,10 @@ class HeadLinkTest extends TestCase
 
     /**
      * @issue Laminas-5435
+     *
+     * @return void
      */
-    public function testContainerMaintainsCorrectOrderOfItems()
+    public function testContainerMaintainsCorrectOrderOfItems(): void
     {
         $this->helper->__invoke()->offsetSetStylesheet(1, '/test1.css');
         $this->helper->__invoke()->offsetSetStylesheet(10, '/test2.css');
@@ -479,8 +487,10 @@ class HeadLinkTest extends TestCase
 
     /**
      * @issue Laminas-10345
+     *
+     * @return void
      */
-    public function testIdAttributeIsSupported()
+    public function testIdAttributeIsSupported(): void
     {
         $this->helper->appendStylesheet(['href' => '/bar/baz', 'id' => 'foo']);
         $this->assertStringContainsString('id="foo"', $this->helper->toString());
@@ -488,20 +498,22 @@ class HeadLinkTest extends TestCase
 
     /**
      * @group 6635
+     *
+     * @return void
      */
-    public function testSizesAttributeIsSupported()
+    public function testSizesAttributeIsSupported(): void
     {
         $this->helper->appendStylesheet(['rel' => 'icon', 'href' => '/bar/baz', 'sizes' => '123x456']);
         $this->assertStringContainsString('sizes="123x456"', $this->helper->toString());
     }
 
-    public function testItempropAttributeIsSupported()
+    public function testItempropAttributeIsSupported(): void
     {
         $this->helper->prependAlternate(['itemprop' => 'url', 'href' => '/bar/baz', 'rel' => 'canonical']);
         $this->assertStringContainsString('itemprop="url"', $this->helper->toString());
     }
 
-    public function testAsAttributeIsSupported()
+    public function testAsAttributeIsSupported(): void
     {
         $this->helper->headLink(['as' => 'style', 'href' => '/foo/bar.css', 'rel' => 'preload']);
         $this->assertStringContainsString('as="style"', $this->helper->toString());
