@@ -29,6 +29,8 @@ use function assert;
 
 /**
  * Base class for navigation view helper tests
+ *
+ * @psalm-suppress MissingConstructor
  */
 abstract class AbstractTest extends TestCase
 {

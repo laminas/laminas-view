@@ -11,6 +11,9 @@ namespace LaminasTest\View\Helper\Navigation;
 use Laminas\Navigation\Navigation;
 use Laminas\View\Helper\Navigation as NavigationHelper;
 
+/**
+ * @psalm-suppress MissingConstructor
+ */
 class AbstractHelperTest extends AbstractTest
 {
     // @codingStandardsIgnoreStart

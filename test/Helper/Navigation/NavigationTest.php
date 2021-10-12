@@ -24,6 +24,8 @@ use Laminas\View\Renderer\PhpRenderer;
  *
  * @group      Laminas_View
  * @group      Laminas_View_Helper
+ *
+ * @psalm-suppress MissingConstructor
  */
 class NavigationTest extends AbstractTest
 {

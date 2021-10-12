@@ -18,6 +18,8 @@ use Throwable;
  *
  * @group      Laminas_View
  * @group      Laminas_View_Helper
+ *
+ * @psalm-suppress MissingConstructor
  */
 class SitemapTest extends AbstractTest
 {

@@ -17,6 +17,8 @@ use Laminas\View\Helper\Navigation\Breadcrumbs;
  *
  * @group      Laminas_View
  * @group      Laminas_View_Helper
+ *
+ * @psalm-suppress MissingConstructor
  */
 class BreadcrumbsTest extends AbstractTest
 {
