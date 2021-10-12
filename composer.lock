@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1b7fb60f4d263fa45a392cc4f5ade847",
+    "content-hash": "28ed5e2391e9d3b703148d49f5234684",
     "packages": [
         {
             "name": "laminas/laminas-eventmanager",
@@ -3115,16 +3115,16 @@
         },
         {
             "name": "laminas/laminas-router",
-            "version": "3.4.1",
+            "version": "3.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-router.git",
-                "reference": "338e55010c9090d7a79c6e6aed68b886b849801f"
+                "reference": "aaf2eb364eedeb5c4d5b9ee14cd2938d0f7e89b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-router/zipball/338e55010c9090d7a79c6e6aed68b886b849801f",
-                "reference": "338e55010c9090d7a79c6e6aed68b886b849801f",
+                "url": "https://api.github.com/repos/laminas/laminas-router/zipball/aaf2eb364eedeb5c4d5b9ee14cd2938d0f7e89b7",
+                "reference": "aaf2eb364eedeb5c4d5b9ee14cd2938d0f7e89b7",
                 "shasum": ""
             },
             "require": {
@@ -3134,6 +3134,9 @@
                 "laminas/laminas-stdlib": "^3.3",
                 "laminas/laminas-zendframework-bridge": "^1.0",
                 "php": "^7.3 || ~8.0.0"
+            },
+            "replace": {
+                "zendframework/zend-router": "^3.3.0"
             },
             "require-dev": {
                 "laminas/laminas-coding-standard": "~1.0.0",
@@ -3179,7 +3182,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2020-11-19T19:42:10+00:00"
+            "time": "2021-04-19T16:06:00+00:00"
         },
         {
             "name": "laminas/laminas-servicemanager",
