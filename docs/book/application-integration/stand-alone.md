@@ -69,7 +69,7 @@ $viewModel->setOption('has_parent', true);
 
 echo $view->render($viewModel); // <h1>Example</h1>
 ```
-
+<!-- markdownlint-disable-next-line no-inline-html -->
 <details><summary>Show full code example</summary>
 
 ```php
@@ -106,6 +106,7 @@ $viewModel->setOption('has_parent', true);
 echo $view->render($viewModel);
 ```
 
+<!-- markdownlint-disable-next-line no-inline-html -->
 </details>
 
 ### Example with Layout
@@ -145,6 +146,7 @@ $layout->addChild($viewModel);
 echo $view->render($layout);
 ```
 
+<!-- markdownlint-disable-next-line no-inline-html -->
 <details><summary>Show full code example</summary>
 
 ```php
@@ -188,6 +190,7 @@ $layout->addChild($viewModel);
 echo $view->render($layout);
 ```
 
+<!-- markdownlint-disable-next-line no-inline-html -->
 </details>
 
 ## View Helpers

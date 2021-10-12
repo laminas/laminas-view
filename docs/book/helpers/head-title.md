@@ -72,18 +72,20 @@ To explicitly append content, the second paramater `$setType` or the concrete
 method `append()` of the helper can be used:
 
 === "Invoke Usage"
+<!-- markdownlint-disable-next-line code-block-style -->
     ```php
     $this->headTitle('My albums')
     $this->headTitle('Music', 'APPEND');
-    
+
     echo $this->headTitle(); // <title>My albumsMusic</title>
     ```
 
 === "Setter Usage"
+<!-- markdownlint-disable-next-line code-block-style -->
     ```php
     $this->headTitle('My albums')
     $this->headTitle()->append('Music');
-    
+
     echo $this->headTitle(); // <title>My albumsMusic</title>
     ```
 
@@ -96,18 +98,20 @@ To prepend content, the second paramater `$setType` or the concrete method
 `prepend()` of the helper can be used:
 
 === "Invoke Usage"
+<!-- markdownlint-disable-next-line code-block-style -->
     ```php
     $this->headTitle('My albums')
     $this->headTitle('Music', 'PREPEND');
-    
+
     echo $this->headTitle(); // <title>MusicMy albums</title>
     ```
 
 === "Setter Usage"
+<!-- markdownlint-disable-next-line code-block-style -->
     ```php
     $this->headTitle('My albums')
     $this->headTitle()->prepend('Music');
-    
+
     echo $this->headTitle(); // <title>MusicMy albums</title>
     ```
 
@@ -120,18 +124,20 @@ To overwrite the entire content of title helper, the second parameter `$setType`
 or the concrete method `set()` of the helper can be used:
 
 === "Invoke Usage"
+<!-- markdownlint-disable-next-line code-block-style -->
     ```php
     $this->headTitle('My albums')
     $this->headTitle('Music', 'SET');
-    
+
     echo $this->headTitle(); // <title>Music</title>
     ```
 
 === "Setter Usage"
+<!-- markdownlint-disable-next-line code-block-style -->
     ```php
     $this->headTitle('My albums')
     $this->headTitle()->set('Music');
-    
+
     echo $this->headTitle(); // <title>Music</title>
     ```
 

@@ -10,18 +10,12 @@ namespace LaminasTest\View\Helper;
 
 use Laminas\Mvc\ModuleRouteListener;
 use Laminas\Mvc\MvcEvent;
-use Laminas\Mvc\Router\Http\Literal as LiteralRoute;
-use Laminas\Mvc\Router\Http\Segment as SegmentRoute;
-use Laminas\Mvc\Router\Http\TreeRouteStack;
-use Laminas\Mvc\Router\Http\Wildcard as WildcardRoute;
-use Laminas\Mvc\Router\RouteMatch;
-use Laminas\Mvc\Router\SimpleRouteStack as Router;
-use Laminas\Router\Http\Literal as NextGenLiteralRoute;
-use Laminas\Router\Http\Segment as NextGenSegmentRoute;
-use Laminas\Router\Http\TreeRouteStack as NextGenTreeRouteStack;
-use Laminas\Router\Http\Wildcard as NextGenWildcardRoute;
-use Laminas\Router\RouteMatch as NextGenRouteMatch;
-use Laminas\Router\SimpleRouteStack as NextGenRouter;
+use Laminas\Router\Http\Literal;
+use Laminas\Router\Http\Segment;
+use Laminas\Router\Http\TreeRouteStack;
+use Laminas\Router\Http\Wildcard;
+use Laminas\Router\RouteMatch;
+use Laminas\Router\SimpleRouteStack;
 use Laminas\View\Exception;
 use Laminas\View\Helper\Url as UrlHelper;
 use PHPUnit\Framework\TestCase;
@@ -37,7 +31,7 @@ use PHPUnit\Framework\TestCase;
 class UrlTest extends TestCase
 {
     /**
-     * @var Router
+     * @var SimpleRouteStack
      */
     private $router;
 
@@ -52,39 +46,15 @@ class UrlTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->routeMatchType = class_exists(RouteMatch::class)
-            ? RouteMatch::class
-            : NextGenRouteMatch::class;
-
-        $this->literalRouteType = class_exists(LiteralRoute::class)
-            ? LiteralRoute::class
-            : NextGenLiteralRoute::class;
-
-        $this->segmentRouteType = class_exists(SegmentRoute::class)
-            ? SegmentRoute::class
-            : NextGenSegmentRoute::class;
-
-        $this->treeRouteStackType = class_exists(TreeRouteStack::class)
-            ? TreeRouteStack::class
-            : NextGenTreeRouteStack::class;
-
-        $this->wildcardRouteType = class_exists(WildcardRoute::class)
-            ? WildcardRoute::class
-            : NextGenWildcardRoute::class;
-
-        $this->routerClass = class_exists(Router::class)
-            ? Router::class
-            : NextGenRouter::class;
-
-        $router = new $this->routerClass();
+        $router = new SimpleRouteStack();
         $router->addRoute('home', [
-            'type' => $this->literalRouteType,
+            'type' => Literal::class,
             'options' => [
                 'route' => '/',
             ]
         ]);
         $router->addRoute('default', [
-                'type' => $this->segmentRouteType,
+                'type' => Segment::class,
                 'options' => [
                     'route' => '/:controller[/:action]',
                 ]
@@ -138,7 +108,7 @@ class UrlTest extends TestCase
 
     public function testPluginWithRouteMatchesReturningNoMatchedRouteNameRaisesExceptionWhenNoRouteProvided()
     {
-        $this->url->setRouteMatch(new $this->routeMatchType([]));
+        $this->url->setRouteMatch(new RouteMatch([]));
         $this->expectException(Exception\RuntimeException::class);
         $this->expectExceptionMessage('matched');
         $this->url->__invoke();
@@ -146,7 +116,7 @@ class UrlTest extends TestCase
 
     public function testPassingNoArgumentsWithValidRouteMatchGeneratesUrl()
     {
-        $routeMatch = new $this->routeMatchType([]);
+        $routeMatch = new RouteMatch([]);
         $routeMatch->setMatchedRouteName('home');
         $this->url->setRouteMatch($routeMatch);
         $url = $this->url->__invoke();
@@ -156,7 +126,7 @@ class UrlTest extends TestCase
     public function testCanReuseMatchedParameters()
     {
         $this->router->addRoute('replace', [
-            'type'    => $this->segmentRouteType,
+            'type'    => Segment::class,
             'options' => [
                 'route'    => '/:controller/:action',
                 'defaults' => [
@@ -164,7 +134,7 @@ class UrlTest extends TestCase
                 ],
             ],
         ]);
-        $routeMatch = new $this->routeMatchType([
+        $routeMatch = new RouteMatch([
             'controller' => 'foo',
         ]);
         $routeMatch->setMatchedRouteName('replace');
@@ -176,7 +146,7 @@ class UrlTest extends TestCase
     public function testCanPassBooleanValueForThirdArgumentToAllowReusingRouteMatches()
     {
         $this->router->addRoute('replace', [
-            'type' => $this->segmentRouteType,
+            'type' => Segment::class,
             'options' => [
                 'route'    => '/:controller/:action',
                 'defaults' => [
@@ -184,7 +154,7 @@ class UrlTest extends TestCase
                 ],
             ],
         ]);
-        $routeMatch = new $this->routeMatchType([
+        $routeMatch = new RouteMatch([
             'controller' => 'foo',
         ]);
         $routeMatch->setMatchedRouteName('replace');
@@ -195,9 +165,9 @@ class UrlTest extends TestCase
 
     public function testRemovesModuleRouteListenerParamsWhenReusingMatchedParameters()
     {
-        $router = new $this->treeRouteStackType;
+        $router = new TreeRouteStack();
         $router->addRoute('default', [
-            'type' => $this->segmentRouteType,
+            'type' => Segment::class,
             'options' => [
                 'route'    => '/:controller/:action',
                 'defaults' => [
@@ -208,7 +178,7 @@ class UrlTest extends TestCase
             ],
             'child_routes' => [
                 'wildcard' => [
-                    'type'    => $this->wildcardRouteType,
+                    'type'    => Wildcard::class,
                     'options' => [
                         'param_delimiter'     => '=',
                         'key_value_delimiter' => '%'
@@ -216,8 +186,7 @@ class UrlTest extends TestCase
                 ]
             ]
         ]);
-
-        $routeMatch = new $this->routeMatchType([
+        $routeMatch = new RouteMatch([
             ModuleRouteListener::MODULE_NAMESPACE => 'LaminasTest\Mvc\Controller\TestAsset',
             'controller' => 'Rainbow'
         ]);
@@ -240,7 +209,7 @@ class UrlTest extends TestCase
 
     public function testAcceptsNextGenRouterToSetRouter()
     {
-        $router = new $this->routerClass();
+        $router = new SimpleRouteStack();
         $url = new UrlHelper();
         $url->setRouter($router);
 
@@ -254,7 +223,7 @@ class UrlTest extends TestCase
 
     public function testAcceptsNextGenRouteMatche()
     {
-        $routeMatch = new $this->routeMatchType([]);
+        $routeMatch = new RouteMatch([]);
         $url = new UrlHelper();
         $url->setRouteMatch($routeMatch);
 

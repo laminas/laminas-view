@@ -10,7 +10,6 @@ namespace LaminasTest\View\Helper\Navigation;
 
 use Laminas\Config\Factory as ConfigFactory;
 use Laminas\I18n\Translator\Translator;
-use Laminas\Mvc\Router\RouteMatch as V2RouteMatch;
 use Laminas\Mvc\Service\ServiceManagerConfig;
 use Laminas\Navigation\Navigation;
 use Laminas\Navigation\Service\DefaultNavigationFactory;
@@ -18,7 +17,7 @@ use Laminas\Permissions\Acl\Acl;
 use Laminas\Permissions\Acl\Resource\GenericResource;
 use Laminas\Permissions\Acl\Role\GenericRole;
 use Laminas\Router\ConfigProvider as RouterConfigProvider;
-use Laminas\Router\RouteMatch as V3RouteMatch;
+use Laminas\Router\RouteMatch;
 use Laminas\ServiceManager\Config;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Renderer\PhpRenderer;
@@ -77,8 +76,6 @@ abstract class AbstractTest extends TestCase
      * @var Navigation\Navigation
      */
     protected $_nav3;
-
-    private $_oldControllerDir;
     // @codingStandardsIgnoreEnd
 
     /**
@@ -88,10 +85,6 @@ abstract class AbstractTest extends TestCase
     protected function setUp(): void
     {
         $cwd = __DIR__;
-
-        $this->routeMatchType = class_exists(V2RouteMatch::class)
-            ? V2RouteMatch::class
-            : V3RouteMatch::class;
 
         // read navigation config
         $this->_files = $cwd . '/_files';
@@ -157,7 +150,7 @@ abstract class AbstractTest extends TestCase
         $sm->setAllowOverride(false);
 
         $app = $this->serviceManager->get('Application');
-        $app->getMvcEvent()->setRouteMatch(new $this->routeMatchType([
+        $app->getMvcEvent()->setRouteMatch(new RouteMatch([
             'controller' => 'post',
             'action'     => 'view',
             'id'         => '1337',
