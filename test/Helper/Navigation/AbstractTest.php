@@ -8,7 +8,6 @@
 
 namespace LaminasTest\View\Helper\Navigation;
 
-use Laminas\Config\Factory as ConfigFactory;
 use Laminas\I18n\Translator\Translator;
 use Laminas\Mvc\Service\ServiceManagerConfig;
 use Laminas\Navigation\Navigation;
@@ -20,9 +19,13 @@ use Laminas\Router\ConfigProvider as RouterConfigProvider;
 use Laminas\Router\RouteMatch;
 use Laminas\ServiceManager\Config;
 use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\Helper\Navigation\AbstractHelper;
 use Laminas\View\Renderer\PhpRenderer;
+use Laminas\View\Resolver\TemplatePathStack;
 use LaminasTest\View\Helper\TestAsset;
 use PHPUnit\Framework\TestCase;
+
+use function assert;
 
 /**
  * Base class for navigation view helper tests
@@ -52,7 +55,7 @@ abstract class AbstractTest extends TestCase
     /**
      * View helper
      *
-     * @var \Laminas\View\Helper\Navigation\AbstractHelper
+     * @var AbstractHelper
      */
     protected $_helper;
 
@@ -66,14 +69,14 @@ abstract class AbstractTest extends TestCase
     /**
      * The second container in the config file (files/navigation.xml)
      *
-     * @var Navigation\Navigation
+     * @var Navigation
      */
     protected $_nav2;
 
     /**
      * The third container in the config file (files/navigation.xml)
      *
-     * @var Navigation\Navigation
+     * @var Navigation
      */
     protected $_nav3;
     // @codingStandardsIgnoreEnd
@@ -88,16 +91,20 @@ abstract class AbstractTest extends TestCase
 
         // read navigation config
         $this->_files = $cwd . '/_files';
-        $config = ConfigFactory::fromFile($this->_files . '/navigation.xml', true);
+
+        /** @var array{nav_test1: mixed[], nav_test2: mixed[], nav_test3: mixed[]} $config */
+        $config = require __DIR__ . '/_files/navigation-config.php';
 
         // setup containers from config
-        $this->_nav1 = new Navigation($config->get('nav_test1'));
-        $this->_nav2 = new Navigation($config->get('nav_test2'));
-        $this->_nav3 = new Navigation($config->get('nav_test3'));
+        $this->_nav1 = new Navigation($config['nav_test1']);
+        $this->_nav2 = new Navigation($config['nav_test2']);
+        $this->_nav3 = new Navigation($config['nav_test3']);
 
         // setup view
         $view = new PhpRenderer();
-        $view->resolver()->addPath($cwd . '/_files/mvc/views');
+        $resolver = $view->resolver();
+        assert($resolver instanceof TemplatePathStack);
+        $resolver->addPath($cwd . '/_files/mvc/views');
 
         // create helper
         $this->_helper = new $this->_helperName;
@@ -124,7 +131,7 @@ abstract class AbstractTest extends TestCase
                             function () use ($config): array {
                                 return [
                                     'navigation' => [
-                                        'default' => $config->get('nav_test1'),
+                                        'default' => $config['nav_test1'],
                                     ],
                                 ];
                             }
