@@ -11,7 +11,7 @@ namespace LaminasTest\View\Helper\Navigation;
 use DOMDocument;
 use Laminas\View;
 use Laminas\View\Helper\Navigation\Sitemap;
-use PHPUnit\Util\Xml;
+use Throwable;
 
 /**
  * Tests Laminas\View\Helper\Navigation\Sitemap
@@ -205,19 +205,28 @@ class SitemapTest extends AbstractTest
         $this->assertEquals($expectedDom->saveXML(), $receivedDom->saveXML());
     }
 
-    /**
-     * @return never
-     */
-    public function testSetServerUrlRequiresValidUri()
+    /** @return array<string, array{0:string, 1: class-string<Throwable>, 2:string}> */
+    public function invalidServerUrlDataProvider(): array
     {
-        $this->markTestIncomplete('Laminas\URI changes affect this test');
-        try {
-            $this->_helper->setServerUrl('site.example.org');
-            $this->fail('An invalid server URL was given, but a ' .
-                        'Laminas\URI\Exception\ExceptionInterface was not thrown');
-        } catch (\Laminas\URI\Exception\ExceptionInterface $e) {
-            $this->assertStringContainsString('Illegal scheme', $e->getMessage());
-        }
+        return [
+            'muppets' => [
+                'muppets',
+                View\Exception\InvalidArgumentException::class,
+                'Invalid server URL: "muppets"'
+            ],
+        ];
+    }
+
+    /**
+     * @param class-string<Throwable> $expectedType
+     *
+     * @dataProvider invalidServerUrlDataProvider
+     */
+    public function testSetServerUrlRequiresValidUri(string $invalidServerUrl, string $expectedType, string $expectedMessage): void
+    {
+        $this->expectException($expectedType);
+        $this->expectExceptionMessage($expectedMessage);
+        $this->_helper->setServerUrl($invalidServerUrl);
     }
 
     public function testSetServerUrlWithSchemeAndHost(): void
