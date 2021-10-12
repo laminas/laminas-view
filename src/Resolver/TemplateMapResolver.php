@@ -13,6 +13,7 @@ use IteratorAggregate;
 use Laminas\Stdlib\ArrayUtils;
 use Laminas\View\Exception;
 use Laminas\View\Renderer\RendererInterface as Renderer;
+use ReturnTypeWillChange;
 use Traversable;
 
 class TemplateMapResolver implements IteratorAggregate, ResolverInterface
@@ -39,6 +40,7 @@ class TemplateMapResolver implements IteratorAggregate, ResolverInterface
      *
      * @return Traversable
      */
+    #[ReturnTypeWillChange]
     public function getIterator()
     {
         return new ArrayIterator($this->map);
