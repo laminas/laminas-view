@@ -224,8 +224,11 @@ class SitemapTest extends AbstractTest
      *
      * @dataProvider invalidServerUrlDataProvider
      */
-    public function testSetServerUrlRequiresValidUri(string $invalidServerUrl, string $expectedType, string $expectedMessage): void
-    {
+    public function testSetServerUrlRequiresValidUri(
+        string $invalidServerUrl,
+        string $expectedType,
+        string $expectedMessage
+    ): void {
         $this->expectException($expectedType);
         $this->expectExceptionMessage($expectedMessage);
         $this->_helper->setServerUrl($invalidServerUrl);
