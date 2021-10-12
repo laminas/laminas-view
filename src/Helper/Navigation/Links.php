@@ -247,7 +247,7 @@ class Links extends AbstractHelper
      * @return array[][]
      * @psalm-return array{rel: array<array>, rev: array<array>}
      */
-    public function findAllRelations(AbstractPage $page, ?int $flag = null): array
+    public function findAllRelations(AbstractPage $page, $flag = null)
     {
         if (! is_int($flag)) {
             $flag = self::RENDER_ALL;
