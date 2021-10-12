@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
  */
 class BasePathTest extends TestCase
 {
-    public function testBasePathWithoutFile()
+    public function testBasePathWithoutFile(): void
     {
         $helper = new BasePath();
         $helper->setBasePath('/foo');
@@ -25,7 +25,7 @@ class BasePathTest extends TestCase
         $this->assertEquals('/foo', $helper());
     }
 
-    public function testBasePathWithFile()
+    public function testBasePathWithFile(): void
     {
         $helper = new BasePath();
         $helper->setBasePath('/foo');
@@ -33,7 +33,7 @@ class BasePathTest extends TestCase
         $this->assertEquals('/foo/bar', $helper('bar'));
     }
 
-    public function testBasePathNoDoubleSlashes()
+    public function testBasePathNoDoubleSlashes(): void
     {
         $helper = new BasePath();
         $helper->setBasePath('/');
@@ -41,7 +41,7 @@ class BasePathTest extends TestCase
         $this->assertEquals('/', $helper('/'));
     }
 
-    public function testBasePathWithFilePrefixedBySlash()
+    public function testBasePathWithFilePrefixedBySlash(): void
     {
         $helper = new BasePath();
         $helper->setBasePath('/foo');

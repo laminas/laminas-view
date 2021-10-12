@@ -42,8 +42,10 @@ class HelperPluginManagerTest extends TestCase
 
     /**
      * @group 43
+     *
+     * @return void
      */
-    public function testConstructorArgumentsAreOptionalUnderV2()
+    public function testConstructorArgumentsAreOptionalUnderV2(): void
     {
         if (method_exists($this->helpers, 'configure')) {
             $this->markTestSkipped('laminas-servicemanager v3 plugin managers require a container argument');
@@ -55,8 +57,10 @@ class HelperPluginManagerTest extends TestCase
 
     /**
      * @group 43
+     *
+     * @return void
      */
-    public function testConstructorAllowsConfigInstanceAsFirstArgumentUnderV2()
+    public function testConstructorAllowsConfigInstanceAsFirstArgumentUnderV2(): void
     {
         if (method_exists($this->helpers, 'configure')) {
             $this->markTestSkipped('laminas-servicemanager v3 plugin managers require a container argument');
@@ -66,19 +70,19 @@ class HelperPluginManagerTest extends TestCase
         $this->assertInstanceOf(HelperPluginManager::class, $helpers);
     }
 
-    public function testViewIsNullByDefault()
+    public function testViewIsNullByDefault(): void
     {
         $this->assertNull($this->helpers->getRenderer());
     }
 
-    public function testAllowsInjectingRenderer()
+    public function testAllowsInjectingRenderer(): void
     {
         $renderer = new PhpRenderer();
         $this->helpers->setRenderer($renderer);
         $this->assertSame($renderer, $this->helpers->getRenderer());
     }
 
-    public function testInjectsRendererToHelperWhenRendererIsPresent()
+    public function testInjectsRendererToHelperWhenRendererIsPresent(): void
     {
         $renderer = new PhpRenderer();
         $this->helpers->setRenderer($renderer);
@@ -86,13 +90,13 @@ class HelperPluginManagerTest extends TestCase
         $this->assertSame($renderer, $helper->getView());
     }
 
-    public function testNoRendererInjectedInHelperWhenRendererIsNotPresent()
+    public function testNoRendererInjectedInHelperWhenRendererIsNotPresent(): void
     {
         $helper = $this->helpers->get('doctype');
         $this->assertNull($helper->getView());
     }
 
-    public function testRegisteringInvalidHelperRaisesException()
+    public function testRegisteringInvalidHelperRaisesException(): void
     {
         $helpers = new HelperPluginManager(new ServiceManager(), ['factories' => [
             'test' => function () {
@@ -103,7 +107,7 @@ class HelperPluginManagerTest extends TestCase
         $helpers->get('test');
     }
 
-    public function testLoadingInvalidHelperRaisesException()
+    public function testLoadingInvalidHelperRaisesException(): void
     {
         $helpers = new HelperPluginManager(new ServiceManager(), ['invokables' => [
             'test' => get_class($this),
@@ -112,12 +116,12 @@ class HelperPluginManagerTest extends TestCase
         $helpers->get('test');
     }
 
-    public function testDefinesFactoryForIdentityPlugin()
+    public function testDefinesFactoryForIdentityPlugin(): void
     {
         $this->assertTrue($this->helpers->has('identity'));
     }
 
-    public function testIdentityFactoryCanInjectAuthenticationServiceIfInParentServiceManager()
+    public function testIdentityFactoryCanInjectAuthenticationServiceIfInParentServiceManager(): void
     {
         $config = new Config(['invokables' => [
             AuthenticationService::class => AuthenticationService::class,
@@ -130,7 +134,7 @@ class HelperPluginManagerTest extends TestCase
         $this->assertSame($expected, $identity->getAuthenticationService());
     }
 
-    public function testIfHelperIsTranslatorAwareAndMvcTranslatorIsAvailableItWillInjectTheMvcTranslator()
+    public function testIfHelperIsTranslatorAwareAndMvcTranslatorIsAvailableItWillInjectTheMvcTranslator(): void
     {
         $translator = new MvcTranslator(
             $this->getMockBuilder(TranslatorInterface::class)->getMock()
@@ -146,7 +150,7 @@ class HelperPluginManagerTest extends TestCase
     }
 
     // @codingStandardsIgnoreStart
-    public function testIfHelperIsTranslatorAwareAndMvcTranslatorIsUnavailableAndTranslatorIsAvailableItWillInjectTheTranslator()
+    public function testIfHelperIsTranslatorAwareAndMvcTranslatorIsUnavailableAndTranslatorIsAvailableItWillInjectTheTranslator(): void
     {
         // @codingStandardsIgnoreEnd
         $translator = new Translator();
@@ -161,7 +165,7 @@ class HelperPluginManagerTest extends TestCase
     }
 
     // @codingStandardsIgnoreStart
-    public function testIfHelperIsTranslatorAwareAndBothMvcTranslatorAndTranslatorAreUnavailableAndTranslatorInterfaceIsAvailableItWillInjectTheTranslator()
+    public function testIfHelperIsTranslatorAwareAndBothMvcTranslatorAndTranslatorAreUnavailableAndTranslatorInterfaceIsAvailableItWillInjectTheTranslator(): void
     {
         // @codingStandardsIgnoreEnd
         $translator = new Translator();
@@ -177,8 +181,10 @@ class HelperPluginManagerTest extends TestCase
 
     /**
      * @group 47
+     *
+     * @return void
      */
-    public function testInjectTranslatorWillReturnEarlyIfThePluginManagerDoesNotHaveAParentContainer()
+    public function testInjectTranslatorWillReturnEarlyIfThePluginManagerDoesNotHaveAParentContainer(): void
     {
         if (method_exists($this->helpers, 'configure')) {
             $this->markTestSkipped(
@@ -192,7 +198,7 @@ class HelperPluginManagerTest extends TestCase
         $this->assertNull($helper->getTranslator());
     }
 
-    public function testInjectTranslatorWillReturnEarlyIfTheHelperHasTranslatorAlready()
+    public function testInjectTranslatorWillReturnEarlyIfTheHelperHasTranslatorAlready(): void
     {
         $translatorA = new Translator();
         $translatorB = new Translator();
@@ -214,7 +220,7 @@ class HelperPluginManagerTest extends TestCase
         $this->assertSame($translatorA, $helperB->getTranslator());
     }
 
-    public function testCanOverrideAFactoryViaConfigurationPassedToConstructor()
+    public function testCanOverrideAFactoryViaConfigurationPassedToConstructor(): void
     {
         $helper  = $this->prophesize(HelperInterface::class)->reveal();
         $helpers = new HelperPluginManager(new ServiceManager());
@@ -231,9 +237,9 @@ class HelperPluginManagerTest extends TestCase
         $this->assertSame($helper, $helpers->get('url'));
     }
 
-    public function testCanUseCallableAsHelper()
+    public function testCanUseCallableAsHelper(): void
     {
-        $helper = function () {
+        $helper = function (): void {
         };
         $helpers = new HelperPluginManager(new ServiceManager());
         $config = new Config(
@@ -249,12 +255,17 @@ class HelperPluginManagerTest extends TestCase
         $this->assertSame($helper, $helpers->get('foo'));
     }
 
-    public function testDoctypeFactoryExists()
+    public function testDoctypeFactoryExists(): void
     {
         self::assertTrue($this->helpers->has(Doctype::class));
     }
 
-    private function getServiceNotFoundException(HelperPluginManager $manager)
+    /**
+     * @return string
+     *
+     * @psalm-return InvalidHelperException::class|InvalidServiceException::class
+     */
+    private function getServiceNotFoundException(HelperPluginManager $manager): string
     {
         if (method_exists($manager, 'configure')) {
             return InvalidServiceException::class;

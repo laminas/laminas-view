@@ -27,8 +27,8 @@ class Layout extends AbstractHelper
      * If no arguments are given, grabs the "root" or "layout" view model.
      * Otherwise, attempts to set the template for that view model.
      *
-     * @param  null|string $template
-     * @return Layout
+     * @param null|string $template
+     * @return Model|null|self
      */
     public function __invoke($template = null)
     {

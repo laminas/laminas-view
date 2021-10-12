@@ -23,18 +23,18 @@ class VariablesTest extends TestCase
         $this->vars = new Variables;
     }
 
-    public function testStrictVarsAreDisabledByDefault()
+    public function testStrictVarsAreDisabledByDefault(): void
     {
         $this->assertFalse($this->vars->isStrict());
     }
 
-    public function testCanSetStrictFlag()
+    public function testCanSetStrictFlag(): void
     {
         $this->vars->setStrictVars(true);
         $this->assertTrue($this->vars->isStrict());
     }
 
-    public function testAssignMergesValuesWithObject()
+    public function testAssignMergesValuesWithObject(): void
     {
         $this->vars['foo'] = 'bar';
         $this->vars->assign([
@@ -46,7 +46,7 @@ class VariablesTest extends TestCase
         $this->assertEquals('foo', $this->vars['baz']);
     }
 
-    public function testAssignCastsPlainObjectToArrayBeforeMerging()
+    public function testAssignCastsPlainObjectToArrayBeforeMerging(): void
     {
         $vars = new \stdClass;
         $vars->foo = 'bar';
@@ -57,7 +57,7 @@ class VariablesTest extends TestCase
         $this->assertEquals('baz', $this->vars['bar']);
     }
 
-    public function testAssignCallsToArrayWhenPresentBeforeMerging()
+    public function testAssignCallsToArrayWhenPresentBeforeMerging(): void
     {
         $vars = [
             'foo' => 'bar',
@@ -69,17 +69,17 @@ class VariablesTest extends TestCase
         $this->assertEquals('baz', $this->vars['bar']);
     }
 
-    public function testNullIsReturnedForUndefinedVariables()
+    public function testNullIsReturnedForUndefinedVariables(): void
     {
         $this->assertNull($this->vars['foo']);
     }
 
-    public function handleErrors($errcode, $errmsg)
+    public function handleErrors($errcode, $errmsg): void
     {
         $this->error = $errmsg;
     }
 
-    public function testRetrievingUndefinedVariableRaisesErrorWhenStrictVarsIsRequested()
+    public function testRetrievingUndefinedVariableRaisesErrorWhenStrictVarsIsRequested(): void
     {
         $this->vars->setStrictVars(true);
         set_error_handler([$this, 'handleErrors'], E_USER_NOTICE);
@@ -88,7 +88,10 @@ class VariablesTest extends TestCase
         $this->assertStringContainsString('does not exist', $this->error);
     }
 
-    public function values()
+    /**
+     * @psalm-return array<array-key, string[]>
+     */
+    public function values(): array
     {
         return [
             ['foo', 'bar'],
@@ -96,7 +99,7 @@ class VariablesTest extends TestCase
         ];
     }
 
-    public function testCallingClearEmptiesObject()
+    public function testCallingClearEmptiesObject(): void
     {
         $this->vars->assign([
             'bar' => 'baz',
@@ -107,16 +110,16 @@ class VariablesTest extends TestCase
         $this->assertEquals(0, count($this->vars));
     }
 
-    public function testAllowsSpecifyingClosureValuesAndReturningTheValue()
+    public function testAllowsSpecifyingClosureValuesAndReturningTheValue(): void
     {
-        $this->vars->foo = function () {
+        $this->vars->foo = function (): string {
             return 'bar';
         };
 
         $this->assertEquals('bar', $this->vars->foo);
     }
 
-    public function testAllowsSpecifyingFunctorValuesAndReturningTheValue()
+    public function testAllowsSpecifyingFunctorValuesAndReturningTheValue(): void
     {
         $this->vars->foo = new TestAsset\VariableFunctor('bar');
         $this->assertEquals('bar', $this->vars->foo);

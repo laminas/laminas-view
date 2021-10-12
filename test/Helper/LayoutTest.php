@@ -39,35 +39,35 @@ class LayoutTest extends TestCase
         $this->viewModelHelper->setRoot($this->parent);
     }
 
-    public function testCallingSetTemplateAltersRootModelTemplate()
+    public function testCallingSetTemplateAltersRootModelTemplate(): void
     {
         $this->helper->setTemplate('alternate/layout');
         $this->assertEquals('alternate/layout', $this->parent->getTemplate());
     }
 
-    public function testCallingGetLayoutReturnsRootModelTemplate()
+    public function testCallingGetLayoutReturnsRootModelTemplate(): void
     {
         $this->assertEquals('layout', $this->helper->getLayout());
     }
 
-    public function testCallingInvokeProxiesToSetTemplate()
+    public function testCallingInvokeProxiesToSetTemplate(): void
     {
         $helper = $this->helper;
         $helper('alternate/layout');
         $this->assertEquals('alternate/layout', $this->parent->getTemplate());
     }
 
-    public function testCallingInvokeWithNoArgumentReturnsViewModel()
+    public function testCallingInvokeWithNoArgumentReturnsViewModel(): void
     {
         $helper = $this->helper;
         $result = $helper();
         $this->assertSame($this->parent, $result);
     }
 
-    public function testRaisesExceptionIfViewModelHelperHasNoRoot()
+    public function testRaisesExceptionIfViewModelHelperHasNoRoot(): void
     {
         $renderer         = new PhpRenderer();
-        $viewModelHelper = $renderer->plugin('view_model');
+        $renderer->plugin('view_model');
         $helper          = $renderer->plugin('layout');
 
         $this->expectException(Exception\RuntimeException::class);

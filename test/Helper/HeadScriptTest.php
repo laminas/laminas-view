@@ -8,9 +8,12 @@
 
 namespace LaminasTest\View\Helper;
 
+use Generator;
 use Laminas\View;
 use Laminas\View\Helper;
 use PHPUnit\Framework\TestCase;
+
+use function sprintf;
 
 /**
  * Test class for Laminas\View\Helper\HeadScript.
@@ -60,7 +63,7 @@ class HeadScriptTest extends TestCase
         unset($this->helper);
     }
 
-    public function testHeadScriptReturnsObjectInstance()
+    public function testHeadScriptReturnsObjectInstance(): void
     {
         $placeholder = $this->helper->__invoke();
         $this->assertInstanceOf(Helper\HeadScript::class, $placeholder);
@@ -95,14 +98,14 @@ class HeadScriptTest extends TestCase
     }
 
     // @codingStandardsIgnoreStart
-    protected function _inflectAction($type)
+    protected function _inflectAction($type): string
     {
         // @codingStandardsIgnoreEnd
         return ucfirst(strtolower($type));
     }
 
     // @codingStandardsIgnoreStart
-    protected function _testOverloadAppend($type)
+    protected function _testOverloadAppend(string $type): void
     {
         // @codingStandardsIgnoreEnd
         $action = 'append' . $this->_inflectAction($type);
@@ -122,7 +125,7 @@ class HeadScriptTest extends TestCase
     }
 
     // @codingStandardsIgnoreStart
-    protected function _testOverloadPrepend($type)
+    protected function _testOverloadPrepend(string $type): void
     {
         // @codingStandardsIgnoreEnd
         $action = 'prepend' . $this->_inflectAction($type);
@@ -143,7 +146,7 @@ class HeadScriptTest extends TestCase
     }
 
     // @codingStandardsIgnoreStart
-    protected function _testOverloadSet($type)
+    protected function _testOverloadSet(string $type): void
     {
         // @codingStandardsIgnoreEnd
         $action = 'set' . $this->_inflectAction($type);
@@ -164,7 +167,7 @@ class HeadScriptTest extends TestCase
     }
 
     // @codingStandardsIgnoreStart
-    protected function _testOverloadOffsetSet($type)
+    protected function _testOverloadOffsetSet(string $type): void
     {
         // @codingStandardsIgnoreEnd
         $action = 'offsetSet' . $this->_inflectAction($type);
@@ -180,42 +183,42 @@ class HeadScriptTest extends TestCase
         $this->assertEquals('text/javascript', $values[5]->type);
     }
 
-    public function testOverloadAppendFileAppendsScriptsToStack()
+    public function testOverloadAppendFileAppendsScriptsToStack(): void
     {
         $this->_testOverloadAppend('file');
     }
 
-    public function testOverloadAppendScriptAppendsScriptsToStack()
+    public function testOverloadAppendScriptAppendsScriptsToStack(): void
     {
         $this->_testOverloadAppend('script');
     }
 
-    public function testOverloadPrependFileAppendsScriptsToStack()
+    public function testOverloadPrependFileAppendsScriptsToStack(): void
     {
         $this->_testOverloadPrepend('file');
     }
 
-    public function testOverloadPrependScriptAppendsScriptsToStack()
+    public function testOverloadPrependScriptAppendsScriptsToStack(): void
     {
         $this->_testOverloadPrepend('script');
     }
 
-    public function testOverloadSetFileOverwritesStack()
+    public function testOverloadSetFileOverwritesStack(): void
     {
         $this->_testOverloadSet('file');
     }
 
-    public function testOverloadSetScriptOverwritesStack()
+    public function testOverloadSetScriptOverwritesStack(): void
     {
         $this->_testOverloadSet('script');
     }
 
-    public function testOverloadOffsetSetFileWritesToSpecifiedIndex()
+    public function testOverloadOffsetSetFileWritesToSpecifiedIndex(): void
     {
         $this->_testOverloadOffsetSet('file');
     }
 
-    public function testOverloadOffsetSetScriptWritesToSpecifiedIndex()
+    public function testOverloadOffsetSetScriptWritesToSpecifiedIndex(): void
     {
         $this->_testOverloadOffsetSet('script');
     }
@@ -241,7 +244,7 @@ class HeadScriptTest extends TestCase
         $this->helper->offsetSetScript(1);
     }
 
-    public function testHeadScriptAppropriatelySetsScriptItems()
+    public function testHeadScriptAppropriatelySetsScriptItems(): void
     {
         $this->helper->__invoke('FILE', 'foo', 'set')
                      ->__invoke('SCRIPT', 'bar', 'prepend')
@@ -267,7 +270,7 @@ class HeadScriptTest extends TestCase
         }
     }
 
-    public function testToStringRendersValidHtml()
+    public function testToStringRendersValidHtml(): void
     {
         $this->helper->__invoke('FILE', 'foo', 'set')
                      ->__invoke('SCRIPT', 'bar', 'prepend')
@@ -292,7 +295,7 @@ class HeadScriptTest extends TestCase
         $this->assertTrue($dom);
     }
 
-    public function testCapturingCapturesToObject()
+    public function testCapturingCapturesToObject(): void
     {
         $this->helper->captureStart();
         echo 'foobar';
@@ -303,7 +306,7 @@ class HeadScriptTest extends TestCase
         $this->assertStringContainsString('foobar', $item->source);
     }
 
-    public function testIndentationIsHonored()
+    public function testIndentationIsHonored(): void
     {
         $this->helper->setIndent(4);
         $this->helper->appendScript('
@@ -322,21 +325,21 @@ document.write(bar.strlen());');
         $this->assertStringContainsString('    document', $string);
     }
 
-    public function testDoesNotAllowDuplicateFiles()
+    public function testDoesNotAllowDuplicateFiles(): void
     {
         $this->helper->__invoke('FILE', '/js/prototype.js');
         $this->helper->__invoke('FILE', '/js/prototype.js');
         $this->assertEquals(1, count($this->helper));
     }
 
-    public function testRenderingDoesNotRenderArbitraryAttributesByDefault()
+    public function testRenderingDoesNotRenderArbitraryAttributesByDefault(): void
     {
         $this->helper->__invoke()->appendFile('/js/foo.js', 'text/javascript', ['bogus' => 'deferred']);
         $test = $this->helper->__invoke()->toString();
         $this->assertStringNotContainsString('bogus="deferred"', $test);
     }
 
-    public function testCanRenderArbitraryAttributesOnRequest()
+    public function testCanRenderArbitraryAttributesOnRequest(): void
     {
         $this->helper->__invoke()->appendFile('/js/foo.js', 'text/javascript', ['bogus' => 'deferred'])
              ->setAllowArbitraryAttributes(true);
@@ -358,7 +361,7 @@ document.write(bar.strlen());');
         self::assertStringContainsString('second capture', (string) $this->helper);
     }
 
-    public function testCannotNestCaptures()
+    public function testCannotNestCaptures(): void
     {
         $this->helper->__invoke()->captureStart();
         echo "this is something captured";
@@ -374,9 +377,12 @@ document.write(bar.strlen());');
 
     /**
      * @issue Laminas-3928
+     *
      * @link https://getlaminas.org/issues/browse/Laminas-3928
+     *
+     * @return void
      */
-    public function testTurnOffAutoEscapeDoesNotEncodeAmpersand()
+    public function testTurnOffAutoEscapeDoesNotEncodeAmpersand(): void
     {
         $this->helper->setAutoEscape(false)->appendFile('test.js?id=123&foo=bar');
         $this->assertEquals(
@@ -385,14 +391,14 @@ document.write(bar.strlen());');
         );
     }
 
-    public function testConditionalScript()
+    public function testConditionalScript(): void
     {
         $this->helper->__invoke()->appendFile('/js/foo.js', 'text/javascript', ['conditional' => 'lt IE 7']);
         $test = $this->helper->__invoke()->toString();
         $this->assertStringContainsString('<!--[if lt IE 7]>', $test);
     }
 
-    public function testConditionalScriptWidthIndentation()
+    public function testConditionalScriptWidthIndentation(): void
     {
         $this->helper->__invoke()->appendFile('/js/foo.js', 'text/javascript', ['conditional' => 'lt IE 7']);
         $this->helper->__invoke()->setIndent(4);
@@ -400,7 +406,7 @@ document.write(bar.strlen());');
         $this->assertStringContainsString('    <!--[if lt IE 7]>', $test);
     }
 
-    public function testConditionalScriptNoIE()
+    public function testConditionalScriptNoIE(): void
     {
         $this->helper->setAllowArbitraryAttributes(true);
         $this->helper->appendFile(
@@ -414,7 +420,7 @@ document.write(bar.strlen());');
         $this->assertStringContainsString('<!--<![endif]-->', $test);
     }
 
-    public function testConditionalScriptNoIEWidthSpace()
+    public function testConditionalScriptNoIEWidthSpace(): void
     {
         $this->helper->setAllowArbitraryAttributes(true);
         $this->helper->appendFile(
@@ -430,8 +436,10 @@ document.write(bar.strlen());');
 
     /**
      * @issue Laminas-5435
+     *
+     * @return void
      */
-    public function testContainerMaintainsCorrectOrderOfItems()
+    public function testContainerMaintainsCorrectOrderOfItems(): void
     {
         $this->helper->offsetSetFile(1, 'test1.js');
         $this->helper->offsetSetFile(20, 'test2.js');
@@ -459,7 +467,7 @@ document.write(bar.strlen());');
         $this->assertEquals($expected, $test);
     }
 
-    public function testConditionalWithAllowArbitraryAttributesDoesNotIncludeConditionalScript()
+    public function testConditionalWithAllowArbitraryAttributesDoesNotIncludeConditionalScript(): void
     {
         $this->helper->__invoke()->setAllowArbitraryAttributes(true);
         $this->helper->__invoke()->appendFile('/js/foo.js', 'text/javascript', ['conditional' => 'lt IE 7']);
@@ -468,7 +476,7 @@ document.write(bar.strlen());');
         $this->assertStringNotContainsString('conditional', $test);
     }
 
-    public function testNoEscapeWithAllowArbitraryAttributesDoesNotIncludeNoEscapeScript()
+    public function testNoEscapeWithAllowArbitraryAttributesDoesNotIncludeNoEscapeScript(): void
     {
         $this->helper->__invoke()->setAllowArbitraryAttributes(true);
         $this->helper->__invoke()->appendScript('// some script', 'text/javascript', ['noescape' => true]);
@@ -477,7 +485,7 @@ document.write(bar.strlen());');
         $this->assertStringNotContainsString('noescape', $test);
     }
 
-    public function testNoEscapeDefaultsToFalse()
+    public function testNoEscapeDefaultsToFalse(): void
     {
         $this->helper->__invoke()->appendScript('// some script' . PHP_EOL, 'text/javascript', []);
         $test = $this->helper->__invoke()->toString();
@@ -486,7 +494,7 @@ document.write(bar.strlen());');
         $this->assertStringContainsString('//-->', $test);
     }
 
-    public function testNoEscapeTrue()
+    public function testNoEscapeTrue(): void
     {
         $this->helper->__invoke()->appendScript('// some script' . PHP_EOL, 'text/javascript', ['noescape' => true]);
         $test = $this->helper->__invoke()->toString();
@@ -497,8 +505,10 @@ document.write(bar.strlen());');
 
     /**
      * @group 6634
+     *
+     * @return void
      */
-    public function testSupportsCrossOriginAttribute()
+    public function testSupportsCrossOriginAttribute(): void
     {
         $this->helper->__invoke()->appendScript(
             '// some script' . PHP_EOL,
@@ -512,8 +522,10 @@ document.write(bar.strlen());');
 
     /**
      * @group 21
+     *
+     * @return void
      */
-    public function testOmitsTypeAttributeIfEmptyValueAndHtml5Doctype()
+    public function testOmitsTypeAttributeIfEmptyValueAndHtml5Doctype(): void
     {
         $view = new \Laminas\View\Renderer\PhpRenderer();
         $view->plugin('doctype')->setDoctype(\Laminas\View\Helper\Doctype::HTML5);
@@ -526,8 +538,10 @@ document.write(bar.strlen());');
 
     /**
      * @group 22
+     *
+     * @return void
      */
-    public function testSupportsAsyncAttribute()
+    public function testSupportsAsyncAttribute(): void
     {
         $this->helper->__invoke()->appendScript(
             '// some script' . PHP_EOL,
@@ -540,8 +554,10 @@ document.write(bar.strlen());');
 
     /**
      * @group 23
+     *
+     * @return void
      */
-    public function testOmitsTypeAttributeIfNoneGivenAndHtml5Doctype()
+    public function testOmitsTypeAttributeIfNoneGivenAndHtml5Doctype(): void
     {
         $view = new \Laminas\View\Renderer\PhpRenderer();
         $view->plugin('doctype')->setDoctype(\Laminas\View\Helper\Doctype::HTML5);
@@ -550,5 +566,64 @@ document.write(bar.strlen());');
         $this->helper->__invoke()->appendScript('// some script' . PHP_EOL);
         $test = $this->helper->__invoke()->toString();
         $this->assertDoesNotMatchRegularExpression('#type="text/javascript"#i', $test);
+    }
+
+    public function testSupportsNonceAttribute(): void
+    {
+        ($this->helper)()->appendScript(
+            '// some js',
+            'text/javascript',
+            ['nonce' => 'random']
+        );
+
+        self::assertStringContainsString(
+            'nonce="random"',
+            (string) ($this->helper)()
+        );
+    }
+
+    /** @return Generator<string, array<int, string> */
+    public function booleanAttributeDataProvider(): Generator
+    {
+        $values = ['async', 'defer', 'nomodule'];
+
+        foreach ($values as $name) {
+            yield $name => [$name];
+        }
+    }
+
+    /** @dataProvider booleanAttributeDataProvider */
+    public function testBooleanAttributesUseTheKeyNameAsTheValue(string $attribute): void
+    {
+        ($this->helper)()->appendScript(
+            '// some js',
+            'text/javascript',
+            [$attribute => 'whatever']
+        );
+
+        self::assertStringContainsString(
+            sprintf('%1$s="%1$s"', $attribute),
+            (string) ($this->helper)()
+        );
+    }
+
+    /** @dataProvider booleanAttributeDataProvider */
+    public function testBooleanAttributesCanBeAppliedToModules(string $attribute): void
+    {
+        ($this->helper)()->appendScript(
+            '// some js',
+            'module',
+            [$attribute => 'whatever']
+        );
+
+        self::assertStringContainsString(
+            sprintf('%1$s="%1$s"', $attribute),
+            (string) ($this->helper)()
+        );
+
+        self::assertStringContainsString(
+            'type="module"',
+            (string) ($this->helper)()
+        );
     }
 }

@@ -9,6 +9,7 @@
 namespace LaminasTest\View\Helper\TestAsset;
 
 use Iterator;
+use ReturnTypeWillChange;
 
 class IteratorTest implements Iterator
 {
@@ -19,32 +20,37 @@ class IteratorTest implements Iterator
         $this->items = $array;
     }
 
+    #[ReturnTypeWillChange]
     public function current()
     {
         return current($this->items);
     }
 
+    #[ReturnTypeWillChange]
     public function key()
     {
         return key($this->items);
     }
 
+    #[ReturnTypeWillChange]
     public function next()
     {
         return next($this->items);
     }
 
+    #[ReturnTypeWillChange]
     public function rewind()
     {
         return reset($this->items);
     }
 
+    #[ReturnTypeWillChange]
     public function valid()
     {
         return (current($this->items) !== false);
     }
 
-    public function toArray()
+    public function toArray(): array
     {
         return $this->items;
     }

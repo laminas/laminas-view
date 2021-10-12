@@ -43,12 +43,12 @@ class HtmlObjectTest extends TestCase
         unset($this->helper);
     }
 
-    public function testViewObjectIsSet()
+    public function testViewObjectIsSet(): void
     {
         $this->assertInstanceof(RendererInterface::class, $this->helper->getView());
     }
 
-    public function testMakeHtmlObjectWithoutAttribsWithoutParams()
+    public function testMakeHtmlObjectWithoutAttribsWithoutParams(): void
     {
         $htmlObject = $this->helper->__invoke('datastring', 'typestring');
 
@@ -56,7 +56,7 @@ class HtmlObjectTest extends TestCase
         $this->assertStringContainsString('</object>', $htmlObject);
     }
 
-    public function testMakeHtmlObjectWithAttribsWithoutParams()
+    public function testMakeHtmlObjectWithAttribsWithoutParams(): void
     {
         $attribs = ['attribkey1' => 'attribvalue1',
                          'attribkey2' => 'attribvalue2'];
@@ -70,7 +70,7 @@ class HtmlObjectTest extends TestCase
         $this->assertStringContainsString('</object>', $htmlObject);
     }
 
-    public function testMakeHtmlObjectWithoutAttribsWithParamsHtml()
+    public function testMakeHtmlObjectWithoutAttribsWithParamsHtml(): void
     {
         $this->view->plugin('doctype')->__invoke(Doctype::HTML4_STRICT);
 
@@ -89,7 +89,7 @@ class HtmlObjectTest extends TestCase
         }
     }
 
-    public function testMakeHtmlObjectWithoutAttribsWithParamsXhtml()
+    public function testMakeHtmlObjectWithoutAttribsWithParamsXhtml(): void
     {
         $this->view->plugin('doctype')->__invoke(Doctype::XHTML1_STRICT);
 
@@ -108,7 +108,7 @@ class HtmlObjectTest extends TestCase
         }
     }
 
-    public function testMakeHtmlObjectWithContent()
+    public function testMakeHtmlObjectWithContent(): void
     {
         $htmlObject = $this->helper->__invoke('datastring', 'typestring', [], [], 'testcontent');
 

@@ -41,8 +41,10 @@ class PluginManagerCompatibilityTest extends TestCase
 
     /**
      * @group 43
+     *
+     * @return void
      */
-    public function testConstructorArgumentsAreOptionalUnderV2()
+    public function testConstructorArgumentsAreOptionalUnderV2(): void
     {
         $helpers = $this->getPluginManager();
         if (method_exists($helpers, 'configure')) {
@@ -55,8 +57,10 @@ class PluginManagerCompatibilityTest extends TestCase
 
     /**
      * @group 43
+     *
+     * @return void
      */
-    public function testConstructorAllowsConfigInstanceAsFirstArgumentUnderV2()
+    public function testConstructorAllowsConfigInstanceAsFirstArgumentUnderV2(): void
     {
         $helpers = $this->getPluginManager();
         if (method_exists($helpers, 'configure')) {
@@ -67,7 +71,7 @@ class PluginManagerCompatibilityTest extends TestCase
         $this->assertInstanceOf(PluginManager::class, $helpers);
     }
 
-    public function testInjectsParentContainerIntoHelpers()
+    public function testInjectsParentContainerIntoHelpers(): void
     {
         $config = new Config([
             'navigation' => [
@@ -86,8 +90,10 @@ class PluginManagerCompatibilityTest extends TestCase
 
     /**
      * @todo remove this test once we set the minimum laminas-servicemanager version to 3
+     *
+     * @return void
      */
-    public function testRegisteringInvalidElementRaisesException()
+    public function testRegisteringInvalidElementRaisesException(): void
     {
         $this->expectException($this->getServiceNotFoundException());
         $this->getPluginManager()->setService('test', $this);
@@ -95,8 +101,10 @@ class PluginManagerCompatibilityTest extends TestCase
 
     /**
      * @todo remove this test once we set the minimum laminas-servicemanager version to 3
+     *
+     * @return void
      */
-    public function testLoadingInvalidElementRaisesException()
+    public function testLoadingInvalidElementRaisesException(): void
     {
         $manager = $this->getPluginManager();
         $manager->setInvokableClass('test', get_class($this));

@@ -116,7 +116,7 @@ class HtmlTag extends AbstractHtmlElement
         return sprintf('<html%s>', $this->htmlAttribs($this->attributes));
     }
 
-    protected function handleNamespaceAttributes()
+    protected function handleNamespaceAttributes(): void
     {
         if ($this->useNamespaces && ! $this->handledNamespaces) {
             if (method_exists($this->view, 'plugin')) {

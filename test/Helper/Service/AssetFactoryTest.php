@@ -20,7 +20,7 @@ class AssetFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    public function testAssetFactoryCreateServiceCreatesAssetInstance()
+    public function testAssetFactoryCreateServiceCreatesAssetInstance(): void
     {
         $services = $this->getServices();
 
@@ -30,7 +30,7 @@ class AssetFactoryTest extends TestCase
         $this->assertInstanceOf(Asset::class, $asset);
     }
 
-    public function testAssetFactoryInvokableCreatesAssetInstance()
+    public function testAssetFactoryInvokableCreatesAssetInstance(): void
     {
         $services = $this->getServices();
 
@@ -40,7 +40,7 @@ class AssetFactoryTest extends TestCase
         $this->assertInstanceOf(Asset::class, $asset);
     }
 
-    public function testValidConfiguration()
+    public function testValidConfiguration(): void
     {
         $config = [
             'view_helper_config' => [
@@ -61,7 +61,7 @@ class AssetFactoryTest extends TestCase
         $this->assertEquals($config['view_helper_config']['asset']['resource_map'], $asset->getResourceMap());
     }
 
-    public function testInvalidConfiguration()
+    public function testInvalidConfiguration(): void
     {
         $config = [
             'view_helper_config' => [
@@ -77,7 +77,7 @@ class AssetFactoryTest extends TestCase
         $assetFactory($services, '');
     }
 
-    protected function getServices(array $config = [])
+    protected function getServices(array $config = []): ServiceManager
     {
         $services = $this->prophesize(ServiceManager::class);
         $services->get('config')->willReturn($config);

@@ -14,27 +14,27 @@ use PHPUnit\Framework\TestCase;
 
 class TemplateMapResolverTest extends TestCase
 {
-    public function testMapIsEmptyByDefault()
+    public function testMapIsEmptyByDefault(): void
     {
         $resolver = new TemplateMapResolver();
         $this->assertEquals([], $resolver->getMap());
     }
 
-    public function testCanSeedMapWithArrayViaConstructor()
+    public function testCanSeedMapWithArrayViaConstructor(): void
     {
         $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
         $this->assertEquals($map, $resolver->getMap());
     }
 
-    public function testCanSeedMapWithTraversableViaConstructor()
+    public function testCanSeedMapWithTraversableViaConstructor(): void
     {
         $map = new ArrayObject(['foo/bar' => __DIR__ . '/foo/bar.phtml']);
         $resolver = new TemplateMapResolver($map);
         $this->assertEquals($map->getArrayCopy(), $resolver->getMap());
     }
 
-    public function testCanSeedMapWithArrayViaSetter()
+    public function testCanSeedMapWithArrayViaSetter(): void
     {
         $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver();
@@ -42,7 +42,7 @@ class TemplateMapResolverTest extends TestCase
         $this->assertEquals($map, $resolver->getMap());
     }
 
-    public function testCanSeedMapWithTraversableViaSetter()
+    public function testCanSeedMapWithTraversableViaSetter(): void
     {
         $map = new ArrayObject(['foo/bar' => __DIR__ . '/foo/bar.phtml']);
         $resolver = new TemplateMapResolver();
@@ -50,7 +50,7 @@ class TemplateMapResolverTest extends TestCase
         $this->assertEquals($map->getArrayCopy(), $resolver->getMap());
     }
 
-    public function testCanAppendSingleEntriesViaAdd()
+    public function testCanAppendSingleEntriesViaAdd(): void
     {
         $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
@@ -59,7 +59,7 @@ class TemplateMapResolverTest extends TestCase
         $this->assertEquals($expected, $resolver->getMap());
     }
 
-    public function testCanAppendMultipleEntriesAsArrayViaAdd()
+    public function testCanAppendMultipleEntriesAsArrayViaAdd(): void
     {
         $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
@@ -72,7 +72,7 @@ class TemplateMapResolverTest extends TestCase
         $this->assertEquals($expected, $resolver->getMap());
     }
 
-    public function testCanAppendMultipleEntriesAsTraversableViaAdd()
+    public function testCanAppendMultipleEntriesAsTraversableViaAdd(): void
     {
         $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
@@ -85,7 +85,7 @@ class TemplateMapResolverTest extends TestCase
         $this->assertEquals($expected, $resolver->getMap());
     }
 
-    public function testCanAppendMultipleEntriesAsArrayViaMerge()
+    public function testCanAppendMultipleEntriesAsArrayViaMerge(): void
     {
         $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
@@ -98,7 +98,7 @@ class TemplateMapResolverTest extends TestCase
         $this->assertEquals($expected, $resolver->getMap());
     }
 
-    public function testCanAppendMultipleEntriesAsTraversableViaMerge()
+    public function testCanAppendMultipleEntriesAsTraversableViaMerge(): void
     {
         $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
@@ -111,7 +111,7 @@ class TemplateMapResolverTest extends TestCase
         $this->assertEquals($expected, $resolver->getMap());
     }
 
-    public function testCanMergeTwoMaps()
+    public function testCanMergeTwoMaps(): void
     {
         $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
@@ -124,7 +124,7 @@ class TemplateMapResolverTest extends TestCase
         $this->assertEquals($expected, $resolver->getMap());
     }
 
-    public function testAddOverwritesMatchingEntries()
+    public function testAddOverwritesMatchingEntries(): void
     {
         $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
@@ -138,7 +138,7 @@ class TemplateMapResolverTest extends TestCase
         $this->assertEquals(__DIR__ . '/../foo/baz.phtml', $resolver->get('foo/bar'));
     }
 
-    public function testMergeOverwritesMatchingEntries()
+    public function testMergeOverwritesMatchingEntries(): void
     {
         $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
@@ -152,42 +152,42 @@ class TemplateMapResolverTest extends TestCase
         $this->assertEquals(__DIR__ . '/../foo/baz.phtml', $resolver->get('foo/bar'));
     }
 
-    public function testHasReturnsTrueWhenMatchingNameFound()
+    public function testHasReturnsTrueWhenMatchingNameFound(): void
     {
         $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
         $this->assertTrue($resolver->has('foo/bar'));
     }
 
-    public function testHasReturnsFalseWhenNameHasNoMatch()
+    public function testHasReturnsFalseWhenNameHasNoMatch(): void
     {
         $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
         $this->assertFalse($resolver->has('bar/baz'));
     }
 
-    public function testGetReturnsPathWhenNameHasMatch()
+    public function testGetReturnsPathWhenNameHasMatch(): void
     {
         $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
         $this->assertEquals($map['foo/bar'], $resolver->get('foo/bar'));
     }
 
-    public function testGetReturnsFalseWhenNameHasNoMatch()
+    public function testGetReturnsFalseWhenNameHasNoMatch(): void
     {
         $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
         $this->assertFalse($resolver->get('bar/baz'));
     }
 
-    public function testResolveReturnsPathWhenNameHasMatch()
+    public function testResolveReturnsPathWhenNameHasMatch(): void
     {
         $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
         $this->assertEquals($map['foo/bar'], $resolver->resolve('foo/bar'));
     }
 
-    public function testResolveReturnsFalseWhenNameHasNoMatch()
+    public function testResolveReturnsFalseWhenNameHasNoMatch(): void
     {
         $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);

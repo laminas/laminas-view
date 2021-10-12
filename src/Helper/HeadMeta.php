@@ -456,9 +456,9 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      *
      * Not valid in a non-HTML5 doctype
      *
-     * @param  string $charset
-     * @param  Exception\InvalidArgumentException
-     * @return HeadMeta Provides a fluent interface
+     * @param string $charset
+     * @param Exception\InvalidArgumentException
+     * @return static
      */
     public function setCharset($charset)
     {

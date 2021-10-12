@@ -31,13 +31,13 @@ class PhpRendererStrategyTest extends TestCase
         $this->response = new HttpResponse();
     }
 
-    public function testSelectRendererAlwaysSelectsPhpRenderer()
+    public function testSelectRendererAlwaysSelectsPhpRenderer(): void
     {
         $result = $this->strategy->selectRenderer($this->event);
         $this->assertSame($this->renderer, $result);
     }
 
-    protected function assertResponseNotInjected()
+    protected function assertResponseNotInjected(): void
     {
         $content = $this->response->getContent();
         $headers = $this->response->getHeaders();
@@ -45,7 +45,7 @@ class PhpRendererStrategyTest extends TestCase
         $this->assertFalse($headers->has('content-type'));
     }
 
-    public function testNonMatchingRendererDoesNotInjectResponse()
+    public function testNonMatchingRendererDoesNotInjectResponse(): void
     {
         $this->event->setResponse($this->response);
 
@@ -60,7 +60,7 @@ class PhpRendererStrategyTest extends TestCase
         $this->assertResponseNotInjected();
     }
 
-    public function testResponseContentSetToContentPlaceholderWhenResultAndArticlePlaceholderAreEmpty()
+    public function testResponseContentSetToContentPlaceholderWhenResultAndArticlePlaceholderAreEmpty(): void
     {
         $this->renderer->placeholder('content')->set('Content');
         $event = new ViewEvent();
@@ -72,7 +72,8 @@ class PhpRendererStrategyTest extends TestCase
         $this->assertEquals('Content', $content);
     }
 
-    public function testResponseContentSetToArticlePlaceholderWhenResultIsEmptyAndBothArticleAndContentPlaceholdersSet()
+    // @codingStandardsIgnoreLine
+    public function testResponseContentSetToArticlePlaceholderWhenResultIsEmptyAndBothArticleAndContentPlaceholdersSet(): void
     {
         $this->renderer->placeholder('article')->set('Article Content');
         $this->renderer->placeholder('content')->set('Content');
@@ -85,7 +86,7 @@ class PhpRendererStrategyTest extends TestCase
         $this->assertEquals('Article Content', $content);
     }
 
-    public function testResponseContentSetToResultIfNotEmpty()
+    public function testResponseContentSetToResultIfNotEmpty(): void
     {
         $this->renderer->placeholder('article')->set('Article Content');
         $this->renderer->placeholder('content')->set('Content');
@@ -99,18 +100,18 @@ class PhpRendererStrategyTest extends TestCase
         $this->assertEquals('Result Content', $content);
     }
 
-    public function testContentPlaceholdersIncludeContentAndArticleByDefault()
+    public function testContentPlaceholdersIncludeContentAndArticleByDefault(): void
     {
         $this->assertEquals(['article', 'content'], $this->strategy->getContentPlaceholders());
     }
 
-    public function testContentPlaceholdersListIsMutable()
+    public function testContentPlaceholdersListIsMutable(): void
     {
         $this->strategy->setContentPlaceholders(['foo', 'bar']);
         $this->assertEquals(['foo', 'bar'], $this->strategy->getContentPlaceholders());
     }
 
-    public function testAttachesListenersAtExpectedPriorities()
+    public function testAttachesListenersAtExpectedPriorities(): void
     {
         $events = new EventManager();
         $this->strategy->attach($events);
@@ -132,7 +133,7 @@ class PhpRendererStrategyTest extends TestCase
         }
     }
 
-    public function testCanAttachListenersAtSpecifiedPriority()
+    public function testCanAttachListenersAtSpecifiedPriority(): void
     {
         $events = new EventManager();
         $this->strategy->attach($events, 100);
@@ -154,7 +155,7 @@ class PhpRendererStrategyTest extends TestCase
         }
     }
 
-    public function testDetachesListeners()
+    public function testDetachesListeners(): void
     {
         $events = new EventManager();
         $this->strategy->attach($events, 100);
@@ -171,7 +172,7 @@ class PhpRendererStrategyTest extends TestCase
         $this->assertCount(0, $listeners);
     }
 
-    public function testInjectResponseWorksWithAnEventWithNoResponse()
+    public function testInjectResponseWorksWithAnEventWithNoResponse(): void
     {
         $e = new ViewEvent();
         $e->setRenderer($this->strategy->getRenderer());

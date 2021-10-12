@@ -116,7 +116,12 @@ abstract class AbstractTest extends TestCase
                 'extra_config'         => [
                     'service_manager' => [
                         'factories' => [
-                            'config' => function () use ($config) {
+                            'config' => /**
+                             * @return array[]
+                             *
+                             * @psalm-return array{navigation: array{default: mixed}}
+                             */
+                            function () use ($config): array {
                                 return [
                                     'navigation' => [
                                         'default' => $config->get('nav_test1'),
@@ -172,10 +177,12 @@ abstract class AbstractTest extends TestCase
     /**
      * Sets up ACL
      *
-     * @return Acl
+     * @return (Acl|string)[]
+     *
+     * @psalm-return array{acl: Acl, role: 'special'}
      */
-    // @codingStandardsIgnoreStart
-    protected function _getAcl()
+    // @codingStandardsIgnoreLine
+    protected function _getAcl(): array
     {
         // @codingStandardsIgnoreEnd
         $acl = new Acl();

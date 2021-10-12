@@ -15,7 +15,7 @@ class AuthenticationAdapter implements AdapterInterface
 {
     protected $identity;
 
-    public function setIdentity($identity)
+    public function setIdentity($identity): void
     {
         $this->identity = $identity;
     }

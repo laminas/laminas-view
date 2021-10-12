@@ -72,8 +72,8 @@ class FlashMessenger extends AbstractHelper
     /**
      * Returns the flash messenger plugin controller
      *
-     * @param  string|null $namespace
-     * @return FlashMessenger|V2PluginFlashMessenger|PluginFlashMessenger
+     * @param string|null $namespace
+     * @return array|static
      */
     public function __invoke($namespace = null)
     {
@@ -214,7 +214,7 @@ class FlashMessenger extends AbstractHelper
     /**
      * Return whether auto escaping is enabled or disabled
      *
-     * return bool
+     * @return bool
      */
     public function getAutoEscape()
     {

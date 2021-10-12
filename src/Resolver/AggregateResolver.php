@@ -13,6 +13,7 @@ use IteratorAggregate;
 use Laminas\Stdlib\PriorityQueue;
 use Laminas\View\Renderer\RendererInterface as Renderer;
 use Laminas\View\Resolver\ResolverInterface as Resolver;
+use ReturnTypeWillChange;
 
 class AggregateResolver implements Countable, IteratorAggregate, ResolverInterface
 {
@@ -51,6 +52,7 @@ class AggregateResolver implements Countable, IteratorAggregate, ResolverInterfa
      *
      * @return int
      */
+    #[ReturnTypeWillChange]
     public function count()
     {
         return $this->queue->count();
@@ -61,6 +63,7 @@ class AggregateResolver implements Countable, IteratorAggregate, ResolverInterfa
      *
      * @return PriorityQueue
      */
+    #[ReturnTypeWillChange]
     public function getIterator()
     {
         return $this->queue;

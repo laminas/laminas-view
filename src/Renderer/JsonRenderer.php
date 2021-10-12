@@ -58,9 +58,9 @@ class JsonRenderer implements Renderer, TreeRendererInterface
     /**
      * Set the resolver used to map a template name to a resource the renderer may consume.
      *
-     * @todo   Determine use case for resolvers when rendering JSON
-     * @param  Resolver $resolver
-     * @return Renderer
+     * @todo Determine use case for resolvers when rendering JSON
+     * @param Resolver $resolver
+     * @return void
      */
     public function setResolver(Resolver $resolver)
     {
@@ -183,10 +183,11 @@ class JsonRenderer implements Renderer, TreeRendererInterface
     /**
      * Retrieve values from a model and recurse its children to build a data structure
      *
-     * @param  Model $model
-     * @param  bool $mergeWithVariables Whether or not to merge children with
+     * @param Model $model
+     * @param bool $mergeWithVariables Whether or not to merge children with
      *         the variables of the $model
-     * @return array
+     * @return (array|mixed)[]|\ArrayAccess
+     * @psalm-return \ArrayAccess|array<array|mixed>
      */
     protected function recurseModel(Model $model, $mergeWithVariables = true)
     {
@@ -228,11 +229,12 @@ class JsonRenderer implements Renderer, TreeRendererInterface
     /**
      * Inject discovered child model values into parent model
      *
-     * @todo   detect collisions and decide whether to append and/or aggregate?
-     * @param  Model $model
-     * @param  array $children
+     * @todo detect collisions and decide whether to append and/or aggregate?
+     * @param Model $model
+     * @param array $children
+     * @return void
      */
-    protected function injectChildren(Model $model, array $children)
+    protected function injectChildren(Model $model, array $children): void
     {
         foreach ($children as $child => $value) {
             // TODO detect collisions and decide whether to append and/or aggregate?

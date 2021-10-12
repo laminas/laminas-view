@@ -32,7 +32,7 @@ class JsonStrategyTest extends TestCase
         $this->response = new HttpResponse();
     }
 
-    public function testJsonModelSelectsJsonStrategy()
+    public function testJsonModelSelectsJsonStrategy(): void
     {
         $this->event->setModel(new JsonModel());
         $result = $this->strategy->selectRenderer($this->event);
@@ -41,8 +41,10 @@ class JsonStrategyTest extends TestCase
 
     /**
      * @group #2410
+     *
+     * @return void
      */
-    public function testJsonAcceptHeaderDoesNotSelectJsonStrategy()
+    public function testJsonAcceptHeaderDoesNotSelectJsonStrategy(): void
     {
         $request = new HttpRequest();
         $request->getHeaders()->addHeaderLine('Accept', 'application/json');
@@ -53,8 +55,10 @@ class JsonStrategyTest extends TestCase
 
     /**
      * @group #2410
+     *
+     * @return void
      */
-    public function testJavascriptAcceptHeaderDoesNotSelectJsonStrategy()
+    public function testJavascriptAcceptHeaderDoesNotSelectJsonStrategy(): void
     {
         $request = new HttpRequest();
         $request->getHeaders()->addHeaderLine('Accept', 'application/javascript');
@@ -65,8 +69,10 @@ class JsonStrategyTest extends TestCase
 
     /**
      * @group #2410
+     *
+     * @return void
      */
-    public function testJsonModelJavascriptAcceptHeaderDoesNotSetJsonpCallback()
+    public function testJsonModelJavascriptAcceptHeaderDoesNotSetJsonpCallback(): void
     {
         $this->event->setModel(new JsonModel());
         $request = new HttpRequest();
@@ -78,14 +84,14 @@ class JsonStrategyTest extends TestCase
         $this->assertFalse($result->hasJsonpCallback());
     }
 
-    public function testLackOfJsonModelDoesNotSelectJsonStrategy()
+    public function testLackOfJsonModelDoesNotSelectJsonStrategy(): void
     {
         $result = $this->strategy->selectRenderer($this->event);
         $this->assertNotSame($this->renderer, $result);
         $this->assertNull($result);
     }
 
-    protected function assertResponseNotInjected()
+    protected function assertResponseNotInjected(): void
     {
         $content = $this->response->getContent();
         $headers = $this->response->getHeaders();
@@ -93,7 +99,7 @@ class JsonStrategyTest extends TestCase
         $this->assertFalse($headers->has('content-type'));
     }
 
-    public function testNonMatchingRendererDoesNotInjectResponse()
+    public function testNonMatchingRendererDoesNotInjectResponse(): void
     {
         $this->event->setResponse($this->response);
 
@@ -108,7 +114,7 @@ class JsonStrategyTest extends TestCase
         $this->assertResponseNotInjected();
     }
 
-    public function testNonStringResultDoesNotInjectResponse()
+    public function testNonStringResultDoesNotInjectResponse(): void
     {
         $this->event->setResponse($this->response);
         $this->event->setRenderer($this->renderer);
@@ -118,7 +124,7 @@ class JsonStrategyTest extends TestCase
         $this->assertResponseNotInjected();
     }
 
-    public function testMatchingRendererAndStringResultInjectsResponse()
+    public function testMatchingRendererAndStringResultInjectsResponse(): void
     {
         $expected = json_encode(['foo' => 'bar']);
         $this->event->setResponse($this->response);
@@ -133,7 +139,7 @@ class JsonStrategyTest extends TestCase
         $this->assertStringContainsString('application/json', $headers->get('content-type')->getFieldValue());
     }
 
-    public function testMatchingRendererAndStringResultInjectsResponseJsonp()
+    public function testMatchingRendererAndStringResultInjectsResponseJsonp(): void
     {
         $expected = json_encode(['foo' => 'bar']);
         $this->renderer->setJsonpCallback('foo');
@@ -149,7 +155,7 @@ class JsonStrategyTest extends TestCase
         $this->assertStringContainsString('application/javascript', $headers->get('content-type')->getFieldValue());
     }
 
-    public function testReturnsNullWhenCannotSelectRenderer()
+    public function testReturnsNullWhenCannotSelectRenderer(): void
     {
         $model   = new ViewModel();
         $request = new HttpRequest();
@@ -159,7 +165,7 @@ class JsonStrategyTest extends TestCase
         $this->assertNull($this->strategy->selectRenderer($this->event));
     }
 
-    public function testAttachesListenersAtExpectedPriorities()
+    public function testAttachesListenersAtExpectedPriorities(): void
     {
         $events = new EventManager();
         $this->strategy->attach($events);
@@ -181,7 +187,7 @@ class JsonStrategyTest extends TestCase
         }
     }
 
-    public function testCanAttachListenersAtSpecifiedPriority()
+    public function testCanAttachListenersAtSpecifiedPriority(): void
     {
         $events = new EventManager();
         $this->strategy->attach($events, 1000);
@@ -203,7 +209,7 @@ class JsonStrategyTest extends TestCase
         }
     }
 
-    public function testDetachesListeners()
+    public function testDetachesListeners(): void
     {
         $events = new EventManager();
         $this->strategy->attach($events, 100);
@@ -220,7 +226,7 @@ class JsonStrategyTest extends TestCase
         $this->assertCount(0, $listeners);
     }
 
-    public function testDefaultsToUtf8CharsetWhenCreatingJavascriptHeader()
+    public function testDefaultsToUtf8CharsetWhenCreatingJavascriptHeader(): void
     {
         $expected = json_encode(['foo' => 'bar']);
         $this->renderer->setJsonpCallback('foo');
@@ -239,7 +245,7 @@ class JsonStrategyTest extends TestCase
         );
     }
 
-    public function testDefaultsToUtf8CharsetWhenCreatingJsonHeader()
+    public function testDefaultsToUtf8CharsetWhenCreatingJsonHeader(): void
     {
         $expected = json_encode(['foo' => 'bar']);
         $this->event->setResponse($this->response);
@@ -257,7 +263,7 @@ class JsonStrategyTest extends TestCase
         );
     }
 
-    public function testUsesProvidedCharsetWhenCreatingJavascriptHeader()
+    public function testUsesProvidedCharsetWhenCreatingJavascriptHeader(): void
     {
         $expected = json_encode(['foo' => 'bar']);
         $this->renderer->setJsonpCallback('foo');
@@ -277,7 +283,7 @@ class JsonStrategyTest extends TestCase
         );
     }
 
-    public function testUsesProvidedCharsetWhenCreatingJsonHeader()
+    public function testUsesProvidedCharsetWhenCreatingJsonHeader(): void
     {
         $expected = json_encode(['foo' => 'bar']);
         $this->event->setResponse($this->response);
@@ -296,18 +302,23 @@ class JsonStrategyTest extends TestCase
         );
     }
 
-    public function testCharsetIsUtf8ByDefault()
+    public function testCharsetIsUtf8ByDefault(): void
     {
         $this->assertEquals('utf-8', $this->strategy->getCharset());
     }
 
-    public function testCharsetIsMutable()
+    public function testCharsetIsMutable(): void
     {
         $this->strategy->setCharset('iso-8859-1');
         $this->assertEquals('iso-8859-1', $this->strategy->getCharset());
     }
 
-    public function multibyteCharsets()
+    /**
+     * @return string[][]
+     *
+     * @psalm-return array{utf-16: array{0: 'utf-16'}, utf-32: array{0: 'utf-32'}}
+     */
+    public function multibyteCharsets(): array
     {
         return [
             'utf-16' => ['utf-16'],
@@ -317,8 +328,10 @@ class JsonStrategyTest extends TestCase
 
     /**
      * @dataProvider multibyteCharsets
+     *
+     * @return void
      */
-    public function testContentTransferEncodingHeaderSetToBinaryForSpecificMultibyteCharsets($charset)
+    public function testContentTransferEncodingHeaderSetToBinaryForSpecificMultibyteCharsets($charset): void
     {
         $this->strategy->setCharset($charset);
 
@@ -327,7 +340,7 @@ class JsonStrategyTest extends TestCase
         $this->event->setResult(json_encode(['foo' => 'bar']));
 
         $this->strategy->injectResponse($this->event);
-        $content = $this->response->getContent();
+        $this->response->getContent();
         $headers = $this->response->getHeaders();
         $this->assertTrue($headers->has('content-transfer-encoding'));
         $this->assertEquals('binary', $headers->get('content-transfer-encoding')->getFieldValue());

@@ -35,7 +35,7 @@ class HtmlTagTest extends TestCase
         unset($this->helper);
     }
 
-    protected function assertAttribute($name, $value = null)
+    protected function assertAttribute(string $name, $value = null): void
     {
         $attributes = $this->helper->getAttributes();
         $this->assertArrayHasKey($name, $attributes);
@@ -44,13 +44,13 @@ class HtmlTagTest extends TestCase
         }
     }
 
-    public function testSettingSingleAttribute()
+    public function testSettingSingleAttribute(): void
     {
         $this->helper->setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
         $this->assertAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
     }
 
-    public function testAddingMultipleAttributes()
+    public function testAddingMultipleAttributes(): void
     {
         $attribs = [
             'xmlns' => 'http://www.w3.org/1999/xhtml',
@@ -63,7 +63,7 @@ class HtmlTagTest extends TestCase
         }
     }
 
-    public function testSettingMultipleAttributesOverwritesExisting()
+    public function testSettingMultipleAttributesOverwritesExisting(): void
     {
         $this->helper->setAttribute('prefix', 'foobar');
 
@@ -79,12 +79,12 @@ class HtmlTagTest extends TestCase
         }
     }
 
-    public function testRenderingOpenTagWithNoAttributes()
+    public function testRenderingOpenTagWithNoAttributes(): void
     {
         $this->assertEquals('<html>', $this->helper->openTag());
     }
 
-    public function testRenderingOpenTagWithAttributes()
+    public function testRenderingOpenTagWithAttributes(): void
     {
         $attribs = [
             'xmlns' => 'http://www.w3.org/1999/xhtml',
@@ -103,18 +103,18 @@ class HtmlTagTest extends TestCase
         }
     }
 
-    public function testRenderingCloseTag()
+    public function testRenderingCloseTag(): void
     {
         $this->assertEquals('</html>', $this->helper->closeTag());
     }
 
-    public function testUseNamespacesSetter()
+    public function testUseNamespacesSetter(): void
     {
         $this->helper->setUseNamespaces(true);
         $this->assertTrue($this->helper->getUseNamespaces());
     }
 
-    public function testAppropriateNamespaceAttributesAreSetIfFlagIsOn()
+    public function testAppropriateNamespaceAttributesAreSetIfFlagIsOn(): void
     {
         $this->view->plugin('doctype')->setDoctype('xhtml');
 

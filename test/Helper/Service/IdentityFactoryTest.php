@@ -35,7 +35,7 @@ class IdentityFactoryTest extends TestCase
         return $this->helpers;
     }
 
-    public function testFactoryReturnsEmptyIdentityIfNoAuthenticationServicePresent()
+    public function testFactoryReturnsEmptyIdentityIfNoAuthenticationServicePresent(): void
     {
         $this->services->has(AuthenticationService::class)->willReturn(false);
 
@@ -55,7 +55,7 @@ class IdentityFactoryTest extends TestCase
         $this->assertNull($plugin->getAuthenticationService());
     }
 
-    public function testFactoryReturnsIdentityWithConfiguredAuthenticationServiceWhenPresent()
+    public function testFactoryReturnsIdentityWithConfiguredAuthenticationServiceWhenPresent(): void
     {
         $authentication = $this->prophesize(AuthenticationService::class);
 
@@ -74,7 +74,7 @@ class IdentityFactoryTest extends TestCase
         $this->assertSame($authentication->reveal(), $plugin->getAuthenticationService());
     }
 
-    public function testFactoryReturnsIdentityWithConfiguredAuthenticationServiceInterfaceWhenPresent()
+    public function testFactoryReturnsIdentityWithConfiguredAuthenticationServiceInterfaceWhenPresent(): void
     {
         $authentication = $this->prophesize(AuthenticationServiceInterface::class);
 

@@ -57,8 +57,10 @@ class GravatarTest extends TestCase
 
     /**
      * Test default options.
+     *
+     * @return void
      */
-    public function testGravatarXhtmlDoctype()
+    public function testGravatarXhtmlDoctype(): void
     {
         $this->assertMatchesRegularExpression(
             '/\/>$/',
@@ -68,8 +70,10 @@ class GravatarTest extends TestCase
 
     /**
      * Test if doctype is HTML
+     *
+     * @return void
      */
-    public function testGravatarHtmlDoctype()
+    public function testGravatarHtmlDoctype(): void
     {
         $object = new Gravatar();
         $view   = new View();
@@ -84,8 +88,10 @@ class GravatarTest extends TestCase
 
     /**
      * Test get set methods
+     *
+     * @return void
      */
-    public function testGetAndSetMethods()
+    public function testGetAndSetMethods(): void
     {
         $attributes = ['class' => 'gravatar', 'title' => 'avatar', 'id' => 'gravatar-1'];
         $this->helper->setDefaultImg('monsterid')
@@ -102,7 +108,7 @@ class GravatarTest extends TestCase
         $this->assertTrue($this->helper->getSecure());
     }
 
-    public function tesSetDefaultImg()
+    public function tesSetDefaultImg(): void
     {
         $this->helper->gravatar("example@example.com");
 
@@ -118,7 +124,7 @@ class GravatarTest extends TestCase
         }
     }
 
-    public function testSetImgSize()
+    public function testSetImgSize(): void
     {
         $imgSizesRight = [1, 500, "600"];
         foreach ($imgSizesRight as $value) {
@@ -127,7 +133,7 @@ class GravatarTest extends TestCase
         }
     }
 
-    public function testInvalidRatingParametr()
+    public function testInvalidRatingParametr(): void
     {
         $ratingsWrong = [ 'a', 'cs', 456];
         $this->expectException(Exception\ExceptionInterface::class);
@@ -136,7 +142,7 @@ class GravatarTest extends TestCase
         }
     }
 
-    public function testSetRating()
+    public function testSetRating(): void
     {
         $ratingsRight = [ 'g', 'pg', 'r', 'x', Gravatar::RATING_R];
         foreach ($ratingsRight as $value) {
@@ -145,7 +151,7 @@ class GravatarTest extends TestCase
         }
     }
 
-    public function testSetSecure()
+    public function testSetSecure(): void
     {
         $values = ["true", "false", "text", $this->view, 100, true, "", null, 0, false];
         foreach ($values as $value) {
@@ -156,8 +162,10 @@ class GravatarTest extends TestCase
 
     /**
      * Test SSL location
+     *
+     * @return void
      */
-    public function testHttpsSource()
+    public function testHttpsSource(): void
     {
         $this->assertMatchesRegularExpression(
             '#src="https\&\#x3A\;\&\#x2F\;\&\#x2F\;secure.gravatar.com\&\#x2F\;avatar\&\#x2F\;[a-z0-9]{32}.+"#',
@@ -167,8 +175,10 @@ class GravatarTest extends TestCase
 
     /**
      * Test HTML attributes
+     *
+     * @return void
      */
-    public function testImgAttributes()
+    public function testImgAttributes(): void
     {
         $this->assertMatchesRegularExpression(
             '/class="gravatar" title="Gravatar"/',
@@ -182,8 +192,10 @@ class GravatarTest extends TestCase
 
     /**
      * Test gravatar's options (rating, size, default image and secure)
+     *
+     * @return void
      */
-    public function testGravatarOptions()
+    public function testGravatarOptions(): void
     {
         $this->assertMatchesRegularExpression(
             // @codingStandardsIgnoreStart
@@ -193,7 +205,7 @@ class GravatarTest extends TestCase
         );
     }
 
-    public function testPassingAnMd5HashSkipsMd5Hashing()
+    public function testPassingAnMd5HashSkipsMd5Hashing(): void
     {
         $this->assertStringNotContainsString(
             'test@test.com',
@@ -208,8 +220,10 @@ class GravatarTest extends TestCase
     /**
      * Test auto detect location.
      * If request was made through the HTTPS protocol use secure location.
+     *
+     * @return void
      */
-    public function testAutoDetectLocation()
+    public function testAutoDetectLocation(): void
     {
         $values = ["on", "", 1, true];
 
@@ -224,8 +238,10 @@ class GravatarTest extends TestCase
 
     /**
      * @link http://php.net/manual/en/reserved.variables.server.php Section "HTTPS"
+     *
+     * @return void
      */
-    public function testAutoDetectLocationOnIis()
+    public function testAutoDetectLocationOnIis(): void
     {
         $_SERVER['HTTPS'] = "off";
 
@@ -235,7 +251,7 @@ class GravatarTest extends TestCase
         );
     }
 
-    public function testSetAttributesWithSrcKey()
+    public function testSetAttributesWithSrcKey(): void
     {
         $email = 'example@example.com';
         $this->helper->setEmail($email);
@@ -251,7 +267,7 @@ class GravatarTest extends TestCase
         );
     }
 
-    public function testForgottenEmailParameter()
+    public function testForgottenEmailParameter(): void
     {
         $this->assertMatchesRegularExpression(
             '#(src="http\&\#x3A\;\&\#x2F\;\&\#x2F\;www.gravatar.com\&\#x2F\;avatar\&\#x2F\;[a-z0-9]{32}.+")#',
@@ -259,7 +275,7 @@ class GravatarTest extends TestCase
         );
     }
 
-    public function testReturnImgTag()
+    public function testReturnImgTag(): void
     {
         $this->assertMatchesRegularExpression(
             "/^<img\s.+/",
@@ -281,7 +297,7 @@ class GravatarTest extends TestCase
         $this->helper->__invoke()->setOptions($options);
     }
 
-    public function testEmailIsProperlyNormalized()
+    public function testEmailIsProperlyNormalized(): void
     {
         $this->assertEquals(
             'example@example.com',
@@ -289,14 +305,14 @@ class GravatarTest extends TestCase
         );
     }
 
-    public function testSetAttribsIsDeprecated()
+    public function testSetAttribsIsDeprecated(): void
     {
         $this->expectDeprecation();
 
         $this->helper->setAttribs([]);
     }
 
-    public function testSetAttribsDocCommentHasDeprecated()
+    public function testSetAttribsDocCommentHasDeprecated(): void
     {
         $method  = new ReflectionMethod($this->helper, 'setAttribs');
         $comment = $method->getDocComment();
@@ -304,14 +320,14 @@ class GravatarTest extends TestCase
         $this->assertStringContainsString('@deprecated', $comment);
     }
 
-    public function testGetAttribsIsDeprecated()
+    public function testGetAttribsIsDeprecated(): void
     {
         $this->expectDeprecation();
 
         $this->helper->getAttribs();
     }
 
-    public function testGetAttribsDocCommentHasDeprecated()
+    public function testGetAttribsDocCommentHasDeprecated(): void
     {
         $method  = new ReflectionMethod($this->helper, 'getAttribs');
         $comment = $method->getDocComment();

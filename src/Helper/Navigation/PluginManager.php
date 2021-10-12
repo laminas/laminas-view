@@ -76,7 +76,7 @@ class PluginManager extends HelperPluginManager
      */
     public function __construct($configOrContainerInstance = null, array $v3config = [])
     {
-        $this->initializers[] = function ($first, $second) {
+        $this->initializers[] = function ($first, $second): void {
             // v2 vs v3 argument order
             if ($first instanceof ContainerInterface) {
                 // v3

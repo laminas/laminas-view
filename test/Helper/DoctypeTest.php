@@ -53,19 +53,19 @@ class DoctypeTest extends TestCase
         unset($this->helper);
     }
 
-    public function testDoctypeMethodReturnsObjectInstance()
+    public function testDoctypeMethodReturnsObjectInstance(): void
     {
         $doctype = $this->helper->__invoke();
         $this->assertInstanceOf(Helper\Doctype::class, $doctype);
     }
 
-    public function testPassingDoctypeSetsDoctype()
+    public function testPassingDoctypeSetsDoctype(): void
     {
         $doctype = $this->helper->__invoke(Helper\Doctype::XHTML1_STRICT);
         $this->assertEquals(Helper\Doctype::XHTML1_STRICT, $doctype->getDoctype());
     }
 
-    public function testIsXhtmlReturnsTrueForXhtmlDoctypes()
+    public function testIsXhtmlReturnsTrueForXhtmlDoctypes(): void
     {
         $types = [
             Helper\Doctype::XHTML1_STRICT,
@@ -89,7 +89,7 @@ class DoctypeTest extends TestCase
         $this->assertTrue($doctype->isXhtml());
     }
 
-    public function testIsXhtmlReturnsFalseForNonXhtmlDoctypes()
+    public function testIsXhtmlReturnsFalseForNonXhtmlDoctypes(): void
     {
         $types = [
             Helper\Doctype::HTML4_STRICT,
@@ -110,7 +110,7 @@ class DoctypeTest extends TestCase
         $this->assertFalse($doctype->isXhtml());
     }
 
-    public function testIsHtml5()
+    public function testIsHtml5(): void
     {
         foreach ([Helper\Doctype::HTML5, Helper\Doctype::XHTML5] as $type) {
             $doctype = $this->helper->__invoke($type);
@@ -135,7 +135,7 @@ class DoctypeTest extends TestCase
         }
     }
 
-    public function testIsRdfa()
+    public function testIsRdfa(): void
     {
         // ensure default registered Doctype is false
         $this->assertFalse($this->helper->isRdfa());
@@ -168,14 +168,14 @@ class DoctypeTest extends TestCase
         $this->assertFalse($doctype->isRdfa());
     }
 
-    public function testCanRegisterCustomHtml5Doctype()
+    public function testCanRegisterCustomHtml5Doctype(): void
     {
         $doctype = $this->helper->__invoke('<!DOCTYPE html>');
         $this->assertEquals('CUSTOM', $doctype->getDoctype());
         $this->assertTrue($doctype->isHtml5());
     }
 
-    public function testCanRegisterCustomXhtmlDoctype()
+    public function testCanRegisterCustomXhtmlDoctype(): void
     {
         // @codingStandardsIgnoreStart
         $doctype = $this->helper->__invoke('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "https://getlaminas.org/foo/DTD/xhtml1-custom.dtd">');
@@ -184,7 +184,7 @@ class DoctypeTest extends TestCase
         $this->assertTrue($doctype->isXhtml());
     }
 
-    public function testCanRegisterCustomHtmlDoctype()
+    public function testCanRegisterCustomHtmlDoctype(): void
     {
         // @codingStandardsIgnoreStart
         $doctype = $this->helper->__invoke('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 10.0 Strict//EN" "https://getlaminas.org/foo/DTD/html10-custom.dtd">');
@@ -200,7 +200,7 @@ class DoctypeTest extends TestCase
         $this->helper->__invoke('<!FOO HTML>');
     }
 
-    public function testStringificationReturnsDoctypeString()
+    public function testStringificationReturnsDoctypeString(): void
     {
         $doctype = $this->helper->__invoke(Helper\Doctype::XHTML1_STRICT);
         $string   = $doctype->__toString();
@@ -209,7 +209,7 @@ class DoctypeTest extends TestCase
         // @codingStandardsIgnoreEnd
     }
 
-    public function testDoctypeDefaultsToHtml4Loose()
+    public function testDoctypeDefaultsToHtml4Loose(): void
     {
         self::assertSame(Helper\Doctype::HTML4_LOOSE, $this->helper->getDoctype());
     }

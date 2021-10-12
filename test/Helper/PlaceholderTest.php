@@ -77,7 +77,7 @@ class PlaceholderTest extends TestCase
         $this->assertSame($container1, $container2);
     }
 
-    public function testContainersCanBeDeleted()
+    public function testContainersCanBeDeleted(): void
     {
         $container = $this->placeholder->__invoke('foo');
         $container->set('Value');
@@ -88,7 +88,7 @@ class PlaceholderTest extends TestCase
         $this->assertSame('', (string) $this->placeholder->__invoke('foo'));
     }
 
-    public function testClearContainersRemovesAllContainers()
+    public function testClearContainersRemovesAllContainers(): void
     {
         $this->placeholder->__invoke('foo');
         $this->placeholder->__invoke('bar');

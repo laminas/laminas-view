@@ -335,9 +335,9 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
     /**
      * Override append to enforce style creation
      *
-     * @param  mixed $value
+     * @param mixed $value
      * @throws Exception\InvalidArgumentException
-     * @return void
+     * @return Placeholder\Container\AbstractContainer
      */
     public function append($value)
     {
@@ -372,9 +372,9 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
     /**
      * Override prepend to enforce style creation
      *
-     * @param  mixed $value
+     * @param mixed $value
      * @throws Exception\InvalidArgumentException
-     * @return void
+     * @return Placeholder\Container\AbstractContainer
      */
     public function prepend($value)
     {

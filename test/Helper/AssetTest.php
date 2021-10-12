@@ -36,7 +36,7 @@ class AssetTest extends TestCase
         $this->asset->setResourceMap($this->resourceMap);
     }
 
-    public function testHelperPluginManagerReturnsAssetHelper()
+    public function testHelperPluginManagerReturnsAssetHelper(): void
     {
         $helpers = $this->getHelperPluginManager();
         $asset = $helpers->get('asset');
@@ -44,7 +44,7 @@ class AssetTest extends TestCase
         $this->assertInstanceOf(Asset::class, $asset);
     }
 
-    public function testHelperPluginManagerReturnsAssetHelperByClassName()
+    public function testHelperPluginManagerReturnsAssetHelperByClassName(): void
     {
         $helpers = $this->getHelperPluginManager();
         $asset = $helpers->get(Asset::class);
@@ -52,7 +52,7 @@ class AssetTest extends TestCase
         $this->assertInstanceOf(Asset::class, $asset);
     }
 
-    public function testInvalidAssetName()
+    public function testInvalidAssetName(): void
     {
         $this->expectException(Exception\InvalidArgumentException::class);
         $this->expectExceptionMessage('Asset is not defined');
@@ -65,15 +65,22 @@ class AssetTest extends TestCase
      *
      * @param string $name
      * @param string $expected
+     *
+     * @return void
      */
-    public function testInvokeResult($name, $expected)
+    public function testInvokeResult($name, $expected): void
     {
         $result = $this->asset->__invoke($name);
 
         $this->assertEquals($expected, $result);
     }
 
-    public function assets()
+    /**
+     * @return ((int|string)|mixed)[][]
+     *
+     * @psalm-return list<array{0: array-key, 1: mixed}>
+     */
+    public function assets(): array
     {
         $data = [];
         foreach ($this->resourceMap as $key => $value) {
@@ -82,7 +89,7 @@ class AssetTest extends TestCase
         return $data;
     }
 
-    protected function getHelperPluginManager(array $config = [])
+    protected function getHelperPluginManager(array $config = []): HelperPluginManager
     {
         $services = $this->prophesize(ServiceManager::class);
         $services->get('config')->willReturn($config);

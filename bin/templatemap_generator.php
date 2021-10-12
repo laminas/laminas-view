@@ -103,7 +103,6 @@ if (empty($files)) {
     exit(2);
 }
 
-$map = [];
 $realPath = realpath($basePath);
 
 $entries = array_map(function ($file) use ($basePath, $realPath) {
@@ -132,7 +131,10 @@ echo '<' . "?php\nreturn [\n"
 
 exit(0);
 
-function findTemplateFilesInTemplatePath($templatePath)
+/**
+ * @psalm-return list<mixed>
+ */
+function findTemplateFilesInTemplatePath($templatePath): array
 {
     $rdi = new RecursiveDirectoryIterator(
         $templatePath,

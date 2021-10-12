@@ -263,11 +263,12 @@ class Menu extends AbstractHelper
         /* @var $escaper \Laminas\View\Helper\EscapeHtmlAttr */
         $escaper = $this->view->plugin('escapeHtmlAttr');
 
+        $foundPage  = null;
+        $foundDepth = 0;
+
         if ($found) {
             $foundPage  = $found['page'];
             $foundDepth = $found['depth'];
-        } else {
-            $foundPage = null;
         }
 
         // create iterator
@@ -737,10 +738,10 @@ class Menu extends AbstractHelper
     /**
      * Render a partial with the given "model".
      *
-     * @param  array                  $params
-     * @param  null|AbstractContainer $container
-     * @param  null|string|array      $partial
-     * @return string
+     * @param array                  $params
+     * @param null|AbstractContainer $container
+     * @param null|string|array      $partial
+     * @return \Laminas\View\Helper\Partial|string
      * @throws Exception\RuntimeException         if no partial provided
      * @throws Exception\InvalidArgumentException if partial is invalid array
      */

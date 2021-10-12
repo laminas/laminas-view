@@ -83,6 +83,9 @@ class HelperPluginManager extends AbstractPluginManager
         'headTitle'           => Helper\HeadTitle::class,
         'HeadTitle'           => Helper\HeadTitle::class,
         'headtitle'           => Helper\HeadTitle::class,
+        'htmlattributes'      => Helper\HtmlAttributes::class,
+        'htmlAttributes'      => Helper\HtmlAttributes::class,
+        'HtmlAttributes'      => Helper\HtmlAttributes::class,
         'htmlflash'           => Helper\HtmlFlash::class,
         'htmlFlash'           => Helper\HtmlFlash::class,
         'HtmlFlash'           => Helper\HtmlFlash::class,
@@ -226,6 +229,7 @@ class HelperPluginManager extends AbstractPluginManager
      */
     protected $factories = [
         Helper\Asset::class               => Helper\Service\AssetFactory::class,
+        Helper\HtmlAttributes::class      => InvokableFactory::class,
         Helper\FlashMessenger::class      => Helper\Service\FlashMessengerFactory::class,
         Helper\Identity::class            => Helper\Service\IdentityFactory::class,
         Helper\BasePath::class            => InvokableFactory::class,
@@ -266,6 +270,7 @@ class HelperPluginManager extends AbstractPluginManager
         // v2 canonical FQCNs
 
         'laminasviewhelperasset'             => Helper\Service\AssetFactory::class,
+        'laminasviewhelperattributes'        => InvokableFactory::class,
         'laminasviewhelperflashmessenger'    => Helper\Service\FlashMessengerFactory::class,
         'laminasviewhelperidentity'          => Helper\Service\IdentityFactory::class,
         'laminasviewhelperbasepath'          => InvokableFactory::class,
@@ -360,6 +365,7 @@ class HelperPluginManager extends AbstractPluginManager
      * @param ContainerInterface|Helper\HelperInterface $second
      *     ContainerInterface under laminas-servicemanager v3, helper instance
      *     under v2. Ignored regardless.
+     * @return void
      */
     public function injectRenderer($first, $second)
     {
@@ -386,6 +392,7 @@ class HelperPluginManager extends AbstractPluginManager
      * @param ContainerInterface|Helper\HelperInterface $second
      *     ContainerInterface under laminas-servicemanager v3, helper instance
      *     under v2. Ignored regardless.
+     * @return void
      */
     public function injectTranslator($first, $second)
     {
@@ -441,6 +448,8 @@ class HelperPluginManager extends AbstractPluginManager
      * @param ContainerInterface|Helper\HelperInterface $second
      *     ContainerInterface under laminas-servicemanager v3, helper instance
      *     under v2. Ignored regardless.
+     *
+     * @return void
      */
     public function injectEventManager($first, $second)
     {
@@ -504,6 +513,7 @@ class HelperPluginManager extends AbstractPluginManager
      * Proxies to `validate()`.
      *
      * @param mixed $instance
+     * @return void
      * @throws InvalidHelperException
      */
     public function validatePlugin($instance)

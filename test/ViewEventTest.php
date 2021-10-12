@@ -24,67 +24,67 @@ class ViewEventTest extends TestCase
         $this->event = new ViewEvent;
     }
 
-    public function testModelIsNullByDefault()
+    public function testModelIsNullByDefault(): void
     {
         $this->assertNull($this->event->getModel());
     }
 
-    public function testRendererIsNullByDefault()
+    public function testRendererIsNullByDefault(): void
     {
         $this->assertNull($this->event->getRenderer());
     }
 
-    public function testRequestIsNullByDefault()
+    public function testRequestIsNullByDefault(): void
     {
         $this->assertNull($this->event->getRequest());
     }
 
-    public function testResponseIsNullByDefault()
+    public function testResponseIsNullByDefault(): void
     {
         $this->assertNull($this->event->getResponse());
     }
 
-    public function testResultIsNullByDefault()
+    public function testResultIsNullByDefault(): void
     {
         $this->assertNull($this->event->getResult());
     }
 
-    public function testModelIsMutable()
+    public function testModelIsMutable(): void
     {
         $model = new ViewModel();
         $this->event->setModel($model);
         $this->assertSame($model, $this->event->getModel());
     }
 
-    public function testRendererIsMutable()
+    public function testRendererIsMutable(): void
     {
         $renderer = new PhpRenderer();
         $this->event->setRenderer($renderer);
         $this->assertSame($renderer, $this->event->getRenderer());
     }
 
-    public function testRequestIsMutable()
+    public function testRequestIsMutable(): void
     {
         $request = new Request();
         $this->event->setRequest($request);
         $this->assertSame($request, $this->event->getRequest());
     }
 
-    public function testResponseIsMutable()
+    public function testResponseIsMutable(): void
     {
         $response = new Response();
         $this->event->setResponse($response);
         $this->assertSame($response, $this->event->getResponse());
     }
 
-    public function testResultIsMutable()
+    public function testResultIsMutable(): void
     {
         $result = 'some result';
         $this->event->setResult($result);
         $this->assertSame($result, $this->event->getResult());
     }
 
-    public function testModelIsMutableViaSetParam()
+    public function testModelIsMutableViaSetParam(): void
     {
         $model = new ViewModel();
         $this->event->setParam('model', $model);
@@ -92,7 +92,7 @@ class ViewEventTest extends TestCase
         $this->assertSame($model, $this->event->getParam('model'));
     }
 
-    public function testRendererIsMutableViaSetParam()
+    public function testRendererIsMutableViaSetParam(): void
     {
         $renderer = new PhpRenderer();
         $this->event->setParam('renderer', $renderer);
@@ -100,7 +100,7 @@ class ViewEventTest extends TestCase
         $this->assertSame($renderer, $this->event->getParam('renderer'));
     }
 
-    public function testRequestIsMutableViaSetParam()
+    public function testRequestIsMutableViaSetParam(): void
     {
         $request = new Request();
         $this->event->setParam('request', $request);
@@ -108,7 +108,7 @@ class ViewEventTest extends TestCase
         $this->assertSame($request, $this->event->getParam('request'));
     }
 
-    public function testResponseIsMutableViaSetParam()
+    public function testResponseIsMutableViaSetParam(): void
     {
         $response = new Response();
         $this->event->setParam('response', $response);
@@ -116,7 +116,7 @@ class ViewEventTest extends TestCase
         $this->assertSame($response, $this->event->getParam('response'));
     }
 
-    public function testResultIsMutableViaSetParam()
+    public function testResultIsMutableViaSetParam(): void
     {
         $result = 'some result';
         $this->event->setParam('result', $result);
@@ -124,7 +124,7 @@ class ViewEventTest extends TestCase
         $this->assertSame($result, $this->event->getParam('result'));
     }
 
-    public function testSpecializedParametersMayBeSetViaSetParams()
+    public function testSpecializedParametersMayBeSetViaSetParams(): void
     {
         $model    = new ViewModel();
         $renderer = new PhpRenderer();

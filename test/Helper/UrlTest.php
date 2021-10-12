@@ -65,7 +65,7 @@ class UrlTest extends TestCase
         $this->url->setRouter($router);
     }
 
-    public function testHelperHasHardDependencyWithRouter()
+    public function testHelperHasHardDependencyWithRouter(): void
     {
         $this->expectException(Exception\RuntimeException::class);
         $this->expectExceptionMessage('No RouteStackInterface instance provided');
@@ -73,19 +73,19 @@ class UrlTest extends TestCase
         $url('home');
     }
 
-    public function testHomeRoute()
+    public function testHomeRoute(): void
     {
         $url = $this->url->__invoke('home');
         $this->assertEquals('/', $url);
     }
 
-    public function testModuleRoute()
+    public function testModuleRoute(): void
     {
         $url = $this->url->__invoke('default', ['controller' => 'ctrl', 'action' => 'act']);
         $this->assertEquals('/ctrl/act', $url);
     }
 
-    public function testModel()
+    public function testModel(): void
     {
         $it = new \ArrayIterator(['controller' => 'ctrl', 'action' => 'act']);
 
@@ -93,20 +93,20 @@ class UrlTest extends TestCase
         $this->assertEquals('/ctrl/act', $url);
     }
 
-    public function testThrowsExceptionOnInvalidParams()
+    public function testThrowsExceptionOnInvalidParams(): void
     {
         $this->expectException(\Laminas\View\Exception\InvalidArgumentException::class);
         $this->url->__invoke('default', 'invalid params');
     }
 
-    public function testPluginWithoutRouteMatchesInEventRaisesExceptionWhenNoRouteProvided()
+    public function testPluginWithoutRouteMatchesInEventRaisesExceptionWhenNoRouteProvided(): void
     {
         $this->expectException(Exception\RuntimeException::class);
         $this->expectExceptionMessage('RouteMatch');
         $this->url->__invoke();
     }
 
-    public function testPluginWithRouteMatchesReturningNoMatchedRouteNameRaisesExceptionWhenNoRouteProvided()
+    public function testPluginWithRouteMatchesReturningNoMatchedRouteNameRaisesExceptionWhenNoRouteProvided(): void
     {
         $this->url->setRouteMatch(new RouteMatch([]));
         $this->expectException(Exception\RuntimeException::class);
@@ -114,7 +114,7 @@ class UrlTest extends TestCase
         $this->url->__invoke();
     }
 
-    public function testPassingNoArgumentsWithValidRouteMatchGeneratesUrl()
+    public function testPassingNoArgumentsWithValidRouteMatchGeneratesUrl(): void
     {
         $routeMatch = new RouteMatch([]);
         $routeMatch->setMatchedRouteName('home');
@@ -123,7 +123,7 @@ class UrlTest extends TestCase
         $this->assertEquals('/', $url);
     }
 
-    public function testCanReuseMatchedParameters()
+    public function testCanReuseMatchedParameters(): void
     {
         $this->router->addRoute('replace', [
             'type'    => Segment::class,
@@ -143,7 +143,7 @@ class UrlTest extends TestCase
         $this->assertEquals('/foo/bar', $url);
     }
 
-    public function testCanPassBooleanValueForThirdArgumentToAllowReusingRouteMatches()
+    public function testCanPassBooleanValueForThirdArgumentToAllowReusingRouteMatches(): void
     {
         $this->router->addRoute('replace', [
             'type' => Segment::class,
@@ -163,7 +163,7 @@ class UrlTest extends TestCase
         $this->assertEquals('/foo/bar', $url);
     }
 
-    public function testRemovesModuleRouteListenerParamsWhenReusingMatchedParameters()
+    public function testRemovesModuleRouteListenerParamsWhenReusingMatchedParameters(): void
     {
         $router = new TreeRouteStack();
         $router->addRoute('default', [
@@ -207,7 +207,7 @@ class UrlTest extends TestCase
         $this->assertEquals('/Rainbow/Dash=Twenty%Cooler', $url);
     }
 
-    public function testAcceptsNextGenRouterToSetRouter()
+    public function testAcceptsNextGenRouterToSetRouter(): void
     {
         $router = new SimpleRouteStack();
         $url = new UrlHelper();
@@ -221,7 +221,7 @@ class UrlTest extends TestCase
         $this->assertSame($router, $routerPropertyValue);
     }
 
-    public function testAcceptsNextGenRouteMatche()
+    public function testAcceptsNextGenRouteMatche(): void
     {
         $routeMatch = new RouteMatch([]);
         $url = new UrlHelper();

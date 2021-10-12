@@ -31,7 +31,7 @@ class AbstractTest extends TestCase
         $this->helper = new ConcreteHelper();
     }
 
-    public function testViewSettersGetters()
+    public function testViewSettersGetters(): void
     {
         $viewMock = $this->prophesize(RendererInterface::class)->reveal();
 

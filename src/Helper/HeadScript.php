@@ -11,6 +11,9 @@ namespace Laminas\View\Helper;
 use Laminas\View\Exception;
 use stdClass;
 
+use function in_array;
+use function strtolower;
+
 /**
  * Helper for setting and retrieving script elements for HTML head section
  *
@@ -88,6 +91,20 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
         'language',
         'src',
         'id',
+        'nonce',
+        'nomodule',
+        'referrerpolicy',
+    ];
+
+    /**
+     * Script attributes that behave as booleans
+     *
+     * @var string[]
+     */
+    private $booleanAttributes = [
+        'nomodule',
+        'defer',
+        'async',
     ];
 
     /**
@@ -177,6 +194,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
             $action  = $matches['action'];
             $mode    = strtolower($matches['mode']);
             $type    = self::DEFAULT_SCRIPT_TYPE;
+            $index   = 0;
             $attrs   = [];
 
             if ('offsetSet' == $action) {
@@ -389,11 +407,8 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
                     || in_array($key, ['conditional', 'noescape'])) {
                     continue;
                 }
-                if ('defer' == $key) {
-                    $value = 'defer';
-                }
-                if ('async' == $key) {
-                    $value = 'async';
+                if (in_array(strtolower($key), $this->booleanAttributes, true)) {
+                    $value = strtolower($key);
                 }
                 $attrString .= sprintf(
                     ' %s="%s"',
@@ -451,9 +466,9 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
     /**
      * Override append
      *
-     * @param  string $value Append script or file
+     * @param string $value Append script or file
      * @throws Exception\InvalidArgumentException
-     * @return void
+     * @return Placeholder\Container\AbstractContainer
      */
     public function append($value)
     {
@@ -470,9 +485,9 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
     /**
      * Override prepend
      *
-     * @param  string $value Prepend script or file
+     * @param string $value Prepend script or file
      * @throws Exception\InvalidArgumentException
-     * @return void
+     * @return Placeholder\Container\AbstractContainer
      */
     public function prepend($value)
     {

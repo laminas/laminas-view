@@ -160,9 +160,9 @@ class View implements EventManagerAwareInterface
      *
      * @triggers renderer(ViewEvent)
      * @triggers response(ViewEvent)
-     * @param  Model $model
+     * @param Model $model
      * @throws Exception\RuntimeException
-     * @return void
+     * @return null|string
      */
     public function render(Model $model)
     {
@@ -232,7 +232,7 @@ class View implements EventManagerAwareInterface
                 throw new Exception\DomainException('Inconsistent state; child view model is marked as terminal');
             }
             $child->setOption('has_parent', true);
-            $result  = $this->render($child);
+            $result = $this->render($child);
             $child->setOption('has_parent', null);
             $capture = $child->captureTo();
             if (! empty($capture)) {

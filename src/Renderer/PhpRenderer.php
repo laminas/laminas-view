@@ -48,6 +48,7 @@ use Traversable;
  * @method \Laminas\View\Helper\HeadScript headScript($mode = \Laminas\View\Helper\HeadScript::FILE, $spec = null, $placement = 'APPEND', array $attrs = array(), $type = 'text/javascript')
  * @method \Laminas\View\Helper\HeadStyle headStyle($content = null, $placement = 'APPEND', $attributes = array())
  * @method \Laminas\View\Helper\HeadTitle headTitle($title = null, $setType = null)
+ * @method \Laminas\View\HtmlAttributesSet htmlAttributes(iterable $attributes = [])
  * @method string htmlFlash($data, array $attribs = array(), array $params = array(), $content = null)
  * @method string htmlList(array $items, $ordered = false, $attribs = false, $escape = true)
  * @method string htmlObject($data = null, $type = null, array $attribs = array(), array $params = array(), $content = null)
@@ -571,7 +572,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     /**
      * Make sure View variables are cloned when the view is cloned.
      *
-     * @return PhpRenderer
+     * @return void
      */
     public function __clone()
     {
