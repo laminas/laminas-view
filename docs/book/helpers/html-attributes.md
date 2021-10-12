@@ -1,5 +1,7 @@
 # HtmlAttributes
 
+> Available since version 2.13.0
+
 The `HtmlAttributes` helper can be used when processing and outputting HTML attributes.
 The helper initializes and returns `Laminas\View\HtmlAttributesSet` object instances, which can then be manipulated and converted to strings.
 
