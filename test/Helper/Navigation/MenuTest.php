@@ -8,6 +8,7 @@
 
 namespace LaminasTest\View\Helper\Navigation;
 
+use Laminas\Navigation\Navigation;
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\Navigation\Menu;
 
@@ -16,17 +17,12 @@ use Laminas\View\Helper\Navigation\Menu;
  *
  * @group      Laminas_View
  * @group      Laminas_View_Helper
+ *
+ * @psalm-suppress MissingConstructor
  */
 class MenuTest extends AbstractTest
 {
     // @codingStandardsIgnoreStart
-    /**
-     * Class name for view helper to test.
-     *
-     * @var string
-     */
-    protected $_helperName = Menu::class;
-
     /**
      * View helper.
      *
@@ -34,6 +30,12 @@ class MenuTest extends AbstractTest
      */
     protected $_helper;
     // @codingStandardsIgnoreEnd
+
+    protected function setUp(): void
+    {
+        $this->_helper = new Menu();
+        parent::setUp();
+    }
 
     public function testCanRenderMenuFromServiceAlias(): void
     {
@@ -187,7 +189,7 @@ class MenuTest extends AbstractTest
             'escapeLabels' => true,
         ];
 
-        $container = new \Laminas\Navigation\Navigation($this->_nav2->toArray());
+        $container = new Navigation($this->_nav2->toArray());
         $container->addPage([
             'label' => 'Badges <span class="badge">1</span>',
             'uri' => 'badges',
@@ -205,7 +207,7 @@ class MenuTest extends AbstractTest
             'escapeLabels' => false,
         ];
 
-        $container = new \Laminas\Navigation\Navigation($this->_nav2->toArray());
+        $container = new Navigation($this->_nav2->toArray());
         $container->addPage([
             'label' => 'Badges <span class="badge">1</span>',
             'uri' => 'badges',
@@ -557,7 +559,7 @@ class MenuTest extends AbstractTest
 
     public function testRenderingWithoutPageClassToLi(): void
     {
-        $container = new \Laminas\Navigation\Navigation($this->_nav2->toArray());
+        $container = new Navigation($this->_nav2->toArray());
         $container->addPage([
             'label' => 'Class test',
             'uri' => 'test',
@@ -576,7 +578,7 @@ class MenuTest extends AbstractTest
             'addClassToListItem' => true,
         ];
 
-        $container = new \Laminas\Navigation\Navigation($this->_nav2->toArray());
+        $container = new Navigation($this->_nav2->toArray());
         $container->addPage([
             'label' => 'Class test',
             'uri' => 'test',
@@ -597,9 +599,10 @@ class MenuTest extends AbstractTest
             'renderParents' => false,
         ];
 
+        /** @var array[] $pages */
         $pages = $this->_nav2->toArray();
         $pages[1]['class'] = 'foobar';
-        $container = new \Laminas\Navigation\Navigation($pages);
+        $container = new Navigation($pages);
 
         $expected = $this->_getExpected('menu/onlyactivebranch_addclasstolistitem.html');
         $actual = $this->_helper->renderMenu($container, $options);
