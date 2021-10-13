@@ -22,6 +22,7 @@ class PaginationControlTest extends TestCase
      */
     private $_viewHelper;
 
+    /** @var Paginator\Paginator */
     private $_paginator;
     // @codingStandardsIgnoreEnd
 
@@ -69,18 +70,13 @@ class PaginationControlTest extends TestCase
 
     public function testThrowsExceptionIfNoViewPartialFound(): void
     {
-        try {
-            $this->_viewHelper->__invoke($this->_paginator);
-        } catch (\Exception $e) {
-            $this->assertInstanceOf(Exception\ExceptionInterface::class, $e);
-            $this->assertEquals('No view partial provided and no default set', $e->getMessage());
-        }
+        $this->expectException(Exception\ExceptionInterface::class);
+        $this->expectExceptionMessage('No view partial provided and no default set');
+        $this->_viewHelper->__invoke($this->_paginator);
     }
 
     /**
      * @group Laminas-4037
-     *
-     * @return void
      */
     public function testUsesDefaultScrollingStyleIfNoneSupplied(): void
     {
@@ -99,8 +95,6 @@ class PaginationControlTest extends TestCase
 
     /**
      * @group Laminas-4153
-     *
-     * @return void
      */
     public function testUsesPaginatorFromViewIfNoneSupplied(): void
     {
@@ -114,8 +108,6 @@ class PaginationControlTest extends TestCase
 
     /**
      * @group Laminas-4153
-     *
-     * @return void
      */
     public function testThrowsExceptionIfNoPaginatorFound(): void
     {
@@ -128,34 +120,16 @@ class PaginationControlTest extends TestCase
 
     /**
      * @group Laminas-4233
-     *
-     * @return void
      */
     public function testAcceptsViewPartialInOtherModule(): void
     {
-        try {
-            $this->_viewHelper->__invoke($this->_paginator, null, ['partial.phtml', 'test']);
-        } catch (\Exception $e) {
-            /* We don't care whether or not the module exists--we just want to
-             * make sure it gets to Laminas_View_Helper_Partial and it's recognized
-             * as a module. */
-            $this->assertInstanceOf(
-                Exception\RuntimeException::class,
-                $e,
-                sprintf(
-                    'Expected View RuntimeException; received "%s" with message: %s',
-                    get_class($e),
-                    $e->getMessage()
-                )
-            );
-            $this->assertStringContainsString('could not resolve', $e->getMessage());
-        }
+        $this->expectException(Exception\RuntimeException::class);
+        $this->expectExceptionMessage('Unable to render template "partial.phtml"; resolver could not resolve to a file');
+        $this->_viewHelper->__invoke($this->_paginator, null, ['partial.phtml', 'test']);
     }
 
     /**
      * @group Laminas-4328
-     *
-     * @return void
      */
     public function testUsesPaginatorFromViewOnlyIfNoneSupplied(): void
     {
@@ -169,8 +143,6 @@ class PaginationControlTest extends TestCase
 
     /**
      * @group Laminas-4878
-     *
-     * @return void
      */
     public function testCanUseObjectForScrollingStyle(): void
     {
