@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Strategy;
 
 use Laminas\EventManager\EventManager;
 use Laminas\EventManager\Test\EventListenerIntrospectionTrait;
 use Laminas\Feed\Writer\FeedFactory;
+use Laminas\Http\Header\HeaderInterface;
 use Laminas\Http\Request as HttpRequest;
 use Laminas\Http\Response as HttpResponse;
 use Laminas\View\Model\FeedModel;
@@ -14,9 +17,20 @@ use Laminas\View\Strategy\FeedStrategy;
 use Laminas\View\ViewEvent;
 use PHPUnit\Framework\TestCase;
 
+use function assert;
+
 class FeedStrategyTest extends TestCase
 {
     use EventListenerIntrospectionTrait;
+
+    /** @var FeedRenderer */
+    private $renderer;
+    /** @var FeedStrategy */
+    private $strategy;
+    /** @var ViewEvent */
+    private $event;
+    /** @var HttpResponse */
+    private $response;
 
     protected function setUp(): void
     {
@@ -35,8 +49,6 @@ class FeedStrategyTest extends TestCase
 
     /**
      * @group #2410
-     *
-     * @return void
      */
     public function testRssAcceptHeaderDoesNotSelectFeedStrategy(): void
     {
@@ -49,8 +61,6 @@ class FeedStrategyTest extends TestCase
 
     /**
      * @group #2410
-     *
-     * @return void
      */
     public function testAtomAcceptHeaderDoesNotSelectFeedStrategy(): void
     {
@@ -61,7 +71,7 @@ class FeedStrategyTest extends TestCase
         $this->assertNotSame($this->renderer, $result);
     }
 
-    public function testAcceptHeaderDoesNotSetFeedtype(): void
+    public function testAcceptHeaderDoesNotSetFeedType(): void
     {
         $this->event->setModel(new FeedModel());
         $request = new HttpRequest();
@@ -112,6 +122,15 @@ class FeedStrategyTest extends TestCase
         $this->assertResponseNotInjected();
     }
 
+    private function assertResponseHasHeader(string $type, string $value): void
+    {
+        $headers = $this->response->getHeaders();
+        $this->assertTrue($headers->has($type));
+        $header = $headers->get($type);
+        assert($header instanceof HeaderInterface);
+        $this->assertEquals($value, $header->getFieldValue());
+    }
+
     public function testMatchingRendererAndStringResultInjectsResponse(): void
     {
         $this->renderer->setFeedType('atom');
@@ -121,17 +140,13 @@ class FeedStrategyTest extends TestCase
         $this->event->setResult($expected);
 
         $this->strategy->injectResponse($this->event);
-        $content = $this->response->getContent();
-        $headers = $this->response->getHeaders();
-        $this->assertEquals($expected, $content);
-        $this->assertTrue($headers->has('content-type'));
-        $this->assertEquals('application/atom+xml', $headers->get('content-type')->getFieldValue());
+
+        $this->assertEquals($expected, $this->response->getContent());
+        $this->assertResponseHasHeader('content-type', 'application/atom+xml');
     }
 
     /**
-     * @param string $type
-     * @return (((int|string)[]|mixed|string)[]|int|string)[]
-     * @psalm-return array<string, mixed>
+     * @return array<string, mixed>
      */
     protected function getFeedData(string $type): array
     {
@@ -183,11 +198,9 @@ class FeedStrategyTest extends TestCase
         $this->event->setResult($expected);
 
         $this->strategy->injectResponse($this->event);
-        $content = $this->response->getContent();
-        $headers = $this->response->getHeaders();
-        $this->assertEquals($expected->export('atom'), $content);
-        $this->assertTrue($headers->has('content-type'));
-        $this->assertEquals('application/atom+xml', $headers->get('content-type')->getFieldValue());
+
+        $this->assertEquals($expected->export('atom'), $this->response->getContent());
+        $this->assertResponseHasHeader('content-type', 'application/atom+xml');
     }
 
     public function testResponseContentTypeIsBasedOnFeedType(): void
@@ -199,11 +212,9 @@ class FeedStrategyTest extends TestCase
         $this->event->setResult($expected);
 
         $this->strategy->injectResponse($this->event);
-        $content = $this->response->getContent();
-        $headers = $this->response->getHeaders();
-        $this->assertEquals($expected->export('rss'), $content);
-        $this->assertTrue($headers->has('content-type'));
-        $this->assertEquals('application/rss+xml', $headers->get('content-type')->getFieldValue());
+
+        $this->assertEquals($expected->export('rss'), $this->response->getContent());
+        $this->assertResponseHasHeader('content-type', 'application/rss+xml');
     }
 
     public function testReturnsNullWhenUnableToSelectRenderer(): void
@@ -226,6 +237,8 @@ class FeedStrategyTest extends TestCase
             $expectedPriority = 1;
             $found            = false;
             foreach ($listeners as $priority => $listener) {
+                self::assertIsInt($priority);
+                self::assertIsArray($listener);
                 if ($listener === $expectedListener
                     && $priority === $expectedPriority
                 ) {
@@ -248,6 +261,8 @@ class FeedStrategyTest extends TestCase
             $expectedPriority = 100;
             $found            = false;
             foreach ($listeners as $priority => $listener) {
+                self::assertIsInt($priority);
+                self::assertIsArray($listener);
                 if ($listener === $expectedListener
                     && $priority === $expectedPriority
                 ) {
@@ -269,7 +284,7 @@ class FeedStrategyTest extends TestCase
         $listeners = iterator_to_array($this->getListenersForEvent('response', $events));
         $this->assertCount(1, $listeners);
 
-        $this->strategy->detach($events, 100);
+        $this->strategy->detach($events);
         $listeners = iterator_to_array($this->getListenersForEvent('renderer', $events));
         $this->assertCount(0, $listeners);
         $listeners = iterator_to_array($this->getListenersForEvent('response', $events));
