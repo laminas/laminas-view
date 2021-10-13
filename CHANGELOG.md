@@ -2,27 +2,24 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.14.1 - TBD
+## 2.14.1 - 2021-10-13
 
-### Added
 
-- Nothing.
+-----
 
-### Changed
+### Release Notes for [2.14.1](https://github.com/laminas/laminas-view/milestone/11)
 
-- Nothing.
+2.14.x bugfix release (patch)
 
-### Deprecated
+### 2.14.1
 
-- Nothing.
+- Total issues resolved: **0**
+- Total pull requests resolved: **1**
+- Total contributors: **1**
 
-### Removed
+#### Bug
 
-- Nothing.
-
-### Fixed
-
-- Nothing.
+ - [87: Fixed segfault in `htmlAttributes` helper used in `AbstractHtmlElement`, due to incorrect helper name reference](https://github.com/laminas/laminas-view/pull/87) thanks to @gsteel
 
 ## 2.13.1 - 2021-10-12
 
