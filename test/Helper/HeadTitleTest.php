@@ -27,24 +27,11 @@ class HeadTitleTest extends TestCase
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.
-     *
-     * @return void
      */
     protected function setUp(): void
     {
         $this->basePath = __DIR__ . '/_files/modules';
         $this->helper = new Helper\HeadTitle();
-    }
-
-    /**
-     * Tears down the fixture, for example, close a network connection.
-     * This method is called after a test is executed.
-     *
-     * @return void
-     */
-    protected function tearDown(): void
-    {
-        unset($this->helper);
     }
 
     public function testHeadTitleReturnsObjectInstance(): void
@@ -132,8 +119,6 @@ class HeadTitleTest extends TestCase
      * @issue Laminas-2918
      *
      * @link https://getlaminas.org/issues/browse/Laminas-2918
-     *
-     * @return void
      */
     public function testLaminas918(): void
     {
@@ -148,8 +133,6 @@ class HeadTitleTest extends TestCase
      * @issue Laminas-3577
      *
      * @link https://getlaminas.org/issues/browse/Laminas-3577
-     *
-     * @return void
      */
     public function testLaminas577(): void
     {
@@ -193,8 +176,6 @@ class HeadTitleTest extends TestCase
 
     /**
      * @group Laminas-8036
-     *
-     * @return void
      */
     public function testHeadTitleZero(): void
     {
@@ -210,11 +191,8 @@ class HeadTitleTest extends TestCase
         $this->assertEquals('BarFoo', $placeholder->renderTitle());
     }
 
-
     /**
      * @group Laminas-10284
-     *
-     * @return void
      */
     public function testReturnTypeDefaultAttachOrder(): void
     {
