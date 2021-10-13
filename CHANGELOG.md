@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 2.13.1 - 2021-10-12
+
+
+-----
+
+### Release Notes for [2.13.1](https://github.com/laminas/laminas-view/milestone/8)
+
+### Fixed
+
+- This release fixes a BC break introduced in 2.13.0 whereby the package was marked as conflicting with zend-router, instead of zend-view. It now correctly conflicts with zend-view releases as a mechanism for replacing zend-view.
+
+### 2.13.1
+
+- Total issues resolved: **0**
+- Total pull requests resolved: **1**
+- Total contributors: **1**
+
+#### BC Break,Bug
+
+ - [84: Conflict with zend-view, not zend-router](https://github.com/laminas/laminas-view/pull/84) thanks to @weierophinney
+
 ## 2.12.2 - TBD
 
 ### Added

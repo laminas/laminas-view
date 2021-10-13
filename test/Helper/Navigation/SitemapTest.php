@@ -1,35 +1,24 @@
 <?php
 
-/**
- * @see       https://github.com/laminas/laminas-view for the canonical source repository
- * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
- */
-
 namespace LaminasTest\View\Helper\Navigation;
 
 use DOMDocument;
 use Laminas\View;
 use Laminas\View\Helper\Navigation\Sitemap;
-use PHPUnit\Util\Xml;
+use Throwable;
 
 /**
  * Tests Laminas\View\Helper\Navigation\Sitemap
  *
  * @group      Laminas_View
  * @group      Laminas_View_Helper
+ *
+ * @psalm-suppress MissingConstructor
  */
 class SitemapTest extends AbstractTest
 {
     // @codingStandardsIgnoreStart
     protected $_oldServer = [];
-
-    /**
-     * Class name for view helper to test
-     *
-     * @var string
-     */
-    protected $_helperName = Sitemap::class;
 
     /**
      * View helper
@@ -47,6 +36,7 @@ class SitemapTest extends AbstractTest
 
     protected function setUp(): void
     {
+        $this->_helper = new Sitemap();
         $this->_originaltimezone = date_default_timezone_get();
         date_default_timezone_set('Europe/Berlin');
 
@@ -211,19 +201,31 @@ class SitemapTest extends AbstractTest
         $this->assertEquals($expectedDom->saveXML(), $receivedDom->saveXML());
     }
 
-    /**
-     * @return never
-     */
-    public function testSetServerUrlRequiresValidUri()
+    /** @return array<string, array{0:string, 1: class-string<Throwable>, 2:string}> */
+    public function invalidServerUrlDataProvider(): array
     {
-        $this->markTestIncomplete('Laminas\URI changes affect this test');
-        try {
-            $this->_helper->setServerUrl('site.example.org');
-            $this->fail('An invalid server URL was given, but a ' .
-                        'Laminas\URI\Exception\ExceptionInterface was not thrown');
-        } catch (\Laminas\URI\Exception\ExceptionInterface $e) {
-            $this->assertStringContainsString('Illegal scheme', $e->getMessage());
-        }
+        return [
+            'muppets' => [
+                'muppets',
+                View\Exception\InvalidArgumentException::class,
+                'Invalid server URL: "muppets"'
+            ],
+        ];
+    }
+
+    /**
+     * @param class-string<Throwable> $expectedType
+     *
+     * @dataProvider invalidServerUrlDataProvider
+     */
+    public function testSetServerUrlRequiresValidUri(
+        string $invalidServerUrl,
+        string $expectedType,
+        string $expectedMessage
+    ): void {
+        $this->expectException($expectedType);
+        $this->expectExceptionMessage($expectedMessage);
+        $this->_helper->setServerUrl($invalidServerUrl);
     }
 
     public function testSetServerUrlWithSchemeAndHost(): void

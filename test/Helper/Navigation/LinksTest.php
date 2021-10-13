@@ -1,14 +1,8 @@
 <?php
 
-/**
- * @see       https://github.com/laminas/laminas-view for the canonical source repository
- * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
- */
-
 namespace LaminasTest\View\Helper\Navigation;
 
-use Laminas\Config;
+use ArrayObject;
 use Laminas\Navigation\Page\AbstractPage;
 use Laminas\Navigation\Page\Uri as UriPage;
 use Laminas\Permissions\Acl;
@@ -22,17 +16,12 @@ use Laminas\View\Helper\Navigation;
  *
  * @group      Laminas_View
  * @group      Laminas_View_Helper
+ *
+ * @psalm-suppress MissingConstructor
  */
 class LinksTest extends AbstractTest
 {
     // @codingStandardsIgnoreStart
-    /**
-     * Class name for view helper to test
-     *
-     * @var string
-     */
-    protected $_helperName = Navigation\Links::class;
-
     /**
      * View helper
      *
@@ -46,6 +35,7 @@ class LinksTest extends AbstractTest
 
     protected function setUp(): void
     {
+        $this->_helper = new Navigation\Links();
         parent::setUp();
 
         // doctype fix (someone forgot to clean up after their unit tests)
@@ -164,10 +154,10 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testDetectRelationFromConfigInstancePropertyOfActivePage(): void
+    public function testDetectRelationFromArrayObjectInstancePropertyOfActivePage(): void
     {
         $active = $this->_helper->findOneByLabel('Page 2');
-        $active->addRel('example', new Config\Config([
+        $active->addRel('example', new ArrayObject([
             'uri' => 'http://www.example.com/',
             'label' => 'An example page'
         ]));
@@ -210,11 +200,11 @@ class LinksTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    public function testDetectMultipleRelationsFromConfigPropertyOfActivePage(): void
+    public function testDetectMultipleRelationsFromArrayObjectPropertyOfActivePage(): void
     {
         $active = $this->_helper->findOneByLabel('Page 2');
 
-        $active->addRel('alternate', new Config\Config([
+        $active->addRel('alternate', new ArrayObject([
             [
                 'label' => 'foo',
                 'uri'   => 'bar'

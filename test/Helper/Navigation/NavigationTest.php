@@ -1,11 +1,5 @@
 <?php
 
-/**
- * @see       https://github.com/laminas/laminas-view for the canonical source repository
- * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
- */
-
 namespace LaminasTest\View\Helper\Navigation;
 
 use Interop\Container\ContainerInterface;
@@ -18,26 +12,18 @@ use Laminas\ServiceManager\ServiceManager;
 use Laminas\View;
 use Laminas\View\Helper\Navigation;
 use Laminas\View\Renderer\PhpRenderer;
-use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * Tests Laminas\View\Helper\Navigation
  *
  * @group      Laminas_View
  * @group      Laminas_View_Helper
+ *
+ * @psalm-suppress MissingConstructor
  */
 class NavigationTest extends AbstractTest
 {
-    use ProphecyTrait;
-
     // @codingStandardsIgnoreStart
-    /**
-     * Class name for view helper to test
-     *
-     * @var string
-     */
-    protected $_helperName = Navigation::class;
-
     /**
      * View helper
      *
@@ -45,6 +31,12 @@ class NavigationTest extends AbstractTest
      */
     protected $_helper;
     // @codingStandardsIgnoreEnd
+
+    protected function setUp(): void
+    {
+        $this->_helper = new Navigation();
+        parent::setUp();
+    }
 
     public function testHelperEntryPointWithoutAnyParams(): void
     {
@@ -222,7 +214,7 @@ class NavigationTest extends AbstractTest
 
     public function testTranslatorMethods(): void
     {
-        $translatorMock = $this->prophesize(Translator::class)->reveal();
+        $translatorMock = $this->createMock(Translator::class);
         $this->_helper->setTranslator($translatorMock, 'foo');
 
         $this->assertEquals($translatorMock, $this->_helper->getTranslator());
@@ -586,7 +578,7 @@ class NavigationTest extends AbstractTest
         $pluginManager = new Navigation\PluginManager(new ServiceManager());
         $view = new PhpRenderer();
 
-        $helper = new $this->_helperName;
+        $helper = new Navigation();
         $helper->setPluginManager($pluginManager);
         $helper->setView($view);
 
@@ -600,8 +592,8 @@ class NavigationTest extends AbstractTest
      */
     public function testInjectsLazyInstantiatedPluginManagerWithCurrentServiceLocator(): void
     {
-        $services = $this->prophesize(ContainerInterface::class)->reveal();
-        $helper = new $this->_helperName;
+        $services = $this->createMock(ContainerInterface::class);
+        $helper = new Navigation();
         $helper->setServiceLocator($services);
 
         $plugins = $helper->getPluginManager();

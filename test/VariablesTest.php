@@ -1,25 +1,25 @@
 <?php
 
-/**
- * @see       https://github.com/laminas/laminas-view for the canonical source repository
- * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
- */
-
 namespace LaminasTest\View;
 
-use Laminas\Config\Config;
+use ArrayObject;
 use Laminas\View\Variables;
 use PHPUnit\Framework\TestCase;
+
+use function assert;
 
 /**
  * @group      Laminas_View
  */
 class VariablesTest extends TestCase
 {
+    /** @var string|null */
+    private $error;
+    /** @var Variables */
+    private $vars;
+
     protected function setUp(): void
     {
-        $this->error = false;
         $this->vars = new Variables;
     }
 
@@ -57,14 +57,32 @@ class VariablesTest extends TestCase
         $this->assertEquals('baz', $this->vars['bar']);
     }
 
-    public function testAssignCallsToArrayWhenPresentBeforeMerging(): void
+    public function testAssignCastsArrayObjectToArrayWhenPresentBeforeMerging(): void
     {
         $vars = [
             'foo' => 'bar',
             'bar' => 'baz',
         ];
-        $config = new Config($vars);
+        $config = new ArrayObject($vars);
         $this->vars->assign($config);
+        $this->assertEquals('bar', $this->vars['foo']);
+        $this->assertEquals('baz', $this->vars['bar']);
+    }
+
+    public function testAssignCallsToArrayOnObjectsWithTheMethodBeforeMerging(): void
+    {
+        $object = new class {
+            /** @return array<string, string> */
+            public function toArray(): array
+            {
+                return [
+                    'foo' => 'bar',
+                    'bar' => 'baz',
+                ];
+            }
+        };
+
+        $this->vars->assign($object);
         $this->assertEquals('bar', $this->vars['foo']);
         $this->assertEquals('baz', $this->vars['bar']);
     }
@@ -74,17 +92,18 @@ class VariablesTest extends TestCase
         $this->assertNull($this->vars['foo']);
     }
 
-    public function handleErrors($errcode, $errmsg): void
-    {
-        $this->error = $errmsg;
-    }
-
     public function testRetrievingUndefinedVariableRaisesErrorWhenStrictVarsIsRequested(): void
     {
         $this->vars->setStrictVars(true);
-        set_error_handler([$this, 'handleErrors'], E_USER_NOTICE);
+        $handler = function (int $code, string $message): void {
+            assert($code > -1);
+            $this->error = $message;
+        };
+        /** @psalm-suppress InvalidArgument */
+        set_error_handler($handler, E_USER_NOTICE);
         $this->assertNull($this->vars['foo']);
         restore_error_handler();
+        $this->assertIsString($this->error);
         $this->assertStringContainsString('does not exist', $this->error);
     }
 
@@ -112,6 +131,7 @@ class VariablesTest extends TestCase
 
     public function testAllowsSpecifyingClosureValuesAndReturningTheValue(): void
     {
+        /** @psalm-suppress UndefinedPropertyAssignment */
         $this->vars->foo = function (): string {
             return 'bar';
         };
@@ -121,6 +141,7 @@ class VariablesTest extends TestCase
 
     public function testAllowsSpecifyingFunctorValuesAndReturningTheValue(): void
     {
+        /** @psalm-suppress UndefinedPropertyAssignment */
         $this->vars->foo = new TestAsset\VariableFunctor('bar');
         $this->assertEquals('bar', $this->vars->foo);
     }
