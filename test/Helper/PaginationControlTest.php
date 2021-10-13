@@ -28,13 +28,9 @@ class PaginationControlTest extends TestCase
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.
-     *
-     * @access protected
      */
     protected function setUp(): void
     {
-        $this->markTestIncomplete('Re-enable after laminas-paginator is updated to laminas-servicemanager v3');
-
         $resolver = new Resolver\TemplatePathStack(['script_paths' => [
             __DIR__ . '/_files/scripts',
         ]]);
