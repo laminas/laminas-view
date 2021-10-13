@@ -20,7 +20,6 @@ class FeedStrategyTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->markTestIncomplete('Re-enable tests after laminas-feed has been updated to laminas-servicemanager v3');
         $this->renderer = new FeedRenderer;
         $this->strategy = new FeedStrategy($this->renderer);
         $this->event    = new ViewEvent();
