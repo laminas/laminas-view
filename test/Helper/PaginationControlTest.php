@@ -44,12 +44,6 @@ class PaginationControlTest extends TestCase
         $this->_paginator = new Paginator\Paginator($adapter);
     }
 
-    protected function tearDown(): void
-    {
-        unset($this->_viewHelper);
-        unset($this->_paginator);
-    }
-
     public function testGetsAndSetsView(): void
     {
         $view   = new View();
@@ -64,7 +58,6 @@ class PaginationControlTest extends TestCase
         $this->assertNull(Helper\PaginationControl::getDefaultViewPartial());
         Helper\PaginationControl::setDefaultViewPartial('partial');
         $this->assertEquals('partial', Helper\PaginationControl::getDefaultViewPartial());
-        Helper\PaginationControl::setDefaultViewPartial(null);
     }
 
     public function testUsesDefaultViewPartialIfNoneSupplied(): void
@@ -72,7 +65,6 @@ class PaginationControlTest extends TestCase
         Helper\PaginationControl::setDefaultViewPartial('testPagination.phtml');
         $output = $this->_viewHelper->__invoke($this->_paginator);
         $this->assertStringContainsString('pagination control', $output, $output);
-        Helper\PaginationControl::setDefaultViewPartial(null);
     }
 
     public function testThrowsExceptionIfNoViewPartialFound(): void
