@@ -164,24 +164,15 @@ class HeadTitleTest extends TestCase
         $this->assertEquals('Prefix &amp; Some Title &amp; Postfix', $this->helper->renderTitle());
     }
 
-    /**
-     * @return never
-     */
-    public function testCanTranslateTitle()
+    public function testCanTranslateTitle(): void
     {
-        $this->markTestIncomplete('Re-enable after laminas-i18n is updated to laminas-servicemanager v3');
-
-        if (! extension_loaded('intl')) {
-            $this->markTestSkipped('ext/intl not enabled');
-        }
-
         $loader = new TestAsset\ArrayTranslator();
         $loader->translations = [
             'Message_1' => 'Message 1 (en)',
         ];
         $translator = new Translator();
         $translator->getPluginManager()->setService('default', $loader);
-        $translator->addTranslationFile('default', null);
+        $translator->addTranslationFile('default', '');
 
         $this->helper->setTranslatorEnabled(true);
         $this->helper->setTranslator($translator);
