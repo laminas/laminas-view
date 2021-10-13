@@ -5,7 +5,6 @@ namespace LaminasTest\View\Helper;
 use Laminas\I18n\Translator\Translator;
 use Laminas\View\Helper;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * Test class for Laminas\View\Helper\HeadTitle.
@@ -15,8 +14,6 @@ use Prophecy\PhpUnit\ProphecyTrait;
  */
 class HeadTitleTest extends TestCase
 {
-    use ProphecyTrait;
-
     /**
      * @var Helper\HeadTitle
      */
@@ -182,7 +179,7 @@ class HeadTitleTest extends TestCase
 
     public function testTranslatorMethods(): void
     {
-        $translatorMock = $this->prophesize(Translator::class)->reveal();
+        $translatorMock = $this->createMock(Translator::class);
         $this->helper->setTranslator($translatorMock, 'foo');
 
         $this->assertEquals($translatorMock, $this->helper->getTranslator());
