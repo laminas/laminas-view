@@ -54,6 +54,8 @@ use const JSON_HEX_TAG;
  * purposes of testing against PHP 8.1.
  *
  * @todo Remove when laminas-paginator has a release targeting PHP 8.1.
+ *
+ * @internal
  */
 class Paginator implements Countable, IteratorAggregate
 {

@@ -21,6 +21,8 @@ use Traversable;
  * purposes of testing against PHP 8.1.
  *
  * @todo Remove when laminas-filter has a release targetting PHP 8.1.
+ *
+ * @internal
  */
 class FilterChain extends AbstractFilter implements Countable
 {

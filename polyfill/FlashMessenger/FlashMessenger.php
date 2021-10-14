@@ -24,6 +24,8 @@ use ReturnTypeWillChange;
  * purposes of testing against PHP 8.1.
  *
  * @todo Remove when laminas-mvc-plugin-flashmessenger has a release targetting PHP 8.1.
+ *
+ * @internal
  */
 class FlashMessenger extends AbstractPlugin implements IteratorAggregate, Countable
 {

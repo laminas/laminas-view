@@ -14,6 +14,8 @@ use function count;
  * purposes of testing against PHP 8.1.
  *
  * @todo Remove when laminas-paginator has a release targeting PHP 8.1.
+ *
+ * @internal
  */
 class ArrayAdapter implements AdapterInterface
 {
