@@ -42,14 +42,6 @@ class GravatarTest extends TestCase
     }
 
     /**
-     * Cleans up the environment after running a test.
-     */
-    protected function tearDown(): void
-    {
-        unset($this->helper, $this->view);
-    }
-
-    /**
      * Test default options.
      */
     public function testGravatarXhtmlDoctype(): void

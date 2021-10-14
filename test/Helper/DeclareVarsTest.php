@@ -21,10 +21,6 @@ class DeclareVarsTest extends TestCase
         $this->view = $view;
     }
 
-    protected function tearDown(): void
-    {
-        unset($this->view);
-    }
     // @codingStandardsIgnoreStart
     protected function _declareVars(): void
     {

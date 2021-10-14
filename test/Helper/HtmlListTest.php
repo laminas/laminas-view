@@ -31,11 +31,6 @@ class HtmlListTest extends TestCase
         $this->helper->setView($this->view);
     }
 
-    protected function tearDown(): void
-    {
-        unset($this->helper);
-    }
-
     public function testMakeUnorderedList(): void
     {
         $items = ['one', 'two', 'three'];
