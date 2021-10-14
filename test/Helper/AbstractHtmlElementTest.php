@@ -8,6 +8,8 @@ use Laminas\View\Renderer\PhpRenderer;
 use LaminasTest\View\Helper\TestAsset\ConcreteElementHelper;
 use PHPUnit\Framework\TestCase;
 
+use function sprintf;
+
 /**
  * @covers \Laminas\View\Helper\AbstractHtmlElement
  */
@@ -41,5 +43,38 @@ class AbstractHtmlElementTest extends TestCase
     {
         $expect = 'something=""';
         self::assertStringContainsString($expect, $this->helper->compileAttributes(['something' => null]));
+    }
+
+    /**
+     * @param scalar|scalar[]|null $attributeValue
+     *
+     * @dataProvider attributeValuesProvider
+     */
+    public function testThatAttributesOfVariousNativeTypesProduceTheExpectedAttributeString(
+        $attributeValue,
+        string $expected,
+        string $expectedEventValue
+    ): void {
+        $expect = sprintf('atr=%s', $expected);
+        self::assertStringContainsString($expect, $this->helper->compileAttributes(['atr' => $attributeValue]));
+
+        $expect = sprintf('onclick=%s', $expectedEventValue);
+        self::assertStringContainsString($expect, $this->helper->compileAttributes(['onclick' => $attributeValue]));
+    }
+
+    /** @return array<string, array{0: scalar|scalar[]|null, 1: string, 2: string}> */
+    public function attributeValuesProvider(): array
+    {
+        return [
+            'Integer' => [1, '"1"', '"1"'],
+            'Float' => [0.5, '"0.5"', '"0.5"'],
+            'String' => ['whatever', '"whatever"', '"whatever"'],
+            'Null' => [null, '""', '"null"'],
+            'Class List' => [
+                ['foo', 'bar', 'baz'],
+                '"foo&#x20;bar&#x20;baz"',
+                '"&#x5B;&quot;foo&quot;,&quot;bar&quot;,&quot;baz&quot;&#x5D;"',
+            ],
+        ];
     }
 }
