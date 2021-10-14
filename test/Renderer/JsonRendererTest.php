@@ -112,8 +112,6 @@ class JsonRendererTest extends TestCase
 
     /**
      * @dataProvider getNonObjectModels
-     *
-     * @return void
      */
     public function testRendersNonObjectModelAsJson($model): void
     {
@@ -186,8 +184,6 @@ class JsonRendererTest extends TestCase
 
     /**
      * @dataProvider getNonObjectModels
-     *
-     * @return void
      */
     public function testRendersNonObjectModelAsJsonWithJsonpCallback($model): void
     {
@@ -235,8 +231,6 @@ class JsonRendererTest extends TestCase
 
     /**
      * @group 2463
-     *
-     * @return void
      */
     public function testRecursesJsonModelChildrenWhenRendering(): void
     {

@@ -34,8 +34,6 @@ class HeadMetaTest extends TestCase
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.
-     *
-     * @return void
      */
     protected function setUp(): void
     {
@@ -47,17 +45,6 @@ class HeadMetaTest extends TestCase
         $this->helper   = new Helper\HeadMeta();
         $this->helper->setView($this->view);
         $this->attributeEscaper  = new Helper\EscapeHtmlAttr();
-    }
-
-    /**
-     * Tears down the fixture, for example, close a network connection.
-     * This method is called after a test is executed.
-     *
-     * @return void
-     */
-    protected function tearDown(): void
-    {
-        unset($this->helper);
     }
 
     public function handleErrors($errno, $errstr): void
@@ -261,8 +248,6 @@ class HeadMetaTest extends TestCase
 
     /**
      * @group Laminas-6637
-     *
-     * @return void
      */
     public function testToStringWhenInvalidKeyProvidedShouldConvertThrownException(): void
     {
@@ -323,8 +308,6 @@ class HeadMetaTest extends TestCase
 
     /**
      * @issue Laminas-2663
-     *
-     * @return void
      */
     public function testSetNameDoesntClobber(): void
     {
@@ -343,8 +326,6 @@ class HeadMetaTest extends TestCase
 
     /**
      * @issue Laminas-2663
-     *
-     * @return void
      */
     public function testSetNameDoesntClobberPart2(): void
     {
@@ -370,8 +351,6 @@ class HeadMetaTest extends TestCase
      * @issue Laminas-3780
      *
      * @link https://getlaminas.org/issues/browse/Laminas-3780
-     *
-     * @return void
      */
     public function testPlacesMetaTagsInProperOrder(): void
     {
@@ -398,8 +377,6 @@ class HeadMetaTest extends TestCase
 
     /**
      * @issue Laminas-5435
-     *
-     * @return void
      */
     public function testContainerMaintainsCorrectOrderOfItems(): void
     {
@@ -423,8 +400,6 @@ class HeadMetaTest extends TestCase
 
     /**
      * @issue Laminas-7722
-     *
-     * @return void
      */
     public function testCharsetValidateFail(): void
     {
@@ -437,8 +412,6 @@ class HeadMetaTest extends TestCase
 
     /**
      * @issue Laminas-7722
-     *
-     * @return void
      */
     public function testCharset(): void
     {
@@ -489,8 +462,6 @@ class HeadMetaTest extends TestCase
 
      /**
      * @group Laminas-9743
-     *
-     * @return void
      */
     public function testPropertyIsSupportedWithRdfaDoctype(): void
     {
@@ -505,8 +476,6 @@ class HeadMetaTest extends TestCase
 
     /**
      * @group Laminas-9743
-     *
-     * @return void
      */
     public function testPropertyIsNotSupportedByDefaultDoctype(): void
     {
@@ -522,8 +491,6 @@ class HeadMetaTest extends TestCase
      * @group Laminas-9743
      *
      * @depends testPropertyIsSupportedWithRdfaDoctype
-     *
-     * @return void
      */
     public function testOverloadingAppendPropertyAppendsMetaTagToStack(): void
     {
@@ -535,8 +502,6 @@ class HeadMetaTest extends TestCase
      * @group Laminas-9743
      *
      * @depends testPropertyIsSupportedWithRdfaDoctype
-     *
-     * @return void
      */
     public function testOverloadingPrependPropertyPrependsMetaTagToStack(): void
     {
@@ -548,8 +513,6 @@ class HeadMetaTest extends TestCase
      * @group Laminas-9743
      *
      * @depends testPropertyIsSupportedWithRdfaDoctype
-     *
-     * @return void
      */
     public function testOverloadingSetPropertyOverwritesMetaTagStack(): void
     {
@@ -559,8 +522,6 @@ class HeadMetaTest extends TestCase
 
      /**
      * @issue 3751
-     *
-     * @return void
      */
     public function testItempropIsSupportedWithHtml5Doctype(): void
     {
@@ -575,8 +536,6 @@ class HeadMetaTest extends TestCase
 
     /**
      * @issue 3751
-     *
-     * @return void
      */
     public function testItempropIsNotSupportedByDefaultDoctype(): void
     {
@@ -592,8 +551,6 @@ class HeadMetaTest extends TestCase
      * @issue 3751
      *
      * @depends testItempropIsSupportedWithHtml5Doctype
-     *
-     * @return void
      */
     public function testOverloadingAppendItempropAppendsMetaTagToStack(): void
     {
@@ -605,8 +562,6 @@ class HeadMetaTest extends TestCase
      * @issue 3751
      *
      * @depends testItempropIsSupportedWithHtml5Doctype
-     *
-     * @return void
      */
     public function testOverloadingPrependItempropPrependsMetaTagToStack(): void
     {
@@ -618,8 +573,6 @@ class HeadMetaTest extends TestCase
      * @issue 3751
      *
      * @depends testItempropIsSupportedWithHtml5Doctype
-     *
-     * @return void
      */
     public function testOverloadingSetItempropOverwritesMetaTagStack(): void
     {
@@ -629,8 +582,6 @@ class HeadMetaTest extends TestCase
 
     /**
      * @group Laminas-11835
-     *
-     * @return void
      */
     public function testConditional(): void
     {

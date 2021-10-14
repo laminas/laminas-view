@@ -187,8 +187,6 @@ class TemplatePathStackTest extends TestCase
      * @param mixed $options
      *
      * @dataProvider invalidOptions
-     *
-     * @return void
      */
     public function testSettingOptionsWithInvalidArgumentRaisesException($options): void
     {
@@ -216,8 +214,6 @@ class TemplatePathStackTest extends TestCase
      * @param array|\ArrayObject $options
      *
      * @dataProvider validOptions
-     *
-     * @return void
      */
     public function testAllowsSettingOptions($options): void
     {
@@ -237,8 +233,6 @@ class TemplatePathStackTest extends TestCase
      * @param array $options
      *
      * @dataProvider validOptions
-     *
-     * @return void
      */
     public function testAllowsPassingOptionsToConstructor($options): void
     {

@@ -51,8 +51,6 @@ class GravatarTest extends TestCase
 
     /**
      * Test default options.
-     *
-     * @return void
      */
     public function testGravatarXhtmlDoctype(): void
     {
@@ -64,8 +62,6 @@ class GravatarTest extends TestCase
 
     /**
      * Test if doctype is HTML
-     *
-     * @return void
      */
     public function testGravatarHtmlDoctype(): void
     {
@@ -82,8 +78,6 @@ class GravatarTest extends TestCase
 
     /**
      * Test get set methods
-     *
-     * @return void
      */
     public function testGetAndSetMethods(): void
     {
@@ -156,8 +150,6 @@ class GravatarTest extends TestCase
 
     /**
      * Test SSL location
-     *
-     * @return void
      */
     public function testHttpsSource(): void
     {
@@ -169,8 +161,6 @@ class GravatarTest extends TestCase
 
     /**
      * Test HTML attributes
-     *
-     * @return void
      */
     public function testImgAttributes(): void
     {
@@ -186,8 +176,6 @@ class GravatarTest extends TestCase
 
     /**
      * Test gravatar's options (rating, size, default image and secure)
-     *
-     * @return void
      */
     public function testGravatarOptions(): void
     {
@@ -214,8 +202,6 @@ class GravatarTest extends TestCase
     /**
      * Test auto detect location.
      * If request was made through the HTTPS protocol use secure location.
-     *
-     * @return void
      */
     public function testAutoDetectLocation(): void
     {
@@ -232,8 +218,6 @@ class GravatarTest extends TestCase
 
     /**
      * @link http://php.net/manual/en/reserved.variables.server.php Section "HTTPS"
-     *
-     * @return void
      */
     public function testAutoDetectLocationOnIis(): void
     {

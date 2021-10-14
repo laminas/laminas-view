@@ -26,24 +26,11 @@ class InlineScriptTest extends TestCase
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.
-     *
-     * @return void
      */
     protected function setUp(): void
     {
         $this->basePath = __DIR__ . '/_files/modules';
         $this->helper = new Helper\InlineScript();
-    }
-
-    /**
-     * Tears down the fixture, for example, close a network connection.
-     * This method is called after a test is executed.
-     *
-     * @return void
-     */
-    protected function tearDown(): void
-    {
-        unset($this->helper);
     }
 
     public function testInlineScriptReturnsObjectInstance(): void

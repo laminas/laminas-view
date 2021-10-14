@@ -30,8 +30,6 @@ class PartialTest extends TestCase
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.
-     *
-     * @return void
      */
     protected function setUp(): void
     {
@@ -39,21 +37,7 @@ class PartialTest extends TestCase
         $this->helper   = new Partial();
     }
 
-    /**
-     * Tears down the fixture, for example, close a network connection.
-     * This method is called after a test is executed.
-     *
-     * @return void
-     */
-    protected function tearDown(): void
-    {
-        unset($this->helper);
-    }
-
-    /**
-     * @return void
-     */
-    public function testPartialRendersScript()
+    public function testPartialRendersScript(): void
     {
         $view = new View();
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
@@ -62,10 +46,7 @@ class PartialTest extends TestCase
         $this->assertStringContainsString('This is the first test partial', $return);
     }
 
-    /**
-     * @return void
-     */
-    public function testPartialRendersScriptWithVars()
+    public function testPartialRendersScriptWithVars(): void
     {
         $view = new View();
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
@@ -76,10 +57,7 @@ class PartialTest extends TestCase
         $this->assertStringContainsString('This message should be read', $return, $return);
     }
 
-    /**
-     * @return void
-     */
-    public function testSetViewSetsViewProperty()
+    public function testSetViewSetsViewProperty(): void
     {
         $view = new View();
         $this->helper->setView($view);

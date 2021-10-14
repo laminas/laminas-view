@@ -16,8 +16,6 @@ class IdentityObject
 
     /**
      * @param string $password
-     *
-     * @return void
      */
     public function setPassword($password): void
     {
@@ -34,8 +32,6 @@ class IdentityObject
 
     /**
      * @param string $username
-     *
-     * @return void
      */
     public function setUsername($username): void
     {

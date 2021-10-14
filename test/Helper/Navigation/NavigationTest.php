@@ -431,8 +431,6 @@ class NavigationTest extends AbstractTest
 
     /**
      * @group Laminas-6854
-     *
-     * @return void
      */
     public function testRenderInvisibleItem(): void
     {
@@ -486,8 +484,6 @@ class NavigationTest extends AbstractTest
 
     /**
      * @group #3859
-     *
-     * @return void
      */
     public function testMultipleNavigationsWithDifferentHelpersAndDifferentContainers(): void
     {
@@ -517,8 +513,6 @@ class NavigationTest extends AbstractTest
 
     /**
      * @group #3859
-     *
-     * @return void
      */
     public function testMultipleNavigationsWithDifferentHelpersAndSameContainer(): void
     {
@@ -546,8 +540,6 @@ class NavigationTest extends AbstractTest
 
     /**
      * @group #3859
-     *
-     * @return void
      */
     public function testMultipleNavigationsWithSameHelperAndSameContainer(): void
     {
@@ -587,8 +579,6 @@ class NavigationTest extends AbstractTest
 
     /**
      * @group 49
-     *
-     * @return void
      */
     public function testInjectsLazyInstantiatedPluginManagerWithCurrentServiceLocator(): void
     {

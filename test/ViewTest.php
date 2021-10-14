@@ -307,8 +307,6 @@ class ViewTest extends TestCase
      * Test the view model can be swapped out
      *
      * @see https://github.com/zendframework/zf2/pull/4164
-     *
-     * @return void
      */
     public function testModelFromEventIsUsedByRenderer(): void
     {
