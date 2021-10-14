@@ -40,6 +40,6 @@ class AbstractHtmlElementTest extends TestCase
     public function testThatAttributesWithANullValueArePresentedAsAnEmptyString(): void
     {
         $expect = 'something=""';
-        self::assertEquals($expect, $this->helper->compileAttributes(['something' => null]));
+        self::assertStringContainsString($expect, $this->helper->compileAttributes(['something' => null]));
     }
 }

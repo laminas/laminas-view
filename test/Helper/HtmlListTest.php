@@ -232,8 +232,8 @@ class HtmlListTest extends TestCase
 
     public function testThatListAttributesHaveTheExpectedValue(): void
     {
-        $result = ($this->helper)(['foo'], false, ['class' => 'jim', 'data-foo' => null, 'data-bar="&"']);
-        $expect = '<ul class="foo" data-foo="" data-bar="&amp;">';
+        $result = ($this->helper)(['foo'], false, ['class' => 'jim', 'data-foo' => null, 'data-bar' => '&']);
+        $expect = '<ul class="jim" data-foo="" data-bar="&amp;">';
         self::assertStringContainsString($expect, $result);
     }
 }
