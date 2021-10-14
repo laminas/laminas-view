@@ -4,9 +4,12 @@ namespace LaminasTest\View\Helper;
 
 use Laminas\View\Exception;
 use Laminas\View\Helper\Layout;
+use Laminas\View\Helper\ViewModel as ViewModelHelper;
 use Laminas\View\Model\ViewModel;
 use Laminas\View\Renderer\PhpRenderer;
 use PHPUnit\Framework\TestCase;
+
+use function assert;
 
 /**
  * Test class for Laminas\View\Helper\Layout
@@ -16,19 +19,27 @@ use PHPUnit\Framework\TestCase;
  */
 class LayoutTest extends TestCase
 {
+    /** @var Layout */
+    private $helper;
+    /** @var ViewModel */
+    private $parent;
+
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.
      */
     protected function setUp(): void
     {
-        $this->renderer = $renderer = new PhpRenderer();
-        $this->viewModelHelper = $renderer->plugin('view_model');
-        $this->helper          = $renderer->plugin('layout');
+        $renderer = new PhpRenderer();
+        $viewModelHelper = $renderer->plugin('view_model');
+        assert($viewModelHelper instanceof ViewModelHelper);
+        $helper = $renderer->plugin('layout');
+        assert($helper instanceof Layout);
 
+        $this->helper = $helper;
         $this->parent = new ViewModel();
         $this->parent->setTemplate('layout');
-        $this->viewModelHelper->setRoot($this->parent);
+        $viewModelHelper->setRoot($this->parent);
     }
 
     public function testCallingSetTemplateAltersRootModelTemplate(): void
