@@ -124,7 +124,9 @@ class PaginationControlTest extends TestCase
     public function testAcceptsViewPartialInOtherModule(): void
     {
         $this->expectException(Exception\RuntimeException::class);
-        $this->expectExceptionMessage('Unable to render template "partial.phtml"; resolver could not resolve to a file');
+        $this->expectExceptionMessage(
+            'Unable to render template "partial.phtml"; resolver could not resolve to a file'
+        );
         $this->_viewHelper->__invoke($this->_paginator, null, ['partial.phtml', 'test']);
     }
 

@@ -135,7 +135,10 @@ class ContainerTest extends TestCase
         $this->container->captureStart();
         echo 'This is content intended for capture';
         $this->container->captureEnd();
-        $this->assertStringContainsString('This is content intended for capture', (string) $this->container->getValue());
+        $this->assertStringContainsString(
+            'This is content intended for capture',
+            (string) $this->container->getValue()
+        );
     }
 
     public function testCapturingToPlaceholderAppendsContent(): void
@@ -155,7 +158,10 @@ class ContainerTest extends TestCase
         $lastIndex = array_pop($keys);
         assert(is_int($lastIndex));
         $this->assertEquals('foo', $value[$lastIndex - 1]);
-        $this->assertStringContainsString('This is content intended for capture', (string) $value[$lastIndex]);
+        $this->assertStringContainsString(
+            'This is content intended for capture',
+            (string) $value[$lastIndex]
+        );
     }
 
     public function testCapturingToPlaceholderUsingPrependPrependsContent(): void
@@ -187,7 +193,10 @@ class ContainerTest extends TestCase
 
         $this->assertCount(1, $this->container);
 
-        $this->assertStringContainsString('This is content intended for capture', (string) $this->container->getValue());
+        $this->assertStringContainsString(
+            'This is content intended for capture',
+            (string) $this->container->getValue()
+        );
     }
 
     public function testCapturingToPlaceholderKeyUsingSetCapturesContent(): void
@@ -198,7 +207,10 @@ class ContainerTest extends TestCase
 
         $this->assertCount(1, $this->container);
         $this->assertTrue(isset($this->container['key']));
-        $this->assertStringContainsString('This is content intended for capture', (string) $this->container['key']);
+        $this->assertStringContainsString(
+            'This is content intended for capture',
+            (string) $this->container['key']
+        );
     }
 
     public function testCapturingToPlaceholderKeyUsingSetReplacesContentAtKey(): void
