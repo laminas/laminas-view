@@ -117,7 +117,8 @@ class HtmlAttributesSet extends ArrayObject
             if ((0 === strpos($key, 'on') || ('constraints' === $key)) && ! is_scalar($value)) {
                 // Don't escape event attributes; _do_ substitute double quotes with singles
                 // non-scalar data should be cast to JSON first
-                $value = json_encode($value, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_THROW_ON_ERROR);
+                $flags = JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP | JSON_THROW_ON_ERROR;
+                $value = json_encode($value, $flags);
             }
 
             if (0 !== strpos($key, 'on') && 'constraints' !== $key && is_array($value)) {
