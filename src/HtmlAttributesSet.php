@@ -22,14 +22,14 @@ use const JSON_THROW_ON_ERROR;
 /**
  * Class for storing and processing HTML tag attributes.
  */
-class HtmlAttributesSet extends ArrayObject
+final class HtmlAttributesSet extends ArrayObject
 {
     /**
      * HTML escaper
      *
      * @var Escaper
      */
-    protected $escaper;
+    private $escaper;
 
     public function __construct(Escaper $escaper, iterable $attributes = [])
     {
