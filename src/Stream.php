@@ -14,6 +14,8 @@ namespace Laminas\View;
  * written by
  *     Mike Naberezny (@link http://mikenaberezny.com)
  *     Paul M. Jones  (@link http://paul-m-jones.com)
+ *
+ * @deprecated will be removed in version 3
  */
 class Stream
 {

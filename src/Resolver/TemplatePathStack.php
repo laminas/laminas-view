@@ -247,6 +247,8 @@ class TemplatePathStack implements ResolverInterface
      *
      * @param  bool $flag
      * @return TemplatePathStack
+     *
+     * @deprecated will be removed in version 3
      */
     public function setUseStreamWrapper($flag)
     {
@@ -261,6 +263,8 @@ class TemplatePathStack implements ResolverInterface
      * is disabled.
      *
      * @return bool
+     *
+     * @deprecated will be removed in version 3
      */
     public function useStreamWrapper()
     {
