@@ -2,27 +2,28 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 2.14.2 - TBD
+## 2.14.2 - 2021-11-17
 
-### Added
 
-- Nothing.
+-----
 
-### Changed
+### Release Notes for [2.14.2](https://github.com/laminas/laminas-view/milestone/13)
 
-- Nothing.
+2.14.x bugfix release (patch)
 
-### Deprecated
+### 2.14.2
 
-- Nothing.
+- Total issues resolved: **0**
+- Total pull requests resolved: **2**
+- Total contributors: **2**
 
-### Removed
+#### Bug,Documentation
 
-- Nothing.
+ - [92: Updates markdownlint comments for code blocks in tabs](https://github.com/laminas/laminas-view/pull/92) thanks to @froschdesign
 
-### Fixed
+#### Bug,hacktoberfest-accepted
 
-- Nothing.
+ - [90: Null values in html attribute lists trigger unexpected exceptions](https://github.com/laminas/laminas-view/pull/90) thanks to @gsteel
 
 ## 2.14.1 - 2021-10-13
 
