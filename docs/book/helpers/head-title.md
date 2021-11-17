@@ -71,8 +71,8 @@ echo $this->headTitle(); // <title>My albumsMusic</title>
 To explicitly append content, the second paramater `$setType` or the concrete
 method `append()` of the helper can be used:
 
+<!-- markdownlint-disable code-block-style -->
 === "Invoke Usage"
-<!-- markdownlint-disable-next-line code-block-style -->
     ```php
     $this->headTitle('My albums')
     $this->headTitle('Music', 'APPEND');
@@ -81,13 +81,13 @@ method `append()` of the helper can be used:
     ```
 
 === "Setter Usage"
-<!-- markdownlint-disable-next-line code-block-style -->
     ```php
     $this->headTitle('My albums')
     $this->headTitle()->append('Music');
 
     echo $this->headTitle(); // <title>My albumsMusic</title>
     ```
+<!-- markdownlint-enable code-block-style -->
 
 The constant `Laminas\View\Helper\Placeholder\Container\AbstractContainer::APPEND`
 can also be used as value for the second parameter `$setType`.
@@ -97,8 +97,8 @@ can also be used as value for the second parameter `$setType`.
 To prepend content, the second paramater `$setType` or the concrete method
 `prepend()` of the helper can be used:
 
+<!-- markdownlint-disable code-block-style -->
 === "Invoke Usage"
-<!-- markdownlint-disable-next-line code-block-style -->
     ```php
     $this->headTitle('My albums')
     $this->headTitle('Music', 'PREPEND');
@@ -107,13 +107,13 @@ To prepend content, the second paramater `$setType` or the concrete method
     ```
 
 === "Setter Usage"
-<!-- markdownlint-disable-next-line code-block-style -->
     ```php
     $this->headTitle('My albums')
     $this->headTitle()->prepend('Music');
 
     echo $this->headTitle(); // <title>MusicMy albums</title>
     ```
+<!-- markdownlint-enable code-block-style -->
 
 The constant `Laminas\View\Helper\Placeholder\Container\AbstractContainer::PREPEND`
 can also be used as value for the second parameter `$setType`.
@@ -123,8 +123,8 @@ can also be used as value for the second parameter `$setType`.
 To overwrite the entire content of title helper, the second parameter `$setType`
 or the concrete method `set()` of the helper can be used:
 
+<!-- markdownlint-disable code-block-style -->
 === "Invoke Usage"
-<!-- markdownlint-disable-next-line code-block-style -->
     ```php
     $this->headTitle('My albums')
     $this->headTitle('Music', 'SET');
@@ -133,13 +133,13 @@ or the concrete method `set()` of the helper can be used:
     ```
 
 === "Setter Usage"
-<!-- markdownlint-disable-next-line code-block-style -->
     ```php
     $this->headTitle('My albums')
     $this->headTitle()->set('Music');
 
     echo $this->headTitle(); // <title>Music</title>
     ```
+<!-- markdownlint-enable code-block-style -->
 
 The constant `Laminas\View\Helper\Placeholder\Container\AbstractContainer::SET`
 can also be used as value for the second parameter `$setType`.
