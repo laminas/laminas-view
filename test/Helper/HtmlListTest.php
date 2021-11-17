@@ -229,4 +229,11 @@ class HtmlListTest extends TestCase
         $this->expectException(Exception\InvalidArgumentException::class);
         $this->helper->__invoke([]);
     }
+
+    public function testThatListAttributesHaveTheExpectedValue(): void
+    {
+        $result = ($this->helper)(['foo'], false, ['class' => 'jim', 'data-foo' => null, 'data-bar' => '&']);
+        $expect = '<ul class="jim" data-foo="" data-bar="&amp;">';
+        self::assertStringContainsString($expect, $result);
+    }
 }

@@ -1,14 +1,15 @@
 <?php
 
-/**
- * @see       https://github.com/laminas/laminas-view for the canonical source repository
- * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
- */
+declare(strict_types=1);
 
 namespace Laminas\View\Helper;
 
+use Laminas\Escaper\Escaper;
+use Laminas\View\Helper\Escaper\AbstractHelper as AbstractEscapeHelper;
 use Laminas\View\HtmlAttributesSet;
+use Laminas\View\Renderer\PhpRenderer;
+
+use function assert;
 
 /**
  * Helper for creating HtmlAttributesSet objects
@@ -18,12 +19,20 @@ class HtmlAttributes extends AbstractHelper
     /**
      * Returns a new HtmlAttributesSet object, optionally initializing it with
      * the provided value.
+     *
+     * @param iterable<string, scalar|array|null> $attributes
      */
     public function __invoke(iterable $attributes = []): HtmlAttributesSet
     {
+        $renderer = $this->getView();
+        assert($renderer instanceof PhpRenderer);
+        $escapePlugin = $renderer->plugin('escapeHtml');
+        assert($escapePlugin instanceof AbstractEscapeHelper);
+        $escaper = $escapePlugin->getEscaper();
+        assert($escaper instanceof Escaper);
+
         return new HtmlAttributesSet(
-            $this->getView()->plugin('escapehtml')->getEscaper(),
-            $this->getView()->plugin('escapehtmlattr')->getEscaper(),
+            $escaper,
             $attributes
         );
     }
