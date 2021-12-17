@@ -20,7 +20,7 @@ determine how to handle the content.
 <?= $this->json($this->data) ?>
 ```
 
-> ### Enabling encoding using Laminas\Json\Expr
+> ### Enabling encoding using Laminas\Json\Expr _(Deprecated)_
 >
 > The JSON helper accepts an array of options that will be passed to `Laminas\Json\Json::encode()` and
 > used internally to encode data.
@@ -31,3 +31,4 @@ determine how to handle the content.
 > ```php
 > <?= $this->json($this->data, ['enableJsonExprFinder' => true]) ?>
 > ```
+> **This feature of the Json view helper has been deprecated in 2.16.x and will be removed in 3.x**
