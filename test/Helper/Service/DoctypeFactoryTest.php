@@ -2,11 +2,11 @@
 
 namespace LaminasTest\View\Helper\Service;
 
-use Interop\Container\ContainerInterface;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\Service\DoctypeFactory;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
 
 final class DoctypeFactoryTest extends TestCase
 {
@@ -20,7 +20,7 @@ final class DoctypeFactoryTest extends TestCase
         $container = $this->createContainer();
 
         $factory = new DoctypeFactory();
-        $service = $factory($container, '');
+        $service = $factory($container);
 
         self::assertInstanceOf(Doctype::class, $service);
     }
@@ -31,7 +31,7 @@ final class DoctypeFactoryTest extends TestCase
         $container = $this->createContainer($config);
 
         $factory = new DoctypeFactory();
-        $service = $factory($container, '');
+        $service = $factory($container);
 
         self::assertSame(Doctype::XHTML1_STRICT, $service->getDoctype());
     }
@@ -42,7 +42,7 @@ final class DoctypeFactoryTest extends TestCase
         $container = $this->createContainer($config);
 
         $factory = new DoctypeFactory();
-        $service = $factory($container, '');
+        $service = $factory($container);
 
         self::assertSame(Doctype::HTML4_LOOSE, $service->getDoctype());
     }

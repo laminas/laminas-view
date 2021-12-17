@@ -2,15 +2,16 @@
 
 namespace Laminas\View;
 
-use Interop\Container\ContainerInterface;
 use Laminas\EventManager\EventManagerAwareInterface;
 use Laminas\EventManager\SharedEventManagerInterface;
 use Laminas\I18n\Translator\TranslatorAwareInterface;
 use Laminas\I18n\Translator\TranslatorInterface;
 use Laminas\ServiceManager\AbstractPluginManager;
+use Laminas\ServiceManager\ConfigInterface;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\View\Exception\InvalidHelperException;
+use Psr\Container\ContainerInterface;
 
 /**
  * Plugin manager implementation for view helpers
@@ -219,7 +220,7 @@ class HelperPluginManager extends AbstractPluginManager
      * helper works fine as an invokable. The factory for doctype simply checks for the
      * config value from the merged config.
      *
-     * @var array
+     * @var array<array-key, callable|string>
      */
     protected $factories = [
         Helper\Asset::class               => Helper\Service\AssetFactory::class,
@@ -303,7 +304,7 @@ class HelperPluginManager extends AbstractPluginManager
     ];
 
     /**
-     * @var Renderer\RendererInterface
+     * @var Renderer\RendererInterface|null
      */
     protected $renderer;
 

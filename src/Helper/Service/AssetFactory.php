@@ -2,17 +2,14 @@
 
 namespace Laminas\View\Helper\Service;
 
-use Interop\Container\ContainerInterface;
-use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\View\Exception;
 use Laminas\View\Helper\Asset;
+use Psr\Container\ContainerInterface;
 
-class AssetFactory implements FactoryInterface
+class AssetFactory
 {
     /**
-     * {@inheritDoc}
-     *
      * @param ContainerInterface $container
      * @param string $name
      * @param null|array $options
