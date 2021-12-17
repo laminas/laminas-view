@@ -51,12 +51,6 @@ class LinksTest extends AbstractTest
         }
     }
 
-    protected function tearDown(): void
-    {
-        return;
-        $this->_doctypeHelper->setDoctype($this->_oldDoctype);
-    }
-
     public function testCanRenderFromServiceAlias(): void
     {
         $sm = $this->serviceManager;

@@ -195,8 +195,6 @@ class FlashMessengerTest extends TestCase
      * @runInSeparateProcess
      *
      * @preserveGlobalState disabled
-     *
-     * @return void
      */
     public function testCanDisplayListOfCurrentMessages(): void
     {
@@ -441,8 +439,6 @@ class FlashMessengerTest extends TestCase
 
     /**
      * @covers \Laminas\View\Helper\FlashMessenger::render
-     *
-     * @return void
      */
     public function testMessageIsEscapedByDefault(): void
     {
@@ -457,8 +453,6 @@ class FlashMessengerTest extends TestCase
 
     /**
      * @covers \Laminas\View\Helper\FlashMessenger::render
-     *
-     * @return void
      */
     public function testMessageIsNotEscapedWhenAutoEscapeIsFalse(): void
     {
@@ -474,8 +468,6 @@ class FlashMessengerTest extends TestCase
 
     /**
      * @covers \Laminas\View\Helper\FlashMessenger::render
-     *
-     * @return void
      */
     public function testCanSetAutoEscapeOnRender(): void
     {
@@ -490,8 +482,6 @@ class FlashMessengerTest extends TestCase
 
     /**
      * @covers \Laminas\View\Helper\FlashMessenger::render
-     *
-     * @return void
      */
     public function testRenderUsesCurrentAutoEscapeByDefault(): void
     {
@@ -516,8 +506,6 @@ class FlashMessengerTest extends TestCase
 
     /**
      * @covers \Laminas\View\Helper\FlashMessenger::renderCurrent
-     *
-     * @return void
      */
     public function testCurrentMessageIsEscapedByDefault(): void
     {
@@ -530,8 +518,6 @@ class FlashMessengerTest extends TestCase
 
     /**
      * @covers \Laminas\View\Helper\FlashMessenger::renderCurrent
-     *
-     * @return void
      */
     public function testCurrentMessageIsNotEscapedWhenAutoEscapeIsFalse(): void
     {
@@ -545,8 +531,6 @@ class FlashMessengerTest extends TestCase
 
     /**
      * @covers \Laminas\View\Helper\FlashMessenger::renderCurrent
-     *
-     * @return void
      */
     public function testCanSetAutoEscapeOnRenderCurrent(): void
     {
@@ -559,8 +543,6 @@ class FlashMessengerTest extends TestCase
 
     /**
      * @covers \Laminas\View\Helper\FlashMessenger::renderCurrent
-     *
-     * @return void
      */
     public function testRenderCurrentUsesCurrentAutoEscapeByDefault(): void
     {

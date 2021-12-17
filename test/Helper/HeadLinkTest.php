@@ -36,8 +36,6 @@ class HeadLinkTest extends TestCase
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.
-     *
-     * @return void
      */
     protected function setUp(): void
     {
@@ -47,17 +45,6 @@ class HeadLinkTest extends TestCase
         $this->helper   = new Helper\HeadLink();
         $this->helper->setView($this->view);
         $this->attributeEscaper  = new Helper\EscapeHtmlAttr();
-    }
-
-    /**
-     * Tears down the fixture, for example, close a network connection.
-     * This method is called after a test is executed.
-     *
-     * @return void
-     */
-    protected function tearDown(): void
-    {
-        unset($this->helper);
     }
 
     public function testHeadLinkReturnsObjectInstance(): void
@@ -364,8 +351,6 @@ class HeadLinkTest extends TestCase
 
     /**
      * test for Laminas-2889
-     *
-     * @return void
      */
     public function testBooleanStylesheet(): void
     {
@@ -376,8 +361,6 @@ class HeadLinkTest extends TestCase
 
     /**
      * test for Laminas-3271
-     *
-     * @return void
      */
     public function testBooleanTrueConditionalStylesheet(): void
     {
@@ -391,8 +374,6 @@ class HeadLinkTest extends TestCase
      * @issue Laminas-3928
      *
      * @link https://getlaminas.org/issues/browse/Laminas-3928
-     *
-     * @return void
      */
     public function testTurnOffAutoEscapeDoesNotEncodeAmpersand(): void
     {
@@ -449,8 +430,6 @@ class HeadLinkTest extends TestCase
 
     /**
      * @issue Laminas-5435
-     *
-     * @return void
      */
     public function testContainerMaintainsCorrectOrderOfItems(): void
     {
@@ -481,8 +460,6 @@ class HeadLinkTest extends TestCase
 
     /**
      * @issue Laminas-10345
-     *
-     * @return void
      */
     public function testIdAttributeIsSupported(): void
     {
@@ -492,8 +469,6 @@ class HeadLinkTest extends TestCase
 
     /**
      * @group 6635
-     *
-     * @return void
      */
     public function testSizesAttributeIsSupported(): void
     {

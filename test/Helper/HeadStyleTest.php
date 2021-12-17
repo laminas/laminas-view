@@ -27,24 +27,11 @@ class HeadStyleTest extends TestCase
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.
-     *
-     * @return void
      */
     protected function setUp(): void
     {
         $this->basePath = __DIR__ . '/_files/modules';
         $this->helper = new Helper\HeadStyle();
-    }
-
-    /**
-     * Tears down the fixture, for example, close a network connection.
-     * This method is called after a test is executed.
-     *
-     * @return void
-     */
-    protected function tearDown(): void
-    {
-        unset($this->helper);
     }
 
     public function testHeadStyleReturnsObjectInstance(): void
@@ -183,8 +170,6 @@ class HeadStyleTest extends TestCase
 
     /**
      * @group Laminas-8056
-     *
-     * @return void
      */
     public function testMediaAttributeCanHaveSpaceInCommaSeparatedString(): void
     {
@@ -384,8 +369,6 @@ a {
 
     /**
      * @issue Laminas-5435
-     *
-     * @return void
      */
     public function testContainerMaintainsCorrectOrderOfItems(): void
     {
@@ -412,8 +395,6 @@ a {
 
     /**
      * @group Laminas-9532
-     *
-     * @return void
      */
     public function testRenderConditionalCommentsShouldNotContainHtmlEscaping(): void
     {

@@ -92,8 +92,6 @@ class ViewModelTest extends TestCase
 
     /**
      * @depends testSetVariablesMergesWithPreviouslyStoredVariables
-     *
-     * @return void
      */
     public function testCanClearAllVariables(ViewModel $model): void
     {
@@ -134,8 +132,6 @@ class ViewModelTest extends TestCase
 
     /**
      * @depends testSetOptionsOverwritesAllPreviouslyStored
-     *
-     * @return void
      */
     public function testCanClearOptions(ViewModel $model): void
     {
@@ -221,8 +217,6 @@ class ViewModelTest extends TestCase
 
     /**
      * @depends testCanCountChildren
-     *
-     * @return void
      */
     public function testCanClearChildren(ViewModel $model): void
     {
@@ -397,8 +391,6 @@ class ViewModelTest extends TestCase
      * @param array|ArrayObject $variables
      * @param string|null $default
      * @param string|null $expected
-     *
-     * @return void
      */
     public function testGetVariableSetByConstruct($variables, $default, $expected): void
     {
@@ -413,8 +405,6 @@ class ViewModelTest extends TestCase
      * @param array|ArrayObject $variables
      * @param string|null $default
      * @param string|null $expected
-     *
-     * @return void
      */
     public function testGetVariableSetBySetter($variables, $default, $expected): void
     {

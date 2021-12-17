@@ -30,24 +30,11 @@ class PartialLoopTest extends TestCase
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.
-     *
-     * @return void
      */
     protected function setUp(): void
     {
         $this->basePath = __DIR__ . '/_files/modules';
         $this->helper   = new PartialLoop();
-    }
-
-    /**
-     * Tears down the fixture, for example, close a network connection.
-     * This method is called after a test is executed.
-     *
-     * @return void
-     */
-    protected function tearDown(): void
-    {
-        unset($this->helper);
     }
 
     public function testPartialLoopIteratesOverArray(): void
@@ -193,8 +180,6 @@ class PartialLoopTest extends TestCase
     /**
      * @group Laminas-3350
      * @group Laminas-3352
-     *
-     * @return void
      */
     public function testShouldNotCastToArrayIfObjectIsTraversable(): void
     {
@@ -233,8 +218,6 @@ class PartialLoopTest extends TestCase
 
     /**
      * @group Laminas-2737
-     *
-     * @return void
      */
     public function testPartialLoopIncrementsPartialCounter(): void
     {
@@ -255,8 +238,6 @@ class PartialLoopTest extends TestCase
 
     /**
      * @group Laminas-5174
-     *
-     * @return void
      */
     public function testPartialLoopPartialCounterResets(): void
     {
@@ -304,8 +285,6 @@ class PartialLoopTest extends TestCase
 
     /**
      * @group 7093
-     *
-     * @return void
      */
     public function testNestedCallsShouldNotOverrideObjectKey(): void
     {
@@ -336,8 +315,6 @@ class PartialLoopTest extends TestCase
 
     /**
      * @group 7450
-     *
-     * @return void
      */
     public function testNestedPartialLoopsNestedArray(): void
     {
@@ -512,8 +489,6 @@ class PartialLoopTest extends TestCase
     /**
      * @group Laminas-3350
      * @group Laminas-3352
-     *
-     * @return void
      */
     public function testShouldNotCastToArrayIfObjectIsTraversableInLoopMethod(): void
     {
@@ -552,8 +527,6 @@ class PartialLoopTest extends TestCase
 
     /**
      * @group Laminas-2737
-     *
-     * @return void
      */
     public function testPartialLoopIncrementsPartialCounterInLoopMethod(): void
     {
@@ -574,8 +547,6 @@ class PartialLoopTest extends TestCase
 
     /**
      * @group Laminas-5174
-     *
-     * @return void
      */
     public function testPartialLoopPartialCounterResetsInLoopMethod(): void
     {
@@ -623,8 +594,6 @@ class PartialLoopTest extends TestCase
 
     /**
      * @group 7093
-     *
-     * @return void
      */
     public function testNestedCallsShouldNotOverrideObjectKeyInLoopMethod(): void
     {
@@ -655,8 +624,6 @@ class PartialLoopTest extends TestCase
 
     /**
      * @group 7450
-     *
-     * @return void
      */
     public function testNestedPartialLoopsNestedArrayInLoopMethod(): void
     {

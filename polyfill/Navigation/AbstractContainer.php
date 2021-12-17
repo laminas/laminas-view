@@ -22,6 +22,8 @@ use Traversable;
  * purposes of testing against PHP 8.1.
  *
  * @todo Remove when laminas-navigation has a release targetting PHP 8.1.
+ *
+ * @internal
  */
 abstract class AbstractContainer implements Countable, RecursiveIterator
 {

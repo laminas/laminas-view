@@ -31,11 +31,6 @@ class HtmlListTest extends TestCase
         $this->helper->setView($this->view);
     }
 
-    protected function tearDown(): void
-    {
-        unset($this->helper);
-    }
-
     public function testMakeUnorderedList(): void
     {
         $items = ['one', 'two', 'three'];
@@ -155,8 +150,6 @@ class HtmlListTest extends TestCase
 
     /**
      * @group Laminas-2527
-     *
-     * @return void
      */
     public function testEscapeFlagHonoredForMultidimensionalLists(): void
     {
@@ -172,8 +165,6 @@ class HtmlListTest extends TestCase
     /**
      * @group Laminas-2527
      * Added the s modifier to match newlines after Laminas-5018
-     *
-     * @return void
      */
     public function testAttribsPassedIntoMultidimensionalLists(): void
     {
@@ -188,8 +179,6 @@ class HtmlListTest extends TestCase
 
     /**
      * @group Laminas-2870
-     *
-     * @return void
      */
     public function testEscapeFlagShouldBePassedRecursively(): void
     {
@@ -221,8 +210,6 @@ class HtmlListTest extends TestCase
 
     /**
      * @group Laminas-6063
-     *
-     * @return void
      */
     public function testEmptyItems(): void
     {

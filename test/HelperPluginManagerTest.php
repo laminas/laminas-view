@@ -36,8 +36,6 @@ class HelperPluginManagerTest extends TestCase
 
     /**
      * @group 43
-     *
-     * @return void
      */
     public function testConstructorArgumentsAreOptionalUnderV2(): void
     {
@@ -51,8 +49,6 @@ class HelperPluginManagerTest extends TestCase
 
     /**
      * @group 43
-     *
-     * @return void
      */
     public function testConstructorAllowsConfigInstanceAsFirstArgumentUnderV2(): void
     {
@@ -175,8 +171,6 @@ class HelperPluginManagerTest extends TestCase
 
     /**
      * @group 47
-     *
-     * @return void
      */
     public function testInjectTranslatorWillReturnEarlyIfThePluginManagerDoesNotHaveAParentContainer(): void
     {

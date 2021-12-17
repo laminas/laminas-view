@@ -80,8 +80,7 @@
     },
     "autoload-dev": {
         "files": [
-            "polyfill/autoload.php",
-            "test/autoload.php"
+            "polyfill/autoload.php"
         ],
         "psr-4": {
             "LaminasTest\\View\\": "test/"

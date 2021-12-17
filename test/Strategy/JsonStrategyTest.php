@@ -35,8 +35,6 @@ class JsonStrategyTest extends TestCase
 
     /**
      * @group #2410
-     *
-     * @return void
      */
     public function testJsonAcceptHeaderDoesNotSelectJsonStrategy(): void
     {
@@ -49,8 +47,6 @@ class JsonStrategyTest extends TestCase
 
     /**
      * @group #2410
-     *
-     * @return void
      */
     public function testJavascriptAcceptHeaderDoesNotSelectJsonStrategy(): void
     {
@@ -63,8 +59,6 @@ class JsonStrategyTest extends TestCase
 
     /**
      * @group #2410
-     *
-     * @return void
      */
     public function testJsonModelJavascriptAcceptHeaderDoesNotSetJsonpCallback(): void
     {
@@ -322,8 +316,6 @@ class JsonStrategyTest extends TestCase
 
     /**
      * @dataProvider multibyteCharsets
-     *
-     * @return void
      */
     public function testContentTransferEncodingHeaderSetToBinaryForSpecificMultibyteCharsets($charset): void
     {

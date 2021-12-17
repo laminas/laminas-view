@@ -16,8 +16,6 @@ class ConsoleModelTest extends TestCase
 
     /**
      * @see https://github.com/zendframework/zend-view/issues/152
-     *
-     * @return void
      */
     public function testSetErrorLevelImplementsFluentInterface(): void
     {

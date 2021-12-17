@@ -24,11 +24,6 @@ class HtmlTagTest extends TestCase
         $this->helper->setView($this->view);
     }
 
-    protected function tearDown(): void
-    {
-        unset($this->helper);
-    }
-
     protected function assertAttribute(string $name, $value = null): void
     {
         $attributes = $this->helper->getAttributes();

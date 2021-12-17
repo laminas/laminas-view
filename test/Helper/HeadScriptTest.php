@@ -36,25 +36,12 @@ class HeadScriptTest extends TestCase
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.
-     *
-     * @return void
      */
     protected function setUp(): void
     {
         $this->basePath = __DIR__ . '/_files/modules';
         $this->helper = new Helper\HeadScript();
         $this->attributeEscaper  = new Helper\EscapeHtmlAttr();
-    }
-
-    /**
-     * Tears down the fixture, for example, close a network connection.
-     * This method is called after a test is executed.
-     *
-     * @return void
-     */
-    protected function tearDown(): void
-    {
-        unset($this->helper);
     }
 
     public function testHeadScriptReturnsObjectInstance(): void
@@ -373,8 +360,6 @@ document.write(bar.strlen());');
      * @issue Laminas-3928
      *
      * @link https://getlaminas.org/issues/browse/Laminas-3928
-     *
-     * @return void
      */
     public function testTurnOffAutoEscapeDoesNotEncodeAmpersand(): void
     {
@@ -430,8 +415,6 @@ document.write(bar.strlen());');
 
     /**
      * @issue Laminas-5435
-     *
-     * @return void
      */
     public function testContainerMaintainsCorrectOrderOfItems(): void
     {
@@ -499,8 +482,6 @@ document.write(bar.strlen());');
 
     /**
      * @group 6634
-     *
-     * @return void
      */
     public function testSupportsCrossOriginAttribute(): void
     {
@@ -516,8 +497,6 @@ document.write(bar.strlen());');
 
     /**
      * @group 21
-     *
-     * @return void
      */
     public function testOmitsTypeAttributeIfEmptyValueAndHtml5Doctype(): void
     {
@@ -532,8 +511,6 @@ document.write(bar.strlen());');
 
     /**
      * @group 22
-     *
-     * @return void
      */
     public function testSupportsAsyncAttribute(): void
     {
@@ -548,8 +525,6 @@ document.write(bar.strlen());');
 
     /**
      * @group 23
-     *
-     * @return void
      */
     public function testOmitsTypeAttributeIfNoneGivenAndHtml5Doctype(): void
     {
