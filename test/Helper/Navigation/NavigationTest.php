@@ -2,7 +2,8 @@
 
 namespace LaminasTest\View\Helper\Navigation;
 
-use Interop\Container\ContainerInterface;
+use Laminas\ServiceManager\PsrContainerDecorator;
+use Psr\Container\ContainerInterface;
 use Laminas\I18n\Translator\Translator;
 use Laminas\Navigation\Navigation as Container;
 use Laminas\Navigation\Page;
@@ -589,17 +590,17 @@ class NavigationTest extends AbstractTest
         $plugins = $helper->getPluginManager();
         $this->assertInstanceOf(Navigation\PluginManager::class, $plugins);
 
-        if (method_exists($plugins, 'configure')) {
-            // v3
-            $pluginsReflection = new \ReflectionObject($plugins);
-            $creationContext = $pluginsReflection->getProperty('creationContext');
-            $creationContext->setAccessible(true);
-            $creationContextValue = $creationContext->getValue($plugins);
-            $this->assertSame($creationContextValue, $services);
-        } else {
-            // v2
-            $this->assertSame($services, $plugins->getServiceLocator());
+        $pluginsReflection = new \ReflectionObject($plugins);
+        $creationContext = $pluginsReflection->getProperty('creationContext');
+        $creationContext->setAccessible(true);
+        $creationContextValue = $creationContext->getValue($plugins);
+
+        /** Later versions of AbstractPluginManager Decorate Psr Containers */
+        if ($creationContextValue instanceof PsrContainerDecorator) {
+            $creationContextValue = $creationContextValue->getContainer();
         }
+
+        $this->assertSame($creationContextValue, $services);
     }
 
     /**
