@@ -31,4 +31,5 @@ determine how to handle the content.
 > ```php
 > <?= $this->json($this->data, ['enableJsonExprFinder' => true]) ?>
 > ```
+>
 > **This feature of the Json view helper has been deprecated in 2.16.x and will be removed in 3.x**
