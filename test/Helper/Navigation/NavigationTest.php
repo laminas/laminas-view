@@ -597,6 +597,7 @@ class NavigationTest extends AbstractTest
 
         /** Later versions of AbstractPluginManager Decorate Psr Containers */
         if ($creationContextValue instanceof PsrContainerDecorator) {
+            /** @psalm-suppress InternalMethod */
             $creationContextValue = $creationContextValue->getContainer();
         }
 
