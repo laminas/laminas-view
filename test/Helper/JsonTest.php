@@ -2,10 +2,13 @@
 
 namespace LaminasTest\View\Helper;
 
+use Laminas\Http\Header\HeaderInterface;
 use Laminas\Http\Response;
 use Laminas\Json\Json as JsonFormatter;
 use Laminas\View\Helper\Json as JsonHelper;
 use PHPUnit\Framework\TestCase;
+
+use function assert;
 
 /**
  * Test class for Laminas\View\Helper\Json
@@ -15,6 +18,11 @@ use PHPUnit\Framework\TestCase;
  */
 class JsonTest extends TestCase
 {
+    /** @var Response */
+    private $response;
+    /** @var JsonHelper */
+    private $helper;
+
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.
@@ -31,6 +39,7 @@ class JsonTest extends TestCase
         $headers = $this->response->getHeaders();
         $this->assertTrue($headers->has('Content-Type'));
         $header = $headers->get('Content-Type');
+        self::assertInstanceOf(HeaderInterface::class, $header);
         $this->assertEquals('application/json', $header->getFieldValue());
     }
 
@@ -45,5 +54,17 @@ class JsonTest extends TestCase
         $data = $this->helper->__invoke('foobar');
         $this->assertIsString($data);
         $this->assertEquals('foobar', JsonFormatter::decode($data));
+    }
+
+    public function testThatADeprecationErrorIsTriggeredWhenExpressionFinderOptionIsUsed(): void
+    {
+        $this->expectDeprecation();
+        $this->helper->__invoke(['foo'], ['enableJsonExprFinder' => true]);
+    }
+
+    public function testThatADeprecationErrorIsNotTriggeredWhenExpressionFinderOptionIsNotUsed(): void
+    {
+        $this->expectNotToPerformAssertions();
+        $this->helper->__invoke(['foo'], ['enableJsonExprFinder' => 'anything other than true']);
     }
 }
