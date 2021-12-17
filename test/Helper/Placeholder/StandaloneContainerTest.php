@@ -25,18 +25,13 @@ class StandaloneContainerTest extends TestCase
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.
-     *
-     * @return void
      */
     protected function setUp(): void
     {
         $this->helper = new Foo();
     }
 
-    /**
-     * @return void
-     */
-    public function testSetContainer()
+    public function testSetContainer(): void
     {
         $container = new Container();
         $this->assertNotSame($container, $this->helper->getContainer());
@@ -44,76 +39,52 @@ class StandaloneContainerTest extends TestCase
         $this->assertSame($container, $this->helper->getContainer());
     }
 
-    /**
-     * @return void
-     */
-    public function testGetContainer()
+    public function testGetContainer(): void
     {
         $container = $this->helper->getContainer();
         $this->assertInstanceOf(Container::class, $container);
     }
 
-    /**
-     * @return void
-     */
-    public function testGetContainerCreatesNewContainer()
+    public function testGetContainerCreatesNewContainer(): void
     {
         $this->helper->deleteContainer();
         $container = $this->helper->getContainer();
         $this->assertInstanceOf(Container::class, $container);
     }
 
-    /**
-     * @return void
-     */
-    public function testDeleteContainer()
+    public function testDeleteContainer(): void
     {
         $this->assertNotNull($this->helper->getContainer());
         $this->assertTrue($this->helper->deleteContainer());
         $this->assertFalse($this->helper->deleteContainer());
     }
 
-    /**
-     * @return void
-     */
-    public function testSetContainerClassThrowsDomainException()
+    public function testSetContainerClassThrowsDomainException(): void
     {
         $this->expectException(DomainException::class);
         $this->helper->setContainerClass('bat');
     }
 
-    /**
-     * @return void
-     */
-    public function testSetContainerClassThrowsInvalidArgumentException()
+    public function testSetContainerClassThrowsInvalidArgumentException(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->helper->setContainerClass(get_class($this));
     }
 
-    /**
-     * @return void
-     */
-    public function testSetGetContainerClass()
+    public function testSetGetContainerClass(): void
     {
         $this->helper->setContainerClass('LaminasTest\View\Helper\TestAsset\Bar');
         $this->assertEquals('LaminasTest\View\Helper\TestAsset\Bar', $this->helper->getContainerClass());
     }
 
-    /**
-     * @return void
-     */
-    public function testViewAccessorWorks()
+    public function testViewAccessorWorks(): void
     {
         $view = new View();
         $this->helper->setView($view);
         $this->assertSame($view, $this->helper->getView());
     }
 
-    /**
-     * @return void
-     */
-    public function testContainerDoesNotPersistBetweenInstances()
+    public function testContainerDoesNotPersistBetweenInstances(): void
     {
         $foo1 = new Foo;
         $foo1->append('Foo');

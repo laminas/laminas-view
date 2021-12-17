@@ -903,9 +903,8 @@
     <InvalidFunctionCall occurrences="1">
       <code>call_user_func_array($helper, $arguments)</code>
     </InvalidFunctionCall>
-    <InvalidThrow occurrences="2">
+    <InvalidThrow occurrences="1">
       <code>\Laminas\Navigation\Exception\ExceptionInterface</code>
-      <code>\Laminas\View\Exception\ExceptionInterface</code>
     </InvalidThrow>
     <MissingConstructor occurrences="1">
       <code>$plugins</code>
@@ -1145,19 +1144,10 @@
       <code>plugin</code>
     </UndefinedInterfaceMethod>
   </file>
-  <file src="src/Helper/Navigation/HelperInterface.php">
-    <InvalidThrow occurrences="2">
-      <code>\Laminas\View\Exception\ExceptionInterface</code>
-      <code>\Laminas\View\Exception\ExceptionInterface</code>
-    </InvalidThrow>
-  </file>
   <file src="src/Helper/Navigation/Links.php">
     <InvalidOperand occurrences="1">
       <code>$relFlag</code>
     </InvalidOperand>
-    <InvalidThrow occurrences="1">
-      <code>Exception\ExceptionInterface</code>
-    </InvalidThrow>
     <MissingConstructor occurrences="1">
       <code>$root</code>
     </MissingConstructor>
@@ -2949,9 +2939,6 @@
       <code>getAttribs</code>
       <code>setAttribs</code>
     </DeprecatedMethod>
-    <InvalidArgument occurrences="1">
-      <code>Exception\ExceptionInterface::class</code>
-    </InvalidArgument>
     <InvalidScalarArgument occurrences="3">
       <code>$value</code>
       <code>$value</code>
@@ -2962,16 +2949,9 @@
     </UndefinedMethod>
   </file>
   <file src="test/Helper/HeadLinkTest.php">
-    <InvalidArgument occurrences="9">
+    <InvalidArgument occurrences="2">
       <code>'foo'</code>
       <code>'foo'</code>
-      <code>Exception\ExceptionInterface::class</code>
-      <code>Exception\ExceptionInterface::class</code>
-      <code>Exception\ExceptionInterface::class</code>
-      <code>Exception\ExceptionInterface::class</code>
-      <code>Exception\ExceptionInterface::class</code>
-      <code>Exception\ExceptionInterface::class</code>
-      <code>Exception\ExceptionInterface::class</code>
     </InvalidArgument>
     <InvalidScalarArgument occurrences="1">
       <code>1</code>
@@ -3073,16 +3053,12 @@
     </UndefinedThisPropertyFetch>
   </file>
   <file src="test/Helper/HeadMetaTest.php">
-    <InvalidArgument occurrences="7">
+    <InvalidArgument occurrences="4">
       <code>'foo'</code>
       <code>'foo'</code>
       <code>'foo'</code>
-      <code>Exception\ExceptionInterface::class</code>
-      <code>Exception\ExceptionInterface::class</code>
-      <code>Exception\ExceptionInterface::class</code>
       <code>[$this, 'handleErrors']</code>
     </InvalidArgument>
-    <InvalidCatch occurrences="2"/>
     <MissingParamType occurrences="3">
       <code>$errno</code>
       <code>$errstr</code>
@@ -3240,7 +3216,6 @@
     </UndefinedThisPropertyFetch>
   </file>
   <file src="test/Helper/HeadScriptTest.php">
-    <InvalidCatch occurrences="1"/>
     <InvalidDocblock occurrences="1">
       <code>public function booleanAttributeDataProvider(): Generator</code>
     </InvalidDocblock>
@@ -3339,7 +3314,6 @@
       <code>'stdClass'</code>
       <code>'stdClass'</code>
     </ArgumentTypeCoercion>
-    <InvalidCatch occurrences="1"/>
     <MixedArgument occurrences="20">
       <code>$item</code>
       <code>$item</code>
@@ -3413,9 +3387,6 @@
     <MixedMethodCall occurrences="1">
       <code>renderTitle</code>
     </MixedMethodCall>
-    <NullArgument occurrences="1">
-      <code>null</code>
-    </NullArgument>
   </file>
   <file src="test/Helper/HtmlFlashTest.php">
     <UndefinedThisPropertyAssignment occurrences="1">
@@ -3579,61 +3550,26 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="test/Helper/Navigation/AbstractTest.php">
-    <InvalidPropertyAssignmentValue occurrences="2">
-      <code>new Navigation($config-&gt;get('nav_test2'))</code>
-      <code>new Navigation($config-&gt;get('nav_test3'))</code>
-    </InvalidPropertyAssignmentValue>
-    <InvalidStringClass occurrences="1">
-      <code>new $this-&gt;_helperName</code>
-    </InvalidStringClass>
-    <MixedArgument occurrences="3">
-      <code>$config-&gt;get('nav_test1')</code>
-      <code>$config-&gt;get('nav_test2')</code>
-      <code>$config-&gt;get('nav_test3')</code>
-    </MixedArgument>
     <MixedAssignment occurrences="1">
       <code>$app</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="6">
+    <MixedMethodCall occurrences="4">
       <code>bootstrap</code>
       <code>getMvcEvent</code>
       <code>loadModules</code>
-      <code>setContainer</code>
       <code>setRouteMatch</code>
-      <code>setView</code>
     </MixedMethodCall>
     <NullArgument occurrences="3">
       <code>null</code>
       <code>null</code>
       <code>null</code>
     </NullArgument>
-    <PossiblyInvalidMethodCall occurrences="5">
-      <code>addPath</code>
-      <code>get</code>
-      <code>get</code>
-      <code>get</code>
-      <code>get</code>
-    </PossiblyInvalidMethodCall>
-    <PropertyTypeCoercion occurrences="1">
-      <code>new $this-&gt;_helperName</code>
-    </PropertyTypeCoercion>
     <TooManyArguments occurrences="1">
       <code>new GenericResource('admin_foo', 'member_foo')</code>
     </TooManyArguments>
-    <UndefinedDocblockClass occurrences="2">
-      <code>Navigation\Navigation</code>
-      <code>Navigation\Navigation</code>
-    </UndefinedDocblockClass>
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>addPath</code>
-    </UndefinedInterfaceMethod>
   </file>
   <file src="test/Helper/Navigation/BreadcrumbsTest.php">
-    <InvalidArgument occurrences="6">
-      <code>$this-&gt;_nav2</code>
-      <code>$this-&gt;_nav2</code>
-      <code>$this-&gt;_nav2</code>
-      <code>$this-&gt;_nav3</code>
+    <InvalidArgument occurrences="2">
       <code>'Navigation'</code>
       <code>'Navigation'</code>
     </InvalidArgument>
@@ -3642,10 +3578,6 @@
     </NonInvariantDocblockPropertyType>
   </file>
   <file src="test/Helper/Navigation/LinksTest.php">
-    <InvalidArgument occurrences="1">
-      <code>$this-&gt;_nav2</code>
-    </InvalidArgument>
-    <InvalidCatch occurrences="2"/>
     <MissingPropertyType occurrences="2">
       <code>$_doctypeHelper</code>
       <code>$_oldDoctype</code>
@@ -3806,32 +3738,13 @@
     </UnusedForeachValue>
   </file>
   <file src="test/Helper/Navigation/MenuTest.php">
-    <InvalidArgument occurrences="7">
-      <code>$this-&gt;_nav2</code>
-      <code>$this-&gt;_nav2</code>
-      <code>$this-&gt;_nav2</code>
-      <code>$this-&gt;_nav2</code>
-      <code>$this-&gt;_nav3</code>
+    <InvalidArgument occurrences="2">
       <code>'Navigation'</code>
       <code>'Navigation'</code>
     </InvalidArgument>
-    <MixedArgument occurrences="5">
-      <code>$pages</code>
-      <code>$this-&gt;_nav2-&gt;toArray()</code>
-      <code>$this-&gt;_nav2-&gt;toArray()</code>
-      <code>$this-&gt;_nav2-&gt;toArray()</code>
-      <code>$this-&gt;_nav2-&gt;toArray()</code>
-    </MixedArgument>
-    <MixedArrayAccess occurrences="1">
-      <code>$pages[1]</code>
-    </MixedArrayAccess>
-    <MixedArrayAssignment occurrences="1">
-      <code>$pages[1]</code>
-    </MixedArrayAssignment>
-    <MixedAssignment occurrences="3">
+    <MixedAssignment occurrences="2">
       <code>$p</code>
       <code>$page</code>
-      <code>$pages</code>
     </MixedAssignment>
     <MixedMethodCall occurrences="2">
       <code>setActive</code>
@@ -3840,30 +3753,14 @@
     <NonInvariantDocblockPropertyType occurrences="1">
       <code>$_helper</code>
     </NonInvariantDocblockPropertyType>
-    <UndefinedDocblockClass occurrences="5">
-      <code>$this-&gt;_nav2</code>
-      <code>$this-&gt;_nav2</code>
-      <code>$this-&gt;_nav2</code>
-      <code>$this-&gt;_nav2</code>
-      <code>$this-&gt;_nav2</code>
-    </UndefinedDocblockClass>
   </file>
   <file src="test/Helper/Navigation/NavigationTest.php">
     <DeprecatedMethod occurrences="1">
       <code>getServiceLocator</code>
     </DeprecatedMethod>
-    <InvalidArgument occurrences="5">
-      <code>$this-&gt;_nav2</code>
-      <code>$this-&gt;_nav2</code>
-      <code>$this-&gt;_nav2</code>
-      <code>$this-&gt;_nav2</code>
+    <InvalidArgument occurrences="1">
       <code>[$this, 'toStringErrorHandler']</code>
     </InvalidArgument>
-    <InvalidCatch occurrences="4"/>
-    <InvalidStringClass occurrences="2">
-      <code>new $this-&gt;_helperName</code>
-      <code>new $this-&gt;_helperName</code>
-    </InvalidStringClass>
     <MissingParamType occurrences="4">
       <code>$code</code>
       <code>$file</code>
@@ -3881,14 +3778,10 @@
       <code>$creationContextValue</code>
       <code>$expected</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="7">
+    <MixedMethodCall occurrences="3">
       <code>getContainer</code>
       <code>getContainer</code>
       <code>getContainer</code>
-      <code>getPluginManager</code>
-      <code>setPluginManager</code>
-      <code>setServiceLocator</code>
-      <code>setView</code>
     </MixedMethodCall>
     <NonInvariantDocblockPropertyType occurrences="1">
       <code>$_helper</code>
@@ -3912,24 +3805,9 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="test/Helper/Navigation/SitemapTest.php">
-    <InvalidArgument occurrences="3">
-      <code>$this-&gt;_nav2</code>
-      <code>$this-&gt;_nav2</code>
-      <code>$this-&gt;_nav2</code>
-    </InvalidArgument>
-    <InvalidCatch occurrences="1"/>
-    <InvalidClone occurrences="2">
-      <code>clone $this-&gt;_nav2</code>
-      <code>clone $this-&gt;_nav2</code>
-    </InvalidClone>
     <MissingPropertyType occurrences="1">
       <code>$_oldServer</code>
     </MissingPropertyType>
-    <MixedArgument occurrences="3">
-      <code>$e-&gt;getMessage()</code>
-      <code>$nav</code>
-      <code>$nav</code>
-    </MixedArgument>
     <MixedArrayAssignment occurrences="3">
       <code>$this-&gt;_oldServer['REQUEST_URI']</code>
       <code>$this-&gt;_oldServer['SERVER_NAME']</code>
@@ -3938,16 +3816,12 @@
     <MixedArrayOffset occurrences="1">
       <code>$_SERVER[$key]</code>
     </MixedArrayOffset>
-    <MixedAssignment occurrences="5">
+    <MixedAssignment occurrences="3">
       <code>$_SERVER[$key]</code>
       <code>$key</code>
-      <code>$nav</code>
-      <code>$nav</code>
       <code>$value</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="3">
-      <code>addPage</code>
-      <code>addPage</code>
+    <MixedMethodCall occurrences="1">
       <code>setBasePath</code>
     </MixedMethodCall>
     <NonInvariantDocblockPropertyType occurrences="1">
@@ -3956,10 +3830,6 @@
     <PossiblyNullReference occurrences="1">
       <code>plugin</code>
     </PossiblyNullReference>
-    <UndefinedClass occurrences="2">
-      <code>$e</code>
-      <code>\Laminas\URI\Exception\ExceptionInterface</code>
-    </UndefinedClass>
     <UndefinedInterfaceMethod occurrences="1">
       <code>plugin</code>
     </UndefinedInterfaceMethod>
@@ -3968,27 +3838,14 @@
     </UnevaluatedCode>
   </file>
   <file src="test/Helper/PaginationControlTest.php">
-    <InvalidArgument occurrences="3">
+    <InvalidArgument occurrences="2">
       <code>$all</code>
-      <code>Exception\ExceptionInterface::class</code>
       <code>['partial.phtml', 'test']</code>
     </InvalidArgument>
-    <MissingPropertyType occurrences="1">
-      <code>$_paginator</code>
-    </MissingPropertyType>
-    <MixedArgument occurrences="5">
-      <code>$this-&gt;_paginator</code>
-      <code>$this-&gt;_paginator</code>
-      <code>$this-&gt;_paginator</code>
-      <code>$this-&gt;_paginator</code>
-      <code>$this-&gt;_paginator</code>
-    </MixedArgument>
     <NoInterfaceProperties occurrences="1">
       <code>$this-&gt;_viewHelper-&gt;getView()-&gt;paginator</code>
     </NoInterfaceProperties>
-    <NullArgument occurrences="3">
-      <code>null</code>
-      <code>null</code>
+    <NullArgument occurrences="1">
       <code>null</code>
     </NullArgument>
     <PossiblyNullPropertyAssignment occurrences="1">
@@ -4729,10 +4586,6 @@
     <ArgumentTypeCoercion occurrences="1">
       <code>'Exception'</code>
     </ArgumentTypeCoercion>
-    <InvalidArgument occurrences="2">
-      <code>Exception\ExceptionInterface::class</code>
-      <code>Exception\ExceptionInterface::class</code>
-    </InvalidArgument>
     <MissingClosureParamType occurrences="3">
       <code>$content</code>
       <code>$errno</code>
@@ -5035,10 +4888,6 @@
     </UndefinedMethod>
   </file>
   <file src="test/Resolver/TemplatePathStackTest.php">
-    <InvalidArgument occurrences="2">
-      <code>Exception\ExceptionInterface::class</code>
-      <code>Exception\ExceptionInterface::class</code>
-    </InvalidArgument>
     <MixedArgument occurrences="1">
       <code>$options</code>
     </MixedArgument>
@@ -5048,84 +4897,12 @@
     </PossiblyInvalidArgument>
   </file>
   <file src="test/Strategy/FeedStrategyTest.php">
-    <MixedAssignment occurrences="15">
-      <code>$content</code>
-      <code>$content</code>
-      <code>$content</code>
-      <code>$headers</code>
-      <code>$headers</code>
-      <code>$headers</code>
-      <code>$headers</code>
+    <MixedAssignment occurrences="4">
       <code>$listener</code>
       <code>$listener</code>
       <code>$priority</code>
       <code>$priority</code>
-      <code>$result</code>
-      <code>$result</code>
-      <code>$result</code>
-      <code>$result</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="59">
-      <code>attach</code>
-      <code>attach</code>
-      <code>attach</code>
-      <code>detach</code>
-      <code>get</code>
-      <code>get</code>
-      <code>get</code>
-      <code>getContent</code>
-      <code>getContent</code>
-      <code>getContent</code>
-      <code>getContent</code>
-      <code>getFeedType</code>
-      <code>getFieldValue</code>
-      <code>getFieldValue</code>
-      <code>getFieldValue</code>
-      <code>getHeaders</code>
-      <code>getHeaders</code>
-      <code>getHeaders</code>
-      <code>getHeaders</code>
-      <code>has</code>
-      <code>has</code>
-      <code>has</code>
-      <code>has</code>
-      <code>injectResponse</code>
-      <code>injectResponse</code>
-      <code>injectResponse</code>
-      <code>injectResponse</code>
-      <code>injectResponse</code>
-      <code>injectResponse</code>
-      <code>selectRenderer</code>
-      <code>selectRenderer</code>
-      <code>selectRenderer</code>
-      <code>selectRenderer</code>
-      <code>selectRenderer</code>
-      <code>selectRenderer</code>
-      <code>setFeedType</code>
-      <code>setFeedType</code>
-      <code>setFeedType</code>
-      <code>setModel</code>
-      <code>setModel</code>
-      <code>setModel</code>
-      <code>setRenderer</code>
-      <code>setRenderer</code>
-      <code>setRenderer</code>
-      <code>setRenderer</code>
-      <code>setRenderer</code>
-      <code>setRequest</code>
-      <code>setRequest</code>
-      <code>setRequest</code>
-      <code>setRequest</code>
-      <code>setResponse</code>
-      <code>setResponse</code>
-      <code>setResponse</code>
-      <code>setResponse</code>
-      <code>setResponse</code>
-      <code>setResult</code>
-      <code>setResult</code>
-      <code>setResult</code>
-      <code>setResult</code>
-    </MixedMethodCall>
     <PossiblyInvalidMethodCall occurrences="3">
       <code>addHeaderLine</code>
       <code>addHeaderLine</code>
@@ -5136,54 +4913,6 @@
       <code>addHeaderLine</code>
       <code>addHeaderLine</code>
     </PossiblyUndefinedMethod>
-    <UndefinedThisPropertyAssignment occurrences="4">
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;response</code>
-      <code>$this-&gt;strategy</code>
-    </UndefinedThisPropertyAssignment>
-    <UndefinedThisPropertyFetch occurrences="40">
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;response</code>
-      <code>$this-&gt;response</code>
-      <code>$this-&gt;response</code>
-      <code>$this-&gt;response</code>
-      <code>$this-&gt;response</code>
-      <code>$this-&gt;response</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-    </UndefinedThisPropertyFetch>
   </file>
   <file src="test/Strategy/JsonStrategyTest.php">
     <MissingParamType occurrences="1">
@@ -5486,71 +5215,6 @@
     <MissingPropertyType occurrences="1">
       <code>$value</code>
     </MissingPropertyType>
-  </file>
-  <file src="test/VariablesTest.php">
-    <InvalidArgument occurrences="1">
-      <code>[$this, 'handleErrors']</code>
-    </InvalidArgument>
-    <MissingParamType occurrences="2">
-      <code>$errcode</code>
-      <code>$errmsg</code>
-    </MissingParamType>
-    <MixedArgument occurrences="3">
-      <code>$this-&gt;error</code>
-      <code>$this-&gt;vars</code>
-      <code>$this-&gt;vars</code>
-    </MixedArgument>
-    <MixedArrayAccess occurrences="8">
-      <code>$this-&gt;vars['bar']</code>
-      <code>$this-&gt;vars['bar']</code>
-      <code>$this-&gt;vars['bar']</code>
-      <code>$this-&gt;vars['baz']</code>
-      <code>$this-&gt;vars['foo']</code>
-      <code>$this-&gt;vars['foo']</code>
-      <code>$this-&gt;vars['foo']</code>
-      <code>$this-&gt;vars['foo']</code>
-    </MixedArrayAccess>
-    <MixedArrayAssignment occurrences="1">
-      <code>$this-&gt;vars['foo']</code>
-    </MixedArrayAssignment>
-    <MixedMethodCall occurrences="9">
-      <code>assign</code>
-      <code>assign</code>
-      <code>assign</code>
-      <code>assign</code>
-      <code>clear</code>
-      <code>isStrict</code>
-      <code>isStrict</code>
-      <code>setStrictVars</code>
-      <code>setStrictVars</code>
-    </MixedMethodCall>
-    <MixedPropertyAssignment occurrences="2">
-      <code>$this-&gt;vars</code>
-      <code>$this-&gt;vars</code>
-    </MixedPropertyAssignment>
-    <MixedPropertyFetch occurrences="2">
-      <code>$this-&gt;vars-&gt;foo</code>
-      <code>$this-&gt;vars-&gt;foo</code>
-    </MixedPropertyFetch>
-    <UndefinedThisPropertyAssignment occurrences="4">
-      <code>$this-&gt;error</code>
-      <code>$this-&gt;error</code>
-      <code>$this-&gt;vars</code>
-      <code>$this-&gt;vars</code>
-    </UndefinedThisPropertyAssignment>
-    <UndefinedThisPropertyFetch occurrences="11">
-      <code>$this-&gt;error</code>
-      <code>$this-&gt;vars</code>
-      <code>$this-&gt;vars</code>
-      <code>$this-&gt;vars</code>
-      <code>$this-&gt;vars</code>
-      <code>$this-&gt;vars</code>
-      <code>$this-&gt;vars</code>
-      <code>$this-&gt;vars</code>
-      <code>$this-&gt;vars</code>
-      <code>$this-&gt;vars</code>
-      <code>$this-&gt;vars</code>
-    </UndefinedThisPropertyFetch>
   </file>
   <file src="test/ViewEventTest.php">
     <MissingPropertyType occurrences="1">

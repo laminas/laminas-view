@@ -30,11 +30,6 @@ class HtmlPageTest extends TestCase
         $this->helper->setView($this->view);
     }
 
-    protected function tearDown(): void
-    {
-        unset($this->helper);
-    }
-
     public function testMakeHtmlPage(): void
     {
         $htmlPage = $this->helper->__invoke('/path/to/page.html');

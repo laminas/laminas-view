@@ -23,48 +23,26 @@ class PlaceholderTest extends TestCase
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.
-     *
-     * @return void
      */
     protected function setUp(): void
     {
         $this->placeholder = new Helper\Placeholder();
     }
 
-    /**
-     * Tears down the fixture, for example, close a network connection.
-     * This method is called after a test is executed.
-     *
-     * @return void
-     */
-    protected function tearDown(): void
-    {
-        unset($this->placeholder);
-    }
-
-    /**
-     * @return void
-     */
-    public function testSetView()
+    public function testSetView(): void
     {
         $view = new View();
         $this->placeholder->setView($view);
         $this->assertSame($view, $this->placeholder->getView());
     }
 
-    /**
-     * @return void
-     */
-    public function testPlaceholderRetrievesContainer()
+    public function testPlaceholderRetrievesContainer(): void
     {
         $container = $this->placeholder->__invoke('foo');
         $this->assertInstanceOf(AbstractContainer::class, $container);
     }
 
-    /**
-     * @return void
-     */
-    public function testPlaceholderRetrievesSameContainerOnSubsequentCalls()
+    public function testPlaceholderRetrievesSameContainerOnSubsequentCalls(): void
     {
         $container1 = $this->placeholder->__invoke('foo');
         $container2 = $this->placeholder->__invoke('foo');

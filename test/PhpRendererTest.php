@@ -114,8 +114,6 @@ class PhpRendererTest extends TestCase
 
     /**
      * @dataProvider invalidPluginManagers
-     *
-     * @return void
      */
     public function testPassingInvalidArgumentToSetHelperPluginManagerRaisesException($plugins): void
     {
@@ -174,8 +172,6 @@ class PhpRendererTest extends TestCase
 
     /**
      * @group Laminas-68
-     *
-     * @return void
      */
     public function testCanSpecifyArrayForVarsAndGetAlwaysArrayObject(): void
     {
@@ -186,8 +182,6 @@ class PhpRendererTest extends TestCase
 
     /**
      * @group Laminas-68
-     *
-     * @return void
      */
     public function testPassingVariablesObjectToSetVarsShouldUseItDirectory(): void
     {
@@ -198,8 +192,6 @@ class PhpRendererTest extends TestCase
 
     /**
      * @group Laminas-86
-     *
-     * @return void
      */
     public function testNestedRenderingRestoresVariablesCorrectly(): void
     {
@@ -211,8 +203,6 @@ class PhpRendererTest extends TestCase
 
     /**
      * @group convenience-api
-     *
-     * @return void
      */
     public function testPropertyOverloadingShouldProxyToVariablesContainer(): void
     {
@@ -222,8 +212,6 @@ class PhpRendererTest extends TestCase
 
     /**
      * @group convenience-api
-     *
-     * @return void
      */
     public function testMethodOverloadingShouldReturnHelperInstanceIfNotInvokable(): void
     {
@@ -237,8 +225,6 @@ class PhpRendererTest extends TestCase
 
     /**
      * @group convenience-api
-     *
-     * @return void
      */
     public function testMethodOverloadingShouldInvokeHelperIfInvokable(): void
     {
@@ -252,8 +238,6 @@ class PhpRendererTest extends TestCase
 
     /**
      * @group convenience-api
-     *
-     * @return void
      */
     public function testGetMethodShouldRetrieveVariableFromVariableContainer(): void
     {
@@ -264,8 +248,6 @@ class PhpRendererTest extends TestCase
 
     /**
      * @group convenience-api
-     *
-     * @return void
      */
     public function testRenderingLocalVariables(): void
     {
@@ -290,8 +272,6 @@ class PhpRendererTest extends TestCase
 
     /**
      * @group view-model
-     *
-     * @return void
      */
     public function testCanRenderViewModel(): void
     {
@@ -309,8 +289,6 @@ class PhpRendererTest extends TestCase
 
     /**
      * @group view-model
-     *
-     * @return void
      */
     public function testViewModelWithoutTemplateRaisesException(): void
     {
@@ -321,8 +299,6 @@ class PhpRendererTest extends TestCase
 
     /**
      * @group view-model
-     *
-     * @return void
      */
     public function testRendersViewModelWithVariablesSpecified(): void
     {
@@ -341,8 +317,6 @@ class PhpRendererTest extends TestCase
 
     /**
      * @group view-model
-     *
-     * @return void
      */
     public function testRenderedViewModelIsRegisteredAsCurrentViewModel(): void
     {
@@ -401,8 +375,6 @@ class PhpRendererTest extends TestCase
 
     /**
      * @dataProvider invalidTemplateFiles
-     *
-     * @return void
      */
     public function testRendererRaisesExceptionIfResolvedTemplateIsInvalid($template): void
     {
@@ -430,8 +402,6 @@ class PhpRendererTest extends TestCase
 
     /**
      * @group view-model
-     *
-     * @return void
      */
     public function testDoesNotRenderTreesOfViewModelsByDefault(): void
     {
@@ -440,8 +410,6 @@ class PhpRendererTest extends TestCase
 
     /**
      * @group view-model
-     *
-     * @return void
      */
     public function testRenderTreesOfViewModelsCapabilityIsMutable(): void
     {
@@ -453,8 +421,6 @@ class PhpRendererTest extends TestCase
 
     /**
      * @group view-model
-     *
-     * @return void
      */
     public function testIfViewModelComposesVariablesInstanceThenRendererUsesIt(): void
     {
@@ -473,8 +439,6 @@ class PhpRendererTest extends TestCase
 
     /**
      * @group Laminas-4221
-     *
-     * @return void
      */
     public function testSharedInstanceHelper(): void
     {
@@ -527,8 +491,6 @@ class PhpRendererTest extends TestCase
      * @group laminas-view-120
      *
      * @see https://github.com/zendframework/zend-view/issues/120
-     *
-     * @return void
      */
     public function testRendererDoesntUsePreviousRenderedOutputWhenInvokedWithEmptyString(): void
     {
@@ -545,8 +507,6 @@ class PhpRendererTest extends TestCase
      * @group laminas-view-120
      *
      * @see https://github.com/zendframework/zend-view/issues/120
-     *
-     * @return void
      */
     public function testRendererDoesntUsePreviousRenderedOutputWhenInvokedWithFalse(): void
     {

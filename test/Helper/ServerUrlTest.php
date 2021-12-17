@@ -152,8 +152,6 @@ class ServerUrlTest extends TestCase
 
     /**
      * @group Laminas-9919
-     *
-     * @return void
      */
     public function testServerUrlWithScheme(): void
     {
@@ -165,8 +163,6 @@ class ServerUrlTest extends TestCase
 
     /**
      * @group Laminas-9919
-     *
-     * @return void
      */
     public function testServerUrlWithPort(): void
     {
@@ -178,8 +174,6 @@ class ServerUrlTest extends TestCase
 
     /**
      * @group Laminas-508
-     *
-     * @return void
      */
     public function testServerUrlWithProxy(): void
     {
@@ -192,8 +186,6 @@ class ServerUrlTest extends TestCase
 
     /**
      * @group Laminas-508
-     *
-     * @return void
      */
     public function testServerUrlWithMultipleProxies(): void
     {

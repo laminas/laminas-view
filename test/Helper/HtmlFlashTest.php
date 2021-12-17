@@ -30,11 +30,6 @@ class HtmlFlashTest extends TestCase
         $this->helper->setView($this->view);
     }
 
-    protected function tearDown(): void
-    {
-        unset($this->helper);
-    }
-
     public function testMakeHtmlFlash(): void
     {
         $htmlFlash = $this->helper->__invoke('/path/to/flash.swf');

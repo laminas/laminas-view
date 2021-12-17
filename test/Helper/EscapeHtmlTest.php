@@ -152,7 +152,6 @@ class EscapeHtmlTest extends TestCase
      * to guess the encoding or take it from php.ini default_charset when an empty
      * string is set. Both are insecure behaviours.
      *
-     * @return void
      */
     public function testSettingEncodingToEmptyStringShouldThrowException(): void
     {
@@ -173,8 +172,6 @@ class EscapeHtmlTest extends TestCase
      * a warning level error is issued and escaping continues with the default encoding
      * for that PHP version. Preventing the continuation behaviour offsets display_errors
      * off in production env.
-     *
-     * @return void
      */
     public function testSettingEncodingToInvalidValueShouldThrowException(): void
     {

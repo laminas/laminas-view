@@ -97,8 +97,6 @@ class HelperPluginManagerCompatibilityTest extends TestCase
 
     /**
      * @todo remove this test once we set the minimum laminas-servicemanager version to 3
-     *
-     * @return void
      */
     public function testRegisteringInvalidElementRaisesException(): void
     {
@@ -108,8 +106,6 @@ class HelperPluginManagerCompatibilityTest extends TestCase
 
     /**
      * @todo remove this test once we set the minimum laminas-servicemanager version to 3
-     *
-     * @return void
      */
     public function testLoadingInvalidElementRaisesException(): void
     {

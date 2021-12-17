@@ -13,7 +13,7 @@ class AssetTest extends TestCase
 {
     use ProphecyTrait;
 
-    /** @var array */
+    /** @var array<string, string> */
     protected $resourceMap = [
         'css/style.css' => 'css/style-3a97ff4ee3.css',
         'js/vendor.js' => 'js/vendor-a507086eba.js',
@@ -56,13 +56,8 @@ class AssetTest extends TestCase
 
     /**
      * @dataProvider assets
-     *
-     * @param string $name
-     * @param string $expected
-     *
-     * @return void
      */
-    public function testInvokeResult($name, $expected): void
+    public function testInvokeResult(string $name, string $expected): void
     {
         $result = $this->asset->__invoke($name);
 
@@ -70,9 +65,7 @@ class AssetTest extends TestCase
     }
 
     /**
-     * @return ((int|string)|mixed)[][]
-     *
-     * @psalm-return list<array{0: array-key, 1: mixed}>
+     * @return array<array-key, array{0: string, 1: string}>
      */
     public function assets(): array
     {

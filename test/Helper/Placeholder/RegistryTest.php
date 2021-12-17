@@ -25,49 +25,27 @@ class RegistryTest extends TestCase
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.
-     *
-     * @return void
      */
     protected function setUp(): void
     {
         $this->registry = new Registry();
     }
 
-    /**
-     * Tears down the fixture, for example, close a network connection.
-     * This method is called after a test is executed.
-     *
-     * @return void
-     */
-    protected function tearDown(): void
-    {
-        unset($this->registry);
-    }
-
-    /**
-     * @return void
-     */
-    public function testCreateContainer()
+    public function testCreateContainer(): void
     {
         $this->assertFalse($this->registry->containerExists('foo'));
         $this->registry->createContainer('foo');
         $this->assertTrue($this->registry->containerExists('foo'));
     }
 
-    /**
-     * @return void
-     */
-    public function testCreateContainerCreatesDefaultContainerClass()
+    public function testCreateContainerCreatesDefaultContainerClass(): void
     {
         $this->assertFalse($this->registry->containerExists('foo'));
         $container = $this->registry->createContainer('foo');
         $this->assertInstanceOf(Container::class, $container);
     }
 
-    /**
-     * @return void
-     */
-    public function testGetContainerCreatesContainerIfNonExistent()
+    public function testGetContainerCreatesContainerIfNonExistent(): void
     {
         $this->assertFalse($this->registry->containerExists('foo'));
         $container = $this->registry->getContainer('foo');
@@ -75,10 +53,7 @@ class RegistryTest extends TestCase
         $this->assertTrue($this->registry->containerExists('foo'));
     }
 
-    /**
-     * @return void
-     */
-    public function testSetContainerCreatesRegistryEntry()
+    public function testSetContainerCreatesRegistryEntry(): void
     {
         $foo = new Container(['foo', 'bar']);
         $this->assertFalse($this->registry->containerExists('foo'));
@@ -136,8 +111,6 @@ class RegistryTest extends TestCase
 
     /**
      * @group Laminas-10793
-     *
-     * @return void
      */
     public function testSetValueCreateContainer(): void
     {

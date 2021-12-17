@@ -30,11 +30,6 @@ class HtmlQuicktimeTest extends TestCase
         $this->helper->setView($this->view);
     }
 
-    protected function tearDown(): void
-    {
-        unset($this->helper);
-    }
-
     public function testMakeHtmlQuicktime(): void
     {
         $htmlQuicktime = $this->helper->__invoke('/path/to/quicktime.mov');

@@ -5,7 +5,6 @@ namespace LaminasTest\View\Helper;
 use Laminas\I18n\Translator\Translator;
 use Laminas\View\Helper;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * Test class for Laminas\View\Helper\HeadTitle.
@@ -15,8 +14,6 @@ use Prophecy\PhpUnit\ProphecyTrait;
  */
 class HeadTitleTest extends TestCase
 {
-    use ProphecyTrait;
-
     /**
      * @var Helper\HeadTitle
      */
@@ -30,24 +27,11 @@ class HeadTitleTest extends TestCase
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.
-     *
-     * @return void
      */
     protected function setUp(): void
     {
         $this->basePath = __DIR__ . '/_files/modules';
         $this->helper = new Helper\HeadTitle();
-    }
-
-    /**
-     * Tears down the fixture, for example, close a network connection.
-     * This method is called after a test is executed.
-     *
-     * @return void
-     */
-    protected function tearDown(): void
-    {
-        unset($this->helper);
     }
 
     public function testHeadTitleReturnsObjectInstance(): void
@@ -135,8 +119,6 @@ class HeadTitleTest extends TestCase
      * @issue Laminas-2918
      *
      * @link https://getlaminas.org/issues/browse/Laminas-2918
-     *
-     * @return void
      */
     public function testLaminas918(): void
     {
@@ -151,8 +133,6 @@ class HeadTitleTest extends TestCase
      * @issue Laminas-3577
      *
      * @link https://getlaminas.org/issues/browse/Laminas-3577
-     *
-     * @return void
      */
     public function testLaminas577(): void
     {
@@ -164,24 +144,15 @@ class HeadTitleTest extends TestCase
         $this->assertEquals('Prefix &amp; Some Title &amp; Postfix', $this->helper->renderTitle());
     }
 
-    /**
-     * @return never
-     */
-    public function testCanTranslateTitle()
+    public function testCanTranslateTitle(): void
     {
-        $this->markTestIncomplete('Re-enable after laminas-i18n is updated to laminas-servicemanager v3');
-
-        if (! extension_loaded('intl')) {
-            $this->markTestSkipped('ext/intl not enabled');
-        }
-
         $loader = new TestAsset\ArrayTranslator();
         $loader->translations = [
             'Message_1' => 'Message 1 (en)',
         ];
         $translator = new Translator();
         $translator->getPluginManager()->setService('default', $loader);
-        $translator->addTranslationFile('default', null);
+        $translator->addTranslationFile('default', '');
 
         $this->helper->setTranslatorEnabled(true);
         $this->helper->setTranslator($translator);
@@ -191,7 +162,7 @@ class HeadTitleTest extends TestCase
 
     public function testTranslatorMethods(): void
     {
-        $translatorMock = $this->prophesize(Translator::class)->reveal();
+        $translatorMock = $this->createMock(Translator::class);
         $this->helper->setTranslator($translatorMock, 'foo');
 
         $this->assertEquals($translatorMock, $this->helper->getTranslator());
@@ -205,8 +176,6 @@ class HeadTitleTest extends TestCase
 
     /**
      * @group Laminas-8036
-     *
-     * @return void
      */
     public function testHeadTitleZero(): void
     {
@@ -222,11 +191,8 @@ class HeadTitleTest extends TestCase
         $this->assertEquals('BarFoo', $placeholder->renderTitle());
     }
 
-
     /**
      * @group Laminas-10284
-     *
-     * @return void
      */
     public function testReturnTypeDefaultAttachOrder(): void
     {

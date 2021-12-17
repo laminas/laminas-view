@@ -32,11 +32,6 @@ class HtmlObjectTest extends TestCase
         $this->helper->setView($this->view);
     }
 
-    protected function tearDown(): void
-    {
-        unset($this->helper);
-    }
-
     public function testViewObjectIsSet(): void
     {
         $this->assertInstanceof(RendererInterface::class, $this->helper->getView());

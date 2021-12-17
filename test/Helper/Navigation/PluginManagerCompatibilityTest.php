@@ -35,8 +35,6 @@ class PluginManagerCompatibilityTest extends TestCase
 
     /**
      * @group 43
-     *
-     * @return void
      */
     public function testConstructorArgumentsAreOptionalUnderV2(): void
     {
@@ -51,8 +49,6 @@ class PluginManagerCompatibilityTest extends TestCase
 
     /**
      * @group 43
-     *
-     * @return void
      */
     public function testConstructorAllowsConfigInstanceAsFirstArgumentUnderV2(): void
     {
@@ -84,8 +80,6 @@ class PluginManagerCompatibilityTest extends TestCase
 
     /**
      * @todo remove this test once we set the minimum laminas-servicemanager version to 3
-     *
-     * @return void
      */
     public function testRegisteringInvalidElementRaisesException(): void
     {
@@ -95,8 +89,6 @@ class PluginManagerCompatibilityTest extends TestCase
 
     /**
      * @todo remove this test once we set the minimum laminas-servicemanager version to 3
-     *
-     * @return void
      */
     public function testLoadingInvalidElementRaisesException(): void
     {
