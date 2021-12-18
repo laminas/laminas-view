@@ -15,7 +15,7 @@ namespace Laminas\View;
  *     Mike Naberezny (@link http://mikenaberezny.com)
  *     Paul M. Jones  (@link http://paul-m-jones.com)
  *
- * @deprecated will be removed in version 3
+ * @deprecated will be removed in version 3, only the normal PHP tags (<?php ?> and <?= ?>) should be used
  */
 class Stream
 {
