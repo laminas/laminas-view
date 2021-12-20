@@ -2,13 +2,13 @@
 
 namespace LaminasTest\View\Helper\Navigation;
 
-use Laminas\ServiceManager\PsrContainerDecorator;
-use Psr\Container\ContainerInterface;
+use Interop\Container\ContainerInterface;
 use Laminas\I18n\Translator\Translator;
 use Laminas\Navigation\Navigation as Container;
 use Laminas\Navigation\Page;
 use Laminas\Permissions\Acl;
 use Laminas\Permissions\Acl\Role;
+use Laminas\ServiceManager\PsrContainerDecorator;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View;
 use Laminas\View\Helper\Navigation;

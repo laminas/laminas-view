@@ -2,6 +2,7 @@
 
 namespace Laminas\View\Helper\Navigation;
 
+use Interop\Container\ContainerInterface;
 use Laminas\EventManager\EventManager;
 use Laminas\EventManager\EventManagerAwareInterface;
 use Laminas\EventManager\EventManagerInterface;
@@ -13,7 +14,6 @@ use Laminas\ServiceManager\AbstractPluginManager;
 use Laminas\View;
 use Laminas\View\Exception;
 use Laminas\View\Helper\TranslatorAwareTrait;
-use Psr\Container\ContainerInterface;
 use RecursiveIteratorIterator;
 use ReflectionClass;
 use ReflectionProperty;

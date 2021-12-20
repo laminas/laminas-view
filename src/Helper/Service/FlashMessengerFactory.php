@@ -2,11 +2,12 @@
 
 namespace Laminas\View\Helper\Service;
 
+use Interop\Container\ContainerInterface;
+use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\View\Helper\FlashMessenger;
-use Psr\Container\ContainerInterface;
 
-class FlashMessengerFactory
+class FlashMessengerFactory implements FactoryInterface
 {
     /**
      * Create service

@@ -2,10 +2,10 @@
 
 namespace Laminas\View\Helper\Navigation;
 
+use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\ConfigInterface;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\View\HelperPluginManager;
-use Psr\Container\ContainerInterface;
 
 /**
  * Plugin manager implementation for navigation helpers
@@ -21,7 +21,8 @@ class PluginManager extends HelperPluginManager
     /**
      * Default aliases
      *
-     * @inheritdoc
+     * @var array<string, class-string>
+     * @psalm-var array<array-key, string>
      */
     protected $aliases = [
         'breadcrumbs' => Breadcrumbs::class,
@@ -45,7 +46,8 @@ class PluginManager extends HelperPluginManager
     /**
      * Default factories
      *
-     * @inheritdoc
+     * @var array<string, class-string|callable>
+     * @psalm-var array<array-key, string|callable>
      */
     protected $factories = [
         Breadcrumbs::class => InvokableFactory::class,

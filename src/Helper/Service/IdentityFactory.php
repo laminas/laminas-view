@@ -4,11 +4,12 @@ namespace Laminas\View\Helper\Service;
 
 use Laminas\Authentication\AuthenticationService;
 use Laminas\Authentication\AuthenticationServiceInterface;
+use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\View\Helper\Identity;
-use Psr\Container\ContainerInterface;
+use Interop\Container\ContainerInterface;
 
-class IdentityFactory
+class IdentityFactory implements FactoryInterface
 {
     /**
      * @param ContainerInterface $container
