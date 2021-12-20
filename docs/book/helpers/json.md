@@ -21,9 +21,9 @@ determine how to handle the content.
 ```
 
 > WARNING: **Deprecated**
-> 
+>
 > ### Enabling encoding using Laminas\Json\Expr
-> 
+>
 > **This feature of the Json view helper has been deprecated in version 2.16 and will be removed in version 3.0.**
 >
 > The JSON helper accepts an array of options that will be passed to `Laminas\Json\Json::encode()` and
