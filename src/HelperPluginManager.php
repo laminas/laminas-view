@@ -219,8 +219,6 @@ class HelperPluginManager extends AbstractPluginManager
      * basepath and url are not very useful without their factories, however the doctype
      * helper works fine as an invokable. The factory for doctype simply checks for the
      * config value from the merged config.
-     *
-     * @var array<string, callable|class-string>
      */
     protected $factories = [
         Helper\Asset::class               => Helper\Service\AssetFactory::class,

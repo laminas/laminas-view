@@ -1329,9 +1329,8 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/Navigation/PluginManager.php">
-    <NonInvariantDocblockPropertyType occurrences="2">
+    <NonInvariantDocblockPropertyType occurrences="1">
       <code>$aliases</code>
-      <code>$factories</code>
     </NonInvariantDocblockPropertyType>
   </file>
   <file src="src/Helper/Navigation/Sitemap.php">
@@ -1949,9 +1948,8 @@
       <code>has</code>
       <code>has</code>
     </MixedMethodCall>
-    <NonInvariantDocblockPropertyType occurrences="2">
+    <NonInvariantDocblockPropertyType occurrences="1">
       <code>$aliases</code>
-      <code>$factories</code>
     </NonInvariantDocblockPropertyType>
     <UndefinedInterfaceMethod occurrences="2">
       <code>getServiceLocator</code>

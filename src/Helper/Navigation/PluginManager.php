@@ -44,8 +44,6 @@ class PluginManager extends HelperPluginManager
 
     /**
      * Default factories
-     *
-     * @var array<string, class-string|callable>
      */
     protected $factories = [
         Breadcrumbs::class => InvokableFactory::class,
