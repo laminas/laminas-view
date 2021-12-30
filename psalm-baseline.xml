@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="v4.15.0@a1b5e489e6fcebe40cb804793d964e99fc347820">
+<files psalm-version="4.16.1@aa7e400908833b10c0333861f86cd48c510b60eb">
   <file src="bin/templatemap_generator.php">
     <MissingParamType occurrences="1">
       <code>$templatePath</code>
@@ -22,30 +22,32 @@
     <ImplementedReturnTypeMismatch occurrences="1">
       <code>null|Renderer</code>
     </ImplementedReturnTypeMismatch>
-    <PossiblyNullPropertyAssignmentValue occurrences="1">
-      <code>null</code>
-    </PossiblyNullPropertyAssignmentValue>
   </file>
   <file src="src/Helper/AbstractHtmlElement.php">
+    <MissingConstructor occurrences="13">
+      <code>$closingBracket</code>
+      <code>$closingBracket</code>
+      <code>$closingBracket</code>
+      <code>$closingBracket</code>
+      <code>$closingBracket</code>
+      <code>$closingBracket</code>
+      <code>$closingBracket</code>
+      <code>$closingBracket</code>
+      <code>$closingBracket</code>
+      <code>$closingBracket</code>
+      <code>$closingBracket</code>
+      <code>$closingBracket</code>
+      <code>$closingBracket</code>
+    </MissingConstructor>
     <MixedArgument occurrences="1">
       <code>$val</code>
     </MixedArgument>
-    <MixedAssignment occurrences="2">
-      <code>$attribs</code>
+    <MixedAssignment occurrences="1">
       <code>$val</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="1">
-      <code>bool</code>
-    </MixedInferredReturnType>
-    <MixedMethodCall occurrences="1">
-      <code>isXhtml</code>
-    </MixedMethodCall>
-    <MixedReturnStatement occurrences="1">
-      <code>$this-&gt;getView()-&gt;plugin('doctype')-&gt;isXhtml()</code>
-    </MixedReturnStatement>
-    <PossiblyNullPropertyAssignmentValue occurrences="1">
-      <code>null</code>
-    </PossiblyNullPropertyAssignmentValue>
+    <PossiblyInvalidArgument occurrences="1">
+      <code>$attribs</code>
+    </PossiblyInvalidArgument>
     <PossiblyNullReference occurrences="2">
       <code>plugin</code>
       <code>plugin</code>
@@ -138,9 +140,6 @@
     <DocblockTypeContradiction occurrences="1">
       <code>null === static::$registeredDoctypes</code>
     </DocblockTypeContradiction>
-    <ImplicitToStringCast occurrences="1">
-      <code>$this-&gt;__invoke()</code>
-    </ImplicitToStringCast>
     <MixedArrayAssignment occurrences="1">
       <code>$this-&gt;registry['doctypes'][$type]</code>
     </MixedArrayAssignment>
@@ -183,19 +182,10 @@
     </PossiblyNullReference>
   </file>
   <file src="src/Helper/Escaper/AbstractHelper.php">
-    <DocblockTypeContradiction occurrences="1">
-      <code>null === $this-&gt;escaper</code>
-    </DocblockTypeContradiction>
     <MixedAssignment occurrences="2">
       <code>$v</code>
       <code>$value[$k]</code>
     </MixedAssignment>
-    <PossiblyNullPropertyAssignmentValue occurrences="1">
-      <code>null</code>
-    </PossiblyNullPropertyAssignmentValue>
-    <RedundantConditionGivenDocblockType occurrences="1">
-      <code>null !== $this-&gt;escaper</code>
-    </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Helper/FlashMessenger.php">
     <DocblockTypeContradiction occurrences="1">
@@ -208,10 +198,6 @@
       <code>$escapeHtmlHelper</code>
       <code>$pluginFlashMessenger</code>
     </MissingConstructor>
-    <MissingPropertyType occurrences="2">
-      <code>$messageOpenFormat</code>
-      <code>$messageSeparatorString</code>
-    </MissingPropertyType>
     <MixedArgument occurrences="3">
       <code>$item</code>
       <code>$messagesToPrint</code>
@@ -231,25 +217,18 @@
       <code>$messagesToPrint[]</code>
       <code>$this-&gt;escapeHtmlHelper</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="3">
+    <MixedInferredReturnType occurrences="1">
       <code>FlashMessenger</code>
-      <code>string</code>
-      <code>string</code>
     </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="2">
-      <code>$this-&gt;messageOpenFormat</code>
-      <code>$this-&gt;messageSeparatorString</code>
-    </MixedReturnStatement>
     <RedundantCastGivenDocblockType occurrences="4">
       <code>(bool) $autoEscape</code>
       <code>(string) $messageCloseString</code>
       <code>(string) $messageOpenFormat</code>
       <code>(string) $messageSeparatorString</code>
     </RedundantCastGivenDocblockType>
-    <RedundantConditionGivenDocblockType occurrences="3">
+    <RedundantConditionGivenDocblockType occurrences="2">
       <code>$this-&gt;escapeHtmlHelper</code>
       <code>$this-&gt;escapeHtmlHelper</code>
-      <code>null !== $this-&gt;view</code>
     </RedundantConditionGivenDocblockType>
     <UndefinedClass occurrences="1">
       <code>V2PluginFlashMessenger</code>
@@ -302,16 +281,13 @@
     <InvalidArgument occurrences="1">
       <code>$item</code>
     </InvalidArgument>
-    <InvalidReturnStatement occurrences="4">
-      <code>$this</code>
-      <code>$this-&gt;getContainer()-&gt;offsetSet($index, $value)</code>
+    <InvalidReturnStatement occurrences="1">
       <code>$this-&gt;getContainer()-&gt;set($value)</code>
-      <code>parent::__call($method, $args)</code>
     </InvalidReturnStatement>
     <InvalidReturnType occurrences="1">
       <code>HeadLink</code>
     </InvalidReturnType>
-    <MixedArgument occurrences="16">
+    <MixedArgument occurrences="13">
       <code>$args</code>
       <code>$args</code>
       <code>$args</code>
@@ -321,13 +297,10 @@
       <code>$index</code>
       <code>$item</code>
       <code>$item</code>
-      <code>$method</code>
-      <code>$method</code>
-      <code>$method</code>
+      <code>$this-&gt;autoEscape ? $this-&gt;escapeAttribute($attributes[$itemKey]) : $attributes[$itemKey]</code>
+      <code>$this-&gt;autoEscape ? $this-&gt;escapeAttribute($value) : $value</code>
       <code>$this-&gt;getSeparator()</code>
       <code>$value</code>
-      <code>($this-&gt;autoEscape) ? $this-&gt;escapeAttribute($attributes[$itemKey]) : $attributes[$itemKey]</code>
-      <code>($this-&gt;autoEscape) ? $this-&gt;escapeAttribute($value) : $value</code>
     </MixedArgument>
     <MixedArgumentTypeCoercion occurrences="2">
       <code>$extras['media']</code>
@@ -353,9 +326,8 @@
       <code>$type</code>
       <code>$value</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="2">
+    <MixedInferredReturnType occurrences="1">
       <code>HeadLink</code>
-      <code>void</code>
     </MixedInferredReturnType>
     <MixedOperand occurrences="2">
       <code>$indent</code>
@@ -377,8 +349,9 @@
     <PossiblyInvalidArgument occurrences="1">
       <code>$item</code>
     </PossiblyInvalidArgument>
-    <PossiblyNullArgument occurrences="1">
+    <PossiblyNullArgument occurrences="2">
       <code>$index</code>
+      <code>$this-&gt;view</code>
     </PossiblyNullArgument>
     <RedundantCast occurrences="1">
       <code>(string) $conditionalStylesheet</code>
@@ -395,7 +368,7 @@
     </UndefinedMagicMethod>
   </file>
   <file src="src/Helper/HeadMeta.php">
-    <DocblockTypeContradiction occurrences="2">
+    <DocblockTypeContradiction occurrences="1">
       <code>! $item instanceof stdClass</code>
     </DocblockTypeContradiction>
     <InvalidArgument occurrences="2">
@@ -405,19 +378,6 @@
     <InvalidCast occurrences="1">
       <code>$item</code>
     </InvalidCast>
-    <InvalidDocblock occurrences="1">
-      <code>public function setCharset($charset)</code>
-    </InvalidDocblock>
-    <InvalidReturnStatement occurrences="2">
-      <code>$this-&gt;getContainer()-&gt;offsetSet($index, $value)</code>
-      <code>$this-&gt;getContainer()-&gt;offsetUnset($index)</code>
-    </InvalidReturnStatement>
-    <MissingParamType occurrences="1">
-      <code>$charset</code>
-    </MissingParamType>
-    <MissingReturnType occurrences="1">
-      <code>setCharset</code>
-    </MissingReturnType>
     <MixedArgument occurrences="15">
       <code>$args[0]</code>
       <code>$args[1]</code>
@@ -435,11 +395,10 @@
       <code>$type</code>
       <code>$value</code>
     </MixedArgument>
-    <MixedAssignment occurrences="9">
+    <MixedAssignment occurrences="8">
       <code>$doctype</code>
       <code>$indent</code>
       <code>$index</code>
-      <code>$isHtml5</code>
       <code>$item</code>
       <code>$item</code>
       <code>$key</code>
@@ -449,8 +408,7 @@
     <MixedInferredReturnType occurrences="1">
       <code>HeadMeta</code>
     </MixedInferredReturnType>
-    <MixedMethodCall occurrences="7">
-      <code>isHtml5</code>
+    <MixedMethodCall occurrences="6">
       <code>isHtml5</code>
       <code>isHtml5</code>
       <code>isHtml5</code>
@@ -487,6 +445,14 @@
       <code>$args[0]</code>
       <code>$args[1]</code>
     </PossiblyInvalidCast>
+    <PossiblyNullArgument occurrences="1">
+      <code>$this-&gt;view</code>
+    </PossiblyNullArgument>
+    <PossiblyNullReference occurrences="3">
+      <code>plugin</code>
+      <code>plugin</code>
+      <code>plugin</code>
+    </PossiblyNullReference>
     <UndefinedInterfaceMethod occurrences="3">
       <code>plugin</code>
       <code>plugin</code>
@@ -503,14 +469,7 @@
     <InvalidPropertyAssignmentValue occurrences="1">
       <code>['type']</code>
     </InvalidPropertyAssignmentValue>
-    <InvalidReturnStatement occurrences="2">
-      <code>$this-&gt;getContainer()-&gt;offsetSet($index, $value)</code>
-      <code>$this-&gt;getContainer()-&gt;set($value)</code>
-    </InvalidReturnStatement>
-    <InvalidReturnType occurrences="1">
-      <code>void</code>
-    </InvalidReturnType>
-    <MixedArgument occurrences="15">
+    <MixedArgument occurrences="13">
       <code>$content</code>
       <code>$content</code>
       <code>$indent</code>
@@ -521,11 +480,9 @@
       <code>$item-&gt;type</code>
       <code>$item-&gt;type</code>
       <code>$key</code>
-      <code>$key</code>
-      <code>$key</code>
+      <code>$this-&gt;autoEscape ? $this-&gt;escapeAttribute($value) : $value</code>
       <code>$this-&gt;getSeparator()</code>
       <code>$value</code>
-      <code>($this-&gt;autoEscape) ? $this-&gt;escapeAttribute($value) : $value</code>
     </MixedArgument>
     <MixedAssignment occurrences="11">
       <code>$attrs['src']</code>
@@ -576,10 +533,7 @@
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(bool) $flag</code>
     </RedundantCastGivenDocblockType>
-    <RedundantConditionGivenDocblockType occurrences="6">
-      <code>$this-&gt;view</code>
-      <code>$this-&gt;view</code>
-      <code>$this-&gt;view</code>
+    <RedundantConditionGivenDocblockType occurrences="2">
       <code>(null !== $spec) &amp;&amp; is_string($spec)</code>
       <code>is_string($spec)</code>
     </RedundantConditionGivenDocblockType>
@@ -595,15 +549,6 @@
     </UndefinedMagicMethod>
   </file>
   <file src="src/Helper/HeadStyle.php">
-    <InvalidReturnStatement occurrences="4">
-      <code>$this</code>
-      <code>$this-&gt;getContainer()-&gt;offsetSet($index, $value)</code>
-      <code>$this-&gt;getContainer()-&gt;set($value)</code>
-      <code>parent::__call($method, $args)</code>
-    </InvalidReturnStatement>
-    <InvalidReturnType occurrences="1">
-      <code>void</code>
-    </InvalidReturnType>
     <MixedArgument occurrences="10">
       <code>$content</code>
       <code>$enc</code>
@@ -632,9 +577,6 @@
       <code>$key</code>
       <code>$value</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="1">
-      <code>void</code>
-    </MixedInferredReturnType>
     <MixedMethodCall occurrences="1">
       <code>escapeHtmlAttr</code>
     </MixedMethodCall>
@@ -651,12 +593,12 @@
       <code>$escapeEnd</code>
       <code>$escapeStart</code>
     </PossiblyNullOperand>
-    <PossiblyNullPropertyAssignmentValue occurrences="3">
+    <PossiblyNullPropertyAssignmentValue occurrences="2">
       <code>$attrs</code>
       <code>null</code>
-      <code>null</code>
     </PossiblyNullPropertyAssignmentValue>
-    <PropertyNotSetInConstructor occurrences="2">
+    <PropertyNotSetInConstructor occurrences="3">
+      <code>$captureAttrs</code>
       <code>$captureLock</code>
       <code>$captureType</code>
     </PropertyNotSetInConstructor>
@@ -686,29 +628,22 @@
     <MixedArgumentTypeCoercion occurrences="1">
       <code>$items</code>
     </MixedArgumentTypeCoercion>
-    <MixedAssignment occurrences="7">
+    <MixedAssignment occurrences="6">
       <code>$indent</code>
       <code>$item</code>
       <code>$items[]</code>
       <code>$postfix</code>
       <code>$prefix</code>
       <code>$separator</code>
-      <code>$setType</code>
     </MixedAssignment>
     <MixedOperand occurrences="3">
       <code>$indent</code>
       <code>$postfix</code>
       <code>$prefix</code>
     </MixedOperand>
-    <PossiblyNullPropertyAssignmentValue occurrences="1">
-      <code>null</code>
-    </PossiblyNullPropertyAssignmentValue>
     <PossiblyNullReference occurrences="1">
       <code>translate</code>
     </PossiblyNullReference>
-    <PropertyNotSetInConstructor occurrences="1">
-      <code>HeadTitle</code>
-    </PropertyNotSetInConstructor>
   </file>
   <file src="src/Helper/HtmlFlash.php">
     <MixedAssignment occurrences="1">
@@ -814,6 +749,9 @@
     <MixedAssignment occurrences="1">
       <code>$value</code>
     </MixedAssignment>
+    <PossiblyNullArgument occurrences="1">
+      <code>$this-&gt;view</code>
+    </PossiblyNullArgument>
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(bool) $useNamespaces</code>
     </RedundantCastGivenDocblockType>
@@ -886,8 +824,11 @@
       <code>call_user_func_array($helper, $arguments)</code>
     </InvalidFunctionCall>
     <InvalidThrow occurrences="1">
-      <code>\Laminas\Navigation\Exception\ExceptionInterface</code>
+      <code>ExceptionInterface</code>
     </InvalidThrow>
+    <LessSpecificImplementedReturnType occurrences="1">
+      <code>self</code>
+    </LessSpecificImplementedReturnType>
     <MissingConstructor occurrences="1">
       <code>$plugins</code>
     </MissingConstructor>
@@ -899,7 +840,7 @@
       <code>$helper</code>
     </MixedAssignment>
     <MixedInferredReturnType occurrences="1">
-      <code>\Laminas\View\Helper\Navigation\HelperInterface</code>
+      <code>NavigationHelper</code>
     </MixedInferredReturnType>
     <MixedMethodCall occurrences="2">
       <code>setContainer</code>
@@ -938,12 +879,11 @@
       <code>getServiceLocator</code>
       <code>getServiceLocator</code>
     </DeprecatedMethod>
-    <DocblockTypeContradiction occurrences="7">
+    <DocblockTypeContradiction occurrences="6">
       <code>! $services</code>
       <code>! is_int($this-&gt;minDepth)</code>
       <code>! is_string($message)</code>
       <code>$services</code>
-      <code>$this-&gt;acl === null</code>
       <code>$this-&gt;role === null</code>
       <code>null === $this-&gt;container</code>
     </DocblockTypeContradiction>
@@ -954,12 +894,7 @@
     <InvalidThrow occurrences="1">
       <code>Navigation\Exception\ExceptionInterface</code>
     </InvalidThrow>
-    <MissingConstructor occurrences="34">
-      <code>$acl</code>
-      <code>$acl</code>
-      <code>$acl</code>
-      <code>$acl</code>
-      <code>$acl</code>
+    <MissingConstructor occurrences="29">
       <code>$container</code>
       <code>$container</code>
       <code>$container</code>
@@ -1027,15 +962,15 @@
     <PossiblyNullArgument occurrences="1">
       <code>$page-&gt;getTitle()</code>
     </PossiblyNullArgument>
-    <PossiblyNullPropertyAssignmentValue occurrences="4">
-      <code>$acl</code>
+    <PossiblyNullPropertyAssignmentValue occurrences="3">
       <code>$maxDepth</code>
       <code>$minDepth</code>
       <code>$role</code>
     </PossiblyNullPropertyAssignmentValue>
-    <PossiblyNullReference occurrences="3">
+    <PossiblyNullReference occurrences="4">
       <code>attach</code>
       <code>getParent</code>
+      <code>plugin</code>
       <code>translate</code>
     </PossiblyNullReference>
     <RedundantCastGivenDocblockType occurrences="3">
@@ -1043,7 +978,6 @@
       <code>(bool) $useAcl</code>
       <code>(string) $indent</code>
     </RedundantCastGivenDocblockType>
-    <RedundantCondition occurrences="1"/>
     <RedundantConditionGivenDocblockType occurrences="11">
       <code>$serviceLocator-&gt;getServiceLocator()</code>
       <code>$this-&gt;acl === null &amp;&amp; static::$defaultAcl !== null</code>
@@ -1108,8 +1042,7 @@
       <code>getParent</code>
       <code>getTextDomain</code>
     </MixedMethodCall>
-    <MixedOperand occurrences="2">
-      <code>$html</code>
+    <MixedOperand occurrences="1">
       <code>$html</code>
     </MixedOperand>
     <MoreSpecificImplementedParamType occurrences="1">
@@ -1122,6 +1055,10 @@
     <PossiblyNullPropertyAssignmentValue occurrences="1">
       <code>$partial</code>
     </PossiblyNullPropertyAssignmentValue>
+    <PossiblyNullReference occurrences="2">
+      <code>plugin</code>
+      <code>plugin</code>
+    </PossiblyNullReference>
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(bool) $linkLast</code>
     </RedundantCastGivenDocblockType>
@@ -1174,7 +1111,7 @@
     </MixedInferredReturnType>
     <MixedReturnStatement occurrences="2">
       <code>$found</code>
-      <code>count($result) == 1 ? $result[0] : $result</code>
+      <code>count($result) === 1 ? $result[0] : $result</code>
     </MixedReturnStatement>
     <PossiblyInvalidArgument occurrences="1">
       <code>$container</code>
@@ -1225,6 +1162,9 @@
       <code>string</code>
       <code>string</code>
     </InvalidReturnType>
+    <MissingConstructor occurrences="1">
+      <code>$partial</code>
+    </MissingConstructor>
     <MixedArgument occurrences="22">
       <code>$options['addClassToListItem']</code>
       <code>$options['addClassToListItem']</code>
@@ -1252,11 +1192,9 @@
     <MixedArgumentTypeCoercion occurrences="1">
       <code>$liClasses</code>
     </MixedArgumentTypeCoercion>
-    <MixedAssignment occurrences="10">
+    <MixedAssignment occurrences="8">
       <code>$active['page']</code>
       <code>$active['page']</code>
-      <code>$escaper</code>
-      <code>$escaper</code>
       <code>$foundDepth</code>
       <code>$foundPage</code>
       <code>$isActive</code>
@@ -1264,12 +1202,6 @@
       <code>$page</code>
       <code>$subPage</code>
     </MixedAssignment>
-    <MixedFunctionCall occurrences="4">
-      <code>$escaper($ulClass)</code>
-      <code>$escaper($ulClass)</code>
-      <code>$escaper(implode(' ', $liClasses))</code>
-      <code>$escaper(implode(' ', $liClasses))</code>
-    </MixedFunctionCall>
     <MixedMethodCall occurrences="11">
       <code>getClass</code>
       <code>getClass</code>
@@ -1306,10 +1238,15 @@
       <code>$minDepth</code>
       <code>$minDepth</code>
     </PossiblyNullOperand>
-    <PossiblyNullPropertyAssignmentValue occurrences="2">
+    <PossiblyNullPropertyAssignmentValue occurrences="1">
       <code>$partial</code>
-      <code>null</code>
     </PossiblyNullPropertyAssignmentValue>
+    <PossiblyNullReference occurrences="4">
+      <code>plugin</code>
+      <code>plugin</code>
+      <code>plugin</code>
+      <code>plugin</code>
+    </PossiblyNullReference>
     <RedundantCastGivenDocblockType occurrences="4">
       <code>(bool) $flag</code>
       <code>(bool) $flag</code>
@@ -1375,11 +1312,12 @@
     <PossiblyFalseArgument occurrences="1">
       <code>$lastmod</code>
     </PossiblyFalseArgument>
-    <PossiblyNullReference occurrences="6">
+    <PossiblyNullReference occurrences="7">
       <code>isValid</code>
       <code>isValid</code>
       <code>isValid</code>
       <code>isValid</code>
+      <code>plugin</code>
       <code>plugin</code>
       <code>plugin</code>
     </PossiblyNullReference>
@@ -1423,9 +1361,10 @@
     <NoInterfaceProperties occurrences="1">
       <code>$this-&gt;view-&gt;paginator</code>
     </NoInterfaceProperties>
-    <PossiblyNullPropertyAssignmentValue occurrences="1">
-      <code>null</code>
-    </PossiblyNullPropertyAssignmentValue>
+    <PossiblyNullReference occurrences="2">
+      <code>plugin</code>
+      <code>plugin</code>
+    </PossiblyNullReference>
     <UndefinedInterfaceMethod occurrences="2">
       <code>plugin</code>
       <code>plugin</code>
@@ -1498,7 +1437,7 @@
       <code>$this-&gt;items[$key]</code>
     </LessSpecificReturnStatement>
     <MoreSpecificReturnType occurrences="1">
-      <code>Container\AbstractContainer</code>
+      <code>AbstractContainer</code>
     </MoreSpecificReturnType>
     <PropertyTypeCoercion occurrences="1">
       <code>$this-&gt;items</code>
@@ -1555,10 +1494,6 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Helper/Placeholder/Container/AbstractStandalone.php">
-    <InvalidReturnStatement occurrences="2">
-      <code>$this-&gt;getContainer()-&gt;offsetSet($offset, $value)</code>
-      <code>$this-&gt;getContainer()-&gt;offsetUnset($offset)</code>
-    </InvalidReturnStatement>
     <InvalidStringClass occurrences="1">
       <code>new $this-&gt;containerClass()</code>
     </InvalidStringClass>
@@ -1599,7 +1534,7 @@
       <code>(string) $string</code>
     </RedundantCastGivenDocblockType>
     <RedundantConditionGivenDocblockType occurrences="1">
-      <code>null != $this-&gt;container</code>
+      <code>null !== $this-&gt;container</code>
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Helper/Placeholder/Registry.php">
@@ -1613,13 +1548,13 @@
       <code>$this-&gt;items[$key]</code>
     </LessSpecificReturnStatement>
     <MixedInferredReturnType occurrences="1">
-      <code>Container\AbstractContainer</code>
+      <code>AbstractContainer</code>
     </MixedInferredReturnType>
     <MixedReturnStatement occurrences="1">
       <code>$this-&gt;items[$key]</code>
     </MixedReturnStatement>
     <MoreSpecificReturnType occurrences="1">
-      <code>Container\AbstractContainer</code>
+      <code>AbstractContainer</code>
     </MoreSpecificReturnType>
     <RedundantCastGivenDocblockType occurrences="5">
       <code>(string) $key</code>
@@ -1658,8 +1593,9 @@
     <PossiblyNullPropertyAssignmentValue occurrences="1">
       <code>$model = $this-&gt;getCurrent()</code>
     </PossiblyNullPropertyAssignmentValue>
-    <PossiblyNullReference occurrences="2">
+    <PossiblyNullReference occurrences="3">
       <code>getChildren</code>
+      <code>plugin</code>
       <code>render</code>
     </PossiblyNullReference>
     <RedundantConditionGivenDocblockType occurrences="2">
@@ -1679,21 +1615,19 @@
       <code>captureEnd</code>
       <code>captureStart</code>
     </MixedMethodCall>
+    <PossiblyNullReference occurrences="2">
+      <code>plugin</code>
+      <code>render</code>
+    </PossiblyNullReference>
     <UndefinedInterfaceMethod occurrences="1">
       <code>plugin</code>
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/ServerUrl.php">
-    <DocblockTypeContradiction occurrences="3">
-      <code>null === $this-&gt;host</code>
-      <code>null === $this-&gt;port</code>
-      <code>null === $this-&gt;scheme</code>
-    </DocblockTypeContradiction>
-    <MissingConstructor occurrences="3">
-      <code>$host</code>
-      <code>$port</code>
-      <code>$scheme</code>
-    </MissingConstructor>
+    <InvalidNullableReturnType occurrences="2">
+      <code>string</code>
+      <code>string</code>
+    </InvalidNullableReturnType>
     <MixedArgument occurrences="10">
       <code>$_SERVER['HTTP_HOST']</code>
       <code>$_SERVER['HTTP_HOST']</code>
@@ -1715,12 +1649,12 @@
     <MixedOperand occurrences="1">
       <code>$path</code>
     </MixedOperand>
-    <PossiblyNullOperand occurrences="1">
-      <code>$port</code>
-    </PossiblyNullOperand>
-    <RedundantCastGivenDocblockType occurrences="2">
+    <NullableReturnStatement occurrences="2">
+      <code>$this-&gt;host</code>
+      <code>$this-&gt;scheme</code>
+    </NullableReturnStatement>
+    <RedundantCastGivenDocblockType occurrences="1">
       <code>(bool) $useProxy</code>
-      <code>(int) $port</code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Helper/Service/AssetFactory.php">
@@ -1803,12 +1737,7 @@
     <DeprecatedInterface occurrences="1">
       <code>IdentityFactory</code>
     </DeprecatedInterface>
-    <MissingParamType occurrences="2">
-      <code>$cName</code>
-      <code>$rName</code>
-    </MissingParamType>
-    <MixedArgument occurrences="2">
-      <code>$cName</code>
+    <MixedArgument occurrences="1">
       <code>$container</code>
     </MixedArgument>
     <MixedAssignment occurrences="1">
@@ -1821,6 +1750,9 @@
       <code>$container-&gt;get(AuthenticationService::class)</code>
       <code>$container-&gt;get(\Zend\Authentication\AuthenticationService::class)</code>
     </MixedReturnStatement>
+    <PossiblyNullArgument occurrences="1">
+      <code>$cName</code>
+    </PossiblyNullArgument>
     <UndefinedInterfaceMethod occurrences="1">
       <code>getServiceLocator</code>
     </UndefinedInterfaceMethod>
@@ -1831,24 +1763,13 @@
       <code>$this</code>
       <code>$this</code>
     </DeprecatedClass>
-    <MissingConstructor occurrences="6">
-      <code>$translator</code>
-      <code>$translator</code>
-      <code>$translator</code>
-      <code>$translator</code>
-      <code>$translator</code>
-      <code>$translator</code>
-    </MissingConstructor>
-    <PossiblyNullPropertyAssignmentValue occurrences="1">
-      <code>$translator</code>
-    </PossiblyNullPropertyAssignmentValue>
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(bool) $enabled</code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Helper/Url.php">
     <DocblockTypeContradiction occurrences="4">
-      <code>3 == func_num_args() &amp;&amp; is_bool($options)</code>
+      <code>3 === func_num_args() &amp;&amp; is_bool($options)</code>
       <code>is_array($params)</code>
       <code>is_bool($options)</code>
       <code>null === $this-&gt;router</code>
@@ -1979,9 +1900,9 @@
     <MixedReturnStatement occurrences="1">
       <code>$this-&gt;options['errorLevel']</code>
     </MixedReturnStatement>
-    <PossiblyNullPropertyAssignmentValue occurrences="1">
-      <code>null</code>
-    </PossiblyNullPropertyAssignmentValue>
+    <NonInvariantDocblockPropertyType occurrences="1">
+      <code>$captureTo</code>
+    </NonInvariantDocblockPropertyType>
   </file>
   <file src="src/Model/FeedModel.php">
     <MixedAssignment occurrences="2">
@@ -2005,13 +1926,9 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Model/JsonModel.php">
-    <PossiblyNullPropertyAssignmentValue occurrences="2">
-      <code>null</code>
-      <code>null</code>
-    </PossiblyNullPropertyAssignmentValue>
-    <RedundantConditionGivenDocblockType occurrences="1">
-      <code>null !== $this-&gt;jsonpCallback</code>
-    </RedundantConditionGivenDocblockType>
+    <NonInvariantDocblockPropertyType occurrences="1">
+      <code>$captureTo</code>
+    </NonInvariantDocblockPropertyType>
   </file>
   <file src="src/Model/ViewModel.php">
     <DocblockTypeContradiction occurrences="2">
@@ -2071,9 +1988,6 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Renderer/ConsoleRenderer.php">
-    <DocblockTypeContradiction occurrences="1">
-      <code>null === $this-&gt;__filterChain</code>
-    </DocblockTypeContradiction>
     <ImplementedParamTypeMismatch occurrences="1">
       <code>$values</code>
     </ImplementedParamTypeMismatch>
@@ -2093,9 +2007,6 @@
     <PossiblyInvalidArgument occurrences="1">
       <code>$values</code>
     </PossiblyInvalidArgument>
-    <PropertyNotSetInConstructor occurrences="1">
-      <code>$__filterChain</code>
-    </PropertyNotSetInConstructor>
   </file>
   <file src="src/Renderer/FeedRenderer.php">
     <MissingConstructor occurrences="1">
@@ -2116,7 +2027,7 @@
       <code>void</code>
     </ImplementedReturnTypeMismatch>
     <MissingConstructor occurrences="1">
-      <code>$resolver</code>
+      <code>$jsonpCallback</code>
     </MissingConstructor>
     <MixedArgument occurrences="2">
       <code>$child</code>
@@ -2141,9 +2052,6 @@
       <code>$children</code>
       <code>$values</code>
     </PossiblyInvalidArgument>
-    <PossiblyNullPropertyAssignmentValue occurrences="1">
-      <code>null</code>
-    </PossiblyNullPropertyAssignmentValue>
     <RedundantCastGivenDocblockType occurrences="2">
       <code>(bool) $mergeUnnamedChildren</code>
       <code>(string) $callback</code>
@@ -2155,28 +2063,24 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Renderer/PhpRenderer.php">
-    <DocblockTypeContradiction occurrences="8">
+    <DocblockTypeContradiction occurrences="3">
       <code>gettype($helpers)</code>
       <code>gettype($variables)</code>
       <code>is_callable($plugin)</code>
-      <code>null === $this-&gt;__filterChain</code>
-      <code>null === $this-&gt;__helpers</code>
-      <code>null === $this-&gt;__templateResolver</code>
-      <code>null === $this-&gt;__vars</code>
-      <code>null === $this-&gt;__vars</code>
     </DocblockTypeContradiction>
     <ImplementedParamTypeMismatch occurrences="1">
       <code>$values</code>
     </ImplementedParamTypeMismatch>
-    <MixedArgument occurrences="5">
-      <code>$__vars</code>
+    <InvalidNullableReturnType occurrences="1">
+      <code>HelperPluginManager</code>
+    </InvalidNullableReturnType>
+    <MixedArgument occurrences="4">
       <code>$__vars</code>
       <code>$this-&gt;__template</code>
       <code>$this-&gt;__template</code>
       <code>array_pop($this-&gt;__varsCache)</code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="3">
-      <code>$__vars['this']</code>
+    <MixedArrayAccess occurrences="2">
       <code>$vars[$name]</code>
       <code>$vars[$name]</code>
     </MixedArrayAccess>
@@ -2220,6 +2124,10 @@
       <code>$this-&gt;__templateResolver-&gt;resolve($name, $this)</code>
       <code>$this-&gt;getHelperPluginManager()-&gt;get($name, $options)</code>
     </MixedReturnStatement>
+    <NullableReturnStatement occurrences="2">
+      <code>$this-&gt;__helpers</code>
+      <code>$this-&gt;__templateResolver</code>
+    </NullableReturnStatement>
     <PossibleRawObjectIteration occurrences="1">
       <code>$variables</code>
     </PossibleRawObjectIteration>
@@ -2230,15 +2138,15 @@
     <PossiblyInvalidPropertyAssignmentValue occurrences="1">
       <code>$this-&gt;resolver($this-&gt;__template)</code>
     </PossiblyInvalidPropertyAssignmentValue>
-    <PossiblyNullPropertyAssignmentValue occurrences="1">
-      <code>null</code>
-    </PossiblyNullPropertyAssignmentValue>
-    <PropertyNotSetInConstructor occurrences="4">
-      <code>$__filterChain</code>
-      <code>$__helpers</code>
-      <code>$__templateResolver</code>
-      <code>$__vars</code>
-    </PropertyNotSetInConstructor>
+    <PossiblyNullArrayAccess occurrences="2">
+      <code>$this-&gt;__vars[$key]</code>
+      <code>$this-&gt;__vars[$key]</code>
+    </PossiblyNullArrayAccess>
+    <PossiblyNullReference occurrences="3">
+      <code>$this-&gt;__vars</code>
+      <code>$this-&gt;__vars</code>
+      <code>resolve</code>
+    </PossiblyNullReference>
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(bool) $renderTrees</code>
     </RedundantCastGivenDocblockType>
@@ -2314,10 +2222,6 @@
       <code>false</code>
       <code>false</code>
     </FalsableReturnStatement>
-    <MissingPropertyType occurrences="2">
-      <code>$useStreamWrapper</code>
-      <code>$useViewStream</code>
-    </MissingPropertyType>
     <MixedArgument occurrences="7">
       <code>$key</code>
       <code>$path</code>
@@ -2353,27 +2257,16 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Strategy/FeedStrategy.php">
-    <MixedArgument occurrences="1">
-      <code>$renderer-&gt;getFeedType()</code>
-    </MixedArgument>
-    <MixedAssignment occurrences="2">
-      <code>$feedType</code>
+    <MixedAssignment occurrences="1">
       <code>$headers</code>
     </MixedAssignment>
     <MixedMethodCall occurrences="1">
       <code>addHeaderLine</code>
     </MixedMethodCall>
-    <PossiblyNullOperand occurrences="1">
-      <code>$feed-&gt;getEncoding()</code>
-    </PossiblyNullOperand>
-    <PossiblyNullReference occurrences="3">
-      <code>getFeedType</code>
-      <code>getFeedType</code>
+    <PossiblyNullReference occurrences="1">
       <code>setContent</code>
     </PossiblyNullReference>
-    <UndefinedInterfaceMethod occurrences="3">
-      <code>getFeedType</code>
-      <code>getFeedType</code>
+    <UndefinedInterfaceMethod occurrences="1">
       <code>getHeaders</code>
     </UndefinedInterfaceMethod>
   </file>
@@ -2396,8 +2289,7 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Strategy/PhpRendererStrategy.php">
-    <MixedAssignment occurrences="3">
-      <code>$placeholder</code>
+    <MixedAssignment occurrences="2">
       <code>$placeholders</code>
       <code>$result</code>
     </MixedAssignment>
@@ -2405,6 +2297,9 @@
       <code>containerExists</code>
       <code>getContainer</code>
     </MixedMethodCall>
+    <MixedPropertyTypeCoercion occurrences="1">
+      <code>$contentPlaceholders</code>
+    </MixedPropertyTypeCoercion>
     <PossiblyNullReference occurrences="1">
       <code>plugin</code>
     </PossiblyNullReference>
@@ -2525,7 +2420,7 @@
       <code>$name</code>
     </MoreSpecificImplementedParamType>
     <MoreSpecificReturnType occurrences="1">
-      <code>array|\ArrayAccess</code>
+      <code>array|ArrayAccess</code>
     </MoreSpecificReturnType>
     <PossiblyInvalidArrayAssignment occurrences="5">
       <code>$params['model']</code>
@@ -2534,8 +2429,7 @@
       <code>$params['response']</code>
       <code>$params['result']</code>
     </PossiblyInvalidArrayAssignment>
-    <PropertyNotSetInConstructor occurrences="3">
-      <code>$renderer</code>
+    <PropertyNotSetInConstructor occurrences="2">
       <code>ViewEvent</code>
       <code>ViewEvent</code>
     </PropertyNotSetInConstructor>
@@ -2550,12 +2444,8 @@
       <code>$vars</code>
       <code>$vars</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="5">
-      <code>__invoke</code>
-      <code>plugin</code>
+    <MixedMethodCall occurrences="1">
       <code>setStrictVars</code>
-      <code>vars</code>
-      <code>vars</code>
     </MixedMethodCall>
     <MixedPropertyAssignment occurrences="3">
       <code>$vars</code>
@@ -2579,14 +2469,6 @@
     <UndefinedInterfaceMethod occurrences="1">
       <code>addPath</code>
     </UndefinedInterfaceMethod>
-    <UndefinedThisPropertyAssignment occurrences="1">
-      <code>$this-&gt;view</code>
-    </UndefinedThisPropertyAssignment>
-    <UndefinedThisPropertyFetch occurrences="3">
-      <code>$this-&gt;view</code>
-      <code>$this-&gt;view</code>
-      <code>$this-&gt;view</code>
-    </UndefinedThisPropertyFetch>
   </file>
   <file src="test/Helper/EscapeCssTest.php">
     <MixedAssignment occurrences="4">
@@ -2629,66 +2511,31 @@
     </MixedAssignment>
   </file>
   <file src="test/Helper/FlashMessengerTest.php">
-    <ArgumentTypeCoercion occurrences="1">
+    <ArgumentTypeCoercion occurrences="3">
       <code>$plugin-&gt;reveal()</code>
+      <code>$plugin-&gt;reveal()</code>
+      <code>$this-&gt;mvcPluginClass</code>
     </ArgumentTypeCoercion>
-    <DeprecatedClass occurrences="9">
-      <code>new FlashMessenger</code>
-      <code>new FlashMessenger</code>
-      <code>new FlashMessenger</code>
-      <code>new FlashMessenger</code>
-      <code>new FlashMessenger</code>
+    <DeprecatedClass occurrences="7">
+      <code>FlashMessenger</code>
+      <code>new FlashMessenger()</code>
+      <code>new FlashMessenger()</code>
       <code>new FlashMessenger()</code>
       <code>new FlashMessenger()</code>
       <code>new FlashMessenger()</code>
       <code>new FlashMessenger()</code>
     </DeprecatedClass>
-    <MissingClosureParamType occurrences="7">
+    <MissingClosureParamType occurrences="1">
       <code>$args</code>
-      <code>$name</code>
-      <code>$name</code>
-      <code>$options</code>
-      <code>$options</code>
-      <code>$services</code>
-      <code>$services</code>
     </MissingClosureParamType>
-    <MixedArgument occurrences="5">
-      <code>$services</code>
-      <code>$services</code>
-      <code>$this-&gt;helper-&gt;getPluginFlashMessenger()</code>
-      <code>$this-&gt;mvcPluginClass</code>
-      <code>$this-&gt;plugin</code>
-    </MixedArgument>
     <MixedArrayAccess occurrences="1">
       <code>$args[0]</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="34">
-      <code>$display</code>
-      <code>$display</code>
-      <code>$display</code>
-      <code>$display</code>
+    <MixedAssignment occurrences="12">
       <code>$displayInfo</code>
       <code>$displayInfo</code>
       <code>$displayInfo</code>
       <code>$displayInfo</code>
-      <code>$displayInfo</code>
-      <code>$displayInfo</code>
-      <code>$displayInfo</code>
-      <code>$displayInfo</code>
-      <code>$displayInfo</code>
-      <code>$displayInfo</code>
-      <code>$displayInfo</code>
-      <code>$displayInfo</code>
-      <code>$displayInfo</code>
-      <code>$displayInfo</code>
-      <code>$displayInfo</code>
-      <code>$displayInfo</code>
-      <code>$helper</code>
-      <code>$helper</code>
-      <code>$helper</code>
-      <code>$helper</code>
-      <code>$helper</code>
-      <code>$helper</code>
       <code>$helper</code>
       <code>$helper</code>
       <code>$helper</code>
@@ -2698,184 +2545,49 @@
       <code>$helperPluginManager</code>
       <code>$helperPluginManager</code>
     </MixedAssignment>
-    <MixedFunctionCall occurrences="22">
-      <code>$helper('default')</code>
-      <code>$helper('default')</code>
-      <code>$helper('error')</code>
-      <code>$helper('error')</code>
-      <code>$helper('info')</code>
-      <code>$helper('info')</code>
-      <code>$helper('success')</code>
-      <code>$helper('success')</code>
-      <code>$helper('warning')</code>
-      <code>$helper()</code>
-      <code>$helper()</code>
-      <code>$helper()</code>
-      <code>$helper()</code>
-      <code>$helper()</code>
-      <code>$helper()</code>
-      <code>$helper()</code>
-      <code>$helper()</code>
-      <code>$helper()</code>
-      <code>$helper()</code>
-      <code>$helper()</code>
-      <code>$helper()</code>
-      <code>$helper()</code>
-    </MixedFunctionCall>
-    <MixedMethodCall occurrences="103">
-      <code>addMessage</code>
-      <code>addMessage</code>
-      <code>addMessage</code>
-      <code>addMessage</code>
+    <MixedMethodCall occurrences="9">
       <code>get</code>
       <code>get</code>
       <code>get</code>
       <code>get</code>
-      <code>getAutoEscape</code>
-      <code>getAutoEscape</code>
-      <code>getAutoEscape</code>
-      <code>getPluginFlashMessenger</code>
-      <code>getPluginFlashMessenger</code>
-      <code>hasCurrentErrorMessages</code>
-      <code>hasCurrentErrorMessages</code>
-      <code>hasCurrentErrorMessages</code>
-      <code>hasCurrentErrorMessages</code>
-      <code>hasCurrentInfoMessages</code>
-      <code>hasCurrentInfoMessages</code>
-      <code>hasCurrentInfoMessages</code>
-      <code>hasCurrentInfoMessages</code>
-      <code>hasCurrentMessages</code>
-      <code>hasCurrentMessages</code>
-      <code>hasCurrentMessages</code>
-      <code>hasCurrentMessages</code>
-      <code>hasCurrentSuccessMessages</code>
-      <code>hasCurrentSuccessMessages</code>
-      <code>hasCurrentSuccessMessages</code>
-      <code>hasCurrentSuccessMessages</code>
-      <code>hasErrorMessages</code>
-      <code>hasErrorMessages</code>
-      <code>hasErrorMessages</code>
-      <code>hasErrorMessages</code>
-      <code>hasInfoMessages</code>
-      <code>hasInfoMessages</code>
-      <code>hasInfoMessages</code>
-      <code>hasInfoMessages</code>
-      <code>hasMessages</code>
-      <code>hasMessages</code>
-      <code>hasMessages</code>
-      <code>hasMessages</code>
-      <code>hasSuccessMessages</code>
-      <code>hasSuccessMessages</code>
-      <code>hasSuccessMessages</code>
-      <code>hasSuccessMessages</code>
-      <code>hasTranslator</code>
-      <code>hasTranslator</code>
-      <code>hasWarningMessages</code>
-      <code>hasWarningMessages</code>
-      <code>hasWarningMessages</code>
-      <code>hasWarningMessages</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
       <code>render</code>
       <code>render</code>
       <code>renderCurrent</code>
       <code>renderCurrent</code>
-      <code>renderCurrent</code>
-      <code>renderCurrent</code>
-      <code>renderCurrent</code>
-      <code>renderCurrent</code>
-      <code>renderCurrent</code>
-      <code>renderCurrent</code>
-      <code>renderCurrent</code>
-      <code>renderCurrent</code>
-      <code>renderCurrent</code>
-      <code>renderCurrent</code>
-      <code>renderCurrent</code>
-      <code>renderCurrent</code>
-      <code>setAutoEscape</code>
-      <code>setAutoEscape</code>
-      <code>setAutoEscape</code>
-      <code>setAutoEscape</code>
-      <code>setAutoEscape</code>
-      <code>setAutoEscape</code>
-      <code>setAutoEscape</code>
-      <code>setAutoEscape</code>
-      <code>setMessageCloseString</code>
-      <code>setMessageCloseString</code>
-      <code>setMessageCloseString</code>
-      <code>setMessageCloseString</code>
-      <code>setMessageOpenFormat</code>
-      <code>setMessageOpenFormat</code>
-      <code>setMessageOpenFormat</code>
-      <code>setMessageOpenFormat</code>
-      <code>setMessageSeparatorString</code>
-      <code>setMessageSeparatorString</code>
-      <code>setMessageSeparatorString</code>
-      <code>setMessageSeparatorString</code>
-      <code>setPluginFlashMessenger</code>
-      <code>setTranslator</code>
-      <code>setTranslator</code>
       <code>willReturn</code>
     </MixedMethodCall>
+    <PossiblyInvalidMethodCall occurrences="13">
+      <code>hasCurrentErrorMessages</code>
+      <code>hasCurrentInfoMessages</code>
+      <code>hasCurrentMessages</code>
+      <code>hasCurrentSuccessMessages</code>
+      <code>hasErrorMessages</code>
+      <code>hasInfoMessages</code>
+      <code>hasMessages</code>
+      <code>hasSuccessMessages</code>
+      <code>hasWarningMessages</code>
+      <code>render</code>
+      <code>render</code>
+      <code>renderCurrent</code>
+      <code>renderCurrent</code>
+    </PossiblyInvalidMethodCall>
+    <UndefinedClass occurrences="7">
+      <code>$this-&gt;plugin</code>
+      <code>$this-&gt;plugin</code>
+      <code>$this-&gt;plugin</code>
+      <code>$this-&gt;plugin</code>
+      <code>$this-&gt;plugin</code>
+      <code>$this-&gt;plugin</code>
+      <code>$this-&gt;plugin</code>
+    </UndefinedClass>
+    <UndefinedDocblockClass occurrences="3">
+      <code>$this-&gt;plugin</code>
+      <code>$this-&gt;plugin</code>
+      <code>V2PluginFlashMessenger|V3PluginFlashMessenger</code>
+    </UndefinedDocblockClass>
     <UndefinedMethod occurrences="1">
       <code>getMessagesFromNamespace</code>
     </UndefinedMethod>
-    <UndefinedThisPropertyAssignment occurrences="3">
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;mvcPluginClass</code>
-      <code>$this-&gt;plugin</code>
-    </UndefinedThisPropertyAssignment>
-    <UndefinedThisPropertyFetch occurrences="33">
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;mvcPluginClass</code>
-      <code>$this-&gt;mvcPluginClass</code>
-      <code>$this-&gt;mvcPluginClass</code>
-      <code>$this-&gt;plugin</code>
-      <code>$this-&gt;plugin</code>
-      <code>$this-&gt;plugin</code>
-    </UndefinedThisPropertyFetch>
-    <UnusedClosureParam occurrences="4">
-      <code>$name</code>
-      <code>$name</code>
-      <code>$options</code>
-      <code>$options</code>
-    </UnusedClosureParam>
   </file>
   <file src="test/Helper/GravatarTest.php">
     <DeprecatedMethod occurrences="2">
@@ -2896,9 +2608,6 @@
       <code>'foo'</code>
       <code>'foo'</code>
     </InvalidArgument>
-    <InvalidScalarArgument occurrences="1">
-      <code>1</code>
-    </InvalidScalarArgument>
     <MixedArgument occurrences="15">
       <code>$attributeEscaper('/styles.css')</code>
       <code>$attributeEscaper('/styles.css')</code>
@@ -2972,9 +2681,6 @@
       <code>$value-&gt;href</code>
       <code>$value-&gt;href</code>
     </MixedPropertyFetch>
-    <PossiblyNullArgument occurrences="1">
-      <code>var_export($this-&gt;helper-&gt;getContainer()-&gt;getArrayCopy(), 1)</code>
-    </PossiblyNullArgument>
     <UndefinedMagicMethod occurrences="11">
       <code>appendNext</code>
       <code>appendPrev</code>
@@ -3002,12 +2708,7 @@
       <code>'foo'</code>
       <code>[$this, 'handleErrors']</code>
     </InvalidArgument>
-    <MissingParamType occurrences="3">
-      <code>$errno</code>
-      <code>$errstr</code>
-      <code>$type</code>
-    </MissingParamType>
-    <MixedArgument occurrences="32">
+    <MixedArgument occurrences="31">
       <code>$attributeEscaper('HeadMeta with Microdata')</code>
       <code>$attributeEscaper('og:title')</code>
       <code>$attributeEscaper('some content')</code>
@@ -3029,7 +2730,6 @@
       <code>$item-&gt;type</code>
       <code>$modifiers</code>
       <code>$modifiers</code>
-      <code>$type</code>
       <code>$value</code>
       <code>$values</code>
       <code>$values</code>
@@ -3061,17 +2761,7 @@
       <code>$values</code>
       <code>$values</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="11">
-      <code>__invoke</code>
-      <code>doctype</code>
-      <code>doctype</code>
-      <code>doctype</code>
-      <code>doctype</code>
-      <code>doctype</code>
-      <code>doctype</code>
-      <code>doctype</code>
-      <code>doctype</code>
-      <code>plugin</code>
+    <MixedMethodCall occurrences="1">
       <code>setCharset</code>
     </MixedMethodCall>
     <MixedOperand occurrences="2">
@@ -3140,35 +2830,12 @@
       <code>toString</code>
       <code>toString</code>
     </UndefinedMethod>
-    <UndefinedThisPropertyAssignment occurrences="3">
-      <code>$this-&gt;error</code>
-      <code>$this-&gt;error</code>
-      <code>$this-&gt;view</code>
-    </UndefinedThisPropertyAssignment>
-    <UndefinedThisPropertyFetch occurrences="10">
-      <code>$this-&gt;error</code>
-      <code>$this-&gt;view</code>
-      <code>$this-&gt;view</code>
-      <code>$this-&gt;view</code>
-      <code>$this-&gt;view</code>
-      <code>$this-&gt;view</code>
-      <code>$this-&gt;view</code>
-      <code>$this-&gt;view</code>
-      <code>$this-&gt;view</code>
-      <code>$this-&gt;view</code>
-    </UndefinedThisPropertyFetch>
   </file>
   <file src="test/Helper/HeadScriptTest.php">
     <InvalidDocblock occurrences="1">
       <code>public function booleanAttributeDataProvider(): Generator</code>
     </InvalidDocblock>
-    <InvalidScalarArgument occurrences="1">
-      <code>1</code>
-    </InvalidScalarArgument>
-    <MissingParamType occurrences="1">
-      <code>$type</code>
-    </MissingParamType>
-    <MixedArgument occurrences="17">
+    <MixedArgument occurrences="16">
       <code>$attributeEscaper('test1.js')</code>
       <code>$attributeEscaper('test2.js')</code>
       <code>$attributeEscaper('test3.js')</code>
@@ -3178,7 +2845,6 @@
       <code>$item</code>
       <code>$item</code>
       <code>$item-&gt;source</code>
-      <code>$type</code>
       <code>$values</code>
       <code>$values</code>
       <code>$values</code>
@@ -3232,11 +2898,7 @@
       <code>$values[5]-&gt;source</code>
       <code>$values[5]-&gt;type</code>
     </MixedPropertyFetch>
-    <PossiblyNullArgument occurrences="1">
-      <code>var_export($values, 1)</code>
-    </PossiblyNullArgument>
-    <UndefinedMagicMethod occurrences="9">
-      <code>fooBar</code>
+    <UndefinedMagicMethod occurrences="8">
       <code>getArrayCopy</code>
       <code>getArrayCopy</code>
       <code>getArrayCopy</code>
@@ -3337,82 +2999,23 @@
     </UndefinedThisPropertyAssignment>
   </file>
   <file src="test/Helper/HtmlListTest.php">
-    <InvalidArgument occurrences="3">
-      <code>false</code>
+    <InvalidArgument occurrences="2">
       <code>false</code>
       <code>false</code>
     </InvalidArgument>
-    <MissingParamType occurrences="3">
-      <code>$key</code>
-      <code>$userdata</code>
-      <code>$value</code>
-    </MissingParamType>
-    <MixedArgument occurrences="1">
-      <code>$userdata</code>
-    </MixedArgument>
-    <MixedOperand occurrences="1">
-      <code>$value</code>
-    </MixedOperand>
-    <UndefinedThisPropertyAssignment occurrences="1">
-      <code>$this-&gt;view</code>
-    </UndefinedThisPropertyAssignment>
   </file>
   <file src="test/Helper/HtmlObjectTest.php">
-    <MixedMethodCall occurrences="4">
+    <UndefinedMethod occurrences="2">
       <code>__invoke</code>
       <code>__invoke</code>
-      <code>plugin</code>
-      <code>plugin</code>
-    </MixedMethodCall>
-    <UndefinedThisPropertyAssignment occurrences="1">
-      <code>$this-&gt;view</code>
-    </UndefinedThisPropertyAssignment>
-    <UndefinedThisPropertyFetch occurrences="2">
-      <code>$this-&gt;view</code>
-      <code>$this-&gt;view</code>
-    </UndefinedThisPropertyFetch>
-  </file>
-  <file src="test/Helper/HtmlPageTest.php">
-    <UndefinedThisPropertyAssignment occurrences="1">
-      <code>$this-&gt;view</code>
-    </UndefinedThisPropertyAssignment>
-  </file>
-  <file src="test/Helper/HtmlQuicktimeTest.php">
-    <UndefinedThisPropertyAssignment occurrences="1">
-      <code>$this-&gt;view</code>
-    </UndefinedThisPropertyAssignment>
+    </UndefinedMethod>
   </file>
   <file src="test/Helper/HtmlTagTest.php">
-    <MissingParamType occurrences="1">
-      <code>$value</code>
-    </MissingParamType>
     <MixedArgument occurrences="3">
       <code>$escape($value)</code>
       <code>$escape($value)</code>
       <code>$escape('http://www.w3.org/1999/xhtml')</code>
     </MixedArgument>
-    <MixedAssignment occurrences="2">
-      <code>$escape</code>
-      <code>$escape</code>
-    </MixedAssignment>
-    <MixedFunctionCall occurrences="3">
-      <code>$escape($value)</code>
-      <code>$escape($value)</code>
-      <code>$escape('http://www.w3.org/1999/xhtml')</code>
-    </MixedFunctionCall>
-    <MixedMethodCall occurrences="4">
-      <code>plugin</code>
-      <code>plugin</code>
-      <code>plugin</code>
-      <code>setDoctype</code>
-    </MixedMethodCall>
-    <UndefinedThisPropertyAssignment occurrences="1">
-      <code>$this-&gt;view</code>
-    </UndefinedThisPropertyAssignment>
-    <UndefinedThisPropertyFetch occurrences="2">
-      <code>$this-&gt;view</code>
-      <code>$this-&gt;view</code>
-    </UndefinedThisPropertyFetch>
   </file>
   <file src="test/Helper/IdentityTest.php">
     <PossiblyNullReference occurrences="1">
@@ -3422,38 +3025,23 @@
       <code>setIdentity</code>
     </UndefinedInterfaceMethod>
   </file>
-  <file src="test/Helper/JsonTest.php">
-    <MixedAssignment occurrences="2">
-      <code>$header</code>
-      <code>$headers</code>
-    </MixedAssignment>
-    <MixedMethodCall occurrences="6">
-      <code>__invoke</code>
-      <code>__invoke</code>
-      <code>get</code>
-      <code>getFieldValue</code>
-      <code>getHeaders</code>
-      <code>has</code>
-    </MixedMethodCall>
-    <UndefinedThisPropertyAssignment occurrences="2">
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;response</code>
-    </UndefinedThisPropertyAssignment>
-    <UndefinedThisPropertyFetch occurrences="3">
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;response</code>
-    </UndefinedThisPropertyFetch>
-  </file>
   <file src="test/Helper/LayoutTest.php">
     <UndefinedMethod occurrences="1">
       <code>setTemplate</code>
     </UndefinedMethod>
   </file>
   <file src="test/Helper/Navigation/AbstractHelperTest.php">
-    <MixedArgument occurrences="1">
+    <MixedArgument occurrences="3">
+      <code>$acl</code>
+      <code>$acl</code>
       <code>$this-&gt;serviceManager-&gt;get('Navigation')</code>
     </MixedArgument>
+    <MixedAssignment occurrences="4">
+      <code>$acl</code>
+      <code>$acl</code>
+      <code>$role</code>
+      <code>$role</code>
+    </MixedAssignment>
     <NonInvariantDocblockPropertyType occurrences="1">
       <code>$_helper</code>
     </NonInvariantDocblockPropertyType>
@@ -3486,15 +3074,14 @@
       <code>'Navigation'</code>
       <code>'Navigation'</code>
     </InvalidArgument>
+    <MixedArgument occurrences="1">
+      <code>$acl['acl']</code>
+    </MixedArgument>
     <NonInvariantDocblockPropertyType occurrences="1">
       <code>$_helper</code>
     </NonInvariantDocblockPropertyType>
   </file>
   <file src="test/Helper/Navigation/LinksTest.php">
-    <MissingPropertyType occurrences="2">
-      <code>$_doctypeHelper</code>
-      <code>$_oldDoctype</code>
-    </MissingPropertyType>
     <MixedArgument occurrences="13">
       <code>$active</code>
       <code>$active</code>
@@ -3575,7 +3162,7 @@
       <code>$page</code>
       <code>$page</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="38">
+    <MixedMethodCall occurrences="36">
       <code>addRel</code>
       <code>addRel</code>
       <code>addRel</code>
@@ -3588,7 +3175,6 @@
       <code>addRel</code>
       <code>addRev</code>
       <code>addRev</code>
-      <code>getDoctype</code>
       <code>getHref</code>
       <code>getHref</code>
       <code>getHref</code>
@@ -3613,7 +3199,6 @@
       <code>removeRev</code>
       <code>setActive</code>
       <code>setActive</code>
-      <code>setDoctype</code>
     </MixedMethodCall>
     <MixedPropertyAssignment occurrences="5">
       <code>$active</code>
@@ -3652,11 +3237,19 @@
       <code>'Navigation'</code>
       <code>'Navigation'</code>
     </InvalidArgument>
+    <MixedArgument occurrences="5">
+      <code>$acl['acl']</code>
+      <code>$acl['acl']</code>
+      <code>$acl['acl']</code>
+      <code>$acl['acl']</code>
+      <code>$acl['acl']</code>
+    </MixedArgument>
     <MixedAssignment occurrences="2">
       <code>$p</code>
       <code>$page</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="2">
+    <MixedMethodCall occurrences="3">
+      <code>getRole</code>
       <code>setActive</code>
       <code>setActive</code>
     </MixedMethodCall>
@@ -3665,20 +3258,11 @@
     </NonInvariantDocblockPropertyType>
   </file>
   <file src="test/Helper/Navigation/NavigationTest.php">
-    <InvalidArgument occurrences="1">
-      <code>[$this, 'toStringErrorHandler']</code>
-    </InvalidArgument>
-    <MissingParamType occurrences="4">
-      <code>$code</code>
-      <code>$file</code>
-      <code>$line</code>
-      <code>$msg</code>
-    </MissingParamType>
-    <MissingPropertyType occurrences="1">
-      <code>$_errorMessage</code>
-    </MissingPropertyType>
-    <MixedArgument occurrences="1">
-      <code>$this-&gt;_errorMessage</code>
+    <InvalidArgument occurrences="1"/>
+    <MixedArgument occurrences="3">
+      <code>$acl['acl']</code>
+      <code>$acl['acl']</code>
+      <code>$acl['acl']</code>
     </MixedArgument>
     <MixedAssignment occurrences="3">
       <code>$actual</code>
@@ -3693,38 +3277,33 @@
     <NonInvariantDocblockPropertyType occurrences="1">
       <code>$_helper</code>
     </NonInvariantDocblockPropertyType>
+    <PossiblyNullArgument occurrences="1">
+      <code>$this-&gt;errorHandlerMessage</code>
+    </PossiblyNullArgument>
     <TooManyArguments occurrences="1"/>
+    <UnusedClosureParam occurrences="1">
+      <code>$code</code>
+    </UnusedClosureParam>
   </file>
   <file src="test/Helper/Navigation/PluginManagerCompatibilityTest.php">
     <ArgumentTypeCoercion occurrences="2">
       <code>$this-&gt;getServiceNotFoundException()</code>
       <code>$this-&gt;getServiceNotFoundException()</code>
     </ArgumentTypeCoercion>
-    <RedundantConditionGivenDocblockType occurrences="2">
-      <code>method_exists($helpers, 'configure')</code>
-      <code>method_exists($helpers, 'configure')</code>
-    </RedundantConditionGivenDocblockType>
   </file>
   <file src="test/Helper/Navigation/SitemapTest.php">
-    <MissingPropertyType occurrences="1">
-      <code>$_oldServer</code>
-    </MissingPropertyType>
-    <MixedArrayAssignment occurrences="3">
-      <code>$this-&gt;_oldServer['REQUEST_URI']</code>
-      <code>$this-&gt;_oldServer['SERVER_NAME']</code>
-      <code>$this-&gt;_oldServer['SERVER_PORT']</code>
-    </MixedArrayAssignment>
-    <MixedArrayOffset occurrences="1">
-      <code>$_SERVER[$key]</code>
-    </MixedArrayOffset>
-    <MixedAssignment occurrences="3">
-      <code>$_SERVER[$key]</code>
-      <code>$key</code>
-      <code>$value</code>
-    </MixedAssignment>
+    <MixedArgument occurrences="2">
+      <code>$acl['acl']</code>
+      <code>$acl['acl']</code>
+    </MixedArgument>
     <MixedMethodCall occurrences="1">
       <code>setBasePath</code>
     </MixedMethodCall>
+    <MixedPropertyTypeCoercion occurrences="3">
+      <code>$this-&gt;oldServer</code>
+      <code>$this-&gt;oldServer</code>
+      <code>$this-&gt;oldServer</code>
+    </MixedPropertyTypeCoercion>
     <NonInvariantDocblockPropertyType occurrences="1">
       <code>$_helper</code>
     </NonInvariantDocblockPropertyType>
@@ -3734,16 +3313,10 @@
     <UndefinedInterfaceMethod occurrences="1">
       <code>plugin</code>
     </UndefinedInterfaceMethod>
-    <UnevaluatedCode occurrences="11">
-      <code>$nav = clone $this-&gt;_nav2;</code>
-      <code>$nav = clone $this-&gt;_nav2;</code>
+    <UnevaluatedCode occurrences="4">
+      <code>$nav = clone $this-&gt;nav2;</code>
       <code>$nav-&gt;addPage(['label' =&gt; 'Invalid', 'uri' =&gt; 'http://w.']);</code>
-      <code>$nav-&gt;addPage(['label' =&gt; 'Invalid', 'uri' =&gt; 'http://w.']);</code>
-      <code>$this-&gt;_helper-&gt;setUseSchemaValidation(true);</code>
-      <code>$this-&gt;_helper-&gt;setUseSitemapValidators(false);</code>
       <code>$this-&gt;fail('A Laminas\View\Exception\InvalidArgumentException was not thrown on invalid &lt;loc /&gt;');</code>
-      <code>$this-&gt;fail('A Laminas\View\Exception\InvalidArgumentException was not thrown when using Schema validation');</code>
-      <code>return;</code>
     </UnevaluatedCode>
   </file>
   <file src="test/Helper/PaginationControlTest.php">
@@ -3751,21 +3324,9 @@
       <code>$all</code>
       <code>['partial.phtml', 'test']</code>
     </InvalidArgument>
-    <NoInterfaceProperties occurrences="1">
-      <code>$this-&gt;_viewHelper-&gt;getView()-&gt;paginator</code>
-    </NoInterfaceProperties>
     <NullArgument occurrences="1">
       <code>null</code>
     </NullArgument>
-    <PossiblyNullPropertyAssignment occurrences="1">
-      <code>$this-&gt;_viewHelper-&gt;getView()</code>
-    </PossiblyNullPropertyAssignment>
-    <PossiblyNullReference occurrences="1">
-      <code>vars</code>
-    </PossiblyNullReference>
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>vars</code>
-    </UndefinedInterfaceMethod>
   </file>
   <file src="test/Helper/PartialLoopTest.php">
     <InvalidArgument occurrences="18">
@@ -3788,21 +3349,11 @@
       <code>new stdClass()</code>
       <code>new stdClass()</code>
     </InvalidArgument>
-    <InvalidScalarArgument occurrences="4">
-      <code>1</code>
-      <code>1</code>
-      <code>1</code>
-      <code>1</code>
-    </InvalidScalarArgument>
     <MixedArgument occurrences="2">
       <code>$value</code>
       <code>$value</code>
     </MixedArgument>
-    <MixedAssignment occurrences="12">
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
+    <MixedAssignment occurrences="8">
       <code>$key</code>
       <code>$key</code>
       <code>$key</code>
@@ -3820,6 +3371,12 @@
       <code>$value</code>
       <code>$value</code>
     </MixedOperand>
+    <PossiblyFalseIterator occurrences="4">
+      <code>$item</code>
+      <code>$item</code>
+      <code>$item</code>
+      <code>$item</code>
+    </PossiblyFalseIterator>
     <PossiblyInvalidArgument occurrences="15">
       <code>$result</code>
       <code>$result</code>
@@ -3884,12 +3441,6 @@
       <code>addPath</code>
       <code>addPath</code>
     </PossiblyInvalidMethodCall>
-    <PossiblyNullArgument occurrences="4">
-      <code>var_export($value, 1)</code>
-      <code>var_export($value, 1)</code>
-      <code>var_export($value, 1)</code>
-      <code>var_export($value, 1)</code>
-    </PossiblyNullArgument>
     <TooManyArguments occurrences="2">
       <code>new TestAsset\BogusIteratorTest($data)</code>
       <code>new TestAsset\BogusIteratorTest($data)</code>
@@ -3938,16 +3489,12 @@
     </UnusedVariable>
   </file>
   <file src="test/Helper/PartialTest.php">
-    <MixedArgument occurrences="5">
-      <code>$key</code>
-      <code>$value</code>
+    <MixedArgument occurrences="3">
       <code>$value</code>
       <code>$value</code>
       <code>$value</code>
     </MixedArgument>
-    <MixedAssignment occurrences="5">
-      <code>$key</code>
-      <code>$value</code>
+    <MixedAssignment occurrences="3">
       <code>$value</code>
       <code>$value</code>
       <code>$value</code>
@@ -4001,144 +3548,31 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="test/Helper/Placeholder/RegistryTest.php">
-    <TooManyArguments occurrences="2">
-      <code>new Container(['foo', 'bar'])</code>
-      <code>new Container(['foo', 'bar'])</code>
-    </TooManyArguments>
     <UndefinedPropertyFetch occurrences="1">
       <code>$container-&gt;data</code>
     </UndefinedPropertyFetch>
   </file>
-  <file src="test/Helper/RenderChildModelTest.php">
-    <MixedArgument occurrences="11">
-      <code>$result</code>
-      <code>$result</code>
-      <code>$result</code>
-      <code>$result</code>
-      <code>$result</code>
-      <code>$result</code>
-      <code>$result</code>
-      <code>$result</code>
-      <code>$result</code>
-      <code>$result</code>
-      <code>$this-&gt;resolver</code>
-    </MixedArgument>
-    <MixedAssignment occurrences="5">
-      <code>$result</code>
-      <code>$result</code>
-      <code>$result</code>
-      <code>$result</code>
-      <code>$result</code>
-    </MixedAssignment>
-    <MixedMethodCall occurrences="9">
-      <code>addChild</code>
-      <code>addChild</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>setTemplate</code>
-    </MixedMethodCall>
-    <UndefinedMethod occurrences="2">
-      <code>setCurrent</code>
-      <code>setRoot</code>
-    </UndefinedMethod>
-    <UndefinedThisPropertyAssignment occurrences="5">
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;parent</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;resolver</code>
-      <code>$this-&gt;viewModelHelper</code>
-    </UndefinedThisPropertyAssignment>
-    <UndefinedThisPropertyFetch occurrences="9">
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;parent</code>
-      <code>$this-&gt;parent</code>
-      <code>$this-&gt;parent</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;resolver</code>
-    </UndefinedThisPropertyFetch>
-  </file>
-  <file src="test/Helper/RenderToPlaceholderTest.php">
-    <MissingPropertyType occurrences="1">
-      <code>$_view</code>
-    </MissingPropertyType>
-    <MixedAssignment occurrences="1">
-      <code>$placeholder</code>
-    </MixedAssignment>
-    <MixedMethodCall occurrences="5">
-      <code>__invoke</code>
-      <code>__invoke</code>
-      <code>getValue</code>
-      <code>plugin</code>
-      <code>plugin</code>
-    </MixedMethodCall>
-    <PossiblyInvalidMethodCall occurrences="1">
-      <code>addPath</code>
-    </PossiblyInvalidMethodCall>
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>addPath</code>
-    </UndefinedInterfaceMethod>
-  </file>
   <file src="test/Helper/ServerUrlTest.php">
     <InvalidArgument occurrences="1">
-      <code>new \stdClass()</code>
+      <code>new stdClass()</code>
     </InvalidArgument>
     <InvalidScalarArgument occurrences="1">
       <code>1337</code>
     </InvalidScalarArgument>
   </file>
-  <file src="test/Helper/Service/AssetFactoryTest.php">
-    <RedundantCondition occurrences="1">
-      <code>method_exists($helpers, 'configure')</code>
-    </RedundantCondition>
-  </file>
   <file src="test/Helper/Service/IdentityFactoryTest.php">
-    <MissingReturnType occurrences="1">
-      <code>getContainerForFactory</code>
-    </MissingReturnType>
-    <MixedArgument occurrences="4">
+    <ArgumentTypeCoercion occurrences="3">
       <code>$this-&gt;getContainerForFactory()</code>
       <code>$this-&gt;getContainerForFactory()</code>
       <code>$this-&gt;getContainerForFactory()</code>
-      <code>$this-&gt;helpers</code>
-    </MixedArgument>
-    <MixedMethodCall occurrences="40">
-      <code>get</code>
-      <code>get</code>
-      <code>get</code>
-      <code>get</code>
-      <code>get</code>
-      <code>get</code>
-      <code>get</code>
-      <code>get</code>
-      <code>get</code>
-      <code>get</code>
-      <code>has</code>
-      <code>has</code>
-      <code>has</code>
-      <code>has</code>
-      <code>has</code>
-      <code>has</code>
-      <code>has</code>
-      <code>has</code>
-      <code>has</code>
-      <code>has</code>
-      <code>shouldNotBeCalled</code>
-      <code>shouldNotBeCalled</code>
-      <code>shouldNotBeCalled</code>
-      <code>shouldNotBeCalled</code>
-      <code>shouldNotBeCalled</code>
-      <code>shouldNotBeCalled</code>
-      <code>shouldNotBeCalled</code>
-      <code>shouldNotBeCalled</code>
-      <code>will</code>
-      <code>will</code>
+    </ArgumentTypeCoercion>
+    <InvalidPropertyAssignmentValue occurrences="1">
+      <code>$this-&gt;prophesize(ServiceManager::class)</code>
+    </InvalidPropertyAssignmentValue>
+    <MixedInferredReturnType occurrences="1">
+      <code>ContainerInterface</code>
+    </MixedInferredReturnType>
+    <MixedMethodCall occurrences="10">
       <code>willReturn</code>
       <code>willReturn</code>
       <code>willReturn</code>
@@ -4150,45 +3584,9 @@
       <code>willReturn</code>
       <code>willReturn</code>
     </MixedMethodCall>
-    <UndefinedThisPropertyAssignment occurrences="2">
-      <code>$this-&gt;helpers</code>
-      <code>$this-&gt;services</code>
-    </UndefinedThisPropertyAssignment>
-    <UndefinedThisPropertyFetch occurrences="5">
-      <code>$this-&gt;helpers</code>
-      <code>$this-&gt;services</code>
-      <code>$this-&gt;services</code>
-      <code>$this-&gt;services</code>
-      <code>$this-&gt;services</code>
-    </UndefinedThisPropertyFetch>
-  </file>
-  <file src="test/Helper/TestAsset/Aggregate.php">
-    <MissingPropertyType occurrences="1">
-      <code>$vars</code>
-    </MissingPropertyType>
-    <MissingReturnType occurrences="1">
-      <code>toArray</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/Helper/TestAsset/ArrayTranslator.php">
-    <MissingPropertyType occurrences="1">
-      <code>$translations</code>
-    </MissingPropertyType>
-    <MixedArgument occurrences="1">
-      <code>$this-&gt;translations</code>
-    </MixedArgument>
-    <ParamNameMismatch occurrences="2">
-      <code>$filename</code>
-      <code>$locale</code>
-    </ParamNameMismatch>
-  </file>
-  <file src="test/Helper/TestAsset/AuthenticationAdapter.php">
-    <MissingParamType occurrences="1">
-      <code>$identity</code>
-    </MissingParamType>
-    <MissingPropertyType occurrences="1">
-      <code>$identity</code>
-    </MissingPropertyType>
+    <MixedReturnStatement occurrences="1">
+      <code>$this-&gt;services-&gt;reveal()</code>
+    </MixedReturnStatement>
   </file>
   <file src="test/Helper/TestAsset/Bar.php">
     <PropertyNotSetInConstructor occurrences="2">
@@ -4196,115 +3594,16 @@
       <code>Bar</code>
     </PropertyNotSetInConstructor>
   </file>
-  <file src="test/Helper/TestAsset/ConcreteHelper.php">
-    <MissingParamType occurrences="1">
-      <code>$output</code>
-    </MissingParamType>
-  </file>
-  <file src="test/Helper/TestAsset/Foo.php">
-    <MissingPropertyType occurrences="1">
-      <code>$_regKey</code>
-    </MissingPropertyType>
-  </file>
-  <file src="test/Helper/TestAsset/IdentityObject.php">
-    <RedundantCastGivenDocblockType occurrences="2">
-      <code>(string) $password</code>
-      <code>(string) $username</code>
-    </RedundantCastGivenDocblockType>
-  </file>
-  <file src="test/Helper/TestAsset/IteratorTest.php">
-    <InvalidReturnStatement occurrences="2">
-      <code>next($this-&gt;items)</code>
-      <code>reset($this-&gt;items)</code>
-    </InvalidReturnStatement>
-    <MixedInferredReturnType occurrences="2">
-      <code>next</code>
-      <code>rewind</code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="1">
-      <code>current($this-&gt;items)</code>
-    </MixedReturnStatement>
-  </file>
-  <file src="test/Helper/TestAsset/IteratorWithToArrayTest.php">
-    <InvalidReturnStatement occurrences="2">
-      <code>next($this-&gt;items)</code>
-      <code>reset($this-&gt;items)</code>
-    </InvalidReturnStatement>
-    <MixedInferredReturnType occurrences="2">
-      <code>next</code>
-      <code>rewind</code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="1">
-      <code>current($this-&gt;items)</code>
-    </MixedReturnStatement>
-  </file>
   <file src="test/Helper/TestAsset/IteratorWithToArrayTestContainer.php">
-    <MissingPropertyType occurrences="1">
-      <code>$_info</code>
-    </MissingPropertyType>
-    <MissingReturnType occurrences="1">
-      <code>toArray</code>
-    </MissingReturnType>
     <MixedAssignment occurrences="1">
       <code>$value</code>
     </MixedAssignment>
   </file>
   <file src="test/Helper/TestAsset/MockContainer.php">
-    <MissingParamType occurrences="1">
-      <code>$data</code>
-    </MissingParamType>
-    <MissingPropertyType occurrences="1">
-      <code>$data</code>
-    </MissingPropertyType>
     <PropertyNotSetInConstructor occurrences="2">
       <code>MockContainer</code>
       <code>MockContainer</code>
     </PropertyNotSetInConstructor>
-  </file>
-  <file src="test/Helper/TestAsset/RecursiveIteratorTest.php">
-    <InvalidReturnStatement occurrences="2">
-      <code>next($this-&gt;items)</code>
-      <code>reset($this-&gt;items)</code>
-    </InvalidReturnStatement>
-    <MissingPropertyType occurrences="1">
-      <code>$items</code>
-    </MissingPropertyType>
-    <MixedArgument occurrences="5">
-      <code>$this-&gt;items</code>
-      <code>$this-&gt;items</code>
-      <code>$this-&gt;items</code>
-      <code>$this-&gt;items</code>
-      <code>$this-&gt;items</code>
-    </MixedArgument>
-    <MixedArrayAssignment occurrences="1">
-      <code>$this-&gt;items[]</code>
-    </MixedArrayAssignment>
-    <MixedInferredReturnType occurrences="2">
-      <code>next</code>
-      <code>rewind</code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="1">
-      <code>current($this-&gt;items)</code>
-    </MixedReturnStatement>
-  </file>
-  <file src="test/Helper/TestAsset/ToArray.php">
-    <MissingPropertyType occurrences="1">
-      <code>$array</code>
-    </MissingPropertyType>
-    <MissingReturnType occurrences="1">
-      <code>toArray</code>
-    </MissingReturnType>
-  </file>
-  <file src="test/Helper/TestAsset/ToArrayTest.php">
-    <MissingReturnType occurrences="1">
-      <code>toArray</code>
-    </MissingReturnType>
-    <UndefinedThisPropertyAssignment occurrences="1">
-      <code>$this-&gt;data</code>
-    </UndefinedThisPropertyAssignment>
-    <UndefinedThisPropertyFetch occurrences="1">
-      <code>$this-&gt;data</code>
-    </UndefinedThisPropertyFetch>
   </file>
   <file src="test/Helper/UrlIntegrationTest.php">
     <MixedArgument occurrences="2">
@@ -4355,9 +3654,6 @@
       <code>$this-&gt;getServiceNotFoundException()</code>
       <code>$this-&gt;getServiceNotFoundException()</code>
     </ArgumentTypeCoercion>
-    <ImplementedReturnTypeMismatch occurrences="1">
-      <code>void</code>
-    </ImplementedReturnTypeMismatch>
     <MissingClosureParamType occurrences="3">
       <code>$name</code>
       <code>$options</code>
@@ -4374,7 +3670,7 @@
       <code>$target</code>
     </MixedAssignment>
     <MixedInferredReturnType occurrences="1">
-      <code>\Generator&lt;mixed, array{0: mixed, 1: mixed}, mixed, void&gt;</code>
+      <code>Generator&lt;mixed, array{0: mixed, 1: mixed}, mixed, void&gt;</code>
     </MixedInferredReturnType>
     <UndefinedClass occurrences="1">
       <code>V2FlashMessenger</code>
@@ -4408,14 +3704,6 @@
       <code>getView</code>
       <code>getView</code>
     </MixedMethodCall>
-    <RedundantCondition occurrences="1">
-      <code>method_exists($manager, 'configure')</code>
-    </RedundantCondition>
-    <RedundantConditionGivenDocblockType occurrences="3">
-      <code>method_exists($this-&gt;helpers, 'configure')</code>
-      <code>method_exists($this-&gt;helpers, 'configure')</code>
-      <code>method_exists($this-&gt;helpers, 'configure')</code>
-    </RedundantConditionGivenDocblockType>
     <UnusedClosureParam occurrences="2">
       <code>$container</code>
       <code>$container</code>
@@ -4427,15 +3715,12 @@
     </ImplementedReturnTypeMismatch>
   </file>
   <file src="test/Model/ViewModelTest.php">
-    <ArgumentTypeCoercion occurrences="4">
+    <ArgumentTypeCoercion occurrences="1">
       <code>$vars</code>
-      <code>'Laminas\View\Model\ClearableModelInterface'</code>
-      <code>'Laminas\View\Model\ModelInterface'</code>
-      <code>'Laminas\View\Variables'</code>
     </ArgumentTypeCoercion>
     <InvalidArgument occurrences="2">
-      <code>new stdClass</code>
-      <code>new stdClass</code>
+      <code>new stdClass()</code>
+      <code>new stdClass()</code>
     </InvalidArgument>
     <LessSpecificReturnStatement occurrences="1"/>
     <MoreSpecificReturnType occurrences="1"/>
@@ -4446,270 +3731,39 @@
     </PossiblyUndefinedMethod>
   </file>
   <file src="test/PhpRendererTest.php">
-    <ArgumentTypeCoercion occurrences="1">
-      <code>'Exception'</code>
-    </ArgumentTypeCoercion>
-    <MissingClosureParamType occurrences="3">
+    <MissingClosureParamType occurrences="1">
       <code>$content</code>
-      <code>$errno</code>
-      <code>$errstr</code>
     </MissingClosureParamType>
-    <MissingParamType occurrences="2">
-      <code>$plugins</code>
-      <code>$template</code>
-    </MissingParamType>
-    <MixedArgument occurrences="12">
+    <MixedArgument occurrences="1">
       <code>$content</code>
-      <code>$content</code>
-      <code>$content</code>
-      <code>$content</code>
-      <code>$content</code>
-      <code>$result</code>
-      <code>$test</code>
-      <code>$test</code>
-      <code>$test</code>
-      <code>$test</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
     </MixedArgument>
-    <MixedAssignment occurrences="19">
-      <code>$actual</code>
-      <code>$actual</code>
-      <code>$content</code>
-      <code>$content</code>
-      <code>$content</code>
-      <code>$content</code>
-      <code>$filename</code>
+    <MixedAssignment occurrences="2">
       <code>$foo</code>
-      <code>$helper</code>
-      <code>$plugins</code>
-      <code>$previousOutput</code>
-      <code>$previousOutput</code>
-      <code>$result</code>
       <code>$return</code>
-      <code>$test</code>
-      <code>$test</code>
-      <code>$test</code>
-      <code>$test</code>
-      <code>$test</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="107">
-      <code>addPath</code>
-      <code>addPath</code>
-      <code>addPath</code>
-      <code>addPath</code>
-      <code>addPath</code>
-      <code>addPath</code>
-      <code>addPath</code>
-      <code>addPath</code>
-      <code>addPath</code>
+    <MixedMethodCall occurrences="7">
       <code>assign</code>
       <code>assign</code>
       <code>assign</code>
       <code>assign</code>
       <code>assign</code>
-      <code>attach</code>
-      <code>canRenderTrees</code>
-      <code>canRenderTrees</code>
-      <code>canRenderTrees</code>
-      <code>get</code>
       <code>getArrayCopy</code>
       <code>getArrayCopy</code>
-      <code>getCurrent</code>
-      <code>getEngine</code>
-      <code>getFilterChain</code>
-      <code>getFilterChain</code>
-      <code>getFilterChain</code>
-      <code>getHelperPluginManager</code>
-      <code>getHelperPluginManager</code>
-      <code>getHelperPluginManager</code>
-      <code>getRenderer</code>
-      <code>hasCurrent</code>
-      <code>invokable</code>
-      <code>plugin</code>
-      <code>plugin</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>resolver</code>
-      <code>resolver</code>
-      <code>resolver</code>
-      <code>resolver</code>
-      <code>resolver</code>
-      <code>resolver</code>
-      <code>resolver</code>
-      <code>resolver</code>
-      <code>resolver</code>
-      <code>resolver</code>
-      <code>resolver</code>
-      <code>resolver</code>
-      <code>setCanRenderTrees</code>
-      <code>setCanRenderTrees</code>
-      <code>setFilterChain</code>
-      <code>setHelperPluginManager</code>
-      <code>setHelperPluginManager</code>
-      <code>setHelperPluginManager</code>
-      <code>setHelperPluginManager</code>
-      <code>setHelperPluginManager</code>
-      <code>setHelperPluginManager</code>
-      <code>setHelperPluginManager</code>
-      <code>setResolver</code>
-      <code>setResolver</code>
-      <code>setResolver</code>
-      <code>setResolver</code>
-      <code>setResolver</code>
-      <code>setResolver</code>
-      <code>setResolver</code>
-      <code>setResolver</code>
-      <code>setVars</code>
-      <code>setVars</code>
-      <code>setVars</code>
-      <code>setVars</code>
-      <code>sharedinstance</code>
-      <code>sharedinstance</code>
-      <code>sharedinstance</code>
-      <code>sharedinstance</code>
-      <code>sharedinstance</code>
-      <code>sharedinstance</code>
-      <code>uninvokable</code>
-      <code>vars</code>
-      <code>vars</code>
-      <code>vars</code>
-      <code>vars</code>
-      <code>vars</code>
-      <code>vars</code>
-      <code>vars</code>
-      <code>vars</code>
-      <code>vars</code>
-      <code>vars</code>
-      <code>vars</code>
-      <code>vars</code>
-      <code>vars</code>
     </MixedMethodCall>
-    <MixedPropertyAssignment occurrences="2">
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-    </MixedPropertyAssignment>
-    <MixedPropertyFetch occurrences="2">
-      <code>$this-&gt;renderer-&gt;foo</code>
+    <MixedPropertyFetch occurrences="1">
       <code>$this-&gt;renderer-&gt;vars()-&gt;foo</code>
     </MixedPropertyFetch>
     <PossiblyUndefinedMethod occurrences="1">
       <code>$vars</code>
     </PossiblyUndefinedMethod>
-    <UndefinedThisPropertyAssignment occurrences="1">
-      <code>$this-&gt;renderer</code>
-    </UndefinedThisPropertyAssignment>
-    <UndefinedThisPropertyFetch occurrences="42">
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-    </UndefinedThisPropertyFetch>
+    <UndefinedMethod occurrences="2">
+      <code>getCurrent</code>
+      <code>hasCurrent</code>
+    </UndefinedMethod>
     <UnusedClosureParam occurrences="2">
       <code>$errno</code>
       <code>$errstr</code>
     </UnusedClosureParam>
-  </file>
-  <file src="test/Renderer/FeedRendererTest.php">
-    <MixedArgument occurrences="5">
-      <code>$xml</code>
-      <code>$xml</code>
-      <code>$xml</code>
-      <code>$xml</code>
-      <code>$xml</code>
-    </MixedArgument>
-    <MixedAssignment occurrences="7">
-      <code>$returnValue</code>
-      <code>$returnValue</code>
-      <code>$xml</code>
-      <code>$xml</code>
-      <code>$xml</code>
-      <code>$xml</code>
-      <code>$xml</code>
-    </MixedAssignment>
-    <MixedMethodCall occurrences="12">
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>setFeedType</code>
-      <code>setFeedType</code>
-      <code>setFeedType</code>
-      <code>setFeedType</code>
-      <code>setFeedType</code>
-      <code>setResolver</code>
-    </MixedMethodCall>
-    <UndefinedThisPropertyAssignment occurrences="1">
-      <code>$this-&gt;renderer</code>
-    </UndefinedThisPropertyAssignment>
-    <UndefinedThisPropertyFetch occurrences="9">
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-    </UndefinedThisPropertyFetch>
   </file>
   <file src="test/Renderer/JsonRendererTest.php">
     <InvalidArgument occurrences="8">
@@ -4725,39 +3779,15 @@
     <InvalidScalarArgument occurrences="1">
       <code>0</code>
     </InvalidScalarArgument>
-    <MissingParamType occurrences="2">
-      <code>$model</code>
-      <code>$model</code>
-    </MissingParamType>
-    <MixedArgument occurrences="2">
-      <code>$model</code>
+    <MixedArgument occurrences="1">
       <code>$model</code>
     </MixedArgument>
-  </file>
-  <file src="test/Renderer/TestAsset/JsonModel.php">
-    <MissingPropertyType occurrences="1">
-      <code>$value</code>
-    </MissingPropertyType>
   </file>
   <file src="test/Resolver/RelativeFallbackResolverTest.php">
     <MixedAssignment occurrences="2">
       <code>$test</code>
       <code>$test</code>
     </MixedAssignment>
-    <UndefinedMethod occurrences="3">
-      <code>setCurrent</code>
-      <code>setCurrent</code>
-      <code>setCurrent</code>
-    </UndefinedMethod>
-  </file>
-  <file src="test/Resolver/TemplatePathStackTest.php">
-    <MixedArgument occurrences="1">
-      <code>$options</code>
-    </MixedArgument>
-    <PossiblyInvalidArgument occurrences="2">
-      <code>testAllowsPassingOptionsToConstructor</code>
-      <code>testAllowsSettingOptions</code>
-    </PossiblyInvalidArgument>
   </file>
   <file src="test/Strategy/FeedStrategyTest.php">
     <MixedAssignment occurrences="4">
@@ -4778,9 +3808,6 @@
     </PossiblyUndefinedMethod>
   </file>
   <file src="test/Strategy/JsonStrategyTest.php">
-    <MissingParamType occurrences="1">
-      <code>$charset</code>
-    </MissingParamType>
     <MixedArgument occurrences="6">
       <code>$headers-&gt;get('content-type')-&gt;getFieldValue()</code>
       <code>$headers-&gt;get('content-type')-&gt;getFieldValue()</code>
@@ -4789,353 +3816,62 @@
       <code>$headers-&gt;get('content-type')-&gt;getFieldValue()</code>
       <code>$headers-&gt;get('content-type')-&gt;getFieldValue()</code>
     </MixedArgument>
-    <MixedAssignment occurrences="22">
+    <MixedAssignment occurrences="10">
       <code>$content</code>
       <code>$content</code>
       <code>$content</code>
       <code>$content</code>
       <code>$content</code>
       <code>$content</code>
-      <code>$headers</code>
-      <code>$headers</code>
-      <code>$headers</code>
-      <code>$headers</code>
-      <code>$headers</code>
-      <code>$headers</code>
-      <code>$headers</code>
-      <code>$headers</code>
       <code>$listener</code>
       <code>$listener</code>
       <code>$priority</code>
       <code>$priority</code>
-      <code>$result</code>
-      <code>$result</code>
-      <code>$result</code>
-      <code>$result</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="101">
-      <code>attach</code>
-      <code>attach</code>
-      <code>attach</code>
-      <code>detach</code>
-      <code>get</code>
-      <code>get</code>
-      <code>get</code>
-      <code>get</code>
-      <code>get</code>
-      <code>get</code>
-      <code>get</code>
-      <code>getCharset</code>
-      <code>getCharset</code>
-      <code>getContent</code>
-      <code>getContent</code>
-      <code>getContent</code>
-      <code>getContent</code>
-      <code>getContent</code>
-      <code>getContent</code>
-      <code>getContent</code>
-      <code>getContent</code>
-      <code>getFieldValue</code>
-      <code>getFieldValue</code>
-      <code>getFieldValue</code>
-      <code>getFieldValue</code>
-      <code>getFieldValue</code>
-      <code>getFieldValue</code>
-      <code>getFieldValue</code>
-      <code>getHeaders</code>
-      <code>getHeaders</code>
-      <code>getHeaders</code>
-      <code>getHeaders</code>
-      <code>getHeaders</code>
-      <code>getHeaders</code>
-      <code>getHeaders</code>
-      <code>getHeaders</code>
-      <code>has</code>
-      <code>has</code>
-      <code>has</code>
-      <code>has</code>
-      <code>has</code>
-      <code>has</code>
-      <code>has</code>
-      <code>has</code>
-      <code>hasJsonpCallback</code>
-      <code>injectResponse</code>
-      <code>injectResponse</code>
-      <code>injectResponse</code>
-      <code>injectResponse</code>
-      <code>injectResponse</code>
-      <code>injectResponse</code>
-      <code>injectResponse</code>
-      <code>injectResponse</code>
-      <code>injectResponse</code>
-      <code>injectResponse</code>
-      <code>selectRenderer</code>
-      <code>selectRenderer</code>
-      <code>selectRenderer</code>
-      <code>selectRenderer</code>
-      <code>selectRenderer</code>
-      <code>selectRenderer</code>
-      <code>setCharset</code>
-      <code>setCharset</code>
-      <code>setCharset</code>
-      <code>setCharset</code>
-      <code>setJsonpCallback</code>
-      <code>setJsonpCallback</code>
-      <code>setJsonpCallback</code>
-      <code>setModel</code>
-      <code>setModel</code>
-      <code>setModel</code>
-      <code>setRenderer</code>
-      <code>setRenderer</code>
-      <code>setRenderer</code>
-      <code>setRenderer</code>
-      <code>setRenderer</code>
-      <code>setRenderer</code>
-      <code>setRenderer</code>
-      <code>setRenderer</code>
-      <code>setRenderer</code>
-      <code>setRequest</code>
-      <code>setRequest</code>
-      <code>setRequest</code>
-      <code>setRequest</code>
-      <code>setResponse</code>
-      <code>setResponse</code>
-      <code>setResponse</code>
-      <code>setResponse</code>
-      <code>setResponse</code>
-      <code>setResponse</code>
-      <code>setResponse</code>
-      <code>setResponse</code>
-      <code>setResponse</code>
-      <code>setResult</code>
-      <code>setResult</code>
-      <code>setResult</code>
-      <code>setResult</code>
-      <code>setResult</code>
-      <code>setResult</code>
-      <code>setResult</code>
-      <code>setResult</code>
-    </MixedMethodCall>
-    <PossiblyInvalidMethodCall occurrences="3">
+    <PossiblyInvalidMethodCall occurrences="10">
       <code>addHeaderLine</code>
       <code>addHeaderLine</code>
       <code>addHeaderLine</code>
+      <code>getFieldValue</code>
+      <code>getFieldValue</code>
+      <code>getFieldValue</code>
+      <code>getFieldValue</code>
+      <code>getFieldValue</code>
+      <code>getFieldValue</code>
+      <code>getFieldValue</code>
     </PossiblyInvalidMethodCall>
-    <PossiblyUndefinedMethod occurrences="3">
+    <PossiblyUndefinedMethod occurrences="10">
       <code>addHeaderLine</code>
       <code>addHeaderLine</code>
       <code>addHeaderLine</code>
+      <code>getFieldValue</code>
+      <code>getFieldValue</code>
+      <code>getFieldValue</code>
+      <code>getFieldValue</code>
+      <code>getFieldValue</code>
+      <code>getFieldValue</code>
+      <code>getFieldValue</code>
     </PossiblyUndefinedMethod>
-    <UndefinedThisPropertyAssignment occurrences="4">
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;response</code>
-      <code>$this-&gt;strategy</code>
-    </UndefinedThisPropertyAssignment>
-    <UndefinedThisPropertyFetch occurrences="58">
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;response</code>
-      <code>$this-&gt;response</code>
-      <code>$this-&gt;response</code>
-      <code>$this-&gt;response</code>
-      <code>$this-&gt;response</code>
-      <code>$this-&gt;response</code>
-      <code>$this-&gt;response</code>
-      <code>$this-&gt;response</code>
-      <code>$this-&gt;response</code>
-      <code>$this-&gt;response</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-      <code>$this-&gt;strategy</code>
-    </UndefinedThisPropertyFetch>
+    <UnusedMethodCall occurrences="1">
+      <code>getContent</code>
+    </UnusedMethodCall>
   </file>
   <file src="test/Strategy/PhpRendererStrategyTest.php">
-    <MixedArgument occurrences="8">
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;response</code>
-      <code>$this-&gt;response</code>
-      <code>$this-&gt;response</code>
-    </MixedArgument>
-    <MixedAssignment occurrences="8">
+    <MixedAssignment occurrences="7">
       <code>$content</code>
       <code>$content</code>
       <code>$content</code>
-      <code>$headers</code>
       <code>$listener</code>
       <code>$listener</code>
       <code>$priority</code>
       <code>$priority</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="14">
-      <code>getContent</code>
-      <code>getHeaders</code>
-      <code>has</code>
-      <code>placeholder</code>
-      <code>placeholder</code>
-      <code>placeholder</code>
-      <code>placeholder</code>
-      <code>placeholder</code>
-      <code>set</code>
-      <code>set</code>
-      <code>set</code>
-      <code>set</code>
-      <code>set</code>
-      <code>setResponse</code>
-    </MixedMethodCall>
     <TooManyArguments occurrences="1">
       <code>detach</code>
     </TooManyArguments>
-    <UndefinedThisPropertyAssignment occurrences="3">
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;response</code>
-    </UndefinedThisPropertyAssignment>
-    <UndefinedThisPropertyFetch occurrences="11">
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;event</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;response</code>
-      <code>$this-&gt;response</code>
-      <code>$this-&gt;response</code>
-      <code>$this-&gt;response</code>
-      <code>$this-&gt;response</code>
-    </UndefinedThisPropertyFetch>
-  </file>
-  <file src="test/TestAsset/Renderer/VarExportRenderer.php">
-    <ImplementedReturnTypeMismatch occurrences="1">
-      <code>void</code>
-    </ImplementedReturnTypeMismatch>
-  </file>
-  <file src="test/TestAsset/SharedInstance.php">
-    <MissingPropertyType occurrences="1">
-      <code>$count</code>
-    </MissingPropertyType>
-    <MixedInferredReturnType occurrences="1">
-      <code>int</code>
-    </MixedInferredReturnType>
-    <MixedOperand occurrences="1">
-      <code>$this-&gt;count</code>
-    </MixedOperand>
-    <MixedReturnStatement occurrences="1">
-      <code>$this-&gt;count</code>
-    </MixedReturnStatement>
-  </file>
-  <file src="test/TestAsset/VariableFunctor.php">
-    <MissingParamType occurrences="1">
-      <code>$value</code>
-    </MissingParamType>
-    <MissingPropertyType occurrences="1">
-      <code>$value</code>
-    </MissingPropertyType>
-  </file>
-  <file src="test/ViewEventTest.php">
-    <MissingPropertyType occurrences="1">
-      <code>$event</code>
-    </MissingPropertyType>
-    <MixedMethodCall occurrences="43">
-      <code>getModel</code>
-      <code>getModel</code>
-      <code>getModel</code>
-      <code>getModel</code>
-      <code>getParam</code>
-      <code>getParam</code>
-      <code>getParam</code>
-      <code>getParam</code>
-      <code>getParam</code>
-      <code>getParam</code>
-      <code>getParam</code>
-      <code>getParam</code>
-      <code>getParam</code>
-      <code>getParam</code>
-      <code>getParam</code>
-      <code>getParams</code>
-      <code>getRenderer</code>
-      <code>getRenderer</code>
-      <code>getRenderer</code>
-      <code>getRenderer</code>
-      <code>getRequest</code>
-      <code>getRequest</code>
-      <code>getRequest</code>
-      <code>getRequest</code>
-      <code>getResponse</code>
-      <code>getResponse</code>
-      <code>getResponse</code>
-      <code>getResponse</code>
-      <code>getResult</code>
-      <code>getResult</code>
-      <code>getResult</code>
-      <code>getResult</code>
-      <code>setModel</code>
-      <code>setParam</code>
-      <code>setParam</code>
-      <code>setParam</code>
-      <code>setParam</code>
-      <code>setParam</code>
-      <code>setParams</code>
-      <code>setRenderer</code>
-      <code>setRequest</code>
-      <code>setResponse</code>
-      <code>setResult</code>
-    </MixedMethodCall>
   </file>
   <file src="test/ViewTest.php">
-    <DeprecatedMethod occurrences="1">
-      <code>setMethods</code>
-    </DeprecatedMethod>
-    <MissingClosureParamType occurrences="14">
-      <code>$e</code>
-      <code>$e</code>
+    <MissingClosureParamType occurrences="12">
       <code>$e</code>
       <code>$e</code>
       <code>$e</code>
@@ -5149,9 +3885,6 @@
       <code>$e</code>
       <code>$e</code>
     </MissingClosureParamType>
-    <MissingPropertyType occurrences="1">
-      <code>$result</code>
-    </MissingPropertyType>
     <MixedArgument occurrences="2">
       <code>$result-&gt;content</code>
       <code>$this-&gt;result-&gt;content</code>
@@ -5159,32 +3892,7 @@
     <MixedAssignment occurrences="1">
       <code>$result[]</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="52">
-      <code>addChild</code>
-      <code>addChild</code>
-      <code>addChild</code>
-      <code>addChild</code>
-      <code>addChild</code>
-      <code>addChild</code>
-      <code>addChild</code>
-      <code>addChild</code>
-      <code>addChild</code>
-      <code>addChild</code>
-      <code>addRenderingStrategy</code>
-      <code>addRenderingStrategy</code>
-      <code>addRenderingStrategy</code>
-      <code>addRenderingStrategy</code>
-      <code>addRenderingStrategy</code>
-      <code>addRenderingStrategy</code>
-      <code>addRenderingStrategy</code>
-      <code>addResponseStrategy</code>
-      <code>addResponseStrategy</code>
-      <code>addResponseStrategy</code>
-      <code>addResponseStrategy</code>
-      <code>addResponseStrategy</code>
-      <code>attach</code>
-      <code>getEventManager</code>
-      <code>getEventManager</code>
+    <MixedMethodCall occurrences="7">
       <code>getModel</code>
       <code>getModel</code>
       <code>getResult</code>
@@ -5192,66 +3900,11 @@
       <code>getResult</code>
       <code>getResult</code>
       <code>getResult</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>render</code>
-      <code>setModel</code>
-      <code>setVariable</code>
-      <code>setVariable</code>
-      <code>setVariable</code>
-      <code>setVariable</code>
-      <code>setVariable</code>
-      <code>setVariable</code>
-      <code>setVariables</code>
-      <code>setVariables</code>
     </MixedMethodCall>
-    <MixedPropertyFetch occurrences="4">
-      <code>$this-&gt;result-&gt;content</code>
-      <code>$this-&gt;result-&gt;content</code>
-      <code>$this-&gt;result-&gt;content</code>
-      <code>$this-&gt;result-&gt;content</code>
-    </MixedPropertyFetch>
     <NullArgument occurrences="1">
       <code>null</code>
     </NullArgument>
-    <UndefinedThisPropertyAssignment occurrences="4">
-      <code>$this-&gt;model</code>
-      <code>$this-&gt;request</code>
-      <code>$this-&gt;response</code>
-      <code>$this-&gt;view</code>
-    </UndefinedThisPropertyAssignment>
-    <UndefinedThisPropertyFetch occurrences="20">
-      <code>$this-&gt;model</code>
-      <code>$this-&gt;model</code>
-      <code>$this-&gt;model</code>
-      <code>$this-&gt;model</code>
-      <code>$this-&gt;model</code>
-      <code>$this-&gt;model</code>
-      <code>$this-&gt;model</code>
-      <code>$this-&gt;model</code>
-      <code>$this-&gt;view</code>
-      <code>$this-&gt;view</code>
-      <code>$this-&gt;view</code>
-      <code>$this-&gt;view</code>
-      <code>$this-&gt;view</code>
-      <code>$this-&gt;view</code>
-      <code>$this-&gt;view</code>
-      <code>$this-&gt;view</code>
-      <code>$this-&gt;view</code>
-      <code>$this-&gt;view</code>
-      <code>$this-&gt;view</code>
-      <code>$this-&gt;view</code>
-    </UndefinedThisPropertyFetch>
-    <UnusedClosureParam occurrences="6">
-      <code>$e</code>
+    <UnusedClosureParam occurrences="5">
       <code>$e</code>
       <code>$e</code>
       <code>$e</code>
