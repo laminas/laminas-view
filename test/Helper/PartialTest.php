@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
 use ArrayObject;
@@ -66,7 +68,7 @@ class PartialTest extends TestCase
 
     public function testObjectModelWithPublicPropertiesSetsViewVariables(): void
     {
-        $model = new stdClass();
+        $model      = new stdClass();
         $model->foo = 'bar';
         $model->bar = 'baz';
 

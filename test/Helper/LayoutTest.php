@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
 use Laminas\View\Exception;
@@ -30,7 +32,7 @@ class LayoutTest extends TestCase
      */
     protected function setUp(): void
     {
-        $renderer = new PhpRenderer();
+        $renderer        = new PhpRenderer();
         $viewModelHelper = $renderer->plugin('view_model');
         assert($viewModelHelper instanceof ViewModelHelper);
         $helper = $renderer->plugin('layout');
@@ -69,9 +71,9 @@ class LayoutTest extends TestCase
 
     public function testRaisesExceptionIfViewModelHelperHasNoRoot(): void
     {
-        $renderer         = new PhpRenderer();
+        $renderer = new PhpRenderer();
         $renderer->plugin('view_model');
-        $helper          = $renderer->plugin('layout');
+        $helper = $renderer->plugin('layout');
 
         $this->expectException(Exception\RuntimeException::class);
         $this->expectExceptionMessage('view model');

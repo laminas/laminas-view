@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View;
 
 use Laminas\Authentication\AuthenticationService;
@@ -19,7 +21,6 @@ use Laminas\View\Renderer\PhpRenderer;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 
-use function get_class;
 use function method_exists;
 
 /**
@@ -91,20 +92,24 @@ class HelperPluginManagerTest extends TestCase
 
     public function testRegisteringInvalidHelperRaisesException(): void
     {
-        $helpers = new HelperPluginManager(new ServiceManager(), ['factories' => [
-            'test' => function () {
-                return $this;
-            },
-        ],]);
+        $helpers = new HelperPluginManager(new ServiceManager(), [
+            'factories' => [
+                'test' => function () {
+                    return $this;
+                },
+            ],
+        ]);
         $this->expectException($this->getServiceNotFoundException($helpers));
         $helpers->get('test');
     }
 
     public function testLoadingInvalidHelperRaisesException(): void
     {
-        $helpers = new HelperPluginManager(new ServiceManager(), ['invokables' => [
-            'test' => get_class($this),
-        ],]);
+        $helpers = new HelperPluginManager(new ServiceManager(), [
+            'invokables' => [
+                'test' => static::class,
+            ],
+        ]);
         $this->expectException($this->getServiceNotFoundException($helpers));
         $helpers->get('test');
     }
@@ -116,9 +121,11 @@ class HelperPluginManagerTest extends TestCase
 
     public function testIdentityFactoryCanInjectAuthenticationServiceIfInParentServiceManager(): void
     {
-        $config = new Config(['invokables' => [
-            AuthenticationService::class => AuthenticationService::class,
-        ],]);
+        $config   = new Config([
+            'invokables' => [
+                AuthenticationService::class => AuthenticationService::class,
+            ],
+        ]);
         $services = new ServiceManager();
         $config->configureServiceManager($services);
         $helpers  = new HelperPluginManager($services);
@@ -132,10 +139,12 @@ class HelperPluginManagerTest extends TestCase
         $translator = new MvcTranslator(
             $this->getMockBuilder(TranslatorInterface::class)->getMock()
         );
-        $config = new Config(['services' => [
-            'MvcTranslator' => $translator,
-        ],]);
-        $services = new ServiceManager();
+        $config     = new Config([
+            'services' => [
+                'MvcTranslator' => $translator,
+            ],
+        ]);
+        $services   = new ServiceManager();
         $config->configureServiceManager($services);
         $helpers = new HelperPluginManager($services);
         $helper  = $helpers->get('HeadTitle');
@@ -147,10 +156,12 @@ class HelperPluginManagerTest extends TestCase
     {
         // @codingStandardsIgnoreEnd
         $translator = new Translator();
-        $config = new Config(['services' => [
-            'Translator' => $translator,
-        ],]);
-        $services = new ServiceManager();
+        $config     = new Config([
+            'services' => [
+                'Translator' => $translator,
+            ],
+        ]);
+        $services   = new ServiceManager();
         $config->configureServiceManager($services);
         $helpers = new HelperPluginManager($services);
         $helper  = $helpers->get('HeadTitle');
@@ -162,10 +173,12 @@ class HelperPluginManagerTest extends TestCase
     {
         // @codingStandardsIgnoreEnd
         $translator = new Translator();
-        $config = new Config(['services' => [
-            TranslatorInterface::class => $translator,
-        ],]);
-        $services = new ServiceManager();
+        $config     = new Config([
+            'services' => [
+                TranslatorInterface::class => $translator,
+            ],
+        ]);
+        $services   = new ServiceManager();
         $config->configureServiceManager($services);
         $helpers = new HelperPluginManager($services);
         $helper  = $helpers->get('HeadTitle');
@@ -184,7 +197,7 @@ class HelperPluginManagerTest extends TestCase
             );
         }
         $helpers = new HelperPluginManager();
-        $helper = new HeadTitle();
+        $helper  = new HeadTitle();
         $this->assertNull($helpers->injectTranslator($helper, $helpers));
         $this->assertNull($helper->getTranslator());
     }
@@ -193,10 +206,12 @@ class HelperPluginManagerTest extends TestCase
     {
         $translatorA = new Translator();
         $translatorB = new Translator();
-        $config = new Config(['services' => [
-            'Translator' => $translatorB,
-        ],]);
-        $services = new ServiceManager();
+        $config      = new Config([
+            'services' => [
+                'Translator' => $translatorB,
+            ],
+        ]);
+        $services    = new ServiceManager();
         $config->configureServiceManager($services);
         $helpers = new HelperPluginManager($services);
         $helpers->setFactory(
@@ -215,7 +230,7 @@ class HelperPluginManagerTest extends TestCase
     {
         $helper  = $this->prophesize(HelperInterface::class)->reveal();
         $helpers = new HelperPluginManager(new ServiceManager());
-        $config = new Config(
+        $config  = new Config(
             [
                 'factories' => [
                     Url::class => function ($container) use ($helper) {
@@ -230,10 +245,10 @@ class HelperPluginManagerTest extends TestCase
 
     public function testCanUseCallableAsHelper(): void
     {
-        $helper = function (): void {
+        $helper  = function (): void {
         };
         $helpers = new HelperPluginManager(new ServiceManager());
-        $config = new Config(
+        $config  = new Config(
             [
                 'factories' => [
                     'foo' => function ($container) use ($helper) {
@@ -252,7 +267,6 @@ class HelperPluginManagerTest extends TestCase
     }
 
     /**
-     * @return string
      * @psalm-return InvalidHelperException::class|InvalidServiceException::class
      */
     private function getServiceNotFoundException(HelperPluginManager $manager): string

@@ -154,39 +154,39 @@ class FeedStrategyTest extends TestCase
     protected function getFeedData(string $type): array
     {
         return [
-            'copyright' => date('Y'),
-            'date_created' => time(),
-            'date_modified' => time(),
+            'copyright'       => date('Y'),
+            'date_created'    => time(),
+            'date_modified'   => time(),
             'last_build_date' => time(),
-            'description' => __CLASS__,
-            'id' => 'https://getlaminas.org/',
-            'language' => 'en_US',
-            'feed_link' => [
+            'description'     => self::class,
+            'id'              => 'https://getlaminas.org/',
+            'language'        => 'en_US',
+            'feed_link'       => [
                 'link' => 'https://getlaminas.org/feed.xml',
                 'type' => $type,
             ],
-            'link' => 'https://getlaminas.org/feed.xml',
-            'title' => 'Testing',
-            'encoding' => 'UTF-8',
-            'base_url' => 'https://getlaminas.org/',
-            'entries' => [
+            'link'            => 'https://getlaminas.org/feed.xml',
+            'title'           => 'Testing',
+            'encoding'        => 'UTF-8',
+            'base_url'        => 'https://getlaminas.org/',
+            'entries'         => [
                 [
-                    'content' => 'test content',
-                    'date_created' => time(),
+                    'content'       => 'test content',
+                    'date_created'  => time(),
                     'date_modified' => time(),
-                    'description' => __CLASS__,
-                    'id' => 'https://getlaminas.org/1',
-                    'link' => 'https://getlaminas.org/1',
-                    'title' => 'Test 1',
+                    'description'   => self::class,
+                    'id'            => 'https://getlaminas.org/1',
+                    'link'          => 'https://getlaminas.org/1',
+                    'title'         => 'Test 1',
                 ],
                 [
-                    'content' => 'test content',
-                    'date_created' => time(),
+                    'content'       => 'test content',
+                    'date_created'  => time(),
                     'date_modified' => time(),
-                    'description' => __CLASS__,
-                    'id' => 'https://getlaminas.org/2',
-                    'link' => 'https://getlaminas.org/2',
-                    'title' => 'Test 2',
+                    'description'   => self::class,
+                    'id'            => 'https://getlaminas.org/2',
+                    'link'          => 'https://getlaminas.org/2',
+                    'title'         => 'Test 2',
                 ],
             ],
         ];
@@ -242,7 +242,8 @@ class FeedStrategyTest extends TestCase
             foreach ($listeners as $priority => $listener) {
                 self::assertIsInt($priority);
                 self::assertIsArray($listener);
-                if ($listener === $expectedListener
+                if (
+                    $listener === $expectedListener
                     && $priority === $expectedPriority
                 ) {
                     $found = true;
@@ -266,7 +267,8 @@ class FeedStrategyTest extends TestCase
             foreach ($listeners as $priority => $listener) {
                 self::assertIsInt($priority);
                 self::assertIsArray($listener);
-                if ($listener === $expectedListener
+                if (
+                    $listener === $expectedListener
                     && $priority === $expectedPriority
                 ) {
                     $found = true;

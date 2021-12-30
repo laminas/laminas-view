@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper\Navigation;
 
 use Laminas\Navigation\Navigation;
@@ -10,15 +12,12 @@ use Laminas\View\Helper\Navigation as NavigationHelper;
  */
 class AbstractHelperTest extends AbstractTest
 {
-    // @codingStandardsIgnoreStart
-
     /**
      * View helper
      *
      * @var NavigationHelper\Breadcrumbs
      */
-    protected $_helper;
-    // @codingStandardsIgnoreEnd
+    protected $_helper; // phpcs:ignore
 
     protected function setUp(): void
     {
@@ -40,8 +39,8 @@ class AbstractHelperTest extends AbstractTest
 
     public function testHasACLChecksDefaultACL(): void
     {
-        $aclContainer = $this->_getAcl();
-        $acl = $aclContainer['acl'];
+        $aclContainer = $this->getAcl();
+        $acl          = $aclContainer['acl'];
 
         $this->assertEquals(false, $this->_helper->hasACL());
         $this->_helper->setDefaultAcl($acl);
@@ -50,8 +49,8 @@ class AbstractHelperTest extends AbstractTest
 
     public function testHasACLChecksMemberVariable(): void
     {
-        $aclContainer = $this->_getAcl();
-        $acl = $aclContainer['acl'];
+        $aclContainer = $this->getAcl();
+        $acl          = $aclContainer['acl'];
 
         $this->assertEquals(false, $this->_helper->hasAcl());
         $this->_helper->setAcl($acl);
@@ -60,8 +59,8 @@ class AbstractHelperTest extends AbstractTest
 
     public function testHasRoleChecksDefaultRole(): void
     {
-        $aclContainer = $this->_getAcl();
-        $role = $aclContainer['role'];
+        $aclContainer = $this->getAcl();
+        $role         = $aclContainer['role'];
 
         $this->assertEquals(false, $this->_helper->hasRole());
         $this->_helper->setDefaultRole($role);
@@ -70,8 +69,8 @@ class AbstractHelperTest extends AbstractTest
 
     public function testHasRoleChecksMemberVariable(): void
     {
-        $aclContainer = $this->_getAcl();
-        $role = $aclContainer['role'];
+        $aclContainer = $this->getAcl();
+        $role         = $aclContainer['role'];
 
         $this->assertEquals(false, $this->_helper->hasRole());
         $this->_helper->setRole($role);

@@ -1,13 +1,13 @@
 <?php
 
-namespace LaminasTest\View\Helper\TestAsset;
+declare(strict_types=1);
 
-use function get_class;
+namespace LaminasTest\View\Helper\TestAsset;
 
 class Stringified
 {
-    public function __toString()
+    public function __toString(): string
     {
-        return get_class($this);
+        return static::class;
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper\Navigation;
 
 use Interop\Container\ContainerInterface;
@@ -53,20 +55,20 @@ class NavigationTest extends AbstractTest
     {
         $returned = $this->_helper->__invoke();
         $this->assertEquals($this->_helper, $returned);
-        $this->assertEquals($this->_nav1, $returned->getContainer());
+        $this->assertEquals($this->nav1, $returned->getContainer());
     }
 
     public function testHelperEntryPointWithContainerParam(): void
     {
-        $returned = $this->_helper->__invoke($this->_nav2);
+        $returned = $this->_helper->__invoke($this->nav2);
         $this->assertEquals($this->_helper, $returned);
-        $this->assertEquals($this->_nav2, $returned->getContainer());
+        $this->assertEquals($this->nav2, $returned->getContainer());
     }
 
     public function testAcceptAclShouldReturnGracefullyWithUnknownResource(): void
     {
         // setup
-        $acl = $this->_getAcl();
+        $acl = $this->getAcl();
         $this->_helper->setAcl($acl['acl']);
         $this->_helper->setRole($acl['role']);
 
@@ -82,12 +84,12 @@ class NavigationTest extends AbstractTest
 
     public function testShouldProxyToMenuHelperByDefault(): void
     {
-        $this->_helper->setContainer($this->_nav1);
+        $this->_helper->setContainer($this->nav1);
         $this->_helper->setServiceLocator(new ServiceManager());
 
         // result
-        $expected = $this->_getExpected('menu/default1.html');
-        $actual = $this->_helper->render();
+        $expected = $this->getExpectedFileContents('menu/default1.html');
+        $actual   = $this->_helper->render();
 
         $this->assertEquals($expected, $actual);
     }
@@ -103,17 +105,17 @@ class NavigationTest extends AbstractTest
     public function testInjectingContainer(): void
     {
         // setup
-        $this->_helper->setContainer($this->_nav2);
+        $this->_helper->setContainer($this->nav2);
         $this->_helper->setServiceLocator(new ServiceManager());
         $expected = [
-            'menu' => $this->_getExpected('menu/default2.html'),
-            'breadcrumbs' => $this->_getExpected('bc/default.html'),
+            'menu'        => $this->getExpectedFileContents('menu/default2.html'),
+            'breadcrumbs' => $this->getExpectedFileContents('bc/default.html'),
         ];
-        $actual = [];
+        $actual   = [];
 
         // result
         $actual['menu'] = $this->_helper->render();
-        $this->_helper->setContainer($this->_nav1);
+        $this->_helper->setContainer($this->nav1);
         $actual['breadcrumbs'] = $this->_helper->breadcrumbs()->render();
 
         $this->assertEquals($expected, $actual);
@@ -126,14 +128,14 @@ class NavigationTest extends AbstractTest
         $this->_helper->setInjectContainer(false);
         $this->_helper->menu()->setContainer(null);
         $this->_helper->breadcrumbs()->setContainer(null);
-        $this->_helper->setContainer($this->_nav2);
+        $this->_helper->setContainer($this->nav2);
 
         // result
         $expected = [
             'menu'        => '',
             'breadcrumbs' => '',
         ];
-        $actual = [
+        $actual   = [
             'menu'        => $this->_helper->render(),
             'breadcrumbs' => $this->_helper->breadcrumbs()->render(),
         ];
@@ -144,9 +146,9 @@ class NavigationTest extends AbstractTest
     public function testMultipleNavigationsAndOneMenuDisplayedTwoTimes(): void
     {
         $this->_helper->setServiceLocator(new ServiceManager());
-        $expected = $this->_helper->setContainer($this->_nav1)->menu()->getContainer();
-        $this->_helper->setContainer($this->_nav2)->menu()->getContainer();
-        $actual = $this->_helper->setContainer($this->_nav1)->menu()->getContainer();
+        $expected = $this->_helper->setContainer($this->nav1)->menu()->getContainer();
+        $this->_helper->setContainer($this->nav2)->menu()->getContainer();
+        $actual = $this->_helper->setContainer($this->nav1)->menu()->getContainer();
 
         $this->assertEquals($expected, $actual);
     }
@@ -170,13 +172,13 @@ class NavigationTest extends AbstractTest
     public function testInjectingAcl(): void
     {
         // setup
-        $acl = $this->_getAcl();
+        $acl = $this->getAcl();
         $this->_helper->setAcl($acl['acl']);
         $this->_helper->setRole($acl['role']);
         $this->_helper->setServiceLocator(new ServiceManager());
 
-        $expected = $this->_getExpected('menu/acl.html');
-        $actual = $this->_helper->render();
+        $expected = $this->getExpectedFileContents('menu/acl.html');
+        $actual   = $this->_helper->render();
 
         $this->assertEquals($expected, $actual);
     }
@@ -184,14 +186,14 @@ class NavigationTest extends AbstractTest
     public function testDisablingAclInjection(): void
     {
         // setup
-        $acl = $this->_getAcl();
+        $acl = $this->getAcl();
         $this->_helper->setAcl($acl['acl']);
         $this->_helper->setRole($acl['role']);
         $this->_helper->setInjectAcl(false);
         $this->_helper->setServiceLocator(new ServiceManager());
 
-        $expected = $this->_getExpected('menu/default1.html');
-        $actual = $this->_helper->render();
+        $expected = $this->getExpectedFileContents('menu/default1.html');
+        $actual   = $this->_helper->render();
 
         $this->assertEquals($expected, $actual);
     }
@@ -202,23 +204,23 @@ class NavigationTest extends AbstractTest
             $this->markTestSkipped('ext/intl not enabled');
         }
 
-        $this->_helper->setTranslator($this->_getTranslator());
+        $this->_helper->setTranslator($this->getTranslator());
         $this->_helper->setServiceLocator(new ServiceManager());
 
-        $expected = $this->_getExpected('menu/translated.html');
-        $actual = $this->_helper->render();
+        $expected = $this->getExpectedFileContents('menu/translated.html');
+        $actual   = $this->_helper->render();
 
         $this->assertEquals($expected, $actual);
     }
 
     public function testDisablingTranslatorInjection(): void
     {
-        $this->_helper->setTranslator($this->_getTranslator());
+        $this->_helper->setTranslator($this->getTranslator());
         $this->_helper->setInjectTranslator(false);
         $this->_helper->setServiceLocator(new ServiceManager());
 
-        $expected = $this->_getExpected('menu/default1.html');
-        $actual = $this->_helper->render();
+        $expected = $this->getExpectedFileContents('menu/default1.html');
+        $actual   = $this->_helper->render();
 
         $this->assertEquals($expected, $actual);
     }
@@ -240,17 +242,17 @@ class NavigationTest extends AbstractTest
     public function testSpecifyingDefaultProxy(): void
     {
         $expected = [
-            'breadcrumbs' => $this->_getExpected('bc/default.html'),
-            'menu' => $this->_getExpected('menu/default1.html'),
+            'breadcrumbs' => $this->getExpectedFileContents('bc/default.html'),
+            'menu'        => $this->getExpectedFileContents('menu/default1.html'),
         ];
-        $actual = [];
+        $actual   = [];
 
         // result
         $this->_helper->setServiceLocator(new ServiceManager());
         $this->_helper->setDefaultProxy('breadcrumbs');
-        $actual['breadcrumbs'] = $this->_helper->render($this->_nav1);
+        $actual['breadcrumbs'] = $this->_helper->render($this->nav1);
         $this->_helper->setDefaultProxy('menu');
-        $actual['menu'] = $this->_helper->render($this->_nav1);
+        $actual['menu'] = $this->_helper->render($this->nav1);
 
         $this->assertEquals($expected, $actual);
     }
@@ -321,8 +323,8 @@ class NavigationTest extends AbstractTest
     {
         try {
             $this->_helper->setRole(1337);
-            $this->fail('An invalid argument was given, but a ' .
-                        'Laminas\View\Exception\InvalidArgumentException was not thrown');
+            $this->fail('An invalid argument was given, but a '
+                        . 'Laminas\View\Exception\InvalidArgumentException was not thrown');
         } catch (View\Exception\ExceptionInterface $e) {
             $this->assertStringContainsString('$role must be a string', $e->getMessage());
         }
@@ -332,8 +334,8 @@ class NavigationTest extends AbstractTest
     {
         try {
             $this->_helper->setRole(new stdClass());
-            $this->fail('An invalid argument was given, but a ' .
-                        'Laminas\View\Exception\InvalidArgumentException was not thrown');
+            $this->fail('An invalid argument was given, but a '
+                        . 'Laminas\View\Exception\InvalidArgumentException was not thrown');
         } catch (View\Exception\ExceptionInterface $e) {
             $this->assertStringContainsString('$role must be a string', $e->getMessage());
         }
@@ -373,8 +375,8 @@ class NavigationTest extends AbstractTest
     {
         try {
             Navigation\AbstractHelper::setDefaultRole(1337);
-            $this->fail('An invalid argument was given, but a ' .
-                        'Laminas\View\Exception\InvalidArgumentException was not thrown');
+            $this->fail('An invalid argument was given, but a '
+                        . 'Laminas\View\Exception\InvalidArgumentException was not thrown');
         } catch (View\Exception\ExceptionInterface $e) {
             $this->assertStringContainsString('$role must be', $e->getMessage());
         }
@@ -384,8 +386,8 @@ class NavigationTest extends AbstractTest
     {
         try {
             Navigation\AbstractHelper::setDefaultRole(new stdClass());
-            $this->fail('An invalid argument was given, but a ' .
-                        'Laminas\View\Exception\InvalidArgumentException was not thrown');
+            $this->fail('An invalid argument was given, but a '
+                        . 'Laminas\View\Exception\InvalidArgumentException was not thrown');
         } catch (View\Exception\ExceptionInterface $e) {
             $this->assertStringContainsString('$role must be', $e->getMessage());
         }
@@ -567,7 +569,7 @@ class NavigationTest extends AbstractTest
         $expected = spl_object_hash($menu->getContainer());
         $this->assertEquals($expected, $actual);
 
-        $menu    = $helper()->menu();
+        $menu     = $helper()->menu();
         $expected = spl_object_hash($menu->getContainer());
         $this->assertEquals($expected, $actual);
     }
@@ -575,7 +577,7 @@ class NavigationTest extends AbstractTest
     public function testSetPluginManagerAndView(): void
     {
         $pluginManager = new Navigation\PluginManager(new ServiceManager());
-        $view = new PhpRenderer();
+        $view          = new PhpRenderer();
 
         $helper = new Navigation();
         $helper->setPluginManager($pluginManager);
@@ -590,14 +592,14 @@ class NavigationTest extends AbstractTest
     public function testInjectsLazyInstantiatedPluginManagerWithCurrentServiceLocator(): void
     {
         $services = $this->createMock(ContainerInterface::class);
-        $helper = new Navigation();
+        $helper   = new Navigation();
         $helper->setServiceLocator($services);
 
         $plugins = $helper->getPluginManager();
         $this->assertInstanceOf(Navigation\PluginManager::class, $plugins);
 
         $pluginsReflection = new ReflectionObject($plugins);
-        $creationContext = $pluginsReflection->getProperty('creationContext');
+        $creationContext   = $pluginsReflection->getProperty('creationContext');
         $creationContext->setAccessible(true);
         $creationContextValue = $creationContext->getValue($plugins);
 
@@ -610,16 +612,9 @@ class NavigationTest extends AbstractTest
         $this->assertSame($creationContextValue, $services);
     }
 
-    /**
-     * Returns the contens of the expected $file, normalizes newlines
-     *
-     * @param  string $file
-     * @return string
-     */
-    // @codingStandardsIgnoreStart
-    protected function _getExpected($file)
+    /** @inheritDoc */
+    protected function getExpectedFileContents(string $filename): string
     {
-        // @codingStandardsIgnoreEnd
-        return str_replace("\n", PHP_EOL, parent::_getExpected($file));
+        return str_replace("\n", PHP_EOL, parent::getExpectedFileContents($filename));
     }
 }

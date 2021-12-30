@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper\Navigation;
 
 use Laminas\Navigation\Navigation;
@@ -24,14 +26,12 @@ use const PHP_EOL;
  */
 class MenuTest extends AbstractTest
 {
-    // @codingStandardsIgnoreStart
     /**
      * View helper.
      *
      * @var Menu
      */
-    protected $_helper;
-    // @codingStandardsIgnoreEnd
+    protected $_helper; // phpcs:ignore
 
     protected function setUp(): void
     {
@@ -44,7 +44,7 @@ class MenuTest extends AbstractTest
         $this->_helper->setServiceLocator($this->serviceManager);
 
         $returned = $this->_helper->renderMenu('Navigation');
-        $this->assertEquals($returned, $this->_getExpected('menu/default1.html'));
+        $this->assertEquals($returned, $this->getExpectedFileContents('menu/default1.html'));
     }
 
     public function testCanRenderPartialFromServiceAlias(): void
@@ -53,21 +53,21 @@ class MenuTest extends AbstractTest
         $this->_helper->setServiceLocator($this->serviceManager);
 
         $returned = $this->_helper->renderPartial('Navigation');
-        $this->assertEquals($returned, $this->_getExpected('menu/partial.html'));
+        $this->assertEquals($returned, $this->getExpectedFileContents('menu/partial.html'));
     }
 
     public function testHelperEntryPointWithoutAnyParams(): void
     {
         $returned = $this->_helper->__invoke();
         $this->assertEquals($this->_helper, $returned);
-        $this->assertEquals($this->_nav1, $returned->getContainer());
+        $this->assertEquals($this->nav1, $returned->getContainer());
     }
 
     public function testHelperEntryPointWithContainerParam(): void
     {
-        $returned = $this->_helper->__invoke($this->_nav2);
+        $returned = $this->_helper->__invoke($this->nav2);
         $this->assertEquals($this->_helper, $returned);
-        $this->assertEquals($this->_nav2, $returned->getContainer());
+        $this->assertEquals($this->nav2, $returned->getContainer());
     }
 
     public function testNullingOutContainerInHelper(): void
@@ -81,8 +81,8 @@ class MenuTest extends AbstractTest
         $this->_helper->setIndent(8);
 
         $expected = [
-            'indent4' => $this->_getExpected('menu/indent4.html'),
-            'indent8' => $this->_getExpected('menu/indent8.html'),
+            'indent4' => $this->getExpectedFileContents('menu/indent4.html'),
+            'indent8' => $this->getExpectedFileContents('menu/indent8.html'),
         ];
 
         $renderOptions = [
@@ -99,9 +99,9 @@ class MenuTest extends AbstractTest
 
     public function testRenderSuppliedContainerWithoutInterfering(): void
     {
-        $rendered1 = $this->_getExpected('menu/default1.html');
-        $rendered2 = $this->_getExpected('menu/default2.html');
-        $expected = [
+        $rendered1 = $this->getExpectedFileContents('menu/default1.html');
+        $rendered2 = $this->getExpectedFileContents('menu/default2.html');
+        $expected  = [
             'registered'       => $rendered1,
             'supplied'         => $rendered2,
             'registered_again' => $rendered1,
@@ -109,7 +109,7 @@ class MenuTest extends AbstractTest
 
         $actual = [
             'registered'       => $this->_helper->render(),
-            'supplied'         => $this->_helper->render($this->_nav2),
+            'supplied'         => $this->_helper->render($this->nav2),
             'registered_again' => $this->_helper->render(),
         ];
 
@@ -118,71 +118,71 @@ class MenuTest extends AbstractTest
 
     public function testUseAclRoleAsString(): void
     {
-        $acl = $this->_getAcl();
+        $acl = $this->getAcl();
         $this->_helper->setAcl($acl['acl']);
         $this->_helper->setRole('member');
 
-        $expected = $this->_getExpected('menu/acl_string.html');
+        $expected = $this->getExpectedFileContents('menu/acl_string.html');
         $this->assertEquals($expected, $this->_helper->render());
     }
 
     public function testFilterOutPagesBasedOnAcl(): void
     {
-        $acl = $this->_getAcl();
+        $acl = $this->getAcl();
         $this->_helper->setAcl($acl['acl']);
         $this->_helper->setRole($acl['role']);
 
-        $expected = $this->_getExpected('menu/acl.html');
-        $actual = $this->_helper->render();
+        $expected = $this->getExpectedFileContents('menu/acl.html');
+        $actual   = $this->_helper->render();
 
         $this->assertEquals($expected, $actual);
     }
 
     public function testDisablingAcl(): void
     {
-        $acl = $this->_getAcl();
+        $acl = $this->getAcl();
         $this->_helper->setAcl($acl['acl']);
         $this->_helper->setRole($acl['role']);
         $this->_helper->setUseAcl(false);
 
-        $expected = $this->_getExpected('menu/default1.html');
-        $actual = $this->_helper->render();
+        $expected = $this->getExpectedFileContents('menu/default1.html');
+        $actual   = $this->_helper->render();
 
         $this->assertEquals($expected, $actual);
     }
 
     public function testUseAnAclRoleInstanceFromAclObject(): void
     {
-        $acl = $this->_getAcl();
+        $acl = $this->getAcl();
         $this->_helper->setAcl($acl['acl']);
         $this->_helper->setRole($acl['acl']->getRole('member'));
 
-        $expected = $this->_getExpected('menu/acl_role_interface.html');
+        $expected = $this->getExpectedFileContents('menu/acl_role_interface.html');
         $this->assertEquals($expected, $this->_helper->render());
     }
 
     public function testUseConstructedAclRolesNotFromAclObject(): void
     {
-        $acl = $this->_getAcl();
+        $acl = $this->getAcl();
         $this->_helper->setAcl($acl['acl']);
         $this->_helper->setRole(new GenericRole('member'));
 
-        $expected = $this->_getExpected('menu/acl_role_interface.html');
+        $expected = $this->getExpectedFileContents('menu/acl_role_interface.html');
         $this->assertEquals($expected, $this->_helper->render());
     }
 
     public function testSetUlCssClass(): void
     {
         $this->_helper->setUlClass('My_Nav');
-        $expected = $this->_getExpected('menu/css.html');
-        $this->assertEquals($expected, $this->_helper->render($this->_nav2));
+        $expected = $this->getExpectedFileContents('menu/css.html');
+        $this->assertEquals($expected, $this->_helper->render($this->nav2));
     }
 
     public function testSetLiActiveCssClass(): void
     {
         $this->_helper->setLiActiveClass('activated');
-        $expected = $this->_getExpected('menu/css2.html');
-        $this->assertEquals(trim($expected), $this->_helper->render($this->_nav2));
+        $expected = $this->getExpectedFileContents('menu/css2.html');
+        $this->assertEquals(trim($expected), $this->_helper->render($this->nav2));
     }
 
     public function testOptionEscapeLabelsAsTrue(): void
@@ -191,14 +191,14 @@ class MenuTest extends AbstractTest
             'escapeLabels' => true,
         ];
 
-        $container = new Navigation($this->_nav2->toArray());
+        $container = new Navigation($this->nav2->toArray());
         $container->addPage([
             'label' => 'Badges <span class="badge">1</span>',
-            'uri' => 'badges',
+            'uri'   => 'badges',
         ]);
 
-        $expected = $this->_getExpected('menu/escapelabels_as_true.html');
-        $actual = $this->_helper->renderMenu($container, $options);
+        $expected = $this->getExpectedFileContents('menu/escapelabels_as_true.html');
+        $actual   = $this->_helper->renderMenu($container, $options);
 
         $this->assertEquals($expected, $actual);
     }
@@ -209,14 +209,14 @@ class MenuTest extends AbstractTest
             'escapeLabels' => false,
         ];
 
-        $container = new Navigation($this->_nav2->toArray());
+        $container = new Navigation($this->nav2->toArray());
         $container->addPage([
             'label' => 'Badges <span class="badge">1</span>',
-            'uri' => 'badges',
+            'uri'   => 'badges',
         ]);
 
-        $expected = $this->_getExpected('menu/escapelabels_as_false.html');
-        $actual = $this->_helper->renderMenu($container, $options);
+        $expected = $this->getExpectedFileContents('menu/escapelabels_as_false.html');
+        $actual   = $this->_helper->renderMenu($container, $options);
 
         $this->assertEquals($expected, $actual);
     }
@@ -227,10 +227,10 @@ class MenuTest extends AbstractTest
             $this->markTestSkipped('ext/intl not enabled');
         }
 
-        $translator = $this->_getTranslator();
+        $translator = $this->getTranslator();
         $this->_helper->setTranslator($translator);
 
-        $expected = $this->_getExpected('menu/translated.html');
+        $expected = $this->getExpectedFileContents('menu/translated.html');
         $this->assertEquals($expected, $this->_helper->render());
     }
 
@@ -240,11 +240,11 @@ class MenuTest extends AbstractTest
             $this->markTestSkipped('ext/intl not enabled');
         }
 
-        $translator = $this->_getTranslatorWithTextDomain();
+        $translator = $this->getTranslatorWithTextDomain();
         $this->_helper->setTranslator($translator);
 
-        $expected = $this->_getExpected('menu/textdomain.html');
-        $test     = $this->_helper->render($this->_nav3);
+        $expected = $this->getExpectedFileContents('menu/textdomain.html');
+        $test     = $this->_helper->render($this->nav3);
         $this->assertEquals(trim($expected), trim($test));
     }
 
@@ -254,20 +254,20 @@ class MenuTest extends AbstractTest
             $this->markTestSkipped('ext/intl not enabled');
         }
 
-        $translator = $this->_getTranslator();
+        $translator = $this->getTranslator();
         $this->_helper->setTranslator($translator);
 
-        $expected = $this->_getExpected('menu/translated.html');
+        $expected = $this->getExpectedFileContents('menu/translated.html');
         $this->assertEquals($expected, $this->_helper->render());
     }
 
     public function testDisablingTranslation(): void
     {
-        $translator = $this->_getTranslator();
+        $translator = $this->getTranslator();
         $this->_helper->setTranslator($translator);
         $this->_helper->setTranslatorEnabled(false);
 
-        $expected = $this->_getExpected('menu/default1.html');
+        $expected = $this->getExpectedFileContents('menu/default1.html');
         $this->assertEquals($expected, $this->_helper->render());
     }
 
@@ -275,8 +275,8 @@ class MenuTest extends AbstractTest
     {
         $this->_helper->setPartial('menu.phtml');
 
-        $expected = $this->_getExpected('menu/partial.html');
-        $actual = $this->_helper->render();
+        $expected = $this->getExpectedFileContents('menu/partial.html');
+        $actual   = $this->_helper->render();
 
         $this->assertEquals($expected, $actual);
     }
@@ -285,8 +285,8 @@ class MenuTest extends AbstractTest
     {
         $this->_helper->setPartial(['menu.phtml', 'application']);
 
-        $expected = $this->_getExpected('menu/partial.html');
-        $actual = $this->_helper->render();
+        $expected = $this->getExpectedFileContents('menu/partial.html');
+        $actual   = $this->_helper->render();
 
         $this->assertEquals($expected, $actual);
     }
@@ -294,8 +294,8 @@ class MenuTest extends AbstractTest
     public function testRenderingPartialWithParams(): void
     {
         $this->_helper->setPartial(['menu_with_partial_params.phtml', 'application']);
-        $expected = $this->_getExpected('menu/partial_with_params.html');
-        $actual = $this->_helper->renderPartialWithParams(['variable' => 'test value']);
+        $expected = $this->getExpectedFileContents('menu/partial_with_params.html');
+        $actual   = $this->_helper->renderPartialWithParams(['variable' => 'test value']);
         $this->assertEquals($expected, $actual);
     }
 
@@ -310,8 +310,8 @@ class MenuTest extends AbstractTest
     {
         $this->_helper->setMaxDepth(1);
 
-        $expected = $this->_getExpected('menu/maxdepth.html');
-        $actual = $this->_helper->renderMenu();
+        $expected = $this->getExpectedFileContents('menu/maxdepth.html');
+        $actual   = $this->_helper->renderMenu();
 
         $this->assertEquals($expected, $actual);
     }
@@ -320,8 +320,8 @@ class MenuTest extends AbstractTest
     {
         $this->_helper->setMinDepth(1);
 
-        $expected = $this->_getExpected('menu/mindepth.html');
-        $actual = $this->_helper->renderMenu();
+        $expected = $this->getExpectedFileContents('menu/mindepth.html');
+        $actual   = $this->_helper->renderMenu();
 
         $this->assertEquals($expected, $actual);
     }
@@ -330,8 +330,8 @@ class MenuTest extends AbstractTest
     {
         $this->_helper->setMinDepth(1)->setMaxDepth(2);
 
-        $expected = $this->_getExpected('menu/bothdepts.html');
-        $actual = $this->_helper->renderMenu();
+        $expected = $this->getExpectedFileContents('menu/bothdepts.html');
+        $actual   = $this->_helper->renderMenu();
 
         $this->assertEquals($expected, $actual);
     }
@@ -340,8 +340,8 @@ class MenuTest extends AbstractTest
     {
         $this->_helper->setOnlyActiveBranch(true);
 
-        $expected = $this->_getExpected('menu/onlyactivebranch.html');
-        $actual = $this->_helper->renderMenu();
+        $expected = $this->getExpectedFileContents('menu/onlyactivebranch.html');
+        $actual   = $this->_helper->renderMenu();
 
         $this->assertEquals($expected, $actual);
     }
@@ -350,8 +350,8 @@ class MenuTest extends AbstractTest
     {
         $this->_helper->setOnlyActiveBranch(true)->setRenderParents(false);
 
-        $expected = $this->_getExpected('menu/onlyactivebranch_noparents.html');
-        $actual = $this->_helper->renderMenu();
+        $expected = $this->getExpectedFileContents('menu/onlyactivebranch_noparents.html');
+        $actual   = $this->_helper->renderMenu();
 
         $this->assertEquals($expected, $actual);
     }
@@ -360,8 +360,8 @@ class MenuTest extends AbstractTest
     {
         $this->_helper->setOnlyActiveBranch()->setMinDepth(1);
 
-        $expected = $this->_getExpected('menu/onlyactivebranch_mindepth.html');
-        $actual = $this->_helper->renderMenu();
+        $expected = $this->getExpectedFileContents('menu/onlyactivebranch_mindepth.html');
+        $actual   = $this->_helper->renderMenu();
 
         $this->assertEquals($expected, $actual);
     }
@@ -370,8 +370,8 @@ class MenuTest extends AbstractTest
     {
         $this->_helper->setOnlyActiveBranch()->setMaxDepth(2);
 
-        $expected = $this->_getExpected('menu/onlyactivebranch_maxdepth.html');
-        $actual = $this->_helper->renderMenu();
+        $expected = $this->getExpectedFileContents('menu/onlyactivebranch_maxdepth.html');
+        $actual   = $this->_helper->renderMenu();
 
         $this->assertEquals($expected, $actual);
     }
@@ -380,8 +380,8 @@ class MenuTest extends AbstractTest
     {
         $this->_helper->setOnlyActiveBranch()->setMinDepth(1)->setMaxDepth(2);
 
-        $expected = $this->_getExpected('menu/onlyactivebranch_bothdepts.html');
-        $actual = $this->_helper->renderMenu();
+        $expected = $this->getExpectedFileContents('menu/onlyactivebranch_bothdepts.html');
+        $actual   = $this->_helper->renderMenu();
 
         $this->assertEquals($expected, $actual);
     }
@@ -393,8 +393,8 @@ class MenuTest extends AbstractTest
                       ->setMaxDepth(2)
                       ->setRenderParents(false);
 
-        $expected = $this->_getExpected('menu/onlyactivebranch_np_bd.html');
-        $actual = $this->_helper->renderMenu();
+        $expected = $this->getExpectedFileContents('menu/onlyactivebranch_np_bd.html');
+        $actual   = $this->_helper->renderMenu();
 
         $this->assertEquals($expected, $actual);
     }
@@ -423,8 +423,8 @@ class MenuTest extends AbstractTest
                       ->setMaxDepth(1)
                       ->setRenderParents(false);
 
-        $expected = $this->_getExpected('menu/onlyactivebranch_np_bd2.html');
-        $actual = $this->_helper->renderMenu();
+        $expected = $this->getExpectedFileContents('menu/onlyactivebranch_np_bd2.html');
+        $actual   = $this->_helper->renderMenu();
 
         $this->assertEquals($expected, $actual);
     }
@@ -436,8 +436,8 @@ class MenuTest extends AbstractTest
                       ->setMaxDepth(2)
                       ->setRenderParents(true);
 
-        $expected = $this->_getExpected('menu/onlyactivebranch_noparents.html');
-        $actual = $this->_helper->renderSubMenu();
+        $expected = $this->getExpectedFileContents('menu/onlyactivebranch_noparents.html');
+        $actual   = $this->_helper->renderSubMenu();
 
         $this->assertEquals($expected, $actual);
     }
@@ -448,8 +448,8 @@ class MenuTest extends AbstractTest
             'maxDepth' => 1,
         ];
 
-        $expected = $this->_getExpected('menu/maxdepth.html');
-        $actual = $this->_helper->renderMenu(null, $options);
+        $expected = $this->getExpectedFileContents('menu/maxdepth.html');
+        $actual   = $this->_helper->renderMenu(null, $options);
 
         $this->assertEquals($expected, $actual);
     }
@@ -460,8 +460,8 @@ class MenuTest extends AbstractTest
             'minDepth' => 1,
         ];
 
-        $expected = $this->_getExpected('menu/mindepth.html');
-        $actual = $this->_helper->renderMenu(null, $options);
+        $expected = $this->getExpectedFileContents('menu/mindepth.html');
+        $actual   = $this->_helper->renderMenu(null, $options);
 
         $this->assertEquals($expected, $actual);
     }
@@ -473,8 +473,8 @@ class MenuTest extends AbstractTest
             'maxDepth' => 2,
         ];
 
-        $expected = $this->_getExpected('menu/bothdepts.html');
-        $actual = $this->_helper->renderMenu(null, $options);
+        $expected = $this->getExpectedFileContents('menu/bothdepts.html');
+        $actual   = $this->_helper->renderMenu(null, $options);
 
         $this->assertEquals($expected, $actual);
     }
@@ -485,8 +485,8 @@ class MenuTest extends AbstractTest
             'onlyActiveBranch' => true,
         ];
 
-        $expected = $this->_getExpected('menu/onlyactivebranch.html');
-        $actual = $this->_helper->renderMenu(null, $options);
+        $expected = $this->getExpectedFileContents('menu/onlyactivebranch.html');
+        $actual   = $this->_helper->renderMenu(null, $options);
 
         $this->assertEquals($expected, $actual);
     }
@@ -495,11 +495,11 @@ class MenuTest extends AbstractTest
     {
         $options = [
             'onlyActiveBranch' => true,
-            'renderParents' => false,
+            'renderParents'    => false,
         ];
 
-        $expected = $this->_getExpected('menu/onlyactivebranch_noparents.html');
-        $actual = $this->_helper->renderMenu(null, $options);
+        $expected = $this->getExpectedFileContents('menu/onlyactivebranch_noparents.html');
+        $actual   = $this->_helper->renderMenu(null, $options);
 
         $this->assertEquals($expected, $actual);
     }
@@ -507,12 +507,12 @@ class MenuTest extends AbstractTest
     public function testOptionOnlyActiveBranchAndMinDepth(): void
     {
         $options = [
-            'minDepth' => 1,
+            'minDepth'         => 1,
             'onlyActiveBranch' => true,
         ];
 
-        $expected = $this->_getExpected('menu/onlyactivebranch_mindepth.html');
-        $actual = $this->_helper->renderMenu(null, $options);
+        $expected = $this->getExpectedFileContents('menu/onlyactivebranch_mindepth.html');
+        $actual   = $this->_helper->renderMenu(null, $options);
 
         $this->assertEquals($expected, $actual);
     }
@@ -520,12 +520,12 @@ class MenuTest extends AbstractTest
     public function testOptionOnlyActiveBranchAndMaxDepth(): void
     {
         $options = [
-            'maxDepth' => 2,
+            'maxDepth'         => 2,
             'onlyActiveBranch' => true,
         ];
 
-        $expected = $this->_getExpected('menu/onlyactivebranch_maxdepth.html');
-        $actual = $this->_helper->renderMenu(null, $options);
+        $expected = $this->getExpectedFileContents('menu/onlyactivebranch_maxdepth.html');
+        $actual   = $this->_helper->renderMenu(null, $options);
 
         $this->assertEquals($expected, $actual);
     }
@@ -533,13 +533,13 @@ class MenuTest extends AbstractTest
     public function testOptionOnlyActiveBranchAndBothDepthsSpecified(): void
     {
         $options = [
-            'minDepth' => 1,
-            'maxDepth' => 2,
+            'minDepth'         => 1,
+            'maxDepth'         => 2,
             'onlyActiveBranch' => true,
         ];
 
-        $expected = $this->_getExpected('menu/onlyactivebranch_bothdepts.html');
-        $actual = $this->_helper->renderMenu(null, $options);
+        $expected = $this->getExpectedFileContents('menu/onlyactivebranch_bothdepts.html');
+        $actual   = $this->_helper->renderMenu(null, $options);
 
         $this->assertEquals($expected, $actual);
     }
@@ -547,28 +547,28 @@ class MenuTest extends AbstractTest
     public function testOptionOnlyActiveBranchNoParentsAndBothDepthsSpecified(): void
     {
         $options = [
-            'minDepth' => 2,
-            'maxDepth' => 2,
+            'minDepth'         => 2,
+            'maxDepth'         => 2,
             'onlyActiveBranch' => true,
-            'renderParents' => false,
+            'renderParents'    => false,
         ];
 
-        $expected = $this->_getExpected('menu/onlyactivebranch_np_bd.html');
-        $actual = $this->_helper->renderMenu(null, $options);
+        $expected = $this->getExpectedFileContents('menu/onlyactivebranch_np_bd.html');
+        $actual   = $this->_helper->renderMenu(null, $options);
 
         $this->assertEquals($expected, $actual);
     }
 
     public function testRenderingWithoutPageClassToLi(): void
     {
-        $container = new Navigation($this->_nav2->toArray());
+        $container = new Navigation($this->nav2->toArray());
         $container->addPage([
             'label' => 'Class test',
-            'uri' => 'test',
+            'uri'   => 'test',
             'class' => 'foobar',
         ]);
 
-        $expected = $this->_getExpected('menu/addclasstolistitem_as_false.html');
+        $expected = $this->getExpectedFileContents('menu/addclasstolistitem_as_false.html');
         $actual   = $this->_helper->renderMenu($container);
 
         $this->assertEquals(trim($expected), trim($actual));
@@ -580,15 +580,15 @@ class MenuTest extends AbstractTest
             'addClassToListItem' => true,
         ];
 
-        $container = new Navigation($this->_nav2->toArray());
+        $container = new Navigation($this->nav2->toArray());
         $container->addPage([
             'label' => 'Class test',
-            'uri' => 'test',
+            'uri'   => 'test',
             'class' => 'foobar',
         ]);
 
-        $expected = $this->_getExpected('menu/addclasstolistitem_as_true.html');
-        $actual = $this->_helper->renderMenu($container, $options);
+        $expected = $this->getExpectedFileContents('menu/addclasstolistitem_as_true.html');
+        $actual   = $this->_helper->renderMenu($container, $options);
 
         $this->assertEquals(trim($expected), trim($actual));
     }
@@ -597,31 +597,24 @@ class MenuTest extends AbstractTest
     {
         $options = [
             'addClassToListItem' => true,
-            'onlyActiveBranch' => true,
-            'renderParents' => false,
+            'onlyActiveBranch'   => true,
+            'renderParents'      => false,
         ];
 
         /** @var array[] $pages */
-        $pages = $this->_nav2->toArray();
+        $pages             = $this->nav2->toArray();
         $pages[1]['class'] = 'foobar';
-        $container = new Navigation($pages);
+        $container         = new Navigation($pages);
 
-        $expected = $this->_getExpected('menu/onlyactivebranch_addclasstolistitem.html');
-        $actual = $this->_helper->renderMenu($container, $options);
+        $expected = $this->getExpectedFileContents('menu/onlyactivebranch_addclasstolistitem.html');
+        $actual   = $this->_helper->renderMenu($container, $options);
 
         $this->assertEquals(trim($expected), trim($actual));
     }
 
-    /**
-     * Returns the contens of the expected $file, normalizes newlines.
-     *
-     * @param string $file
-     * @return string
-     */
-    // @codingStandardsIgnoreStart
-    protected function _getExpected($file)
+    /** @inheritDoc */
+    protected function getExpectedFileContents(string $filename): string
     {
-        // @codingStandardsIgnoreEnd
-        return str_replace("\n", PHP_EOL, parent::_getExpected($file));
+        return str_replace("\n", PHP_EOL, parent::getExpectedFileContents($filename));
     }
 }

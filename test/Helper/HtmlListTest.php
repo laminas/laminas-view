@@ -1,8 +1,8 @@
 <?php
 
-namespace LaminasTest\View\Helper;
+declare(strict_types=1);
 
-use const PHP_EOL;
+namespace LaminasTest\View\Helper;
 
 use Laminas\View\Exception;
 use Laminas\View\Helper;
@@ -10,6 +10,8 @@ use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
 
 use function array_walk_recursive;
+
+use const PHP_EOL;
 
 /**
  * @group      Laminas_View
@@ -63,7 +65,7 @@ class HtmlListTest extends TestCase
 
     public function testMakeUnorderedListWithAttribs(): void
     {
-        $items = ['one', 'two', 'three'];
+        $items   = ['one', 'two', 'three'];
         $attribs = ['class' => 'selected', 'name' => 'list'];
 
         $list = $this->helper->__invoke($items, false, $attribs);
@@ -79,7 +81,7 @@ class HtmlListTest extends TestCase
 
     public function testMakeOrderedListWithAttribs(): void
     {
-        $items = ['one', 'two', 'three'];
+        $items   = ['one', 'two', 'three'];
         $attribs = ['class' => 'selected', 'name' => 'list'];
 
         $list = $this->helper->__invoke($items, true, $attribs);
@@ -93,7 +95,7 @@ class HtmlListTest extends TestCase
         }
     }
 
-    /*
+    /**
      * @group Laminas-5018
      */
     public function testMakeNestedUnorderedList(): void
@@ -104,12 +106,12 @@ class HtmlListTest extends TestCase
 
         $this->assertStringContainsString('<ul>' . PHP_EOL, $list);
         $this->assertStringContainsString('</ul>' . PHP_EOL, $list);
-        $this->assertStringContainsString('one<ul>' . PHP_EOL.'<li>four', $list);
-        $this->assertStringContainsString('<li>six</li>' . PHP_EOL . '</ul>' .
-            PHP_EOL . '</li>' . PHP_EOL . '<li>two', $list);
+        $this->assertStringContainsString('one<ul>' . PHP_EOL . '<li>four', $list);
+        $this->assertStringContainsString('<li>six</li>' . PHP_EOL . '</ul>'
+            . PHP_EOL . '</li>' . PHP_EOL . '<li>two', $list);
     }
 
-    /*
+    /**
      * @group Laminas-5018
      */
     public function testMakeNestedDeepUnorderedList(): void
@@ -122,8 +124,8 @@ class HtmlListTest extends TestCase
         $this->assertStringContainsString('</ul>' . PHP_EOL, $list);
         $this->assertStringContainsString('one<ul>' . PHP_EOL . '<li>four', $list);
         $this->assertStringContainsString('<li>four<ul>' . PHP_EOL . '<li>six', $list);
-        $this->assertStringContainsString('<li>five</li>' . PHP_EOL . '</ul>' .
-            PHP_EOL . '</li>' . PHP_EOL . '<li>two', $list);
+        $this->assertStringContainsString('<li>five</li>' . PHP_EOL . '</ul>'
+            . PHP_EOL . '</li>' . PHP_EOL . '<li>two', $list);
     }
 
     public function testListWithValuesToEscapeForLaminas2283(): void

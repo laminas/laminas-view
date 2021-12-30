@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View;
 
 use ArrayObject;
@@ -24,7 +26,16 @@ use function var_export;
 
 class ViewTest extends TestCase
 {
+    /** @var stdClass */
     private $result;
+    /** @var Request */
+    private $request;
+    /** @var Response */
+    private $response;
+    /** @var ViewModel */
+    private $model;
+    /** @var View */
+    private $view;
 
     protected function setUp(): void
     {
@@ -285,7 +296,7 @@ class ViewTest extends TestCase
         $this->view->render($layout);
 
         $expected = json_encode([
-            'status' => 200,
+            'status'   => 200,
             'response' => ['foo' => 'bar'],
         ]);
 

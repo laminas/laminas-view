@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Resolver;
 
 use Laminas\View\Resolver\PrefixPathStackResolver;
@@ -42,7 +44,7 @@ class PrefixPathStackResolverTest extends TestCase
     public function testResolve(): void
     {
         $resolver = new PrefixPathStackResolver([
-            'base1'  => $this->basePath,
+            'base1' => $this->basePath,
             'base2' => $this->basePath . '/baz',
         ]);
 

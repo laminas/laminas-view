@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Strategy;
 
 use Laminas\EventManager\EventManager;
@@ -18,6 +20,12 @@ class PhpRendererStrategyTest extends TestCase
 
     /** @var PhpRendererStrategy */
     private $strategy;
+    /** @var PhpRenderer */
+    private $renderer;
+    /** @var ViewEvent */
+    private $event;
+    /** @var HttpResponse */
+    private $response;
 
     protected function setUp(): void
     {
@@ -118,7 +126,8 @@ class PhpRendererStrategyTest extends TestCase
             $expectedPriority = 1;
             $found            = false;
             foreach ($listeners as $priority => $listener) {
-                if ($listener === $expectedListener
+                if (
+                    $listener === $expectedListener
                     && $priority === $expectedPriority
                 ) {
                     $found = true;
@@ -140,7 +149,8 @@ class PhpRendererStrategyTest extends TestCase
             $expectedPriority = 100;
             $found            = false;
             foreach ($listeners as $priority => $listener) {
-                if ($listener === $expectedListener
+                if (
+                    $listener === $expectedListener
                     && $priority === $expectedPriority
                 ) {
                     $found = true;

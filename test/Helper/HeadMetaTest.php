@@ -1,23 +1,26 @@
 <?php
 
-namespace LaminasTest\View\Helper;
+declare(strict_types=1);
 
-use function assert;
-use const PHP_EOL;
+namespace LaminasTest\View\Helper;
 
 use Laminas\View\Exception;
 use Laminas\View\Exception\ExceptionInterface as ViewException;
 use Laminas\View\Helper;
+use Laminas\View\Helper\Doctype;
 use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
 
 use function array_shift;
+use function assert;
 use function count;
 use function set_error_handler;
 use function sprintf;
 use function str_replace;
 use function substr_count;
 use function ucwords;
+
+use const PHP_EOL;
 
 /**
  * Test class for Laminas\View\Helper\HeadMeta.
@@ -42,21 +45,17 @@ class HeadMetaTest extends TestCase
      */
     protected function setUp(): void
     {
-        Helper\Doctype::unsetDoctypeRegistry();
+        Doctype::unsetDoctypeRegistry();
         $this->view = new View();
         $doctype    = $this->view->plugin('doctype');
-        assert($doctype instanceof Helper\Doctype);
+        assert($doctype instanceof Doctype);
         $doctype->__invoke('XHTML1_STRICT');
         $this->helper = new Helper\HeadMeta();
         $this->helper->setView($this->view);
         $this->attributeEscaper = new Helper\EscapeHtmlAttr();
     }
 
-    /**
-     * @param int    $errno
-     * @param string $errstr
-     */
-    public function handleErrors($errno, $errstr): void
+    public function handleErrors(int $errno, string $errstr): void
     {
         $this->error = $errstr;
     }
@@ -154,7 +153,7 @@ class HeadMetaTest extends TestCase
         }
         $this->helper->$setAction('keywords', $string);
         $values = $this->helper->getArrayCopy();
-        $this->assertEquals(1, count($values));
+        $this->assertCount(1, $values);
         $item = array_shift($values);
 
         $this->assertObjectHasAttribute('type', $item);
@@ -461,7 +460,7 @@ class HeadMetaTest extends TestCase
              ->setCharset('utf-8');
     }
 
-     /**
+    /**
      * @group Laminas-9743
      */
     public function testPropertyIsSupportedWithRdfaDoctype(): void
@@ -519,8 +518,8 @@ class HeadMetaTest extends TestCase
     }
 
      /**
-     * @issue 3751
-     */
+      * @issue 3751
+      */
     public function testItempropIsSupportedWithHtml5Doctype(): void
     {
         $this->view->doctype('HTML5');

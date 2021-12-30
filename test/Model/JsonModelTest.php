@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Model;
 
 use Laminas\Json\Json;
@@ -35,9 +37,9 @@ class JsonModelTest extends TestCase
     public function testPrettyPrint(): void
     {
         $array = [
-            'simple' => 'simple test string',
+            'simple'              => 'simple test string',
             'stringwithjsonchars' => '\"[1,2]',
-            'complex' => [
+            'complex'             => [
                 'foo' => 'bar',
                 'far' => 'boo',
             ],

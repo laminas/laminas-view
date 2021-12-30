@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Resolver;
 
 use ArrayObject;
@@ -10,7 +12,6 @@ use stdClass;
 
 use function array_reverse;
 use function array_unshift;
-use function count;
 use function ini_get;
 use function realpath;
 
@@ -44,7 +45,7 @@ class TemplatePathStackTest extends TestCase
     {
         $this->stack->addPath($this->baseDir);
         $paths = $this->stack->getPaths();
-        $this->assertEquals(1, count($paths));
+        $this->assertCount(1, $paths);
         $this->assertEquals(TemplatePathStack::normalizePath($this->baseDir), $paths->pop());
     }
 
@@ -198,13 +199,14 @@ class TemplatePathStackTest extends TestCase
     public function testSettingOptionsWithInvalidArgumentRaisesException($options): void
     {
         $this->expectException(Exception\ExceptionInterface::class);
+        /** @psalm-suppress MixedArgument */
         $this->stack->setOptions($options);
     }
 
     /**
-     * @return mixed[][]
+     * @return array<array-key, array{0: mixed[]|ArrayObject}>
      */
-    public function validOptions()
+    public function validOptions(): array
     {
         $options = [
             'lfi_protection'     => false,
@@ -237,13 +239,13 @@ class TemplatePathStackTest extends TestCase
     }
 
     /**
-     * @param array $options
+     * @param array|ArrayObject $options
      * @dataProvider validOptions
      */
     public function testAllowsPassingOptionsToConstructor($options): void
     {
         $options['script_paths'] = $this->paths;
-        $stack = new TemplatePathStack($options);
+        $stack                   = new TemplatePathStack($options);
         $this->assertFalse($stack->isLfiProtectionOn());
 
         $expected = (bool) ini_get('short_open_tag');

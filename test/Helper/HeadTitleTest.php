@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
 use Laminas\I18n\Translator\Translator;
@@ -27,7 +29,7 @@ class HeadTitleTest extends TestCase
     protected function setUp(): void
     {
         $this->basePath = __DIR__ . '/_files/modules';
-        $this->helper = new Helper\HeadTitle();
+        $this->helper   = new Helper\HeadTitle();
     }
 
     public function testHeadTitleReturnsObjectInstance(): void
@@ -107,7 +109,6 @@ class HeadTitleTest extends TestCase
         $this->helper->__invoke()->setAutoEscape(false);
         $this->assertFalse($this->helper->__invoke()->getAutoEscape());
 
-
         $this->assertEquals('Some Title &copyright;', $this->helper->renderTitle());
     }
 
@@ -142,11 +143,11 @@ class HeadTitleTest extends TestCase
 
     public function testCanTranslateTitle(): void
     {
-        $loader = new TestAsset\ArrayTranslator();
+        $loader               = new TestAsset\ArrayTranslator();
         $loader->translations = [
             'Message_1' => 'Message 1 (en)',
         ];
-        $translator = new Translator();
+        $translator           = new Translator();
         $translator->getPluginManager()->setService('default', $loader);
         $translator->addTranslationFile('default', '');
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Resolver;
 
 use Exception;
@@ -46,7 +48,7 @@ class AggregateResolverTest extends TestCase
 
     public function testCanAccessResolverThatLastSucceeded(): void
     {
-        $resolver = new Resolver\AggregateResolver();
+        $resolver    = new Resolver\AggregateResolver();
         $fooResolver = new Resolver\TemplateMapResolver([
             'foo' => 'bar',
         ]);
@@ -96,7 +98,7 @@ class AggregateResolverTest extends TestCase
 
     public function testResolvesInOrderOfPriorityProvided(): void
     {
-        $resolver = new Resolver\AggregateResolver();
+        $resolver    = new Resolver\AggregateResolver();
         $fooResolver = new Resolver\TemplateMapResolver([
             'bar' => 'foo',
         ]);

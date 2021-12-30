@@ -1,8 +1,8 @@
 <?php
 
-namespace LaminasTest\View\Helper;
+declare(strict_types=1);
 
-use const PHP_EOL;
+namespace LaminasTest\View\Helper;
 
 use Laminas\View\Exception;
 use Laminas\View\Helper;
@@ -14,6 +14,8 @@ use function count;
 use function sprintf;
 use function substr_count;
 use function var_export;
+
+use const PHP_EOL;
 
 /**
  * Test class for Laminas\View\Helper\HeadLink.
@@ -43,7 +45,7 @@ class HeadLinkTest extends TestCase
         $this->view     = new View();
         $this->helper   = new Helper\HeadLink();
         $this->helper->setView($this->view);
-        $this->attributeEscaper  = new Helper\EscapeHtmlAttr();
+        $this->attributeEscaper = new Helper\EscapeHtmlAttr();
     }
 
     public function testHeadLinkReturnsObjectInstance(): void
@@ -90,7 +92,7 @@ class HeadLinkTest extends TestCase
         $string = $this->helper->toString();
         $lines  = substr_count($string, PHP_EOL);
         $this->assertEquals(2, $lines);
-        $lines  = substr_count($string, '<link ');
+        $lines = substr_count($string, '<link ');
         $this->assertEquals(3, $lines, $string);
 
         $attributeEscaper = $this->attributeEscaper;
@@ -128,7 +130,7 @@ class HeadLinkTest extends TestCase
         $string = $this->helper->toString();
         $lines  = substr_count($string, PHP_EOL);
         $this->assertEquals(2, $lines);
-        $lines  = substr_count($string, '<link ');
+        $lines = substr_count($string, '<link ');
         $this->assertEquals(3, $lines, $string);
 
         $attributeEscaper = $this->attributeEscaper;
@@ -163,15 +165,15 @@ class HeadLinkTest extends TestCase
         foreach ($links as $link) {
             $method = $where . 'Alternate';
             $this->helper->$method($link['href'], $link['type'], $link['title']);
-            $where = ('append' == $where) ? 'prepend' : 'append';
+            $where = 'append' === $where ? 'prepend' : 'append';
         }
 
         $string = $this->helper->toString();
         $lines  = substr_count($string, PHP_EOL);
         $this->assertEquals(2, $lines);
-        $lines  = substr_count($string, '<link ');
+        $lines = substr_count($string, '<link ');
         $this->assertEquals(3, $lines, $string);
-        $lines  = substr_count($string, ' rel="alternate"');
+        $lines = substr_count($string, ' rel="alternate"');
         $this->assertEquals(3, $lines, $string);
 
         $attributeEscaper = $this->attributeEscaper;
@@ -345,7 +347,7 @@ class HeadLinkTest extends TestCase
     {
         $this->helper->appendStylesheet('foo');
         $this->helper->appendStylesheet('foo');
-        $this->assertEquals(1, count($this->helper), var_export($this->helper->getContainer()->getArrayCopy(), 1));
+        $this->assertEquals(1, count($this->helper), var_export($this->helper->getContainer()->getArrayCopy(), true));
     }
 
     /**
@@ -390,9 +392,9 @@ class HeadLinkTest extends TestCase
     public function testAppendStylesheetWithExtras(): void
     {
         $this->helper->appendStylesheet([
-            'href' => '/bar/baz',
+            'href'                  => '/bar/baz',
             'conditionalStylesheet' => false,
-            'extras' => ['id' => 'my_link_tag'],
+            'extras'                => ['id' => 'my_link_tag'],
         ]);
         $test = $this->helper->toString();
         $this->assertStringContainsString('id="my_link_tag"', $test);

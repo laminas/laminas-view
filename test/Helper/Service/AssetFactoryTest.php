@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper\Service;
 
 use Laminas\ServiceManager\ServiceManager;
@@ -21,7 +23,7 @@ class AssetFactoryTest extends TestCase
         $services = $this->getServices();
 
         $assetFactory = new AssetFactory();
-        $asset = $assetFactory->createService($services);
+        $asset        = $assetFactory->createService($services);
 
         $this->assertInstanceOf(Asset::class, $asset);
     }
@@ -31,7 +33,7 @@ class AssetFactoryTest extends TestCase
         $services = $this->getServices();
 
         $assetFactory = new AssetFactory();
-        $asset = $assetFactory($services, '');
+        $asset        = $assetFactory($services, '');
 
         $this->assertInstanceOf(Asset::class, $asset);
     }
@@ -43,13 +45,13 @@ class AssetFactoryTest extends TestCase
                 'asset' => [
                     'resource_map' => [
                         'css/style.css' => 'css/style-3a97ff4ee3.css',
-                        'js/vendor.js' => 'js/vendor-a507086eba.js',
+                        'js/vendor.js'  => 'js/vendor-a507086eba.js',
                     ],
                 ],
             ],
         ];
 
-        $services = $this->getServices($config);
+        $services     = $this->getServices($config);
         $assetFactory = new AssetFactory();
 
         $asset = $assetFactory($services, '');
@@ -59,7 +61,7 @@ class AssetFactoryTest extends TestCase
 
     public function testInvalidConfiguration(): void
     {
-        $config = [
+        $config   = [
             'view_helper_config' => [
                 'asset' => [],
             ],

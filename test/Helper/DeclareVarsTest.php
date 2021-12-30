@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
 use Laminas\View\Helper\DeclareVars;
@@ -60,7 +62,7 @@ class DeclareVarsTest extends TestCase
 
     public function testDeclareDeclaredVars(): void
     {
-        $vars = $this->view->vars();
+        $vars           = $this->view->vars();
         $vars->varName2 = 'alreadySet';
         $vars->varName3 = 'myValue';
         $vars->varName5 = 'additionalValue';

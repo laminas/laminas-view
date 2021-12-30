@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
 use DOMDocument;
@@ -34,7 +36,7 @@ class HeadStyleTest extends TestCase
     protected function setUp(): void
     {
         $this->basePath = __DIR__ . '/_files/modules';
-        $this->helper = new Helper\HeadStyle();
+        $this->helper   = new Helper\HeadStyle();
     }
 
     public function testHeadStyleReturnsObjectInstance(): void
@@ -165,8 +167,7 @@ class HeadStyleTest extends TestCase
 
     public function testRenderedStyleTagsContainsDefaultMedia(): void
     {
-        $this->helper->setStyle('a {}', [
-        ]);
+        $this->helper->setStyle('a {}', []);
         $value = $this->helper->toString();
         $this->assertMatchesRegularExpression('#<style [^>]*?media="screen"#', $value, $value);
     }
@@ -381,7 +382,7 @@ a {
         $style2 = 'h1 {font-weight: bold}';
         $this->helper->offsetSetStyle(5, $style2);
 
-        $test = $this->helper->toString();
+        $test     = $this->helper->toString();
         $expected = '<style type="text/css" media="screen">' . PHP_EOL
                   . '<!--' . PHP_EOL
                   . $style2 . PHP_EOL

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
 use Laminas\Escaper\Escaper;
@@ -82,20 +84,20 @@ class EscapeHtmlTest extends TestCase
                 ],
             ],
         ];
-        $test = $this->helper->__invoke($original, EscapeHelper::RECURSE_ARRAY);
+        $test     = $this->helper->__invoke($original, EscapeHelper::RECURSE_ARRAY);
         $this->assertEquals($expected, $test);
     }
 
     public function testWillCastObjectsToStringsBeforeEscaping(): void
     {
         $object = new TestAsset\Stringified();
-        $test = $this->helper->__invoke($object);
+        $test   = $this->helper->__invoke($object);
         $this->assertEquals(get_class($object), $test);
     }
 
     public function testCanRecurseObjectImplementingToArray(): void
     {
-        $original = [
+        $original      = [
             'foo' => '<b>bar</b>',
             'baz' => [
                 '<em>bat</em>',
@@ -104,7 +106,7 @@ class EscapeHtmlTest extends TestCase
                 ],
             ],
         ];
-        $object = new TestAsset\ToArray();
+        $object        = new TestAsset\ToArray();
         $object->array = $original;
 
         $expected = [
@@ -116,7 +118,7 @@ class EscapeHtmlTest extends TestCase
                 ],
             ],
         ];
-        $test = $this->helper->__invoke($object, EscapeHelper::RECURSE_OBJECT);
+        $test     = $this->helper->__invoke($object, EscapeHelper::RECURSE_OBJECT);
         $this->assertEquals($expected, $test);
     }
 
@@ -131,7 +133,7 @@ class EscapeHtmlTest extends TestCase
                 ],
             ],
         ];
-        $object = new stdClass();
+        $object   = new stdClass();
         foreach ($original as $key => $value) {
             $object->$key = $value;
         }
@@ -145,7 +147,7 @@ class EscapeHtmlTest extends TestCase
                 ],
             ],
         ];
-        $test = $this->helper->__invoke($object, EscapeHelper::RECURSE_OBJECT);
+        $test     = $this->helper->__invoke($object, EscapeHelper::RECURSE_OBJECT);
         $this->assertEquals($expected, $test);
     }
 

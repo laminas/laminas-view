@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper\TestAsset;
 
 class IdentityObject
@@ -10,34 +12,22 @@ class IdentityObject
     /** @var string|null */
     protected $password;
 
-    /**
-     * @param string $password
-     */
-    public function setPassword($password): void
+    public function setPassword(string $password): void
     {
-        $this->password = (string) $password;
+        $this->password = $password;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getPassword()
+    public function getPassword(): ?string
     {
         return $this->password;
     }
 
-    /**
-     * @param string $username
-     */
-    public function setUsername($username): void
+    public function setUsername(string $username): void
     {
-        $this->username = (string) $username;
+        $this->username = $username;
     }
 
-    /**
-     * @return string|null
-     */
-    public function getUsername()
+    public function getUsername(): ?string
     {
         return $this->username;
     }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper\Navigation;
 
 use DOMDocument;
@@ -22,39 +24,39 @@ use function trim;
  */
 class SitemapTest extends AbstractTest
 {
-    // @codingStandardsIgnoreStart
-    protected $_oldServer = [];
+    /** @var array<string, string> */
+    private $oldServer = [];
 
     /**
      * View helper
      *
      * @var Sitemap
      */
-    protected $_helper;
+    protected $_helper; // phpcs:ignore
 
     /**
      * Stores the original set timezone
+     *
      * @var string
      */
-    private $_originaltimezone;
-    // @codingStandardsIgnoreEnd
+    private $originaltimezone;
 
     protected function setUp(): void
     {
-        $this->_helper = new Sitemap();
-        $this->_originaltimezone = date_default_timezone_get();
+        $this->_helper          = new Sitemap();
+        $this->originaltimezone = date_default_timezone_get();
         date_default_timezone_set('Europe/Berlin');
 
         if (isset($_SERVER['SERVER_NAME'])) {
-            $this->_oldServer['SERVER_NAME'] = $_SERVER['SERVER_NAME'];
+            $this->oldServer['SERVER_NAME'] = $_SERVER['SERVER_NAME'];
         }
 
         if (isset($_SERVER['SERVER_PORT'])) {
-            $this->_oldServer['SERVER_PORT'] = $_SERVER['SERVER_PORT'];
+            $this->oldServer['SERVER_PORT'] = $_SERVER['SERVER_PORT'];
         }
 
         if (isset($_SERVER['REQUEST_URI'])) {
-            $this->_oldServer['REQUEST_URI'] = $_SERVER['REQUEST_URI'];
+            $this->oldServer['REQUEST_URI'] = $_SERVER['REQUEST_URI'];
         }
 
         $_SERVER['SERVER_NAME'] = 'localhost';
@@ -69,24 +71,24 @@ class SitemapTest extends AbstractTest
 
     protected function tearDown(): void
     {
-        foreach ($this->_oldServer as $key => $value) {
+        foreach ($this->oldServer as $key => $value) {
             $_SERVER[$key] = $value;
         }
-        date_default_timezone_set($this->_originaltimezone);
+        date_default_timezone_set($this->originaltimezone);
     }
 
     public function testHelperEntryPointWithoutAnyParams(): void
     {
         $returned = $this->_helper->__invoke();
         $this->assertEquals($this->_helper, $returned);
-        $this->assertEquals($this->_nav1, $returned->getContainer());
+        $this->assertEquals($this->nav1, $returned->getContainer());
     }
 
     public function testHelperEntryPointWithContainerParam(): void
     {
-        $returned = $this->_helper->__invoke($this->_nav2);
+        $returned = $this->_helper->__invoke($this->nav2);
         $this->assertEquals($this->_helper, $returned);
-        $this->assertEquals($this->_nav2, $returned->getContainer());
+        $this->assertEquals($this->nav2, $returned->getContainer());
     }
 
     public function testNullingOutNavigation(): void
@@ -97,17 +99,17 @@ class SitemapTest extends AbstractTest
 
     public function testRenderSuppliedContainerWithoutInterfering(): void
     {
-        $rendered1 = trim($this->_getExpected('sitemap/default1.xml'));
-        $rendered2 = trim($this->_getExpected('sitemap/default2.xml'));
+        $rendered1 = trim($this->getExpectedFileContents('sitemap/default1.xml'));
+        $rendered2 = trim($this->getExpectedFileContents('sitemap/default2.xml'));
 
         $expected = [
             'registered'       => $rendered1,
             'supplied'         => $rendered2,
             'registered_again' => $rendered1,
         ];
-        $actual = [
+        $actual   = [
             'registered'       => $this->_helper->render(),
-            'supplied'         => $this->_helper->render($this->_nav2),
+            'supplied'         => $this->_helper->render($this->nav2),
             'registered_again' => $this->_helper->render(),
         ];
 
@@ -116,21 +118,21 @@ class SitemapTest extends AbstractTest
 
     public function testUseAclRoles(): void
     {
-        $acl = $this->_getAcl();
+        $acl = $this->getAcl();
         $this->_helper->setAcl($acl['acl']);
         $this->_helper->setRole($acl['role']);
 
-        $expected = $this->_getExpected('sitemap/acl.xml');
+        $expected = $this->getExpectedFileContents('sitemap/acl.xml');
         $this->assertEquals(trim($expected), $this->_helper->render());
     }
 
     public function testUseAclButNoRole(): void
     {
-        $acl = $this->_getAcl();
+        $acl = $this->getAcl();
         $this->_helper->setAcl($acl['acl']);
         $this->_helper->setRole(null);
 
-        $expected = $this->_getExpected('sitemap/acl2.xml');
+        $expected = $this->getExpectedFileContents('sitemap/acl2.xml');
         $this->assertEquals(trim($expected), $this->_helper->render());
     }
 
@@ -138,7 +140,7 @@ class SitemapTest extends AbstractTest
     {
         $this->_helper->setMaxDepth(0);
 
-        $expected = $this->_getExpected('sitemap/depth1.xml');
+        $expected = $this->getExpectedFileContents('sitemap/depth1.xml');
         $this->assertEquals(trim($expected), $this->_helper->render());
     }
 
@@ -146,7 +148,7 @@ class SitemapTest extends AbstractTest
     {
         $this->_helper->setMinDepth(1);
 
-        $expected = $this->_getExpected('sitemap/depth2.xml');
+        $expected = $this->getExpectedFileContents('sitemap/depth2.xml');
         $this->assertEquals(trim($expected), $this->_helper->render());
     }
 
@@ -154,7 +156,7 @@ class SitemapTest extends AbstractTest
     {
         $this->_helper->setMinDepth(1)->setMaxDepth(2);
 
-        $expected = $this->_getExpected('sitemap/depth3.xml');
+        $expected = $this->getExpectedFileContents('sitemap/depth3.xml');
         $this->assertEquals(trim($expected), $this->_helper->render());
     }
 
@@ -162,8 +164,8 @@ class SitemapTest extends AbstractTest
     {
         $this->_helper->setUseXmlDeclaration(false);
 
-        $expected = $this->_getExpected('sitemap/nodecl.xml');
-        $this->assertEquals(trim($expected), $this->_helper->render($this->_nav2));
+        $expected = $this->getExpectedFileContents('sitemap/nodecl.xml');
+        $this->assertEquals(trim($expected), $this->_helper->render($this->nav2));
     }
 
     /**
@@ -172,7 +174,7 @@ class SitemapTest extends AbstractTest
     public function testThrowExceptionOnInvalidLoc()
     {
         $this->markTestIncomplete('Laminas\URI changes affect this test');
-        $nav = clone $this->_nav2;
+        $nav = clone $this->nav2;
         $nav->addPage(['label' => 'Invalid', 'uri' => 'http://w.']);
 
         try {
@@ -182,7 +184,7 @@ class SitemapTest extends AbstractTest
                 'Encountered an invalid URL for Sitemap XML: "%s"',
                 'http://w.'
             );
-            $actual = $e->getMessage();
+            $actual   = $e->getMessage();
             $this->assertEquals($expected, $actual);
             return;
         }
@@ -192,11 +194,11 @@ class SitemapTest extends AbstractTest
 
     public function testDisablingValidators(): void
     {
-        $nav = clone $this->_nav2;
+        $nav = clone $this->nav2;
         $nav->addPage(['label' => 'Invalid', 'uri' => 'http://w.']);
         $this->_helper->setUseSitemapValidators(false);
 
-        $expected = $this->_getExpected('sitemap/invalid.xml');
+        $expected = $this->getExpectedFileContents('sitemap/invalid.xml');
 
         // using DOMDocument::saveXML() to prevent differences in libxml from invalidating test
         $expectedDom = new DOMDocument();
@@ -236,7 +238,7 @@ class SitemapTest extends AbstractTest
     {
         $this->_helper->setServerUrl('http://sub.example.org');
 
-        $expected = $this->_getExpected('sitemap/serverurl1.xml');
+        $expected = $this->getExpectedFileContents('sitemap/serverurl1.xml');
         $this->assertEquals(trim($expected), $this->_helper->render());
     }
 
@@ -244,7 +246,7 @@ class SitemapTest extends AbstractTest
     {
         $this->_helper->setServerUrl('http://sub.example.org:8080/foo/');
 
-        $expected = $this->_getExpected('sitemap/serverurl2.xml');
+        $expected = $this->getExpectedFileContents('sitemap/serverurl2.xml');
         $this->assertEquals(trim($expected), $this->_helper->render());
     }
 
@@ -256,30 +258,27 @@ class SitemapTest extends AbstractTest
         $this->assertFalse($this->_helper->getUseSchemaValidation());
     }
 
-    /**
-     * @return never
-     */
-    public function testUseSchemaValidation()
+    public function testUseSchemaValidation(): void
     {
         $this->markTestSkipped('Skipped because it fetches XSD from web');
-        return;
-        $nav = clone $this->_nav2;
-        $this->_helper->setUseSitemapValidators(false);
-        $this->_helper->setUseSchemaValidation(true);
-        $nav->addPage(['label' => 'Invalid', 'uri' => 'http://w.']);
 
-        try {
-            $this->_helper->render($nav);
-        } catch (View\Exception\ExceptionInterface $e) {
-            $expected = sprintf(
-                'Sitemap is invalid according to XML Schema at "%s"',
-                Sitemap::SITEMAP_XSD
-            );
-            $actual = $e->getMessage();
-            $this->assertEquals($expected, $actual);
-            return;
-        }
-
-        $this->fail('A Laminas\View\Exception\InvalidArgumentException was not thrown when using Schema validation');
+//        $nav = clone $this->_nav2;
+//        $this->_helper->setUseSitemapValidators(false);
+//        $this->_helper->setUseSchemaValidation(true);
+//        $nav->addPage(['label' => 'Invalid', 'uri' => 'http://w.']);
+//
+//        try {
+//            $this->_helper->render($nav);
+//        } catch (View\Exception\ExceptionInterface $e) {
+//            $expected = sprintf(
+//                'Sitemap is invalid according to XML Schema at "%s"',
+//                Sitemap::SITEMAP_XSD
+//            );
+//            $actual   = $e->getMessage();
+//            $this->assertEquals($expected, $actual);
+//            return;
+//        }
+//
+//        $this->fail('A Laminas\View\Exception\InvalidArgumentException was not thrown when using Schema validation');
     }
 }

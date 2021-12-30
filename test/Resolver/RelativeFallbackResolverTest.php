@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Resolver;
 
 use Laminas\View\Helper\ViewModel as ViewModelHelper;
@@ -29,12 +31,12 @@ class RelativeFallbackResolverTest extends TestCase
         $tplMapResolver = new TemplateMapResolver([
             'foo/bar' => 'foo/baz',
         ]);
-        $resolver = new RelativeFallbackResolver($tplMapResolver);
-        $renderer = new PhpRenderer();
-        $view = new ViewModel();
+        $resolver       = new RelativeFallbackResolver($tplMapResolver);
+        $renderer       = new PhpRenderer();
+        $view           = new ViewModel();
         $view->setTemplate('foo/zaz');
         $helper = $renderer->plugin('view_model');
-        /* @var $helper ViewModelHelper */
+        /** @var ViewModelHelper $helper */
         $helper->setCurrent($view);
 
         $test = $resolver->resolve('bar', $renderer);
@@ -47,9 +49,9 @@ class RelativeFallbackResolverTest extends TestCase
         $pathStack->addPath(__DIR__ . '/../_templates');
         $resolver = new RelativeFallbackResolver($pathStack);
         $renderer = new PhpRenderer();
-        $view = new ViewModel();
+        $view     = new ViewModel();
         $view->setTemplate('name-space/any-view');
-        /* @var $helper ViewModelHelper */
+        /** @var ViewModelHelper $helper */
         $helper = $renderer->plugin('view_model');
         $helper->setCurrent($view);
 
@@ -61,16 +63,16 @@ class RelativeFallbackResolverTest extends TestCase
     {
         $tplMapResolver = new TemplateMapResolver([
             'foo/bar' => 'foo/baz',
-            'bar' => 'baz',
+            'bar'     => 'baz',
         ]);
-        $resolver = new AggregateResolver();
+        $resolver       = new AggregateResolver();
         $resolver->attach($tplMapResolver);
         $resolver->attach(new RelativeFallbackResolver($tplMapResolver));
         $renderer = new PhpRenderer();
-        $view = new ViewModel();
+        $view     = new ViewModel();
         $view->setTemplate('foo/zaz');
         $helper = $renderer->plugin('view_model');
-        /* @var $helper ViewModelHelper */
+        /** @var ViewModelHelper $helper */
         $helper->setCurrent($view);
 
         $test = $resolver->resolve('bar', $renderer);

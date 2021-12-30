@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
 use Laminas\View\Helper;
@@ -26,7 +28,7 @@ class InlineScriptTest extends TestCase
     protected function setUp(): void
     {
         $this->basePath = __DIR__ . '/_files/modules';
-        $this->helper = new Helper\InlineScript();
+        $this->helper   = new Helper\InlineScript();
     }
 
     public function testInlineScriptReturnsObjectInstance(): void

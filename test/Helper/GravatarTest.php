@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
 use Laminas\View\Exception;
@@ -113,7 +115,7 @@ class GravatarTest extends TestCase
 
     public function testInvalidRatingParametr(): void
     {
-        $ratingsWrong = [ 'a', 'cs', 456];
+        $ratingsWrong = ['a', 'cs', 456];
         $this->expectException(Exception\ExceptionInterface::class);
         foreach ($ratingsWrong as $value) {
             $this->helper->setRating($value);
@@ -122,7 +124,7 @@ class GravatarTest extends TestCase
 
     public function testSetRating(): void
     {
-        $ratingsRight = [ 'g', 'pg', 'r', 'x', Gravatar::RATING_R];
+        $ratingsRight = ['g', 'pg', 'r', 'x', Gravatar::RATING_R];
         foreach ($ratingsRight as $value) {
             $this->helper->setRating($value);
             $this->assertEquals($value, $this->helper->getRating());

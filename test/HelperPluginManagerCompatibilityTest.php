@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View;
 
 use Generator;
@@ -15,14 +17,13 @@ use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
 
 use function class_exists;
-use function get_class;
 use function strpos;
 
 class HelperPluginManagerCompatibilityTest extends TestCase
 {
     use CommonPluginManagerTrait;
 
-    protected function getPluginManager()
+    protected function getPluginManager(): HelperPluginManager
     {
         $factories = [];
 
@@ -39,32 +40,29 @@ class HelperPluginManagerCompatibilityTest extends TestCase
             };
         }
 
-        $config = new Config([
-            'services' => [
+        $config  = new Config([
+            'services'  => [
                 'config' => [],
             ],
             'factories' => $factories,
         ]);
         $manager = new ServiceManager();
         $config->configureServiceManager($manager);
-        $helperManager = new HelperPluginManager($manager);
-
-        return $helperManager;
+        return new HelperPluginManager($manager);
     }
 
-    protected function getV2InvalidPluginException()
+    protected function getV2InvalidPluginException(): string
     {
         return InvalidHelperException::class;
     }
 
     /**
-     * @return Generator
-     * @psalm-return \Generator<mixed, array{0: mixed, 1: mixed}, mixed, void>
+     * @psalm-return Generator<mixed, array{0: mixed, 1: mixed}, mixed, void>
      */
     public function aliasProvider(): Generator
     {
         $pluginManager = $this->getPluginManager();
-        $r = new ReflectionProperty($pluginManager, 'aliases');
+        $r             = new ReflectionProperty($pluginManager, 'aliases');
         $r->setAccessible(true);
         $aliases = $r->getValue($pluginManager);
 
@@ -83,18 +81,12 @@ class HelperPluginManagerCompatibilityTest extends TestCase
         }
     }
 
-    /**
-     * @return void
-     */
-    public function getInstanceOf()
+    public function getInstanceOf(): void
     {
         // no-op; instanceof is not used in this implementation
     }
 
-    /**
-     * @return never
-     */
-    public function testInstanceOfMatches()
+    public function testInstanceOfMatches(): void
     {
         $this->markTestSkipped('instanceOf is not used with this implementation');
     }
@@ -114,7 +106,7 @@ class HelperPluginManagerCompatibilityTest extends TestCase
     public function testLoadingInvalidElementRaisesException(): void
     {
         $manager = $this->getPluginManager();
-        $manager->setInvokableClass('test', get_class($this));
+        $manager->setInvokableClass('test', static::class);
         $this->expectException($this->getServiceNotFoundException());
         $manager->get('test');
     }

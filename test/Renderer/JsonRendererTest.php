@@ -1,8 +1,8 @@
 <?php
 
-namespace LaminasTest\View\Renderer;
+declare(strict_types=1);
 
-use const PHP_VERSION;
+namespace LaminasTest\View\Renderer;
 
 use ArrayObject;
 use Laminas\View\Exception;
@@ -14,7 +14,6 @@ use stdClass;
 
 use function get_object_vars;
 use function json_encode;
-use function version_compare;
 
 /**
  * @group      Laminas_View
@@ -47,7 +46,7 @@ class JsonRendererTest extends TestCase
              ->addChild($child2);
 
         $expected = [
-            'foo' => 'bar',
+            'foo'    => 'bar',
             'child1' => [
                 'foo' => 'bar',
             ],
@@ -55,7 +54,7 @@ class JsonRendererTest extends TestCase
                 'foo' => 'bar',
             ],
         ];
-        $test  = $this->renderer->render($root);
+        $test     = $this->renderer->render($root);
         $this->assertEquals(json_encode($expected), $test);
     }
 
@@ -70,12 +69,12 @@ class JsonRendererTest extends TestCase
              ->addChild($child2);
 
         $expected = [
-            'foo' => 'bar',
+            'foo'    => 'bar',
             'child2' => [
                 'foo' => 'bar',
             ],
         ];
-        $test  = $this->renderer->render($root);
+        $test     = $this->renderer->render($root);
         $this->assertEquals(json_encode($expected), $test);
     }
 
@@ -91,12 +90,12 @@ class JsonRendererTest extends TestCase
              ->addChild($child2);
 
         $expected = [
-            'foo' => 'baz',
+            'foo'    => 'baz',
             'child2' => [
                 'foo' => 'bar',
             ],
         ];
-        $test  = $this->renderer->render($root);
+        $test     = $this->renderer->render($root);
         $this->assertEquals(json_encode($expected), $test);
     }
 
@@ -203,7 +202,7 @@ class JsonRendererTest extends TestCase
         $model->value = ['foo' => 'bar'];
         $expected     = 'callback(' . json_encode($model->value) . ');';
         $this->renderer->setJsonpCallback('callback');
-        $test         = $this->renderer->render($model);
+        $test = $this->renderer->render($model);
         $this->assertEquals($expected, $test);
     }
 

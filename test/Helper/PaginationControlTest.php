@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
 use Laminas\Paginator;
@@ -18,15 +20,13 @@ use function range;
  */
 class PaginationControlTest extends TestCase
 {
-    // @codingStandardsIgnoreStart
-    /**
-     * @var Helper\PaginationControl
-     */
-    private $_viewHelper;
+    /** @var Helper\PaginationControl */
+    private $viewHelper;
 
     /** @var Paginator\Paginator */
-    private $_paginator;
-    // @codingStandardsIgnoreEnd
+    private $paginator;
+    /** @var View */
+    private $view;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -34,17 +34,18 @@ class PaginationControlTest extends TestCase
      */
     protected function setUp(): void
     {
-        $resolver = new Resolver\TemplatePathStack(['script_paths' => [
-            __DIR__ . '/_files/scripts',
-        ],]);
-        $view = new View();
-        $view->setResolver($resolver);
+        $this->view = new View();
+        $this->view->setResolver(new Resolver\TemplatePathStack([
+            'script_paths' => [
+                __DIR__ . '/_files/scripts',
+            ],
+        ]));
 
         Helper\PaginationControl::setDefaultViewPartial(null);
-        $this->_viewHelper = new Helper\PaginationControl();
-        $this->_viewHelper->setView($view);
-        $adapter = new Paginator\Adapter\ArrayAdapter(range(1, 101));
-        $this->_paginator = new Paginator\Paginator($adapter);
+        $this->viewHelper = new Helper\PaginationControl();
+        $this->viewHelper->setView($this->view);
+        $adapter         = new Paginator\Adapter\ArrayAdapter(range(1, 101));
+        $this->paginator = new Paginator\Paginator($adapter);
     }
 
     public function testGetsAndSetsView(): void
@@ -66,7 +67,7 @@ class PaginationControlTest extends TestCase
     public function testUsesDefaultViewPartialIfNoneSupplied(): void
     {
         Helper\PaginationControl::setDefaultViewPartial('testPagination.phtml');
-        $output = $this->_viewHelper->__invoke($this->_paginator);
+        $output = $this->viewHelper->__invoke($this->paginator);
         $this->assertStringContainsString('pagination control', $output, $output);
     }
 
@@ -74,7 +75,7 @@ class PaginationControlTest extends TestCase
     {
         $this->expectException(Exception\ExceptionInterface::class);
         $this->expectExceptionMessage('No view partial provided and no default set');
-        $this->_viewHelper->__invoke($this->_paginator);
+        $this->viewHelper->__invoke($this->paginator);
     }
 
     /**
@@ -83,15 +84,15 @@ class PaginationControlTest extends TestCase
     public function testUsesDefaultScrollingStyleIfNoneSupplied(): void
     {
         // First we'll make sure the base case works
-        $output = $this->_viewHelper->__invoke($this->_paginator, 'All', 'testPagination.phtml');
+        $output = $this->viewHelper->__invoke($this->paginator, 'All', 'testPagination.phtml');
         $this->assertStringContainsString('page count (11) equals pages in range (11)', $output, $output);
 
         Paginator\Paginator::setDefaultScrollingStyle('All');
-        $output = $this->_viewHelper->__invoke($this->_paginator, null, 'testPagination.phtml');
+        $output = $this->viewHelper->__invoke($this->paginator, null, 'testPagination.phtml');
         $this->assertStringContainsString('page count (11) equals pages in range (11)', $output, $output);
 
         Helper\PaginationControl::setDefaultViewPartial('testPagination.phtml');
-        $output = $this->_viewHelper->__invoke($this->_paginator);
+        $output = $this->viewHelper->__invoke($this->paginator);
         $this->assertStringContainsString('page count (11) equals pages in range (11)', $output, $output);
     }
 
@@ -100,10 +101,10 @@ class PaginationControlTest extends TestCase
      */
     public function testUsesPaginatorFromViewIfNoneSupplied(): void
     {
-        $this->_viewHelper->getView()->paginator = $this->_paginator;
+        $this->view->setVars(['paginator' => $this->paginator]);
         Helper\PaginationControl::setDefaultViewPartial('testPagination.phtml');
 
-        $output = $this->_viewHelper->__invoke();
+        $output = $this->viewHelper->__invoke();
 
         $this->assertStringContainsString('pagination control', $output, $output);
     }
@@ -117,7 +118,7 @@ class PaginationControlTest extends TestCase
 
         $this->expectException(Exception\ExceptionInterface::class);
         $this->expectExceptionMessage('No paginator instance provided or incorrect type');
-        $this->_viewHelper->__invoke();
+        $this->viewHelper->__invoke();
     }
 
     /**
@@ -129,7 +130,7 @@ class PaginationControlTest extends TestCase
         $this->expectExceptionMessage(
             'Unable to render template "partial.phtml"; resolver could not resolve to a file'
         );
-        $this->_viewHelper->__invoke($this->_paginator, null, ['partial.phtml', 'test']);
+        $this->viewHelper->__invoke($this->paginator, null, ['partial.phtml', 'test']);
     }
 
     /**
@@ -137,11 +138,11 @@ class PaginationControlTest extends TestCase
      */
     public function testUsesPaginatorFromViewOnlyIfNoneSupplied(): void
     {
-        $this->_viewHelper->getView()->vars()->paginator  = $this->_paginator;
+        $this->view->setVars(['paginator' => $this->paginator]);
         $paginator = new Paginator\Paginator(new Paginator\Adapter\ArrayAdapter(range(1, 30)));
         Helper\PaginationControl::setDefaultViewPartial('testPagination.phtml');
 
-        $output = $this->_viewHelper->__invoke($paginator);
+        $output = $this->viewHelper->__invoke($paginator);
         $this->assertStringContainsString('page count (3)', $output, $output);
     }
 
@@ -152,7 +153,7 @@ class PaginationControlTest extends TestCase
     {
         $all = new Paginator\ScrollingStyle\All();
 
-        $output = $this->_viewHelper->__invoke($this->_paginator, $all, 'testPagination.phtml');
+        $output = $this->viewHelper->__invoke($this->paginator, $all, 'testPagination.phtml');
 
         $this->assertStringContainsString('page count (11) equals pages in range (11)', $output, $output);
     }

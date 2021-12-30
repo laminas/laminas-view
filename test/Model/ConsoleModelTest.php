@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Model;
 
 use Laminas\View\Model\ConsoleModel;
@@ -19,7 +21,7 @@ class ConsoleModelTest extends TestCase
      */
     public function testSetErrorLevelImplementsFluentInterface(): void
     {
-        $model = new ConsoleModel();
+        $model  = new ConsoleModel();
         $actual = $model->setErrorLevel(0);
         $this->assertSame($model, $actual);
     }
