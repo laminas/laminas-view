@@ -215,7 +215,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      */
     public function createData($type, $typeValue, $content, array $modifiers)
     {
-        $data            = new stdClass;
+        $data            = new stdClass();
         $data->type      = $type;
         $data->$type     = $typeValue;
         $data->content   = $content;
@@ -473,7 +473,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      */
     public function setCharset($charset)
     {
-        $item = new stdClass;
+        $item = new stdClass();
         $item->type = 'charset';
         $item->charset = $charset;
         $item->content = null;

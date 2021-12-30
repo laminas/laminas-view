@@ -151,8 +151,8 @@ class NavigationTest extends AbstractTest
 
     public function testServiceManagerIsUsedToRetrieveContainer(): void
     {
-        $container      = new Container;
-        $serviceManager = new ServiceManager;
+        $container      = new Container();
+        $serviceManager = new ServiceManager();
         $serviceManager->setService('navigation', $container);
 
         new View\HelperPluginManager($serviceManager);

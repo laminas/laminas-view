@@ -88,11 +88,11 @@ class StandaloneContainerTest extends TestCase
 
     public function testContainerDoesNotPersistBetweenInstances(): void
     {
-        $foo1 = new Foo;
+        $foo1 = new Foo();
         $foo1->append('Foo');
         $foo1->setSeparator(' - ');
 
-        $foo2 = new Foo;
+        $foo2 = new Foo();
         $foo2->append('Bar');
 
         $test = $foo2->toString();

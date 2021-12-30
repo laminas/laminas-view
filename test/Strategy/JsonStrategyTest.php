@@ -23,7 +23,7 @@ class JsonStrategyTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->renderer = new JsonRenderer;
+        $this->renderer = new JsonRenderer();
         $this->strategy = new JsonStrategy($this->renderer);
         $this->event    = new ViewEvent();
         $this->response = new HttpResponse();

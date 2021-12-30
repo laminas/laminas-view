@@ -210,7 +210,7 @@ class HeadStyleTest extends TestCase
                      ->__invoke($style2, 'PREPEND')
                      ->__invoke($style3, 'APPEND');
         $html = $this->helper->toString();
-        $doc  = new \DOMDocument;
+        $doc  = new \DOMDocument();
         $dom  = $doc->loadHtml($html);
         $this->assertTrue($dom);
 

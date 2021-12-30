@@ -50,8 +50,8 @@ class ViewModelTest extends TestCase
 
     public function testAllowsPassingTraversableArgumentsToVariablesAndOptionsInConstructor(): void
     {
-        $vars    = new ArrayObject;
-        $options = new ArrayObject;
+        $vars    = new ArrayObject();
+        $options = new ArrayObject();
         $model = new ViewModel($vars, $options);
         $this->assertSame($vars, $model->getVariables());
         $this->assertSame(iterator_to_array($options), $model->getOptions());
@@ -59,7 +59,7 @@ class ViewModelTest extends TestCase
 
     public function testAllowsPassingNonArrayAccessObjectsAsArrayInConstructor(): void
     {
-        $vars  = ['foo' => new Variable];
+        $vars  = ['foo' => new Variable()];
         $model = new ViewModel($vars);
         $this->assertSame($vars, $model->getVariables());
     }
@@ -147,7 +147,7 @@ class ViewModelTest extends TestCase
         $model = new ViewModel();
         $this->expectException(Exception\InvalidArgumentException::class);
         $this->expectExceptionMessage('expects an array');
-        $model->setVariables(new stdClass);
+        $model->setVariables(new stdClass());
     }
 
     public function testPassingAnInvalidArgumentToSetOptionsRaisesAnException(): void
@@ -155,7 +155,7 @@ class ViewModelTest extends TestCase
         $model = new ViewModel();
         $this->expectException(Exception\InvalidArgumentException::class);
         $this->expectExceptionMessage('expects an array');
-        $model->setOptions(new stdClass);
+        $model->setOptions(new stdClass());
     }
 
     public function testCaptureToDefaultsToContent(): void

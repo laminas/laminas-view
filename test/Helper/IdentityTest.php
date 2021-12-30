@@ -24,11 +24,11 @@ class IdentityTest extends TestCase
         $identity->setPassword('a password');
 
         $authenticationService = new AuthenticationService(
-            new NonPersistentStorage,
-            new TestAsset\AuthenticationAdapter
+            new NonPersistentStorage(),
+            new TestAsset\AuthenticationAdapter()
         );
 
-        $identityHelper = new IdentityHelper;
+        $identityHelper = new IdentityHelper();
         $identityHelper->setAuthenticationService($authenticationService);
 
         $this->assertNull($identityHelper());

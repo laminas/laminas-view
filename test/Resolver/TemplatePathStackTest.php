@@ -191,7 +191,7 @@ class TemplatePathStackTest extends TestCase
             [1],
             [1.0],
             ['foo'],
-            [new \stdClass],
+            [new \stdClass()],
         ];
     }
 

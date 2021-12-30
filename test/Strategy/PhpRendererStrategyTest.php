@@ -21,7 +21,7 @@ class PhpRendererStrategyTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->renderer = new PhpRenderer;
+        $this->renderer = new PhpRenderer();
         $this->strategy = new PhpRendererStrategy($this->renderer);
         $this->event    = new ViewEvent();
         $this->response = new HttpResponse();

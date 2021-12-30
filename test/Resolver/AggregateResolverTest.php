@@ -18,9 +18,9 @@ class AggregateResolverTest extends TestCase
     public function testCanAttachResolvers(): void
     {
         $resolver = new Resolver\AggregateResolver();
-        $resolver->attach(new Resolver\TemplateMapResolver);
+        $resolver->attach(new Resolver\TemplateMapResolver());
         $this->assertEquals(1, count($resolver));
-        $resolver->attach(new Resolver\TemplateMapResolver);
+        $resolver->attach(new Resolver\TemplateMapResolver());
         $this->assertEquals(2, count($resolver));
     }
 

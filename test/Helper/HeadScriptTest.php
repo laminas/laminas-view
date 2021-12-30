@@ -279,7 +279,7 @@ class HeadScriptTest extends TestCase
         $this->assertStringContainsString('bar', $string);
         $this->assertStringContainsString('baz', $string);
 
-        $doc = new \DOMDocument;
+        $doc = new \DOMDocument();
         $dom = $doc->loadHtml($string);
         $this->assertTrue($dom);
     }

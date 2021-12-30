@@ -15,7 +15,7 @@ class ViewEventTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->event = new ViewEvent;
+        $this->event = new ViewEvent();
     }
 
     public function testModelIsNullByDefault(): void

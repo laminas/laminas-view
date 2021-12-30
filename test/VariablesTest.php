@@ -25,7 +25,7 @@ class VariablesTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->vars = new Variables;
+        $this->vars = new Variables();
     }
 
     public function testStrictVarsAreDisabledByDefault(): void
@@ -53,7 +53,7 @@ class VariablesTest extends TestCase
 
     public function testAssignCastsPlainObjectToArrayBeforeMerging(): void
     {
-        $vars = new \stdClass;
+        $vars = new \stdClass();
         $vars->foo = 'bar';
         $vars->bar = 'baz';
 

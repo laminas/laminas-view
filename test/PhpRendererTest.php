@@ -60,7 +60,7 @@ class PhpRendererTest extends TestCase
 
     public function testCanSpecifyArrayAccessForVars(): void
     {
-        $a = new \ArrayObject;
+        $a = new \ArrayObject();
         $this->renderer->setVars($a);
         $this->assertSame($a->getArrayCopy(), $this->renderer->vars()->getArrayCopy());
     }
@@ -112,7 +112,7 @@ class PhpRendererTest extends TestCase
             [1],
             [1.0],
             [['foo']],
-            [new \stdClass],
+            [new \stdClass()],
         ];
     }
 

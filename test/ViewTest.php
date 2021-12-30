@@ -28,10 +28,10 @@ class ViewTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->request  = new Request;
-        $this->response = new Response;
-        $this->model    = new ViewModel;
-        $this->view     = new View;
+        $this->request  = new Request();
+        $this->response = new Response();
+        $this->model    = new ViewModel();
+        $this->view     = new View();
 
         $this->view->setRequest($this->request);
         $this->view->setResponse($this->response);
@@ -42,7 +42,7 @@ class ViewTest extends TestCase
         $this->view->addRenderingStrategy(function ($e) {
             return new TestAsset\Renderer\VarExportRenderer();
         });
-        $this->result = $result = new stdClass;
+        $this->result = $result = new stdClass();
         $this->view->addResponseStrategy(function ($e) use ($result) {
             $result->content = $e->getResult();
         });
@@ -128,7 +128,7 @@ class ViewTest extends TestCase
             }
             return new Renderer\JsonRenderer();
         }, 10); // higher priority, so it matches earlier
-        $this->result = $result = new stdClass;
+        $this->result = $result = new stdClass();
         $this->view->addResponseStrategy(function ($e) use ($result) {
             $result->content = $e->getResult();
         });
@@ -211,7 +211,7 @@ class ViewTest extends TestCase
             return new Renderer\JsonRenderer();
         });
 
-        $result = new ArrayObject;
+        $result = new ArrayObject();
         $this->view->addResponseStrategy(function ($e) use ($result) {
             $result[] = $e->getResult();
         });
@@ -245,7 +245,7 @@ class ViewTest extends TestCase
             return $phpRenderer;
         });
 
-        $result = new stdClass;
+        $result = new stdClass();
         $this->view->addResponseStrategy(function ($e) use ($result) {
             $result->content = $e->getResult();
         });
@@ -272,7 +272,7 @@ class ViewTest extends TestCase
             return $jsonRenderer;
         });
 
-        $result = new stdClass;
+        $result = new stdClass();
         $this->view->addResponseStrategy(function ($e) use ($result) {
             $result->content = $e->getResult();
         });
@@ -319,8 +319,8 @@ class ViewTest extends TestCase
             ->setMethods(['render'])
             ->getMock();
 
-        $model1 = new ViewModel;
-        $model2 = new ViewModel;
+        $model1 = new ViewModel();
+        $model2 = new ViewModel();
 
         $this->view->addRenderingStrategy(function ($e) use ($renderer) {
             return $renderer;

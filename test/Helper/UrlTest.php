@@ -55,7 +55,7 @@ class UrlTest extends TestCase
         ]);
         $this->router = $router;
 
-        $this->url = new UrlHelper;
+        $this->url = new UrlHelper();
         $this->url->setRouter($router);
     }
 
@@ -63,7 +63,7 @@ class UrlTest extends TestCase
     {
         $this->expectException(Exception\RuntimeException::class);
         $this->expectExceptionMessage('No RouteStackInterface instance provided');
-        $url = new UrlHelper;
+        $url = new UrlHelper();
         $url('home');
     }
 

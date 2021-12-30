@@ -87,7 +87,7 @@ class TemplatePathStack implements ResolverInterface
             }
         }
 
-        $this->paths = new SplStack;
+        $this->paths = new SplStack();
         if (null !== $options) {
             $this->setOptions($options);
         }
@@ -230,7 +230,7 @@ class TemplatePathStack implements ResolverInterface
      */
     public function clearPaths()
     {
-        $this->paths = new SplStack;
+        $this->paths = new SplStack();
     }
 
     /**

@@ -17,7 +17,7 @@ class EscapeCssTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->helper = new EscapeHelper;
+        $this->helper = new EscapeHelper();
     }
 
     public function testUsesUtf8EncodingByDefault(): void
@@ -86,7 +86,7 @@ class EscapeCssTest extends TestCase
 
     public function testWillCastObjectsToStringsBeforeEscaping(): void
     {
-        $object = new TestAsset\Stringified;
+        $object = new TestAsset\Stringified();
         $test = $this->helper->__invoke($object);
         $this->assertEquals(
             'LaminasTest\5C View\5C Helper\5C TestAsset\5C Stringified',
