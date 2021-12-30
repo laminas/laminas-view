@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace Laminas\View\Helper\Placeholder;
 
-use const E_USER_DEPRECATED;
-
 use Laminas\View\Exception;
+use Laminas\View\Helper\Placeholder\Container\AbstractContainer;
 
 use function array_key_exists;
 use function class_exists;
@@ -14,6 +13,8 @@ use function class_parents;
 use function in_array;
 use function sprintf;
 use function trigger_error;
+
+use const E_USER_DEPRECATED;
 
 /**
  * Registry for placeholder containers
@@ -32,7 +33,7 @@ class Registry
      *
      * @var string
      */
-    protected $containerClass = 'Laminas\View\Helper\Placeholder\Container';
+    protected $containerClass = Container::class;
 
     /**
      * Placeholder containers
@@ -75,7 +76,7 @@ class Registry
      * @param  string                      $key
      * @return Registry
      */
-    public function setContainer($key, Container\AbstractContainer $container)
+    public function setContainer($key, AbstractContainer $container)
     {
         $key               = (string) $key;
         $this->items[$key] = $container;
@@ -87,7 +88,7 @@ class Registry
      * Retrieve a placeholder container
      *
      * @param  string $key
-     * @return Container\AbstractContainer
+     * @return AbstractContainer
      */
     public function getContainer($key)
     {
@@ -96,9 +97,7 @@ class Registry
             return $this->items[$key];
         }
 
-        $container = $this->createContainer($key);
-
-        return $container;
+        return $this->createContainer($key);
     }
 
     /**
@@ -119,7 +118,7 @@ class Registry
      *
      * @param  string $key
      * @param  array  $value
-     * @return Container\AbstractContainer
+     * @return AbstractContainer
      */
     public function createContainer($key, array $value = [])
     {
@@ -167,7 +166,7 @@ class Registry
             );
         }
 
-        if (! in_array('Laminas\View\Helper\Placeholder\Container\AbstractContainer', class_parents($name))) {
+        if (! in_array(AbstractContainer::class, class_parents($name), true)) {
             throw new Exception\InvalidArgumentException('Invalid Container class specified');
         }
 

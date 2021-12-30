@@ -230,6 +230,8 @@ class HelperPluginManager extends AbstractPluginManager
      * basepath and url are not very useful without their factories, however the doctype
      * helper works fine as an invokable. The factory for doctype simply checks for the
      * config value from the merged config.
+     *
+     * @var string[]|callable[]
      */
     protected $factories = [
         Helper\Asset::class          => Helper\Service\AssetFactory::class,
@@ -272,7 +274,6 @@ class HelperPluginManager extends AbstractPluginManager
         Helper\ViewModel::class           => InvokableFactory::class,
 
         // v2 canonical FQCNs
-
         'laminasviewhelperasset'               => Helper\Service\AssetFactory::class,
         'laminasviewhelperattributes'          => InvokableFactory::class,
         'laminasviewhelperflashmessenger'      => Helper\Service\FlashMessengerFactory::class,
@@ -500,7 +501,7 @@ class HelperPluginManager extends AbstractPluginManager
             throw new InvalidServiceException(
                 sprintf(
                     '%s can only create instances of %s and/or callables; %s is invalid',
-                    get_class($this),
+                    static::class,
                     Helper\HelperInterface::class,
                     is_object($instance) ? get_class($instance) : gettype($instance)
                 )

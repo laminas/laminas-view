@@ -37,7 +37,7 @@ class Partial extends AbstractHelper
      */
     public function __invoke($name = null, $values = null)
     {
-        if (0 == func_num_args()) {
+        if (0 === func_num_args()) {
             return $this;
         }
 

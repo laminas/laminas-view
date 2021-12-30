@@ -21,21 +21,21 @@ class ServerUrl extends AbstractHelper
     /**
      * Host (including port)
      *
-     * @var string
+     * @var string|null
      */
     protected $host;
 
     /**
      * Port
      *
-     * @var int
+     * @var int|null
      */
     protected $port;
 
     /**
      * Scheme
      *
-     * @var string
+     * @var string|null
      */
     protected $scheme;
 
@@ -118,8 +118,6 @@ class ServerUrl extends AbstractHelper
 
     /**
      * Detect the port
-     *
-     * @return void
      */
     protected function detectPort(): void
     {
@@ -133,14 +131,11 @@ class ServerUrl extends AbstractHelper
                 return;
             }
             $this->setPort($_SERVER['SERVER_PORT']);
-            return;
         }
     }
 
     /**
      * Detect the scheme
-     *
-     * @return void
      */
     protected function detectScheme(): void
     {
@@ -149,8 +144,8 @@ class ServerUrl extends AbstractHelper
         }
 
         switch (true) {
-            case isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] === true):
-            case isset($_SERVER['HTTP_SCHEME']) && ($_SERVER['HTTP_SCHEME'] == 'https'):
+            case isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] === 'on' || $_SERVER['HTTPS'] === true):
+            case isset($_SERVER['HTTP_SCHEME']) && ($_SERVER['HTTP_SCHEME'] === 'https'):
             case 443 === $this->getPort():
             case $this->isReversedProxy():
                 $scheme = 'https';
@@ -165,7 +160,7 @@ class ServerUrl extends AbstractHelper
 
     protected function isReversedProxy(): bool
     {
-        return isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https';
+        return isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https';
     }
 
     /**
@@ -262,14 +257,14 @@ class ServerUrl extends AbstractHelper
         $scheme = $this->getScheme();
 
         if (
-            ($scheme == 'http' && (null === $port || $port == 80))
-            || ($scheme == 'https' && (null === $port || $port == 443))
+            ($scheme === 'http' && (null === $port || $port === 80))
+            || ($scheme === 'https' && (null === $port || $port === 443))
         ) {
             $this->host = $host;
             return $this;
         }
 
-        $this->host = $host . ':' . $port;
+        $this->host = $host . ':' . (string) $port;
 
         return $this;
     }
@@ -291,7 +286,7 @@ class ServerUrl extends AbstractHelper
     /**
      * Set server port
      *
-     * @param  int $port
+     * @param  int|numeric-string $port
      * @return ServerUrl
      */
     public function setPort($port)

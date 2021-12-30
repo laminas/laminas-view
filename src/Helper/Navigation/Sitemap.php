@@ -127,20 +127,20 @@ class Sitemap extends AbstractHelper
     /**
      * Returns a DOMDocument containing the Sitemap XML for the given container
      *
-     * @param  AbstractContainer                 $container  [optional] container to get
+     * @param AbstractContainer|null      $container [optional] container to get
      *                                               breadcrumbs from, defaults
      *                                               to what is registered in the
      *                                               helper
      * @return DOMDocument                           DOM representation of the
      *                                               container
-     * @throws Exception\RuntimeException            if schema validation is on
+     * @throws Exception\RuntimeException            If schema validation is on
      *                                               and the sitemap is invalid
      *                                               according to the sitemap
      *                                               schema, or if sitemap
      *                                               validators are used and the
-     *                                               loc element fails validation
+     *                                               loc element fails validation.
      */
-    public function getDomSitemap(AbstractContainer $container = null)
+    public function getDomSitemap(?AbstractContainer $container = null)
     {
         // Reset the urls
         $this->urls = [];
@@ -289,7 +289,7 @@ class Sitemap extends AbstractHelper
         if (! isset($href[0])) {
             // no href
             return '';
-        } elseif ($href[0] == '/') {
+        } elseif ($href[0] === '/') {
             // href is relative to root; use serverUrl helper
             $url = $this->getServerUrl() . $href;
         } elseif (preg_match('/^[a-z]+:/im', (string) $href)) {
@@ -299,7 +299,7 @@ class Sitemap extends AbstractHelper
             // href is relative to current document; use url helpers
             $basePathHelper = $this->getView()->plugin('basepath');
             $curDoc         = $basePathHelper();
-            $curDoc         = '/' == $curDoc ? '' : trim($curDoc, '/');
+            $curDoc         = '/' === $curDoc ? '' : trim($curDoc, '/');
             $url            = rtrim($this->getServerUrl(), '/') . '/'
                                                                 . $curDoc
                                                                 . (empty($curDoc) ? '' : '/') . $href;

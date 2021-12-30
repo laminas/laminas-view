@@ -60,7 +60,8 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
     /**
      * View variables
      *
-     * @var array|ArrayAccess&Traversable
+     * @var array|ArrayAccess|Traversable
+     * @psalm-var array|ArrayAccess&Traversable
      */
     protected $variables = [];
 

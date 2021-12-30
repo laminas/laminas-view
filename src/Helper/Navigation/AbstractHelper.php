@@ -10,18 +10,20 @@ use Laminas\EventManager\EventManagerAwareInterface;
 use Laminas\EventManager\EventManagerInterface;
 use Laminas\EventManager\SharedEventManager;
 use Laminas\Navigation;
+use Laminas\Navigation\AbstractContainer;
 use Laminas\Navigation\Page\AbstractPage;
 use Laminas\Permissions\Acl;
+use Laminas\Permissions\Acl\AclInterface;
 use Laminas\ServiceManager\AbstractPluginManager;
 use Laminas\View;
 use Laminas\View\Exception;
+use Laminas\View\Helper\Navigation\Listener\AclListener;
 use Laminas\View\Helper\TranslatorAwareTrait;
 use RecursiveIteratorIterator;
 use ReflectionClass;
 use ReflectionProperty;
 
 use function call_user_func_array;
-use function get_called_class;
 use function get_class;
 use function gettype;
 use function in_array;
@@ -57,7 +59,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     /**
      * AbstractContainer to operate on by default
      *
-     * @var Navigation\AbstractContainer
+     * @var AbstractContainer
      */
     protected $container;
 
@@ -85,7 +87,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     /**
      * ACL to use when iterating pages
      *
-     * @var Acl\AclInterface
+     * @var AclInterface|null
      */
     protected $acl;
 
@@ -117,7 +119,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      * Default ACL to use when iterating pages if not explicitly set in the
      * instance by calling {@link setAcl()}
      *
-     * @var Acl\AclInterface
+     * @var AclInterface
      */
     protected static $defaultAcl;
 
@@ -169,14 +171,14 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     /**
      * Finds the deepest active page in the given container
      *
-     * @param  Navigation\AbstractContainer $container  container to search
-     * @param  int|null             $minDepth   [optional] minimum depth
+     * @param  AbstractContainer $container     container to search
+     * @param  int|null          $minDepth      [optional] minimum depth
      *                                          required for page to be
      *                                          valid. Default is to use
      *                                          {@link getMinDepth()}. A
      *                                          null value means no minimum
      *                                          depth required.
-     * @param  int|null             $maxDepth   [optional] maximum depth
+     * @param  int|null          $maxDepth      [optional] maximum depth
      *                                          a page can have to be
      *                                          valid. Default is to use
      *                                          {@link getMaxDepth()}. A
@@ -244,9 +246,9 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     /**
      * Verifies container and eventually fetches it from service locator if it is a string
      *
-     * @param Navigation\AbstractContainer|string|null $container
-     * @throws Exception\InvalidArgumentException
+     * @param AbstractContainer|string|null $container
      * @return void
+     * @throws Exception\InvalidArgumentException
      */
     protected function parseContainer(&$container = null)
     {
@@ -285,10 +287,10 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
             return;
         }
 
-        if (! $container instanceof Navigation\AbstractContainer) {
-            throw new  Exception\InvalidArgumentException(
+        if (! $container instanceof AbstractContainer) {
+            throw new Exception\InvalidArgumentException(
                 'Container must be a string alias or an instance of '
-                . 'Laminas\Navigation\AbstractContainer'
+                . AbstractContainer::class
             );
         }
     }
@@ -452,7 +454,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      */
     protected function normalizeId($value)
     {
-        $prefix = get_class($this);
+        $prefix = static::class;
         $prefix = strtolower(trim(substr($prefix, strrpos($prefix, '\\')), '\\'));
 
         return $prefix . '-' . $value;
@@ -463,10 +465,10 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      *
      * Implements {@link HelperInterface::setAcl()}.
      *
-     * @param  Acl\AclInterface $acl ACL object.
+     * @param  AclInterface $acl ACL object.
      * @return AbstractHelper
      */
-    public function setAcl(Acl\AclInterface $acl = null)
+    public function setAcl(?AclInterface $acl = null)
     {
         $this->acl = $acl;
         return $this;
@@ -478,7 +480,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      *
      * Implements {@link HelperInterface::getAcl()}.
      *
-     * @return Acl\AclInterface|null  ACL object or null
+     * @return AclInterface|null  ACL object or null
      */
     public function getAcl()
     {
@@ -516,8 +518,8 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     public function setEventManager(EventManagerInterface $events)
     {
         $events->setIdentifiers([
-            __CLASS__,
-            get_called_class(),
+            self::class,
+            static::class,
         ]);
 
         $this->events = $events;
@@ -544,10 +546,9 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
 
     /**
      * Sets navigation container the helper operates on by default
-     *
      * Implements {@link HelperInterface::setContainer()}.
      *
-     * @param  string|Navigation\AbstractContainer $container Default is null, meaning container will be reset.
+     * @param  string|AbstractContainer $container Default is null, meaning container will be reset.
      * @return AbstractHelper
      */
     public function setContainer($container = null)
@@ -560,13 +561,11 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
 
     /**
      * Returns the navigation container helper operates on by default
-     *
      * Implements {@link HelperInterface::getContainer()}.
-     *
      * If no container is set, a new container will be instantiated and
      * stored in the helper.
      *
-     * @return Navigation\AbstractContainer  navigation container
+     * @return AbstractContainer  navigation container
      */
     public function getContainer()
     {
@@ -837,11 +836,11 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     /**
      * Sets default ACL to use if another ACL is not explicitly set
      *
-     * @param  Acl\AclInterface $acl [optional] ACL object. Default is null, which
+     * @param  AclInterface $acl [optional] ACL object. Default is null, which
      *                      sets no ACL object.
      * @return void
      */
-    public static function setDefaultAcl(Acl\AclInterface $acl = null)
+    public static function setDefaultAcl(?AclInterface $acl = null)
     {
         static::$defaultAcl = $acl;
     }
@@ -854,7 +853,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      *                     instance of {@link Acl\Role\RoleInterface}. Default is null, which
      *                     sets no default role.
      * @return void
-     * @throws Exception\InvalidArgumentException if role is invalid
+     * @throws Exception\InvalidArgumentException If role is invalid.
      */
     public static function setDefaultRole($role = null)
     {
@@ -890,9 +889,9 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
         }
 
         $events->getSharedManager()->attach(
-            'Laminas\View\Helper\Navigation\AbstractHelper',
+            self::class,
             'isAllowed',
-            ['Laminas\View\Helper\Navigation\Listener\AclListener', 'accept']
+            [AclListener::class, 'accept']
         );
     }
 

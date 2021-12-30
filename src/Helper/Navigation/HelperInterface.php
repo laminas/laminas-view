@@ -37,10 +37,10 @@ interface HelperInterface extends BaseHelperInterface
     /**
      * Sets ACL to use when iterating pages
      *
-     * @param  Acl\AclInterface $acl [optional] ACL instance
+     * @param  Acl\AclInterface $acl|null [optional] ACL instance
      * @return HelperInterface
      */
-    public function setAcl(Acl\AclInterface $acl = null);
+    public function setAcl(?Acl\AclInterface $acl = null);
 
     /**
      * Returns ACL or null if it isn't set using {@link setAcl()} or
@@ -103,7 +103,7 @@ interface HelperInterface extends BaseHelperInterface
      * @param  mixed $role [optional] role to set.  Expects a string, an
      *                     instance of type {@link Acl\Role}, or null. Default
      *                     is null.
-     * @throws ExceptionInterface if $role is invalid
+     * @throws ExceptionInterface If $role is invalid.
      * @return HelperInterface
      */
     public function setRole($role = null);

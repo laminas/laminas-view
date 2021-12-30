@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Laminas\View\Helper;
 
-use const PHP_EOL;
-
 use Laminas\View\Exception;
 
 use function is_array;
 use function sprintf;
 use function strlen;
 use function substr;
+
+use const PHP_EOL;
 
 /**
  * Helper for ordered and unordered lists

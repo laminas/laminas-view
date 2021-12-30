@@ -68,7 +68,7 @@ class Links extends AbstractHelper
      *
      * @var array
      */
-    protected static $RELATIONS = [
+    protected static $RELATIONS = [ // phpcs:ignore
         self::RENDER_ALTERNATE  => 'alternate',
         self::RENDER_STYLESHEET => 'stylesheet',
         self::RENDER_START      => 'start',
@@ -235,9 +235,9 @@ class Links extends AbstractHelper
             'title' => $page->getLabel(),
         ];
 
-        return '<link' .
-            $this->htmlAttribs($attribs) .
-            $this->getClosingBracket();
+        return '<link'
+            . $this->htmlAttribs($attribs)
+            . $this->getClosingBracket();
     }
 
     // Finder methods:
@@ -312,7 +312,7 @@ class Links extends AbstractHelper
      * @param  string       $rel  relation, "rel" or "rev"
      * @param  string       $type link type, e.g. 'start', 'next'
      * @return AbstractPage|array|null
-     * @throws Exception\DomainException if $rel is not "rel" or "rev"
+     * @throws Exception\DomainException If $rel is not "rel" or "rev".
      */
     public function findRelation(AbstractPage $page, $rel, $type)
     {
@@ -356,11 +356,9 @@ class Links extends AbstractHelper
                     }
                 }
 
-                return count($result) == 1 ? $result[0] : $result;
+                return count($result) === 1 ? $result[0] : $result;
             }
         }
-
-        return;
     }
 
     /**
@@ -720,15 +718,13 @@ class Links extends AbstractHelper
             } else {
                 // pass array to factory directly
                 try {
-                    $page = AbstractPage::factory($mixed);
-                    return $page;
+                    return AbstractPage::factory($mixed);
                 } catch (\Exception $e) {
                 }
             }
         }
 
         // nothing found
-        return;
     }
 
     /**

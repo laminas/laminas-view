@@ -21,30 +21,29 @@ class HeadTitle extends Placeholder\Container\AbstractStandalone
     /**
      * Default title rendering order (i.e. order in which each title attached)
      *
-     * @var string
+     * @var string|null
      */
-    protected $defaultAttachOrder = null;
+    protected $defaultAttachOrder;
 
     /**
      * Retrieve placeholder for title element and optionally set state
      *
-     * @param  string $title
-     * @param  string $setType
+     * @param  string|null $title
+     * @param  string|null $setType
      * @return HeadTitle
      */
     public function __invoke($title = null, $setType = null)
     {
         if (null === $setType) {
-            $setType = null === $this->getDefaultAttachOrder()
-                     ? Placeholder\Container\AbstractContainer::APPEND
-                     : $this->getDefaultAttachOrder();
+            $setType = $this->getDefaultAttachOrder()
+                ?? Placeholder\Container\AbstractContainer::APPEND;
         }
 
         $title = (string) $title;
         if ($title !== '') {
-            if ($setType == Placeholder\Container\AbstractContainer::SET) {
+            if ($setType === Placeholder\Container\AbstractContainer::SET) {
                 $this->set($title);
-            } elseif ($setType == Placeholder\Container\AbstractContainer::PREPEND) {
+            } elseif ($setType === Placeholder\Container\AbstractContainer::PREPEND) {
                 $this->prepend($title);
             } else {
                 $this->append($title);
@@ -116,10 +115,10 @@ class HeadTitle extends Placeholder\Container\AbstractStandalone
     {
         if (
             ! in_array($setType, [
-            Placeholder\Container\AbstractContainer::APPEND,
-            Placeholder\Container\AbstractContainer::SET,
-            Placeholder\Container\AbstractContainer::PREPEND,
-            ])
+                Placeholder\Container\AbstractContainer::APPEND,
+                Placeholder\Container\AbstractContainer::SET,
+                Placeholder\Container\AbstractContainer::PREPEND,
+            ], true)
         ) {
             throw new Exception\DomainException(
                 "You must use a valid attach order: 'PREPEND', 'APPEND' or 'SET'"
@@ -133,13 +132,12 @@ class HeadTitle extends Placeholder\Container\AbstractStandalone
     /**
      * Get the default attach order, if any.
      *
-     * @return mixed
+     * @return string|null
      */
     public function getDefaultAttachOrder()
     {
         return $this->defaultAttachOrder;
     }
-
 
     /**
      * Create and return a callback for normalizing title items.

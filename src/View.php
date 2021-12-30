@@ -14,7 +14,6 @@ use Laminas\View\Renderer\RendererInterface as Renderer;
 use Laminas\View\Renderer\TreeRendererInterface;
 
 use function array_key_exists;
-use function get_class;
 use function sprintf;
 
 class View implements EventManagerAwareInterface
@@ -78,8 +77,8 @@ class View implements EventManagerAwareInterface
     public function setEventManager(EventManagerInterface $events)
     {
         $events->setIdentifiers([
-            __CLASS__,
-            get_class($this),
+            self::class,
+            static::class,
         ]);
         $this->events = $events;
         return $this;

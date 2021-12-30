@@ -26,13 +26,13 @@ use function sprintf;
 class JsonRenderer implements Renderer, TreeRendererInterface
 {
     /**
-     * Whether or not to merge child models with no capture-to value set
+     * Whether to merge child models with no capture-to value set
      *
      * @var bool
      */
     protected $mergeUnnamedChildren = false;
 
-    /** @var Resolver */
+    /** @var Resolver|null */
     protected $resolver;
 
     /**
@@ -40,7 +40,7 @@ class JsonRenderer implements Renderer, TreeRendererInterface
      *
      * @var string
      */
-    protected $jsonpCallback = null;
+    protected $jsonpCallback;
 
     /**
      * Return the template engine object, if any
@@ -49,7 +49,7 @@ class JsonRenderer implements Renderer, TreeRendererInterface
      * phplib, etc, return the template engine object. Useful for calling
      * methods on these objects, such as for setting filters, modifiers, etc.
      *
-     * @return mixed
+     * @return $this
      */
     public function getEngine()
     {
@@ -68,7 +68,7 @@ class JsonRenderer implements Renderer, TreeRendererInterface
     }
 
     /**
-     * Set flag indicating whether or not to merge unnamed children
+     * Set flag indicating whether to merge unnamed children
      *
      * @param  bool $mergeUnnamedChildren
      * @return JsonRenderer
@@ -183,10 +183,9 @@ class JsonRenderer implements Renderer, TreeRendererInterface
     /**
      * Retrieve values from a model and recurse its children to build a data structure
      *
-     * @param bool $mergeWithVariables Whether or not to merge children with
-     *         the variables of the $model
+     * @param bool $mergeWithVariables Whether to merge children with the variables of the $model
      * @return (array|mixed)[]|ArrayAccess
-     * @psalm-return \ArrayAccess|array<array|mixed>
+     * @psalm-return ArrayAccess|array<array|mixed>
      */
     protected function recurseModel(Model $model, $mergeWithVariables = true)
     {
@@ -230,7 +229,6 @@ class JsonRenderer implements Renderer, TreeRendererInterface
      *
      * @todo detect collisions and decide whether to append and/or aggregate?
      * @param array $children
-     * @return void
      */
     protected function injectChildren(Model $model, array $children): void
     {

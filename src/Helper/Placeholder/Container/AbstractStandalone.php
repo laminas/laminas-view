@@ -68,7 +68,7 @@ abstract class AbstractStandalone extends AbstractHelper implements
      * @param  string $method
      * @param  array $args
      * @throws Exception\BadMethodCallException
-     * @return mixed
+     * @return $this|mixed
      */
     public function __call($method, $args)
     {
@@ -110,8 +110,6 @@ abstract class AbstractStandalone extends AbstractHelper implements
         if (isset($container[$key])) {
             return $container[$key];
         }
-
-        return;
     }
 
     /**

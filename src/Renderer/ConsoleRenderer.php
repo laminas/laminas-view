@@ -20,16 +20,10 @@ use function method_exists;
  */
 class ConsoleRenderer implements RendererInterface, TreeRendererInterface
 {
-    // @codingStandardsIgnoreStart
-    /**
-     * @var FilterChain
-     */
-    protected $__filterChain;
-    // @codingStandardsIgnoreEnd
+    /** @var FilterChain|null */
+    protected $__filterChain; // phpcs:ignore
 
     /**
-     * Constructor.
-     *
      * @todo handle passing helper manager, options
      * @todo handle passing filter chain, options
      * @todo handle passing variables object, options
@@ -41,6 +35,7 @@ class ConsoleRenderer implements RendererInterface, TreeRendererInterface
         $this->init();
     }
 
+    /** @return $this */
     public function setResolver(ResolverInterface $resolver)
     {
         return $this;
@@ -88,7 +83,7 @@ class ConsoleRenderer implements RendererInterface, TreeRendererInterface
     public function getFilterChain()
     {
         if (null === $this->__filterChain) {
-            $this->setFilterChain(new FilterChain());
+            $this->__filterChain = new FilterChain();
         }
         return $this->__filterChain;
     }
@@ -137,7 +132,7 @@ class ConsoleRenderer implements RendererInterface, TreeRendererInterface
     }
 
     /**
-     * @see Laminas\View\Renderer\TreeRendererInterface
+     * @see \Laminas\View\Renderer\TreeRendererInterface
      *
      * @return bool
      */

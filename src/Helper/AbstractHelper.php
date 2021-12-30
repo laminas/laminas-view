@@ -11,14 +11,14 @@ abstract class AbstractHelper implements HelperInterface
     /**
      * View object instance
      *
-     * @var Renderer
+     * @var Renderer|null
      */
-    protected $view = null;
+    protected $view;
 
     /**
      * Set the View object
      *
-     * @return AbstractHelper
+     * @return $this
      */
     public function setView(Renderer $view)
     {

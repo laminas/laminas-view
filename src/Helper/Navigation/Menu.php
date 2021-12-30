@@ -8,11 +8,13 @@ use Laminas\Navigation\AbstractContainer;
 use Laminas\Navigation\Page\AbstractPage;
 use Laminas\View\Exception;
 use Laminas\View\Helper\EscapeHtml;
+use Laminas\View\Helper\EscapeHtmlAttr;
 use Laminas\View\Helper\Partial;
 use RecursiveIteratorIterator;
 
 use function array_key_exists;
 use function array_merge;
+use function assert;
 use function count;
 use function implode;
 use function is_array;
@@ -54,7 +56,7 @@ class Menu extends AbstractHelper
      *
      * @var string|array
      */
-    protected $partial = null;
+    protected $partial;
 
     /**
      * Whether parents should be rendered when only rendering active branch.
@@ -160,8 +162,8 @@ class Menu extends AbstractHelper
             $active['page'] = $active['page']->getParent();
         }
 
-        /* @var $escaper \Laminas\View\Helper\EscapeHtmlAttr */
         $escaper = $this->view->plugin('escapeHtmlAttr');
+        assert($escaper instanceof EscapeHtmlAttr);
         $ulClass = $ulClass ? ' class="' . $escaper($ulClass) . '"' : '';
         $html    = $indent . '<ul' . $ulClass . '>' . PHP_EOL;
 
@@ -271,8 +273,8 @@ class Menu extends AbstractHelper
         // find deepest active
         $found = $this->findActive($container, $minDepth, $maxDepth);
 
-        /* @var $escaper \Laminas\View\Helper\EscapeHtmlAttr */
         $escaper = $this->view->plugin('escapeHtmlAttr');
+        assert($escaper instanceof EscapeHtmlAttr);
 
         $foundPage  = null;
         $foundDepth = 0;
@@ -326,10 +328,10 @@ class Menu extends AbstractHelper
 
             // make sure indentation is correct
             $depth   -= $minDepth;
-            $myIndent = $indent.str_repeat('        ', $depth);
+            $myIndent = $indent . str_repeat('        ', $depth);
             if ($depth > $prevDepth) {
                 // start new ul tag
-                if ($ulClass && $depth == 0) {
+                if ($ulClass && $depth === 0) {
                     $ulClass = ' class="' . $escaper($ulClass) . '"';
                 } else {
                     $ulClass = '';
@@ -338,7 +340,7 @@ class Menu extends AbstractHelper
             } elseif ($prevDepth > $depth) {
                 // close li/ul tags until we're at current depth
                 for ($i = $prevDepth; $i > $depth; $i--) {
-                    $ind   = $indent.str_repeat('        ', $i);
+                    $ind   = $indent . str_repeat('        ', $i);
                     $html .= $ind . '    </li>' . PHP_EOL;
                     $html .= $ind . '</ul>' . PHP_EOL;
                 }
@@ -395,8 +397,8 @@ class Menu extends AbstractHelper
      *     Default is to use the partial registered in the helper. If an array
      *     is given, the first value is used for the partial view script.
      * @return string
-     * @throws Exception\RuntimeException         if no partial provided
-     * @throws Exception\InvalidArgumentException if partial is invalid array
+     * @throws Exception\RuntimeException         If no partial provided.
+     * @throws Exception\InvalidArgumentException If partial is invalid array.
      */
     public function renderPartial($container = null, $partial = null)
     {
@@ -418,8 +420,8 @@ class Menu extends AbstractHelper
      *     Default is to use the partial registered in the helper. If an array
      *     is given, the first value is used for the partial view script.
      * @return string
-     * @throws Exception\RuntimeException         if no partial provided
-     * @throws Exception\InvalidArgumentException if partial is invalid array
+     * @throws Exception\RuntimeException         If no partial provided.
+     * @throws Exception\InvalidArgumentException If partial is invalid array.
      */
     public function renderPartialWithParams(array $params = [], $container = null, $partial = null)
     {
@@ -442,7 +444,7 @@ class Menu extends AbstractHelper
      * ));
      * </code>
      *
-     * @param  AbstractContainer $container [optional] container to render.
+     * @param  AbstractContainer|null $container [optional] container to render.
      *     Default is to render the container registered in the helper.
      * @param  string $ulClass [optional] CSS class to use for UL element.
      *     Default is to use the value from {@link getUlClass()}.
@@ -454,7 +456,7 @@ class Menu extends AbstractHelper
      * @return string
      */
     public function renderSubMenu(
-        AbstractContainer $container = null,
+        ?AbstractContainer $container = null,
         $ulClass = null,
         $indent = null,
         $liActiveClass = null
@@ -754,8 +756,8 @@ class Menu extends AbstractHelper
      * @param null|AbstractContainer $container
      * @param null|string|array      $partial
      * @return Partial|string
-     * @throws Exception\RuntimeException         if no partial provided
-     * @throws Exception\InvalidArgumentException if partial is invalid array
+     * @throws Exception\RuntimeException         If no partial provided.
+     * @throws Exception\InvalidArgumentException If partial is invalid array.
      */
     protected function renderPartialModel(array $params, $container, $partial)
     {
@@ -779,7 +781,7 @@ class Menu extends AbstractHelper
         /** @var Partial $partialHelper */
         $partialHelper = $this->view->plugin('partial');
         if (is_array($partial)) {
-            if (count($partial) != 2) {
+            if (count($partial) !== 2) {
                 throw new Exception\InvalidArgumentException(
                     'Unable to render menu: A view partial supplied as '
                     . 'an array must contain one value: the partial view script'

@@ -84,7 +84,7 @@ class RenderChildModel extends AbstractHelper
     {
         $this->current = $model = $this->getCurrent();
         foreach ($model->getChildren() as $childModel) {
-            if ($childModel->captureTo() == $child) {
+            if ($childModel->captureTo() === $child) {
                 return $childModel;
             }
         }

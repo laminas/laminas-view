@@ -14,16 +14,16 @@ class JsonModel extends ViewModel
      * JSON probably won't need to be captured into a
      * a parent container by default.
      *
-     * @var string
+     * @var string|null
      */
-    protected $captureTo = null;
+    protected $captureTo;
 
     /**
      * JSONP callback (if set, wraps the return in a function call)
      *
-     * @var string
+     * @var string|null
      */
-    protected $jsonpCallback = null;
+    protected $jsonpCallback;
 
     /**
      * JSON is usually terminal
@@ -61,7 +61,7 @@ class JsonModel extends ViewModel
         ];
 
         if (null !== $this->jsonpCallback) {
-            return $this->jsonpCallback.'('.Json::encode($variables, false, $options).');';
+            return $this->jsonpCallback . '(' . Json::encode($variables, false, $options) . ');';
         }
         return Json::encode($variables, false, $options);
     }

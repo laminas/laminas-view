@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Laminas\View;
 
-use const SEEK_CUR;
-use const SEEK_END;
-use const SEEK_SET;
-
 use function file_get_contents;
 use function preg_replace;
 use function stat;
 use function str_replace;
 use function strlen;
 use function substr;
+
+use const SEEK_CUR;
+use const SEEK_END;
+use const SEEK_SET;
 
 /**
  * Stream wrapper to convert markup of mostly-PHP templates into PHP prior to

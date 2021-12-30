@@ -146,10 +146,10 @@ abstract class AbstractContainer extends ArrayObject
      *
      * @param  string $type How to capture content into placeholder; append, prepend, or set
      * @param  mixed  $key  Key to which to capture content
-     * @throws Exception\RuntimeException if nested captures detected
+     * @throws Exception\RuntimeException If nested captures detected.
      * @return void
      */
-    public function captureStart($type = AbstractContainer::APPEND, $key = null)
+    public function captureStart($type = self::APPEND, $key = null)
     {
         if ($this->captureLock) {
             throw new Exception\RuntimeException(
@@ -233,7 +233,7 @@ abstract class AbstractContainer extends ArrayObject
      */
     public function getValue()
     {
-        if (1 == count($this)) {
+        if (1 === count($this)) {
             $keys = $this->getKeys();
             $key  = array_shift($keys);
             return $this[$key];

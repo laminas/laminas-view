@@ -42,6 +42,7 @@ class DeclareVars extends AbstractHelper
      * );
      * </code>
      *
+     * phpcs:ignore
      * @param string|array variable number of arguments, all string names of variables to test
      * @return void
      */

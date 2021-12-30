@@ -149,8 +149,8 @@ class Breadcrumbs extends AbstractHelper
      *     Default is to use the partial registered in the helper. If an array
      *     is given, the first value is used for the partial view script.
      * @return string
-     * @throws Exception\RuntimeException         if no partial provided
-     * @throws Exception\InvalidArgumentException if partial is invalid array
+     * @throws Exception\RuntimeException         If no partial provided.
+     * @throws Exception\InvalidArgumentException If partial is invalid array.
      */
     public function renderPartial($container = null, $partial = null)
     {
@@ -172,8 +172,8 @@ class Breadcrumbs extends AbstractHelper
      *     Default is to use the partial registered in the helper. If an array
      *     is given, the first value is used for the partial view script.
      * @return string
-     * @throws Exception\RuntimeException         if no partial provided
-     * @throws Exception\InvalidArgumentException if partial is invalid array
+     * @throws Exception\RuntimeException         If no partial provided.
+     * @throws Exception\InvalidArgumentException If partial is invalid array.
      */
     public function renderPartialWithParams(array $params = [], $container = null, $partial = null)
     {
@@ -259,8 +259,8 @@ class Breadcrumbs extends AbstractHelper
      * @param null|AbstractContainer $container
      * @param null|string|array      $partial
      * @return View\Helper\Partial|string
-     * @throws Exception\RuntimeException         if no partial provided
-     * @throws Exception\InvalidArgumentException if partial is invalid array
+     * @throws Exception\RuntimeException         If no partial provided.
+     * @throws Exception\InvalidArgumentException If partial is invalid array.
      */
     protected function renderPartialModel(array $params, $container, $partial)
     {
@@ -299,7 +299,7 @@ class Breadcrumbs extends AbstractHelper
         /** @var View\Helper\Partial $partialHelper */
         $partialHelper = $this->view->plugin('partial');
         if (is_array($partial)) {
-            if (count($partial) != 2) {
+            if (count($partial) !== 2) {
                 throw new Exception\InvalidArgumentException(
                     'Unable to render breadcrumbs: A view partial supplied as '
                     . 'an array must contain one value: the partial view script'

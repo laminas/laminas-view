@@ -53,10 +53,10 @@ class Url extends AbstractHelper
      * @param  bool $reuseMatchedParams Whether to reuse matched parameters
      * @return string Url For the link href attribute
      * @throws Exception\RuntimeException If no RouteStackInterface was
-     *     provided
-     * @throws Exception\RuntimeException If no RouteMatch was provided
+     *     provided.
+     * @throws Exception\RuntimeException If no RouteMatch was provided.
      * @throws Exception\RuntimeException If RouteMatch didn't contain a
-     *     matched route name
+     *     matched route name.
      * @throws Exception\InvalidArgumentException If the params object was not
      *     an array or Traversable object.
      */
@@ -66,7 +66,7 @@ class Url extends AbstractHelper
             throw new Exception\RuntimeException('No RouteStackInterface instance provided');
         }
 
-        if (3 == func_num_args() && is_bool($options)) {
+        if (3 === func_num_args() && is_bool($options)) {
             $reuseMatchedParams = $options;
             $options            = [];
         }
@@ -117,7 +117,7 @@ class Url extends AbstractHelper
      *
      * @param LegacyRouteStackInterface|RouteStackInterface $router
      * @return Url
-     * @throws Exception\InvalidArgumentException for invalid router types.
+     * @throws Exception\InvalidArgumentException For invalid router types.
      */
     public function setRouter($router)
     {

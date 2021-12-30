@@ -18,6 +18,7 @@ use Laminas\View\HelperPluginManager;
  */
 class PluginManager extends HelperPluginManager
 {
+    /** @var string|null */
     protected $instanceOf = AbstractHelper::class;
 
     /**
@@ -46,6 +47,8 @@ class PluginManager extends HelperPluginManager
 
     /**
      * Default factories
+     *
+     * @var string[]|callable[]
      */
     protected $factories = [
         Breadcrumbs::class => InvokableFactory::class,
@@ -54,7 +57,6 @@ class PluginManager extends HelperPluginManager
         Sitemap::class     => InvokableFactory::class,
 
         // v2 canonical FQCNs
-
         'laminasviewhelpernavigationbreadcrumbs' => InvokableFactory::class,
         'laminasviewhelpernavigationlinks'       => InvokableFactory::class,
         'laminasviewhelpernavigationmenu'        => InvokableFactory::class,

@@ -50,8 +50,10 @@ class FlashMessenger extends AbstractHelper
      *
      * @var string
      */
-    protected $messageCloseString     = '</li></ul>';
-    protected $messageOpenFormat      = '<ul%s><li>';
+    protected $messageCloseString = '</li></ul>';
+    /** @var string */
+    protected $messageOpenFormat = '<ul%s><li>';
+    /** @var string */
     protected $messageSeparatorString = '</li><li>';
 
     /**
@@ -174,7 +176,7 @@ class FlashMessenger extends AbstractHelper
         $translatorTextDomain = $this->getTranslatorTextDomain();
         array_walk_recursive(
             $messages,
-            function ($item) use (& $messagesToPrint, $escapeHtml, $autoEscape, $translator, $translatorTextDomain) {
+            function ($item) use (&$messagesToPrint, $escapeHtml, $autoEscape, $translator, $translatorTextDomain) {
                 if ($translator !== null) {
                     $item = $translator->translate(
                         $item,
@@ -298,7 +300,7 @@ class FlashMessenger extends AbstractHelper
      *
      * @param  V2PluginFlashMessenger|PluginFlashMessenger $pluginFlashMessenger
      * @return FlashMessenger
-     * @throws InvalidArgumentException for an invalid $pluginFlashMessenger
+     * @throws InvalidArgumentException For an invalid $pluginFlashMessenger.
      */
     public function setPluginFlashMessenger($pluginFlashMessenger)
     {

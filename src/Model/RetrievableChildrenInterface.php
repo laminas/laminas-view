@@ -2,11 +2,6 @@
 
 declare(strict_types=1);
 
-/**
- * @see       https://github.com/laminas/laminas-view for the canonical source repository
- * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md
- * @license   https://github.com/laminas/laminas-view/blob/master/LICENSE.md New BSD License
- */
 namespace Laminas\View\Model;
 
 /**
@@ -17,7 +12,7 @@ namespace Laminas\View\Model;
 interface RetrievableChildrenInterface
 {
     /**
-     * Returns an array of Viewmodels with captureTo value $capture
+     * Returns an array of View models with captureTo value $capture
      *
      * @param string $capture
      * @param bool $recursive search recursive through children, default true
