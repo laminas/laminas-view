@@ -8,7 +8,7 @@ use IteratorAggregate;
 use Laminas\Escaper\Escaper;
 use Laminas\View\Exception;
 use Laminas\View\Helper\AbstractHelper;
-use ReturnTypeWillChange;
+use ReturnTypeWillChange; // phpcs:ignore
 
 use function call_user_func_array;
 use function class_exists;

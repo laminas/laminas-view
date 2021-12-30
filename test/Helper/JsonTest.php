@@ -8,8 +8,6 @@ use Laminas\Json\Json as JsonFormatter;
 use Laminas\View\Helper\Json as JsonHelper;
 use PHPUnit\Framework\TestCase;
 
-use function assert;
-
 /**
  * Test class for Laminas\View\Helper\Json
  *

@@ -12,7 +12,9 @@ use Laminas\View\Renderer\PhpRenderer;
 use Laminas\View\Resolver\TemplateMapResolver;
 use Laminas\View\Resolver\TemplatePathStack;
 use Laminas\View\Variables;
-use LaminasTest\View\TestAsset;
+use LaminasTest\View\TestAsset\Invokable;
+use LaminasTest\View\TestAsset\SharedInstance;
+use LaminasTest\View\TestAsset\Uninvokable;
 use PHPUnit\Framework\TestCase;
 
 use function realpath;
@@ -220,11 +222,11 @@ class PhpRendererTest extends TestCase
     public function testMethodOverloadingShouldReturnHelperInstanceIfNotInvokable(): void
     {
         $helpers = new HelperPluginManager(new ServiceManager(), ['invokables' => [
-            'uninvokable' => TestAsset\Uninvokable::class,
+            'uninvokable' => Uninvokable::class,
         ],]);
         $this->renderer->setHelperPluginManager($helpers);
         $helper = $this->renderer->uninvokable();
-        $this->assertInstanceOf(TestAsset\Uninvokable::class, $helper);
+        $this->assertInstanceOf(Uninvokable::class, $helper);
     }
 
     /**
@@ -233,7 +235,7 @@ class PhpRendererTest extends TestCase
     public function testMethodOverloadingShouldInvokeHelperIfInvokable(): void
     {
         $helpers = new HelperPluginManager(new ServiceManager(), ['invokables' => [
-            'invokable' => TestAsset\Invokable::class,
+            'invokable' => Invokable::class,
         ],]);
         $this->renderer->setHelperPluginManager($helpers);
         $return = $this->renderer->invokable('it works!');
@@ -448,7 +450,7 @@ class PhpRendererTest extends TestCase
     {
         $helpers = new HelperPluginManager(new ServiceManager(), [
             'invokables' => [
-                'sharedinstance' => TestAsset\SharedInstance::class,
+                'sharedinstance' => SharedInstance::class,
             ],
             'shared' => [
                 'sharedinstance' => false,
@@ -463,7 +465,7 @@ class PhpRendererTest extends TestCase
 
         $helpers = new HelperPluginManager(new ServiceManager(), [
             'invokables' => [
-                'sharedinstance' => TestAsset\SharedInstance::class,
+                'sharedinstance' => SharedInstance::class,
             ],
             'shared' => [
                 'sharedinstance' => true,

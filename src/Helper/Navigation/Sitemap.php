@@ -9,7 +9,6 @@ use Laminas\Navigation\AbstractContainer;
 use Laminas\Navigation\Page\AbstractPage;
 use Laminas\Stdlib\ErrorHandler;
 use Laminas\Uri;
-use Laminas\View;
 use Laminas\View\Exception;
 use RecursiveIteratorIterator;
 

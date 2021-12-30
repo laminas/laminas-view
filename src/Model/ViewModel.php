@@ -7,7 +7,7 @@ use ArrayIterator;
 use Laminas\Stdlib\ArrayUtils;
 use Laminas\View\Exception;
 use Laminas\View\Variables as ViewVariables;
-use ReturnTypeWillChange;
+use ReturnTypeWillChange; // phpcs:ignore
 use Traversable;
 
 use function array_key_exists;

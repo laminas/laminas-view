@@ -4,7 +4,7 @@ namespace Laminas\View\Helper\Placeholder\Container;
 
 use ArrayObject;
 use Laminas\View\Exception;
-use ReturnTypeWillChange;
+use ReturnTypeWillChange; // phpcs:ignore
 
 use function array_keys;
 use function array_shift;

@@ -2,13 +2,14 @@
 
 namespace LaminasTest\View\Helper;
 
-use const DIRECTORY_SEPARATOR;
-
 use Laminas\View\Helper\DeclareVars;
 use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
 
+use function assert;
 use function str_replace;
+
+use const DIRECTORY_SEPARATOR;
 
 /**
  * @group      Laminas_View
@@ -16,6 +17,9 @@ use function str_replace;
  */
 class DeclareVarsTest extends TestCase
 {
+    /** @var View */
+    private $view;
+
     protected function setUp(): void
     {
         $view = new View();
@@ -25,11 +29,12 @@ class DeclareVarsTest extends TestCase
         $this->view = $view;
     }
 
-    // @codingStandardsIgnoreStart
-    protected function _declareVars(): void
+    private function declareVars(): void
     {
-        // @codingStandardsIgnoreEnd
-        $this->view->plugin('declareVars')->__invoke(
+        $helper = $this->view->plugin('declareVars');
+        assert($helper instanceof DeclareVars);
+
+        $helper->__invoke(
             'varName1',
             'varName2',
             [
@@ -41,7 +46,7 @@ class DeclareVarsTest extends TestCase
 
     public function testDeclareUndeclaredVars(): void
     {
-        $this->_declareVars();
+        $this->declareVars();
 
         $vars = $this->view->vars();
         $this->assertTrue(isset($vars->varName1));
@@ -60,7 +65,7 @@ class DeclareVarsTest extends TestCase
         $vars->varName3 = 'myValue';
         $vars->varName5 = 'additionalValue';
 
-        $this->_declareVars();
+        $this->declareVars();
 
         $this->assertTrue(isset($vars->varName1));
         $this->assertTrue(isset($vars->varName2));

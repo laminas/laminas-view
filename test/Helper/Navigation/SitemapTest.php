@@ -5,7 +5,7 @@ namespace LaminasTest\View\Helper\Navigation;
 use DOMDocument;
 use Laminas\View;
 use Laminas\View\Helper\Navigation\Sitemap;
-use Throwable;
+use Throwable; // phpcs:ignore
 
 use function count;
 use function date_default_timezone_get;

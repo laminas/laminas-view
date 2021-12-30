@@ -3,7 +3,7 @@
 namespace LaminasTest\View\Helper\TestAsset;
 
 use Iterator;
-use ReturnTypeWillChange;
+use ReturnTypeWillChange; // phpcs:ignore
 
 use function current;
 use function key;

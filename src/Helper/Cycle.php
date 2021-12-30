@@ -3,7 +3,7 @@
 namespace Laminas\View\Helper;
 
 use Iterator;
-use ReturnTypeWillChange;
+use ReturnTypeWillChange; // phpcs:ignore
 
 use function count;
 

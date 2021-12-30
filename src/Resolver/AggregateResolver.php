@@ -7,7 +7,7 @@ use IteratorAggregate;
 use Laminas\Stdlib\PriorityQueue;
 use Laminas\View\Renderer\RendererInterface as Renderer;
 use Laminas\View\Resolver\ResolverInterface as Resolver;
-use ReturnTypeWillChange;
+use ReturnTypeWillChange; // phpcs:ignore
 
 use function count;
 

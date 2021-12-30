@@ -12,7 +12,7 @@ use Countable;
 use Laminas\Stdlib\ErrorHandler;
 use RecursiveIterator;
 use RecursiveIteratorIterator;
-use ReturnTypeWillChange;
+use ReturnTypeWillChange; // phpcs:ignore
 use Traversable;
 
 /**

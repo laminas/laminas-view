@@ -3,7 +3,7 @@
 namespace LaminasTest\View\Model\TestAsset;
 
 use Iterator;
-use ReturnTypeWillChange;
+use ReturnTypeWillChange; // phpcs:ignore
 
 class Variable implements Iterator
 {

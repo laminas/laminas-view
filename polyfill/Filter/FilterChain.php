@@ -11,7 +11,7 @@ namespace Laminas\Filter;
 use Countable;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\Stdlib\PriorityQueue;
-use ReturnTypeWillChange;
+use ReturnTypeWillChange; // phpcs:ignore
 use Traversable;
 
 /**

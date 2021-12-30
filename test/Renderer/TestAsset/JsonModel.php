@@ -3,7 +3,7 @@
 namespace LaminasTest\View\Renderer\TestAsset;
 
 use JsonSerializable;
-use ReturnTypeWillChange;
+use ReturnTypeWillChange; // phpcs:ignore
 
 class JsonModel implements JsonSerializable
 {
