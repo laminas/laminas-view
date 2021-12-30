@@ -74,7 +74,6 @@ abstract class AbstractTest extends TestCase
 
     /**
      * Prepares the environment before running a test
-     *
      */
     protected function setUp(): void
     {
@@ -114,9 +113,8 @@ abstract class AbstractTest extends TestCase
                     'service_manager' => [
                         'factories' => [
                             'config' => /**
-                             * @return array[]
-                             *
-                             * @psalm-return array{navigation: array{default: mixed}}
+                            'config' =>  * @return array[]
+                            'config' =>  * @psalm-return array{navigation: array{default: mixed}}
                              */
                             function () use ($config): array {
                                 return [
@@ -161,6 +159,7 @@ abstract class AbstractTest extends TestCase
 
     /**
      * Returns the contens of the expected $file
+     *
      * @param  string $file
      * @return string
      */
@@ -175,7 +174,6 @@ abstract class AbstractTest extends TestCase
      * Sets up ACL
      *
      * @return (Acl|string)[]
-     *
      * @psalm-return array{acl: Acl, role: 'special'}
      */
     // @codingStandardsIgnoreLine

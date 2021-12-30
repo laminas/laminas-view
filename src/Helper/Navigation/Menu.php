@@ -101,6 +101,7 @@ class Menu extends AbstractHelper
      *
      * @see renderPartial()
      * @see renderMenu()
+     *
      * @param  AbstractContainer $container [optional] container to render. Default is
      *     to render the container registered in the helper.
      * @return string

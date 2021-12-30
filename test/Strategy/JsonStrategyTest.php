@@ -306,7 +306,6 @@ class JsonStrategyTest extends TestCase
 
     /**
      * @return string[][]
-     *
      * @psalm-return array{utf-16: array{0: 'utf-16'}, utf-32: array{0: 'utf-32'}}
      */
     public function multibyteCharsets(): array

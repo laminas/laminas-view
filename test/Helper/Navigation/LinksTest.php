@@ -24,7 +24,6 @@ use function str_replace;
  *
  * @group      Laminas_View
  * @group      Laminas_View_Helper
- *
  * @psalm-suppress MissingConstructor
  */
 class LinksTest extends AbstractTest
@@ -717,6 +716,7 @@ class LinksTest extends AbstractTest
 
     /**
      * Returns the contens of the expected $file, normalizes newlines
+     *
      * @param  string $file
      * @return string
      */

@@ -27,7 +27,6 @@ use function str_replace;
  *
  * @group      Laminas_View
  * @group      Laminas_View_Helper
- *
  * @psalm-suppress MissingConstructor
  */
 class NavigationTest extends AbstractTest
@@ -614,6 +613,7 @@ class NavigationTest extends AbstractTest
 
     /**
      * Returns the contens of the expected $file, normalizes newlines
+     *
      * @param  string $file
      * @return string
      */

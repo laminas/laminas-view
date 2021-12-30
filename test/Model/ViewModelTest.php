@@ -390,7 +390,6 @@ class ViewModelTest extends TestCase
 
     /**
      * @dataProvider variableValue
-     *
      * @param array|ArrayObject $variables
      * @param string|null $default
      * @param string|null $expected
@@ -404,7 +403,6 @@ class ViewModelTest extends TestCase
 
     /**
      * @dataProvider variableValue
-     *
      * @param array|ArrayObject $variables
      * @param string|null $default
      * @param string|null $expected

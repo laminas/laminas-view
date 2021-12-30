@@ -448,7 +448,6 @@ class HelperPluginManager extends AbstractPluginManager
      * @param ContainerInterface|Helper\HelperInterface $second
      *     ContainerInterface under laminas-servicemanager v3, helper instance
      *     under v2. Ignored regardless.
-     *
      * @return void
      */
     public function injectEventManager($first, $second)

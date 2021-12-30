@@ -24,6 +24,7 @@ class Placeholder extends AbstractHelper
 
     /**
      * Default container class
+     *
      * @var string
      */
     protected $containerClass = 'Laminas\View\Helper\Placeholder\Container';

@@ -358,9 +358,9 @@ class HeadMetaTest extends TestCase
     }
 
     /**
-     * @issue Laminas-3780
-     *
      * @link https://getlaminas.org/issues/browse/Laminas-3780
+     *
+     * @issue Laminas-3780
      */
     public function testPlacesMetaTagsInProperOrder(): void
     {
@@ -499,7 +499,6 @@ class HeadMetaTest extends TestCase
 
     /**
      * @group Laminas-9743
-     *
      * @depends testPropertyIsSupportedWithRdfaDoctype
      */
     public function testOverloadingAppendPropertyAppendsMetaTagToStack(): void
@@ -510,7 +509,6 @@ class HeadMetaTest extends TestCase
 
     /**
      * @group Laminas-9743
-     *
      * @depends testPropertyIsSupportedWithRdfaDoctype
      */
     public function testOverloadingPrependPropertyPrependsMetaTagToStack(): void
@@ -521,7 +519,6 @@ class HeadMetaTest extends TestCase
 
     /**
      * @group Laminas-9743
-     *
      * @depends testPropertyIsSupportedWithRdfaDoctype
      */
     public function testOverloadingSetPropertyOverwritesMetaTagStack(): void
@@ -559,7 +556,6 @@ class HeadMetaTest extends TestCase
 
     /**
      * @issue 3751
-     *
      * @depends testItempropIsSupportedWithHtml5Doctype
      */
     public function testOverloadingAppendItempropAppendsMetaTagToStack(): void
@@ -570,7 +566,6 @@ class HeadMetaTest extends TestCase
 
     /**
      * @issue 3751
-     *
      * @depends testItempropIsSupportedWithHtml5Doctype
      */
     public function testOverloadingPrependItempropPrependsMetaTagToStack(): void
@@ -581,7 +576,6 @@ class HeadMetaTest extends TestCase
 
     /**
      * @issue 3751
-     *
      * @depends testItempropIsSupportedWithHtml5Doctype
      */
     public function testOverloadingSetItempropOverwritesMetaTagStack(): void

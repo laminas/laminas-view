@@ -317,7 +317,6 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      *                                      accepted if it is the descendant of
      *                                      a page that is not accepted. Default
      *                                      is true
-     *
      * @return  bool                        Whether page should be accepted
      */
     public function accept(AbstractPage $page, $recursive = true)

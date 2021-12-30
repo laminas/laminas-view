@@ -29,6 +29,7 @@ use function trigger_error;
  * @see http://www.w3.org/TR/xhtml1/dtds.html
  *
  * Allows the following 'virtual' methods:
+ *
  * @method HeadMeta appendName($keyValue, $content, $modifiers = array())
  * @method HeadMeta offsetGetName($index, $keyValue, $content, $modifiers = array())
  * @method HeadMeta prependName($keyValue, $content, $modifiers = array())
@@ -73,7 +74,6 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      * Constructor
      *
      * Set separator to PHP_EOL
-     *
      */
     public function __construct()
     {

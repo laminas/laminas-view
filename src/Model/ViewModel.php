@@ -29,12 +29,14 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
 
     /**
      * Child models
+     *
      * @var array
      */
     protected $children = [];
 
     /**
      * Renderer options
+     *
      * @var array
      */
     protected $options = [];
@@ -55,6 +57,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
 
     /**
      * View variables
+     *
      * @var array|ArrayAccess&Traversable
      */
     protected $variables = [];

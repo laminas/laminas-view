@@ -253,7 +253,6 @@ class HelperPluginManagerTest extends TestCase
 
     /**
      * @return string
-     *
      * @psalm-return InvalidHelperException::class|InvalidServiceException::class
      */
     private function getServiceNotFoundException(HelperPluginManager $manager): string

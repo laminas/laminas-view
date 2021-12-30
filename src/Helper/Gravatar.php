@@ -92,6 +92,7 @@ class Gravatar extends AbstractHtmlElement
      *
      * @see    http://pl.gravatar.com/site/implement/url
      * @see    http://pl.gravatar.com/site/implement/url More information about gravatar's service.
+     *
      * @param  string|null $email      Email address.
      * @param  null|array  $options    Options
      * @param  array       $attributes Attributes for image tag (title, alt etc.)
@@ -199,10 +200,10 @@ class Gravatar extends AbstractHtmlElement
     /**
      * Set attribs for image tag
      *
+     * @deprecated Please use Laminas\View\Helper\Gravatar::setAttributes
+     *
      * @param  array $attribs
      * @return Gravatar
-     *
-     * @deprecated Please use Laminas\View\Helper\Gravatar::setAttributes
      */
     public function setAttribs(array $attribs)
     {
@@ -239,9 +240,9 @@ class Gravatar extends AbstractHtmlElement
      * protected method setSrcAttribForImg(). And finally your get other src
      * value!
      *
-     * @return array
-     *
      * @deprecated Please use Laminas\View\Helper\Gravatar::getAttributes
+     *
+     * @return array
      */
     public function getAttribs()
     {
@@ -260,6 +261,7 @@ class Gravatar extends AbstractHtmlElement
      * Can be either an absolute URL to an image, or one of the DEFAULT_* constants
      *
      * @link   http://pl.gravatar.com/site/implement/url More information about default image.
+     *
      * @param  string $defaultImg
      * @return Gravatar
      */
@@ -330,6 +332,7 @@ class Gravatar extends AbstractHtmlElement
      * Must be one of the RATING_* constants
      *
      * @link   http://pl.gravatar.com/site/implement/url More information about rating.
+     *
      * @param  string $rating Value for rating. Allowed values are: g, px, r,x
      * @return Gravatar
      * @throws Exception\DomainException

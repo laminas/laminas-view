@@ -368,7 +368,6 @@ class PhpRendererTest extends TestCase
 
     /**
      * @return string[][]
-     *
      * @psalm-return array{0: array{0: '/does/not/exists'}, 1: array{0: '.'}}
      */
     public function invalidTemplateFiles(): array
@@ -494,9 +493,9 @@ class PhpRendererTest extends TestCase
     }
 
     /**
-     * @group laminas-view-120
-     *
      * @see https://github.com/zendframework/zend-view/issues/120
+     *
+     * @group laminas-view-120
      */
     public function testRendererDoesntUsePreviousRenderedOutputWhenInvokedWithEmptyString(): void
     {
@@ -510,9 +509,9 @@ class PhpRendererTest extends TestCase
     }
 
     /**
-     * @group laminas-view-120
-     *
      * @see https://github.com/zendframework/zend-view/issues/120
+     *
+     * @group laminas-view-120
      */
     public function testRendererDoesntUsePreviousRenderedOutputWhenInvokedWithFalse(): void
     {

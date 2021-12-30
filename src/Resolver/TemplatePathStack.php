@@ -61,6 +61,7 @@ class TemplatePathStack implements ResolverInterface
 
     /**
      * Flag indicating whether or not LFI protection for rendering view scripts is enabled
+     *
      * @var bool
      */
     protected $lfiProtectionOn = true;
@@ -268,10 +269,10 @@ class TemplatePathStack implements ResolverInterface
     /**
      * Set flag indicating if stream wrapper should be used if short_open_tag is off
      *
+     * @deprecated will be removed in version 3
+     *
      * @param  bool $flag
      * @return TemplatePathStack
-     *
-     * @deprecated will be removed in version 3
      */
     public function setUseStreamWrapper($flag)
     {
@@ -285,9 +286,9 @@ class TemplatePathStack implements ResolverInterface
      * Returns true if the use_stream_wrapper flag is set, and if short_open_tag
      * is disabled.
      *
-     * @return bool
-     *
      * @deprecated will be removed in version 3
+     *
+     * @return bool
      */
     public function useStreamWrapper()
     {

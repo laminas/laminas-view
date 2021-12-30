@@ -27,6 +27,7 @@ use function ucfirst;
  * Helper for setting and retrieving script elements for HTML head section
  *
  * Allows the following method calls:
+ *
  * @method HeadScript appendFile($src, $type = 'text/javascript', $attrs = [])
  * @method HeadScript offsetSetFile($index, $src, $type = 'text/javascript', $attrs = [])
  * @method HeadScript prependFile($src, $type = 'text/javascript', $attrs = [])

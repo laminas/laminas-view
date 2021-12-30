@@ -42,6 +42,7 @@ abstract class AbstractStandalone extends AbstractHelper implements
 
     /**
      * Default container class
+     *
      * @var string
      */
     protected $containerClass = 'Laminas\View\Helper\Placeholder\Container';
@@ -53,7 +54,6 @@ abstract class AbstractStandalone extends AbstractHelper implements
 
     /**
      * Constructor
-     *
      */
     public function __construct()
     {

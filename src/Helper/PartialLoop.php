@@ -105,7 +105,6 @@ class PartialLoop extends Partial
      * {@inheritDoc}
      *
      * @param string|null $key
-     *
      * @return self
      */
     public function setObjectKey($key)
@@ -152,7 +151,6 @@ class PartialLoop extends Partial
 
     /**
      * @param mixed $values
-     *
      * @return array Variables to populate in the view
      */
     private function extractViewVariables($values)

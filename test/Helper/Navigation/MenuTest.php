@@ -19,7 +19,6 @@ use function trim;
  *
  * @group      Laminas_View
  * @group      Laminas_View_Helper
- *
  * @psalm-suppress MissingConstructor
  */
 class MenuTest extends AbstractTest
@@ -616,7 +615,6 @@ class MenuTest extends AbstractTest
      * Returns the contens of the expected $file, normalizes newlines.
      *
      * @param string $file
-     *
      * @return string
      */
     // @codingStandardsIgnoreStart

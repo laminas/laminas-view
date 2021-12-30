@@ -27,7 +27,6 @@ class ConsoleRenderer implements RendererInterface, TreeRendererInterface
     /**
      * Constructor.
      *
-     *
      * @todo handle passing helper manager, options
      * @todo handle passing filter chain, options
      * @todo handle passing variables object, options
@@ -137,6 +136,7 @@ class ConsoleRenderer implements RendererInterface, TreeRendererInterface
 
     /**
      * @see Laminas\View\Renderer\TreeRendererInterface
+     *
      * @return bool
      */
     public function canRenderTrees()

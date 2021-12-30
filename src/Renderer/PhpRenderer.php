@@ -149,7 +149,6 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     /**
      * Constructor.
      *
-     *
      * @todo handle passing helper plugin manager, options
      * @todo handle passing filter chain, options
      * @todo handle passing variables object, options

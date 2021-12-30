@@ -89,6 +89,7 @@ class Links extends AbstractHelper
      *
      * @see render()
      * @see setRenderFlag()
+     *
      * @var int
      */
     protected $renderFlag = self::RENDER_ALL;
@@ -100,6 +101,7 @@ class Links extends AbstractHelper
      * the {@link render()} method.
      *
      * @see _findRoot()
+     *
      * @var AbstractContainer
      */
     protected $root;

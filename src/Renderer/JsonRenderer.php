@@ -24,6 +24,7 @@ class JsonRenderer implements Renderer, TreeRendererInterface
 {
     /**
      * Whether or not to merge child models with no capture-to value set
+     *
      * @var bool
      */
     protected $mergeUnnamedChildren = false;

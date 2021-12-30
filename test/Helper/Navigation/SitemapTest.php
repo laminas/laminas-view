@@ -18,7 +18,6 @@ use function trim;
  *
  * @group      Laminas_View
  * @group      Laminas_View_Helper
- *
  * @psalm-suppress MissingConstructor
  */
 class SitemapTest extends AbstractTest
@@ -221,7 +220,6 @@ class SitemapTest extends AbstractTest
 
     /**
      * @param class-string<Throwable> $expectedType
-     *
      * @dataProvider invalidServerUrlDataProvider
      */
     public function testSetServerUrlRequiresValidUri(

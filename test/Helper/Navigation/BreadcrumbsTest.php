@@ -16,7 +16,6 @@ use function trim;
  *
  * @group      Laminas_View
  * @group      Laminas_View_Helper
- *
  * @psalm-suppress MissingConstructor
  */
 class BreadcrumbsTest extends AbstractTest

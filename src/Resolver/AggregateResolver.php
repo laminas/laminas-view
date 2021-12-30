@@ -18,6 +18,7 @@ class AggregateResolver implements Countable, IteratorAggregate, ResolverInterfa
 
     /**
      * Last lookup failure
+     *
      * @var false|string
      */
     protected $lastLookupFailure = false;
@@ -36,7 +37,6 @@ class AggregateResolver implements Countable, IteratorAggregate, ResolverInterfa
      * Constructor
      *
      * Instantiate the internal priority queue
-     *
      */
     public function __construct()
     {

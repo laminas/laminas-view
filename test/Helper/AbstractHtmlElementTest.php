@@ -45,7 +45,6 @@ class AbstractHtmlElementTest extends TestCase
 
     /**
      * @param scalar|scalar[]|null $attributeValue
-     *
      * @dataProvider attributeValuesProvider
      */
     public function testThatAttributesOfVariousNativeTypesProduceTheExpectedAttributeString(

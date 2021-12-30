@@ -31,6 +31,7 @@ use function trim;
  * Helper for setting and retrieving stylesheets
  *
  * Allows the following method calls:
+ *
  * @method HeadStyle appendStyle($content, $attributes = array())
  * @method HeadStyle offsetSetStyle($index, $content, $attributes = array())
  * @method HeadStyle prependStyle($content, $attributes = array())

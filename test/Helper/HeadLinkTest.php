@@ -376,9 +376,9 @@ class HeadLinkTest extends TestCase
     }
 
     /**
-     * @issue Laminas-3928
-     *
      * @link https://getlaminas.org/issues/browse/Laminas-3928
+     *
+     * @issue Laminas-3928
      */
     public function testTurnOffAutoEscapeDoesNotEncodeAmpersand(): void
     {

@@ -116,9 +116,9 @@ class HeadTitleTest extends TestCase
     }
 
     /**
-     * @issue Laminas-2918
-     *
      * @link https://getlaminas.org/issues/browse/Laminas-2918
+     *
+     * @issue Laminas-2918
      */
     public function testLaminas918(): void
     {
@@ -130,9 +130,9 @@ class HeadTitleTest extends TestCase
     }
 
     /**
-     * @issue Laminas-3577
-     *
      * @link https://getlaminas.org/issues/browse/Laminas-3577
+     *
+     * @issue Laminas-3577
      */
     public function testLaminas577(): void
     {

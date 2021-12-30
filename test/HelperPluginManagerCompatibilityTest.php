@@ -58,7 +58,6 @@ class HelperPluginManagerCompatibilityTest extends TestCase
 
     /**
      * @return \Generator
-     *
      * @psalm-return \Generator<mixed, array{0: mixed, 1: mixed}, mixed, void>
      */
     public function aliasProvider(): \Generator

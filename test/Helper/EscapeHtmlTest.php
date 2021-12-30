@@ -153,7 +153,6 @@ class EscapeHtmlTest extends TestCase
      * warning level error for htmlspecialchars() encoding param. PHP 5.4 attempts
      * to guess the encoding or take it from php.ini default_charset when an empty
      * string is set. Both are insecure behaviours.
-     *
      */
     public function testSettingEncodingToEmptyStringShouldThrowException(): void
     {

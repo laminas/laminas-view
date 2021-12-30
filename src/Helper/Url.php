@@ -44,6 +44,7 @@ class Url extends AbstractHelper
      *
      * @see Laminas\Mvc\Router\RouteInterface::assemble()
      * @see Laminas\Router\RouteInterface::assemble()
+     *
      * @param  string $name Name of the route
      * @param  array $params Parameters for the link
      * @param  array|Traversable $options Options for the route
