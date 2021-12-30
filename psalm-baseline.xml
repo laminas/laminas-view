@@ -1330,16 +1330,9 @@
   </file>
   <file src="src/Helper/Navigation/PluginManager.php">
     <NonInvariantDocblockPropertyType occurrences="2">
+      <code>$aliases</code>
       <code>$factories</code>
-      <code>$instanceOf</code>
     </NonInvariantDocblockPropertyType>
-    <PropertyNotSetInConstructor occurrences="2">
-      <code>PluginManager</code>
-      <code>PluginManager</code>
-    </PropertyNotSetInConstructor>
-    <UndefinedDocblockClass occurrences="1">
-      <code>null|ConfigInterface|ContainerInterface</code>
-    </UndefinedDocblockClass>
   </file>
   <file src="src/Helper/Navigation/Sitemap.php">
     <MissingConstructor occurrences="1">
@@ -1956,16 +1949,10 @@
       <code>has</code>
       <code>has</code>
     </MixedMethodCall>
-    <NonInvariantDocblockPropertyType occurrences="1">
+    <NonInvariantDocblockPropertyType occurrences="2">
+      <code>$aliases</code>
       <code>$factories</code>
     </NonInvariantDocblockPropertyType>
-    <PropertyNotSetInConstructor occurrences="2">
-      <code>$renderer</code>
-      <code>HelperPluginManager</code>
-    </PropertyNotSetInConstructor>
-    <UndefinedDocblockClass occurrences="1">
-      <code>null|ConfigInterface|ContainerInterface</code>
-    </UndefinedDocblockClass>
     <UndefinedInterfaceMethod occurrences="2">
       <code>getServiceLocator</code>
       <code>getServiceLocator</code>
@@ -3680,9 +3667,6 @@
     </NonInvariantDocblockPropertyType>
   </file>
   <file src="test/Helper/Navigation/NavigationTest.php">
-    <DeprecatedMethod occurrences="1">
-      <code>getServiceLocator</code>
-    </DeprecatedMethod>
     <InvalidArgument occurrences="1">
       <code>[$this, 'toStringErrorHandler']</code>
     </InvalidArgument>
@@ -3711,9 +3695,6 @@
     <NonInvariantDocblockPropertyType occurrences="1">
       <code>$_helper</code>
     </NonInvariantDocblockPropertyType>
-    <RedundantConditionGivenDocblockType occurrences="1">
-      <code>method_exists($plugins, 'configure')</code>
-    </RedundantConditionGivenDocblockType>
     <TooManyArguments occurrences="1"/>
   </file>
   <file src="test/Helper/Navigation/PluginManagerCompatibilityTest.php">
@@ -3721,9 +3702,6 @@
       <code>$this-&gt;getServiceNotFoundException()</code>
       <code>$this-&gt;getServiceNotFoundException()</code>
     </ArgumentTypeCoercion>
-    <InvalidArgument occurrences="1">
-      <code>new Config([])</code>
-    </InvalidArgument>
     <RedundantConditionGivenDocblockType occurrences="2">
       <code>method_exists($helpers, 'configure')</code>
       <code>method_exists($helpers, 'configure')</code>
@@ -4122,13 +4100,6 @@
       <code>method_exists($helpers, 'configure')</code>
     </RedundantCondition>
   </file>
-  <file src="test/Helper/Service/DoctypeFactoryTest.php">
-    <TooManyArguments occurrences="3">
-      <code>$factory</code>
-      <code>$factory</code>
-      <code>$factory</code>
-    </TooManyArguments>
-  </file>
   <file src="test/Helper/Service/IdentityFactoryTest.php">
     <MissingReturnType occurrences="1">
       <code>getContainerForFactory</code>
@@ -4416,9 +4387,6 @@
     </UnusedClosureParam>
   </file>
   <file src="test/HelperPluginManagerTest.php">
-    <InvalidArgument occurrences="1">
-      <code>new Config([])</code>
-    </InvalidArgument>
     <MissingClosureParamType occurrences="2">
       <code>$container</code>
       <code>$container</code>
