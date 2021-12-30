@@ -21,8 +21,7 @@ class PluginManager extends HelperPluginManager
     /**
      * Default aliases
      *
-     * @var array<string, class-string>
-     * @psalm-var array<array-key, string>
+     * @var array<string, string>
      */
     protected $aliases = [
         'breadcrumbs' => Breadcrumbs::class,
@@ -47,7 +46,6 @@ class PluginManager extends HelperPluginManager
      * Default factories
      *
      * @var array<string, class-string|callable>
-     * @psalm-var array<array-key, string|callable>
      */
     protected $factories = [
         Breadcrumbs::class => InvokableFactory::class,

@@ -28,7 +28,7 @@ class HelperPluginManager extends AbstractPluginManager
      * Most of these are present for legacy purposes, as v2 of the service
      * manager normalized names when fetching services.
      *
-     * @var string[]
+     * @var array<string, string>
      */
     protected $aliases = [
         'asset'               => Helper\Asset::class,
@@ -220,7 +220,7 @@ class HelperPluginManager extends AbstractPluginManager
      * helper works fine as an invokable. The factory for doctype simply checks for the
      * config value from the merged config.
      *
-     * @var array<array-key, callable|string>
+     * @var array<string, callable|class-string>
      */
     protected $factories = [
         Helper\Asset::class               => Helper\Service\AssetFactory::class,
