@@ -2,9 +2,8 @@
 
 namespace LaminasTest\View\Helper\Navigation;
 
-use const PHP_EOL;
-
 use Laminas\Navigation\Navigation;
+use Laminas\Permissions\Acl\Role\GenericRole;
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\Navigation\Menu;
 
@@ -13,6 +12,8 @@ use function extension_loaded;
 use function rtrim;
 use function str_replace;
 use function trim;
+
+use const PHP_EOL;
 
 /**
  * Tests Laminas\View\Helper\Navigation\Menu.
@@ -164,7 +165,7 @@ class MenuTest extends AbstractTest
     {
         $acl = $this->_getAcl();
         $this->_helper->setAcl($acl['acl']);
-        $this->_helper->setRole(new \Laminas\Permissions\Acl\Role\GenericRole('member'));
+        $this->_helper->setRole(new GenericRole('member'));
 
         $expected = $this->_getExpected('menu/acl_role_interface.html');
         $this->assertEquals($expected, $this->_helper->render());

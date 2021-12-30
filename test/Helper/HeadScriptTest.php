@@ -2,8 +2,7 @@
 
 namespace LaminasTest\View\Helper;
 
-use const PHP_EOL;
-
+use DOMDocument;
 use Generator;
 use Laminas\View;
 use Laminas\View\Helper;
@@ -17,6 +16,8 @@ use function substr_count;
 use function ucfirst;
 use function var_export;
 
+use const PHP_EOL;
+
 /**
  * Test class for Laminas\View\Helper\HeadScript.
  *
@@ -25,19 +26,13 @@ use function var_export;
  */
 class HeadScriptTest extends TestCase
 {
-    /**
-     * @var Helper\HeadScript
-     */
+    /** @var Helper\HeadScript */
     public $helper;
 
-    /**
-     * @var Helper\EscapeHtmlAttr
-     */
+    /** @var Helper\EscapeHtmlAttr */
     public $attributeEscaper;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $basePath;
 
 
@@ -279,7 +274,7 @@ class HeadScriptTest extends TestCase
         $this->assertStringContainsString('bar', $string);
         $this->assertStringContainsString('baz', $string);
 
-        $doc = new \DOMDocument();
+        $doc = new DOMDocument();
         $dom = $doc->loadHtml($string);
         $this->assertTrue($dom);
     }
@@ -508,8 +503,8 @@ document.write(bar.strlen());');
      */
     public function testOmitsTypeAttributeIfEmptyValueAndHtml5Doctype(): void
     {
-        $view = new \Laminas\View\Renderer\PhpRenderer();
-        $view->plugin('doctype')->setDoctype(\Laminas\View\Helper\Doctype::HTML5);
+        $view = new View\Renderer\PhpRenderer();
+        $view->plugin('doctype')->setDoctype(View\Helper\Doctype::HTML5);
         $this->helper->setView($view);
 
         $this->helper->__invoke()->appendScript('// some script' . PHP_EOL, '');
@@ -536,8 +531,8 @@ document.write(bar.strlen());');
      */
     public function testOmitsTypeAttributeIfNoneGivenAndHtml5Doctype(): void
     {
-        $view = new \Laminas\View\Renderer\PhpRenderer();
-        $view->plugin('doctype')->setDoctype(\Laminas\View\Helper\Doctype::HTML5);
+        $view = new View\Renderer\PhpRenderer();
+        $view->plugin('doctype')->setDoctype(View\Helper\Doctype::HTML5);
         $this->helper->setView($view);
 
         $this->helper->__invoke()->appendScript('// some script' . PHP_EOL);

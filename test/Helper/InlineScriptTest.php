@@ -13,14 +13,10 @@ use PHPUnit\Framework\TestCase;
  */
 class InlineScriptTest extends TestCase
 {
-    /**
-     * @var Helper\InlineScript
-     */
+    /** @var Helper\InlineScript */
     public $helper;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $basePath;
 
     /**

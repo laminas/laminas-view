@@ -2,6 +2,7 @@
 
 namespace LaminasTest\View\Resolver;
 
+use Exception;
 use Laminas\View\Resolver;
 use PHPUnit\Framework\TestCase;
 
@@ -87,7 +88,7 @@ class AggregateResolverTest extends TestCase
         try {
             $resolver->resolve('bar');
             $this->fail('Should not have resolved!');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // exception is expected
         }
         $this->assertNull($resolver->getLastSuccessfulResolver());

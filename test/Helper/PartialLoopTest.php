@@ -19,14 +19,10 @@ use function var_export;
  */
 class PartialLoopTest extends TestCase
 {
-    /**
-     * @var PartialLoop
-     */
+    /** @var PartialLoop */
     public $helper;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $basePath;
 
     /**

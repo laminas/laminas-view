@@ -2,8 +2,7 @@
 
 namespace LaminasTest\View\Helper;
 
-use const PHP_EOL;
-
+use DOMDocument;
 use Laminas\View;
 use Laminas\View\Helper;
 use PHPUnit\Framework\TestCase;
@@ -11,6 +10,8 @@ use PHPUnit\Framework\TestCase;
 use function array_shift;
 use function count;
 use function substr_count;
+
+use const PHP_EOL;
 
 /**
  * Test class for Laminas\View\Helper\HeadStyle.
@@ -20,14 +21,10 @@ use function substr_count;
  */
 class HeadStyleTest extends TestCase
 {
-    /**
-     * @var Helper\HeadStyle
-     */
+    /** @var Helper\HeadStyle */
     public $helper;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $basePath;
 
     /**
@@ -210,7 +207,7 @@ class HeadStyleTest extends TestCase
                      ->__invoke($style2, 'PREPEND')
                      ->__invoke($style3, 'APPEND');
         $html = $this->helper->toString();
-        $doc  = new \DOMDocument();
+        $doc  = new DOMDocument();
         $dom  = $doc->loadHtml($html);
         $this->assertTrue($dom);
 

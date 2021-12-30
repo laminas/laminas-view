@@ -23,14 +23,10 @@ class AggregateResolver implements Countable, IteratorAggregate, ResolverInterfa
      */
     protected $lastLookupFailure = false;
 
-    /**
-     * @var Resolver
-     */
+    /** @var Resolver */
     protected $lastSuccessfulResolver;
 
-    /**
-     * @var PriorityQueue
-     */
+    /** @var PriorityQueue */
     protected $queue;
 
     /**

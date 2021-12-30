@@ -13,6 +13,7 @@ use Laminas\View\Renderer\RendererInterface as Renderer;
 use Laminas\View\Resolver\ResolverInterface as Resolver;
 use Laminas\View\Resolver\TemplatePathStack;
 use Laminas\View\Variables;
+use Throwable;
 use Traversable;
 
 use function array_key_exists;
@@ -515,7 +516,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
                 ob_start();
                 $includeReturn = include $this->__file;
                 $this->__content = ob_get_clean();
-            } catch (\Throwable $ex) {
+            } catch (Throwable $ex) {
                 ob_end_clean();
                 throw $ex;
             } catch (\Exception $ex) { // @TODO clean up once PHP 7 requirement is enforced

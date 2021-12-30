@@ -16,16 +16,9 @@ class PhpRendererStrategy extends AbstractListenerAggregate
      */
     protected $contentPlaceholders = ['article', 'content'];
 
-    /**
-     * @var PhpRenderer
-     */
+    /** @var PhpRenderer */
     protected $renderer;
 
-    /**
-     * Constructor
-     *
-     * @param  PhpRenderer $renderer
-     */
     public function __construct(PhpRenderer $renderer)
     {
         $this->renderer = $renderer;

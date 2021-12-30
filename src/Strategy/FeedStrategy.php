@@ -13,9 +13,7 @@ use function is_string;
 
 class FeedStrategy extends AbstractListenerAggregate
 {
-    /**
-     * @var FeedRenderer
-     */
+    /** @var FeedRenderer */
     protected $renderer;
 
     /**

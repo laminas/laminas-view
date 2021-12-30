@@ -22,9 +22,7 @@ class RelativeFallbackResolver implements ResolverInterface
 {
     const NS_SEPARATOR = '/';
 
-    /**
-     * @var ResolverInterface
-     */
+    /** @var ResolverInterface */
     private $resolver;
 
     /**

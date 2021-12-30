@@ -18,14 +18,10 @@ use function urlencode;
  */
 class GravatarTest extends TestCase
 {
-    /**
-     * @var Gravatar
-     */
+    /** @var Gravatar */
     protected $helper;
 
-    /**
-     * @var View
-     */
+    /** @var View */
     protected $view;
 
     /**

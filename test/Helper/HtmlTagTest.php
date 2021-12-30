@@ -14,9 +14,7 @@ use function sprintf;
  */
 class HtmlTagTest extends TestCase
 {
-    /**
-     * @var HtmlTag
-     */
+    /** @var HtmlTag */
     public $helper;
 
     protected function setUp(): void

@@ -2,8 +2,6 @@
 
 namespace LaminasTest\View\Helper\Navigation;
 
-use const PHP_EOL;
-
 use Interop\Container\ContainerInterface;
 use Laminas\I18n\Translator\Translator;
 use Laminas\Navigation\Navigation as Container;
@@ -15,12 +13,16 @@ use Laminas\ServiceManager\ServiceManager;
 use Laminas\View;
 use Laminas\View\Helper\Navigation;
 use Laminas\View\Renderer\PhpRenderer;
+use ReflectionObject;
+use stdClass;
 
 use function extension_loaded;
 use function restore_error_handler;
 use function set_error_handler;
 use function spl_object_hash;
 use function str_replace;
+
+use const PHP_EOL;
 
 /**
  * Tests Laminas\View\Helper\Navigation
@@ -328,7 +330,7 @@ class NavigationTest extends AbstractTest
     public function testSetRoleThrowsExceptionWhenGivenAnArbitraryObject(): void
     {
         try {
-            $this->_helper->setRole(new \stdClass());
+            $this->_helper->setRole(new stdClass());
             $this->fail('An invalid argument was given, but a ' .
                         'Laminas\View\Exception\InvalidArgumentException was not thrown');
         } catch (View\Exception\ExceptionInterface $e) {
@@ -380,7 +382,7 @@ class NavigationTest extends AbstractTest
     public function testSetDefaultRoleThrowsExceptionWhenGivenAnArbitraryObject(): void
     {
         try {
-            Navigation\AbstractHelper::setDefaultRole(new \stdClass());
+            Navigation\AbstractHelper::setDefaultRole(new stdClass());
             $this->fail('An invalid argument was given, but a ' .
                         'Laminas\View\Exception\InvalidArgumentException was not thrown');
         } catch (View\Exception\ExceptionInterface $e) {
@@ -409,7 +411,7 @@ class NavigationTest extends AbstractTest
     {
         $nl = PHP_EOL;
 
-        $container = new \Laminas\Navigation\Navigation([
+        $container = new Container([
             [
                 'label' => 'Page 1',
                 'id'    => 'p1',
@@ -442,7 +444,7 @@ class NavigationTest extends AbstractTest
      */
     public function testRenderInvisibleItem(): void
     {
-        $container = new \Laminas\Navigation\Navigation([
+        $container = new Container([
             [
                 'label' => 'Page 1',
                 'id'    => 'p1',
@@ -597,7 +599,7 @@ class NavigationTest extends AbstractTest
         $plugins = $helper->getPluginManager();
         $this->assertInstanceOf(Navigation\PluginManager::class, $plugins);
 
-        $pluginsReflection = new \ReflectionObject($plugins);
+        $pluginsReflection = new ReflectionObject($plugins);
         $creationContext = $pluginsReflection->getProperty('creationContext');
         $creationContext->setAccessible(true);
         $creationContextValue = $creationContext->getValue($plugins);

@@ -19,9 +19,7 @@ use function get_class;
  */
 class StandaloneContainerTest extends TestCase
 {
-    /**
-     * @var Foo
-     */
+    /** @var Foo */
     protected $helper;
 
     /**

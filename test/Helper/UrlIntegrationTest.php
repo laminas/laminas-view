@@ -12,6 +12,7 @@ use Laminas\Router\Http;
 use Laminas\ServiceManager\Config;
 use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
+use ReflectionObject;
 
 /**
  * url() helper test -- tests integration with MVC
@@ -58,7 +59,7 @@ class UrlIntegrationTest extends TestCase
         ];
 
         $serviceListenerFactory = new ServiceListenerFactory();
-        $serviceListenerFactoryReflection = new \ReflectionObject($serviceListenerFactory);
+        $serviceListenerFactoryReflection = new ReflectionObject($serviceListenerFactory);
         $serviceConfigReflection = $serviceListenerFactoryReflection->getProperty('defaultServiceConfig');
         $serviceConfigReflection->setAccessible(true);
         $serviceConfig = $serviceConfigReflection->getValue($serviceListenerFactory);

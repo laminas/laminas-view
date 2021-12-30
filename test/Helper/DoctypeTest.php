@@ -14,14 +14,10 @@ use PHPUnit\Framework\TestCase;
  */
 class DoctypeTest extends TestCase
 {
-    /**
-     * @var Helper\Doctype
-     */
+    /** @var Helper\Doctype */
     public $helper;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $basePath;
 
     /**

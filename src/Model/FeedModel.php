@@ -10,14 +10,10 @@ use Laminas\Feed\Writer\FeedFactory;
  */
 class FeedModel extends ViewModel
 {
-    /**
-     * @var Feed
-     */
+    /** @var Feed */
     protected $feed;
 
-    /**
-     * @var false|string
-     */
+    /** @var false|string */
     protected $type = false;
 
     /**
@@ -28,7 +24,7 @@ class FeedModel extends ViewModel
     protected $terminate = true;
 
     /**
-     * @return \Laminas\Feed\Writer\Feed
+     * @return Feed
      */
     public function getFeed()
     {

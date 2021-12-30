@@ -12,9 +12,7 @@ use PHPUnit\Framework\TestCase;
  */
 class HtmlQuicktimeTest extends TestCase
 {
-    /**
-     * @var HtmlQuicktime
-     */
+    /** @var HtmlQuicktime */
     public $helper;
 
     /**

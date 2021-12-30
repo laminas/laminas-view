@@ -2,6 +2,8 @@
 
 namespace Laminas\View\Helper;
 
+use Laminas\View\View;
+
 use function func_get_args;
 use function is_array;
 
@@ -13,7 +15,7 @@ class DeclareVars extends AbstractHelper
     /**
      * The view object that created this helper object.
      *
-     * @var \Laminas\View\View
+     * @var View
      */
     public $view;
 

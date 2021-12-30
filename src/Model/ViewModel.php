@@ -189,7 +189,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
      * Set renderer options/hints en masse
      *
      * @param array|Traversable $options
-     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      * @return ViewModel
      */
     public function setOptions($options)

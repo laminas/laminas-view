@@ -4,6 +4,7 @@ namespace Laminas\View\Helper\Placeholder\Container;
 
 use ArrayAccess;
 use Countable;
+use Iterator;
 use IteratorAggregate;
 use Laminas\Escaper\Escaper;
 use Laminas\View\Exception;
@@ -35,9 +36,7 @@ abstract class AbstractStandalone extends AbstractHelper implements
      */
     protected $autoEscape = true;
 
-    /**
-     * @var AbstractContainer
-     */
+    /** @var AbstractContainer */
     protected $container;
 
     /**
@@ -47,9 +46,7 @@ abstract class AbstractStandalone extends AbstractHelper implements
      */
     protected $containerClass = 'Laminas\View\Helper\Placeholder\Container';
 
-    /**
-     * @var Escaper[]
-     */
+    /** @var Escaper[] */
     protected $escapers = [];
 
     /**
@@ -250,7 +247,7 @@ abstract class AbstractStandalone extends AbstractHelper implements
      * @param  string $name
      * @throws Exception\InvalidArgumentException
      * @throws Exception\DomainException
-     * @return \Laminas\View\Helper\Placeholder\Container\AbstractStandalone
+     * @return AbstractStandalone
      */
     public function setContainerClass($name)
     {
@@ -378,7 +375,7 @@ abstract class AbstractStandalone extends AbstractHelper implements
     /**
      * IteratorAggregate: get Iterator
      *
-     * @return \Iterator
+     * @return Iterator
      */
     #[ReturnTypeWillChange]
     public function getIterator()

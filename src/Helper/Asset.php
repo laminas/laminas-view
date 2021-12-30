@@ -11,9 +11,7 @@ use function array_key_exists;
  */
 class Asset extends AbstractHelper
 {
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $resourceMap = [];
 
     /**

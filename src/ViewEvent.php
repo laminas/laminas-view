@@ -21,29 +21,19 @@ class ViewEvent extends Event
     const EVENT_RESPONSE = 'response';
     /**#@-*/
 
-    /**
-     * @var null|Model
-     */
+    /** @var null|Model */
     protected $model;
 
-    /**
-     * @var Renderer
-     */
+    /** @var Renderer */
     protected $renderer;
 
-    /**
-     * @var null|Request
-     */
+    /** @var null|Request */
     protected $request;
 
-    /**
-     * @var null|Response
-     */
+    /** @var null|Response */
     protected $response;
 
-    /**
-     * @var mixed
-     */
+    /** @var mixed */
     protected $result;
 
     /**
@@ -184,7 +174,7 @@ class ViewEvent extends Event
     /**
      * Get all event parameters
      *
-     * @return array|\ArrayAccess
+     * @return array|ArrayAccess
      */
     public function getParams()
     {

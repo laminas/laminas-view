@@ -2,6 +2,7 @@
 
 namespace Laminas\View\Renderer;
 
+use ArrayAccess;
 use Laminas\View\Model\ModelInterface;
 use Laminas\View\Resolver\ResolverInterface;
 
@@ -33,7 +34,7 @@ interface RendererInterface
      * Processes a view script and returns the output.
      *
      * @param  string|ModelInterface   $nameOrModel The script/resource process, or a view model
-     * @param  null|array|\ArrayAccess $values      Values to use during rendering
+     * @param  null|array|ArrayAccess $values      Values to use during rendering
      * @return string The script output.
      */
     public function render($nameOrModel, $values = null);

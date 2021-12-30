@@ -23,19 +23,13 @@ use function var_export;
  */
 class HeadLinkTest extends TestCase
 {
-    /**
-     * @var Helper\HeadLink
-     */
+    /** @var Helper\HeadLink */
     public $helper;
 
-    /**
-     * @var Helper\EscapeHtmlAttr
-     */
+    /** @var Helper\EscapeHtmlAttr */
     public $attributeEscaper;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $basePath;
 
     /**

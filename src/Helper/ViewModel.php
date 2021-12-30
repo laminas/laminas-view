@@ -9,14 +9,10 @@ use Laminas\View\Model\ModelInterface as Model;
  */
 class ViewModel extends AbstractHelper
 {
-    /**
-     * @var Model
-     */
+    /** @var Model */
     protected $current;
 
-    /**
-     * @var Model
-     */
+    /** @var Model */
     protected $root;
 
     /**

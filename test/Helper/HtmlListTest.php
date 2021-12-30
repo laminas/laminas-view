@@ -17,9 +17,7 @@ use function array_walk_recursive;
  */
 class HtmlListTest extends TestCase
 {
-    /**
-     * @var Helper\HtmlList
-     */
+    /** @var Helper\HtmlList */
     public $helper;
 
     /**

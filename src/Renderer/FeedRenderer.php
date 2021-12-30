@@ -2,6 +2,7 @@
 
 namespace Laminas\View\Renderer;
 
+use ArrayAccess;
 use Laminas\View\Exception;
 use Laminas\View\Model\FeedModel;
 use Laminas\View\Model\ModelInterface as Model;
@@ -20,14 +21,10 @@ use function strtolower;
  */
 class FeedRenderer implements RendererInterface
 {
-    /**
-     * @var Resolver
-     */
+    /** @var Resolver */
     protected $resolver;
 
-    /**
-     * @var string 'rss' or 'atom'; defaults to 'rss'
-     */
+    /** @var string 'rss' or 'atom'; defaults to 'rss' */
     protected $feedType = 'rss';
 
     /**
@@ -62,7 +59,7 @@ class FeedRenderer implements RendererInterface
      *
      * @todo   Determine what use case exists for accepting only $nameOrModel
      * @param  string|Model $nameOrModel The script/resource process, or a view model
-     * @param  null|array|\ArrayAccess $values Values to use during rendering
+     * @param  null|array|ArrayAccess $values Values to use during rendering
      * @throws Exception\InvalidArgumentException
      * @return string The script output.
      */

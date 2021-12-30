@@ -2,9 +2,6 @@
 
 namespace Laminas\View\Resolver;
 
-use const DIRECTORY_SEPARATOR;
-use const PATHINFO_EXTENSION;
-
 use Laminas\Stdlib\SplStack;
 use Laminas\View\Exception;
 use Laminas\View\Renderer\RendererInterface as Renderer;
@@ -30,6 +27,9 @@ use function stream_wrapper_register;
 use function strpos;
 use function strtolower;
 
+use const DIRECTORY_SEPARATOR;
+use const PATHINFO_EXTENSION;
+
 /**
  * Resolves view scripts based on a stack of paths
  */
@@ -47,9 +47,7 @@ class TemplatePathStack implements ResolverInterface
      */
     protected $defaultSuffix = 'phtml';
 
-    /**
-     * @var SplStack
-     */
+    /** @var SplStack */
     protected $paths;
 
     /**

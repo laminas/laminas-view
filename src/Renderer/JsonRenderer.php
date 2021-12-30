@@ -2,6 +2,7 @@
 
 namespace Laminas\View\Renderer;
 
+use ArrayAccess;
 use JsonSerializable;
 use Laminas\Json\Json;
 use Laminas\Stdlib\ArrayUtils;
@@ -29,9 +30,7 @@ class JsonRenderer implements Renderer, TreeRendererInterface
      */
     protected $mergeUnnamedChildren = false;
 
-    /**
-     * @var Resolver
-     */
+    /** @var Resolver */
     protected $resolver;
 
     /**
@@ -119,7 +118,7 @@ class JsonRenderer implements Renderer, TreeRendererInterface
      *
      * @todo   Determine what use case exists for accepting both $nameOrModel and $values
      * @param  string|Model $nameOrModel The script/resource process, or a view model
-     * @param  null|array|\ArrayAccess $values Values to use during rendering
+     * @param  null|array|ArrayAccess $values Values to use during rendering
      * @throws Exception\DomainException
      * @return string The script output.
      */
@@ -186,7 +185,7 @@ class JsonRenderer implements Renderer, TreeRendererInterface
      * @param Model $model
      * @param bool $mergeWithVariables Whether or not to merge children with
      *         the variables of the $model
-     * @return (array|mixed)[]|\ArrayAccess
+     * @return (array|mixed)[]|ArrayAccess
      * @psalm-return \ArrayAccess|array<array|mixed>
      */
     protected function recurseModel(Model $model, $mergeWithVariables = true)

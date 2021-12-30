@@ -13,9 +13,7 @@ use PHPUnit\Framework\TestCase;
  */
 class CycleTest extends TestCase
 {
-    /**
-     * @var Helper\Cycle
-     */
+    /** @var Helper\Cycle */
     public $helper;
 
     /**

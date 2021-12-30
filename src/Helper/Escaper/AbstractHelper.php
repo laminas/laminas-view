@@ -23,14 +23,10 @@ abstract class AbstractHelper extends Helper\AbstractHelper
     const RECURSE_ARRAY  = 0x01;
     const RECURSE_OBJECT = 0x02;
 
-    /**
-     * @var string Encoding
-     */
+    /** @var string Encoding */
     protected $encoding = 'UTF-8';
 
-    /**
-     * @var Escaper\Escaper
-     */
+    /** @var Escaper\Escaper */
     protected $escaper = null;
 
     /**

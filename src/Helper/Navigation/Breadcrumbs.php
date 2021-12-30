@@ -107,7 +107,7 @@ class Breadcrumbs extends AbstractHelper
         if ($this->getLinkLast()) {
             $html = $this->htmlify($active);
         } else {
-            /** @var \Laminas\View\Helper\EscapeHtml $escaper */
+            /** @var View\Helper\EscapeHtml $escaper */
             $escaper = $this->view->plugin('escapeHtml');
             $html    = $escaper(
                 $this->translate($active->getLabel(), $active->getTextDomain())
@@ -294,7 +294,7 @@ class Breadcrumbs extends AbstractHelper
             $model['pages'] = array_reverse($model['pages']);
         }
 
-        /** @var \Laminas\View\Helper\Partial $partialHelper */
+        /** @var View\Helper\Partial $partialHelper */
         $partialHelper = $this->view->plugin('partial');
         if (is_array($partial)) {
             if (count($partial) != 2) {

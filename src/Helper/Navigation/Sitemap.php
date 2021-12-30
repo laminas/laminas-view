@@ -2,13 +2,15 @@
 
 namespace Laminas\View\Helper\Navigation;
 
-use const PHP_EOL;
-
 use DOMDocument;
 use Laminas\Navigation\AbstractContainer;
 use Laminas\Navigation\Page\AbstractPage;
 use Laminas\Stdlib\ErrorHandler;
 use Laminas\Uri;
+use Laminas\Validator\Sitemap\Changefreq;
+use Laminas\Validator\Sitemap\Lastmod;
+use Laminas\Validator\Sitemap\Loc;
+use Laminas\Validator\Sitemap\Priority;
 use Laminas\View\Exception;
 use RecursiveIteratorIterator;
 
@@ -20,6 +22,8 @@ use function rtrim;
 use function sprintf;
 use function strtotime;
 use function trim;
+
+use const PHP_EOL;
 
 /**
  * Helper for printing sitemaps
@@ -151,10 +155,10 @@ class Sitemap extends AbstractHelper
         // check if we should validate using our own validators
         if ($this->getUseSitemapValidators()) {
             // create validators
-            $locValidator        = new \Laminas\Validator\Sitemap\Loc();
-            $lastmodValidator    = new \Laminas\Validator\Sitemap\Lastmod();
-            $changefreqValidator = new \Laminas\Validator\Sitemap\Changefreq();
-            $priorityValidator   = new \Laminas\Validator\Sitemap\Priority();
+            $locValidator        = new Loc();
+            $lastmodValidator    = new Lastmod();
+            $changefreqValidator = new Changefreq();
+            $priorityValidator   = new Priority();
         }
 
         // create document

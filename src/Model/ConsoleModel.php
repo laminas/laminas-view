@@ -48,7 +48,7 @@ class ConsoleModel extends ViewModel
      * Set result text.
      *
      * @param string  $text
-     * @return \Laminas\View\Model\ConsoleModel
+     * @return ConsoleModel
      */
     public function setResult($text)
     {

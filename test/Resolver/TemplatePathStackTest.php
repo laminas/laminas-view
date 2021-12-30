@@ -2,11 +2,11 @@
 
 namespace LaminasTest\View\Resolver;
 
-use const DIRECTORY_SEPARATOR;
-
+use ArrayObject;
 use Laminas\View\Exception;
 use Laminas\View\Resolver\TemplatePathStack;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 use function array_reverse;
 use function array_unshift;
@@ -14,24 +14,20 @@ use function count;
 use function ini_get;
 use function realpath;
 
+use const DIRECTORY_SEPARATOR;
+
 /**
  * @group      Laminas_View
  */
 class TemplatePathStackTest extends TestCase
 {
-    /**
-     * @var TemplatePathStack
-     */
+    /** @var TemplatePathStack */
     private $stack;
 
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     private $paths;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $baseDir;
 
     protected function setUp(): void
@@ -191,7 +187,7 @@ class TemplatePathStackTest extends TestCase
             [1],
             [1.0],
             ['foo'],
-            [new \stdClass()],
+            [new stdClass()],
         ];
     }
 
@@ -217,12 +213,12 @@ class TemplatePathStackTest extends TestCase
         ];
         return [
             [$options],
-            [new \ArrayObject($options)],
+            [new ArrayObject($options)],
         ];
     }
 
     /**
-     * @param array|\ArrayObject $options
+     * @param array|ArrayObject $options
      * @dataProvider validOptions
      */
     public function testAllowsSettingOptions($options): void

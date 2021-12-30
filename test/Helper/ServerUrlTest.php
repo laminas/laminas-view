@@ -4,6 +4,7 @@ namespace LaminasTest\View\Helper;
 
 use Laminas\View\Helper;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 /**
  * Tests Laminas_View_Helper_ServerUrl
@@ -147,7 +148,7 @@ class ServerUrlTest extends TestCase
         $_SERVER['REQUEST_URI'] = '/foo.html';
 
         $url = new Helper\ServerUrl();
-        $this->assertEquals('http://example.com', $url->__invoke(new \stdClass()));
+        $this->assertEquals('http://example.com', $url->__invoke(new stdClass()));
     }
 
     /**

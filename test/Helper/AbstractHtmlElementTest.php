@@ -15,9 +15,7 @@ use function sprintf;
  */
 class AbstractHtmlElementTest extends TestCase
 {
-    /**
-     * @var ConcreteElementHelper
-     */
+    /** @var ConcreteElementHelper */
     protected $helper;
 
     protected function setUp(): void

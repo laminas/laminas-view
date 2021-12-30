@@ -46,9 +46,7 @@ class Doctype extends AbstractHelper
      */
     protected $registry;
 
-    /**
-     * @var ArrayObject Shared doctypes to use throughout all instances
-     */
+    /** @var ArrayObject Shared doctypes to use throughout all instances */
     protected static $registeredDoctypes;
 
     /**

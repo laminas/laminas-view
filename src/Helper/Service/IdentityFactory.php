@@ -17,7 +17,7 @@ class IdentityFactory implements FactoryInterface
      * @param ContainerInterface $container
      * @param string $name
      * @param null|array $options
-     * @return \Laminas\View\Helper\Identity
+     * @return Identity
      */
     public function __invoke(ContainerInterface $container, $name, array $options = null)
     {

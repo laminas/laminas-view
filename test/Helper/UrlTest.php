@@ -2,6 +2,7 @@
 
 namespace LaminasTest\View\Helper;
 
+use ArrayIterator;
 use Laminas\Mvc\ModuleRouteListener;
 use Laminas\Mvc\MvcEvent;
 use Laminas\Router\Http\Literal;
@@ -13,6 +14,7 @@ use Laminas\Router\SimpleRouteStack;
 use Laminas\View\Exception;
 use Laminas\View\Helper\Url as UrlHelper;
 use PHPUnit\Framework\TestCase;
+use ReflectionObject;
 
 /**
  * Laminas\View\Helper\Url Test
@@ -24,14 +26,10 @@ use PHPUnit\Framework\TestCase;
  */
 class UrlTest extends TestCase
 {
-    /**
-     * @var SimpleRouteStack
-     */
+    /** @var SimpleRouteStack */
     private $router;
 
-    /**
-     * @var UrlHelper
-     */
+    /** @var UrlHelper */
     private $url;
 
     /**
@@ -81,7 +79,7 @@ class UrlTest extends TestCase
 
     public function testModel(): void
     {
-        $it = new \ArrayIterator(['controller' => 'ctrl', 'action' => 'act']);
+        $it = new ArrayIterator(['controller' => 'ctrl', 'action' => 'act']);
 
         $url = $this->url->__invoke('default', $it);
         $this->assertEquals('/ctrl/act', $url);
@@ -89,7 +87,7 @@ class UrlTest extends TestCase
 
     public function testThrowsExceptionOnInvalidParams(): void
     {
-        $this->expectException(\Laminas\View\Exception\InvalidArgumentException::class);
+        $this->expectException(Exception\InvalidArgumentException::class);
         $this->url->__invoke('default', 'invalid params');
     }
 
@@ -207,7 +205,7 @@ class UrlTest extends TestCase
         $url = new UrlHelper();
         $url->setRouter($router);
 
-        $urlReflection = new \ReflectionObject($url);
+        $urlReflection = new ReflectionObject($url);
         $routerProperty = $urlReflection->getProperty('router');
         $routerProperty->setAccessible(true);
         $routerPropertyValue = $routerProperty->getValue($url);
@@ -221,7 +219,7 @@ class UrlTest extends TestCase
         $url = new UrlHelper();
         $url->setRouteMatch($routeMatch);
 
-        $routeMatchReflection = new \ReflectionObject($url);
+        $routeMatchReflection = new ReflectionObject($url);
         $routeMatchProperty = $routeMatchReflection->getProperty('routeMatch');
         $routeMatchProperty->setAccessible(true);
         $routeMatchPropertyValue = $routeMatchProperty->getValue($url);

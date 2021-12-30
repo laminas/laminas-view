@@ -12,9 +12,7 @@ use PHPUnit\Framework\TestCase;
  */
 class HtmlFlashTest extends TestCase
 {
-    /**
-     * @var HtmlFlash
-     */
+    /** @var HtmlFlash */
     public $helper;
 
     /**

@@ -2,6 +2,7 @@
 
 namespace LaminasTest\View;
 
+use Generator;
 use Laminas\Mvc\Controller\Plugin\FlashMessenger as V2FlashMessenger;
 use Laminas\Mvc\Controller\PluginManager as ControllerPluginManager;
 use Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger;
@@ -57,10 +58,10 @@ class HelperPluginManagerCompatibilityTest extends TestCase
     }
 
     /**
-     * @return \Generator
+     * @return Generator
      * @psalm-return \Generator<mixed, array{0: mixed, 1: mixed}, mixed, void>
      */
-    public function aliasProvider(): \Generator
+    public function aliasProvider(): Generator
     {
         $pluginManager = $this->getPluginManager();
         $r = new ReflectionProperty($pluginManager, 'aliases');

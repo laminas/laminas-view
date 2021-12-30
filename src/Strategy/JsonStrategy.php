@@ -31,16 +31,9 @@ class JsonStrategy extends AbstractListenerAggregate
         'UTF-32',
     ];
 
-    /**
-     * @var JsonRenderer
-     */
+    /** @var JsonRenderer */
     protected $renderer;
 
-    /**
-     * Constructor
-     *
-     * @param  JsonRenderer $renderer
-     */
     public function __construct(JsonRenderer $renderer)
     {
         $this->renderer = $renderer;

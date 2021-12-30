@@ -4,14 +4,10 @@ namespace LaminasTest\View\Helper\TestAsset;
 
 class IdentityObject
 {
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     protected $username;
 
-    /**
-     * @var string|null
-     */
+    /** @var string|null */
     protected $password;
 
     /**

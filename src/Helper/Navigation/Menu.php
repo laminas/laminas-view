@@ -2,11 +2,11 @@
 
 namespace Laminas\View\Helper\Navigation;
 
-use const PHP_EOL;
-
 use Laminas\Navigation\AbstractContainer;
 use Laminas\Navigation\Page\AbstractPage;
 use Laminas\View\Exception;
+use Laminas\View\Helper\EscapeHtml;
+use Laminas\View\Helper\Partial;
 use RecursiveIteratorIterator;
 
 use function array_key_exists;
@@ -18,6 +18,8 @@ use function is_int;
 use function is_string;
 use function rtrim;
 use function str_repeat;
+
+use const PHP_EOL;
 
 /**
  * Helper for rendering menus from navigation containers.
@@ -504,7 +506,7 @@ class Menu extends AbstractHelper
         $label = $this->translate($page->getLabel(), $page->getTextDomain());
 
         if ($escapeLabel === true) {
-            /** @var \Laminas\View\Helper\EscapeHtml $escaper */
+            /** @var EscapeHtml $escaper */
             $escaper = $this->view->plugin('escapeHtml');
             $html .= $escaper($label);
         } else {
@@ -748,7 +750,7 @@ class Menu extends AbstractHelper
      * @param array                  $params
      * @param null|AbstractContainer $container
      * @param null|string|array      $partial
-     * @return \Laminas\View\Helper\Partial|string
+     * @return Partial|string
      * @throws Exception\RuntimeException         if no partial provided
      * @throws Exception\InvalidArgumentException if partial is invalid array
      */
@@ -771,7 +773,7 @@ class Menu extends AbstractHelper
 
         $model = array_merge($params, ['container' => $container]);
 
-        /** @var \Laminas\View\Helper\Partial $partialHelper */
+        /** @var Partial $partialHelper */
         $partialHelper = $this->view->plugin('partial');
         if (is_array($partial)) {
             if (count($partial) != 2) {

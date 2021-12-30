@@ -2,8 +2,10 @@
 
 namespace Laminas\View\Model;
 
+use ArrayAccess;
 use Countable;
 use IteratorAggregate;
+use Traversable;
 
 /**
  * Interface describing a view model.
@@ -27,7 +29,7 @@ interface ModelInterface extends Countable, IteratorAggregate
     /**
      * Set renderer options/hints en masse
      *
-     * @param  array|\Traversable $options
+     * @param  array|Traversable $options
      * @return ModelInterface
      */
     public function setOptions($options);
@@ -35,7 +37,7 @@ interface ModelInterface extends Countable, IteratorAggregate
     /**
      * Get renderer options/hints
      *
-     * @return array|\Traversable
+     * @return array|Traversable
      */
     public function getOptions();
 
@@ -60,7 +62,7 @@ interface ModelInterface extends Countable, IteratorAggregate
     /**
      * Set view variables en masse
      *
-     * @param  array|\ArrayAccess $variables
+     * @param  array|ArrayAccess $variables
      * @return ModelInterface
      */
     public function setVariables($variables);
@@ -68,7 +70,7 @@ interface ModelInterface extends Countable, IteratorAggregate
     /**
      * Get view variables
      *
-     * @return array|\ArrayAccess
+     * @return array|ArrayAccess
      */
     public function getVariables();
 

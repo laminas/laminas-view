@@ -2,8 +2,7 @@
 
 namespace LaminasTest\View\Helper\Placeholder;
 
-use const PHP_EOL;
-
+use Exception;
 use Laminas\View\Helper\Placeholder\Container as PlaceholderContainer;
 use PHPUnit\Framework\TestCase;
 
@@ -15,6 +14,8 @@ use function is_array;
 use function is_int;
 use function substr_count;
 
+use const PHP_EOL;
+
 /**
  * Test class for Laminas\View\Helper\Placeholder\Container.
  *
@@ -23,9 +24,7 @@ use function substr_count;
  */
 class ContainerTest extends TestCase
 {
-    /**
-     * @var PlaceholderContainer
-     */
+    /** @var PlaceholderContainer */
     public $container;
 
     /**
@@ -254,7 +253,7 @@ class ContainerTest extends TestCase
             $this->container->captureStart('SET');
             $this->container->captureEnd();
             $this->container->captureEnd();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->container->captureEnd();
             $caught = true;
         }

@@ -21,9 +21,7 @@ use function sprintf;
 
 class TemplateMapResolver implements IteratorAggregate, ResolverInterface
 {
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $map = [];
 
     /**

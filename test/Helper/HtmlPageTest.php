@@ -12,9 +12,7 @@ use PHPUnit\Framework\TestCase;
  */
 class HtmlPageTest extends TestCase
 {
-    /**
-     * @var HtmlPage
-     */
+    /** @var HtmlPage */
     public $helper;
 
     /**

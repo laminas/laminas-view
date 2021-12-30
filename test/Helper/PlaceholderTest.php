@@ -15,9 +15,7 @@ use PHPUnit\Framework\TestCase;
  */
 class PlaceholderTest extends TestCase
 {
-    /**
-     * @var Helper\Placeholder
-     */
+    /** @var Helper\Placeholder */
     public $placeholder;
 
     /**

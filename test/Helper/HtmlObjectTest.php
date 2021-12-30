@@ -14,9 +14,7 @@ use PHPUnit\Framework\TestCase;
  */
 class HtmlObjectTest extends TestCase
 {
-    /**
-     * @var HtmlObject
-     */
+    /** @var HtmlObject */
     public $helper;
 
     /**

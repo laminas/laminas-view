@@ -21,9 +21,7 @@ use function version_compare;
  */
 class JsonRendererTest extends TestCase
 {
-    /**
-     * @var JsonRenderer
-     */
+    /** @var JsonRenderer */
     protected $renderer;
 
     protected function setUp(): void

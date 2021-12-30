@@ -26,19 +26,13 @@ use function ucwords;
  */
 class HeadMetaTest extends TestCase
 {
-    /**
-     * @var Helper\HeadMeta
-     */
+    /** @var Helper\HeadMeta */
     public $helper;
 
-    /**
-     * @var Helper\EscapeHtmlAttr
-     */
+    /** @var Helper\EscapeHtmlAttr */
     public $attributeEscaper;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $basePath;
 
     /**
@@ -371,7 +365,7 @@ class HeadMetaTest extends TestCase
             'bar',
             'name',
             [],
-            \Laminas\View\Helper\Placeholder\Container\AbstractContainer::PREPEND
+            Helper\Placeholder\Container\AbstractContainer::PREPEND
         );
 
         $attributeEscaper = $this->attributeEscaper;

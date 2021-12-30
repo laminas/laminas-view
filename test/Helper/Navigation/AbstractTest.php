@@ -30,9 +30,7 @@ use function file_get_contents;
  */
 abstract class AbstractTest extends TestCase
 {
-    /**
-     * @var ServiceManager
-     */
+    /** @var ServiceManager */
     protected $serviceManager;
 
     // @codingStandardsIgnoreStart

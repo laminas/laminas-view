@@ -5,6 +5,7 @@ namespace Laminas\View\Renderer;
 use Laminas\Filter\FilterChain;
 use Laminas\View\Model\ModelInterface;
 use Laminas\View\Resolver\ResolverInterface;
+use Traversable;
 
 use function method_exists;
 
@@ -95,7 +96,7 @@ class ConsoleRenderer implements RendererInterface, TreeRendererInterface
      * Recursively processes all ViewModels and returns output.
      *
      * @param  string|ModelInterface   $model        A ViewModel instance.
-     * @param  null|array|\Traversable $values       Values to use when rendering. If none
+     * @param  null|array|Traversable $values       Values to use when rendering. If none
      *                                               provided, uses those in the composed
      *                                               variables container.
      * @return string Console output.

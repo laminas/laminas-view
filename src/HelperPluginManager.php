@@ -143,6 +143,7 @@ class HelperPluginManager extends AbstractPluginManager
         'ViewModel'           => Helper\ViewModel::class,
 
         // Legacy Zend Framework aliases
+        // @codingStandardsIgnoreStart
         \Zend\View\Helper\Asset::class => Helper\Asset::class,
         \Zend\View\Helper\FlashMessenger::class => Helper\FlashMessenger::class,
         \Zend\View\Helper\Identity::class => Helper\Identity::class,
@@ -179,6 +180,7 @@ class HelperPluginManager extends AbstractPluginManager
         \Zend\View\Helper\ServerUrl::class => Helper\ServerUrl::class,
         \Zend\View\Helper\Url::class => Helper\Url::class,
         \Zend\View\Helper\ViewModel::class => Helper\ViewModel::class,
+        // @codingStandardsIgnoreEnd
 
         // v2 normalized FQCNs
         'zendviewhelperasset' => Helper\Asset::class,
@@ -308,9 +310,7 @@ class HelperPluginManager extends AbstractPluginManager
         'laminasviewhelperviewmodel'         => InvokableFactory::class,
     ];
 
-    /**
-     * @var Renderer\RendererInterface|null
-     */
+    /** @var Renderer\RendererInterface|null */
     protected $renderer;
 
     /**

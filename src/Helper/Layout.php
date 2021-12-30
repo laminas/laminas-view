@@ -12,9 +12,7 @@ use function sprintf;
  */
 class Layout extends AbstractHelper
 {
-    /**
-     * @var ViewModel
-     */
+    /** @var ViewModel */
     protected $viewModelHelper;
 
     /**

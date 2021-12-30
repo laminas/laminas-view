@@ -2,6 +2,7 @@
 
 namespace LaminasTest\View;
 
+use ArrayObject;
 use Laminas\Filter\FilterChain;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Exception;
@@ -16,6 +17,8 @@ use LaminasTest\View\TestAsset\Invokable;
 use LaminasTest\View\TestAsset\SharedInstance;
 use LaminasTest\View\TestAsset\Uninvokable;
 use PHPUnit\Framework\TestCase;
+use ReflectionObject;
+use stdClass;
 
 use function realpath;
 use function restore_error_handler;
@@ -62,7 +65,7 @@ class PhpRendererTest extends TestCase
 
     public function testCanSpecifyArrayAccessForVars(): void
     {
-        $a = new \ArrayObject();
+        $a = new ArrayObject();
         $this->renderer->setVars($a);
         $this->assertSame($a->getArrayCopy(), $this->renderer->vars()->getArrayCopy());
     }
@@ -114,7 +117,7 @@ class PhpRendererTest extends TestCase
             [1],
             [1.0],
             [['foo']],
-            [new \stdClass()],
+            [new stdClass()],
         ];
     }
 
@@ -484,7 +487,7 @@ class PhpRendererTest extends TestCase
         $result = $this->renderer->render('empty.phtml');
 
         $this->assertStringContainsString('Empty view', $result);
-        $rendererReflection = new \ReflectionObject($this->renderer);
+        $rendererReflection = new ReflectionObject($this->renderer);
         $method = $rendererReflection->getProperty('__filterChain');
         $method->setAccessible(true);
         $filterChain = $method->getValue($this->renderer);

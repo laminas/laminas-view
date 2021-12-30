@@ -2,16 +2,17 @@
 
 namespace LaminasTest\View;
 
-use const E_USER_NOTICE;
-
 use ArrayObject;
 use Laminas\View\Variables;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 use function assert;
 use function count;
 use function restore_error_handler;
 use function set_error_handler;
+
+use const E_USER_NOTICE;
 
 /**
  * @group      Laminas_View
@@ -53,7 +54,7 @@ class VariablesTest extends TestCase
 
     public function testAssignCastsPlainObjectToArrayBeforeMerging(): void
     {
-        $vars = new \stdClass();
+        $vars = new stdClass();
         $vars->foo = 'bar';
         $vars->bar = 'baz';
 

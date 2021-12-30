@@ -14,14 +14,10 @@ use PHPUnit\Framework\TestCase;
  */
 class HeadTitleTest extends TestCase
 {
-    /**
-     * @var Helper\HeadTitle
-     */
+    /** @var Helper\HeadTitle */
     public $helper;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $basePath;
 
     /**

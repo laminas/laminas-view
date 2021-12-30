@@ -3,6 +3,7 @@
 namespace LaminasTest\View\Helper;
 
 use Laminas\Escaper\Escaper;
+use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\EscapeHtmlAttr as EscapeHelper;
 use PHPUnit\Framework\TestCase;
 use stdClass;
@@ -26,7 +27,7 @@ class EscapeHtmlAttrTest extends TestCase
 
     public function testEncodingIsImmutable(): void
     {
-        $this->expectException(\Laminas\View\Exception\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->helper->setEncoding('BIG5-HKSCS');
         $this->helper->getEscaper();
         $this->helper->setEncoding('UTF-8');

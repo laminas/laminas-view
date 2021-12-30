@@ -14,9 +14,7 @@ use const E_USER_DEPRECATED;
  */
 class Json extends AbstractHelper
 {
-    /**
-     * @var Response
-     */
+    /** @var Response */
     protected $response;
 
     /**

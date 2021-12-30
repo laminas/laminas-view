@@ -2,8 +2,6 @@
 
 namespace LaminasTest\View\Helper\Navigation;
 
-use const PHP_EOL;
-
 use ArrayObject;
 use Laminas\Navigation\Page\AbstractPage;
 use Laminas\Navigation\Page\Uri as UriPage;
@@ -12,12 +10,15 @@ use Laminas\Permissions\Acl\Resource;
 use Laminas\Permissions\Acl\Role;
 use Laminas\View;
 use Laminas\View\Helper\Navigation;
+use RecursiveIteratorIterator;
 
 use function count;
 use function get_class;
 use function gettype;
 use function is_array;
 use function str_replace;
+
+use const PHP_EOL;
 
 /**
  * Tests Laminas\View\Helper\Navigation\Links
@@ -49,7 +50,7 @@ class LinksTest extends AbstractTest
         $this->_doctypeHelper = $this->_helper->getView()->plugin('doctype');
         $this->_oldDoctype = $this->_doctypeHelper->getDoctype();
         $this->_doctypeHelper->setDoctype(
-            \Laminas\View\Helper\Doctype::HTML4_LOOSE
+            View\Helper\Doctype::HTML4_LOOSE
         );
 
         // disable all active pages
@@ -475,9 +476,9 @@ class LinksTest extends AbstractTest
 
         $this->_helper->getContainer();
         $container = $this->_helper->getContainer();
-        $iterator = new \RecursiveIteratorIterator(
+        $iterator = new RecursiveIteratorIterator(
             $container,
-            \RecursiveIteratorIterator::SELF_FIRST
+            RecursiveIteratorIterator::SELF_FIRST
         );
         foreach ($iterator as $page) {
             $page->resource = 'protected';

@@ -2,8 +2,6 @@
 
 namespace Laminas\View\Helper\Navigation;
 
-use const E_USER_ERROR;
-
 use Interop\Container\ContainerInterface;
 use Laminas\EventManager\EventManager;
 use Laminas\EventManager\EventManagerAwareInterface;
@@ -38,6 +36,8 @@ use function substr;
 use function trigger_error;
 use function trim;
 
+use const E_USER_ERROR;
+
 /**
  * Base class for navigational helpers.
  *
@@ -49,9 +49,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
 {
     use TranslatorAwareTrait;
 
-    /**
-     * @var EventManagerInterface
-     */
+    /** @var EventManagerInterface */
     protected $events;
 
     /**
@@ -103,9 +101,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      */
     protected $role;
 
-    /**
-     * @var ContainerInterface
-     */
+    /** @var ContainerInterface */
     protected $serviceLocator;
 
     /**
@@ -206,7 +202,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
             RecursiveIteratorIterator::CHILD_FIRST
         );
 
-        /** @var \Laminas\Navigation\Page\AbstractPage $page */
+        /** @var Navigation\Page\AbstractPage $page */
         foreach ($iterator as $page) {
             $currDepth = $iterator->getDepth();
             if ($currDepth < $minDepth || ! $this->accept($page)) {
@@ -414,7 +410,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
             'target' => $page->getTarget(),
         ];
 
-        /** @var \Laminas\View\Helper\EscapeHtml $escaper */
+        /** @var View\Helper\EscapeHtml $escaper */
         $escaper = $this->view->plugin('escapeHtml');
         $label   = $escaper($label);
 

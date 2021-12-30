@@ -15,9 +15,7 @@ class AbstractTest extends TestCase
 {
     use ProphecyTrait;
 
-    /**
-     * @var ConcreteHelper
-     */
+    /** @var ConcreteHelper */
     protected $helper;
 
     protected function setUp(): void
