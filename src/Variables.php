@@ -2,8 +2,20 @@
 
 namespace Laminas\View;
 
+use const E_USER_NOTICE;
+
 use ArrayObject;
 use ReturnTypeWillChange;
+
+use function call_user_func;
+use function gettype;
+use function is_array;
+use function is_callable;
+use function is_object;
+use function method_exists;
+use function sprintf;
+use function strtolower;
+use function trigger_error;
 
 /**
  * Class for Laminas\View\Renderer\PhpRenderer to help enforce private constructs.

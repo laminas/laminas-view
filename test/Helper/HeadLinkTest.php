@@ -2,13 +2,18 @@
 
 namespace LaminasTest\View\Helper;
 
+use const PHP_EOL;
+
 use Laminas\View\Exception;
 use Laminas\View\Helper;
 use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
 
 use function array_fill;
+use function count;
 use function sprintf;
+use function substr_count;
+use function var_export;
 
 /**
  * Test class for Laminas\View\Helper\HeadLink.

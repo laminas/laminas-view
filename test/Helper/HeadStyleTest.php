@@ -2,9 +2,15 @@
 
 namespace LaminasTest\View\Helper;
 
+use const PHP_EOL;
+
 use Laminas\View;
 use Laminas\View\Helper;
 use PHPUnit\Framework\TestCase;
+
+use function array_shift;
+use function count;
+use function substr_count;
 
 /**
  * Test class for Laminas\View\Helper\HeadStyle.

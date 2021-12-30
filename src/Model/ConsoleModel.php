@@ -2,6 +2,8 @@
 
 namespace Laminas\View\Model;
 
+use function array_key_exists;
+
 class ConsoleModel extends ViewModel
 {
     const RESULT = 'result';

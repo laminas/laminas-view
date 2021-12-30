@@ -5,6 +5,8 @@ namespace Laminas\View\Helper;
 use Iterator;
 use ReturnTypeWillChange;
 
+use function count;
+
 /**
  * Helper for alternating between set of values
  */

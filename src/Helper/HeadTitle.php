@@ -4,6 +4,9 @@ namespace Laminas\View\Helper;
 
 use Laminas\View\Exception;
 
+use function implode;
+use function in_array;
+
 /**
  * Helper for setting and retrieving title element for HTML head.
  *

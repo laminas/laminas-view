@@ -11,6 +11,9 @@ use Laminas\View\Helper\Navigation\Breadcrumbs;
 use Laminas\View\Helper\Navigation\PluginManager;
 use PHPUnit\Framework\TestCase;
 
+use function get_class;
+use function method_exists;
+
 /**
  * @group      Laminas_View
  */

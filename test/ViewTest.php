@@ -17,6 +17,11 @@ use Laminas\View\ViewEvent;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
+use function count;
+use function json_encode;
+use function sprintf;
+use function var_export;
+
 class ViewTest extends TestCase
 {
     private $result;

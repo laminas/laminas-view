@@ -9,6 +9,8 @@ use Laminas\Stdlib\ResponseInterface as Response;
 use Laminas\View\Model\ModelInterface as Model;
 use Laminas\View\Renderer\RendererInterface as Renderer;
 
+use function is_array;
+
 class ViewEvent extends Event
 {
     /**#@+

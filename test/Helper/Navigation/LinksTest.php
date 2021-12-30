@@ -2,6 +2,8 @@
 
 namespace LaminasTest\View\Helper\Navigation;
 
+use const PHP_EOL;
+
 use ArrayObject;
 use Laminas\Navigation\Page\AbstractPage;
 use Laminas\Navigation\Page\Uri as UriPage;
@@ -10,6 +12,12 @@ use Laminas\Permissions\Acl\Resource;
 use Laminas\Permissions\Acl\Role;
 use Laminas\View;
 use Laminas\View\Helper\Navigation;
+
+use function count;
+use function get_class;
+use function gettype;
+use function is_array;
+use function str_replace;
 
 /**
  * Tests Laminas\View\Helper\Navigation\Links

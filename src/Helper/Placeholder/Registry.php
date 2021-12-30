@@ -2,7 +2,16 @@
 
 namespace Laminas\View\Helper\Placeholder;
 
+use const E_USER_DEPRECATED;
+
 use Laminas\View\Exception;
+
+use function array_key_exists;
+use function class_exists;
+use function class_parents;
+use function in_array;
+use function sprintf;
+use function trigger_error;
 
 /**
  * Registry for placeholder containers

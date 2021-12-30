@@ -13,6 +13,9 @@ use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 
+use function class_exists;
+use function get_class;
+
 /**
  * Test class for Laminas\View\Helper\Cycle.
  *

@@ -8,6 +8,9 @@ use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\View\Exception;
 use Laminas\View\Helper\Asset;
 
+use function is_array;
+use function method_exists;
+
 class AssetFactory implements FactoryInterface
 {
     /**

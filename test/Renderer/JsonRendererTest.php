@@ -2,6 +2,8 @@
 
 namespace LaminasTest\View\Renderer;
 
+use const PHP_VERSION;
+
 use ArrayObject;
 use Laminas\View\Exception;
 use Laminas\View\Model\JsonModel;
@@ -9,6 +11,10 @@ use Laminas\View\Model\ViewModel;
 use Laminas\View\Renderer\JsonRenderer;
 use PHPUnit\Framework\TestCase;
 use stdClass;
+
+use function get_object_vars;
+use function json_encode;
+use function version_compare;
 
 /**
  * @group      Laminas_View

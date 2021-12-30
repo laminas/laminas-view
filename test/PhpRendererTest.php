@@ -15,6 +15,10 @@ use Laminas\View\Variables;
 use LaminasTest\View\TestAsset;
 use PHPUnit\Framework\TestCase;
 
+use function realpath;
+use function restore_error_handler;
+use function str_replace;
+
 /**
  * @group      Laminas_View
  */

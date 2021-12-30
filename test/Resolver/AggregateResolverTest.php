@@ -5,6 +5,8 @@ namespace LaminasTest\View\Resolver;
 use Laminas\View\Resolver;
 use PHPUnit\Framework\TestCase;
 
+use function count;
+
 class AggregateResolverTest extends TestCase
 {
     public function testAggregateIsEmptyByDefault(): void

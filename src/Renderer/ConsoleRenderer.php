@@ -6,6 +6,8 @@ use Laminas\Filter\FilterChain;
 use Laminas\View\Model\ModelInterface;
 use Laminas\View\Resolver\ResolverInterface;
 
+use function method_exists;
+
 /**
  * Class for Laminas\View\Model\ConsoleModel to help enforce private constructs.
  *

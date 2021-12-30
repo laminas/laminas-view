@@ -2,7 +2,20 @@
 
 namespace Laminas\View\Helper;
 
+use const E_USER_DEPRECATED;
+
 use Laminas\View\Exception;
+
+use function md5;
+use function method_exists;
+use function preg_match;
+use function sprintf;
+use function str_replace;
+use function strtolower;
+use function trigger_error;
+use function trim;
+use function ucwords;
+use function urlencode;
 
 /**
  * Helper for retrieving avatars from gravatar.com

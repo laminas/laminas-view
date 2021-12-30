@@ -2,10 +2,14 @@
 
 namespace LaminasTest\View\Helper;
 
+use const PHP_EOL;
+
 use Laminas\View\Exception;
 use Laminas\View\Helper;
 use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
+
+use function array_walk_recursive;
 
 /**
  * @group      Laminas_View

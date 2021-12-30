@@ -6,6 +6,19 @@ use ArrayObject;
 use Laminas\View\Exception;
 use ReturnTypeWillChange;
 
+use function array_keys;
+use function array_shift;
+use function array_unshift;
+use function count;
+use function implode;
+use function is_int;
+use function is_scalar;
+use function max;
+use function ob_get_clean;
+use function ob_start;
+use function preg_replace;
+use function str_repeat;
+
 /**
  * Abstract class representing container for placeholder values
  */

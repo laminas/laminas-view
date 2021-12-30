@@ -2,9 +2,13 @@
 
 namespace LaminasTest\View\Helper;
 
+use const DIRECTORY_SEPARATOR;
+
 use Laminas\View\Helper\DeclareVars;
 use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
+
+use function str_replace;
 
 /**
  * @group      Laminas_View

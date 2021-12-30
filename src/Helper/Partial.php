@@ -6,6 +6,12 @@ use Laminas\View\Exception;
 use Laminas\View\Model\ModelInterface;
 use Traversable;
 
+use function func_num_args;
+use function get_object_vars;
+use function is_object;
+use function is_scalar;
+use function method_exists;
+
 /**
  * Helper for rendering a template fragment in its own variable scope.
  */

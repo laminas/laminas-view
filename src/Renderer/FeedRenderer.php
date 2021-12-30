@@ -7,6 +7,14 @@ use Laminas\View\Model\FeedModel;
 use Laminas\View\Model\ModelInterface as Model;
 use Laminas\View\Resolver\ResolverInterface as Resolver;
 
+use function get_class;
+use function gettype;
+use function in_array;
+use function is_object;
+use function is_string;
+use function sprintf;
+use function strtolower;
+
 /**
  * Class for Laminas\View\Strategy\FeedStrategy compatible template engine implementations
  */

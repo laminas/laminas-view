@@ -2,6 +2,8 @@
 
 namespace LaminasTest\View\Helper\Navigation;
 
+use const PHP_EOL;
+
 use Interop\Container\ContainerInterface;
 use Laminas\I18n\Translator\Translator;
 use Laminas\Navigation\Navigation as Container;
@@ -13,6 +15,12 @@ use Laminas\ServiceManager\ServiceManager;
 use Laminas\View;
 use Laminas\View\Helper\Navigation;
 use Laminas\View\Renderer\PhpRenderer;
+
+use function extension_loaded;
+use function restore_error_handler;
+use function set_error_handler;
+use function spl_object_hash;
+use function str_replace;
 
 /**
  * Tests Laminas\View\Helper\Navigation

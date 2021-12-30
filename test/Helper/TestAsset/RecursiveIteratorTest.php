@@ -5,6 +5,11 @@ namespace LaminasTest\View\Helper\TestAsset;
 use Iterator;
 use ReturnTypeWillChange;
 
+use function current;
+use function key;
+use function next;
+use function reset;
+
 class RecursiveIteratorTest implements Iterator
 {
     public $items;

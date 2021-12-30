@@ -5,6 +5,9 @@ namespace Laminas\View\Helper;
 use Laminas\View\Exception;
 use Laminas\View\Model\ModelInterface as Model;
 
+use function method_exists;
+use function sprintf;
+
 /**
  * Helper for rendering child view models
  *

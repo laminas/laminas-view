@@ -2,11 +2,26 @@
 
 namespace Laminas\View\Helper;
 
+use const FILTER_VALIDATE_BOOLEAN;
+use const PHP_EOL;
+
 use Laminas\View\Exception;
 use stdClass;
 
+use function array_key_exists;
+use function array_shift;
+use function count;
+use function filter_var;
+use function implode;
 use function in_array;
+use function is_string;
+use function ob_get_clean;
+use function ob_start;
+use function preg_match;
+use function sprintf;
+use function str_replace;
 use function strtolower;
+use function ucfirst;
 
 /**
  * Helper for setting and retrieving script elements for HTML head section

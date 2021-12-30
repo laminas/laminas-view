@@ -2,6 +2,8 @@
 
 namespace Laminas\View\Helper\Navigation;
 
+use const E_USER_ERROR;
+
 use Interop\Container\ContainerInterface;
 use Laminas\EventManager\EventManager;
 use Laminas\EventManager\EventManagerAwareInterface;
@@ -17,6 +19,24 @@ use Laminas\View\Helper\TranslatorAwareTrait;
 use RecursiveIteratorIterator;
 use ReflectionClass;
 use ReflectionProperty;
+
+use function call_user_func_array;
+use function get_called_class;
+use function get_class;
+use function gettype;
+use function in_array;
+use function is_int;
+use function is_object;
+use function is_string;
+use function method_exists;
+use function sprintf;
+use function str_repeat;
+use function strlen;
+use function strrpos;
+use function strtolower;
+use function substr;
+use function trigger_error;
+use function trim;
 
 /**
  * Base class for navigational helpers.

@@ -2,6 +2,9 @@
 
 namespace Laminas\View\Helper\Navigation;
 
+use const E_WARNING;
+use const PHP_EOL;
+
 use Laminas\Navigation\AbstractContainer;
 use Laminas\Navigation\Page\AbstractPage;
 use Laminas\Stdlib\ArrayUtils;
@@ -9,6 +12,26 @@ use Laminas\Stdlib\ErrorHandler;
 use Laminas\View\Exception;
 use RecursiveIteratorIterator;
 use Traversable;
+
+use function array_diff;
+use function array_keys;
+use function array_merge;
+use function array_search;
+use function array_values;
+use function count;
+use function in_array;
+use function is_array;
+use function is_int;
+use function is_numeric;
+use function is_string;
+use function key;
+use function method_exists;
+use function preg_match;
+use function rtrim;
+use function sprintf;
+use function strlen;
+use function strtolower;
+use function ucfirst;
 
 /**
  * Helper for printing <link> elements

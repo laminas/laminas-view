@@ -5,6 +5,9 @@ namespace Laminas\View\Helper;
 use ArrayObject;
 use Laminas\View\Exception;
 
+use function stristr;
+use function strpos;
+
 /**
  * Helper for setting and retrieving the doctype
  */

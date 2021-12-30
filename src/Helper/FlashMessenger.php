@@ -6,6 +6,16 @@ use Laminas\Mvc\Controller\Plugin\FlashMessenger as V2PluginFlashMessenger;
 use Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger as PluginFlashMessenger;
 use Laminas\View\Exception\InvalidArgumentException;
 
+use function array_walk_recursive;
+use function call_user_func_array;
+use function class_exists;
+use function get_class;
+use function gettype;
+use function implode;
+use function is_object;
+use function method_exists;
+use function sprintf;
+
 /**
  * Helper to proxy the plugin flash messenger
  *

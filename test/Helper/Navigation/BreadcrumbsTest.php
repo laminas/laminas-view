@@ -6,6 +6,11 @@ use Laminas\Navigation\Navigation;
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\Navigation\Breadcrumbs;
 
+use function extension_loaded;
+use function strlen;
+use function substr;
+use function trim;
+
 /**
  * Tests Laminas\View\Helper\Navigation\Breadcrumbs.
  *

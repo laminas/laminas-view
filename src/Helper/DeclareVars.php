@@ -2,6 +2,9 @@
 
 namespace Laminas\View\Helper;
 
+use function func_get_args;
+use function is_array;
+
 /**
  * Helper for declaring default values of template variables
  */

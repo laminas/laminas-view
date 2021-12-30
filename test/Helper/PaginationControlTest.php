@@ -10,6 +10,8 @@ use Laminas\View\Renderer\RendererInterface;
 use Laminas\View\Resolver;
 use PHPUnit\Framework\TestCase;
 
+use function range;
+
 /**
  * @group      Laminas_View
  * @group      Laminas_View_Helper

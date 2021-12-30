@@ -15,6 +15,8 @@ use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use stdClass;
 
+use function realpath;
+
 /**
  * @covers \Laminas\View\Resolver\RelativeFallbackResolver
  */

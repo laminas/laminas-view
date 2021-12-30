@@ -2,12 +2,20 @@
 
 namespace LaminasTest\View\Helper;
 
+use const PHP_EOL;
+
 use Generator;
 use Laminas\View;
 use Laminas\View\Helper;
 use PHPUnit\Framework\TestCase;
 
+use function array_shift;
+use function count;
 use function sprintf;
+use function strtolower;
+use function substr_count;
+use function ucfirst;
+use function var_export;
 
 /**
  * Test class for Laminas\View\Helper\HeadScript.

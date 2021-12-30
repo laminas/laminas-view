@@ -2,6 +2,8 @@
 
 namespace Laminas\View\Helper;
 
+use function array_merge;
+
 class HtmlFlash extends AbstractHtmlElement
 {
     /**

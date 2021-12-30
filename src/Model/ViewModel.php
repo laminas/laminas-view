@@ -10,6 +10,14 @@ use Laminas\View\Variables as ViewVariables;
 use ReturnTypeWillChange;
 use Traversable;
 
+use function array_key_exists;
+use function count;
+use function get_class;
+use function gettype;
+use function is_array;
+use function is_object;
+use function sprintf;
+
 class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableChildrenInterface
 {
     /**

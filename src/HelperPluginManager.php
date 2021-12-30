@@ -13,6 +13,13 @@ use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\View\Exception\InvalidHelperException;
 use Psr\Container\ContainerInterface;
 
+use function get_class;
+use function gettype;
+use function is_callable;
+use function is_object;
+use function method_exists;
+use function sprintf;
+
 /**
  * Plugin manager implementation for view helpers
  *

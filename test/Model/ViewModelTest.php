@@ -10,6 +10,9 @@ use LaminasTest\View\Model\TestAsset\Variable;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
+use function count;
+use function iterator_to_array;
+
 class ViewModelTest extends TestCase
 {
     public function testImplementsModelInterface(): void

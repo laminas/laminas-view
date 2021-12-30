@@ -10,6 +10,8 @@ use Laminas\View\Strategy\PhpRendererStrategy;
 use Laminas\View\ViewEvent;
 use PHPUnit\Framework\TestCase;
 
+use function iterator_to_array;
+
 class PhpRendererStrategyTest extends TestCase
 {
     use EventListenerIntrospectionTrait;

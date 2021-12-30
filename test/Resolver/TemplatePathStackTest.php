@@ -2,9 +2,17 @@
 
 namespace LaminasTest\View\Resolver;
 
+use const DIRECTORY_SEPARATOR;
+
 use Laminas\View\Exception;
 use Laminas\View\Resolver\TemplatePathStack;
 use PHPUnit\Framework\TestCase;
+
+use function array_reverse;
+use function array_unshift;
+use function count;
+use function ini_get;
+use function realpath;
 
 /**
  * @group      Laminas_View

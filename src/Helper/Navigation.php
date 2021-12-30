@@ -8,6 +8,11 @@ use Laminas\View\Helper\Navigation\AbstractHelper as AbstractNavigationHelper;
 use Laminas\View\Helper\Navigation\HelperInterface as NavigationHelper;
 use Laminas\View\Renderer\RendererInterface as Renderer;
 
+use function call_user_func_array;
+use function method_exists;
+use function spl_object_hash;
+use function sprintf;
+
 /**
  * Proxy helper for retrieving navigational helpers and forwarding calls
  *

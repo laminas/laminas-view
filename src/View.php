@@ -11,6 +11,10 @@ use Laminas\View\Model\ModelInterface as Model;
 use Laminas\View\Renderer\RendererInterface as Renderer;
 use Laminas\View\Renderer\TreeRendererInterface;
 
+use function array_key_exists;
+use function get_class;
+use function sprintf;
+
 class View implements EventManagerAwareInterface
 {
     /**

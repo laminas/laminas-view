@@ -13,6 +13,10 @@ use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
 
+use function class_exists;
+use function get_class;
+use function strpos;
+
 class HelperPluginManagerCompatibilityTest extends TestCase
 {
     use CommonPluginManagerTrait;

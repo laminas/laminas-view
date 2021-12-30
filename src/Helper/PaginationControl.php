@@ -6,6 +6,11 @@ use Laminas\Paginator;
 use Laminas\View;
 use Laminas\View\Exception;
 
+use function array_merge;
+use function count;
+use function get_object_vars;
+use function is_array;
+
 class PaginationControl extends AbstractHelper
 {
     /**

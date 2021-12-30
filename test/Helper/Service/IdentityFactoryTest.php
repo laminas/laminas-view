@@ -11,6 +11,8 @@ use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 
+use function method_exists;
+
 class IdentityFactoryTest extends TestCase
 {
     use ProphecyTrait;

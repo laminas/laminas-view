@@ -2,8 +2,26 @@
 
 namespace Laminas\View\Helper;
 
+use const PHP_EOL;
+
 use Laminas\View\Exception;
 use stdClass;
+
+use function array_intersect;
+use function array_keys;
+use function array_shift;
+use function call_user_func_array;
+use function compact;
+use function count;
+use function func_get_args;
+use function get_object_vars;
+use function implode;
+use function is_array;
+use function is_string;
+use function method_exists;
+use function preg_match;
+use function sprintf;
+use function str_replace;
 
 // @codingStandardsIgnoreStart
 /**

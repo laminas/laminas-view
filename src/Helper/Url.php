@@ -10,6 +10,16 @@ use Laminas\Router\RouteStackInterface;
 use Laminas\View\Exception;
 use Traversable;
 
+use function array_merge;
+use function func_num_args;
+use function get_class;
+use function gettype;
+use function is_array;
+use function is_bool;
+use function is_object;
+use function iterator_to_array;
+use function sprintf;
+
 /**
  * Helper for making easy links and getting urls that depend on the routes and router.
  */

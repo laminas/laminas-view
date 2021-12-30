@@ -19,6 +19,9 @@ use Laminas\View\Renderer\PhpRenderer;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 
+use function get_class;
+use function method_exists;
+
 /**
  * @group      Laminas_View
  */

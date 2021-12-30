@@ -6,6 +6,8 @@ use Laminas\View\Helper\HtmlTag;
 use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
 
+use function sprintf;
+
 /**
  * @group      Laminas_View
  * @group      Laminas_View_Helper

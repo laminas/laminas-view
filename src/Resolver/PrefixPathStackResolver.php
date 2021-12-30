@@ -4,6 +4,10 @@ namespace Laminas\View\Resolver;
 
 use Laminas\View\Renderer\RendererInterface as Renderer;
 
+use function strlen;
+use function strpos;
+use function substr;
+
 final class PrefixPathStackResolver implements ResolverInterface
 {
     /**

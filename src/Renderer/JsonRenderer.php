@@ -12,6 +12,11 @@ use Laminas\View\Renderer\RendererInterface as Renderer;
 use Laminas\View\Resolver\ResolverInterface as Resolver;
 use Traversable;
 
+use function array_replace_recursive;
+use function get_object_vars;
+use function is_object;
+use function sprintf;
+
 /**
  * JSON renderer
  */

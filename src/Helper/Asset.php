@@ -4,6 +4,8 @@ namespace Laminas\View\Helper;
 
 use Laminas\View\Exception;
 
+use function array_key_exists;
+
 /**
  * View helper plugin to fetch asset from resource map.
  */

@@ -10,6 +10,15 @@ use Laminas\View\Exception;
 use Laminas\View\Helper\AbstractHelper;
 use ReturnTypeWillChange;
 
+use function call_user_func_array;
+use function class_exists;
+use function class_parents;
+use function count;
+use function in_array;
+use function method_exists;
+use function sprintf;
+use function strtolower;
+
 /**
  * Base class for targeted placeholder helpers
  */

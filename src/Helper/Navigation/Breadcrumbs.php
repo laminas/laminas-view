@@ -7,6 +7,13 @@ use Laminas\Navigation\Page\AbstractPage;
 use Laminas\View;
 use Laminas\View\Exception;
 
+use function array_merge;
+use function array_reverse;
+use function count;
+use function is_array;
+use function is_string;
+use function strlen;
+
 /**
  * Helper for printing breadcrumbs.
  */

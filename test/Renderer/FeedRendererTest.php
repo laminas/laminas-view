@@ -9,6 +9,9 @@ use Laminas\View\Renderer\FeedRenderer;
 use Laminas\View\Resolver\PrefixPathStackResolver;
 use PHPUnit\Framework\TestCase;
 
+use function date;
+use function time;
+
 class FeedRendererTest extends TestCase
 {
     protected function setUp(): void

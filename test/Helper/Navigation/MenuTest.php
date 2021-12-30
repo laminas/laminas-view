@@ -2,9 +2,17 @@
 
 namespace LaminasTest\View\Helper\Navigation;
 
+use const PHP_EOL;
+
 use Laminas\Navigation\Navigation;
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\Navigation\Menu;
+
+use function count;
+use function extension_loaded;
+use function rtrim;
+use function str_replace;
+use function trim;
 
 /**
  * Tests Laminas\View\Helper\Navigation\Menu.

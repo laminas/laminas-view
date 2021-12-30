@@ -8,6 +8,10 @@ use Laminas\View\Model;
 use Laminas\View\Renderer\JsonRenderer;
 use Laminas\View\ViewEvent;
 
+use function in_array;
+use function is_string;
+use function strtoupper;
+
 class JsonStrategy extends AbstractListenerAggregate
 {
     /**

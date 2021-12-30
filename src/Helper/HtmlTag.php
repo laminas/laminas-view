@@ -2,6 +2,10 @@
 
 namespace Laminas\View\Helper;
 
+use function array_merge;
+use function method_exists;
+use function sprintf;
+
 /**
  * Renders <html> tag (both opening and closing) of a web page, to which some custom
  * attributes can be added dynamically.

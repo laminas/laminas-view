@@ -6,6 +6,11 @@ use Laminas\Escaper;
 use Laminas\View\Exception;
 use Laminas\View\Helper;
 
+use function is_array;
+use function is_object;
+use function is_string;
+use function method_exists;
+
 /**
  * Helper for escaping values
  */

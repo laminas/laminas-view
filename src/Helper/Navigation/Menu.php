@@ -2,10 +2,22 @@
 
 namespace Laminas\View\Helper\Navigation;
 
+use const PHP_EOL;
+
 use Laminas\Navigation\AbstractContainer;
 use Laminas\Navigation\Page\AbstractPage;
 use Laminas\View\Exception;
 use RecursiveIteratorIterator;
+
+use function array_key_exists;
+use function array_merge;
+use function count;
+use function implode;
+use function is_array;
+use function is_int;
+use function is_string;
+use function rtrim;
+use function str_repeat;
 
 /**
  * Helper for rendering menus from navigation containers.

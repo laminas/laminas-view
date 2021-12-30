@@ -2,7 +2,14 @@
 
 namespace Laminas\View\Helper;
 
+use const PHP_EOL;
+
 use Laminas\View\Exception\InvalidArgumentException;
+
+use function array_merge;
+use function implode;
+use function is_array;
+use function is_string;
 
 class HtmlObject extends AbstractHtmlElement
 {

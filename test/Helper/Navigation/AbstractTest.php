@@ -20,6 +20,8 @@ use LaminasTest\View\Helper\TestAsset;
 use PHPUnit\Framework\TestCase;
 
 use function assert;
+use function class_exists;
+use function file_get_contents;
 
 /**
  * Base class for navigation view helper tests

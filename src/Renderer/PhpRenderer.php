@@ -15,6 +15,23 @@ use Laminas\View\Resolver\TemplatePathStack;
 use Laminas\View\Variables;
 use Traversable;
 
+use function array_key_exists;
+use function array_pop;
+use function call_user_func_array;
+use function class_exists;
+use function extract;
+use function get_class;
+use function gettype;
+use function is_array;
+use function is_callable;
+use function is_object;
+use function is_string;
+use function method_exists;
+use function ob_end_clean;
+use function ob_get_clean;
+use function ob_start;
+use function sprintf;
+
 // @codingStandardsIgnoreStart
 /**
  * Class for Laminas\View\Strategy\PhpRendererStrategy to help enforce private constructs.

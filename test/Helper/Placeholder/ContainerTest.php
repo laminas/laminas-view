@@ -2,12 +2,18 @@
 
 namespace LaminasTest\View\Helper\Placeholder;
 
+use const PHP_EOL;
+
 use Laminas\View\Helper\Placeholder\Container as PlaceholderContainer;
 use PHPUnit\Framework\TestCase;
 
+use function array_keys;
+use function array_pop;
 use function assert;
+use function count;
 use function is_array;
 use function is_int;
+use function substr_count;
 
 /**
  * Test class for Laminas\View\Helper\Placeholder\Container.

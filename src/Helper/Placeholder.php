@@ -5,6 +5,8 @@ namespace Laminas\View\Helper;
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\Placeholder\Container;
 
+use function array_key_exists;
+
 /**
  * Helper for passing data between otherwise segregated Views. It's called
  * Placeholder to make its typical usage obvious, but can be used just as easily

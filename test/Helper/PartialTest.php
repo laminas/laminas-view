@@ -9,6 +9,9 @@ use Laminas\View\Renderer\PhpRenderer as View;
 use LaminasTest\View\Helper\TestAsset\Aggregate;
 use PHPUnit\Framework\TestCase;
 
+use function get_object_vars;
+use function sprintf;
+
 /**
  * Test class for Partial view helper.
  *

@@ -9,6 +9,8 @@ use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
 
 use function method_exists;
+use function strtoupper;
+use function urlencode;
 
 /**
  * @group      Laminasview

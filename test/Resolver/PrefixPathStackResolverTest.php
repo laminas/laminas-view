@@ -7,6 +7,8 @@ use Laminas\View\Resolver\ResolverInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 
+use function realpath;
+
 /**
  * Tests for {@see \Laminas\View\Resolver\PrefixPathStackResolver}
  *

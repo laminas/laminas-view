@@ -2,11 +2,21 @@
 
 namespace LaminasTest\View\Helper;
 
+use const PHP_EOL;
+
 use Laminas\View\Exception;
 use Laminas\View\Exception\ExceptionInterface as ViewException;
 use Laminas\View\Helper;
 use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
+
+use function array_shift;
+use function count;
+use function set_error_handler;
+use function sprintf;
+use function str_replace;
+use function substr_count;
+use function ucwords;
 
 /**
  * Test class for Laminas\View\Helper\HeadMeta.

@@ -9,6 +9,8 @@ use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
+use function var_export;
+
 /**
  * Test class for Laminas\View\Helper\PartialLoop.
  *

@@ -2,6 +2,8 @@
 
 namespace Laminas\View\Helper\Navigation;
 
+use const PHP_EOL;
+
 use DOMDocument;
 use Laminas\Navigation\AbstractContainer;
 use Laminas\Navigation\Page\AbstractPage;
@@ -10,6 +12,15 @@ use Laminas\Uri;
 use Laminas\View;
 use Laminas\View\Exception;
 use RecursiveIteratorIterator;
+
+use function date;
+use function in_array;
+use function is_int;
+use function preg_match;
+use function rtrim;
+use function sprintf;
+use function strtotime;
+use function trim;
 
 /**
  * Helper for printing sitemaps

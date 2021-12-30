@@ -18,6 +18,9 @@ use Laminas\View\ViewEvent;
 use PHPUnit\Framework\TestCase;
 
 use function assert;
+use function date;
+use function iterator_to_array;
+use function time;
 
 class FeedStrategyTest extends TestCase
 {

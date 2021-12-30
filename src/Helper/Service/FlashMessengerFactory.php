@@ -7,6 +7,8 @@ use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\View\Helper\FlashMessenger;
 
+use function method_exists;
+
 class FlashMessengerFactory implements FactoryInterface
 {
     /**

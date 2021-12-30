@@ -2,11 +2,33 @@
 
 namespace Laminas\View\Resolver;
 
+use const DIRECTORY_SEPARATOR;
+use const PATHINFO_EXTENSION;
+
 use Laminas\Stdlib\SplStack;
 use Laminas\View\Exception;
 use Laminas\View\Renderer\RendererInterface as Renderer;
 use SplFileInfo;
 use Traversable;
+
+use function count;
+use function file_exists;
+use function get_class;
+use function gettype;
+use function in_array;
+use function ini_get;
+use function is_array;
+use function is_object;
+use function is_string;
+use function ltrim;
+use function pathinfo;
+use function preg_match;
+use function rtrim;
+use function sprintf;
+use function stream_get_wrappers;
+use function stream_wrapper_register;
+use function strpos;
+use function strtolower;
 
 /**
  * Resolves view scripts based on a stack of paths

@@ -6,6 +6,8 @@ use Laminas\View\Model\ModelInterface as Model;
 use Laminas\View\Renderer\RendererInterface as Renderer;
 use Laminas\View\Resolver\ResolverInterface as Resolver;
 
+use function var_export;
+
 class VarExportRenderer implements Renderer
 {
     public function getEngine()

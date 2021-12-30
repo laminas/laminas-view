@@ -7,6 +7,8 @@ use Laminas\View\Helper\EscapeHtml as EscapeHelper;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
+use function get_class;
+
 class EscapeHtmlTest extends TestCase
 {
     use EscaperEncodingsTrait;

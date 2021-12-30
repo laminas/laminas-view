@@ -9,6 +9,8 @@ use Laminas\View\Renderer\RendererInterface as Renderer;
 use Laminas\View\Resolver\ResolverInterface as Resolver;
 use ReturnTypeWillChange;
 
+use function count;
+
 class AggregateResolver implements Countable, IteratorAggregate, ResolverInterface
 {
     const FAILURE_NO_RESOLVERS = 'AggregateResolver_Failure_No_Resolvers';

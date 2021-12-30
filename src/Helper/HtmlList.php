@@ -2,7 +2,14 @@
 
 namespace Laminas\View\Helper;
 
+use const PHP_EOL;
+
 use Laminas\View\Exception;
+
+use function is_array;
+use function sprintf;
+use function strlen;
+use function substr;
 
 /**
  * Helper for ordered and unordered lists

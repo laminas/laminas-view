@@ -9,6 +9,8 @@ use Laminas\View\Renderer\PhpRenderer as View;
 use LaminasTest\View\Helper\TestAsset\Foo;
 use PHPUnit\Framework\TestCase;
 
+use function get_class;
+
 /**
  * Test class for Laminas\View\Helper\Placeholder\Container.
  *

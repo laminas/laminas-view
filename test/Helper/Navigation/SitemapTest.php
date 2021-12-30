@@ -7,6 +7,12 @@ use Laminas\View;
 use Laminas\View\Helper\Navigation\Sitemap;
 use Throwable;
 
+use function count;
+use function date_default_timezone_get;
+use function date_default_timezone_set;
+use function sprintf;
+use function trim;
+
 /**
  * Tests Laminas\View\Helper\Navigation\Sitemap
  *

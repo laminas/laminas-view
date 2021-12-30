@@ -10,6 +10,15 @@ use Laminas\View\Renderer\RendererInterface as Renderer;
 use ReturnTypeWillChange;
 use Traversable;
 
+use function array_key_exists;
+use function array_replace_recursive;
+use function get_class;
+use function gettype;
+use function is_array;
+use function is_object;
+use function is_string;
+use function sprintf;
+
 class TemplateMapResolver implements IteratorAggregate, ResolverInterface
 {
     /**

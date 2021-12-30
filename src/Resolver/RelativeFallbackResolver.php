@@ -6,6 +6,11 @@ use Laminas\View\Helper\ViewModel as ViewModelHelper;
 use Laminas\View\Model\ModelInterface;
 use Laminas\View\Renderer\RendererInterface;
 
+use function call_user_func;
+use function is_callable;
+use function strrpos;
+use function substr;
+
 /**
  * Relative fallback resolver - resolves to view templates in a sub-path of the
  * currently set view model's template (if the current renderer has the `view_model` plugin set).

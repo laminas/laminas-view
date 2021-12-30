@@ -6,6 +6,14 @@ use Laminas\Stdlib\ArrayUtils;
 use Laminas\View\Exception;
 use Traversable;
 
+use function func_num_args;
+use function get_class;
+use function gettype;
+use function is_array;
+use function is_object;
+use function method_exists;
+use function sprintf;
+
 /**
  * Helper for rendering a template fragment in its own variable scope; iterates
  * over data provided and renders for each iteration.

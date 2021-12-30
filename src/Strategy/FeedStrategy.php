@@ -9,6 +9,8 @@ use Laminas\View\Model;
 use Laminas\View\Renderer\FeedRenderer;
 use Laminas\View\ViewEvent;
 
+use function is_string;
+
 class FeedStrategy extends AbstractListenerAggregate
 {
     /**
