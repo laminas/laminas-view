@@ -509,15 +509,27 @@ used with JSON responses.</p>
 determine how to handle the content.</p>
 <h2 id="basic-usage">Basic Usage</h2>
 <pre class="highlight"><code class="language-php">&lt;?= $this-&gt;json($this-&gt;data) ?&gt;</code></pre>
-<blockquote>
+<div class="admonition warning">
+<p class="admonition-title">Deprecated</p>
 <h3 id="enabling-encoding-using-laminasjsonexpr">Enabling encoding using Laminas\Json\Expr</h3>
+<p><strong>This feature of the Json view helper has been deprecated in version 2.16 and will be removed in version 3.0.</strong></p>
 <p>The JSON helper accepts an array of options that will be passed to <code>Laminas\Json\Json::encode()</code> and
 used internally to encode data.
 <code>Laminas\Json\Json::encode</code> allows the encoding of native JSON expressions using <code>Laminas\Json\Expr</code>
 objects. This option is disabled by default. To enable this option, pass a boolean <code>true</code> to the
 <code>enableJsonExprFinder</code> key of the options array:</p>
-<pre class="highlight"><code class="language-php">&lt;?= $this-&gt;json($this-&gt;data, ['enableJsonExprFinder' =&gt; true]) ?&gt;</code></pre>
-</blockquote>
+<pre class="highlight"><code class="language-php">&lt;?= $this-&gt;json($this-&gt;data, ['enableJsonExprFinder' =&gt; true]) ?&gt;
+``
+
+The JSON helper accepts an array of options that will be passed to `Laminas\Json\Json::encode()` and
+used internally to encode data.
+`Laminas\Json\Json::encode` allows the encoding of native JSON expressions using `Laminas\Json\Expr`
+objects. This option is disabled by default. To enable this option, pass a boolean `true` to the
+`enableJsonExprFinder` key of the options array:
+
+```php
+&lt;?= $this-&gt;json($this-&gt;data, ['enableJsonExprFinder' =&gt; true]) ?&gt;</code></pre>
+</div>
 
 
 
