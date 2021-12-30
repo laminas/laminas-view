@@ -5,6 +5,10 @@ namespace Laminas\View\Helper;
 use Laminas\Http\Response;
 use Laminas\Json\Json as JsonFormatter;
 
+use function trigger_error;
+
+use const E_USER_DEPRECATED;
+
 /**
  * Helper for simplifying JSON responses
  */
@@ -24,6 +28,13 @@ class Json extends AbstractHelper
      */
     public function __invoke($data, array $jsonOptions = [])
     {
+        if (isset($jsonOptions['enableJsonExprFinder']) && $jsonOptions['enableJsonExprFinder'] === true) {
+            trigger_error(
+                'Json Expression functionality is deprecated and will be removed in laminas-view 3.0',
+                E_USER_DEPRECATED
+            );
+        }
+
         $data = JsonFormatter::encode($data, null, $jsonOptions);
 
         if ($this->response instanceof Response) {
