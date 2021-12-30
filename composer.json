@@ -44,7 +44,7 @@
         "laminas/laminas-paginator": "^2.5",
         "laminas/laminas-permissions-acl": "^2.6",
         "laminas/laminas-router": "^3.0.1",
-        "laminas/laminas-servicemanager": "^3.3",
+        "laminas/laminas-servicemanager": "^3.4",
         "laminas/laminas-session": "^2.12",
         "laminas/laminas-uri": "^2.5",
         "phpspec/prophecy": "^1.12",
@@ -54,6 +54,7 @@
         "vimeo/psalm": "^4.10"
     },
     "conflict": {
+        "container-interop/container-interop": "<1.2",
         "laminas/laminas-servicemanager": "<3.3",
         "laminas/laminas-router": "<3.0.1",
         "zendframework/zend-view": "*"
