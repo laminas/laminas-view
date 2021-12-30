@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper;
 
 use function array_pop;
@@ -81,7 +83,8 @@ class ServerUrl extends AbstractHelper
 
         if (isset($_SERVER['HTTP_HOST']) && ! empty($_SERVER['HTTP_HOST'])) {
             // Detect if the port is set in SERVER_PORT and included in HTTP_HOST
-            if (isset($_SERVER['SERVER_PORT'])
+            if (
+                isset($_SERVER['SERVER_PORT'])
                 && preg_match('/^(?P<host>.*?):(?P<port>\d+)$/', $_SERVER['HTTP_HOST'], $matches)
             ) {
                 // If they are the same, set the host to just the hostname
@@ -146,9 +149,9 @@ class ServerUrl extends AbstractHelper
         }
 
         switch (true) {
-            case (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] === true)):
-            case (isset($_SERVER['HTTP_SCHEME']) && ($_SERVER['HTTP_SCHEME'] == 'https')):
-            case (443 === $this->getPort()):
+            case isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on' || $_SERVER['HTTPS'] === true):
+            case isset($_SERVER['HTTP_SCHEME']) && ($_SERVER['HTTP_SCHEME'] == 'https'):
+            case 443 === $this->getPort():
             case $this->isReversedProxy():
                 $scheme = 'https';
                 break;
@@ -183,7 +186,7 @@ class ServerUrl extends AbstractHelper
         $host = $_SERVER['HTTP_X_FORWARDED_HOST'];
         if (strpos($host, ',') !== false) {
             $hosts = explode(',', $host);
-            $host = trim(array_pop($hosts));
+            $host  = trim(array_pop($hosts));
         }
         if (empty($host)) {
             return false;
@@ -258,7 +261,8 @@ class ServerUrl extends AbstractHelper
         $port   = $this->getPort();
         $scheme = $this->getScheme();
 
-        if (($scheme == 'http' && (null === $port || $port == 80))
+        if (
+            ($scheme == 'http' && (null === $port || $port == 80))
             || ($scheme == 'https' && (null === $port || $port == 443))
         ) {
             $this->host = $host;

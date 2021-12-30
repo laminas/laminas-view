@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper;
 
 use Iterator;
@@ -143,7 +145,7 @@ class Cycle extends AbstractHelper implements Iterator
     {
         $count = count($this->data[$this->name]);
 
-        if ($this->pointers[$this->name] == ($count - 1)) {
+        if ($this->pointers[$this->name] === $count - 1) {
             $this->pointers[$this->name] = 0;
         } else {
             $this->pointers[$this->name] = ++$this->pointers[$this->name];

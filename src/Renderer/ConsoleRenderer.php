@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Renderer;
 
 use Laminas\Filter\FilterChain;
@@ -70,7 +72,6 @@ class ConsoleRenderer implements RendererInterface, TreeRendererInterface
     /**
      * Set filter chain
      *
-     * @param  FilterChain $filters
      * @return ConsoleRenderer
      */
     public function setFilterChain(FilterChain $filters)
@@ -107,7 +108,7 @@ class ConsoleRenderer implements RendererInterface, TreeRendererInterface
             return '';
         }
 
-        $result = '';
+        $result  = '';
         $options = $model->getOptions();
         foreach ($options as $setting => $value) {
             $method = 'set' . $setting;

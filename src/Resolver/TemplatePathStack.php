@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Resolver;
 
 use Laminas\Stdlib\SplStack;
 use Laminas\View\Exception;
 use Laminas\View\Renderer\RendererInterface as Renderer;
+use Laminas\View\Stream;
 use SplFileInfo;
 use Traversable;
 
@@ -66,10 +69,13 @@ class TemplatePathStack implements ResolverInterface
 
     /**@+
      * Flags used to determine if a stream wrapper should be used for enabling short tags
-     * @var bool
      */
-    protected $useViewStream    = false;
+
+    /** @var bool */
+    protected $useViewStream = false;
+    /** @var bool */
     protected $useStreamWrapper = false;
+
     /**@-*/
 
     /**
@@ -82,7 +88,8 @@ class TemplatePathStack implements ResolverInterface
         $this->useViewStream = (bool) ini_get('short_open_tag');
         if ($this->useViewStream) {
             if (! in_array('laminas.view', stream_get_wrappers())) {
-                stream_wrapper_register('laminas.view', 'Laminas\View\Stream');
+                /** @psalm-suppress DeprecatedClass */
+                stream_wrapper_register('laminas.view', Stream::class);
             }
         }
 
@@ -104,7 +111,7 @@ class TemplatePathStack implements ResolverInterface
         if (! is_array($options) && ! $options instanceof Traversable) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'Expected array or Traversable object; received "%s"',
-                (is_object($options) ? get_class($options) : gettype($options))
+                is_object($options) ? get_class($options) : gettype($options)
             ));
         }
 
@@ -197,8 +204,8 @@ class TemplatePathStack implements ResolverInterface
      */
     public static function normalizePath($path)
     {
-        $path = rtrim($path, '/');
-        $path = rtrim($path, '\\');
+        $path  = rtrim($path, '/');
+        $path  = rtrim($path, '\\');
         $path .= DIRECTORY_SEPARATOR;
         return $path;
     }
@@ -290,18 +297,17 @@ class TemplatePathStack implements ResolverInterface
      */
     public function useStreamWrapper()
     {
-        return ($this->useViewStream && $this->useStreamWrapper);
+        return $this->useViewStream && $this->useStreamWrapper;
     }
 
     /**
      * Retrieve the filesystem path to a view script
      *
      * @param  string $name
-     * @param  null|Renderer $renderer
      * @return string
      * @throws Exception\DomainException
      */
-    public function resolve($name, Renderer $renderer = null)
+    public function resolve($name, ?Renderer $renderer = null)
     {
         $this->lastLookupFailure = false;
 
@@ -318,7 +324,7 @@ class TemplatePathStack implements ResolverInterface
 
         // Ensure we have the expected file extension
         $defaultSuffix = $this->getDefaultSuffix();
-        if (pathinfo($name, PATHINFO_EXTENSION) == '') {
+        if (pathinfo($name, PATHINFO_EXTENSION) === '') {
             $name .= '.' . $defaultSuffix;
         }
 

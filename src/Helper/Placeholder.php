@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper;
 
 use Laminas\View\Exception\InvalidArgumentException;
@@ -89,7 +91,7 @@ class Placeholder extends AbstractHelper
      */
     public function containerExists($key)
     {
-        $key = (string) $key;
+        $key    = (string) $key;
         $return = array_key_exists($key, $this->items);
         return $return;
     }

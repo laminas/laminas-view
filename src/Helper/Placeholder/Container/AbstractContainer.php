@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper\Placeholder\Container;
 
 use ArrayObject;
@@ -125,7 +127,7 @@ abstract class AbstractContainer extends ArrayObject
             return '';
         }
 
-        $indent = ($indent === null)
+        $indent = $indent === null
             ? $this->getIndent()
             : $this->getWhitespace($indent);
 
@@ -170,8 +172,8 @@ abstract class AbstractContainer extends ArrayObject
      */
     public function captureEnd()
     {
-        $data               = ob_get_clean();
-        $key                = null;
+        $data              = ob_get_clean();
+        $key               = null;
         $this->captureLock = false;
         if (null !== $this->captureKey) {
             $key = $this->captureKey;

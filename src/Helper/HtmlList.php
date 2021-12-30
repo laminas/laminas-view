@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper;
 
 use const PHP_EOL;
@@ -61,7 +63,7 @@ class HtmlList extends AbstractHtmlElement
             $attribs = '';
         }
 
-        $tag = ($ordered) ? 'ol' : 'ul';
+        $tag = $ordered ? 'ol' : 'ul';
 
         return '<' . $tag . $attribs . '>' . PHP_EOL . $list . '</' . $tag . '>' . PHP_EOL;
     }

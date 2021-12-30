@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Renderer;
 
 use ArrayAccess;
@@ -58,7 +60,6 @@ class JsonRenderer implements Renderer, TreeRendererInterface
      * Set the resolver used to map a template name to a resource the renderer may consume.
      *
      * @todo Determine use case for resolvers when rendering JSON
-     * @param Resolver $resolver
      * @return void
      */
     public function setResolver(Resolver $resolver)
@@ -100,7 +101,7 @@ class JsonRenderer implements Renderer, TreeRendererInterface
      */
     public function hasJsonpCallback()
     {
-        return (null !== $this->jsonpCallback);
+        return null !== $this->jsonpCallback;
     }
 
     /**
@@ -149,7 +150,7 @@ class JsonRenderer implements Renderer, TreeRendererInterface
                 $return = Json::encode($nameOrModel);
             } elseif ($nameOrModel instanceof Traversable) {
                 $nameOrModel = ArrayUtils::iteratorToArray($nameOrModel);
-                $return = Json::encode($nameOrModel);
+                $return      = Json::encode($nameOrModel);
             } else {
                 $return = Json::encode(get_object_vars($nameOrModel));
             }
@@ -182,7 +183,6 @@ class JsonRenderer implements Renderer, TreeRendererInterface
     /**
      * Retrieve values from a model and recurse its children to build a data structure
      *
-     * @param Model $model
      * @param bool $mergeWithVariables Whether or not to merge children with
      *         the variables of the $model
      * @return (array|mixed)[]|ArrayAccess
@@ -229,7 +229,6 @@ class JsonRenderer implements Renderer, TreeRendererInterface
      * Inject discovered child model values into parent model
      *
      * @todo detect collisions and decide whether to append and/or aggregate?
-     * @param Model $model
      * @param array $children
      * @return void
      */

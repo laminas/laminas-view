@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Resolver;
 
 use Laminas\View\Renderer\RendererInterface as Renderer;
@@ -34,9 +36,9 @@ final class PrefixPathStackResolver implements ResolverInterface
     /**
      * {@inheritDoc}
      */
-    public function resolve($name, Renderer $renderer = null)
+    public function resolve($name, ?Renderer $renderer = null)
     {
-        foreach ($this->prefixes as $prefix => & $resolver) {
+        foreach ($this->prefixes as $prefix => &$resolver) {
             if (strpos($name, $prefix) !== 0) {
                 continue;
             }
@@ -50,6 +52,6 @@ final class PrefixPathStackResolver implements ResolverInterface
             }
         }
 
-        return;
+        return; // phpcs:ignore
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper;
 
 use Laminas\Http\Response;
@@ -46,7 +48,6 @@ class Json extends AbstractHelper
     /**
      * Set the response object
      *
-     * @param  Response $response
      * @return Json
      */
     public function setResponse(Response $response)

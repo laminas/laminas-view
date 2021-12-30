@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper;
 
 use const PHP_EOL;
@@ -151,11 +153,13 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
      */
     public function __call($method, $args)
     {
-        if (preg_match(
+        if (
+            preg_match(
             '/^(?P<action>set|(ap|pre)pend|offsetSet)(?P<type>Stylesheet|Alternate|Prev|Next)$/',
             $method,
             $matches
-        )) {
+            )
+        ) {
             $argc   = count($args);
             $action = $matches['action'];
             $type   = $matches['type'];
@@ -293,7 +297,6 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
     /**
      * Create HTML link element from data item
      *
-     * @param  stdClass $item
      * @return string
      */
     public function itemToString(stdClass $item)
@@ -308,21 +311,21 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
                         $link .= sprintf(
                             ' %s="%s"',
                             $key,
-                            ($this->autoEscape) ? $this->escapeAttribute($value) : $value
+                            $this->autoEscape ? $this->escapeAttribute($value) : $value
                         );
                     }
                 } else {
                     $link .= sprintf(
                         ' %s="%s"',
                         $itemKey,
-                        ($this->autoEscape) ? $this->escapeAttribute($attributes[$itemKey]) : $attributes[$itemKey]
+                        $this->autoEscape ? $this->escapeAttribute($attributes[$itemKey]) : $attributes[$itemKey]
                     );
                 }
             }
         }
 
         if (method_exists($this->view, 'plugin')) {
-            $link .= ($this->view->plugin('doctype')->isXhtml()) ? ' />' : '>';
+            $link .= $this->view->plugin('doctype')->isXhtml() ? ' />' : '>';
         } else {
             $link .= ' />';
         }
@@ -331,7 +334,8 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
             return '';
         }
 
-        if (isset($attributes['conditionalStylesheet'])
+        if (
+            isset($attributes['conditionalStylesheet'])
             && ! empty($attributes['conditionalStylesheet'])
             && is_string($attributes['conditionalStylesheet'])
         ) {
@@ -353,7 +357,7 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
      */
     public function toString($indent = null)
     {
-        $indent = (null !== $indent)
+        $indent = null !== $indent
                 ? $this->getWhitespace($indent)
                 : $this->getIndent();
 

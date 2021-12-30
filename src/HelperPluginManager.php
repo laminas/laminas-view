@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View;
 
 use Laminas\EventManager\EventManagerAwareInterface;
@@ -183,42 +185,42 @@ class HelperPluginManager extends AbstractPluginManager
         // @codingStandardsIgnoreEnd
 
         // v2 normalized FQCNs
-        'zendviewhelperasset' => Helper\Asset::class,
-        'zendviewhelperflashmessenger' => Helper\FlashMessenger::class,
-        'zendviewhelperidentity' => Helper\Identity::class,
-        'zendviewhelperbasepath' => Helper\BasePath::class,
-        'zendviewhelpercycle' => Helper\Cycle::class,
-        'zendviewhelperdeclarevars' => Helper\DeclareVars::class,
-        'zendviewhelperdoctype' => Helper\Doctype::class,
-        'zendviewhelperescapehtml' => Helper\EscapeHtml::class,
-        'zendviewhelperescapehtmlattr' => Helper\EscapeHtmlAttr::class,
-        'zendviewhelperescapejs' => Helper\EscapeJs::class,
-        'zendviewhelperescapecss' => Helper\EscapeCss::class,
-        'zendviewhelperescapeurl' => Helper\EscapeUrl::class,
-        'zendviewhelpergravatar' => Helper\Gravatar::class,
-        'zendviewhelperhtmltag' => Helper\HtmlTag::class,
-        'zendviewhelperheadlink' => Helper\HeadLink::class,
-        'zendviewhelperheadmeta' => Helper\HeadMeta::class,
-        'zendviewhelperheadscript' => Helper\HeadScript::class,
-        'zendviewhelperheadstyle' => Helper\HeadStyle::class,
-        'zendviewhelperheadtitle' => Helper\HeadTitle::class,
-        'zendviewhelperhtmlflash' => Helper\HtmlFlash::class,
-        'zendviewhelperhtmllist' => Helper\HtmlList::class,
-        'zendviewhelperhtmlobject' => Helper\HtmlObject::class,
-        'zendviewhelperhtmlpage' => Helper\HtmlPage::class,
-        'zendviewhelperhtmlquicktime' => Helper\HtmlQuicktime::class,
-        'zendviewhelperinlinescript' => Helper\InlineScript::class,
-        'zendviewhelperjson' => Helper\Json::class,
-        'zendviewhelperlayout' => Helper\Layout::class,
-        'zendviewhelperpaginationcontrol' => Helper\PaginationControl::class,
-        'zendviewhelperpartialloop' => Helper\PartialLoop::class,
-        'zendviewhelperpartial' => Helper\Partial::class,
-        'zendviewhelperplaceholder' => Helper\Placeholder::class,
-        'zendviewhelperrenderchildmodel' => Helper\RenderChildModel::class,
+        'zendviewhelperasset'               => Helper\Asset::class,
+        'zendviewhelperflashmessenger'      => Helper\FlashMessenger::class,
+        'zendviewhelperidentity'            => Helper\Identity::class,
+        'zendviewhelperbasepath'            => Helper\BasePath::class,
+        'zendviewhelpercycle'               => Helper\Cycle::class,
+        'zendviewhelperdeclarevars'         => Helper\DeclareVars::class,
+        'zendviewhelperdoctype'             => Helper\Doctype::class,
+        'zendviewhelperescapehtml'          => Helper\EscapeHtml::class,
+        'zendviewhelperescapehtmlattr'      => Helper\EscapeHtmlAttr::class,
+        'zendviewhelperescapejs'            => Helper\EscapeJs::class,
+        'zendviewhelperescapecss'           => Helper\EscapeCss::class,
+        'zendviewhelperescapeurl'           => Helper\EscapeUrl::class,
+        'zendviewhelpergravatar'            => Helper\Gravatar::class,
+        'zendviewhelperhtmltag'             => Helper\HtmlTag::class,
+        'zendviewhelperheadlink'            => Helper\HeadLink::class,
+        'zendviewhelperheadmeta'            => Helper\HeadMeta::class,
+        'zendviewhelperheadscript'          => Helper\HeadScript::class,
+        'zendviewhelperheadstyle'           => Helper\HeadStyle::class,
+        'zendviewhelperheadtitle'           => Helper\HeadTitle::class,
+        'zendviewhelperhtmlflash'           => Helper\HtmlFlash::class,
+        'zendviewhelperhtmllist'            => Helper\HtmlList::class,
+        'zendviewhelperhtmlobject'          => Helper\HtmlObject::class,
+        'zendviewhelperhtmlpage'            => Helper\HtmlPage::class,
+        'zendviewhelperhtmlquicktime'       => Helper\HtmlQuicktime::class,
+        'zendviewhelperinlinescript'        => Helper\InlineScript::class,
+        'zendviewhelperjson'                => Helper\Json::class,
+        'zendviewhelperlayout'              => Helper\Layout::class,
+        'zendviewhelperpaginationcontrol'   => Helper\PaginationControl::class,
+        'zendviewhelperpartialloop'         => Helper\PartialLoop::class,
+        'zendviewhelperpartial'             => Helper\Partial::class,
+        'zendviewhelperplaceholder'         => Helper\Placeholder::class,
+        'zendviewhelperrenderchildmodel'    => Helper\RenderChildModel::class,
         'zendviewhelperrendertoplaceholder' => Helper\RenderToPlaceholder::class,
-        'zendviewhelperserverurl' => Helper\ServerUrl::class,
-        'zendviewhelperurl' => Helper\Url::class,
-        'zendviewhelperviewmodel' => Helper\ViewModel::class,
+        'zendviewhelperserverurl'           => Helper\ServerUrl::class,
+        'zendviewhelperurl'                 => Helper\Url::class,
+        'zendviewhelperviewmodel'           => Helper\ViewModel::class,
     ];
 
     /**
@@ -230,13 +232,13 @@ class HelperPluginManager extends AbstractPluginManager
      * config value from the merged config.
      */
     protected $factories = [
-        Helper\Asset::class               => Helper\Service\AssetFactory::class,
-        Helper\HtmlAttributes::class      => InvokableFactory::class,
-        Helper\FlashMessenger::class      => Helper\Service\FlashMessengerFactory::class,
-        Helper\Identity::class            => Helper\Service\IdentityFactory::class,
-        Helper\BasePath::class            => InvokableFactory::class,
-        Helper\Cycle::class               => InvokableFactory::class,
-        Helper\DeclareVars::class         => InvokableFactory::class,
+        Helper\Asset::class          => Helper\Service\AssetFactory::class,
+        Helper\HtmlAttributes::class => InvokableFactory::class,
+        Helper\FlashMessenger::class => Helper\Service\FlashMessengerFactory::class,
+        Helper\Identity::class       => Helper\Service\IdentityFactory::class,
+        Helper\BasePath::class       => InvokableFactory::class,
+        Helper\Cycle::class          => InvokableFactory::class,
+        Helper\DeclareVars::class    => InvokableFactory::class,
         // overridden in ViewHelperManagerFactory
         Helper\Doctype::class             => Helper\Service\DoctypeFactory::class,
         Helper\EscapeHtml::class          => InvokableFactory::class,
@@ -271,43 +273,43 @@ class HelperPluginManager extends AbstractPluginManager
 
         // v2 canonical FQCNs
 
-        'laminasviewhelperasset'             => Helper\Service\AssetFactory::class,
-        'laminasviewhelperattributes'        => InvokableFactory::class,
-        'laminasviewhelperflashmessenger'    => Helper\Service\FlashMessengerFactory::class,
-        'laminasviewhelperidentity'          => Helper\Service\IdentityFactory::class,
-        'laminasviewhelperbasepath'          => InvokableFactory::class,
-        'laminasviewhelpercycle'             => InvokableFactory::class,
-        'laminasviewhelperdeclarevars'       => InvokableFactory::class,
-        'laminasviewhelperdoctype'           => InvokableFactory::class,
-        'laminasviewhelperescapehtml'        => InvokableFactory::class,
-        'laminasviewhelperescapehtmlattr'    => InvokableFactory::class,
-        'laminasviewhelperescapejs'          => InvokableFactory::class,
-        'laminasviewhelperescapecss'         => InvokableFactory::class,
-        'laminasviewhelperescapeurl'         => InvokableFactory::class,
-        'laminasviewhelpergravatar'          => InvokableFactory::class,
-        'laminasviewhelperhtmltag'           => InvokableFactory::class,
-        'laminasviewhelperheadlink'          => InvokableFactory::class,
-        'laminasviewhelperheadmeta'          => InvokableFactory::class,
-        'laminasviewhelperheadscript'        => InvokableFactory::class,
-        'laminasviewhelperheadstyle'         => InvokableFactory::class,
-        'laminasviewhelperheadtitle'         => InvokableFactory::class,
-        'laminasviewhelperhtmlflash'         => InvokableFactory::class,
-        'laminasviewhelperhtmllist'          => InvokableFactory::class,
-        'laminasviewhelperhtmlobject'        => InvokableFactory::class,
-        'laminasviewhelperhtmlpage'          => InvokableFactory::class,
-        'laminasviewhelperhtmlquicktime'     => InvokableFactory::class,
-        'laminasviewhelperinlinescript'      => InvokableFactory::class,
-        'laminasviewhelperjson'              => InvokableFactory::class,
-        'laminasviewhelperlayout'            => InvokableFactory::class,
-        'laminasviewhelperpaginationcontrol' => InvokableFactory::class,
-        'laminasviewhelperpartialloop'       => InvokableFactory::class,
-        'laminasviewhelperpartial'           => InvokableFactory::class,
-        'laminasviewhelperplaceholder'       => InvokableFactory::class,
-        'laminasviewhelperrenderchildmodel'  => InvokableFactory::class,
+        'laminasviewhelperasset'               => Helper\Service\AssetFactory::class,
+        'laminasviewhelperattributes'          => InvokableFactory::class,
+        'laminasviewhelperflashmessenger'      => Helper\Service\FlashMessengerFactory::class,
+        'laminasviewhelperidentity'            => Helper\Service\IdentityFactory::class,
+        'laminasviewhelperbasepath'            => InvokableFactory::class,
+        'laminasviewhelpercycle'               => InvokableFactory::class,
+        'laminasviewhelperdeclarevars'         => InvokableFactory::class,
+        'laminasviewhelperdoctype'             => InvokableFactory::class,
+        'laminasviewhelperescapehtml'          => InvokableFactory::class,
+        'laminasviewhelperescapehtmlattr'      => InvokableFactory::class,
+        'laminasviewhelperescapejs'            => InvokableFactory::class,
+        'laminasviewhelperescapecss'           => InvokableFactory::class,
+        'laminasviewhelperescapeurl'           => InvokableFactory::class,
+        'laminasviewhelpergravatar'            => InvokableFactory::class,
+        'laminasviewhelperhtmltag'             => InvokableFactory::class,
+        'laminasviewhelperheadlink'            => InvokableFactory::class,
+        'laminasviewhelperheadmeta'            => InvokableFactory::class,
+        'laminasviewhelperheadscript'          => InvokableFactory::class,
+        'laminasviewhelperheadstyle'           => InvokableFactory::class,
+        'laminasviewhelperheadtitle'           => InvokableFactory::class,
+        'laminasviewhelperhtmlflash'           => InvokableFactory::class,
+        'laminasviewhelperhtmllist'            => InvokableFactory::class,
+        'laminasviewhelperhtmlobject'          => InvokableFactory::class,
+        'laminasviewhelperhtmlpage'            => InvokableFactory::class,
+        'laminasviewhelperhtmlquicktime'       => InvokableFactory::class,
+        'laminasviewhelperinlinescript'        => InvokableFactory::class,
+        'laminasviewhelperjson'                => InvokableFactory::class,
+        'laminasviewhelperlayout'              => InvokableFactory::class,
+        'laminasviewhelperpaginationcontrol'   => InvokableFactory::class,
+        'laminasviewhelperpartialloop'         => InvokableFactory::class,
+        'laminasviewhelperpartial'             => InvokableFactory::class,
+        'laminasviewhelperplaceholder'         => InvokableFactory::class,
+        'laminasviewhelperrenderchildmodel'    => InvokableFactory::class,
         'laminasviewhelperrendertoplaceholder' => InvokableFactory::class,
-        'laminasviewhelperserverurl'         => InvokableFactory::class,
-        'laminasviewhelperurl'               => InvokableFactory::class,
-        'laminasviewhelperviewmodel'         => InvokableFactory::class,
+        'laminasviewhelperserverurl'           => InvokableFactory::class,
+        'laminasviewhelperurl'                 => InvokableFactory::class,
+        'laminasviewhelperviewmodel'           => InvokableFactory::class,
     ];
 
     /** @var Renderer\RendererInterface|null */
@@ -337,7 +339,6 @@ class HelperPluginManager extends AbstractPluginManager
     /**
      * Set renderer
      *
-     * @param  Renderer\RendererInterface $renderer
      * @return HelperPluginManager
      */
     public function setRenderer(Renderer\RendererInterface $renderer)
@@ -369,7 +370,7 @@ class HelperPluginManager extends AbstractPluginManager
      */
     public function injectRenderer($first, $second)
     {
-        $helper = ($first instanceof ContainerInterface)
+        $helper = $first instanceof ContainerInterface
             ? $second
             : $first;
 
@@ -399,15 +400,16 @@ class HelperPluginManager extends AbstractPluginManager
         if ($first instanceof ContainerInterface) {
             // v3 usage
             $container = $first;
-            $helper = $second;
+            $helper    = $second;
         } else {
             // v2 usage; grab the parent container
             $container = $second->getServiceLocator();
-            $helper = $first;
+            $helper    = $first;
         }
 
         // Allow either direct implementation or duck-typing.
-        if (! $helper instanceof TranslatorAwareInterface
+        if (
+            ! $helper instanceof TranslatorAwareInterface
             && ! method_exists($helper, 'setTranslator')
         ) {
             return;
@@ -455,11 +457,11 @@ class HelperPluginManager extends AbstractPluginManager
         if ($first instanceof ContainerInterface) {
             // v3 usage
             $container = $first;
-            $helper = $second;
+            $helper    = $second;
         } else {
             // v2 usage; grab the parent container
             $container = $second->getServiceLocator();
-            $helper = $first;
+            $helper    = $first;
         }
 
         if (! $container) {
@@ -500,7 +502,7 @@ class HelperPluginManager extends AbstractPluginManager
                     '%s can only create instances of %s and/or callables; %s is invalid',
                     get_class($this),
                     Helper\HelperInterface::class,
-                    (is_object($instance) ? get_class($instance) : gettype($instance))
+                    is_object($instance) ? get_class($instance) : gettype($instance)
                 )
             );
         }

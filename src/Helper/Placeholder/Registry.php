@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper\Placeholder;
 
 use const E_USER_DEPRECATED;
@@ -71,12 +73,11 @@ class Registry
      * Set the container for an item in the registry
      *
      * @param  string                      $key
-     * @param  Container\AbstractContainer $container
      * @return Registry
      */
     public function setContainer($key, Container\AbstractContainer $container)
     {
-        $key = (string) $key;
+        $key               = (string) $key;
         $this->items[$key] = $container;
 
         return $this;

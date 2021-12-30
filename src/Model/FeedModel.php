@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Model;
 
 use Laminas\Feed\Writer\Feed;
@@ -33,7 +35,7 @@ class FeedModel extends ViewModel
         }
 
         if (! $this->type) {
-            $options   = $this->getOptions();
+            $options = $this->getOptions();
             if (isset($options['feed_type'])) {
                 $this->type = $options['feed_type'];
             }
@@ -49,7 +51,6 @@ class FeedModel extends ViewModel
     /**
      * Set the feed object
      *
-     * @param  Feed $feed
      * @return FeedModel
      */
     public function setFeed(Feed $feed)
@@ -69,7 +70,7 @@ class FeedModel extends ViewModel
             return $this->type;
         }
 
-        $options   = $this->getOptions();
+        $options = $this->getOptions();
         if (isset($options['feed_type'])) {
             $this->type = $options['feed_type'];
         }

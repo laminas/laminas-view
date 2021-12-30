@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper;
 
 use Laminas\Mvc\ModuleRouteListener;
@@ -66,7 +68,7 @@ class Url extends AbstractHelper
 
         if (3 == func_num_args() && is_bool($options)) {
             $reuseMatchedParams = $options;
-            $options = [];
+            $options            = [];
         }
 
         if ($name === null) {
@@ -119,7 +121,8 @@ class Url extends AbstractHelper
      */
     public function setRouter($router)
     {
-        if (! $router instanceof RouteStackInterface
+        if (
+            ! $router instanceof RouteStackInterface
             && ! $router instanceof LegacyRouteStackInterface
         ) {
             throw new Exception\InvalidArgumentException(sprintf(
@@ -127,7 +130,7 @@ class Url extends AbstractHelper
                 __METHOD__,
                 RouteStackInterface::class,
                 LegacyRouteStackInterface::class,
-                (is_object($router) ? get_class($router) : gettype($router))
+                is_object($router) ? get_class($router) : gettype($router)
             ));
         }
 
@@ -143,7 +146,8 @@ class Url extends AbstractHelper
      */
     public function setRouteMatch($routeMatch)
     {
-        if (! $routeMatch instanceof RouteMatch
+        if (
+            ! $routeMatch instanceof RouteMatch
             && ! $routeMatch instanceof LegacyRouteMatch
         ) {
             throw new Exception\InvalidArgumentException(sprintf(
@@ -151,7 +155,7 @@ class Url extends AbstractHelper
                 __METHOD__,
                 RouteMatch::class,
                 LegacyRouteMatch::class,
-                (is_object($routeMatch) ? get_class($routeMatch) : gettype($routeMatch))
+                is_object($routeMatch) ? get_class($routeMatch) : gettype($routeMatch)
             ));
         }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper;
 
 use Laminas\Mvc\Controller\Plugin\FlashMessenger as V2PluginFlashMessenger;
@@ -113,7 +115,7 @@ class FlashMessenger extends AbstractHelper
     public function render($namespace = 'default', array $classes = [], $autoEscape = null)
     {
         $flashMessenger = $this->getPluginFlashMessenger();
-        $messages = $flashMessenger->getMessagesFromNamespace($namespace);
+        $messages       = $flashMessenger->getMessagesFromNamespace($namespace);
         return $this->renderMessages($namespace, $messages, $classes, $autoEscape);
     }
 
@@ -128,7 +130,7 @@ class FlashMessenger extends AbstractHelper
     public function renderCurrent($namespace = 'default', array $classes = [], $autoEscape = null)
     {
         $flashMessenger = $this->getPluginFlashMessenger();
-        $messages = $flashMessenger->getCurrentMessagesFromNamespace($namespace);
+        $messages       = $flashMessenger->getCurrentMessagesFromNamespace($namespace);
         return $this->renderMessages($namespace, $messages, $classes, $autoEscape);
     }
 
@@ -300,7 +302,8 @@ class FlashMessenger extends AbstractHelper
      */
     public function setPluginFlashMessenger($pluginFlashMessenger)
     {
-        if (! $pluginFlashMessenger instanceof V2PluginFlashMessenger
+        if (
+            ! $pluginFlashMessenger instanceof V2PluginFlashMessenger
             && ! $pluginFlashMessenger instanceof PluginFlashMessenger
         ) {
             throw new InvalidArgumentException(sprintf(
@@ -308,7 +311,7 @@ class FlashMessenger extends AbstractHelper
                 __METHOD__,
                 V2PluginFlashMessenger::class,
                 PluginFlashMessenger::class,
-                (is_object($pluginFlashMessenger) ? get_class($pluginFlashMessenger) : gettype($pluginFlashMessenger))
+                is_object($pluginFlashMessenger) ? get_class($pluginFlashMessenger) : gettype($pluginFlashMessenger)
             ));
         }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper;
 
 use ArrayObject;
@@ -211,7 +213,7 @@ class Doctype extends AbstractHelper
      */
     public function isHtml5()
     {
-        return (bool) stristr($this->__invoke(), '<!DOCTYPE html>');
+        return (bool) stristr((string) $this->__invoke(), '<!DOCTYPE html>');
     }
 
     /**
@@ -221,6 +223,6 @@ class Doctype extends AbstractHelper
      */
     public function isRdfa()
     {
-        return ($this->isHtml5() || stristr($this->getDoctype(), 'rdfa'));
+        return $this->isHtml5() || stristr($this->getDoctype(), 'rdfa');
     }
 }

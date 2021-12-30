@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper;
 
 use Laminas\View\Exception;
@@ -148,12 +150,11 @@ class Gravatar extends AbstractHtmlElement
      */
     protected function getAvatarUrl()
     {
-        $src = $this->getGravatarUrl()
-            . '/'   . ($this->emailIsHashed ? $this->getEmail() : md5($this->getEmail() ?: ''))
+        return $this->getGravatarUrl()
+            . '/' . ($this->emailIsHashed ? $this->getEmail() : md5($this->getEmail() ?: ''))
             . '?s=' . $this->getImgSize()
             . '&d=' . $this->getDefaultImg()
             . '&r=' . $this->getRating();
-        return $src;
     }
 
     /**
@@ -163,7 +164,7 @@ class Gravatar extends AbstractHtmlElement
      */
     protected function getGravatarUrl()
     {
-        return ($this->getSecure() === false) ? self::GRAVATAR_URL : self::GRAVATAR_URL_SECURE;
+        return $this->getSecure() === false ? self::GRAVATAR_URL : self::GRAVATAR_URL_SECURE;
     }
 
     /**
@@ -174,11 +175,9 @@ class Gravatar extends AbstractHtmlElement
     public function getImgTag()
     {
         $this->setSrcAttribForImg();
-        $html = '<img'
+        return '<img'
             . $this->htmlAttribs($this->getAttributes())
             . $this->getClosingBracket();
-
-        return $html;
     }
 
     /**
@@ -210,7 +209,7 @@ class Gravatar extends AbstractHtmlElement
         trigger_error(sprintf(
             '%s is deprecated; please use %s::setAttributes',
             __METHOD__,
-            __CLASS__
+            self::class
         ), E_USER_DEPRECATED);
 
         $this->setAttributes($attribs);
@@ -249,7 +248,7 @@ class Gravatar extends AbstractHtmlElement
         trigger_error(sprintf(
             '%s is deprecated; please use %s::getAttributes',
             __METHOD__,
-            __CLASS__
+            self::class
         ), E_USER_DEPRECATED);
 
         return $this->getAttributes();
@@ -290,7 +289,7 @@ class Gravatar extends AbstractHtmlElement
     public function setEmail($email)
     {
         $this->emailIsHashed = (bool) preg_match('/^[A-Za-z0-9]{32}$/', $email);
-        $this->email = strtolower(trim($email));
+        $this->email         = strtolower(trim($email));
         return $this;
     }
 
@@ -374,7 +373,7 @@ class Gravatar extends AbstractHtmlElement
      */
     public function setSecure($flag)
     {
-        $this->options['secure'] = ($flag === null) ? null : (bool) $flag;
+        $this->options['secure'] = $flag === null ? null : (bool) $flag;
         return $this;
     }
 
@@ -386,7 +385,7 @@ class Gravatar extends AbstractHtmlElement
     public function getSecure()
     {
         if ($this->options['secure'] === null) {
-            return (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
+            return isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off';
         }
 
         return $this->options['secure'];

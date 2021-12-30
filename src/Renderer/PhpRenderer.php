@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Renderer;
 
 use ArrayAccess;
@@ -187,7 +189,6 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     /**
      * Set script resolver
      *
-     * @param  Resolver $resolver
      * @return PhpRenderer
      * @throws Exception\InvalidArgumentException
      */
@@ -230,7 +231,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
         if (! is_array($variables) && ! $variables instanceof ArrayAccess) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'Expected array or ArrayAccess object; received "%s"',
-                (is_object($variables) ? get_class($variables) : gettype($variables))
+                is_object($variables) ? get_class($variables) : gettype($variables)
             ));
         }
 
@@ -301,7 +302,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      */
     public function __set($name, $value)
     {
-        $vars = $this->vars();
+        $vars        = $this->vars();
         $vars[$name] = $value;
     }
 
@@ -353,7 +354,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
         if (! $helpers instanceof HelperPluginManager) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'Helper helpers must extend Laminas\View\HelperPluginManager; got type "%s" instead',
-                (is_object($helpers) ? get_class($helpers) : gettype($helpers))
+                is_object($helpers) ? get_class($helpers) : gettype($helpers)
             ));
         }
         $helpers->setRenderer($this);
@@ -414,7 +415,6 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     /**
      * Set filter chain
      *
-     * @param  FilterChain $filters
      * @return PhpRenderer
      */
     public function setFilterChain(FilterChain $filters)
@@ -514,7 +514,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
             }
             try {
                 ob_start();
-                $includeReturn = include $this->__file;
+                $includeReturn   = include $this->__file;
                 $this->__content = ob_get_clean();
             } catch (Throwable $ex) {
                 ob_end_clean();

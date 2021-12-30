@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper;
 
 use Laminas\Stdlib\ArrayUtils;
@@ -75,7 +77,7 @@ class PartialLoop extends Partial
     {
         // reset the counter if it's called again
         $this->partialCounter = 0;
-        $content = '';
+        $content              = '';
 
         foreach ($this->extractViewVariables($values) as $item) {
             $this->nestObjectKey();

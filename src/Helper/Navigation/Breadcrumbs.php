@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper\Navigation;
 
 use Laminas\Navigation\AbstractContainer;
@@ -277,7 +279,7 @@ class Breadcrumbs extends AbstractHelper
         $model  = array_merge($params, ['pages' => []], ['separator' => $this->getSeparator()]);
         $active = $this->findActive($container);
         if ($active) {
-            $active = $active['page'];
+            $active           = $active['page'];
             $model['pages'][] = $active;
             while ($parent = $active->getParent()) {
                 if (! $parent instanceof AbstractPage) {

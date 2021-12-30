@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View;
 
 use const SEEK_CUR;
@@ -65,7 +67,7 @@ class Stream
     {
         // @codingStandardsIgnoreEnd
         // get the view script source
-        $path        = str_replace('laminas.view://', '', $path);
+        $path       = str_replace('laminas.view://', '', $path);
         $this->data = file_get_contents($path);
 
         /**
@@ -115,7 +117,7 @@ class Stream
     public function stream_read($count)
     {
         // @codingStandardsIgnoreEnd
-        $ret = substr($this->data, $this->pos, $count);
+        $ret        = substr($this->data, $this->pos, $count);
         $this->pos += strlen($ret);
         return $ret;
     }

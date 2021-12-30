@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper;
 
 use Laminas\Authentication\AuthenticationServiceInterface;
@@ -41,7 +43,6 @@ class Identity extends AbstractHelper
     /**
      * Set AuthenticationService instance
      *
-     * @param AuthenticationServiceInterface $authenticationService
      * @return Identity
      */
     public function setAuthenticationService(AuthenticationServiceInterface $authenticationService)

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper\Navigation;
 
 use Laminas\Navigation\AbstractContainer;
@@ -175,8 +177,8 @@ class Links extends AbstractHelper
             return '';
         }
 
-        $output = '';
-        $indent = $this->getIndent();
+        $output     = '';
+        $indent     = $this->getIndent();
         $this->root = $container;
 
         $result = $this->findAllRelations($active, $this->getRenderFlag());
@@ -228,9 +230,9 @@ class Links extends AbstractHelper
         // TODO: add more attribs
         // http://www.w3.org/TR/html401/struct/links.html#h-12.2
         $attribs = [
-            $attrib  => $relation,
-            'href'   => $href,
-            'title'  => $page->getLabel(),
+            $attrib => $relation,
+            'href'  => $href,
+            'title' => $page->getLabel(),
         ];
 
         return '<link' .
@@ -276,7 +278,7 @@ class Links extends AbstractHelper
         $native = array_values(static::$RELATIONS);
 
         foreach (array_keys($result) as $rel) {
-            $meth = 'getDefined' . ucfirst($rel);
+            $meth  = 'getDefined' . ucfirst($rel);
             $types = array_merge($native, array_diff($page->$meth(), $native));
 
             foreach ($types as $type) {
@@ -393,7 +395,6 @@ class Links extends AbstractHelper
      * tells search engines which document is considered by the author to be the
      * starting point of the collection.
      *
-     * @param  AbstractPage $page
      * @return AbstractPage|null
      */
     public function searchRelStart(AbstractPage $page)
@@ -420,13 +421,12 @@ class Links extends AbstractHelper
      * agents may choose to preload the "next" document, to reduce the perceived
      * load time.
      *
-     * @param  AbstractPage $page
      * @return AbstractPage|null
      */
     public function searchRelNext(AbstractPage $page)
     {
-        $found = null;
-        $break = false;
+        $found    = null;
+        $break    = false;
         $iterator = new RecursiveIteratorIterator($this->findRoot($page), RecursiveIteratorIterator::SELF_FIRST);
         foreach ($iterator as $intermediate) {
             if ($intermediate === $page) {
@@ -452,13 +452,12 @@ class Links extends AbstractHelper
      * Refers to the previous document in an ordered series of documents. Some
      * user agents also support the synonym "Previous".
      *
-     * @param  AbstractPage $page
      * @return AbstractPage|null
      */
     public function searchRelPrev(AbstractPage $page)
     {
-        $found = null;
-        $prev = null;
+        $found    = null;
+        $prev     = null;
         $iterator = new RecursiveIteratorIterator(
             $this->findRoot($page),
             RecursiveIteratorIterator::SELF_FIRST
@@ -485,7 +484,6 @@ class Links extends AbstractHelper
      * From {@link http://www.w3.org/TR/html4/types.html#type-links}:
      * Refers to a document serving as a chapter in a collection of documents.
      *
-     * @param  AbstractPage $page
      * @return AbstractPage|array|null
      */
     public function searchRelChapter(AbstractPage $page)
@@ -503,9 +501,11 @@ class Links extends AbstractHelper
 
         foreach ($root as $chapter) {
             // exclude self and start page from chapters
-            if ($chapter !== $page &&
+            if (
+                $chapter !== $page &&
                 ! in_array($chapter, $start) &&
-                $this->accept($chapter)) {
+                $this->accept($chapter)
+            ) {
                 $found[] = $chapter;
             }
         }
@@ -527,7 +527,6 @@ class Links extends AbstractHelper
      * From {@link http://www.w3.org/TR/html4/types.html#type-links}:
      * Refers to a document serving as a section in a collection of documents.
      *
-     * @param  AbstractPage $page
      * @return AbstractPage|array|null
      */
     public function searchRelSection(AbstractPage $page)
@@ -561,7 +560,6 @@ class Links extends AbstractHelper
      * Refers to a document serving as a subsection in a collection of
      * documents.
      *
-     * @param  AbstractPage $page
      * @return AbstractPage|array|null
      */
     public function searchRelSubsection(AbstractPage $page)
@@ -599,7 +597,6 @@ class Links extends AbstractHelper
      * From {@link http://www.w3.org/TR/html4/types.html#type-links}:
      * Refers to a document serving as a section in a collection of documents.
      *
-     * @param  AbstractPage $page
      * @return AbstractPage|null
      */
     public function searchRevSection(AbstractPage $page)
@@ -607,8 +604,10 @@ class Links extends AbstractHelper
         $found  = null;
         $parent = $page->getParent();
         if ($parent) {
-            if ($parent instanceof AbstractPage &&
-                $this->findRoot($page)->hasPage($parent)) {
+            if (
+                $parent instanceof AbstractPage &&
+                $this->findRoot($page)->hasPage($parent)
+            ) {
                 $found = $parent;
             }
         }
@@ -624,7 +623,6 @@ class Links extends AbstractHelper
      * Refers to a document serving as a subsection in a collection of
      * documents.
      *
-     * @param  AbstractPage $page
      * @return AbstractPage|null
      */
     public function searchRevSubsection(AbstractPage $page)
@@ -656,7 +654,6 @@ class Links extends AbstractHelper
      * makes sure finder methods will not traverse above the container given
      * to the render method.
      *
-     * @param  AbstractPage $page
      * @return AbstractContainer
      */
     protected function findRoot(AbstractPage $page)

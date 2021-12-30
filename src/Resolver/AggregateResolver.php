@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Resolver;
 
 use Countable;
@@ -11,7 +13,7 @@ use ReturnTypeWillChange; // phpcs:ignore
 
 use function count;
 
-class AggregateResolver implements Countable, IteratorAggregate, ResolverInterface
+class AggregateResolver implements Countable, IteratorAggregate, Resolver
 {
     public const FAILURE_NO_RESOLVERS = 'AggregateResolver_Failure_No_Resolvers';
     public const FAILURE_NOT_FOUND    = 'AggregateResolver_Failure_Not_Found';
@@ -64,7 +66,6 @@ class AggregateResolver implements Countable, IteratorAggregate, ResolverInterfa
     /**
      * Attach a resolver
      *
-     * @param  Resolver $resolver
      * @param  int $priority
      * @return AggregateResolver
      */
@@ -78,10 +79,9 @@ class AggregateResolver implements Countable, IteratorAggregate, ResolverInterfa
      * Resolve a template/pattern name to a resource the renderer can consume
      *
      * @param  string $name
-     * @param  null|Renderer $renderer
      * @return false|string
      */
-    public function resolve($name, Renderer $renderer = null)
+    public function resolve($name, ?Renderer $renderer = null)
     {
         $this->lastLookupFailure      = false;
         $this->lastSuccessfulResolver = null;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper;
 
 use Laminas\Navigation\AbstractContainer;
@@ -101,11 +103,11 @@ class Navigation extends AbstractNavigationHelper
      *
      * @param  string $method             helper name or method name in container
      * @param  array  $arguments          [optional] arguments to pass
-     * @throws Exception\ExceptionInterface        if proxying to a helper, and the
+     * @throws Exception\ExceptionInterface        If proxying to a helper, and the
      *                                    helper is not an instance of the
      *                                    interface specified in
-     *                                    {@link findHelper()}
-     * @throws ExceptionInterface  if method does not exist in container
+     *                                    {@link findHelper()}.
+     * @throws ExceptionInterface  If method does not exist in container.
      * @return mixed                      returns what the proxied call returns
      */
     public function __call($method, array $arguments = [])
@@ -145,8 +147,8 @@ class Navigation extends AbstractNavigationHelper
      * @param bool   $strict [optional] whether exceptions should be
      *                                  thrown if something goes
      *                                  wrong. Default is true.
-     * @throws Exception\RuntimeException if $strict is true and helper cannot be found
-     * @return Navigation\HelperInterface  helper instance
+     * @throws Exception\RuntimeException If $strict is true and helper cannot be found.
+     * @return NavigationHelper  helper instance
      */
     public function findHelper($proxy, $strict = true)
     {
@@ -299,7 +301,6 @@ class Navigation extends AbstractNavigationHelper
     /**
      * Set manager for retrieving navigation helpers
      *
-     * @param  Navigation\PluginManager $plugins
      * @return Navigation
      */
     public function setPluginManager(Navigation\PluginManager $plugins)
@@ -333,7 +334,6 @@ class Navigation extends AbstractNavigationHelper
     /**
      * Set the View object
      *
-     * @param  Renderer $view
      * @return self
      */
     public function setView(Renderer $view)

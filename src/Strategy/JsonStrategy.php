@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Strategy;
 
 use Laminas\EventManager\AbstractListenerAggregate;
@@ -41,6 +43,8 @@ class JsonStrategy extends AbstractListenerAggregate
 
     /**
      * {@inheritDoc}
+     *
+     * @param int $priority
      */
     public function attach(EventManagerInterface $events, $priority = 1)
     {
@@ -52,7 +56,7 @@ class JsonStrategy extends AbstractListenerAggregate
      * Set the content-type character set
      *
      * @param  string $charset
-     * @return JsonStrategy
+     * @return $this
      */
     public function setCharset($charset)
     {
@@ -73,7 +77,6 @@ class JsonStrategy extends AbstractListenerAggregate
     /**
      * Detect if we should use the JsonRenderer based on model type
      *
-     * @param  ViewEvent $e
      * @return null|JsonRenderer
      */
     public function selectRenderer(ViewEvent $e)
@@ -92,7 +95,6 @@ class JsonStrategy extends AbstractListenerAggregate
     /**
      * Inject the response with the JSON payload and appropriate Content-Type header
      *
-     * @param  ViewEvent $e
      * @return void
      */
     public function injectResponse(ViewEvent $e)
@@ -103,7 +105,7 @@ class JsonStrategy extends AbstractListenerAggregate
             return;
         }
 
-        $result   = $e->getResult();
+        $result = $e->getResult();
         if (! is_string($result)) {
             // We don't have a string, and thus, no JSON
             return;

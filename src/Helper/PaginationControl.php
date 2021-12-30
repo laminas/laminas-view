@@ -1,9 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper;
 
 use Laminas\Paginator;
-use Laminas\View;
 use Laminas\View\Exception;
 
 use function array_merge;
@@ -25,29 +26,29 @@ class PaginationControl extends AbstractHelper
      *
      * @var string|array
      */
-    protected static $defaultViewPartial = null;
+    protected static $defaultViewPartial;
 
     /**
      * Render the provided pages.  This checks if $view->paginator is set and,
      * if so, uses that.  Also, if no scrolling style or partial are specified,
      * the defaults will be used (if set).
      *
-     * @param  Paginator\Paginator $paginator      (Optional)
      * @param  string              $scrollingStyle (Optional) Scrolling style
      * @param  string              $partial        (Optional) View partial
      * @param  array|string        $params         (Optional) params to pass to the partial
-     * @throws Exception\RuntimeException if no paginator or no view partial provided
-     * @throws Exception\InvalidArgumentException if partial is invalid array
+     * @throws Exception\RuntimeException If no paginator or no view partial provided.
+     * @throws Exception\InvalidArgumentException If partial is invalid array.
      * @return string
      */
     public function __invoke(
-        Paginator\Paginator $paginator = null,
+        ?Paginator\Paginator $paginator = null,
         $scrollingStyle = null,
         $partial = null,
         $params = null
     ) {
         if ($paginator === null) {
-            if (isset($this->view->paginator)
+            if (
+                isset($this->view->paginator)
                 && $this->view->paginator !== null
                 && $this->view->paginator instanceof Paginator\Paginator
             ) {
@@ -76,7 +77,7 @@ class PaginationControl extends AbstractHelper
         }
 
         if (is_array($partial)) {
-            if (count($partial) != 2) {
+            if (count($partial) !== 2) {
                 throw new Exception\InvalidArgumentException(
                     'A view partial supplied as an array must contain two values: the filename and its module'
                 );

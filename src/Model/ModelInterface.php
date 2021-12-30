@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Model;
 
 use ArrayAccess;
@@ -92,7 +94,6 @@ interface ModelInterface extends Countable, IteratorAggregate
     /**
      * Add a child model
      *
-     * @param  ModelInterface $child
      * @param  null|string $captureTo Optional; if specified, the "capture to" value to set on the child
      * @param  null|bool $append Optional; if specified, append to child  with the same capture
      * @return ModelInterface

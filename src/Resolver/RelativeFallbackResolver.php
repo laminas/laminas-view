@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Resolver;
 
 use Laminas\View\Helper\ViewModel as ViewModelHelper;
@@ -25,11 +27,6 @@ class RelativeFallbackResolver implements ResolverInterface
     /** @var ResolverInterface */
     private $resolver;
 
-    /**
-     * Constructor
-     *
-     * @param ResolverInterface $resolver
-     */
     public function __construct(ResolverInterface $resolver)
     {
         $this->resolver = $resolver;
@@ -38,7 +35,7 @@ class RelativeFallbackResolver implements ResolverInterface
     /**
      * {@inheritDoc}
      */
-    public function resolve($name, RendererInterface $renderer = null)
+    public function resolve($name, ?RendererInterface $renderer = null)
     {
         $plugin = [$renderer, 'plugin'];
 

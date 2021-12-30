@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper\Navigation;
 
 use DOMDocument;
@@ -162,7 +164,7 @@ class Sitemap extends AbstractHelper
         }
 
         // create document
-        $dom = new DOMDocument('1.0', 'UTF-8');
+        $dom               = new DOMDocument('1.0', 'UTF-8');
         $dom->formatOutput = $this->getFormatOutput();
 
         // ...and urlset (root) element
@@ -199,7 +201,8 @@ class Sitemap extends AbstractHelper
             $urlNode = $dom->createElementNS(self::SITEMAP_NS, 'url');
             $urlSet->appendChild($urlNode);
 
-            if ($this->getUseSitemapValidators()
+            if (
+                $this->getUseSitemapValidators()
                 && ! $locValidator->isValid($url)
             ) {
                 throw new Exception\RuntimeException(sprintf(
@@ -220,7 +223,8 @@ class Sitemap extends AbstractHelper
                     $lastmod = date('c', $lastmod);
                 }
 
-                if (! $this->getUseSitemapValidators()
+                if (
+                    ! $this->getUseSitemapValidators()
                     || $lastmodValidator->isValid($lastmod)
                 ) {
                     // Cast $lastmod to string in case no validation was used
@@ -233,8 +237,10 @@ class Sitemap extends AbstractHelper
             // add 'changefreq' element if a valid changefreq is set in page
             if (isset($page->changefreq)) {
                 $changefreq = $page->changefreq;
-                if (! $this->getUseSitemapValidators() ||
-                    $changefreqValidator->isValid($changefreq)) {
+                if (
+                    ! $this->getUseSitemapValidators() ||
+                    $changefreqValidator->isValid($changefreq)
+                ) {
                     $urlNode->appendChild(
                         $dom->createElementNS(self::SITEMAP_NS, 'changefreq', $changefreq)
                     );
@@ -244,8 +250,10 @@ class Sitemap extends AbstractHelper
             // add 'priority' element if a valid priority is set in page
             if (isset($page->priority)) {
                 $priority = $page->priority;
-                if (! $this->getUseSitemapValidators() ||
-                    $priorityValidator->isValid($priority)) {
+                if (
+                    ! $this->getUseSitemapValidators() ||
+                    $priorityValidator->isValid($priority)
+                ) {
                     $urlNode->appendChild(
                         $dom->createElementNS(self::SITEMAP_NS, 'priority', $priority)
                     );
@@ -272,7 +280,6 @@ class Sitemap extends AbstractHelper
     /**
      * Returns an escaped absolute URL for the given page
      *
-     * @param AbstractPage $page
      * @return null|string
      */
     public function url(AbstractPage $page)
@@ -292,7 +299,7 @@ class Sitemap extends AbstractHelper
             // href is relative to current document; use url helpers
             $basePathHelper = $this->getView()->plugin('basepath');
             $curDoc         = $basePathHelper();
-            $curDoc         = ('/' == $curDoc) ? '' : trim($curDoc, '/');
+            $curDoc         = '/' == $curDoc ? '' : trim($curDoc, '/');
             $url            = rtrim($this->getServerUrl(), '/') . '/'
                                                                 . $curDoc
                                                                 . (empty($curDoc) ? '' : '/') . $href;
@@ -376,7 +383,7 @@ class Sitemap extends AbstractHelper
     public function getServerUrl()
     {
         if (! isset($this->serverUrl)) {
-            $serverUrlHelper  = $this->getView()->plugin('serverUrl');
+            $serverUrlHelper = $this->getView()->plugin('serverUrl');
             $this->serverUrl = $serverUrlHelper();
         }
 

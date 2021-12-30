@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper\Navigation;
 
 use Laminas\Navigation\AbstractContainer;
@@ -182,9 +184,9 @@ class Menu extends AbstractHelper
             }
 
             $liClass = empty($liClasses) ? '' : ' class="' . $escaper(implode(' ', $liClasses)) . '"';
-            $html .= $indent . '    <li' . $liClass . '>' . PHP_EOL;
-            $html .= $indent . '        ' . $this->htmlify($subPage, $escapeLabels, $addClassToListItem) . PHP_EOL;
-            $html .= $indent . '    </li>' . PHP_EOL;
+            $html   .= $indent . '    <li' . $liClass . '>' . PHP_EOL;
+            $html   .= $indent . '        ' . $this->htmlify($subPage, $escapeLabels, $addClassToListItem) . PHP_EOL;
+            $html   .= $indent . '    </li>' . PHP_EOL;
         }
 
         $html .= $indent . '</ul>';
@@ -293,7 +295,7 @@ class Menu extends AbstractHelper
         // iterate container
         $prevDepth = -1;
         foreach ($iterator as $page) {
-            $depth = $iterator->getDepth();
+            $depth    = $iterator->getDepth();
             $isActive = $page->isActive(true);
             if ($depth < $minDepth || ! $this->accept($page)) {
                 // page is below minDepth or not accepted by acl/visibility
@@ -307,7 +309,8 @@ class Menu extends AbstractHelper
                         $accept = true;
                     } elseif ($foundPage->getParent()->hasPage($page)) {
                         // page is a sibling of the active page...
-                        if (! $foundPage->hasPages(! $this->renderInvisible)
+                        if (
+                            ! $foundPage->hasPages(! $this->renderInvisible)
                             || is_int($maxDepth) && $foundDepth + 1 > $maxDepth
                         ) {
                             // accept if active page has no children, or the
@@ -322,7 +325,7 @@ class Menu extends AbstractHelper
             }
 
             // make sure indentation is correct
-            $depth -= $minDepth;
+            $depth   -= $minDepth;
             $myIndent = $indent.str_repeat('        ', $depth);
             if ($depth > $prevDepth) {
                 // start new ul tag
@@ -335,7 +338,7 @@ class Menu extends AbstractHelper
             } elseif ($prevDepth > $depth) {
                 // close li/ul tags until we're at current depth
                 for ($i = $prevDepth; $i > $depth; $i--) {
-                    $ind = $indent.str_repeat('        ', $i);
+                    $ind   = $indent.str_repeat('        ', $i);
                     $html .= $ind . '    </li>' . PHP_EOL;
                     $html .= $ind . '</ul>' . PHP_EOL;
                 }
@@ -359,7 +362,7 @@ class Menu extends AbstractHelper
                 $liClasses[] = $page->getClass();
             }
             $liClass = empty($liClasses) ? '' : ' class="' . $escaper(implode(' ', $liClasses)) . '"';
-            $html .= $myIndent . '    <li' . $liClass . '>' . PHP_EOL
+            $html   .= $myIndent . '    <li' . $liClass . '>' . PHP_EOL
                 . $myIndent . '        ' . $this->htmlify($page, $escapeLabels, $addClassToListItem) . PHP_EOL;
 
             // store as previous depth for next iteration
@@ -370,7 +373,7 @@ class Menu extends AbstractHelper
             // done iterating container; close open ul/li tags
             for ($i = $prevDepth + 1; $i > 0; $i--) {
                 $myIndent = $indent . str_repeat('        ', $i - 1);
-                $html .= $myIndent . '    </li>' . PHP_EOL
+                $html    .= $myIndent . '    </li>' . PHP_EOL
                     . $myIndent . '</ul>' . PHP_EOL;
             }
             $html = rtrim($html, PHP_EOL);
@@ -484,8 +487,8 @@ class Menu extends AbstractHelper
     {
         // get attribs for element
         $attribs = [
-            'id'     => $page->getId(),
-            'title'  => $this->translate($page->getTitle(), $page->getTextDomain()),
+            'id'    => $page->getId(),
+            'title' => $this->translate($page->getTitle(), $page->getTextDomain()),
         ];
 
         if ($addClassToListItem === false) {
@@ -508,7 +511,7 @@ class Menu extends AbstractHelper
         if ($escapeLabel === true) {
             /** @var EscapeHtml $escaper */
             $escaper = $this->view->plugin('escapeHtml');
-            $html .= $escaper($label);
+            $html   .= $escaper($label);
         } else {
             $html .= $label;
         }

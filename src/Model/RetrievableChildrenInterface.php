@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @see       https://github.com/laminas/laminas-view for the canonical source repository
  * @copyright https://github.com/laminas/laminas-view/blob/master/COPYRIGHT.md

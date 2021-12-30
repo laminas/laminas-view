@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper\Escaper;
 
 use Laminas\Escaper;
@@ -46,7 +48,7 @@ abstract class AbstractHelper extends Helper\AbstractHelper
         }
 
         if (is_array($value)) {
-            if (! (self::RECURSE_ARRAY & $recurse)) {
+            if (! ($recurse & self::RECURSE_ARRAY)) {
                 throw new Exception\InvalidArgumentException(
                     'Array provided to Escape helper, but flags do not allow recursion'
                 );
@@ -58,7 +60,7 @@ abstract class AbstractHelper extends Helper\AbstractHelper
         }
 
         if (is_object($value)) {
-            if (! (self::RECURSE_OBJECT & $recurse)) {
+            if (! ($recurse & self::RECURSE_OBJECT)) {
                 // Attempt to cast it to a string
                 if (method_exists($value, '__toString')) {
                     return $this->escape((string) $value);
@@ -118,8 +120,7 @@ abstract class AbstractHelper extends Helper\AbstractHelper
     /**
      * Set instance of Escaper
      *
-     * @param  Escaper\Escaper $escaper
-     * @return AbstractHelper
+     * @return $this
      */
     public function setEscaper(Escaper\Escaper $escaper)
     {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper;
 
 use Laminas\View\Exception;
@@ -33,7 +35,7 @@ class HeadTitle extends Placeholder\Container\AbstractStandalone
     public function __invoke($title = null, $setType = null)
     {
         if (null === $setType) {
-            $setType = (null === $this->getDefaultAttachOrder())
+            $setType = null === $this->getDefaultAttachOrder()
                      ? Placeholder\Container\AbstractContainer::APPEND
                      : $this->getDefaultAttachOrder();
         }
@@ -60,7 +62,7 @@ class HeadTitle extends Placeholder\Container\AbstractStandalone
      */
     public function toString($indent = null)
     {
-        $indent = (null !== $indent)
+        $indent = null !== $indent
                 ? $this->getWhitespace($indent)
                 : $this->getIndent();
 
@@ -84,11 +86,11 @@ class HeadTitle extends Placeholder\Container\AbstractStandalone
         }
 
         $separator = $this->getSeparator();
-        $output = '';
+        $output    = '';
 
         $prefix = $this->getPrefix();
         if ($prefix) {
-            $output  .= $prefix;
+            $output .= $prefix;
         }
 
         $output .= implode($separator, $items);
@@ -98,7 +100,7 @@ class HeadTitle extends Placeholder\Container\AbstractStandalone
             $output .= $postfix;
         }
 
-        $output = ($this->autoEscape) ? $this->escape($output) : $output;
+        $output = $this->autoEscape ? $this->escape($output) : $output;
 
         return $output;
     }
@@ -112,11 +114,13 @@ class HeadTitle extends Placeholder\Container\AbstractStandalone
      */
     public function setDefaultAttachOrder($setType)
     {
-        if (! in_array($setType, [
+        if (
+            ! in_array($setType, [
             Placeholder\Container\AbstractContainer::APPEND,
             Placeholder\Container\AbstractContainer::SET,
             Placeholder\Container\AbstractContainer::PREPEND,
-        ])) {
+            ])
+        ) {
             throw new Exception\DomainException(
                 "You must use a valid attach order: 'PREPEND', 'APPEND' or 'SET'"
             );

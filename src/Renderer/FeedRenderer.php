@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Renderer;
 
 use ArrayAccess;
@@ -45,7 +47,6 @@ class FeedRenderer implements RendererInterface
      * Set the resolver used to map a template name to a resource the renderer may consume.
      *
      * @todo   Determine use case for resolvers for feeds
-     * @param  Resolver $resolver
      * @return FeedRenderer
      */
     public function setResolver(Resolver $resolver)
@@ -87,7 +88,7 @@ class FeedRenderer implements RendererInterface
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s expects a ViewModel or a string feed type as the first argument; received "%s"',
                 __METHOD__,
-                (is_object($nameOrModel) ? get_class($nameOrModel) : gettype($nameOrModel))
+                is_object($nameOrModel) ? get_class($nameOrModel) : gettype($nameOrModel)
             ));
         }
 

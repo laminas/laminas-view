@@ -1,8 +1,8 @@
 <?php
 
-namespace Laminas\View\Helper;
+declare(strict_types=1);
 
-use const PHP_EOL;
+namespace Laminas\View\Helper;
 
 use Laminas\View\Exception\InvalidArgumentException;
 
@@ -10,6 +10,8 @@ use function array_merge;
 use function implode;
 use function is_array;
 use function is_string;
+
+use const PHP_EOL;
 
 class HtmlObject extends AbstractHtmlElement
 {
@@ -42,7 +44,7 @@ class HtmlObject extends AbstractHtmlElement
         $attribs = array_merge(['data' => $data, 'type' => $type], $attribs);
 
         // Params
-        $paramHtml = [];
+        $paramHtml      = [];
         $closingBracket = $this->getClosingBracket();
 
         foreach ($params as $param => $options) {
@@ -61,11 +63,9 @@ class HtmlObject extends AbstractHtmlElement
         }
 
         // Object header
-        $xhtml = '<object' . $this->htmlAttribs($attribs) . '>' . PHP_EOL
+        return '<object' . $this->htmlAttribs($attribs) . '>' . PHP_EOL
                  . implode(PHP_EOL, $paramHtml) . PHP_EOL
                  . ($content ? $content . PHP_EOL : '')
                  . '</object>';
-
-        return $xhtml;
     }
 }

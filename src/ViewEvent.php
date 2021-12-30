@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View;
 
 use ArrayAccess;
@@ -24,7 +26,7 @@ class ViewEvent extends Event
     /** @var null|Model */
     protected $model;
 
-    /** @var Renderer */
+    /** @var Renderer|null */
     protected $renderer;
 
     /** @var null|Request */
@@ -39,7 +41,6 @@ class ViewEvent extends Event
     /**
      * Set the view model
      *
-     * @param  Model $model
      * @return ViewEvent
      */
     public function setModel(Model $model)
@@ -51,7 +52,6 @@ class ViewEvent extends Event
     /**
      * Set the MVC request object
      *
-     * @param  Request $request
      * @return ViewEvent
      */
     public function setRequest(Request $request)
@@ -63,7 +63,6 @@ class ViewEvent extends Event
     /**
      * Set the MVC response object
      *
-     * @param  Response $response
      * @return ViewEvent
      */
     public function setResponse(Response $response)
@@ -97,7 +96,6 @@ class ViewEvent extends Event
     /**
      * Set value for renderer
      *
-     * @param  Renderer $renderer
      * @return ViewEvent
      */
     public function setRenderer(Renderer $renderer)

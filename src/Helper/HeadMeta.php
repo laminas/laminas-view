@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper;
 
 use const E_USER_WARNING;
@@ -127,11 +129,13 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      */
     public function __call($method, $args)
     {
-        if (preg_match(
+        if (
+            preg_match(
             '/^(?P<action>set|(pre|ap)pend|offsetSet)(?P<type>Name|HttpEquiv|Property|Itemprop)$/',
             $method,
             $matches
-        )) {
+            )
+        ) {
             $action = $matches['action'];
             $type   = $this->normalizeType($matches['type']);
             $argc   = count($args);
@@ -154,7 +158,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
                 $args[] = [];
             }
 
-            $item  = $this->createData($type, $args[0], $args[1], $args[2]);
+            $item = $this->createData($type, $args[0], $args[1], $args[2]);
 
             if ('offsetSet' == $action) {
                 return $this->offsetSet($index, $item);
@@ -176,7 +180,7 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      */
     public function toString($indent = null)
     {
-        $indent = (null !== $indent)
+        $indent = null !== $indent
             ? $this->getWhitespace($indent)
             : $this->getIndent();
 
@@ -227,7 +231,6 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
     /**
      * Build meta HTML string
      *
-     * @param  stdClass $item
      * @throws Exception\InvalidArgumentException
      * @return string
      */
@@ -243,7 +246,8 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
 
         $modifiersString = '';
         foreach ($item->modifiers as $key => $value) {
-            if ($this->view->plugin('doctype')->isHtml5()
+            if (
+                $this->view->plugin('doctype')->isHtml5()
                 && $key == 'scheme'
             ) {
                 throw new Exception\InvalidArgumentException(
@@ -263,10 +267,11 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
         }
 
         if (method_exists($this->view, 'plugin')) {
-            if ($this->view->plugin('doctype')->isHtml5()
+            if (
+                $this->view->plugin('doctype')->isHtml5()
                 && $type == 'charset'
             ) {
-                $tpl = ($this->view->plugin('doctype')->isXhtml())
+                $tpl = $this->view->plugin('doctype')->isXhtml()
                     ? '<meta %s="%s"/>'
                     : '<meta %s="%s">';
             } elseif ($this->view->plugin('doctype')->isXhtml()) {
@@ -286,7 +291,8 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
             $modifiersString
         );
 
-        if (isset($item->modifiers['conditional'])
+        if (
+            isset($item->modifiers['conditional'])
             && ! empty($item->modifiers['conditional'])
             && is_string($item->modifiers['conditional'])
         ) {
@@ -334,7 +340,8 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      */
     protected function isValid($item)
     {
-        if ((! $item instanceof stdClass)
+        if (
+            ! $item instanceof stdClass
             || ! isset($item->type)
             || ! isset($item->modifiers)
         ) {
@@ -346,7 +353,8 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
             return false;
         }
 
-        if (! isset($item->content)
+        if (
+            ! isset($item->content)
             && (! $doctype->isHtml5()
             || (! $doctype->isHtml5() && $item->type !== 'charset'))
         ) {
@@ -354,14 +362,16 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
         }
 
         // <meta itemprop= ... /> is only supported with doctype html
-        if (! $doctype->isHtml5()
+        if (
+            ! $doctype->isHtml5()
             && $item->type === 'itemprop'
         ) {
             return false;
         }
 
         // <meta property= ... /> is only supported with doctype RDFa
-        if (! $doctype->isRdfa()
+        if (
+            ! $doctype->isRdfa()
             && $item->type === 'property'
         ) {
             return false;
@@ -473,10 +483,10 @@ class HeadMeta extends Placeholder\Container\AbstractStandalone
      */
     public function setCharset($charset)
     {
-        $item = new stdClass();
-        $item->type = 'charset';
-        $item->charset = $charset;
-        $item->content = null;
+        $item            = new stdClass();
+        $item->type      = 'charset';
+        $item->charset   = $charset;
+        $item->content   = null;
         $item->modifiers = [];
 
         if (! $this->isValid($item)) {

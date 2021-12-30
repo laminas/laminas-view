@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View;
 
 use Laminas\EventManager\EventManager;
@@ -29,7 +31,6 @@ class View implements EventManagerAwareInterface
     /**
      * Set MVC request object
      *
-     * @param  Request $request
      * @return View
      */
     public function setRequest(Request $request)
@@ -41,7 +42,6 @@ class View implements EventManagerAwareInterface
     /**
      * Set MVC response object
      *
-     * @param  Response $response
      * @return View
      */
     public function setResponse(Response $response)
@@ -73,7 +73,6 @@ class View implements EventManagerAwareInterface
     /**
      * Set the event manager instance
      *
-     * @param  EventManagerInterface $events
      * @return View
      */
     public function setEventManager(EventManagerInterface $events)
@@ -152,18 +151,17 @@ class View implements EventManagerAwareInterface
      *
      * @triggers renderer(ViewEvent)
      * @triggers response(ViewEvent)
-     * @param Model $model
      * @throws Exception\RuntimeException
      * @return null|string
      */
     public function render(Model $model)
     {
-        $event   = $this->getEvent();
+        $event = $this->getEvent();
         $event->setModel($model);
         $event->setName(ViewEvent::EVENT_RENDERER);
-        $events  = $this->getEventManager();
-        $results = $events->triggerEventUntil(function ($result) {
-            return ($result instanceof Renderer);
+        $events   = $this->getEventManager();
+        $results  = $events->triggerEventUntil(function ($result) {
+            return $result instanceof Renderer;
         }, $event);
         $renderer = $results->last();
         if (! $renderer instanceof Renderer) {
@@ -179,12 +177,13 @@ class View implements EventManagerAwareInterface
 
         // If EVENT_RENDERER or EVENT_RENDERER_POST changed the model, make sure
         // we use this new model instead of the current $model
-        $model   = $event->getModel();
+        $model = $event->getModel();
 
         // If we have children, render them first, but only if:
         // a) the renderer does not implement TreeRendererInterface, or
         // b) it does, but canRenderTrees() returns false
-        if ($model->hasChildren()
+        if (
+            $model->hasChildren()
             && (! $renderer instanceof TreeRendererInterface
                 || ! $renderer->canRenderTrees())
         ) {
@@ -213,7 +212,6 @@ class View implements EventManagerAwareInterface
     /**
      * Loop through children, rendering each
      *
-     * @param  Model $model
      * @throws Exception\DomainException
      * @return void
      */

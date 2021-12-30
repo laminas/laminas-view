@@ -38,7 +38,7 @@ final class HtmlAttributesSet extends ArrayObject
 
     public function __construct(Escaper $escaper, iterable $attributes = [])
     {
-        $attributes = $attributes instanceof Traversable ? iterator_to_array($attributes, true) : $attributes;
+        $attributes    = $attributes instanceof Traversable ? iterator_to_array($attributes, true) : $attributes;
         $this->escaper = $escaper;
         parent::__construct($attributes);
     }

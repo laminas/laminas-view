@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Resolver;
 
 use ArrayIterator;
@@ -62,7 +64,7 @@ class TemplateMapResolver implements IteratorAggregate, ResolverInterface
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s: expects an array or Traversable, received "%s"',
                 __METHOD__,
-                (is_object($map) ? get_class($map) : gettype($map))
+                is_object($map) ? get_class($map) : gettype($map)
             ));
         }
 
@@ -93,7 +95,7 @@ class TemplateMapResolver implements IteratorAggregate, ResolverInterface
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s: expects a string, array, or Traversable for the first argument; received "%s"',
                 __METHOD__,
-                (is_object($nameOrMap) ? get_class($nameOrMap) : gettype($nameOrMap))
+                is_object($nameOrMap) ? get_class($nameOrMap) : gettype($nameOrMap)
             ));
         }
 
@@ -121,7 +123,7 @@ class TemplateMapResolver implements IteratorAggregate, ResolverInterface
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s: expects an array or Traversable, received "%s"',
                 __METHOD__,
-                (is_object($map) ? get_class($map) : gettype($map))
+                is_object($map) ? get_class($map) : gettype($map)
             ));
         }
 
@@ -149,7 +151,7 @@ class TemplateMapResolver implements IteratorAggregate, ResolverInterface
      *
      * @param  string $name
      * @return false|string
-     * @throws Exception\DomainException if no entry exists
+     * @throws Exception\DomainException If no entry exists.
      */
     public function get($name)
     {
@@ -173,10 +175,9 @@ class TemplateMapResolver implements IteratorAggregate, ResolverInterface
      * Resolve a template/pattern name to a resource the renderer can consume
      *
      * @param string $name
-     * @param null|Renderer $renderer
      * @return false|string
      */
-    public function resolve($name, Renderer $renderer = null)
+    public function resolve($name, ?Renderer $renderer = null)
     {
         return $this->get($name);
     }

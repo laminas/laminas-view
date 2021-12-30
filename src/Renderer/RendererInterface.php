@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Renderer;
 
 use ArrayAccess;
@@ -25,7 +27,6 @@ interface RendererInterface
     /**
      * Set the resolver used to map a template name to a resource the renderer may consume.
      *
-     * @param  ResolverInterface $resolver
      * @return RendererInterface
      */
     public function setResolver(ResolverInterface $resolver);

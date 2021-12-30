@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Model;
 
 use ArrayAccess;
@@ -204,7 +206,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s: expects an array, or Traversable argument; received "%s"',
                 __METHOD__,
-                (is_object($options) ? get_class($options) : gettype($options))
+                is_object($options) ? get_class($options) : gettype($options)
             ));
         }
 
@@ -284,7 +286,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s: expects an array, or Traversable argument; received "%s"',
                 __METHOD__,
-                (is_object($variables) ? get_class($variables) : gettype($variables))
+                is_object($variables) ? get_class($variables) : gettype($variables)
             ));
         }
 
@@ -352,7 +354,6 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
     /**
      * Add a child model
      *
-     * @param  ModelInterface $child
      * @param  null|string $captureTo Optional; if specified, the "capture to" value to set on the child
      * @param  null|bool $append Optional; if specified, append to child  with the same capture
      * @return ViewModel
