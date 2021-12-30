@@ -35,8 +35,8 @@ use const PATHINFO_EXTENSION;
  */
 class TemplatePathStack implements ResolverInterface
 {
-    const FAILURE_NO_PATHS  = 'TemplatePathStack_Failure_No_Paths';
-    const FAILURE_NOT_FOUND = 'TemplatePathStack_Failure_Not_Found';
+    public const FAILURE_NO_PATHS  = 'TemplatePathStack_Failure_No_Paths';
+    public const FAILURE_NOT_FOUND = 'TemplatePathStack_Failure_Not_Found';
 
     /**
      * Default suffix to use

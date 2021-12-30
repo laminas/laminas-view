@@ -19,15 +19,15 @@ abstract class AbstractHelper extends Helper\AbstractHelper
     /**
      * @const Recursion constants
      */
-    const RECURSE_NONE   = 0x00;
-    const RECURSE_ARRAY  = 0x01;
-    const RECURSE_OBJECT = 0x02;
+    public const RECURSE_NONE   = 0x00;
+    public const RECURSE_ARRAY  = 0x01;
+    public const RECURSE_OBJECT = 0x02;
 
     /** @var string Encoding */
     protected $encoding = 'UTF-8';
 
-    /** @var Escaper\Escaper */
-    protected $escaper = null;
+    /** @var Escaper\Escaper|null */
+    protected $escaper;
 
     /**
      * Invoke this helper: escape a value

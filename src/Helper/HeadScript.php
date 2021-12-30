@@ -2,9 +2,6 @@
 
 namespace Laminas\View\Helper;
 
-use const FILTER_VALIDATE_BOOLEAN;
-use const PHP_EOL;
-
 use Laminas\View\Exception;
 use stdClass;
 
@@ -22,6 +19,9 @@ use function sprintf;
 use function str_replace;
 use function strtolower;
 use function ucfirst;
+
+use const FILTER_VALIDATE_BOOLEAN;
+use const PHP_EOL;
 
 /**
  * Helper for setting and retrieving script elements for HTML head section
@@ -44,13 +44,13 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      *
      * @const string
      */
-    const FILE   = 'FILE';
-    const SCRIPT = 'SCRIPT';
+    public const FILE   = 'FILE';
+    public const SCRIPT = 'SCRIPT';
 
     /**
      * @internal
      */
-    const DEFAULT_SCRIPT_TYPE = 'text/javascript';
+    public const DEFAULT_SCRIPT_TYPE = 'text/javascript';
 
     /**
      * Are arbitrary attributes allowed?

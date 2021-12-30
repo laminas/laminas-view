@@ -2,8 +2,6 @@
 
 namespace Laminas\View\Helper;
 
-use const E_USER_DEPRECATED;
-
 use Laminas\View\Exception;
 
 use function md5;
@@ -17,6 +15,8 @@ use function trim;
 use function ucwords;
 use function urlencode;
 
+use const E_USER_DEPRECATED;
+
 /**
  * Helper for retrieving avatars from gravatar.com
  */
@@ -25,28 +25,28 @@ class Gravatar extends AbstractHtmlElement
     /**
      * URL to gravatar service
      */
-    const GRAVATAR_URL = 'http://www.gravatar.com/avatar';
+    public const GRAVATAR_URL = 'http://www.gravatar.com/avatar';
     /**
      * Secure URL to gravatar service
      */
-    const GRAVATAR_URL_SECURE = 'https://secure.gravatar.com/avatar';
+    public const GRAVATAR_URL_SECURE = 'https://secure.gravatar.com/avatar';
 
     /**
      * Gravatar rating
      */
-    const RATING_G  = 'g';
-    const RATING_PG = 'pg';
-    const RATING_R  = 'r';
-    const RATING_X  = 'x';
+    public const RATING_G  = 'g';
+    public const RATING_PG = 'pg';
+    public const RATING_R  = 'r';
+    public const RATING_X  = 'x';
 
     /**
      * Default gravatar image value constants
      */
-    const DEFAULT_404       = '404';
-    const DEFAULT_MM        = 'mm';
-    const DEFAULT_IDENTICON = 'identicon';
-    const DEFAULT_MONSTERID = 'monsterid';
-    const DEFAULT_WAVATAR   = 'wavatar';
+    public const DEFAULT_404       = '404';
+    public const DEFAULT_MM        = 'mm';
+    public const DEFAULT_IDENTICON = 'identicon';
+    public const DEFAULT_MONSTERID = 'monsterid';
+    public const DEFAULT_WAVATAR   = 'wavatar';
 
     /**
      * Attributes for HTML image tag

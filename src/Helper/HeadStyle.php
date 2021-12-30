@@ -2,8 +2,6 @@
 
 namespace Laminas\View\Helper;
 
-use const PHP_EOL;
-
 use Laminas\View;
 use Laminas\View\Exception;
 use stdClass;
@@ -26,6 +24,8 @@ use function strpos;
 use function strtoupper;
 use function substr;
 use function trim;
+
+use const PHP_EOL;
 
 /**
  * Helper for setting and retrieving stylesheets

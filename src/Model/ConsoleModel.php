@@ -6,7 +6,7 @@ use function array_key_exists;
 
 class ConsoleModel extends ViewModel
 {
-    const RESULT = 'result';
+    public const RESULT = 'result';
 
     /**
      * Console output doesn't support containers.

@@ -29,21 +29,21 @@ abstract class AbstractContainer extends ArrayObject
      *
      * @const string
      */
-    const SET = 'SET';
+    public const SET = 'SET';
 
     /**
      * Whether or not to append contents to placeholder
      *
      * @const string
      */
-    const APPEND = 'APPEND';
+    public const APPEND = 'APPEND';
 
     /**
      * Whether or not to prepend contents to placeholder
      *
      * @const string
      */
-    const PREPEND = 'PREPEND';
+    public const PREPEND = 'PREPEND';
 
     /**
      * Key to which to capture content
@@ -78,14 +78,14 @@ abstract class AbstractContainer extends ArrayObject
      *
      * @var string
      */
-    protected $postfix   = '';
+    protected $postfix = '';
 
     /**
      * What text to prefix the placeholder with when rendering
      *
      * @var string
      */
-    protected $prefix    = '';
+    protected $prefix = '';
 
     /**
      * What string to use between individual items in the placeholder when rendering

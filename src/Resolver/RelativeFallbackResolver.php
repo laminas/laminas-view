@@ -20,7 +20,7 @@ use function substr;
  */
 class RelativeFallbackResolver implements ResolverInterface
 {
-    const NS_SEPARATOR = '/';
+    public const NS_SEPARATOR = '/';
 
     /** @var ResolverInterface */
     private $resolver;

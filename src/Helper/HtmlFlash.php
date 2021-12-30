@@ -9,7 +9,7 @@ class HtmlFlash extends AbstractHtmlElement
     /**
      * Default file type for a flash applet
      */
-    const TYPE = 'application/x-shockwave-flash';
+    public const TYPE = 'application/x-shockwave-flash';
 
     /**
      * Output a flash movie object tag

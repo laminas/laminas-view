@@ -29,7 +29,7 @@ class Navigation extends AbstractNavigationHelper
      *
      * @var string
      */
-    const NS = 'Laminas\View\Helper\Navigation';
+    public const NS = self::class;
 
     /**
      * Default proxy to use in {@link render()}

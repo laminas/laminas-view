@@ -2,9 +2,8 @@
 
 namespace Laminas\View\Exception;
 
-/**
- * Runtime exception
- */
-class RuntimeException extends \RuntimeException implements ExceptionInterface
+use RuntimeException as RuntimeError;
+
+class RuntimeException extends RuntimeError implements ExceptionInterface
 {
 }

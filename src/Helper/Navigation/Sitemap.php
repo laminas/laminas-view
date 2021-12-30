@@ -37,14 +37,14 @@ class Sitemap extends AbstractHelper
      *
      * @var string
      */
-    const SITEMAP_NS = 'http://www.sitemaps.org/schemas/sitemap/0.9';
+    public const SITEMAP_NS = 'http://www.sitemaps.org/schemas/sitemap/0.9';
 
     /**
      * Schema URL
      *
      * @var string
      */
-    const SITEMAP_XSD = 'http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd';
+    public const SITEMAP_XSD = 'http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd';
 
     /**
      * Whether XML output should be formatted

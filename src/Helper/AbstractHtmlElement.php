@@ -2,13 +2,13 @@
 
 namespace Laminas\View\Helper;
 
-use const PHP_EOL;
-
 use function str_replace;
 use function strlen;
 use function strpos;
 use function substr;
 use function trim;
+
+use const PHP_EOL;
 
 abstract class AbstractHtmlElement extends AbstractHelper
 {
@@ -17,7 +17,7 @@ abstract class AbstractHtmlElement extends AbstractHelper
      *
      * @deprecated just use PHP_EOL
      */
-    const EOL = PHP_EOL;
+    public const EOL = PHP_EOL;
 
     /**
      * The tag closing bracket

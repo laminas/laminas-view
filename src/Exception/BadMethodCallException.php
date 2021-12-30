@@ -2,9 +2,8 @@
 
 namespace Laminas\View\Exception;
 
-/**
- * Bad method call exception
- */
-class BadMethodCallException extends \BadMethodCallException implements ExceptionInterface
+use BadMethodCallException as BadMethodCall;
+
+class BadMethodCallException extends BadMethodCall implements ExceptionInterface
 {
 }
