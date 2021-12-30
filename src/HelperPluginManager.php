@@ -2,15 +2,16 @@
 
 namespace Laminas\View;
 
-use Interop\Container\ContainerInterface;
 use Laminas\EventManager\EventManagerAwareInterface;
 use Laminas\EventManager\SharedEventManagerInterface;
 use Laminas\I18n\Translator\TranslatorAwareInterface;
 use Laminas\I18n\Translator\TranslatorInterface;
 use Laminas\ServiceManager\AbstractPluginManager;
+use Laminas\ServiceManager\ConfigInterface;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\View\Exception\InvalidHelperException;
+use Psr\Container\ContainerInterface;
 
 /**
  * Plugin manager implementation for view helpers
@@ -27,7 +28,7 @@ class HelperPluginManager extends AbstractPluginManager
      * Most of these are present for legacy purposes, as v2 of the service
      * manager normalized names when fetching services.
      *
-     * @var string[]
+     * @var array<string, string>
      */
     protected $aliases = [
         'asset'               => Helper\Asset::class,
@@ -218,8 +219,6 @@ class HelperPluginManager extends AbstractPluginManager
      * basepath and url are not very useful without their factories, however the doctype
      * helper works fine as an invokable. The factory for doctype simply checks for the
      * config value from the merged config.
-     *
-     * @var array
      */
     protected $factories = [
         Helper\Asset::class               => Helper\Service\AssetFactory::class,
@@ -303,7 +302,7 @@ class HelperPluginManager extends AbstractPluginManager
     ];
 
     /**
-     * @var Renderer\RendererInterface
+     * @var Renderer\RendererInterface|null
      */
     protected $renderer;
 

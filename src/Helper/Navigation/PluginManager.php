@@ -3,6 +3,7 @@
 namespace Laminas\View\Helper\Navigation;
 
 use Interop\Container\ContainerInterface;
+use Laminas\ServiceManager\ConfigInterface;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\View\HelperPluginManager;
 
@@ -15,15 +16,12 @@ use Laminas\View\HelperPluginManager;
  */
 class PluginManager extends HelperPluginManager
 {
-    /**
-     * @var string Valid instance types.
-     */
     protected $instanceOf = AbstractHelper::class;
 
     /**
      * Default aliases
      *
-     * @var string[]
+     * @var array<string, string>
      */
     protected $aliases = [
         'breadcrumbs' => Breadcrumbs::class,
@@ -46,8 +44,6 @@ class PluginManager extends HelperPluginManager
 
     /**
      * Default factories
-     *
-     * @var string[]
      */
     protected $factories = [
         Breadcrumbs::class => InvokableFactory::class,
@@ -70,29 +66,10 @@ class PluginManager extends HelperPluginManager
      */
     public function __construct($configOrContainerInstance = null, array $v3config = [])
     {
-        $this->initializers[] = function ($first, $second): void {
-            // v2 vs v3 argument order
-            if ($first instanceof ContainerInterface) {
-                // v3
-                $container = $first;
-                $instance = $second;
-            } else {
-                // v2
-                $container = $second;
-                $instance = $first;
-            }
-
+        /** @psalm-suppress MissingClosureParamType */
+        $this->initializers[] = function (ContainerInterface $container, $instance): void {
             if (! $instance instanceof AbstractHelper) {
                 return;
-            }
-
-            // This initializer was written with v2 functionality in mind; as such,
-            // we need to test and see if we're called in a v2 context, and, if so,
-            // set the service locator to the parent locator.
-            //
-            // Under v3, the parent locator is what is passed to the method already.
-            if (! method_exists($container, 'configure') && $container->getServiceLocator()) {
-                $container = $container->getServiceLocator();
             }
 
             $instance->setServiceLocator($container);

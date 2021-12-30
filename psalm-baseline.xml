@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.10.0@916b098b008f6de4543892b1e0651c1c3b92cbfa">
+<files psalm-version="v4.15.0@a1b5e489e6fcebe40cb804793d964e99fc347820">
   <file src="bin/templatemap_generator.php">
     <MissingParamType occurrences="1">
       <code>$templatePath</code>
@@ -246,7 +246,8 @@
       <code>(string) $messageOpenFormat</code>
       <code>(string) $messageSeparatorString</code>
     </RedundantCastGivenDocblockType>
-    <RedundantConditionGivenDocblockType occurrences="2">
+    <RedundantConditionGivenDocblockType occurrences="3">
+      <code>$this-&gt;escapeHtmlHelper</code>
       <code>$this-&gt;escapeHtmlHelper</code>
       <code>null !== $this-&gt;view</code>
     </RedundantConditionGivenDocblockType>
@@ -382,7 +383,8 @@
     <RedundantCast occurrences="1">
       <code>(string) $conditionalStylesheet</code>
     </RedundantCast>
-    <RedundantCondition occurrences="1">
+    <RedundantCondition occurrences="2">
+      <code>$args</code>
       <code>$args</code>
     </RedundantCondition>
     <UndefinedMagicMethod occurrences="4">
@@ -574,7 +576,9 @@
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(bool) $flag</code>
     </RedundantCastGivenDocblockType>
-    <RedundantConditionGivenDocblockType occurrences="4">
+    <RedundantConditionGivenDocblockType occurrences="6">
+      <code>$this-&gt;view</code>
+      <code>$this-&gt;view</code>
       <code>$this-&gt;view</code>
       <code>(null !== $spec) &amp;&amp; is_string($spec)</code>
       <code>is_string($spec)</code>
@@ -656,8 +660,7 @@
       <code>$captureLock</code>
       <code>$captureType</code>
     </PropertyNotSetInConstructor>
-    <RedundantConditionGivenDocblockType occurrences="3">
-      <code>$this-&gt;view instanceof View\Renderer\RendererInterface</code>
+    <RedundantConditionGivenDocblockType occurrences="2">
       <code>(null !== $content) &amp;&amp; is_string($content)</code>
       <code>is_string($content)</code>
     </RedundantConditionGivenDocblockType>
@@ -706,24 +709,6 @@
     <PropertyNotSetInConstructor occurrences="1">
       <code>HeadTitle</code>
     </PropertyNotSetInConstructor>
-  </file>
-  <file src="src/Helper/HtmlAttributes.php">
-    <MixedArgument occurrences="2">
-      <code>$this-&gt;getView()-&gt;plugin('escapehtml')-&gt;getEscaper()</code>
-      <code>$this-&gt;getView()-&gt;plugin('escapehtmlattr')-&gt;getEscaper()</code>
-    </MixedArgument>
-    <MixedMethodCall occurrences="2">
-      <code>getEscaper</code>
-      <code>getEscaper</code>
-    </MixedMethodCall>
-    <PossiblyNullReference occurrences="2">
-      <code>plugin</code>
-      <code>plugin</code>
-    </PossiblyNullReference>
-    <UndefinedInterfaceMethod occurrences="2">
-      <code>plugin</code>
-      <code>plugin</code>
-    </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/HtmlFlash.php">
     <MixedAssignment occurrences="1">
@@ -834,9 +819,6 @@
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Helper/Identity.php">
-    <DocblockTypeContradiction occurrences="1">
-      <code>$this-&gt;authenticationService instanceof AuthenticationServiceInterface</code>
-    </DocblockTypeContradiction>
     <MissingConstructor occurrences="1">
       <code>$authenticationService</code>
     </MissingConstructor>
@@ -935,11 +917,15 @@
       <code>(bool) $injectTranslator</code>
       <code>(string) $proxy</code>
     </RedundantCastGivenDocblockType>
-    <RedundantCondition occurrences="1">
+    <RedundantCondition occurrences="2">
+      <code>$view</code>
       <code>$view</code>
     </RedundantCondition>
-    <RedundantConditionGivenDocblockType occurrences="2">
+    <RedundantConditionGivenDocblockType occurrences="5">
       <code>$helper</code>
+      <code>$helper</code>
+      <code>$this-&gt;getServiceLocator()</code>
+      <code>$this-&gt;plugins</code>
       <code>$view &amp;&amp; $this-&gt;plugins</code>
     </RedundantConditionGivenDocblockType>
     <UndefinedInterfaceMethod occurrences="2">
@@ -953,9 +939,9 @@
       <code>getServiceLocator</code>
     </DeprecatedMethod>
     <DocblockTypeContradiction occurrences="7">
+      <code>! $services</code>
       <code>! is_int($this-&gt;minDepth)</code>
       <code>! is_string($message)</code>
-      <code>$container instanceof Navigation\AbstractContainer</code>
       <code>$services</code>
       <code>$this-&gt;acl === null</code>
       <code>$this-&gt;role === null</code>
@@ -1058,7 +1044,8 @@
       <code>(string) $indent</code>
     </RedundantCastGivenDocblockType>
     <RedundantCondition occurrences="1"/>
-    <RedundantConditionGivenDocblockType occurrences="10">
+    <RedundantConditionGivenDocblockType occurrences="11">
+      <code>$serviceLocator-&gt;getServiceLocator()</code>
       <code>$this-&gt;acl === null &amp;&amp; static::$defaultAcl !== null</code>
       <code>$this-&gt;role === null &amp;&amp; static::$defaultRole !== null</code>
       <code>is_int($maxDepth)</code>
@@ -1075,6 +1062,9 @@
     <UndefinedMethod occurrences="1">
       <code>setSharedManager</code>
     </UndefinedMethod>
+    <UnevaluatedCode occurrences="1">
+      <code>return '';</code>
+    </UnevaluatedCode>
   </file>
   <file src="src/Helper/Navigation/Breadcrumbs.php">
     <DocblockTypeContradiction occurrences="1">
@@ -1198,7 +1188,8 @@
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(int) $renderFlag</code>
     </RedundantCastGivenDocblockType>
-    <RedundantConditionGivenDocblockType occurrences="1">
+    <RedundantConditionGivenDocblockType occurrences="2">
+      <code>$this-&gt;root</code>
       <code>$this-&gt;root</code>
     </RedundantConditionGivenDocblockType>
   </file>
@@ -1338,17 +1329,9 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/Navigation/PluginManager.php">
-    <NonInvariantDocblockPropertyType occurrences="2">
-      <code>$factories</code>
-      <code>$instanceOf</code>
+    <NonInvariantDocblockPropertyType occurrences="1">
+      <code>$aliases</code>
     </NonInvariantDocblockPropertyType>
-    <PropertyNotSetInConstructor occurrences="2">
-      <code>PluginManager</code>
-      <code>PluginManager</code>
-    </PropertyNotSetInConstructor>
-    <UndefinedDocblockClass occurrences="1">
-      <code>null|ConfigInterface|ContainerInterface</code>
-    </UndefinedDocblockClass>
   </file>
   <file src="src/Helper/Navigation/Sitemap.php">
     <MissingConstructor occurrences="1">
@@ -1462,9 +1445,6 @@
     <MixedAssignment occurrences="1">
       <code>$values</code>
     </MixedAssignment>
-    <PossiblyInvalidArgument occurrences="1">
-      <code>$values</code>
-    </PossiblyInvalidArgument>
     <PossiblyNullArgument occurrences="1">
       <code>$name</code>
     </PossiblyNullArgument>
@@ -1575,9 +1555,6 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Helper/Placeholder/Container/AbstractStandalone.php">
-    <DocblockTypeContradiction occurrences="1">
-      <code>$this-&gt;container instanceof AbstractContainer</code>
-    </DocblockTypeContradiction>
     <InvalidReturnStatement occurrences="2">
       <code>$this-&gt;getContainer()-&gt;offsetSet($offset, $value)</code>
       <code>$this-&gt;getContainer()-&gt;offsetUnset($offset)</code>
@@ -1685,7 +1662,8 @@
       <code>getChildren</code>
       <code>render</code>
     </PossiblyNullReference>
-    <RedundantConditionGivenDocblockType occurrences="1">
+    <RedundantConditionGivenDocblockType occurrences="2">
+      <code>$this-&gt;viewModelHelper</code>
       <code>$this-&gt;viewModelHelper</code>
     </RedundantConditionGivenDocblockType>
   </file>
@@ -1943,7 +1921,8 @@
       <code>Helper\FlashMessenger::class</code>
       <code>\Zend\View\Helper\FlashMessenger::class</code>
     </DeprecatedClass>
-    <DocblockTypeContradiction occurrences="1">
+    <DocblockTypeContradiction occurrences="2">
+      <code>! $events</code>
       <code>! $events</code>
     </DocblockTypeContradiction>
     <InvalidScalarArgument occurrences="1">
@@ -1970,44 +1949,19 @@
       <code>has</code>
     </MixedMethodCall>
     <NonInvariantDocblockPropertyType occurrences="1">
-      <code>$factories</code>
+      <code>$aliases</code>
     </NonInvariantDocblockPropertyType>
-    <PropertyNotSetInConstructor occurrences="2">
-      <code>$renderer</code>
-      <code>HelperPluginManager</code>
-    </PropertyNotSetInConstructor>
-    <UndefinedDocblockClass occurrences="1">
-      <code>null|ConfigInterface|ContainerInterface</code>
-    </UndefinedDocblockClass>
     <UndefinedInterfaceMethod occurrences="2">
       <code>getServiceLocator</code>
       <code>getServiceLocator</code>
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/HtmlAttributesSet.php">
-    <MissingParamType occurrences="1">
-      <code>$value</code>
-    </MissingParamType>
-    <MixedArgument occurrences="2">
-      <code>$name</code>
-      <code>$value</code>
-    </MixedArgument>
-    <MixedArgumentTypeCoercion occurrences="2">
-      <code>$key</code>
+    <MixedArgumentTypeCoercion occurrences="1">
       <code>$value</code>
     </MixedArgumentTypeCoercion>
-    <MixedArrayOffset occurrences="1">
-      <code>$this[$name]</code>
-    </MixedArrayOffset>
-    <MixedAssignment occurrences="9">
-      <code>$name</code>
-      <code>$name</code>
-      <code>$name</code>
+    <MixedAssignment occurrences="2">
       <code>$storeValue</code>
-      <code>$this[$name]</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
       <code>$value</code>
     </MixedAssignment>
   </file>
@@ -2202,8 +2156,8 @@
   </file>
   <file src="src/Renderer/PhpRenderer.php">
     <DocblockTypeContradiction occurrences="8">
-      <code>! is_array($variables) &amp;&amp; ! $variables instanceof ArrayAccess</code>
       <code>gettype($helpers)</code>
+      <code>gettype($variables)</code>
       <code>is_callable($plugin)</code>
       <code>null === $this-&gt;__filterChain</code>
       <code>null === $this-&gt;__helpers</code>
@@ -2288,8 +2242,9 @@
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(bool) $renderTrees</code>
     </RedundantCastGivenDocblockType>
-    <RedundantConditionGivenDocblockType occurrences="1">
+    <RedundantConditionGivenDocblockType occurrences="2">
       <code>is_object($helpers)</code>
+      <code>is_object($variables)</code>
     </RedundantConditionGivenDocblockType>
     <UndefinedMethod occurrences="1">
       <code>setCurrent</code>
@@ -2332,8 +2287,8 @@
   </file>
   <file src="src/Resolver/TemplateMapResolver.php">
     <DocblockTypeContradiction occurrences="3">
-      <code>! is_array($map) &amp;&amp; ! $map instanceof Traversable</code>
-      <code>! is_array($map) &amp;&amp; ! $map instanceof Traversable</code>
+      <code>gettype($map)</code>
+      <code>gettype($map)</code>
       <code>is_string($nameOrMap)</code>
     </DocblockTypeContradiction>
     <InvalidArgument occurrences="1">
@@ -2345,10 +2300,14 @@
     <MixedReturnStatement occurrences="1">
       <code>$this-&gt;map[$name]</code>
     </MixedReturnStatement>
+    <RedundantConditionGivenDocblockType occurrences="2">
+      <code>is_object($map)</code>
+      <code>is_object($map)</code>
+    </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Resolver/TemplatePathStack.php">
     <DocblockTypeContradiction occurrences="2">
-      <code>! is_array($options) &amp;&amp; ! $options instanceof Traversable</code>
+      <code>gettype($options)</code>
       <code>is_string($path)</code>
     </DocblockTypeContradiction>
     <FalsableReturnStatement occurrences="2">
@@ -2388,8 +2347,9 @@
       <code>(bool) $flag</code>
       <code>(string) $defaultSuffix</code>
     </RedundantCastGivenDocblockType>
-    <RedundantConditionGivenDocblockType occurrences="1">
+    <RedundantConditionGivenDocblockType occurrences="2">
       <code>is_array($paths)</code>
+      <code>is_object($options)</code>
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Strategy/FeedStrategy.php">
@@ -2505,9 +2465,6 @@
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/View.php">
-    <DocblockTypeContradiction occurrences="1">
-      <code>$this-&gt;events instanceof EventManagerInterface</code>
-    </DocblockTypeContradiction>
     <ImplementedReturnTypeMismatch occurrences="1">
       <code>View</code>
     </ImplementedReturnTypeMismatch>
@@ -2583,19 +2540,6 @@
       <code>ViewEvent</code>
     </PropertyNotSetInConstructor>
   </file>
-  <file src="test/Helper/AbstractHtmlElementTest.php">
-    <UndefinedDocblockClass occurrences="1">
-      <code>AbstractHtmlElement|\PHPUnit_Framework_MockObject_MockObject</code>
-    </UndefinedDocblockClass>
-  </file>
-  <file src="test/Helper/AssetTest.php">
-    <MixedAssignment occurrences="1">
-      <code>$value</code>
-    </MixedAssignment>
-    <PossiblyInvalidArgument occurrences="1">
-      <code>testInvokeResult</code>
-    </PossiblyInvalidArgument>
-  </file>
   <file src="test/Helper/CycleTest.php">
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(string) $this-&gt;helper-&gt;toString()</code>
@@ -2638,8 +2582,7 @@
     <UndefinedThisPropertyAssignment occurrences="1">
       <code>$this-&gt;view</code>
     </UndefinedThisPropertyAssignment>
-    <UndefinedThisPropertyFetch occurrences="4">
-      <code>$this-&gt;view</code>
+    <UndefinedThisPropertyFetch occurrences="3">
       <code>$this-&gt;view</code>
       <code>$this-&gt;view</code>
       <code>$this-&gt;view</code>
@@ -3503,40 +3446,9 @@
     </UndefinedThisPropertyFetch>
   </file>
   <file src="test/Helper/LayoutTest.php">
-    <MixedAssignment occurrences="3">
-      <code>$helper</code>
-      <code>$helper</code>
-      <code>$result</code>
-    </MixedAssignment>
-    <MixedFunctionCall occurrences="2">
-      <code>$helper('alternate/layout')</code>
-      <code>$helper()</code>
-    </MixedFunctionCall>
-    <MixedMethodCall occurrences="4">
-      <code>getLayout</code>
-      <code>getTemplate</code>
-      <code>getTemplate</code>
-      <code>setTemplate</code>
-    </MixedMethodCall>
-    <UndefinedMethod occurrences="2">
-      <code>setRoot</code>
+    <UndefinedMethod occurrences="1">
       <code>setTemplate</code>
     </UndefinedMethod>
-    <UndefinedThisPropertyAssignment occurrences="4">
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;parent</code>
-      <code>$this-&gt;renderer</code>
-      <code>$this-&gt;viewModelHelper</code>
-    </UndefinedThisPropertyAssignment>
-    <UndefinedThisPropertyFetch occurrences="7">
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;helper</code>
-      <code>$this-&gt;parent</code>
-      <code>$this-&gt;parent</code>
-      <code>$this-&gt;parent</code>
-    </UndefinedThisPropertyFetch>
   </file>
   <file src="test/Helper/Navigation/AbstractHelperTest.php">
     <MixedArgument occurrences="1">
@@ -3545,7 +3457,8 @@
     <NonInvariantDocblockPropertyType occurrences="1">
       <code>$_helper</code>
     </NonInvariantDocblockPropertyType>
-    <RedundantConditionGivenDocblockType occurrences="1">
+    <RedundantConditionGivenDocblockType occurrences="2">
+      <code>$this-&gt;_helper</code>
       <code>$this-&gt;_helper</code>
     </RedundantConditionGivenDocblockType>
   </file>
@@ -3729,9 +3642,6 @@
     <UndefinedInterfaceMethod occurrences="1">
       <code>plugin</code>
     </UndefinedInterfaceMethod>
-    <UnevaluatedCode occurrences="1">
-      <code>$this-&gt;_doctypeHelper-&gt;setDoctype($this-&gt;_oldDoctype);</code>
-    </UnevaluatedCode>
     <UnusedForeachValue occurrences="2">
       <code>$discard</code>
       <code>$discard</code>
@@ -3755,9 +3665,6 @@
     </NonInvariantDocblockPropertyType>
   </file>
   <file src="test/Helper/Navigation/NavigationTest.php">
-    <DeprecatedMethod occurrences="1">
-      <code>getServiceLocator</code>
-    </DeprecatedMethod>
     <InvalidArgument occurrences="1">
       <code>[$this, 'toStringErrorHandler']</code>
     </InvalidArgument>
@@ -3786,9 +3693,6 @@
     <NonInvariantDocblockPropertyType occurrences="1">
       <code>$_helper</code>
     </NonInvariantDocblockPropertyType>
-    <RedundantConditionGivenDocblockType occurrences="1">
-      <code>method_exists($plugins, 'configure')</code>
-    </RedundantConditionGivenDocblockType>
     <TooManyArguments occurrences="1"/>
   </file>
   <file src="test/Helper/Navigation/PluginManagerCompatibilityTest.php">
@@ -3796,9 +3700,6 @@
       <code>$this-&gt;getServiceNotFoundException()</code>
       <code>$this-&gt;getServiceNotFoundException()</code>
     </ArgumentTypeCoercion>
-    <InvalidArgument occurrences="1">
-      <code>new Config([])</code>
-    </InvalidArgument>
     <RedundantConditionGivenDocblockType occurrences="2">
       <code>method_exists($helpers, 'configure')</code>
       <code>method_exists($helpers, 'configure')</code>
@@ -3833,8 +3734,16 @@
     <UndefinedInterfaceMethod occurrences="1">
       <code>plugin</code>
     </UndefinedInterfaceMethod>
-    <UnevaluatedCode occurrences="1">
+    <UnevaluatedCode occurrences="11">
       <code>$nav = clone $this-&gt;_nav2;</code>
+      <code>$nav = clone $this-&gt;_nav2;</code>
+      <code>$nav-&gt;addPage(['label' =&gt; 'Invalid', 'uri' =&gt; 'http://w.']);</code>
+      <code>$nav-&gt;addPage(['label' =&gt; 'Invalid', 'uri' =&gt; 'http://w.']);</code>
+      <code>$this-&gt;_helper-&gt;setUseSchemaValidation(true);</code>
+      <code>$this-&gt;_helper-&gt;setUseSitemapValidators(false);</code>
+      <code>$this-&gt;fail('A Laminas\View\Exception\InvalidArgumentException was not thrown on invalid &lt;loc /&gt;');</code>
+      <code>$this-&gt;fail('A Laminas\View\Exception\InvalidArgumentException was not thrown when using Schema validation');</code>
+      <code>return;</code>
     </UnevaluatedCode>
   </file>
   <file src="test/Helper/PaginationControlTest.php">
@@ -4091,42 +4000,6 @@
       <code>addPath</code>
     </UndefinedInterfaceMethod>
   </file>
-  <file src="test/Helper/Placeholder/ContainerTest.php">
-    <InvalidOperand occurrences="2">
-      <code>$lastIndex</code>
-      <code>$lastIndex</code>
-    </InvalidOperand>
-    <MixedArgument occurrences="9">
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value[$lastIndex - 1]</code>
-      <code>$value[$lastIndex]</code>
-    </MixedArgument>
-    <MixedArrayAccess occurrences="4">
-      <code>$value[$lastIndex - 1]</code>
-      <code>$value[$lastIndex - 1]</code>
-      <code>$value[$lastIndex]</code>
-      <code>$value[$lastIndex]</code>
-    </MixedArrayAccess>
-    <MixedAssignment occurrences="8">
-      <code>$return</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-    </MixedAssignment>
-    <TooManyArguments occurrences="1">
-      <code>new \Laminas\View\Helper\Placeholder\Container([])</code>
-    </TooManyArguments>
-  </file>
   <file src="test/Helper/Placeholder/RegistryTest.php">
     <TooManyArguments occurrences="2">
       <code>new Container(['foo', 'bar'])</code>
@@ -4224,13 +4097,6 @@
     <RedundantCondition occurrences="1">
       <code>method_exists($helpers, 'configure')</code>
     </RedundantCondition>
-  </file>
-  <file src="test/Helper/Service/DoctypeFactoryTest.php">
-    <TooManyArguments occurrences="3">
-      <code>$factory</code>
-      <code>$factory</code>
-      <code>$factory</code>
-    </TooManyArguments>
   </file>
   <file src="test/Helper/Service/IdentityFactoryTest.php">
     <MissingReturnType occurrences="1">
@@ -4519,9 +4385,6 @@
     </UnusedClosureParam>
   </file>
   <file src="test/HelperPluginManagerTest.php">
-    <InvalidArgument occurrences="1">
-      <code>new Config([])</code>
-    </InvalidArgument>
     <MissingClosureParamType occurrences="2">
       <code>$container</code>
       <code>$container</code>
@@ -5395,13 +5258,5 @@
       <code>$e</code>
       <code>$e</code>
     </UnusedClosureParam>
-  </file>
-  <file src="test/autoload.php">
-    <MixedArgument occurrences="1">
-      <code>PHPUnit_Framework_Error_Deprecated::class</code>
-    </MixedArgument>
-    <UndefinedClass occurrences="1">
-      <code>PHPUnit_Framework_Error_Deprecated</code>
-    </UndefinedClass>
   </file>
 </files>

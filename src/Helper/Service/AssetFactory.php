@@ -11,8 +11,6 @@ use Laminas\View\Helper\Asset;
 class AssetFactory implements FactoryInterface
 {
     /**
-     * {@inheritDoc}
-     *
      * @param ContainerInterface $container
      * @param string $name
      * @param null|array $options
