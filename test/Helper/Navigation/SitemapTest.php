@@ -104,12 +104,12 @@ class SitemapTest extends AbstractTest
         $expected = [
             'registered'       => $rendered1,
             'supplied'         => $rendered2,
-            'registered_again' => $rendered1
+            'registered_again' => $rendered1,
         ];
         $actual = [
             'registered'       => $this->_helper->render(),
             'supplied'         => $this->_helper->render($this->_nav2),
-            'registered_again' => $this->_helper->render()
+            'registered_again' => $this->_helper->render(),
         ];
 
         $this->assertEquals($expected, $actual);
@@ -214,7 +214,7 @@ class SitemapTest extends AbstractTest
             'muppets' => [
                 'muppets',
                 View\Exception\InvalidArgumentException::class,
-                'Invalid server URL: "muppets"'
+                'Invalid server URL: "muppets"',
             ],
         ];
     }

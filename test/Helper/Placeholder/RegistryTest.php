@@ -116,7 +116,7 @@ class RegistryTest extends TestCase
     {
         $this->registry->setContainerClass(TestAsset\MockContainer::class);
         $data = [
-            'Laminas-10793'
+            'Laminas-10793',
         ];
         $container = $this->registry->createContainer('foo', $data);
         $this->assertEquals(['Laminas-10793'], $container->data);

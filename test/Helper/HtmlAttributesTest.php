@@ -24,7 +24,7 @@ class HtmlAttributesTest extends TestCase
     public function testThatInvokeWillReturnAttributeSetWithTheExpectedValues(): void
     {
         $set = ($this->helper)([
-            'some' => 'value'
+            'some' => 'value',
         ]);
 
         self::assertEquals(['some' => 'value'], $set->getArrayCopy());

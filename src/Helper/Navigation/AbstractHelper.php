@@ -412,7 +412,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
             'title'  => $title,
             'class'  => $page->getClass(),
             'href'   => $page->getHref(),
-            'target' => $page->getTarget()
+            'target' => $page->getTarget(),
         ];
 
         /** @var \Laminas\View\Helper\EscapeHtml $escaper */

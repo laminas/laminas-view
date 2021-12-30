@@ -264,7 +264,7 @@ class GravatarTest extends TestCase
     {
         self::assertFalse(method_exists($this->helper, 'setUnknown'));
         $options = [
-            'unknown' => ['val' => 1]
+            'unknown' => ['val' => 1],
         ];
         $this->helper->__invoke()->setOptions($options);
     }

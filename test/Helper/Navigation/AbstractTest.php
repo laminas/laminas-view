@@ -124,7 +124,7 @@ abstract class AbstractTest extends TestCase
                                         'default' => $config['nav_test1'],
                                     ],
                                 ];
-                            }
+                            },
                         ],
                     ],
                 ],
@@ -220,7 +220,7 @@ abstract class AbstractTest extends TestCase
             'Page 2.3'     => 'Side 2.3',
             'Page 2.3.3.1' => 'Side 2.3.3.1',
             'Home'         => 'Hjem',
-            'Go home'      => 'Gå hjem'
+            'Go home'      => 'Gå hjem',
         ];
         $translator = new Translator();
         $translator->getPluginManager()->setService('default', $loader);

@@ -228,7 +228,7 @@ class Links extends AbstractHelper
         $attribs = [
             $attrib  => $relation,
             'href'   => $href,
-            'title'  => $page->getLabel()
+            'title'  => $page->getLabel(),
         ];
 
         return '<link' .
@@ -703,7 +703,7 @@ class Links extends AbstractHelper
             // value is a string; make a URI page
             return AbstractPage::factory([
                 'type' => 'uri',
-                'uri'  => $mixed
+                'uri'  => $mixed,
             ]);
         }
 

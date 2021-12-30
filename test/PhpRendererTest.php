@@ -221,7 +221,7 @@ class PhpRendererTest extends TestCase
     {
         $helpers = new HelperPluginManager(new ServiceManager(), ['invokables' => [
             'uninvokable' => TestAsset\Uninvokable::class,
-        ]]);
+        ],]);
         $this->renderer->setHelperPluginManager($helpers);
         $helper = $this->renderer->uninvokable();
         $this->assertInstanceOf(TestAsset\Uninvokable::class, $helper);
@@ -234,7 +234,7 @@ class PhpRendererTest extends TestCase
     {
         $helpers = new HelperPluginManager(new ServiceManager(), ['invokables' => [
             'invokable' => TestAsset\Invokable::class,
-        ]]);
+        ],]);
         $this->renderer->setHelperPluginManager($helpers);
         $return = $this->renderer->invokable('it works!');
         $this->assertEquals('LaminasTest\View\TestAsset\Invokable::__invoke: it works!', $return);
@@ -373,7 +373,7 @@ class PhpRendererTest extends TestCase
     {
         return [
             ['/does/not/exists'],
-            ['.']
+            ['.'],
         ];
     }
 

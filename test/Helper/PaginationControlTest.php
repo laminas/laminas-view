@@ -36,7 +36,7 @@ class PaginationControlTest extends TestCase
     {
         $resolver = new Resolver\TemplatePathStack(['script_paths' => [
             __DIR__ . '/_files/scripts',
-        ]]);
+        ],]);
         $view = new View();
         $view->setResolver($resolver);
 

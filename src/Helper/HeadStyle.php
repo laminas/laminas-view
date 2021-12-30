@@ -52,7 +52,7 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
      */
     protected $mediaTypes = [
         'all', 'aural', 'braille', 'handheld', 'print',
-        'projection', 'screen', 'tty', 'tv'
+        'projection', 'screen', 'tty', 'tv',
     ];
 
     /**

@@ -34,7 +34,7 @@ class DeclareVarsTest extends TestCase
             'varName2',
             [
                 'varName3' => 'defaultValue',
-                'varName4' => []
+                'varName4' => [],
             ]
         );
     }

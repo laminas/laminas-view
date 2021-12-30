@@ -115,7 +115,7 @@ class HeadTitle extends Placeholder\Container\AbstractStandalone
         if (! in_array($setType, [
             Placeholder\Container\AbstractContainer::APPEND,
             Placeholder\Container\AbstractContainer::SET,
-            Placeholder\Container\AbstractContainer::PREPEND
+            Placeholder\Container\AbstractContainer::PREPEND,
         ])) {
             throw new Exception\DomainException(
                 "You must use a valid attach order: 'PREPEND', 'APPEND' or 'SET'"

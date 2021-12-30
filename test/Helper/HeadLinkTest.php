@@ -398,7 +398,7 @@ class HeadLinkTest extends TestCase
         $this->helper->appendStylesheet([
             'href' => '/bar/baz',
             'conditionalStylesheet' => false,
-            'extras' => ['id' => 'my_link_tag']
+            'extras' => ['id' => 'my_link_tag'],
         ]);
         $test = $this->helper->toString();
         $this->assertStringContainsString('id="my_link_tag"', $test);

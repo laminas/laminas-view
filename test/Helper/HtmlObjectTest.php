@@ -48,7 +48,7 @@ class HtmlObjectTest extends TestCase
     public function testMakeHtmlObjectWithAttribsWithoutParams(): void
     {
         $attribs = ['attribkey1' => 'attribvalue1',
-                         'attribkey2' => 'attribvalue2'];
+                         'attribkey2' => 'attribvalue2',];
 
         $htmlObject = $this->helper->__invoke('datastring', 'typestring', $attribs);
 
@@ -64,7 +64,7 @@ class HtmlObjectTest extends TestCase
         $this->view->plugin('doctype')->__invoke(Doctype::HTML4_STRICT);
 
         $params = ['paramname1' => 'paramvalue1',
-                        'paramname2' => 'paramvalue2'];
+                        'paramname2' => 'paramvalue2',];
 
         $htmlObject = $this->helper->__invoke('datastring', 'typestring', [], $params);
 
@@ -83,7 +83,7 @@ class HtmlObjectTest extends TestCase
         $this->view->plugin('doctype')->__invoke(Doctype::XHTML1_STRICT);
 
         $params = ['paramname1' => 'paramvalue1',
-                        'paramname2' => 'paramvalue2'];
+                        'paramname2' => 'paramvalue2',];
 
         $htmlObject = $this->helper->__invoke('datastring', 'typestring', [], $params);
 

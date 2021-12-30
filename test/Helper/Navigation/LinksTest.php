@@ -96,13 +96,13 @@ class LinksTest extends AbstractTest
         $expected = [
             'type'  => UriPage::class,
             'href'  => 'http://www.example.com/',
-            'label' => null
+            'label' => null,
         ];
 
         $actual = [
             'type'  => get_class($found),
             'href'  => $found->getHref(),
-            'label' => $found->getLabel()
+            'label' => $found->getLabel(),
         ];
 
         $this->assertEquals($expected, $actual);
@@ -113,20 +113,20 @@ class LinksTest extends AbstractTest
         $active = $this->_helper->findOneByLabel('Page 2');
         $active->addRel('example', AbstractPage::factory([
             'uri' => 'http://www.example.com/',
-            'label' => 'An example page'
+            'label' => 'An example page',
         ]));
         $found = $this->_helper->findRelExample($active);
 
         $expected = [
             'type'  => UriPage::class,
             'href'  => 'http://www.example.com/',
-            'label' => 'An example page'
+            'label' => 'An example page',
         ];
 
         $actual = [
             'type'  => get_class($found),
             'href'  => $found->getHref(),
-            'label' => $found->getLabel()
+            'label' => $found->getLabel(),
         ];
 
         $this->assertEquals($expected, $actual);
@@ -137,20 +137,20 @@ class LinksTest extends AbstractTest
         $active = $this->_helper->findOneByLabel('Page 2');
         $active->addRel('example', [
             'uri' => 'http://www.example.com/',
-            'label' => 'An example page'
+            'label' => 'An example page',
         ]);
         $found = $this->_helper->findRelExample($active);
 
         $expected = [
             'type'  => UriPage::class,
             'href'  => 'http://www.example.com/',
-            'label' => 'An example page'
+            'label' => 'An example page',
         ];
 
         $actual = [
             'type'  => get_class($found),
             'href'  => $found->getHref(),
-            'label' => $found->getLabel()
+            'label' => $found->getLabel(),
         ];
 
         $this->assertEquals($expected, $actual);
@@ -161,20 +161,20 @@ class LinksTest extends AbstractTest
         $active = $this->_helper->findOneByLabel('Page 2');
         $active->addRel('example', new ArrayObject([
             'uri' => 'http://www.example.com/',
-            'label' => 'An example page'
+            'label' => 'An example page',
         ]));
         $found = $this->_helper->findRelExample($active);
 
         $expected = [
             'type'  => UriPage::class,
             'href'  => 'http://www.example.com/',
-            'label' => 'An example page'
+            'label' => 'An example page',
         ];
 
         $actual = [
             'type'  => get_class($found),
             'href'  => $found->getHref(),
-            'label' => $found->getLabel()
+            'label' => $found->getLabel(),
         ];
 
         $this->assertEquals($expected, $actual);
@@ -187,12 +187,12 @@ class LinksTest extends AbstractTest
         $active->addRel('alternate', [
             [
                 'label' => 'foo',
-                'uri'   => 'bar'
+                'uri'   => 'bar',
             ],
             [
                 'label' => 'baz',
-                'uri'   => 'bat'
-            ]
+                'uri'   => 'bat',
+            ],
         ]);
 
         $found = $this->_helper->findRelAlternate($active);
@@ -209,12 +209,12 @@ class LinksTest extends AbstractTest
         $active->addRel('alternate', new ArrayObject([
             [
                 'label' => 'foo',
-                'uri'   => 'bar'
+                'uri'   => 'bar',
             ],
             [
                 'label' => 'baz',
-                'uri'   => 'bat'
-            ]
+                'uri'   => 'bat',
+            ],
         ]));
 
         $found = $this->_helper->findRelAlternate($active);
@@ -229,12 +229,12 @@ class LinksTest extends AbstractTest
         $types = [
             'alternate', 'stylesheet', 'start', 'next', 'prev', 'contents',
             'index', 'glossary', 'copyright', 'chapter', 'section', 'subsection',
-            'appendix', 'help', 'bookmark'
+            'appendix', 'help', 'bookmark',
         ];
 
         $samplePage = AbstractPage::factory([
             'label' => 'An example page',
-            'uri'   => 'http://www.example.com/'
+            'uri'   => 'http://www.example.com/',
         ]);
 
         $active = $this->_helper->findOneByLabel('Page 2');
@@ -425,7 +425,7 @@ class LinksTest extends AbstractTest
         $samplePage = AbstractPage::factory([
             'label'    => 'An example page',
             'uri'      => 'http://www.example.com/',
-            'resource' => 'protected'
+            'resource' => 'protected',
         ]);
 
         $active = $this->_helper->findOneByLabel('Home');
@@ -444,7 +444,7 @@ class LinksTest extends AbstractTest
             'subsection' => false,
             'appendix'   => false,
             'help'       => false,
-            'bookmark'   => false
+            'bookmark'   => false,
         ];
         $actual = [];
 
@@ -492,7 +492,7 @@ class LinksTest extends AbstractTest
             'prev'       => 'Page 1.1',
             'chapter'    => 'Home',
             'section'    => 'Page 1',
-            'subsection' => 'Page 2.2'
+            'subsection' => 'Page 2.2',
         ];
 
         $expected = [];
@@ -559,20 +559,20 @@ class LinksTest extends AbstractTest
             'help'       => ['Forced page'],
             'bookmark'   => ['Forced page'],
             'canonical'  => ['Forced page'],
-            'home'       => ['Forced page']
+            'home'       => ['Forced page'],
         ];
 
         // build expected result
         $expected = [
             'rel' => $expectedRelations,
-            'rev' => $expectedRelations
+            'rev' => $expectedRelations,
         ];
 
         // find active page and create page to use for relations
         $active = $this->_helper->findOneByLabel('Page 1');
         $forcedRelation = new UriPage([
             'label' => 'Forced page',
-            'uri'   => '#'
+            'uri'   => '#',
         ]);
 
         // add relations to active page
@@ -618,7 +618,7 @@ class LinksTest extends AbstractTest
             Navigation\Links::RENDER_APPENDIX   => 'appendix',
             Navigation\Links::RENDER_HELP       => 'help',
             Navigation\Links::RENDER_BOOKMARK   => 'bookmark',
-            Navigation\Links::RENDER_CUSTOM     => 'canonical'
+            Navigation\Links::RENDER_CUSTOM     => 'canonical',
         ];
     }
 

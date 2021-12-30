@@ -45,7 +45,7 @@ class PrefixPathStackResolverTest extends TestCase
     {
         $resolver = new PrefixPathStackResolver([
             'base1'  => $this->basePath,
-            'base2' => $this->basePath . '/baz'
+            'base2' => $this->basePath . '/baz',
         ]);
 
         $this->assertEmpty($resolver->resolve('base1/foo'));
@@ -58,7 +58,7 @@ class PrefixPathStackResolverTest extends TestCase
     {
         $resolver = new PrefixPathStackResolver([
             'foo'    => $this->basePath,
-            'foobar' => $this->basePath . '/baz'
+            'foobar' => $this->basePath . '/baz',
         ]);
 
         $this->assertSame(realpath($this->basePath . '/bar.phtml'), $resolver->resolve('foo/bar'));

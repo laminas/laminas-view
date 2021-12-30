@@ -65,7 +65,7 @@ class PartialLoopTest extends TestCase
             ['message' => 'foo'],
             ['message' => 'bar'],
             ['message' => 'baz'],
-            ['message' => 'bat']
+            ['message' => 'bat'],
         ];
         $o = new TestAsset\IteratorTest($data);
 
@@ -143,7 +143,7 @@ class PartialLoopTest extends TestCase
             ['message' => 'foo'],
             ['message' => 'bar'],
             ['message' => 'baz'],
-            ['message' => 'bat']
+            ['message' => 'bat'],
         ];
         $o = new ArrayObject($data);
 
@@ -164,7 +164,7 @@ class PartialLoopTest extends TestCase
             ['message' => 'foo'],
             ['message' => 'bar'],
             ['message' => 'baz'],
-            ['message' => 'bat']
+            ['message' => 'bat'],
         ];
         $o = new TestAsset\ToArrayTest($data);
 
@@ -227,7 +227,7 @@ class PartialLoopTest extends TestCase
             ['message' => 'foo'],
             ['message' => 'bar'],
             ['message' => 'baz'],
-            ['message' => 'bat']
+            ['message' => 'bat'],
         ];
 
         $view = new View();
@@ -247,7 +247,7 @@ class PartialLoopTest extends TestCase
             ['message' => 'foo'],
             ['message' => 'bar'],
             ['message' => 'baz'],
-            ['message' => 'bat']
+            ['message' => 'bat'],
         ];
 
         $view = new View();
@@ -297,7 +297,7 @@ class PartialLoopTest extends TestCase
             $obj->objectKey = "foo" . $i;
             $obj->message = "bar";
             $obj->data = [
-                $obj
+                $obj,
             ];
             $data[] = $obj;
         }
@@ -325,10 +325,10 @@ class PartialLoopTest extends TestCase
                 'helper' => $this->helper,
                 'message' => 'foo1',
                 'data' => [[
-                    'message' => 'foo2'
-                ]]
-            ]
-        ]];
+                    'message' => 'foo2',
+                ],],
+            ],
+        ],];
 
         $view = new View();
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
@@ -381,7 +381,7 @@ class PartialLoopTest extends TestCase
             ['message' => 'foo'],
             ['message' => 'bar'],
             ['message' => 'baz'],
-            ['message' => 'bat']
+            ['message' => 'bat'],
         ];
         $o = new TestAsset\IteratorTest($data);
 
@@ -452,7 +452,7 @@ class PartialLoopTest extends TestCase
             ['message' => 'foo'],
             ['message' => 'bar'],
             ['message' => 'baz'],
-            ['message' => 'bat']
+            ['message' => 'bat'],
         ];
         $o = new ArrayObject($data);
 
@@ -473,7 +473,7 @@ class PartialLoopTest extends TestCase
             ['message' => 'foo'],
             ['message' => 'bar'],
             ['message' => 'baz'],
-            ['message' => 'bat']
+            ['message' => 'bat'],
         ];
         $o = new TestAsset\ToArrayTest($data);
 
@@ -536,7 +536,7 @@ class PartialLoopTest extends TestCase
             ['message' => 'foo'],
             ['message' => 'bar'],
             ['message' => 'baz'],
-            ['message' => 'bat']
+            ['message' => 'bat'],
         ];
 
         $view = new View();
@@ -556,7 +556,7 @@ class PartialLoopTest extends TestCase
             ['message' => 'foo'],
             ['message' => 'bar'],
             ['message' => 'baz'],
-            ['message' => 'bat']
+            ['message' => 'bat'],
         ];
 
         $view = new View();
@@ -606,7 +606,7 @@ class PartialLoopTest extends TestCase
             $obj->objectKey = "foo" . $i;
             $obj->message = "bar";
             $obj->data = [
-                $obj
+                $obj,
             ];
             $data[] = $obj;
         }
@@ -634,10 +634,10 @@ class PartialLoopTest extends TestCase
                 'helper' => $this->helper,
                 'message' => 'foo1',
                 'data' => [[
-                    'message' => 'foo2'
-                ]]
-            ]
-        ]];
+                    'message' => 'foo2',
+                ],],
+            ],
+        ],];
 
         $view = new View();
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');

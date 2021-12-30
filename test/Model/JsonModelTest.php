@@ -39,8 +39,8 @@ class JsonModelTest extends TestCase
             'stringwithjsonchars' => '\"[1,2]',
             'complex' => [
                 'foo' => 'bar',
-                'far' => 'boo'
-            ]
+                'far' => 'boo',
+            ],
         ];
         $model = new JsonModel($array, ['prettyPrint' => true]);
         $this->assertEquals(Json::encode($array, false, ['prettyPrint' => true]), $model->serialize());

@@ -6,7 +6,7 @@ class Aggregate
 {
     public $vars = [
         'foo' => 'bar',
-        'bar' => 'baz'
+        'bar' => 'baz',
     ];
 
     public function toArray()

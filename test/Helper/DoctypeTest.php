@@ -54,7 +54,7 @@ class DoctypeTest extends TestCase
             Helper\Doctype::XHTML1_FRAMESET,
             Helper\Doctype::XHTML1_RDFA,
             Helper\Doctype::XHTML1_RDFA11,
-            Helper\Doctype::XHTML5
+            Helper\Doctype::XHTML5,
         ];
 
         foreach ($types as $type) {
@@ -105,7 +105,7 @@ class DoctypeTest extends TestCase
             Helper\Doctype::HTML4_FRAMESET,
             Helper\Doctype::XHTML1_STRICT,
             Helper\Doctype::XHTML1_TRANSITIONAL,
-            Helper\Doctype::XHTML1_FRAMESET
+            Helper\Doctype::XHTML1_FRAMESET,
         ];
 
 

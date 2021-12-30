@@ -45,13 +45,13 @@ class UrlTest extends TestCase
             'type' => Literal::class,
             'options' => [
                 'route' => '/',
-            ]
+            ],
         ]);
         $router->addRoute('default', [
                 'type' => Segment::class,
                 'options' => [
                     'route' => '/:controller[/:action]',
-                ]
+                ],
         ]);
         $this->router = $router;
 
@@ -167,22 +167,22 @@ class UrlTest extends TestCase
                 'defaults' => [
                     ModuleRouteListener::MODULE_NAMESPACE => 'LaminasTest\Mvc\Controller\TestAsset',
                     'controller' => 'SampleController',
-                    'action'     => 'Dash'
-                ]
+                    'action'     => 'Dash',
+                ],
             ],
             'child_routes' => [
                 'wildcard' => [
                     'type'    => Wildcard::class,
                     'options' => [
                         'param_delimiter'     => '=',
-                        'key_value_delimiter' => '%'
-                    ]
-                ]
-            ]
+                        'key_value_delimiter' => '%',
+                    ],
+                ],
+            ],
         ]);
         $routeMatch = new RouteMatch([
             ModuleRouteListener::MODULE_NAMESPACE => 'LaminasTest\Mvc\Controller\TestAsset',
-            'controller' => 'Rainbow'
+            'controller' => 'Rainbow',
         ]);
         $routeMatch->setMatchedRouteName('default/wildcard');
 

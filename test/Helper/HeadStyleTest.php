@@ -133,7 +133,7 @@ class HeadStyleTest extends TestCase
             'title' => 'foo',
             'media' => 'projection',
             'dir'   => 'rtol',
-            'bogus' => 'unused'
+            'bogus' => 'unused',
         ]);
         $value = $this->helper->getValue();
 
@@ -159,7 +159,7 @@ class HeadStyleTest extends TestCase
             'title' => 'foo',
             'media' => 'screen',
             'dir'   => 'rtol',
-            'bogus' => 'unused'
+            'bogus' => 'unused',
         ]);
         $value = $this->helper->toString();
         $this->assertStringContainsString('<!--' . PHP_EOL, $value);
@@ -406,7 +406,7 @@ a {
     {
         $style = 'a{display:none;}';
         $this->helper->appendStyle($style, [
-            'conditional' => 'IE 8'
+            'conditional' => 'IE 8',
         ]);
         $value = $this->helper->toString();
 

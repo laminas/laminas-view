@@ -71,7 +71,7 @@ class NavigationTest extends AbstractTest
         $accepted = $this->_helper->accept(
             new Page\Uri([
                 'resource'  => 'unknownresource',
-                'privilege' => 'someprivilege'
+                'privilege' => 'someprivilege',
             ], false)
         );
 
@@ -105,7 +105,7 @@ class NavigationTest extends AbstractTest
         $this->_helper->setServiceLocator(new ServiceManager());
         $expected = [
             'menu' => $this->_getExpected('menu/default2.html'),
-            'breadcrumbs' => $this->_getExpected('bc/default.html')
+            'breadcrumbs' => $this->_getExpected('bc/default.html'),
         ];
         $actual = [];
 
@@ -129,11 +129,11 @@ class NavigationTest extends AbstractTest
         // result
         $expected = [
             'menu'        => '',
-            'breadcrumbs' => ''
+            'breadcrumbs' => '',
         ];
         $actual = [
             'menu'        => $this->_helper->render(),
-            'breadcrumbs' => $this->_helper->breadcrumbs()->render()
+            'breadcrumbs' => $this->_helper->breadcrumbs()->render(),
         ];
 
         $this->assertEquals($expected, $actual);
@@ -239,7 +239,7 @@ class NavigationTest extends AbstractTest
     {
         $expected = [
             'breadcrumbs' => $this->_getExpected('bc/default.html'),
-            'menu' => $this->_getExpected('menu/default1.html')
+            'menu' => $this->_getExpected('menu/default1.html'),
         ];
         $actual = [];
 
@@ -414,13 +414,13 @@ class NavigationTest extends AbstractTest
             [
                 'label' => 'Page 1',
                 'id'    => 'p1',
-                'uri'   => 'p1'
+                'uri'   => 'p1',
             ],
             [
                 'label' => 'Page 2',
                 'id'    => 'p2',
-                'uri'   => 'p2'
-            ]
+                'uri'   => 'p2',
+            ],
         ]);
 
         $expected = '<ul class="navigation">' . $nl
@@ -447,14 +447,14 @@ class NavigationTest extends AbstractTest
             [
                 'label' => 'Page 1',
                 'id'    => 'p1',
-                'uri'   => 'p1'
+                'uri'   => 'p1',
             ],
             [
                 'label'   => 'Page 2',
                 'id'      => 'p2',
                 'uri'     => 'p2',
-                'visible' => false
-            ]
+                'visible' => false,
+            ],
         ]);
 
         $this->_helper->setServiceLocator(new ServiceManager());

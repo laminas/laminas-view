@@ -16,7 +16,7 @@ trait EscaperEncodingsTrait
         'big5',         '950',          'gb2312',       '936',
         'big5-hkscs',   'shift_jis',    'sjis',         'sjis-win',
         'cp932',        '932',          'euc-jp',       'eucjp',
-        'eucjp-win',    'macroman'
+        'eucjp-win',    'macroman',
     ];
 
     /** @return iterable<string, array<int, string>> */
