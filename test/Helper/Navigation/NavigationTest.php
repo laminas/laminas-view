@@ -33,14 +33,15 @@ use const PHP_EOL;
  */
 class NavigationTest extends AbstractTest
 {
-    // @codingStandardsIgnoreStart
     /**
      * View helper
      *
      * @var Navigation
      */
-    protected $_helper;
-    // @codingStandardsIgnoreEnd
+    protected $_helper; // phpcs:ignore
+
+    /** @var string|null */
+    private $errorHandlerMessage;
 
     protected function setUp(): void
     {
@@ -389,22 +390,18 @@ class NavigationTest extends AbstractTest
             $this->assertStringContainsString('$role must be', $e->getMessage());
         }
     }
-    // @codingStandardsIgnoreStart
-    private $_errorMessage;
-    // @codingStandardsIgnoreEnd
-    public function toStringErrorHandler($code, $msg, $file, $line, array $c = []): void
-    {
-        $this->_errorMessage = $msg;
-    }
 
     public function testMagicToStringShouldNotThrowException(): void
     {
-        set_error_handler([$this, 'toStringErrorHandler']);
+        set_error_handler(function (int $code, string $message) {
+            $this->errorHandlerMessage = $message;
+        });
+
         $this->_helper->menu()->setPartial([1337]);
         $this->_helper->__toString();
         restore_error_handler();
 
-        $this->assertStringContainsString('array must contain', $this->_errorMessage);
+        $this->assertStringContainsString('array must contain', $this->errorHandlerMessage);
     }
 
     public function testPageIdShouldBeNormalized(): void

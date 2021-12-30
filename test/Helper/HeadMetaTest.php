@@ -2,6 +2,7 @@
 
 namespace LaminasTest\View\Helper;
 
+use function assert;
 use const PHP_EOL;
 
 use Laminas\View\Exception;
@@ -27,13 +28,13 @@ use function ucwords;
 class HeadMetaTest extends TestCase
 {
     /** @var Helper\HeadMeta */
-    public $helper;
-
+    private $helper;
     /** @var Helper\EscapeHtmlAttr */
-    public $attributeEscaper;
-
-    /** @var string */
-    public $basePath;
+    private $attributeEscaper;
+    /** @var string|null */
+    private $error;
+    /** @var View */
+    private $view;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -41,16 +42,20 @@ class HeadMetaTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->error = false;
         Helper\Doctype::unsetDoctypeRegistry();
-        $this->basePath = __DIR__ . '/_files/modules';
-        $this->view     = new View();
-        $this->view->plugin('doctype')->__invoke('XHTML1_STRICT');
-        $this->helper   = new Helper\HeadMeta();
+        $this->view = new View();
+        $doctype    = $this->view->plugin('doctype');
+        assert($doctype instanceof Helper\Doctype);
+        $doctype->__invoke('XHTML1_STRICT');
+        $this->helper = new Helper\HeadMeta();
         $this->helper->setView($this->view);
-        $this->attributeEscaper  = new Helper\EscapeHtmlAttr();
+        $this->attributeEscaper = new Helper\EscapeHtmlAttr();
     }
 
+    /**
+     * @param int    $errno
+     * @param string $errstr
+     */
     public function handleErrors($errno, $errstr): void
     {
         $this->error = $errstr;
@@ -90,21 +95,17 @@ class HeadMetaTest extends TestCase
         $this->helper->set('foo');
     }
 
-    // @codingStandardsIgnoreStart
-    protected function _inflectAction($type): string
+    private function inflectAction(string $type): string
     {
-        // @codingStandardsIgnoreEnd
         $type = str_replace('-', ' ', $type);
         $type = ucwords($type);
-        $type = str_replace(' ', '', $type);
-        return $type;
+
+        return str_replace(' ', '', $type);
     }
 
-    // @codingStandardsIgnoreStart
-    protected function _testOverloadAppend(string $type): void
+    protected function executeOverloadAppend(string $type): void
     {
-        // @codingStandardsIgnoreEnd
-        $action = 'append' . $this->_inflectAction($type);
+        $action = 'append' . $this->inflectAction($type);
         $string = 'foo';
         for ($i = 0; $i < 3; ++$i) {
             $string .= ' foo';
@@ -112,7 +113,7 @@ class HeadMetaTest extends TestCase
             $values = $this->helper->getArrayCopy();
             $this->assertEquals($i + 1, count($values));
 
-            $item   = $values[$i];
+            $item = $values[$i];
             $this->assertObjectHasAttribute('type', $item);
             $this->assertObjectHasAttribute('modifiers', $item);
             $this->assertObjectHasAttribute('content', $item);
@@ -122,11 +123,9 @@ class HeadMetaTest extends TestCase
         }
     }
 
-    // @codingStandardsIgnoreStart
-    protected function _testOverloadPrepend(string $type): void
+    protected function executeOverloadPrepend(string $type): void
     {
-        // @codingStandardsIgnoreEnd
-        $action = 'prepend' . $this->_inflectAction($type);
+        $action = 'prepend' . $this->inflectAction($type);
         $string = 'foo';
         for ($i = 0; $i < 3; ++$i) {
             $string .= ' foo';
@@ -144,13 +143,11 @@ class HeadMetaTest extends TestCase
         }
     }
 
-    // @codingStandardsIgnoreStart
-    protected function _testOverloadSet(string $type): void
+    protected function executeOverloadSet(string $type): void
     {
-        // @codingStandardsIgnoreEnd
-        $setAction = 'set' . $this->_inflectAction($type);
-        $appendAction = 'append' . $this->_inflectAction($type);
-        $string = 'foo';
+        $setAction    = 'set' . $this->inflectAction($type);
+        $appendAction = 'append' . $this->inflectAction($type);
+        $string       = 'foo';
         for ($i = 0; $i < 3; ++$i) {
             $this->helper->$appendAction('keywords', $string);
             $string .= ' foo';
@@ -170,32 +167,32 @@ class HeadMetaTest extends TestCase
 
     public function testOverloadingAppendNameAppendsMetaTagToStack(): void
     {
-        $this->_testOverloadAppend('name');
+        $this->executeOverloadAppend('name');
     }
 
     public function testOverloadingPrependNamePrependsMetaTagToStack(): void
     {
-        $this->_testOverloadPrepend('name');
+        $this->executeOverloadPrepend('name');
     }
 
     public function testOverloadingSetNameOverwritesMetaTagStack(): void
     {
-        $this->_testOverloadSet('name');
+        $this->executeOverloadSet('name');
     }
 
     public function testOverloadingAppendHttpEquivAppendsMetaTagToStack(): void
     {
-        $this->_testOverloadAppend('http-equiv');
+        $this->executeOverloadAppend('http-equiv');
     }
 
     public function testOverloadingPrependHttpEquivPrependsMetaTagToStack(): void
     {
-        $this->_testOverloadPrepend('http-equiv');
+        $this->executeOverloadPrepend('http-equiv');
     }
 
     public function testOverloadingSetHttpEquivOverwritesMetaTagStack(): void
     {
-        $this->_testOverloadSet('http-equiv');
+        $this->executeOverloadSet('http-equiv');
     }
 
     public function testOverloadingThrowsExceptionWithFewerThanTwoArgs(): void
@@ -498,7 +495,7 @@ class HeadMetaTest extends TestCase
     public function testOverloadingAppendPropertyAppendsMetaTagToStack(): void
     {
         $this->view->doctype('XHTML1_RDFA');
-        $this->_testOverloadAppend('property');
+        $this->executeOverloadAppend('property');
     }
 
     /**
@@ -508,7 +505,7 @@ class HeadMetaTest extends TestCase
     public function testOverloadingPrependPropertyPrependsMetaTagToStack(): void
     {
         $this->view->doctype('XHTML1_RDFA');
-        $this->_testOverloadPrepend('property');
+        $this->executeOverloadPrepend('property');
     }
 
     /**
@@ -518,7 +515,7 @@ class HeadMetaTest extends TestCase
     public function testOverloadingSetPropertyOverwritesMetaTagStack(): void
     {
         $this->view->doctype('XHTML1_RDFA');
-        $this->_testOverloadSet('property');
+        $this->executeOverloadSet('property');
     }
 
      /**
@@ -555,7 +552,7 @@ class HeadMetaTest extends TestCase
     public function testOverloadingAppendItempropAppendsMetaTagToStack(): void
     {
         $this->view->doctype('HTML5');
-        $this->_testOverloadAppend('itemprop');
+        $this->executeOverloadAppend('itemprop');
     }
 
     /**
@@ -565,7 +562,7 @@ class HeadMetaTest extends TestCase
     public function testOverloadingPrependItempropPrependsMetaTagToStack(): void
     {
         $this->view->doctype('HTML5');
-        $this->_testOverloadPrepend('itemprop');
+        $this->executeOverloadPrepend('itemprop');
     }
 
     /**
@@ -575,7 +572,7 @@ class HeadMetaTest extends TestCase
     public function testOverloadingSetItempropOverwritesMetaTagStack(): void
     {
         $this->view->doctype('HTML5');
-        $this->_testOverloadSet('itemprop');
+        $this->executeOverloadSet('itemprop');
     }
 
     /**

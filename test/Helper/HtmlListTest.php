@@ -19,6 +19,8 @@ class HtmlListTest extends TestCase
 {
     /** @var Helper\HtmlList */
     public $helper;
+    /** @var View */
+    private $view;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -197,7 +199,7 @@ class HtmlListTest extends TestCase
             ],
         ];
 
-        $list = $this->helper->__invoke($items, false, false, false);
+        $list = $this->helper->__invoke($items, false, [], false);
 
         $this->assertStringContainsString('<ul>', $list);
         $this->assertStringContainsString('</ul>', $list);
@@ -205,7 +207,7 @@ class HtmlListTest extends TestCase
         array_walk_recursive($items, [$this, 'validateItems'], $list);
     }
 
-    public function validateItems($value, $key, $userdata): void
+    public function validateItems(string $value, int $key, string $userdata): void
     {
         $this->assertStringContainsString('<li>' . $value, $userdata);
     }

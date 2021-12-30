@@ -7,6 +7,7 @@ use ReturnTypeWillChange; // phpcs:ignore
 
 class JsonModel implements JsonSerializable
 {
+    /** @var mixed */
     public $value = false;
 
     #[ReturnTypeWillChange]

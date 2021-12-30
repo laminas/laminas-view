@@ -21,6 +21,15 @@ class JsonStrategyTest extends TestCase
 {
     use EventListenerIntrospectionTrait;
 
+    /** @var JsonRenderer */
+    private $renderer;
+    /** @var JsonStrategy */
+    private $strategy;
+    /** @var ViewEvent */
+    private $event;
+    /** @var HttpResponse */
+    private $response;
+
     protected function setUp(): void
     {
         $this->renderer = new JsonRenderer();
@@ -167,7 +176,8 @@ class JsonStrategyTest extends TestCase
             $expectedPriority = 1;
             $found            = false;
             foreach ($listeners as $priority => $listener) {
-                if ($listener === $expectedListener
+                if (
+                    $listener === $expectedListener
                     && $priority === $expectedPriority
                 ) {
                     $found = true;
@@ -189,7 +199,8 @@ class JsonStrategyTest extends TestCase
             $expectedPriority = 1000;
             $found            = false;
             foreach ($listeners as $priority => $listener) {
-                if ($listener === $expectedListener
+                if (
+                    $listener === $expectedListener
                     && $priority === $expectedPriority
                 ) {
                     $found = true;
@@ -318,6 +329,7 @@ class JsonStrategyTest extends TestCase
 
     /**
      * @dataProvider multibyteCharsets
+     * @param string $charset
      */
     public function testContentTransferEncodingHeaderSetToBinaryForSpecificMultibyteCharsets($charset): void
     {

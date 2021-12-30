@@ -5,7 +5,6 @@ namespace LaminasTest\View\Helper;
 use Laminas\View\Renderer\RendererInterface;
 use LaminasTest\View\Helper\TestAsset\ConcreteHelper;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * @group      Laminas_View
@@ -13,8 +12,6 @@ use Prophecy\PhpUnit\ProphecyTrait;
  */
 class AbstractTest extends TestCase
 {
-    use ProphecyTrait;
-
     /** @var ConcreteHelper */
     protected $helper;
 
@@ -25,7 +22,7 @@ class AbstractTest extends TestCase
 
     public function testViewSettersGetters(): void
     {
-        $viewMock = $this->prophesize(RendererInterface::class)->reveal();
+        $viewMock = $this->createMock(RendererInterface::class);
 
         $this->helper->setView($viewMock);
         $this->assertEquals($viewMock, $this->helper->getView());

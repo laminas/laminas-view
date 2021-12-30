@@ -2,6 +2,8 @@
 
 namespace LaminasTest\View\TestAsset\Renderer;
 
+use ArrayAccess;
+use Laminas\View\Model\ModelInterface;
 use Laminas\View\Model\ModelInterface as Model;
 use Laminas\View\Renderer\RendererInterface as Renderer;
 use Laminas\View\Resolver\ResolverInterface as Resolver;
@@ -10,19 +12,21 @@ use function var_export;
 
 class VarExportRenderer implements Renderer
 {
-    public function getEngine()
+    public function getEngine(): string
     {
         return 'var_export';
     }
 
-    /**
-     * @return void
-     */
-    public function setResolver(Resolver $resolver)
+    public function setResolver(Resolver $resolver): void
     {
         // Deliberately empty
     }
 
+    /**
+     * @param string|ModelInterface  $nameOrModel
+     * @param null|array|ArrayAccess $values
+     * @return string The script output.
+     */
     public function render($nameOrModel, $values = null)
     {
         if (! $nameOrModel instanceof Model) {
