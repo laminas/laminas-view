@@ -116,6 +116,7 @@ class FeedRendererTest extends TestCase
     {
         $this->expectException(Exception\InvalidArgumentException::class);
         $this->expectExceptionMessage('expects');
+        /** @psalm-suppress InvalidArgument */
         $this->renderer->render(['foo']);
     }
 

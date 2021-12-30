@@ -326,24 +326,18 @@ class ViewTest extends TestCase
      */
     public function testModelFromEventIsUsedByRenderer(): void
     {
-        $renderer = $this->getMockBuilder(PhpRenderer::class)
-            ->setMethods(['render'])
-            ->getMock();
+        $renderer = $this->createMock(PhpRenderer::class);
 
         $model1 = new ViewModel();
         $model2 = new ViewModel();
 
-        $this->view->addRenderingStrategy(function ($e) use ($renderer) {
+        $renderer->expects($this->once())
+            ->method('render')
+            ->with($model2);
+
+        $this->view->addRenderingStrategy(function () use ($renderer) {
             return $renderer;
         });
-
-        $this->view->getEventManager(ViewEvent::EVENT_RENDERER_POST, function ($e) use ($model2) {
-            $e->setModel($model2);
-        });
-
-        $renderer->expects($this->once())
-                 ->method('render')
-                 ->with($model2);
 
         $this->view->render($model1);
     }

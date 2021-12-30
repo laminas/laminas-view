@@ -251,6 +251,7 @@ class PhpRendererTest extends TestCase
             ],
         ]);
         $this->renderer->setHelperPluginManager($helpers);
+        /** @psalm-suppress UndefinedMagicMethod */
         $helper = $this->renderer->uninvokable();
         $this->assertInstanceOf(Uninvokable::class, $helper);
     }
@@ -266,6 +267,7 @@ class PhpRendererTest extends TestCase
             ],
         ]);
         $this->renderer->setHelperPluginManager($helpers);
+        /** @psalm-suppress UndefinedMagicMethod */
         $return = $this->renderer->invokable('it works!');
         $this->assertEquals('LaminasTest\View\TestAsset\Invokable::__invoke: it works!', $return);
     }
@@ -472,6 +474,7 @@ class PhpRendererTest extends TestCase
 
     /**
      * @group Laminas-4221
+     * @psalm-suppress UndefinedMagicMethod
      */
     public function testSharedInstanceHelper(): void
     {
@@ -507,7 +510,7 @@ class PhpRendererTest extends TestCase
 
     public function testDoesNotCallFilterChainIfNoFilterChainWasSet(): void
     {
-        $this->renderer->resolver()->addPath(__DIR__ . '/_templates');
+        $this->resolver()->addPath(__DIR__ . '/_templates');
 
         $result = $this->renderer->render('empty.phtml');
 
@@ -547,6 +550,7 @@ class PhpRendererTest extends TestCase
 
         $previousOutput = $this->renderer->render('empty.phtml');
 
+        /** @psalm-suppress InvalidArgument */
         $actual = $this->renderer->render(false);
 
         $this->assertNotSame($previousOutput, $actual);
