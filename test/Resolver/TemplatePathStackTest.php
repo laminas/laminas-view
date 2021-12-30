@@ -104,6 +104,7 @@ class TemplatePathStackTest extends TestCase
 
     public function testStreamWrapperDisabledByDefault(): void
     {
+        /** @psalm-suppress DeprecatedMethod */
         $this->assertFalse($this->stack->useStreamWrapper());
     }
 
@@ -113,7 +114,9 @@ class TemplatePathStackTest extends TestCase
         if (! $flag) {
             $this->markTestSkipped('Short tags are disabled; cannot test');
         }
+        /** @psalm-suppress DeprecatedMethod */
         $this->stack->setUseStreamWrapper(true);
+        /** @psalm-suppress DeprecatedMethod */
         $this->assertTrue($this->stack->useStreamWrapper());
     }
 
@@ -162,6 +165,7 @@ class TemplatePathStackTest extends TestCase
         if (! $flag) {
             $this->markTestSkipped('Short tags are disabled; cannot test');
         }
+        /** @psalm-suppress DeprecatedMethod */
         $this->stack->setUseStreamWrapper(true)
                     ->addPath($this->baseDir . '/_templates');
         $expected = 'laminas.view://' . realpath($this->baseDir . '/_templates/test.phtml');
@@ -222,6 +226,7 @@ class TemplatePathStackTest extends TestCase
         $this->assertFalse($this->stack->isLfiProtectionOn());
 
         $expected = (bool) ini_get('short_open_tag');
+        /** @psalm-suppress DeprecatedMethod */
         $this->assertSame($expected, $this->stack->useStreamWrapper());
 
         $this->assertSame($options['default_suffix'], $this->stack->getDefaultSuffix());
@@ -241,6 +246,7 @@ class TemplatePathStackTest extends TestCase
         $this->assertFalse($stack->isLfiProtectionOn());
 
         $expected = (bool) ini_get('short_open_tag');
+        /** @psalm-suppress DeprecatedMethod */
         $this->assertSame($expected, $stack->useStreamWrapper());
 
         $this->assertEquals(array_reverse($this->paths), $stack->getPaths()->toArray());

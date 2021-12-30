@@ -96,6 +96,7 @@ class TemplatePathStack implements ResolverInterface
                     $this->addPaths($value);
                     break;
                 case 'use_stream_wrapper':
+                    /** @psalm-suppress DeprecatedMethod */
                     $this->setUseStreamWrapper($value);
                     break;
                 case 'default_suffix':
@@ -247,6 +248,8 @@ class TemplatePathStack implements ResolverInterface
      *
      * @param  bool $flag
      * @return TemplatePathStack
+     *
+     * @deprecated will be removed in version 3
      */
     public function setUseStreamWrapper($flag)
     {
@@ -261,6 +264,8 @@ class TemplatePathStack implements ResolverInterface
      * is disabled.
      *
      * @return bool
+     *
+     * @deprecated will be removed in version 3
      */
     public function useStreamWrapper()
     {
@@ -307,6 +312,7 @@ class TemplatePathStack implements ResolverInterface
                         break;
                     }
                 }
+                /** @psalm-suppress DeprecatedMethod */
                 if ($this->useStreamWrapper()) {
                     // If using a stream wrapper, prepend the spec to the path
                     $filePath = 'laminas.view://' . $filePath;
