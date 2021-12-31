@@ -6,6 +6,7 @@ namespace Laminas\View\Helper;
 
 use function array_merge;
 
+/** @deprecated Adobe Flash is obsolete. This helper will be removed in 3.0 */
 class HtmlFlash extends AbstractHtmlElement
 {
     /**

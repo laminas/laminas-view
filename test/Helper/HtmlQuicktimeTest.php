@@ -14,7 +14,10 @@ use PHPUnit\Framework\TestCase;
  */
 class HtmlQuicktimeTest extends TestCase
 {
-    /** @var HtmlQuicktime */
+    /**
+     * @psalm-suppress DeprecatedClass
+     * @var HtmlQuicktime
+     */
     public $helper;
     /** @var View */
     private $view;
@@ -28,6 +31,7 @@ class HtmlQuicktimeTest extends TestCase
     protected function setUp(): void
     {
         $this->view   = new View();
+        /** @psalm-suppress DeprecatedClass */
         $this->helper = new HtmlQuicktime();
         $this->helper->setView($this->view);
     }

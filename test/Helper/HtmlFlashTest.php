@@ -14,7 +14,10 @@ use PHPUnit\Framework\TestCase;
  */
 class HtmlFlashTest extends TestCase
 {
-    /** @var HtmlFlash */
+    /**
+     * @psalm-suppress DeprecatedClass
+     * @var HtmlFlash
+     */
     public $helper;
 
     /**
@@ -26,6 +29,7 @@ class HtmlFlashTest extends TestCase
     protected function setUp(): void
     {
         $this->view   = new View();
+        /** @psalm-suppress DeprecatedClass */
         $this->helper = new HtmlFlash();
         $this->helper->setView($this->view);
     }

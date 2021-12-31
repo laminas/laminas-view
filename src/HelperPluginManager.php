@@ -37,6 +37,7 @@ class HelperPluginManager extends AbstractPluginManager
      * Most of these are present for legacy purposes, as v2 of the service
      * manager normalized names when fetching services.
      *
+     * @psalm-suppress DeprecatedClass
      * @var array<string, string>
      */
     protected $aliases = [
@@ -144,8 +145,11 @@ class HelperPluginManager extends AbstractPluginManager
         'viewModel'           => Helper\ViewModel::class,
         'ViewModel'           => Helper\ViewModel::class,
 
-        // Legacy Zend Framework aliases
-        // @codingStandardsIgnoreStart
+        /**
+         * Legacy Zend Framework aliases
+         * @psalm-suppress DeprecatedClass
+         * @codingStandardsIgnoreStart
+         **/
         \Zend\View\Helper\Asset::class => Helper\Asset::class,
         \Zend\View\Helper\FlashMessenger::class => Helper\FlashMessenger::class,
         \Zend\View\Helper\Identity::class => Helper\Identity::class,
@@ -230,7 +234,7 @@ class HelperPluginManager extends AbstractPluginManager
      * basepath and url are not very useful without their factories, however the doctype
      * helper works fine as an invokable. The factory for doctype simply checks for the
      * config value from the merged config.
-     *
+     * @psalm-suppress DeprecatedClass
      * @var string[]|callable[]
      */
     protected $factories = [
