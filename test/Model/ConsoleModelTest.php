@@ -12,6 +12,7 @@ class ConsoleModelTest extends TestCase
 {
     public function testImplementsModelInterface(): void
     {
+        /** @psalm-suppress DeprecatedClass */
         $model = new ConsoleModel();
         $this->assertInstanceOf(ModelInterface::class, $model);
     }
@@ -21,6 +22,7 @@ class ConsoleModelTest extends TestCase
      */
     public function testSetErrorLevelImplementsFluentInterface(): void
     {
+        /** @psalm-suppress DeprecatedClass */
         $model  = new ConsoleModel();
         $actual = $model->setErrorLevel(0);
         $this->assertSame($model, $actual);
