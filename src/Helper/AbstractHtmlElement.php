@@ -64,7 +64,7 @@ abstract class AbstractHtmlElement extends AbstractHelper
             }
         }
 
-        $attribs = $this->getView()->plugin(HtmlAttributes::class)($attribs);
+        $attribs = $this->getView()->plugin('htmlattributes')($attribs);
 
         return (string) $attribs;
     }
