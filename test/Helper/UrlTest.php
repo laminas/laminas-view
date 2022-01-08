@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
+use ArrayIterator;
 use Laminas\Mvc\ModuleRouteListener;
 use Laminas\Mvc\MvcEvent;
 use Laminas\Router\Http\Literal;
@@ -13,6 +16,7 @@ use Laminas\Router\SimpleRouteStack;
 use Laminas\View\Exception;
 use Laminas\View\Helper\Url as UrlHelper;
 use PHPUnit\Framework\TestCase;
+use ReflectionObject;
 
 /**
  * Laminas\View\Helper\Url Test
@@ -24,14 +28,10 @@ use PHPUnit\Framework\TestCase;
  */
 class UrlTest extends TestCase
 {
-    /**
-     * @var SimpleRouteStack
-     */
+    /** @var SimpleRouteStack */
     private $router;
 
-    /**
-     * @var UrlHelper
-     */
+    /** @var UrlHelper */
     private $url;
 
     /**
@@ -42,20 +42,20 @@ class UrlTest extends TestCase
     {
         $router = new SimpleRouteStack();
         $router->addRoute('home', [
-            'type' => Literal::class,
+            'type'    => Literal::class,
             'options' => [
                 'route' => '/',
-            ]
+            ],
         ]);
         $router->addRoute('default', [
-                'type' => Segment::class,
-                'options' => [
-                    'route' => '/:controller[/:action]',
-                ]
+            'type'    => Segment::class,
+            'options' => [
+                'route' => '/:controller[/:action]',
+            ],
         ]);
         $this->router = $router;
 
-        $this->url = new UrlHelper;
+        $this->url = new UrlHelper();
         $this->url->setRouter($router);
     }
 
@@ -63,7 +63,7 @@ class UrlTest extends TestCase
     {
         $this->expectException(Exception\RuntimeException::class);
         $this->expectExceptionMessage('No RouteStackInterface instance provided');
-        $url = new UrlHelper;
+        $url = new UrlHelper();
         $url('home');
     }
 
@@ -81,7 +81,7 @@ class UrlTest extends TestCase
 
     public function testModel(): void
     {
-        $it = new \ArrayIterator(['controller' => 'ctrl', 'action' => 'act']);
+        $it = new ArrayIterator(['controller' => 'ctrl', 'action' => 'act']);
 
         $url = $this->url->__invoke('default', $it);
         $this->assertEquals('/ctrl/act', $url);
@@ -89,7 +89,7 @@ class UrlTest extends TestCase
 
     public function testThrowsExceptionOnInvalidParams(): void
     {
-        $this->expectException(\Laminas\View\Exception\InvalidArgumentException::class);
+        $this->expectException(Exception\InvalidArgumentException::class);
         $this->url->__invoke('default', 'invalid params');
     }
 
@@ -140,7 +140,7 @@ class UrlTest extends TestCase
     public function testCanPassBooleanValueForThirdArgumentToAllowReusingRouteMatches(): void
     {
         $this->router->addRoute('replace', [
-            'type' => Segment::class,
+            'type'    => Segment::class,
             'options' => [
                 'route'    => '/:controller/:action',
                 'defaults' => [
@@ -161,28 +161,28 @@ class UrlTest extends TestCase
     {
         $router = new TreeRouteStack();
         $router->addRoute('default', [
-            'type' => Segment::class,
-            'options' => [
+            'type'         => Segment::class,
+            'options'      => [
                 'route'    => '/:controller/:action',
                 'defaults' => [
                     ModuleRouteListener::MODULE_NAMESPACE => 'LaminasTest\Mvc\Controller\TestAsset',
-                    'controller' => 'SampleController',
-                    'action'     => 'Dash'
-                ]
+                    'controller'                          => 'SampleController',
+                    'action'                              => 'Dash',
+                ],
             ],
             'child_routes' => [
                 'wildcard' => [
                     'type'    => Wildcard::class,
                     'options' => [
                         'param_delimiter'     => '=',
-                        'key_value_delimiter' => '%'
-                    ]
-                ]
-            ]
+                        'key_value_delimiter' => '%',
+                    ],
+                ],
+            ],
         ]);
         $routeMatch = new RouteMatch([
             ModuleRouteListener::MODULE_NAMESPACE => 'LaminasTest\Mvc\Controller\TestAsset',
-            'controller' => 'Rainbow'
+            'controller'                          => 'Rainbow',
         ]);
         $routeMatch->setMatchedRouteName('default/wildcard');
 
@@ -204,10 +204,10 @@ class UrlTest extends TestCase
     public function testAcceptsNextGenRouterToSetRouter(): void
     {
         $router = new SimpleRouteStack();
-        $url = new UrlHelper();
+        $url    = new UrlHelper();
         $url->setRouter($router);
 
-        $urlReflection = new \ReflectionObject($url);
+        $urlReflection  = new ReflectionObject($url);
         $routerProperty = $urlReflection->getProperty('router');
         $routerProperty->setAccessible(true);
         $routerPropertyValue = $routerProperty->getValue($url);
@@ -218,11 +218,11 @@ class UrlTest extends TestCase
     public function testAcceptsNextGenRouteMatche(): void
     {
         $routeMatch = new RouteMatch([]);
-        $url = new UrlHelper();
+        $url        = new UrlHelper();
         $url->setRouteMatch($routeMatch);
 
-        $routeMatchReflection = new \ReflectionObject($url);
-        $routeMatchProperty = $routeMatchReflection->getProperty('routeMatch');
+        $routeMatchReflection = new ReflectionObject($url);
+        $routeMatchProperty   = $routeMatchReflection->getProperty('routeMatch');
         $routeMatchProperty->setAccessible(true);
         $routeMatchPropertyValue = $routeMatchProperty->getValue($url);
 

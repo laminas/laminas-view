@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper\Navigation;
 
 use DOMDocument;
@@ -7,9 +9,23 @@ use Laminas\Navigation\AbstractContainer;
 use Laminas\Navigation\Page\AbstractPage;
 use Laminas\Stdlib\ErrorHandler;
 use Laminas\Uri;
-use Laminas\View;
+use Laminas\Validator\Sitemap\Changefreq;
+use Laminas\Validator\Sitemap\Lastmod;
+use Laminas\Validator\Sitemap\Loc;
+use Laminas\Validator\Sitemap\Priority;
 use Laminas\View\Exception;
 use RecursiveIteratorIterator;
+
+use function date;
+use function in_array;
+use function is_int;
+use function preg_match;
+use function rtrim;
+use function sprintf;
+use function strtotime;
+use function trim;
+
+use const PHP_EOL;
 
 /**
  * Helper for printing sitemaps
@@ -23,14 +39,14 @@ class Sitemap extends AbstractHelper
      *
      * @var string
      */
-    const SITEMAP_NS = 'http://www.sitemaps.org/schemas/sitemap/0.9';
+    public const SITEMAP_NS = 'http://www.sitemaps.org/schemas/sitemap/0.9';
 
     /**
      * Schema URL
      *
      * @var string
      */
-    const SITEMAP_XSD = 'http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd';
+    public const SITEMAP_XSD = 'http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd';
 
     /**
      * Whether XML output should be formatted
@@ -111,20 +127,20 @@ class Sitemap extends AbstractHelper
     /**
      * Returns a DOMDocument containing the Sitemap XML for the given container
      *
-     * @param  AbstractContainer                 $container  [optional] container to get
+     * @param AbstractContainer|null      $container [optional] container to get
      *                                               breadcrumbs from, defaults
      *                                               to what is registered in the
      *                                               helper
      * @return DOMDocument                           DOM representation of the
      *                                               container
-     * @throws Exception\RuntimeException            if schema validation is on
+     * @throws Exception\RuntimeException            If schema validation is on
      *                                               and the sitemap is invalid
      *                                               according to the sitemap
      *                                               schema, or if sitemap
      *                                               validators are used and the
-     *                                               loc element fails validation
+     *                                               loc element fails validation.
      */
-    public function getDomSitemap(AbstractContainer $container = null)
+    public function getDomSitemap(?AbstractContainer $container = null)
     {
         // Reset the urls
         $this->urls = [];
@@ -141,14 +157,14 @@ class Sitemap extends AbstractHelper
         // check if we should validate using our own validators
         if ($this->getUseSitemapValidators()) {
             // create validators
-            $locValidator        = new \Laminas\Validator\Sitemap\Loc();
-            $lastmodValidator    = new \Laminas\Validator\Sitemap\Lastmod();
-            $changefreqValidator = new \Laminas\Validator\Sitemap\Changefreq();
-            $priorityValidator   = new \Laminas\Validator\Sitemap\Priority();
+            $locValidator        = new Loc();
+            $lastmodValidator    = new Lastmod();
+            $changefreqValidator = new Changefreq();
+            $priorityValidator   = new Priority();
         }
 
         // create document
-        $dom = new DOMDocument('1.0', 'UTF-8');
+        $dom               = new DOMDocument('1.0', 'UTF-8');
         $dom->formatOutput = $this->getFormatOutput();
 
         // ...and urlset (root) element
@@ -185,7 +201,8 @@ class Sitemap extends AbstractHelper
             $urlNode = $dom->createElementNS(self::SITEMAP_NS, 'url');
             $urlSet->appendChild($urlNode);
 
-            if ($this->getUseSitemapValidators()
+            if (
+                $this->getUseSitemapValidators()
                 && ! $locValidator->isValid($url)
             ) {
                 throw new Exception\RuntimeException(sprintf(
@@ -206,7 +223,8 @@ class Sitemap extends AbstractHelper
                     $lastmod = date('c', $lastmod);
                 }
 
-                if (! $this->getUseSitemapValidators()
+                if (
+                    ! $this->getUseSitemapValidators()
                     || $lastmodValidator->isValid($lastmod)
                 ) {
                     // Cast $lastmod to string in case no validation was used
@@ -219,8 +237,10 @@ class Sitemap extends AbstractHelper
             // add 'changefreq' element if a valid changefreq is set in page
             if (isset($page->changefreq)) {
                 $changefreq = $page->changefreq;
-                if (! $this->getUseSitemapValidators() ||
-                    $changefreqValidator->isValid($changefreq)) {
+                if (
+                    ! $this->getUseSitemapValidators() ||
+                    $changefreqValidator->isValid($changefreq)
+                ) {
                     $urlNode->appendChild(
                         $dom->createElementNS(self::SITEMAP_NS, 'changefreq', $changefreq)
                     );
@@ -230,8 +250,10 @@ class Sitemap extends AbstractHelper
             // add 'priority' element if a valid priority is set in page
             if (isset($page->priority)) {
                 $priority = $page->priority;
-                if (! $this->getUseSitemapValidators() ||
-                    $priorityValidator->isValid($priority)) {
+                if (
+                    ! $this->getUseSitemapValidators() ||
+                    $priorityValidator->isValid($priority)
+                ) {
                     $urlNode->appendChild(
                         $dom->createElementNS(self::SITEMAP_NS, 'priority', $priority)
                     );
@@ -258,7 +280,6 @@ class Sitemap extends AbstractHelper
     /**
      * Returns an escaped absolute URL for the given page
      *
-     * @param AbstractPage $page
      * @return null|string
      */
     public function url(AbstractPage $page)
@@ -268,7 +289,7 @@ class Sitemap extends AbstractHelper
         if (! isset($href[0])) {
             // no href
             return '';
-        } elseif ($href[0] == '/') {
+        } elseif ($href[0] === '/') {
             // href is relative to root; use serverUrl helper
             $url = $this->getServerUrl() . $href;
         } elseif (preg_match('/^[a-z]+:/im', (string) $href)) {
@@ -278,7 +299,7 @@ class Sitemap extends AbstractHelper
             // href is relative to current document; use url helpers
             $basePathHelper = $this->getView()->plugin('basepath');
             $curDoc         = $basePathHelper();
-            $curDoc         = ('/' == $curDoc) ? '' : trim($curDoc, '/');
+            $curDoc         = '/' === $curDoc ? '' : trim($curDoc, '/');
             $url            = rtrim($this->getServerUrl(), '/') . '/'
                                                                 . $curDoc
                                                                 . (empty($curDoc) ? '' : '/') . $href;
@@ -362,7 +383,7 @@ class Sitemap extends AbstractHelper
     public function getServerUrl()
     {
         if (! isset($this->serverUrl)) {
-            $serverUrlHelper  = $this->getView()->plugin('serverUrl');
+            $serverUrlHelper = $this->getView()->plugin('serverUrl');
             $this->serverUrl = $serverUrlHelper();
         }
 

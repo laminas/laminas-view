@@ -1,9 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper;
 
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\Placeholder\Container;
+use Laminas\View\Helper\Placeholder\Container\AbstractContainer;
+
+use function array_key_exists;
 
 /**
  * Helper for passing data between otherwise segregated Views. It's called
@@ -16,22 +21,23 @@ class Placeholder extends AbstractHelper
     /**
      * Placeholder items
      *
-     * @var Container\AbstractContainer[]
+     * @var AbstractContainer[]
      */
     protected $items = [];
 
     /**
      * Default container class
+     *
      * @var string
      */
-    protected $containerClass = 'Laminas\View\Helper\Placeholder\Container';
+    protected $containerClass = Container::class;
 
     /**
      * Placeholder helper
      *
      * @param  string $name
      * @throws InvalidArgumentException
-     * @return Placeholder\Container\AbstractContainer
+     * @return AbstractContainer
      */
     public function __invoke($name = null)
     {
@@ -50,7 +56,7 @@ class Placeholder extends AbstractHelper
      *
      * @param  string $key
      * @param  array $value
-     * @return Container\AbstractContainer
+     * @return AbstractContainer
      */
     public function createContainer($key, array $value = [])
     {
@@ -64,7 +70,7 @@ class Placeholder extends AbstractHelper
      * Retrieve a placeholder container
      *
      * @param  string $key
-     * @return Container\AbstractContainer
+     * @return AbstractContainer
      */
     public function getContainer($key)
     {
@@ -73,9 +79,7 @@ class Placeholder extends AbstractHelper
             return $this->items[$key];
         }
 
-        $container = $this->createContainer($key);
-
-        return $container;
+        return $this->createContainer($key);
     }
 
     /**
@@ -87,8 +91,7 @@ class Placeholder extends AbstractHelper
     public function containerExists($key)
     {
         $key = (string) $key;
-        $return = array_key_exists($key, $this->items);
-        return $return;
+        return array_key_exists($key, $this->items);
     }
 
     /**

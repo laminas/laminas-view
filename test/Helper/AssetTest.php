@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
 use Laminas\ServiceManager\ServiceManager;
@@ -16,7 +18,7 @@ class AssetTest extends TestCase
     /** @var array<string, string> */
     protected $resourceMap = [
         'css/style.css' => 'css/style-3a97ff4ee3.css',
-        'js/vendor.js' => 'js/vendor-a507086eba.js',
+        'js/vendor.js'  => 'js/vendor-a507086eba.js',
     ];
 
     /** @var Asset */
@@ -33,7 +35,7 @@ class AssetTest extends TestCase
     public function testHelperPluginManagerReturnsAssetHelper(): void
     {
         $helpers = $this->getHelperPluginManager();
-        $asset = $helpers->get('asset');
+        $asset   = $helpers->get('asset');
 
         $this->assertInstanceOf(Asset::class, $asset);
     }
@@ -41,7 +43,7 @@ class AssetTest extends TestCase
     public function testHelperPluginManagerReturnsAssetHelperByClassName(): void
     {
         $helpers = $this->getHelperPluginManager();
-        $asset = $helpers->get(Asset::class);
+        $asset   = $helpers->get(Asset::class);
 
         $this->assertInstanceOf(Asset::class, $asset);
     }

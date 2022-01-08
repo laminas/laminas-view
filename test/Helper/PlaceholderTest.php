@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
 use Laminas\View\Helper;
@@ -15,9 +17,7 @@ use PHPUnit\Framework\TestCase;
  */
 class PlaceholderTest extends TestCase
 {
-    /**
-     * @var Helper\Placeholder
-     */
+    /** @var Helper\Placeholder */
     public $placeholder;
 
     /**

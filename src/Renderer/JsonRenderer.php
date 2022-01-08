@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Renderer;
 
+use ArrayAccess;
 use JsonSerializable;
 use Laminas\Json\Json;
 use Laminas\Stdlib\ArrayUtils;
@@ -12,20 +15,24 @@ use Laminas\View\Renderer\RendererInterface as Renderer;
 use Laminas\View\Resolver\ResolverInterface as Resolver;
 use Traversable;
 
+use function array_replace_recursive;
+use function get_object_vars;
+use function is_object;
+use function sprintf;
+
 /**
  * JSON renderer
  */
 class JsonRenderer implements Renderer, TreeRendererInterface
 {
     /**
-     * Whether or not to merge child models with no capture-to value set
+     * Whether to merge child models with no capture-to value set
+     *
      * @var bool
      */
     protected $mergeUnnamedChildren = false;
 
-    /**
-     * @var Resolver
-     */
+    /** @var Resolver|null */
     protected $resolver;
 
     /**
@@ -33,7 +40,7 @@ class JsonRenderer implements Renderer, TreeRendererInterface
      *
      * @var string
      */
-    protected $jsonpCallback = null;
+    protected $jsonpCallback;
 
     /**
      * Return the template engine object, if any
@@ -42,7 +49,7 @@ class JsonRenderer implements Renderer, TreeRendererInterface
      * phplib, etc, return the template engine object. Useful for calling
      * methods on these objects, such as for setting filters, modifiers, etc.
      *
-     * @return mixed
+     * @return $this
      */
     public function getEngine()
     {
@@ -53,7 +60,6 @@ class JsonRenderer implements Renderer, TreeRendererInterface
      * Set the resolver used to map a template name to a resource the renderer may consume.
      *
      * @todo Determine use case for resolvers when rendering JSON
-     * @param Resolver $resolver
      * @return void
      */
     public function setResolver(Resolver $resolver)
@@ -62,7 +68,7 @@ class JsonRenderer implements Renderer, TreeRendererInterface
     }
 
     /**
-     * Set flag indicating whether or not to merge unnamed children
+     * Set flag indicating whether to merge unnamed children
      *
      * @param  bool $mergeUnnamedChildren
      * @return JsonRenderer
@@ -95,7 +101,7 @@ class JsonRenderer implements Renderer, TreeRendererInterface
      */
     public function hasJsonpCallback()
     {
-        return (null !== $this->jsonpCallback);
+        return null !== $this->jsonpCallback;
     }
 
     /**
@@ -113,7 +119,7 @@ class JsonRenderer implements Renderer, TreeRendererInterface
      *
      * @todo   Determine what use case exists for accepting both $nameOrModel and $values
      * @param  string|Model $nameOrModel The script/resource process, or a view model
-     * @param  null|array|\ArrayAccess $values Values to use during rendering
+     * @param  null|array|ArrayAccess $values Values to use during rendering
      * @throws Exception\DomainException
      * @return string The script output.
      */
@@ -144,7 +150,7 @@ class JsonRenderer implements Renderer, TreeRendererInterface
                 $return = Json::encode($nameOrModel);
             } elseif ($nameOrModel instanceof Traversable) {
                 $nameOrModel = ArrayUtils::iteratorToArray($nameOrModel);
-                $return = Json::encode($nameOrModel);
+                $return      = Json::encode($nameOrModel);
             } else {
                 $return = Json::encode(get_object_vars($nameOrModel));
             }
@@ -177,11 +183,9 @@ class JsonRenderer implements Renderer, TreeRendererInterface
     /**
      * Retrieve values from a model and recurse its children to build a data structure
      *
-     * @param Model $model
-     * @param bool $mergeWithVariables Whether or not to merge children with
-     *         the variables of the $model
-     * @return (array|mixed)[]|\ArrayAccess
-     * @psalm-return \ArrayAccess|array<array|mixed>
+     * @param bool $mergeWithVariables Whether to merge children with the variables of the $model
+     * @return (array|mixed)[]|ArrayAccess
+     * @psalm-return ArrayAccess|array<array|mixed>
      */
     protected function recurseModel(Model $model, $mergeWithVariables = true)
     {
@@ -224,9 +228,7 @@ class JsonRenderer implements Renderer, TreeRendererInterface
      * Inject discovered child model values into parent model
      *
      * @todo detect collisions and decide whether to append and/or aggregate?
-     * @param Model $model
      * @param array $children
-     * @return void
      */
     protected function injectChildren(Model $model, array $children): void
     {

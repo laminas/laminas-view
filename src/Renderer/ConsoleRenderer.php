@@ -1,10 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Renderer;
 
 use Laminas\Filter\FilterChain;
 use Laminas\View\Model\ModelInterface;
 use Laminas\View\Resolver\ResolverInterface;
+use Traversable;
+
+use function method_exists;
 
 /**
  * Class for Laminas\View\Model\ConsoleModel to help enforce private constructs.
@@ -15,17 +20,10 @@ use Laminas\View\Resolver\ResolverInterface;
  */
 class ConsoleRenderer implements RendererInterface, TreeRendererInterface
 {
-    // @codingStandardsIgnoreStart
-    /**
-     * @var FilterChain
-     */
-    protected $__filterChain;
-    // @codingStandardsIgnoreEnd
+    /** @var FilterChain|null */
+    protected $__filterChain; // phpcs:ignore
 
     /**
-     * Constructor.
-     *
-     *
      * @todo handle passing helper manager, options
      * @todo handle passing filter chain, options
      * @todo handle passing variables object, options
@@ -37,6 +35,7 @@ class ConsoleRenderer implements RendererInterface, TreeRendererInterface
         $this->init();
     }
 
+    /** @return $this */
     public function setResolver(ResolverInterface $resolver)
     {
         return $this;
@@ -68,7 +67,6 @@ class ConsoleRenderer implements RendererInterface, TreeRendererInterface
     /**
      * Set filter chain
      *
-     * @param  FilterChain $filters
      * @return ConsoleRenderer
      */
     public function setFilterChain(FilterChain $filters)
@@ -85,7 +83,7 @@ class ConsoleRenderer implements RendererInterface, TreeRendererInterface
     public function getFilterChain()
     {
         if (null === $this->__filterChain) {
-            $this->setFilterChain(new FilterChain());
+            $this->__filterChain = new FilterChain();
         }
         return $this->__filterChain;
     }
@@ -94,7 +92,7 @@ class ConsoleRenderer implements RendererInterface, TreeRendererInterface
      * Recursively processes all ViewModels and returns output.
      *
      * @param  string|ModelInterface   $model        A ViewModel instance.
-     * @param  null|array|\Traversable $values       Values to use when rendering. If none
+     * @param  null|array|Traversable $values       Values to use when rendering. If none
      *                                               provided, uses those in the composed
      *                                               variables container.
      * @return string Console output.
@@ -105,7 +103,7 @@ class ConsoleRenderer implements RendererInterface, TreeRendererInterface
             return '';
         }
 
-        $result = '';
+        $result  = '';
         $options = $model->getOptions();
         foreach ($options as $setting => $value) {
             $method = 'set' . $setting;
@@ -134,7 +132,8 @@ class ConsoleRenderer implements RendererInterface, TreeRendererInterface
     }
 
     /**
-     * @see Laminas\View\Renderer\TreeRendererInterface
+     * @see \Laminas\View\Renderer\TreeRendererInterface
+     *
      * @return bool
      */
     public function canRenderTrees()

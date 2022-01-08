@@ -16,7 +16,7 @@ use Laminas\ServiceManager\ServiceManager;
 use Laminas\Stdlib\ArrayUtils;
 use Laminas\View;
 use Laminas\View\Renderer\RendererInterface;
-use ReturnTypeWillChange;
+use ReturnTypeWillChange; // phpcs:ignore
 use stdClass;
 use Throwable;
 use Traversable;

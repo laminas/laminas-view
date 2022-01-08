@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
 use Laminas\View\Helper\HtmlFlash;
@@ -12,9 +14,7 @@ use PHPUnit\Framework\TestCase;
  */
 class HtmlFlashTest extends TestCase
 {
-    /**
-     * @var HtmlFlash
-     */
+    /** @var HtmlFlash */
     public $helper;
 
     /**

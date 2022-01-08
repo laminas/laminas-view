@@ -1,10 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper;
 
 use Laminas\View\Exception;
 use Laminas\View\Model\ModelInterface;
 use Traversable;
+
+use function func_num_args;
+use function get_object_vars;
+use function is_object;
+use function is_scalar;
+use function method_exists;
 
 /**
  * Helper for rendering a template fragment in its own variable scope.
@@ -29,7 +37,7 @@ class Partial extends AbstractHelper
      */
     public function __invoke($name = null, $values = null)
     {
-        if (0 == func_num_args()) {
+        if (0 === func_num_args()) {
             return $this;
         }
 
@@ -59,7 +67,6 @@ class Partial extends AbstractHelper
      * Set object key
      *
      * @param string|null $key
-     *
      * @return self
      */
     public function setObjectKey($key)

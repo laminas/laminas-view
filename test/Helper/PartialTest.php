@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
 use ArrayObject;
@@ -8,6 +10,10 @@ use Laminas\View\Model\ViewModel;
 use Laminas\View\Renderer\PhpRenderer as View;
 use LaminasTest\View\Helper\TestAsset\Aggregate;
 use PHPUnit\Framework\TestCase;
+use stdClass;
+
+use function get_object_vars;
+use function sprintf;
 
 /**
  * Test class for Partial view helper.
@@ -17,14 +23,10 @@ use PHPUnit\Framework\TestCase;
  */
 class PartialTest extends TestCase
 {
-    /**
-     * @var Partial
-     */
+    /** @var Partial */
     public $helper;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $basePath;
 
     /**
@@ -66,7 +68,7 @@ class PartialTest extends TestCase
 
     public function testObjectModelWithPublicPropertiesSetsViewVariables(): void
     {
-        $model = new \stdClass();
+        $model      = new stdClass();
         $model->foo = 'bar';
         $model->bar = 'baz';
 

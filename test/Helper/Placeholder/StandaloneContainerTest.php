@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper\Placeholder;
 
 use Laminas\View\Exception\DomainException;
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\Placeholder\Container;
 use Laminas\View\Renderer\PhpRenderer as View;
+use LaminasTest\View\Helper\TestAsset\Bar;
 use LaminasTest\View\Helper\TestAsset\Foo;
 use PHPUnit\Framework\TestCase;
 
@@ -17,9 +20,7 @@ use PHPUnit\Framework\TestCase;
  */
 class StandaloneContainerTest extends TestCase
 {
-    /**
-     * @var Foo
-     */
+    /** @var Foo */
     protected $helper;
 
     /**
@@ -68,13 +69,13 @@ class StandaloneContainerTest extends TestCase
     public function testSetContainerClassThrowsInvalidArgumentException(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->helper->setContainerClass(get_class($this));
+        $this->helper->setContainerClass(static::class);
     }
 
     public function testSetGetContainerClass(): void
     {
-        $this->helper->setContainerClass('LaminasTest\View\Helper\TestAsset\Bar');
-        $this->assertEquals('LaminasTest\View\Helper\TestAsset\Bar', $this->helper->getContainerClass());
+        $this->helper->setContainerClass(Bar::class);
+        $this->assertEquals(Bar::class, $this->helper->getContainerClass());
     }
 
     public function testViewAccessorWorks(): void
@@ -86,11 +87,11 @@ class StandaloneContainerTest extends TestCase
 
     public function testContainerDoesNotPersistBetweenInstances(): void
     {
-        $foo1 = new Foo;
+        $foo1 = new Foo();
         $foo1->append('Foo');
         $foo1->setSeparator(' - ');
 
-        $foo2 = new Foo;
+        $foo2 = new Foo();
         $foo2->append('Bar');
 
         $test = $foo2->toString();

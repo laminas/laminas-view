@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper\Service;
 
 use Interop\Container\ContainerInterface;
@@ -7,17 +9,18 @@ use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\View\Helper\FlashMessenger;
 
+use function method_exists;
+
 class FlashMessengerFactory implements FactoryInterface
 {
     /**
      * Create service
      *
-     * @param ContainerInterface $container
      * @param string $name
      * @param null|array $options
      * @return FlashMessenger
      */
-    public function __invoke(ContainerInterface $container, $name, array $options = null)
+    public function __invoke(ContainerInterface $container, $name, ?array $options = null)
     {
         // test if we are using Laminas\ServiceManager v2 or v3
         if (! method_exists($container, 'configure')) {
@@ -49,7 +52,6 @@ class FlashMessengerFactory implements FactoryInterface
     /**
      * Create service (v2)
      *
-     * @param ServiceLocatorInterface $container
      * @param string $normalizedName
      * @param string $requestedName
      * @return FlashMessenger

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
 use Laminas\View\Helper\HtmlPage;
@@ -12,10 +14,10 @@ use PHPUnit\Framework\TestCase;
  */
 class HtmlPageTest extends TestCase
 {
-    /**
-     * @var HtmlPage
-     */
+    /** @var HtmlPage */
     public $helper;
+    /** @var View */
+    private $view;
 
     /**
      * Sets up the fixture, for example, open a network connection.

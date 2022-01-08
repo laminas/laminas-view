@@ -2,7 +2,7 @@
 
 namespace Laminas\Paginator\Adapter;
 
-use ReturnTypeWillChange;
+use ReturnTypeWillChange; // phpcs:ignore
 
 use function array_slice;
 use function count;

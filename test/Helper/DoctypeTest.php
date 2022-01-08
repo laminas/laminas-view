@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
 use Laminas\View\Exception\DomainException;
-use Laminas\View\Helper;
+use Laminas\View\Helper\Doctype;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -14,14 +16,10 @@ use PHPUnit\Framework\TestCase;
  */
 class DoctypeTest extends TestCase
 {
-    /**
-     * @var Helper\Doctype
-     */
+    /** @var Doctype */
     public $helper;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $basePath;
 
     /**
@@ -30,31 +28,31 @@ class DoctypeTest extends TestCase
      */
     protected function setUp(): void
     {
-        Helper\Doctype::unsetDoctypeRegistry();
-        $this->helper = new Helper\Doctype();
+        Doctype::unsetDoctypeRegistry();
+        $this->helper = new Doctype();
     }
 
     public function testDoctypeMethodReturnsObjectInstance(): void
     {
         $doctype = $this->helper->__invoke();
-        $this->assertInstanceOf(Helper\Doctype::class, $doctype);
+        $this->assertInstanceOf(Doctype::class, $doctype);
     }
 
     public function testPassingDoctypeSetsDoctype(): void
     {
-        $doctype = $this->helper->__invoke(Helper\Doctype::XHTML1_STRICT);
-        $this->assertEquals(Helper\Doctype::XHTML1_STRICT, $doctype->getDoctype());
+        $doctype = $this->helper->__invoke(Doctype::XHTML1_STRICT);
+        $this->assertEquals(Doctype::XHTML1_STRICT, $doctype->getDoctype());
     }
 
     public function testIsXhtmlReturnsTrueForXhtmlDoctypes(): void
     {
         $types = [
-            Helper\Doctype::XHTML1_STRICT,
-            Helper\Doctype::XHTML1_TRANSITIONAL,
-            Helper\Doctype::XHTML1_FRAMESET,
-            Helper\Doctype::XHTML1_RDFA,
-            Helper\Doctype::XHTML1_RDFA11,
-            Helper\Doctype::XHTML5
+            Doctype::XHTML1_STRICT,
+            Doctype::XHTML1_TRANSITIONAL,
+            Doctype::XHTML1_FRAMESET,
+            Doctype::XHTML1_RDFA,
+            Doctype::XHTML1_RDFA11,
+            Doctype::XHTML5,
         ];
 
         foreach ($types as $type) {
@@ -73,9 +71,9 @@ class DoctypeTest extends TestCase
     public function testIsXhtmlReturnsFalseForNonXhtmlDoctypes(): void
     {
         $types = [
-            Helper\Doctype::HTML4_STRICT,
-            Helper\Doctype::HTML4_LOOSE,
-            Helper\Doctype::HTML4_FRAMESET,
+            Doctype::HTML4_STRICT,
+            Doctype::HTML4_LOOSE,
+            Doctype::HTML4_FRAMESET,
         ];
 
         foreach ($types as $type) {
@@ -93,21 +91,20 @@ class DoctypeTest extends TestCase
 
     public function testIsHtml5(): void
     {
-        foreach ([Helper\Doctype::HTML5, Helper\Doctype::XHTML5] as $type) {
+        foreach ([Doctype::HTML5, Doctype::XHTML5] as $type) {
             $doctype = $this->helper->__invoke($type);
             $this->assertEquals($type, $doctype->getDoctype());
             $this->assertTrue($doctype->isHtml5());
         }
 
         $types = [
-            Helper\Doctype::HTML4_STRICT,
-            Helper\Doctype::HTML4_LOOSE,
-            Helper\Doctype::HTML4_FRAMESET,
-            Helper\Doctype::XHTML1_STRICT,
-            Helper\Doctype::XHTML1_TRANSITIONAL,
-            Helper\Doctype::XHTML1_FRAMESET
+            Doctype::HTML4_STRICT,
+            Doctype::HTML4_LOOSE,
+            Doctype::HTML4_FRAMESET,
+            Doctype::XHTML1_STRICT,
+            Doctype::XHTML1_TRANSITIONAL,
+            Doctype::XHTML1_FRAMESET,
         ];
-
 
         foreach ($types as $type) {
             $doctype = $this->helper->__invoke($type);
@@ -121,21 +118,21 @@ class DoctypeTest extends TestCase
         // ensure default registered Doctype is false
         $this->assertFalse($this->helper->isRdfa());
 
-        $this->assertTrue($this->helper->__invoke(Helper\Doctype::XHTML1_RDFA)->isRdfa());
-        $this->assertTrue($this->helper->__invoke(Helper\Doctype::XHTML1_RDFA11)->isRdfa());
-        $this->assertTrue($this->helper->__invoke(Helper\Doctype::XHTML5)->isRdfa());
-        $this->assertTrue($this->helper->__invoke(Helper\Doctype::HTML5)->isRdfa());
+        $this->assertTrue($this->helper->__invoke(Doctype::XHTML1_RDFA)->isRdfa());
+        $this->assertTrue($this->helper->__invoke(Doctype::XHTML1_RDFA11)->isRdfa());
+        $this->assertTrue($this->helper->__invoke(Doctype::XHTML5)->isRdfa());
+        $this->assertTrue($this->helper->__invoke(Doctype::HTML5)->isRdfa());
 
         // build-in doctypes
         $doctypes = [
-            Helper\Doctype::XHTML11,
-            Helper\Doctype::XHTML1_STRICT,
-            Helper\Doctype::XHTML1_TRANSITIONAL,
-            Helper\Doctype::XHTML1_FRAMESET,
-            Helper\Doctype::XHTML_BASIC1,
-            Helper\Doctype::HTML4_STRICT,
-            Helper\Doctype::HTML4_LOOSE,
-            Helper\Doctype::HTML4_FRAMESET,
+            Doctype::XHTML11,
+            Doctype::XHTML1_STRICT,
+            Doctype::XHTML1_TRANSITIONAL,
+            Doctype::XHTML1_FRAMESET,
+            Doctype::XHTML_BASIC1,
+            Doctype::HTML4_STRICT,
+            Doctype::HTML4_LOOSE,
+            Doctype::HTML4_FRAMESET,
         ];
 
         foreach ($doctypes as $type) {
@@ -183,8 +180,8 @@ class DoctypeTest extends TestCase
 
     public function testStringificationReturnsDoctypeString(): void
     {
-        $doctype = $this->helper->__invoke(Helper\Doctype::XHTML1_STRICT);
-        $string   = $doctype->__toString();
+        $doctype = $this->helper->__invoke(Doctype::XHTML1_STRICT);
+        $string  = $doctype->__toString();
         // @codingStandardsIgnoreStart
         $this->assertEquals('<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">', $string);
         // @codingStandardsIgnoreEnd
@@ -192,6 +189,6 @@ class DoctypeTest extends TestCase
 
     public function testDoctypeDefaultsToHtml4Loose(): void
     {
-        self::assertSame(Helper\Doctype::HTML4_LOOSE, $this->helper->getDoctype());
+        self::assertSame(Doctype::HTML4_LOOSE, $this->helper->getDoctype());
     }
 }

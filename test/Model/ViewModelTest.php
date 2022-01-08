@@ -1,33 +1,40 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Model;
 
 use ArrayObject;
 use Laminas\View\Exception;
+use Laminas\View\Model\ClearableModelInterface;
+use Laminas\View\Model\ModelInterface;
 use Laminas\View\Model\ViewModel;
 use Laminas\View\Variables as ViewVariables;
 use LaminasTest\View\Model\TestAsset\Variable;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
+use function count;
+use function iterator_to_array;
+
 class ViewModelTest extends TestCase
 {
     public function testImplementsModelInterface(): void
     {
         $model = new ViewModel();
-        $this->assertInstanceOf('Laminas\View\Model\ModelInterface', $model);
+        $this->assertInstanceOf(ModelInterface::class, $model);
     }
 
     public function testImplementsClearableModelInterface(): void
     {
         $model = new ViewModel();
-        $this->assertInstanceOf('Laminas\View\Model\ClearableModelInterface', $model);
+        $this->assertInstanceOf(ClearableModelInterface::class, $model);
     }
 
     public function testAllowsEmptyConstructor(): void
     {
         $model = new ViewModel();
-        $this->assertInstanceOf('Laminas\View\Variables', $model->getVariables());
+        $this->assertInstanceOf(ViewVariables::class, $model->getVariables());
         $this->assertEquals([], $model->getOptions());
     }
 
@@ -47,16 +54,16 @@ class ViewModelTest extends TestCase
 
     public function testAllowsPassingTraversableArgumentsToVariablesAndOptionsInConstructor(): void
     {
-        $vars    = new ArrayObject;
-        $options = new ArrayObject;
-        $model = new ViewModel($vars, $options);
+        $vars    = new ArrayObject();
+        $options = new ArrayObject();
+        $model   = new ViewModel($vars, $options);
         $this->assertSame($vars, $model->getVariables());
         $this->assertSame(iterator_to_array($options), $model->getOptions());
     }
 
     public function testAllowsPassingNonArrayAccessObjectsAsArrayInConstructor(): void
     {
-        $vars  = ['foo' => new Variable];
+        $vars  = ['foo' => new Variable()];
         $model = new ViewModel($vars);
         $this->assertSame($vars, $model->getVariables());
     }
@@ -125,7 +132,7 @@ class ViewModelTest extends TestCase
     public function testOptionsAreInternallyConvertedToAnArrayFromTraversables(): void
     {
         $options = new ArrayObject(['foo' => 'bar']);
-        $model = new ViewModel();
+        $model   = new ViewModel();
         $model->setOptions($options);
         $this->assertEquals($options->getArrayCopy(), $model->getOptions());
     }
@@ -144,7 +151,7 @@ class ViewModelTest extends TestCase
         $model = new ViewModel();
         $this->expectException(Exception\InvalidArgumentException::class);
         $this->expectExceptionMessage('expects an array');
-        $model->setVariables(new stdClass);
+        $model->setVariables(new stdClass());
     }
 
     public function testPassingAnInvalidArgumentToSetOptionsRaisesAnException(): void
@@ -152,7 +159,7 @@ class ViewModelTest extends TestCase
         $model = new ViewModel();
         $this->expectException(Exception\InvalidArgumentException::class);
         $this->expectExceptionMessage('expects an array');
-        $model->setOptions(new stdClass);
+        $model->setOptions(new stdClass());
     }
 
     public function testCaptureToDefaultsToContent(): void
@@ -314,8 +321,8 @@ class ViewModelTest extends TestCase
 
     public function testGetChildrenByCaptureToRecursive(): void
     {
-        $model = new ViewModel();
-        $child = new ViewModel();
+        $model    = new ViewModel();
+        $child    = new ViewModel();
         $subChild = new ViewModel();
         $child->addChild($subChild, 'bar');
         $model->addChild($child, 'foo');
@@ -325,8 +332,8 @@ class ViewModelTest extends TestCase
 
     public function testGetChildrenByCaptureToNonRecursive(): void
     {
-        $model = new ViewModel();
-        $child = new ViewModel();
+        $model    = new ViewModel();
+        $child    = new ViewModel();
         $subChild = new ViewModel();
         $child->addChild($subChild, 'bar');
         $model->addChild($child, 'foo');
@@ -368,26 +375,25 @@ class ViewModelTest extends TestCase
             // variables                     default   expected
 
             // if it is set always get the value
-            [['foo' => 'bar'],                  'baz', 'bar'],
-            [['foo' => 'bar'],                  null,  'bar'],
+            [['foo' => 'bar'], 'baz', 'bar'],
+            [['foo' => 'bar'], null, 'bar'],
             [new ArrayObject(['foo' => 'bar']), 'baz', 'bar'],
-            [new ArrayObject(['foo' => 'bar']), null,  'bar'],
+            [new ArrayObject(['foo' => 'bar']), null, 'bar'],
 
             // if it is null always get null value
-            [['foo' => null],                   null,  null],
-            [['foo' => null],                   'baz', null],
-            [new ArrayObject(['foo' => null]),  null,  null],
-            [new ArrayObject(['foo' => null]),  'baz', null],
+            [['foo' => null], null, null],
+            [['foo' => null], 'baz', null],
+            [new ArrayObject(['foo' => null]), null, null],
+            [new ArrayObject(['foo' => null]), 'baz', null],
 
             // when it is not set always get default value
-            [[],                                'baz', 'baz'],
+            [[], 'baz', 'baz'],
             [new ArrayObject(),                 'baz', 'baz'],
         ];
     }
 
     /**
      * @dataProvider variableValue
-     *
      * @param array|ArrayObject $variables
      * @param string|null $default
      * @param string|null $expected
@@ -401,7 +407,6 @@ class ViewModelTest extends TestCase
 
     /**
      * @dataProvider variableValue
-     *
      * @param array|ArrayObject $variables
      * @param string|null $default
      * @param string|null $expected

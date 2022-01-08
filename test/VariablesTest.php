@@ -1,12 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View;
 
 use ArrayObject;
 use Laminas\View\Variables;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 use function assert;
+use function restore_error_handler;
+use function set_error_handler;
+
+use const E_USER_NOTICE;
 
 /**
  * @group      Laminas_View
@@ -20,7 +27,7 @@ class VariablesTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->vars = new Variables;
+        $this->vars = new Variables();
     }
 
     public function testStrictVarsAreDisabledByDefault(): void
@@ -48,7 +55,7 @@ class VariablesTest extends TestCase
 
     public function testAssignCastsPlainObjectToArrayBeforeMerging(): void
     {
-        $vars = new \stdClass;
+        $vars      = new stdClass();
         $vars->foo = 'bar';
         $vars->bar = 'baz';
 
@@ -59,7 +66,7 @@ class VariablesTest extends TestCase
 
     public function testAssignCastsArrayObjectToArrayWhenPresentBeforeMerging(): void
     {
-        $vars = [
+        $vars   = [
             'foo' => 'bar',
             'bar' => 'baz',
         ];
@@ -124,9 +131,9 @@ class VariablesTest extends TestCase
             'bar' => 'baz',
             'baz' => 'foo',
         ]);
-        $this->assertEquals(2, count($this->vars));
+        $this->assertCount(2, $this->vars);
         $this->vars->clear();
-        $this->assertEquals(0, count($this->vars));
+        $this->assertCount(0, $this->vars);
     }
 
     public function testAllowsSpecifyingClosureValuesAndReturningTheValue(): void

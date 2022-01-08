@@ -8,14 +8,12 @@ use Laminas\View\Helper\AbstractHtmlElement;
 
 final class ConcreteElementHelper extends AbstractHtmlElement
 {
-    /** @return string */
-    public function normalizeElementId(string $id)
+    public function normalizeElementId(string $id): string
     {
         return $this->normalizeId($id);
     }
 
-    /** @return string */
-    public function compileAttributes(array $attributes)
+    public function compileAttributes(array $attributes): string
     {
         return $this->htmlAttribs($attributes);
     }

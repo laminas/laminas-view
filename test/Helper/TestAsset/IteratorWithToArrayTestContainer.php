@@ -1,13 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper\TestAsset;
 
 class IteratorWithToArrayTestContainer
 {
-    // @codingStandardsIgnoreStart
-    protected $_info;
-    // @codingStandardsIgnoreEnd
+    /** @var array<array-key, mixed> */
+    protected $_info; // phpcs:ignore
 
+    /** @param array<array-key, mixed> $info */
     public function __construct(array $info)
     {
         foreach ($info as $key => $value) {
@@ -16,7 +18,8 @@ class IteratorWithToArrayTestContainer
         $this->_info = $info;
     }
 
-    public function toArray()
+    /** @return array<array-key, mixed> */
+    public function toArray(): array
     {
         return $this->_info;
     }

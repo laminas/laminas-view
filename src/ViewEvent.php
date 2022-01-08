@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View;
 
 use ArrayAccess;
@@ -9,45 +11,36 @@ use Laminas\Stdlib\ResponseInterface as Response;
 use Laminas\View\Model\ModelInterface as Model;
 use Laminas\View\Renderer\RendererInterface as Renderer;
 
+use function is_array;
+
 class ViewEvent extends Event
 {
     /**#@+
      * View events triggered by eventmanager
      */
-    const EVENT_RENDERER = 'renderer';
-    const EVENT_RENDERER_POST = 'renderer.post';
-    const EVENT_RESPONSE = 'response';
+    public const EVENT_RENDERER      = 'renderer';
+    public const EVENT_RENDERER_POST = 'renderer.post';
+    public const EVENT_RESPONSE      = 'response';
     /**#@-*/
 
-    /**
-     * @var null|Model
-     */
+    /** @var null|Model */
     protected $model;
 
-    /**
-     * @var Renderer
-     */
+    /** @var Renderer|null */
     protected $renderer;
 
-    /**
-     * @var null|Request
-     */
+    /** @var null|Request */
     protected $request;
 
-    /**
-     * @var null|Response
-     */
+    /** @var null|Response */
     protected $response;
 
-    /**
-     * @var mixed
-     */
+    /** @var mixed */
     protected $result;
 
     /**
      * Set the view model
      *
-     * @param  Model $model
      * @return ViewEvent
      */
     public function setModel(Model $model)
@@ -59,7 +52,6 @@ class ViewEvent extends Event
     /**
      * Set the MVC request object
      *
-     * @param  Request $request
      * @return ViewEvent
      */
     public function setRequest(Request $request)
@@ -71,7 +63,6 @@ class ViewEvent extends Event
     /**
      * Set the MVC response object
      *
-     * @param  Response $response
      * @return ViewEvent
      */
     public function setResponse(Response $response)
@@ -105,7 +96,6 @@ class ViewEvent extends Event
     /**
      * Set value for renderer
      *
-     * @param  Renderer $renderer
      * @return ViewEvent
      */
     public function setRenderer(Renderer $renderer)
@@ -182,7 +172,7 @@ class ViewEvent extends Event
     /**
      * Get all event parameters
      *
-     * @return array|\ArrayAccess
+     * @return array|ArrayAccess
      */
     public function getParams()
     {

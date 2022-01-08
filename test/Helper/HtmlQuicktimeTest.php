@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
 use Laminas\View\Helper\HtmlQuicktime;
@@ -12,10 +14,10 @@ use PHPUnit\Framework\TestCase;
  */
 class HtmlQuicktimeTest extends TestCase
 {
-    /**
-     * @var HtmlQuicktime
-     */
+    /** @var HtmlQuicktime */
     public $helper;
+    /** @var View */
+    private $view;
 
     /**
      * Sets up the fixture, for example, open a network connection.

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Renderer;
 
 use ArrayObject;
@@ -10,14 +12,15 @@ use Laminas\View\Renderer\JsonRenderer;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
+use function get_object_vars;
+use function json_encode;
+
 /**
  * @group      Laminas_View
  */
 class JsonRendererTest extends TestCase
 {
-    /**
-     * @var JsonRenderer
-     */
+    /** @var JsonRenderer */
     protected $renderer;
 
     protected function setUp(): void
@@ -43,7 +46,7 @@ class JsonRendererTest extends TestCase
              ->addChild($child2);
 
         $expected = [
-            'foo' => 'bar',
+            'foo'    => 'bar',
             'child1' => [
                 'foo' => 'bar',
             ],
@@ -51,7 +54,7 @@ class JsonRendererTest extends TestCase
                 'foo' => 'bar',
             ],
         ];
-        $test  = $this->renderer->render($root);
+        $test     = $this->renderer->render($root);
         $this->assertEquals(json_encode($expected), $test);
     }
 
@@ -66,12 +69,12 @@ class JsonRendererTest extends TestCase
              ->addChild($child2);
 
         $expected = [
-            'foo' => 'bar',
+            'foo'    => 'bar',
             'child2' => [
                 'foo' => 'bar',
             ],
         ];
-        $test  = $this->renderer->render($root);
+        $test     = $this->renderer->render($root);
         $this->assertEquals(json_encode($expected), $test);
     }
 
@@ -87,12 +90,12 @@ class JsonRendererTest extends TestCase
              ->addChild($child2);
 
         $expected = [
-            'foo' => 'baz',
+            'foo'    => 'baz',
             'child2' => [
                 'foo' => 'bar',
             ],
         ];
-        $test  = $this->renderer->render($root);
+        $test     = $this->renderer->render($root);
         $this->assertEquals(json_encode($expected), $test);
     }
 
@@ -112,20 +115,19 @@ class JsonRendererTest extends TestCase
 
     /**
      * @dataProvider getNonObjectModels
+     * @param mixed $model
      */
     public function testRendersNonObjectModelAsJson($model): void
     {
         $expected = json_encode($model);
-        $test     = $this->renderer->render($model);
+        /** @psalm-suppress MixedArgument $test */
+        $test = $this->renderer->render($model);
         $this->assertEquals($expected, $test);
     }
 
     public function testRendersJsonSerializableModelsAsJson(): void
     {
-        if (version_compare(PHP_VERSION, '5.4.0', '<')) {
-            $this->markTestSkipped('Can only test JsonSerializable models in PHP 5.4.0 and up');
-        }
-        $model        = new TestAsset\JsonModel;
+        $model        = new TestAsset\JsonModel();
         $model->value = ['foo' => 'bar'];
         $expected     = json_encode($model->value);
         $test         = $this->renderer->render($model);
@@ -134,18 +136,18 @@ class JsonRendererTest extends TestCase
 
     public function testRendersTraversableObjectsAsJsonObjects(): void
     {
-        $model = new ArrayObject([
+        $model    = new ArrayObject([
             'foo' => 'bar',
             'bar' => 'baz',
         ]);
-        $expected     = json_encode($model->getArrayCopy());
-        $test         = $this->renderer->render($model);
+        $expected = json_encode($model->getArrayCopy());
+        $test     = $this->renderer->render($model);
         $this->assertEquals($expected, $test);
     }
 
     public function testRendersNonTraversableNonJsonSerializableObjectsAsJsonObjects(): void
     {
-        $model      = new stdClass;
+        $model      = new stdClass();
         $model->foo = 'bar';
         $model->bar = 'baz';
         $expected   = json_encode(get_object_vars($model));
@@ -177,13 +179,14 @@ class JsonRendererTest extends TestCase
     {
         $model = new ViewModel(['foo' => 'bar']);
         $this->renderer->setJsonpCallback('callback');
-        $test = $this->renderer->render($model);
+        $test     = $this->renderer->render($model);
         $expected = 'callback(' . json_encode(['foo' => 'bar']) . ');';
         $this->assertEquals($expected, $test);
     }
 
     /**
      * @dataProvider getNonObjectModels
+     * @param mixed $model
      */
     public function testRendersNonObjectModelAsJsonWithJsonpCallback($model): void
     {
@@ -195,37 +198,34 @@ class JsonRendererTest extends TestCase
 
     public function testRendersJsonSerializableModelsAsJsonWithJsonpCallback(): void
     {
-        if (version_compare(PHP_VERSION, '5.4.0', '<')) {
-            $this->markTestSkipped('Can only test JsonSerializable models in PHP 5.4.0 and up');
-        }
-        $model        = new TestAsset\JsonModel;
+        $model        = new TestAsset\JsonModel();
         $model->value = ['foo' => 'bar'];
         $expected     = 'callback(' . json_encode($model->value) . ');';
         $this->renderer->setJsonpCallback('callback');
-        $test         = $this->renderer->render($model);
+        $test = $this->renderer->render($model);
         $this->assertEquals($expected, $test);
     }
 
     public function testRendersTraversableObjectsAsJsonObjectsWithJsonpCallback(): void
     {
-        $model = new ArrayObject([
+        $model    = new ArrayObject([
             'foo' => 'bar',
             'bar' => 'baz',
         ]);
-        $expected     = 'callback(' . json_encode($model->getArrayCopy()) . ');';
+        $expected = 'callback(' . json_encode($model->getArrayCopy()) . ');';
         $this->renderer->setJsonpCallback('callback');
-        $test         = $this->renderer->render($model);
+        $test = $this->renderer->render($model);
         $this->assertEquals($expected, $test);
     }
 
     public function testRendersNonTraversableNonJsonSerializableObjectsAsJsonObjectsWithJsonpCallback(): void
     {
-        $model      = new stdClass;
+        $model      = new stdClass();
         $model->foo = 'bar';
         $model->bar = 'baz';
         $expected   = 'callback(' . json_encode(get_object_vars($model)) . ');';
         $this->renderer->setJsonpCallback('callback');
-        $test       = $this->renderer->render($model);
+        $test = $this->renderer->render($model);
         $this->assertEquals($expected, $test);
     }
 
@@ -243,7 +243,7 @@ class JsonRendererTest extends TestCase
              ->addChild($child2);
 
         $expected = [
-            'foo' => 'bar',
+            'foo'    => 'bar',
             'child1' => [
                 'foo' => 'bar',
             ],
@@ -251,7 +251,7 @@ class JsonRendererTest extends TestCase
                 'foo' => 'bar',
             ],
         ];
-        $test  = $this->renderer->render($root);
+        $test     = $this->renderer->render($root);
         $this->assertEquals(json_encode($expected), $test);
     }
 }

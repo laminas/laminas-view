@@ -15,7 +15,7 @@ use Laminas\Mvc\Controller\Plugin\AbstractPlugin;
 use Laminas\Session\Container;
 use Laminas\Session\ManagerInterface as Manager;
 use Laminas\Stdlib\SplQueue;
-use ReturnTypeWillChange;
+use ReturnTypeWillChange; // phpcs:ignore
 
 /**
  * Test shim for PHP 8.1 compatibility

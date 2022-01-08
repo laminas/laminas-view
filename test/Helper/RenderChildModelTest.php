@@ -1,12 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
 use Laminas\View\Exception;
+use Laminas\View\Helper\RenderChildModel;
+use Laminas\View\Helper\ViewModel as ViewModelHelper;
 use Laminas\View\Model\ViewModel;
 use Laminas\View\Renderer\PhpRenderer;
 use Laminas\View\Resolver\TemplateMapResolver;
 use PHPUnit\Framework\TestCase;
+
+use function assert;
 
 /**
  * @group      Laminas_View
@@ -14,6 +20,17 @@ use PHPUnit\Framework\TestCase;
  */
 class RenderChildModelTest extends TestCase
 {
+    /** @var TemplateMapResolver */
+    private $resolver;
+    /** @var PhpRenderer */
+    private $renderer;
+    /** @var ViewModelHelper */
+    private $viewModelHelper;
+    /** @var RenderChildModel */
+    private $helper;
+    /** @var ViewModel */
+    private $parent;
+
     protected function setUp(): void
     {
         $this->resolver = new TemplateMapResolver([
@@ -26,8 +43,13 @@ class RenderChildModelTest extends TestCase
         $renderer->setCanRenderTrees(true);
         $renderer->setResolver($this->resolver);
 
-        $this->viewModelHelper = $renderer->plugin('view_model');
-        $this->helper          = $renderer->plugin('render_child_model');
+        $helper = $renderer->plugin('view_model');
+        assert($helper instanceof ViewModelHelper);
+        $this->viewModelHelper = $helper;
+
+        $helper = $renderer->plugin('render_child_model');
+        assert($helper instanceof RenderChildModel);
+        $this->helper = $helper;
 
         $this->parent = new ViewModel();
         $this->parent->setTemplate('layout');
@@ -65,7 +87,6 @@ class RenderChildModelTest extends TestCase
         $this->parent->addChild($child2);
         return $child2;
     }
-
 
     public function testRendersSiblingChildrenWhenCalledInSequence(): void
     {

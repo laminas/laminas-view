@@ -1,18 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper;
 
 use Laminas\View\Exception;
 use Laminas\View\Model\ModelInterface as Model;
+
+use function sprintf;
 
 /**
  * View helper for retrieving layout object
  */
 class Layout extends AbstractHelper
 {
-    /**
-     * @var ViewModel
-     */
+    /** @var ViewModel */
     protected $viewModelHelper;
 
     /**

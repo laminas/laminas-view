@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
 use Laminas\View\Helper;
@@ -13,14 +15,10 @@ use PHPUnit\Framework\TestCase;
  */
 class InlineScriptTest extends TestCase
 {
-    /**
-     * @var Helper\InlineScript
-     */
+    /** @var Helper\InlineScript */
     public $helper;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $basePath;
 
     /**
@@ -30,7 +28,7 @@ class InlineScriptTest extends TestCase
     protected function setUp(): void
     {
         $this->basePath = __DIR__ . '/_files/modules';
-        $this->helper = new Helper\InlineScript();
+        $this->helper   = new Helper\InlineScript();
     }
 
     public function testInlineScriptReturnsObjectInstance(): void

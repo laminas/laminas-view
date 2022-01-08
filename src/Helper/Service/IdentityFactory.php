@@ -1,23 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper\Service;
 
+use Interop\Container\ContainerInterface;
 use Laminas\Authentication\AuthenticationService;
 use Laminas\Authentication\AuthenticationServiceInterface;
 use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\View\Helper\Identity;
-use Interop\Container\ContainerInterface;
+
+use function method_exists;
 
 class IdentityFactory implements FactoryInterface
 {
     /**
-     * @param ContainerInterface $container
      * @param string $name
      * @param null|array $options
-     * @return \Laminas\View\Helper\Identity
+     * @return Identity
      */
-    public function __invoke(ContainerInterface $container, $name, array $options = null)
+    public function __invoke(ContainerInterface $container, $name, ?array $options = null)
     {
         // test if we are using Laminas\ServiceManager v2 or v3
         if (! method_exists($container, 'configure')) {
@@ -36,8 +39,9 @@ class IdentityFactory implements FactoryInterface
     /**
      * Create service
      *
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return mixed
+     * @param string|null $rName
+     * @param string|null $cName
+     * @return Identity
      */
     public function createService(ServiceLocatorInterface $serviceLocator, $rName = null, $cName = null)
     {

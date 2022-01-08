@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
 use Laminas\Escaper\Escaper;
@@ -17,7 +19,7 @@ class EscapeCssTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->helper = new EscapeHelper;
+        $this->helper = new EscapeHelper();
     }
 
     public function testUsesUtf8EncodingByDefault(): void
@@ -80,14 +82,14 @@ class EscapeCssTest extends TestCase
                 ],
             ],
         ];
-        $test = $this->helper->__invoke($original, EscapeHelper::RECURSE_ARRAY);
+        $test     = $this->helper->__invoke($original, EscapeHelper::RECURSE_ARRAY);
         $this->assertEquals($expected, $test);
     }
 
     public function testWillCastObjectsToStringsBeforeEscaping(): void
     {
-        $object = new TestAsset\Stringified;
-        $test = $this->helper->__invoke($object);
+        $object = new TestAsset\Stringified();
+        $test   = $this->helper->__invoke($object);
         $this->assertEquals(
             'LaminasTest\5C View\5C Helper\5C TestAsset\5C Stringified',
             $test
@@ -96,7 +98,7 @@ class EscapeCssTest extends TestCase
 
     public function testCanRecurseObjectImplementingToArray(): void
     {
-        $original = [
+        $original      = [
             'foo' => '<b>bar</b>',
             'baz' => [
                 '<em>bat</em>',
@@ -105,7 +107,7 @@ class EscapeCssTest extends TestCase
                 ],
             ],
         ];
-        $object = new TestAsset\ToArray();
+        $object        = new TestAsset\ToArray();
         $object->array = $original;
 
         $expected = [
@@ -117,7 +119,7 @@ class EscapeCssTest extends TestCase
                 ],
             ],
         ];
-        $test = $this->helper->__invoke($object, EscapeHelper::RECURSE_OBJECT);
+        $test     = $this->helper->__invoke($object, EscapeHelper::RECURSE_OBJECT);
         $this->assertEquals($expected, $test);
     }
 
@@ -132,7 +134,7 @@ class EscapeCssTest extends TestCase
                 ],
             ],
         ];
-        $object = new stdClass();
+        $object   = new stdClass();
         foreach ($original as $key => $value) {
             $object->$key = $value;
         }
@@ -146,7 +148,7 @@ class EscapeCssTest extends TestCase
                 ],
             ],
         ];
-        $test = $this->helper->__invoke($object, EscapeHelper::RECURSE_OBJECT);
+        $test     = $this->helper->__invoke($object, EscapeHelper::RECURSE_OBJECT);
         $this->assertEquals($expected, $test);
     }
 

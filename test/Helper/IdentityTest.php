@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
 use Laminas\Authentication\AuthenticationService;
@@ -24,11 +26,11 @@ class IdentityTest extends TestCase
         $identity->setPassword('a password');
 
         $authenticationService = new AuthenticationService(
-            new NonPersistentStorage,
-            new TestAsset\AuthenticationAdapter
+            new NonPersistentStorage(),
+            new TestAsset\AuthenticationAdapter()
         );
 
-        $identityHelper = new IdentityHelper;
+        $identityHelper = new IdentityHelper();
         $identityHelper->setAuthenticationService($authenticationService);
 
         $this->assertNull($identityHelper());

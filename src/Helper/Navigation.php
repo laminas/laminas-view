@@ -1,20 +1,28 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper;
 
 use Laminas\Navigation\AbstractContainer;
+use Laminas\Navigation\Exception\ExceptionInterface;
 use Laminas\View\Exception;
 use Laminas\View\Helper\Navigation\AbstractHelper as AbstractNavigationHelper;
 use Laminas\View\Helper\Navigation\HelperInterface as NavigationHelper;
 use Laminas\View\Renderer\RendererInterface as Renderer;
 
+use function call_user_func_array;
+use function method_exists;
+use function spl_object_hash;
+use function sprintf;
+
 /**
  * Proxy helper for retrieving navigational helpers and forwarding calls
  *
- * @method \Laminas\View\Helper\Navigation\Breadcrumbs breadcrumbs($container = null)
- * @method \Laminas\View\Helper\Navigation\Links links($container = null)
- * @method \Laminas\View\Helper\Navigation\Menu menu($container = null)
- * @method \Laminas\View\Helper\Navigation\Sitemap sitemap($container = null)
+ * @method Navigation\Breadcrumbs breadcrumbs($container = null)
+ * @method Navigation\Links links($container = null)
+ * @method Navigation\Menu menu($container = null)
+ * @method Navigation\Sitemap sitemap($container = null)
  */
 class Navigation extends AbstractNavigationHelper
 {
@@ -23,7 +31,7 @@ class Navigation extends AbstractNavigationHelper
      *
      * @var string
      */
-    const NS = 'Laminas\View\Helper\Navigation';
+    public const NS = self::class;
 
     /**
      * Default proxy to use in {@link render()}
@@ -60,9 +68,7 @@ class Navigation extends AbstractNavigationHelper
      */
     protected $injectTranslator = true;
 
-    /**
-     * @var Navigation\PluginManager
-     */
+    /** @var Navigation\PluginManager */
     protected $plugins;
 
     /**
@@ -97,11 +103,11 @@ class Navigation extends AbstractNavigationHelper
      *
      * @param  string $method             helper name or method name in container
      * @param  array  $arguments          [optional] arguments to pass
-     * @throws \Laminas\View\Exception\ExceptionInterface        if proxying to a helper, and the
+     * @throws Exception\ExceptionInterface        If proxying to a helper, and the
      *                                    helper is not an instance of the
      *                                    interface specified in
-     *                                    {@link findHelper()}
-     * @throws \Laminas\Navigation\Exception\ExceptionInterface  if method does not exist in container
+     *                                    {@link findHelper()}.
+     * @throws ExceptionInterface  If method does not exist in container.
      * @return mixed                      returns what the proxied call returns
      */
     public function __call($method, array $arguments = [])
@@ -141,8 +147,8 @@ class Navigation extends AbstractNavigationHelper
      * @param bool   $strict [optional] whether exceptions should be
      *                                  thrown if something goes
      *                                  wrong. Default is true.
-     * @throws Exception\RuntimeException if $strict is true and helper cannot be found
-     * @return \Laminas\View\Helper\Navigation\HelperInterface  helper instance
+     * @throws Exception\RuntimeException If $strict is true and helper cannot be found.
+     * @return NavigationHelper  helper instance
      */
     public function findHelper($proxy, $strict = true)
     {
@@ -295,7 +301,6 @@ class Navigation extends AbstractNavigationHelper
     /**
      * Set manager for retrieving navigation helpers
      *
-     * @param  Navigation\PluginManager $plugins
      * @return Navigation
      */
     public function setPluginManager(Navigation\PluginManager $plugins)
@@ -329,7 +334,6 @@ class Navigation extends AbstractNavigationHelper
     /**
      * Set the View object
      *
-     * @param  Renderer $view
      * @return self
      */
     public function setView(Renderer $view)

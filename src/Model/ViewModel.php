@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Model;
 
 use ArrayAccess;
@@ -7,8 +9,16 @@ use ArrayIterator;
 use Laminas\Stdlib\ArrayUtils;
 use Laminas\View\Exception;
 use Laminas\View\Variables as ViewVariables;
-use ReturnTypeWillChange;
+use ReturnTypeWillChange; // phpcs:ignore
 use Traversable;
+
+use function array_key_exists;
+use function count;
+use function get_class;
+use function gettype;
+use function is_array;
+use function is_object;
+use function sprintf;
 
 class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableChildrenInterface
 {
@@ -21,12 +31,14 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
 
     /**
      * Child models
+     *
      * @var array
      */
     protected $children = [];
 
     /**
      * Renderer options
+     *
      * @var array
      */
     protected $options = [];
@@ -47,7 +59,9 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
 
     /**
      * View variables
-     * @var array|ArrayAccess&Traversable
+     *
+     * @var array|ArrayAccess|Traversable
+     * @psalm-var array|ArrayAccess&Traversable
      */
     protected $variables = [];
 
@@ -178,7 +192,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
      * Set renderer options/hints en masse
      *
      * @param array|Traversable $options
-     * @throws \Laminas\View\Exception\InvalidArgumentException
+     * @throws Exception\InvalidArgumentException
      * @return ViewModel
      */
     public function setOptions($options)
@@ -193,7 +207,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s: expects an array, or Traversable argument; received "%s"',
                 __METHOD__,
-                (is_object($options) ? get_class($options) : gettype($options))
+                is_object($options) ? get_class($options) : gettype($options)
             ));
         }
 
@@ -273,7 +287,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s: expects an array, or Traversable argument; received "%s"',
                 __METHOD__,
-                (is_object($variables) ? get_class($variables) : gettype($variables))
+                is_object($variables) ? get_class($variables) : gettype($variables)
             ));
         }
 
@@ -341,7 +355,6 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
     /**
      * Add a child model
      *
-     * @param  ModelInterface $child
      * @param  null|string $captureTo Optional; if specified, the "capture to" value to set on the child
      * @param  null|bool $append Optional; if specified, append to child  with the same capture
      * @return ViewModel

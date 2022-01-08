@@ -1,9 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
+use Laminas\View\Helper\Placeholder;
+use Laminas\View\Helper\RenderToPlaceholder;
 use Laminas\View\Renderer\PhpRenderer as View;
+use Laminas\View\Resolver\TemplatePathStack;
 use PHPUnit\Framework\TestCase;
+
+use function assert;
 
 /**
  * @group      Laminas_View
@@ -11,20 +18,28 @@ use PHPUnit\Framework\TestCase;
  */
 class RenderToPlaceholderTest extends TestCase
 {
-    // @codingStandardsIgnoreStart
-    protected $_view = null;
-    // @codingStandardsIgnoreEnd
+    /** @var View */
+    private $view;
+    /** @var RenderToPlaceholder */
+    private $helper;
 
     protected function setUp(): void
     {
-        $this->_view = new View();
-        $this->_view->resolver()->addPath(__DIR__.'/_files/scripts/');
+        $this->view = new View();
+        $resolver   = $this->view->resolver();
+        assert($resolver instanceof TemplatePathStack);
+        $resolver->addPath(__DIR__ . '/_files/scripts/');
+
+        $helper = $this->view->plugin('renderToPlaceholder');
+        assert($helper instanceof RenderToPlaceholder);
+        $this->helper = $helper;
     }
 
     public function testDefaultEmpty(): void
     {
-        $this->_view->plugin('renderToPlaceholder')->__invoke('rendertoplaceholderscript.phtml', 'fooPlaceholder');
-        $placeholder = $this->_view->plugin('placeholder');
-        $this->assertEquals("Foo Bar" . "\n", $placeholder->__invoke('fooPlaceholder')->getValue());
+        $this->helper->__invoke('rendertoplaceholderscript.phtml', 'fooPlaceholder');
+        $placeholder = $this->view->plugin('placeholder');
+        assert($placeholder instanceof Placeholder);
+        $this->assertEquals("Foo Bar\n", $placeholder->__invoke('fooPlaceholder')->getValue());
     }
 }

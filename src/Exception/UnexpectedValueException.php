@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Exception;
 
-/**
- * Unexpected value exception
- */
-class UnexpectedValueException extends \UnexpectedValueException implements ExceptionInterface
+use UnexpectedValueException as UnexpectedValue;
+
+class UnexpectedValueException extends UnexpectedValue implements ExceptionInterface
 {
 }

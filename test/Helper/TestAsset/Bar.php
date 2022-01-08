@@ -1,7 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper\TestAsset;
 
-class Bar extends \Laminas\View\Helper\Placeholder\Container\AbstractContainer
+use Laminas\View\Helper\Placeholder\Container\AbstractContainer;
+
+class Bar extends AbstractContainer
 {
 }

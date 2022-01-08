@@ -1,10 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Resolver;
 
 use ArrayObject;
 use Laminas\View\Resolver\TemplateMapResolver;
 use PHPUnit\Framework\TestCase;
+
+use function array_merge;
 
 class TemplateMapResolverTest extends TestCase
 {
@@ -16,21 +20,21 @@ class TemplateMapResolverTest extends TestCase
 
     public function testCanSeedMapWithArrayViaConstructor(): void
     {
-        $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
+        $map      = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
         $this->assertEquals($map, $resolver->getMap());
     }
 
     public function testCanSeedMapWithTraversableViaConstructor(): void
     {
-        $map = new ArrayObject(['foo/bar' => __DIR__ . '/foo/bar.phtml']);
+        $map      = new ArrayObject(['foo/bar' => __DIR__ . '/foo/bar.phtml']);
         $resolver = new TemplateMapResolver($map);
         $this->assertEquals($map->getArrayCopy(), $resolver->getMap());
     }
 
     public function testCanSeedMapWithArrayViaSetter(): void
     {
-        $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
+        $map      = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver();
         $resolver->setMap($map);
         $this->assertEquals($map, $resolver->getMap());
@@ -38,7 +42,7 @@ class TemplateMapResolverTest extends TestCase
 
     public function testCanSeedMapWithTraversableViaSetter(): void
     {
-        $map = new ArrayObject(['foo/bar' => __DIR__ . '/foo/bar.phtml']);
+        $map      = new ArrayObject(['foo/bar' => __DIR__ . '/foo/bar.phtml']);
         $resolver = new TemplateMapResolver();
         $resolver->setMap($map);
         $this->assertEquals($map->getArrayCopy(), $resolver->getMap());
@@ -46,7 +50,7 @@ class TemplateMapResolverTest extends TestCase
 
     public function testCanAppendSingleEntriesViaAdd(): void
     {
-        $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
+        $map      = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
         $resolver->add('foo/baz', __DIR__ . '/../foo/baz.phtml');
         $expected = array_merge($map, ['foo/baz' => __DIR__ . '/../foo/baz.phtml']);
@@ -55,9 +59,9 @@ class TemplateMapResolverTest extends TestCase
 
     public function testCanAppendMultipleEntriesAsArrayViaAdd(): void
     {
-        $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
+        $map      = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
-        $more = [
+        $more     = [
             'foo/baz' => __DIR__ . '/../foo/baz.phtml',
             'baz/bat' => __DIR__ . '/baz/bat.phtml',
         ];
@@ -68,9 +72,9 @@ class TemplateMapResolverTest extends TestCase
 
     public function testCanAppendMultipleEntriesAsTraversableViaAdd(): void
     {
-        $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
+        $map      = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
-        $more = new ArrayObject([
+        $more     = new ArrayObject([
             'foo/baz' => __DIR__ . '/../foo/baz.phtml',
             'baz/bat' => __DIR__ . '/baz/bat.phtml',
         ]);
@@ -81,9 +85,9 @@ class TemplateMapResolverTest extends TestCase
 
     public function testCanAppendMultipleEntriesAsArrayViaMerge(): void
     {
-        $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
+        $map      = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
-        $more = [
+        $more     = [
             'foo/baz' => __DIR__ . '/../foo/baz.phtml',
             'baz/bat' => __DIR__ . '/baz/bat.phtml',
         ];
@@ -94,9 +98,9 @@ class TemplateMapResolverTest extends TestCase
 
     public function testCanAppendMultipleEntriesAsTraversableViaMerge(): void
     {
-        $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
+        $map      = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
-        $more = new ArrayObject([
+        $more     = new ArrayObject([
             'foo/baz' => __DIR__ . '/../foo/baz.phtml',
             'baz/bat' => __DIR__ . '/baz/bat.phtml',
         ]);
@@ -107,9 +111,9 @@ class TemplateMapResolverTest extends TestCase
 
     public function testCanMergeTwoMaps(): void
     {
-        $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
+        $map      = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
-        $more = new TemplateMapResolver([
+        $more     = new TemplateMapResolver([
             'foo/baz' => __DIR__ . '/../foo/baz.phtml',
             'baz/bat' => __DIR__ . '/baz/bat.phtml',
         ]);
@@ -120,9 +124,9 @@ class TemplateMapResolverTest extends TestCase
 
     public function testAddOverwritesMatchingEntries(): void
     {
-        $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
+        $map      = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
-        $more = [
+        $more     = [
             'foo/bar' => __DIR__ . '/../foo/baz.phtml',
             'baz/bat' => __DIR__ . '/baz/bat.phtml',
         ];
@@ -134,9 +138,9 @@ class TemplateMapResolverTest extends TestCase
 
     public function testMergeOverwritesMatchingEntries(): void
     {
-        $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
+        $map      = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
-        $more = new TemplateMapResolver([
+        $more     = new TemplateMapResolver([
             'foo/bar' => __DIR__ . '/../foo/baz.phtml',
             'baz/bat' => __DIR__ . '/baz/bat.phtml',
         ]);
@@ -148,42 +152,42 @@ class TemplateMapResolverTest extends TestCase
 
     public function testHasReturnsTrueWhenMatchingNameFound(): void
     {
-        $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
+        $map      = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
         $this->assertTrue($resolver->has('foo/bar'));
     }
 
     public function testHasReturnsFalseWhenNameHasNoMatch(): void
     {
-        $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
+        $map      = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
         $this->assertFalse($resolver->has('bar/baz'));
     }
 
     public function testGetReturnsPathWhenNameHasMatch(): void
     {
-        $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
+        $map      = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
         $this->assertEquals($map['foo/bar'], $resolver->get('foo/bar'));
     }
 
     public function testGetReturnsFalseWhenNameHasNoMatch(): void
     {
-        $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
+        $map      = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
         $this->assertFalse($resolver->get('bar/baz'));
     }
 
     public function testResolveReturnsPathWhenNameHasMatch(): void
     {
-        $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
+        $map      = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
         $this->assertEquals($map['foo/bar'], $resolver->resolve('foo/bar'));
     }
 
     public function testResolveReturnsFalseWhenNameHasNoMatch(): void
     {
-        $map = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
+        $map      = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
         $this->assertFalse($resolver->resolve('bar/baz'));
     }

@@ -1,11 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper\Navigation;
 
 use Laminas\Navigation\AbstractContainer;
 use Laminas\Navigation\Page\AbstractPage;
 use Laminas\View;
 use Laminas\View\Exception;
+
+use function array_merge;
+use function array_reverse;
+use function count;
+use function is_array;
+use function is_string;
+use function strlen;
 
 /**
  * Helper for printing breadcrumbs.
@@ -100,7 +109,7 @@ class Breadcrumbs extends AbstractHelper
         if ($this->getLinkLast()) {
             $html = $this->htmlify($active);
         } else {
-            /** @var \Laminas\View\Helper\EscapeHtml $escaper */
+            /** @var View\Helper\EscapeHtml $escaper */
             $escaper = $this->view->plugin('escapeHtml');
             $html    = $escaper(
                 $this->translate($active->getLabel(), $active->getTextDomain())
@@ -140,8 +149,8 @@ class Breadcrumbs extends AbstractHelper
      *     Default is to use the partial registered in the helper. If an array
      *     is given, the first value is used for the partial view script.
      * @return string
-     * @throws Exception\RuntimeException         if no partial provided
-     * @throws Exception\InvalidArgumentException if partial is invalid array
+     * @throws Exception\RuntimeException         If no partial provided.
+     * @throws Exception\InvalidArgumentException If partial is invalid array.
      */
     public function renderPartial($container = null, $partial = null)
     {
@@ -163,8 +172,8 @@ class Breadcrumbs extends AbstractHelper
      *     Default is to use the partial registered in the helper. If an array
      *     is given, the first value is used for the partial view script.
      * @return string
-     * @throws Exception\RuntimeException         if no partial provided
-     * @throws Exception\InvalidArgumentException if partial is invalid array
+     * @throws Exception\RuntimeException         If no partial provided.
+     * @throws Exception\InvalidArgumentException If partial is invalid array.
      */
     public function renderPartialWithParams(array $params = [], $container = null, $partial = null)
     {
@@ -250,8 +259,8 @@ class Breadcrumbs extends AbstractHelper
      * @param null|AbstractContainer $container
      * @param null|string|array      $partial
      * @return View\Helper\Partial|string
-     * @throws Exception\RuntimeException         if no partial provided
-     * @throws Exception\InvalidArgumentException if partial is invalid array
+     * @throws Exception\RuntimeException         If no partial provided.
+     * @throws Exception\InvalidArgumentException If partial is invalid array.
      */
     protected function renderPartialModel(array $params, $container, $partial)
     {
@@ -270,7 +279,7 @@ class Breadcrumbs extends AbstractHelper
         $model  = array_merge($params, ['pages' => []], ['separator' => $this->getSeparator()]);
         $active = $this->findActive($container);
         if ($active) {
-            $active = $active['page'];
+            $active           = $active['page'];
             $model['pages'][] = $active;
             while ($parent = $active->getParent()) {
                 if (! $parent instanceof AbstractPage) {
@@ -287,10 +296,10 @@ class Breadcrumbs extends AbstractHelper
             $model['pages'] = array_reverse($model['pages']);
         }
 
-        /** @var \Laminas\View\Helper\Partial $partialHelper */
+        /** @var View\Helper\Partial $partialHelper */
         $partialHelper = $this->view->plugin('partial');
         if (is_array($partial)) {
-            if (count($partial) != 2) {
+            if (count($partial) !== 2) {
                 throw new Exception\InvalidArgumentException(
                     'Unable to render breadcrumbs: A view partial supplied as '
                     . 'an array must contain one value: the partial view script'
