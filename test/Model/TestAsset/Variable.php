@@ -35,11 +35,8 @@ class Variable implements Iterator
     {
     }
 
-    #[ReturnTypeWillChange]
-    /**
-     * @return void
-     */
-    public function valid()
+    public function valid(): bool
     {
+        return false;
     }
 }
