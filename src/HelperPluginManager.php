@@ -12,6 +12,7 @@ use Laminas\ServiceManager\AbstractPluginManager;
 use Laminas\ServiceManager\ConfigInterface;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Factory\InvokableFactory;
+use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Exception\InvalidHelperException;
 use Psr\Container\ContainerInterface;
 
@@ -28,6 +29,8 @@ use function sprintf;
  * Enforces that helpers retrieved are instances of
  * Helper\HelperInterface. Additionally, it registers a number of default
  * helpers.
+ *
+ * @psalm-import-type ServiceManagerConfiguration from ServiceManager
  */
 class HelperPluginManager extends AbstractPluginManager
 {
@@ -237,7 +240,8 @@ class HelperPluginManager extends AbstractPluginManager
      * config value from the merged config.
      *
      * @psalm-suppress DeprecatedClass
-     * @var string[]|callable[]
+     *
+     * {@inheritDoc}
      */
     protected $factories = [
         Helper\Asset::class          => Helper\Service\AssetFactory::class,
@@ -333,6 +337,7 @@ class HelperPluginManager extends AbstractPluginManager
      * @param null|ConfigInterface|ContainerInterface $configOrContainerInstance
      * @param array $v3config If $configOrContainerInstance is a container, this
      *     value will be passed to the parent constructor.
+     * @psalm-param ServiceManagerConfiguration $v3config
      */
     public function __construct($configOrContainerInstance = null, array $v3config = [])
     {
