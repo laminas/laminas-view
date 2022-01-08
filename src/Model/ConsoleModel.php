@@ -6,6 +6,9 @@ namespace Laminas\View\Model;
 
 use function array_key_exists;
 
+/**
+ * @deprecated
+ */
 class ConsoleModel extends ViewModel
 {
     public const RESULT = 'result';
