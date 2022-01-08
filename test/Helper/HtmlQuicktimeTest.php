@@ -30,7 +30,7 @@ class HtmlQuicktimeTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->view   = new View();
+        $this->view = new View();
         /** @psalm-suppress DeprecatedClass */
         $this->helper = new HtmlQuicktime();
         $this->helper->setView($this->view);
