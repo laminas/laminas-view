@@ -454,7 +454,7 @@
             <ul class="toc__list">
                 
                     <li class="toc__entry">
-                        <a href="#flash-helper" class="toc__link nav-link">Flash helper</a>
+                        <a href="#htmlpage-helper" class="toc__link nav-link">HtmlPage helper</a>
                     </li>
                 
                     <li class="toc__entry">
@@ -503,26 +503,23 @@
     
 
     <h1 id="htmlobject">HtmlObject</h1>
-<p>The HTML <code>&lt;object&gt;</code> element is used for embedding media like Flash or QuickTime
-in web pages. The object view helpers take care of embedding media with minimum
-effort.</p>
+<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object">HTML <code>&lt;object&gt;</code> element</a> is used for embedding external media in web pages. The object view helpers take care of embedding media with minimum effort.</p>
 <p>There are four initial Object helpers:</p>
 <ul>
-<li><code>htmlFlash()</code> Generates markup for embedding Flash files.</li>
 <li><code>htmlObject()</code> Generates markup for embedding a custom Object.</li>
 <li><code>htmlPage()</code> Generates markup for embedding other (X)HTML pages.</li>
-<li><code>htmlQuicktime()</code> Generates markup for embedding QuickTime files.</li>
+<li><code>htmlFlash()</code> Generates markup for embedding Flash files. <em><strong>Deprecated</strong></em></li>
+<li><code>htmlQuicktime()</code> Generates markup for embedding QuickTime files. <em><strong>Deprecated</strong></em></li>
 </ul>
 <p>All of these helpers share a similar interface. For this reason, this
 documentation will only contain examples of two of these helpers.</p>
-<h2 id="flash-helper">Flash helper</h2>
-<p>Embedding Flash in your page using the helper only requires the resource URI.</p>
-<pre class="highlight"><code class="language-php">&lt;?= $this-&gt;htmlFlash('/path/to/flash.swf'); ?&gt;</code></pre>
+<h2 id="htmlpage-helper">HtmlPage helper</h2>
+<p>Embedding an external HTML page in your page using the helper only requires the resource URI.</p>
+<pre class="highlight"><code class="language-php">&lt;?= $this-&gt;htmlPage('https://www.example.com/some-page.html'); ?&gt;</code></pre>
 <p>This outputs the following HTML:</p>
-<pre class="highlight"><code class="language-html">&lt;object data="/path/to/flash.swf"
-        type="application/x-shockwave-flash"
-        classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
-        codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab"&gt;
+<pre class="highlight"><code class="language-html">&lt;object data="https://www.example.com/some-page.html"
+        type="text/html"
+        classid="clsid:25336920-03F9-11CF-8FD0-00AA00686F13"&gt;
 &lt;/object&gt;</code></pre>
 <p>Additionally, you can specify attributes, parameters, and content that can be
 rendered along with the <code>&lt;object&gt;</code>. This will be demonstrated using the
@@ -954,7 +951,7 @@ content to the object. The following example utilizes all arguments.</p>
                         <p>
                             <!--Built with love by the Laminas team with the help of our
                             <a href="https://github.com/laminas/laminas-view/graphs/contributors">contributors</a>.<br>-->
-                            &copy; 2021 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
+                            &copy; 2022 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
                         </p>
                     </div>
                 </div>
