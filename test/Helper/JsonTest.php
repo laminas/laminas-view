@@ -54,24 +54,12 @@ class JsonTest extends TestCase
 
     public function testJsonHelperReturnsJsonEncodedString(): void
     {
-        $input = [
+        $input  = [
             'dory' => 'blue',
             'nemo' => 'orange',
         ];
         $expect = json_encode($input, JSON_THROW_ON_ERROR);
 
         self::assertJsonStringEqualsJsonString($expect, ($this->helper)($input));
-    }
-
-    public function testThatADeprecationErrorIsTriggeredWhenExpressionFinderOptionIsUsed(): void
-    {
-        $this->expectDeprecation();
-        $this->helper->__invoke(['foo'], ['enableJsonExprFinder' => true]);
-    }
-
-    public function testThatADeprecationErrorIsNotTriggeredWhenExpressionFinderOptionIsNotUsed(): void
-    {
-        $this->expectNotToPerformAssertions();
-        $this->helper->__invoke(['foo'], ['enableJsonExprFinder' => 'anything other than true']);
     }
 }

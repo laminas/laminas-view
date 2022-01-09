@@ -7,9 +7,7 @@ namespace Laminas\View\Helper;
 use Laminas\Http\Response;
 
 use function json_encode;
-use function trigger_error;
 
-use const E_USER_DEPRECATED;
 use const JSON_PRETTY_PRINT;
 use const JSON_THROW_ON_ERROR;
 
@@ -18,7 +16,7 @@ use const JSON_THROW_ON_ERROR;
  */
 class Json extends AbstractHelper
 {
-    /** @var Response */
+    /** @var Response|null */
     protected $response;
 
     /**
@@ -26,7 +24,7 @@ class Json extends AbstractHelper
      *
      * @param  mixed $data
      * @param  array $jsonOptions Options to pass to JsonFormatter::encode()
-     * @return string|void
+     * @return string
      */
     public function __invoke($data, array $jsonOptions = [])
     {
@@ -40,15 +38,11 @@ class Json extends AbstractHelper
         return $data;
     }
 
-    private function optionsToFlags(array $options = []) : int
+    private function optionsToFlags(array $options = []): int
     {
         $prettyPrint = $options['prettyPrint'] ?? false;
-        $flags = JSON_THROW_ON_ERROR;
-        $flags |= $prettyPrint ? 0 : JSON_PRETTY_PRINT;
-        $enableExpr = $options['enableJsonExprFinder'] ?? false;
-        if ($enableExpr) {
-            trigger_error('Json Expression Finder options are no longer available', E_USER_DEPRECATED);
-        }
+        $flags       = JSON_THROW_ON_ERROR;
+        $flags      |= $prettyPrint ? 0 : JSON_PRETTY_PRINT;
 
         return $flags;
     }

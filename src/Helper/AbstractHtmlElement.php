@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Laminas\View\Helper;
 
 use function assert;
-use function json_encode;
 use function str_replace;
 use function strlen;
 use function strpos;

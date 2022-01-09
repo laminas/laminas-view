@@ -10,6 +10,7 @@ use Laminas\View\Variables;
 use PHPUnit\Framework\TestCase;
 
 use function json_encode;
+use function sprintf;
 
 use const JSON_PRETTY_PRINT;
 use const JSON_THROW_ON_ERROR;
@@ -45,7 +46,7 @@ class JsonModelTest extends TestCase
 
     public function testPrettyPrint(): void
     {
-        $array = [
+        $array  = [
             'simple'              => 'simple test string',
             'stringwithjsonchars' => '\"[1,2]',
             'complex'             => [
@@ -53,7 +54,7 @@ class JsonModelTest extends TestCase
                 'far' => 'boo',
             ],
         ];
-        $model = new JsonModel($array, ['prettyPrint' => true]);
+        $model  = new JsonModel($array, ['prettyPrint' => true]);
         $expect = json_encode($array, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT);
         $this->assertEquals($expect, $model->serialize());
     }

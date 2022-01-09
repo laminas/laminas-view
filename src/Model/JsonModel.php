@@ -65,7 +65,7 @@ class JsonModel extends ViewModel
         $options = (bool) $this->getOption('prettyPrint', false) ? JSON_PRETTY_PRINT : 0;
 
         if (null !== $this->jsonpCallback) {
-            return $this->jsonpCallback.'('.$this->jsonEncode($variables, $options).');';
+            return $this->jsonpCallback . '(' . $this->jsonEncode($variables, $options) . ');';
         }
         return $this->jsonEncode($variables, $options);
     }
