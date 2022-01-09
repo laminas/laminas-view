@@ -8,10 +8,15 @@ use ArrayObject;
 use Laminas\Escaper\Escaper;
 use Traversable;
 
+use function array_merge;
+use function implode;
 use function in_array;
 use function is_array;
 use function is_scalar;
 use function iterator_to_array;
+use function json_encode;
+use function sprintf;
+use function strpos;
 
 use const JSON_HEX_AMP;
 use const JSON_HEX_APOS;
@@ -33,7 +38,7 @@ final class HtmlAttributesSet extends ArrayObject
 
     public function __construct(Escaper $escaper, iterable $attributes = [])
     {
-        $attributes = $attributes instanceof Traversable ? iterator_to_array($attributes, true) : $attributes;
+        $attributes    = $attributes instanceof Traversable ? iterator_to_array($attributes, true) : $attributes;
         $this->escaper = $escaper;
         parent::__construct($attributes);
     }

@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Exception;
 
-/**
- * Domain exception
- */
-class DomainException extends \DomainException implements ExceptionInterface
+use DomainException as PhpDomainException;
+
+class DomainException extends PhpDomainException implements ExceptionInterface
 {
 }

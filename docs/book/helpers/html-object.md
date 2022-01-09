@@ -1,34 +1,31 @@
 # HtmlObject
 
-The HTML `<object>` element is used for embedding media like Flash or QuickTime
-in web pages. The object view helpers take care of embedding media with minimum
-effort.
+The [HTML `<object>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object) is used for embedding external media in web pages. The object view helpers take care of embedding media with minimum effort.
 
 There are four initial Object helpers:
 
-- `htmlFlash()` Generates markup for embedding Flash files.
 - `htmlObject()` Generates markup for embedding a custom Object.
 - `htmlPage()` Generates markup for embedding other (X)HTML pages.
-- `htmlQuicktime()` Generates markup for embedding QuickTime files.
+- `htmlFlash()` Generates markup for embedding Flash files. _**Deprecated**_
+- `htmlQuicktime()` Generates markup for embedding QuickTime files. _**Deprecated**_
 
 All of these helpers share a similar interface. For this reason, this
 documentation will only contain examples of two of these helpers.
 
-## Flash helper
+## HtmlPage helper
 
-Embedding Flash in your page using the helper only requires the resource URI.
+Embedding an external HTML page in your page using the helper only requires the resource URI.
 
 ```php
-<?= $this->htmlFlash('/path/to/flash.swf'); ?>
+<?= $this->htmlPage('https://www.example.com/some-page.html'); ?>
 ```
 
 This outputs the following HTML:
 
 ```html
-<object data="/path/to/flash.swf"
-        type="application/x-shockwave-flash"
-        classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
-        codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab">
+<object data="https://www.example.com/some-page.html"
+        type="text/html"
+        classid="clsid:25336920-03F9-11CF-8FD0-00AA00686F13">
 </object>
 ```
 

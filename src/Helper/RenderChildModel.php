@@ -1,9 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper;
 
 use Laminas\View\Exception;
 use Laminas\View\Model\ModelInterface as Model;
+
+use function method_exists;
+use function sprintf;
 
 /**
  * Helper for rendering child view models
@@ -79,7 +84,7 @@ class RenderChildModel extends AbstractHelper
     {
         $this->current = $model = $this->getCurrent();
         foreach ($model->getChildren() as $childModel) {
-            if ($childModel->captureTo() == $child) {
+            if ($childModel->captureTo() === $child) {
                 return $childModel;
             }
         }

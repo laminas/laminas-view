@@ -1,9 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper;
 
 use Iterator;
-use ReturnTypeWillChange;
+use ReturnTypeWillChange; // phpcs:ignore
+
+use function count;
 
 /**
  * Helper for alternating between set of values
@@ -15,7 +19,7 @@ class Cycle extends AbstractHelper implements Iterator
      *
      * @var string
      */
-    const DEFAULT_NAME = 'default';
+    public const DEFAULT_NAME = 'default';
 
     /**
      * Array of values
@@ -141,7 +145,7 @@ class Cycle extends AbstractHelper implements Iterator
     {
         $count = count($this->data[$this->name]);
 
-        if ($this->pointers[$this->name] == ($count - 1)) {
+        if ($this->pointers[$this->name] === $count - 1) {
             $this->pointers[$this->name] = 0;
         } else {
             $this->pointers[$this->name] = ++$this->pointers[$this->name];

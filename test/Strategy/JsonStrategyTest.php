@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Strategy;
 
 use Laminas\EventManager\EventManager;
@@ -14,13 +16,25 @@ use Laminas\View\Strategy\JsonStrategy;
 use Laminas\View\ViewEvent;
 use PHPUnit\Framework\TestCase;
 
+use function iterator_to_array;
+use function json_encode;
+
 class JsonStrategyTest extends TestCase
 {
     use EventListenerIntrospectionTrait;
 
+    /** @var JsonRenderer */
+    private $renderer;
+    /** @var JsonStrategy */
+    private $strategy;
+    /** @var ViewEvent */
+    private $event;
+    /** @var HttpResponse */
+    private $response;
+
     protected function setUp(): void
     {
-        $this->renderer = new JsonRenderer;
+        $this->renderer = new JsonRenderer();
         $this->strategy = new JsonStrategy($this->renderer);
         $this->event    = new ViewEvent();
         $this->response = new HttpResponse();
@@ -164,7 +178,8 @@ class JsonStrategyTest extends TestCase
             $expectedPriority = 1;
             $found            = false;
             foreach ($listeners as $priority => $listener) {
-                if ($listener === $expectedListener
+                if (
+                    $listener === $expectedListener
                     && $priority === $expectedPriority
                 ) {
                     $found = true;
@@ -186,7 +201,8 @@ class JsonStrategyTest extends TestCase
             $expectedPriority = 1000;
             $found            = false;
             foreach ($listeners as $priority => $listener) {
-                if ($listener === $expectedListener
+                if (
+                    $listener === $expectedListener
                     && $priority === $expectedPriority
                 ) {
                     $found = true;
@@ -207,7 +223,7 @@ class JsonStrategyTest extends TestCase
         $listeners = iterator_to_array($this->getListenersForEvent('response', $events));
         $this->assertCount(1, $listeners);
 
-        $this->strategy->detach($events, 100);
+        $this->strategy->detach($events);
         $listeners = iterator_to_array($this->getListenersForEvent('renderer', $events));
         $this->assertCount(0, $listeners);
         $listeners = iterator_to_array($this->getListenersForEvent('response', $events));
@@ -303,7 +319,6 @@ class JsonStrategyTest extends TestCase
 
     /**
      * @return string[][]
-     *
      * @psalm-return array{utf-16: array{0: 'utf-16'}, utf-32: array{0: 'utf-32'}}
      */
     public function multibyteCharsets(): array
@@ -316,6 +331,7 @@ class JsonStrategyTest extends TestCase
 
     /**
      * @dataProvider multibyteCharsets
+     * @param string $charset
      */
     public function testContentTransferEncodingHeaderSetToBinaryForSpecificMultibyteCharsets($charset): void
     {

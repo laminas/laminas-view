@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
 use Laminas\View\Exception;
@@ -9,6 +11,8 @@ use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
 
 use function method_exists;
+use function strtoupper;
+use function urlencode;
 
 /**
  * @group      Laminasview
@@ -16,14 +20,10 @@ use function method_exists;
  */
 class GravatarTest extends TestCase
 {
-    /**
-     * @var Gravatar
-     */
+    /** @var Gravatar */
     protected $helper;
 
-    /**
-     * @var View
-     */
+    /** @var View */
     protected $view;
 
     /**
@@ -115,7 +115,7 @@ class GravatarTest extends TestCase
 
     public function testInvalidRatingParametr(): void
     {
-        $ratingsWrong = [ 'a', 'cs', 456];
+        $ratingsWrong = ['a', 'cs', 456];
         $this->expectException(Exception\ExceptionInterface::class);
         foreach ($ratingsWrong as $value) {
             $this->helper->setRating($value);
@@ -124,7 +124,7 @@ class GravatarTest extends TestCase
 
     public function testSetRating(): void
     {
-        $ratingsRight = [ 'g', 'pg', 'r', 'x', Gravatar::RATING_R];
+        $ratingsRight = ['g', 'pg', 'r', 'x', Gravatar::RATING_R];
         foreach ($ratingsRight as $value) {
             $this->helper->setRating($value);
             $this->assertEquals($value, $this->helper->getRating());
@@ -262,7 +262,7 @@ class GravatarTest extends TestCase
     {
         self::assertFalse(method_exists($this->helper, 'setUnknown'));
         $options = [
-            'unknown' => ['val' => 1]
+            'unknown' => ['val' => 1],
         ];
         $this->helper->__invoke()->setOptions($options);
     }

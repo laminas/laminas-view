@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper;
 
 use Laminas\View\Exception;
+
+use function array_key_exists;
 
 /**
  * View helper plugin to fetch asset from resource map.
  */
 class Asset extends AbstractHelper
 {
-    /**
-     * @var array
-     */
+    /** @var array */
     protected $resourceMap = [];
 
     /**

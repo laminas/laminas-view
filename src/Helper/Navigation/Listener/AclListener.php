@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper\Navigation\Listener;
 
 use Laminas\EventManager\Event;
@@ -20,7 +22,6 @@ class AclListener
      *      - Page is accepted if it has no resource or privilege.
      *      - Page is accepted if ACL allows page's resource or privilege.
      *
-     * @param  Event    $event
      * @return bool
      */
     public static function accept(Event $event)

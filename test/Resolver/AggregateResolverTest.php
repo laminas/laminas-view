@@ -1,9 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Resolver;
 
+use Exception;
 use Laminas\View\Resolver;
 use PHPUnit\Framework\TestCase;
+
+use function count;
 
 class AggregateResolverTest extends TestCase
 {
@@ -16,9 +21,9 @@ class AggregateResolverTest extends TestCase
     public function testCanAttachResolvers(): void
     {
         $resolver = new Resolver\AggregateResolver();
-        $resolver->attach(new Resolver\TemplateMapResolver);
+        $resolver->attach(new Resolver\TemplateMapResolver());
         $this->assertEquals(1, count($resolver));
-        $resolver->attach(new Resolver\TemplateMapResolver);
+        $resolver->attach(new Resolver\TemplateMapResolver());
         $this->assertEquals(2, count($resolver));
     }
 
@@ -43,7 +48,7 @@ class AggregateResolverTest extends TestCase
 
     public function testCanAccessResolverThatLastSucceeded(): void
     {
-        $resolver = new Resolver\AggregateResolver();
+        $resolver    = new Resolver\AggregateResolver();
         $fooResolver = new Resolver\TemplateMapResolver([
             'foo' => 'bar',
         ]);
@@ -85,7 +90,7 @@ class AggregateResolverTest extends TestCase
         try {
             $resolver->resolve('bar');
             $this->fail('Should not have resolved!');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // exception is expected
         }
         $this->assertNull($resolver->getLastSuccessfulResolver());
@@ -93,7 +98,7 @@ class AggregateResolverTest extends TestCase
 
     public function testResolvesInOrderOfPriorityProvided(): void
     {
-        $resolver = new Resolver\AggregateResolver();
+        $resolver    = new Resolver\AggregateResolver();
         $fooResolver = new Resolver\TemplateMapResolver([
             'bar' => 'foo',
         ]);

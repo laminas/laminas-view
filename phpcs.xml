@@ -1,9 +1,17 @@
 ﻿<?xml version="1.0"?>
-<ruleset name="Laminas coding standard">
-    <rule ref="./vendor/laminas/laminas-coding-standard/ruleset.xml"/>
+<ruleset name="PHPCS Coding Standards"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
+    <arg name="basepath" value="."/>
+    <arg name="cache" value=".phpcs-cache"/>
+    <arg name="colors"/>
+    <arg name="extensions" value="php"/>
+    <arg name="parallel" value="80"/>
+    <arg value="s" />
 
-    <!-- Paths to check -->
     <file>src</file>
     <file>test</file>
     <exclude-pattern>*/_templates/*</exclude-pattern>
+
+    <rule ref="LaminasCodingStandard"/>
 </ruleset>

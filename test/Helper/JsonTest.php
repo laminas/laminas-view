@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
 use Laminas\Http\Header\HeaderInterface;
@@ -7,8 +9,6 @@ use Laminas\Http\Response;
 use Laminas\Json\Json as JsonFormatter;
 use Laminas\View\Helper\Json as JsonHelper;
 use PHPUnit\Framework\TestCase;
-
-use function assert;
 
 /**
  * Test class for Laminas\View\Helper\Json

@@ -1,25 +1,32 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Renderer;
 
+use ArrayAccess;
 use Laminas\View\Exception;
 use Laminas\View\Model\FeedModel;
 use Laminas\View\Model\ModelInterface as Model;
 use Laminas\View\Resolver\ResolverInterface as Resolver;
+
+use function get_class;
+use function gettype;
+use function in_array;
+use function is_object;
+use function is_string;
+use function sprintf;
+use function strtolower;
 
 /**
  * Class for Laminas\View\Strategy\FeedStrategy compatible template engine implementations
  */
 class FeedRenderer implements RendererInterface
 {
-    /**
-     * @var Resolver
-     */
+    /** @var Resolver */
     protected $resolver;
 
-    /**
-     * @var string 'rss' or 'atom'; defaults to 'rss'
-     */
+    /** @var string 'rss' or 'atom'; defaults to 'rss' */
     protected $feedType = 'rss';
 
     /**
@@ -40,7 +47,6 @@ class FeedRenderer implements RendererInterface
      * Set the resolver used to map a template name to a resource the renderer may consume.
      *
      * @todo   Determine use case for resolvers for feeds
-     * @param  Resolver $resolver
      * @return FeedRenderer
      */
     public function setResolver(Resolver $resolver)
@@ -54,7 +60,7 @@ class FeedRenderer implements RendererInterface
      *
      * @todo   Determine what use case exists for accepting only $nameOrModel
      * @param  string|Model $nameOrModel The script/resource process, or a view model
-     * @param  null|array|\ArrayAccess $values Values to use during rendering
+     * @param  null|array|ArrayAccess $values Values to use during rendering
      * @throws Exception\InvalidArgumentException
      * @return string The script output.
      */
@@ -82,7 +88,7 @@ class FeedRenderer implements RendererInterface
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s expects a ViewModel or a string feed type as the first argument; received "%s"',
                 __METHOD__,
-                (is_object($nameOrModel) ? get_class($nameOrModel) : gettype($nameOrModel))
+                is_object($nameOrModel) ? get_class($nameOrModel) : gettype($nameOrModel)
             ));
         }
 

@@ -1,17 +1,35 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper;
 
 use Laminas\View\Exception;
 use stdClass;
 
+use function array_key_exists;
+use function array_shift;
+use function count;
+use function filter_var;
+use function implode;
 use function in_array;
+use function is_string;
+use function ob_get_clean;
+use function ob_start;
+use function preg_match;
+use function sprintf;
+use function str_replace;
 use function strtolower;
+use function ucfirst;
+
+use const FILTER_VALIDATE_BOOLEAN;
+use const PHP_EOL;
 
 /**
  * Helper for setting and retrieving script elements for HTML head section
  *
  * Allows the following method calls:
+ *
  * @method HeadScript appendFile($src, $type = 'text/javascript', $attrs = [])
  * @method HeadScript offsetSetFile($index, $src, $type = 'text/javascript', $attrs = [])
  * @method HeadScript prependFile($src, $type = 'text/javascript', $attrs = [])
@@ -28,13 +46,13 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      *
      * @const string
      */
-    const FILE   = 'FILE';
-    const SCRIPT = 'SCRIPT';
+    public const FILE   = 'FILE';
+    public const SCRIPT = 'SCRIPT';
 
     /**
      * @internal
      */
-    const DEFAULT_SCRIPT_TYPE = 'text/javascript';
+    public const DEFAULT_SCRIPT_TYPE = 'text/javascript';
 
     /**
      * Are arbitrary attributes allowed?
@@ -62,7 +80,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      *
      * @var null|array
      */
-    protected $captureScriptAttrs = null;
+    protected $captureScriptAttrs;
 
     /**
      * Capture type (append, prepend, set)
@@ -172,7 +190,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      *
      * @param  string $method Method to call
      * @param  array  $args   Arguments of method
-     * @throws Exception\BadMethodCallException if too few arguments or invalid method
+     * @throws Exception\BadMethodCallException If too few arguments or invalid method.
      * @return HeadScript
      */
     public function __call($method, $args)
@@ -185,13 +203,13 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
                 ));
             }
 
-            $action  = $matches['action'];
-            $mode    = strtolower($matches['mode']);
-            $type    = self::DEFAULT_SCRIPT_TYPE;
-            $index   = 0;
-            $attrs   = [];
+            $action = $matches['action'];
+            $mode   = strtolower($matches['mode']);
+            $type   = self::DEFAULT_SCRIPT_TYPE;
+            $index  = 0;
+            $attrs  = [];
 
-            if ('offsetSet' == $action) {
+            if ('offsetSet' === $action) {
                 $index = array_shift($args);
                 if (1 > count($args)) {
                     throw new Exception\BadMethodCallException(sprintf(
@@ -213,7 +231,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
             switch ($mode) {
                 case 'script':
                     $item = $this->createData($type, $attrs, $content);
-                    if ('offsetSet' == $action) {
+                    if ('offsetSet' === $action) {
                         $this->offsetSet($index, $item);
                     } else {
                         $this->$action($item);
@@ -223,8 +241,8 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
                 default:
                     if (! $this->isDuplicate($content)) {
                         $attrs['src'] = $content;
-                        $item = $this->createData($type, $attrs);
-                        if ('offsetSet' == $action) {
+                        $item         = $this->createData($type, $attrs);
+                        if ('offsetSet' === $action) {
                             $this->offsetSet($index, $item);
                         } else {
                             $this->$action($item);
@@ -247,7 +265,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      */
     public function toString($indent = null)
     {
-        $indent = (null !== $indent)
+        $indent = null !== $indent
             ? $this->getWhitespace($indent)
             : $this->getIndent();
 
@@ -257,8 +275,8 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
             $useCdata = $this->useCdata;
         }
 
-        $escapeStart = ($useCdata) ? '//<![CDATA[' : '//<!--';
-        $escapeEnd   = ($useCdata) ? '//]]>' : '//-->';
+        $escapeStart = $useCdata ? '//<![CDATA[' : '//<!--';
+        $escapeEnd   = $useCdata ? '//]]>' : '//-->';
 
         $items = [];
         $this->getContainer()->ksort();
@@ -353,9 +371,10 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
     protected function isDuplicate($file)
     {
         foreach ($this->getContainer() as $item) {
-            if (($item->source === null)
+            if (
+                ($item->source === null)
                 && array_key_exists('src', $item->attributes)
-                && ($file == $item->attributes['src'])
+                && ($file === $item->attributes['src'])
             ) {
                 return true;
             }
@@ -372,7 +391,8 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      */
     protected function isValid($value)
     {
-        if ((! $value instanceof stdClass)
+        if (
+            ! $value instanceof stdClass
             || ! isset($value->type)
             || (! isset($value->source)
                 && ! isset($value->attributes))
@@ -397,8 +417,10 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
         $attrString = '';
         if (! empty($item->attributes)) {
             foreach ($item->attributes as $key => $value) {
-                if ((! $this->arbitraryAttributesAllowed() && ! in_array($key, $this->optionalAttributes))
-                    || in_array($key, ['conditional', 'noescape'])) {
+                if (
+                    (! $this->arbitraryAttributesAllowed() && ! in_array($key, $this->optionalAttributes))
+                    || in_array($key, ['conditional', 'noescape'])
+                ) {
                     continue;
                 }
                 if (in_array(strtolower($key), $this->booleanAttributes, true)) {
@@ -407,7 +429,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
                 $attrString .= sprintf(
                     ' %s="%s"',
                     $key,
-                    ($this->autoEscape) ? $this->escapeAttribute($value) : $value
+                    $this->autoEscape ? $this->escapeAttribute($value) : $value
                 );
             }
         }
@@ -415,13 +437,14 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
         $addScriptEscape = ! (isset($item->attributes['noescape'])
             && filter_var($item->attributes['noescape'], FILTER_VALIDATE_BOOLEAN));
 
-        if ((empty($item->type) || strtolower($item->type) === self::DEFAULT_SCRIPT_TYPE)
+        if (
+            (empty($item->type) || strtolower($item->type) === self::DEFAULT_SCRIPT_TYPE)
             && $this->view
             && $this->view->plugin('doctype')->isHtml5()
         ) {
             $html = '<script ' . $attrString . '>';
         } else {
-            $type = ($this->autoEscape) ? $this->escapeAttribute($item->type) : $item->type;
+            $type = $this->autoEscape ? $this->escapeAttribute($item->type) : $item->type;
             $html = '<script type="' . $type . '"' . $attrString . '>';
         }
         if (! empty($item->source)) {
@@ -441,7 +464,8 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
         }
         $html .= '</script>';
 
-        if (isset($item->attributes['conditional'])
+        if (
+            isset($item->attributes['conditional'])
             && ! empty($item->attributes['conditional'])
             && is_string($item->attributes['conditional'])
         ) {
@@ -510,7 +534,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
             );
         }
 
-        return $this->getContainer()->set($value);
+        $this->getContainer()->set($value);
     }
 
     /**
@@ -530,7 +554,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
             );
         }
 
-        return $this->getContainer()->offsetSet($index, $value);
+        $this->getContainer()->offsetSet($index, $value);
     }
 
     /**

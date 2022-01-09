@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Strategy;
 
 use Laminas\EventManager\AbstractListenerAggregate;
@@ -12,20 +14,13 @@ class PhpRendererStrategy extends AbstractListenerAggregate
     /**
      * Placeholders that may hold content
      *
-     * @var array
+     * @var array<array-key, string>
      */
     protected $contentPlaceholders = ['article', 'content'];
 
-    /**
-     * @var PhpRenderer
-     */
+    /** @var PhpRenderer */
     protected $renderer;
 
-    /**
-     * Constructor
-     *
-     * @param  PhpRenderer $renderer
-     */
     public function __construct(PhpRenderer $renderer)
     {
         $this->renderer = $renderer;
@@ -76,7 +71,6 @@ class PhpRendererStrategy extends AbstractListenerAggregate
      * Select the PhpRenderer; typically, this will be registered last or at
      * low priority.
      *
-     * @param  ViewEvent $e
      * @return PhpRenderer
      */
     public function selectRenderer(ViewEvent $e)
@@ -90,7 +84,6 @@ class PhpRendererStrategy extends AbstractListenerAggregate
      * Populates the content of the response object from the view rendering
      * results.
      *
-     * @param ViewEvent $e
      * @return void
      */
     public function injectResponse(ViewEvent $e)
@@ -101,7 +94,7 @@ class PhpRendererStrategy extends AbstractListenerAggregate
             return;
         }
 
-        $result   = $e->getResult();
+        $result = $e->getResult();
 
         // Set content
         // If content is empty, check common placeholders to determine if they are

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Resolver;
 
 use Countable;
@@ -7,34 +9,32 @@ use IteratorAggregate;
 use Laminas\Stdlib\PriorityQueue;
 use Laminas\View\Renderer\RendererInterface as Renderer;
 use Laminas\View\Resolver\ResolverInterface as Resolver;
-use ReturnTypeWillChange;
+use ReturnTypeWillChange; // phpcs:ignore
 
-class AggregateResolver implements Countable, IteratorAggregate, ResolverInterface
+use function count;
+
+class AggregateResolver implements Countable, IteratorAggregate, Resolver
 {
-    const FAILURE_NO_RESOLVERS = 'AggregateResolver_Failure_No_Resolvers';
-    const FAILURE_NOT_FOUND    = 'AggregateResolver_Failure_Not_Found';
+    public const FAILURE_NO_RESOLVERS = 'AggregateResolver_Failure_No_Resolvers';
+    public const FAILURE_NOT_FOUND    = 'AggregateResolver_Failure_Not_Found';
 
     /**
      * Last lookup failure
+     *
      * @var false|string
      */
     protected $lastLookupFailure = false;
 
-    /**
-     * @var Resolver
-     */
+    /** @var Resolver */
     protected $lastSuccessfulResolver;
 
-    /**
-     * @var PriorityQueue
-     */
+    /** @var PriorityQueue */
     protected $queue;
 
     /**
      * Constructor
      *
      * Instantiate the internal priority queue
-     *
      */
     public function __construct()
     {
@@ -66,7 +66,6 @@ class AggregateResolver implements Countable, IteratorAggregate, ResolverInterfa
     /**
      * Attach a resolver
      *
-     * @param  Resolver $resolver
      * @param  int $priority
      * @return AggregateResolver
      */
@@ -80,10 +79,9 @@ class AggregateResolver implements Countable, IteratorAggregate, ResolverInterfa
      * Resolve a template/pattern name to a resource the renderer can consume
      *
      * @param  string $name
-     * @param  null|Renderer $renderer
      * @return false|string
      */
-    public function resolve($name, Renderer $renderer = null)
+    public function resolve($name, ?Renderer $renderer = null)
     {
         $this->lastLookupFailure      = false;
         $this->lastSuccessfulResolver = null;

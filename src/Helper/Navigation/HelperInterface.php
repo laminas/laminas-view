@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper\Navigation;
 
 use Laminas\Navigation;
 use Laminas\Permissions\Acl;
+use Laminas\View\Exception\ExceptionInterface;
 use Laminas\View\Helper\HelperInterface as BaseHelperInterface;
 
 /**
@@ -27,17 +30,17 @@ interface HelperInterface extends BaseHelperInterface
      *                                         the container returned by {@link
      *                                         getContainer()}.
      * @return string helper output
-     * @throws \Laminas\View\Exception\ExceptionInterface
+     * @throws ExceptionInterface
      */
     public function render($container = null);
 
     /**
      * Sets ACL to use when iterating pages
      *
-     * @param  Acl\AclInterface $acl [optional] ACL instance
+     * @param  Acl\AclInterface $acl|null [optional] ACL instance
      * @return HelperInterface
      */
-    public function setAcl(Acl\AclInterface $acl = null);
+    public function setAcl(?Acl\AclInterface $acl = null);
 
     /**
      * Returns ACL or null if it isn't set using {@link setAcl()} or
@@ -100,7 +103,7 @@ interface HelperInterface extends BaseHelperInterface
      * @param  mixed $role [optional] role to set.  Expects a string, an
      *                     instance of type {@link Acl\Role}, or null. Default
      *                     is null.
-     * @throws \Laminas\View\Exception\ExceptionInterface if $role is invalid
+     * @throws ExceptionInterface If $role is invalid.
      * @return HelperInterface
      */
     public function setRole($role = null);

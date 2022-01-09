@@ -1,29 +1,34 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Resolver;
 
+use ArrayObject;
 use Laminas\View\Exception;
 use Laminas\View\Resolver\TemplatePathStack;
 use PHPUnit\Framework\TestCase;
+use stdClass;
+
+use function array_reverse;
+use function array_unshift;
+use function ini_get;
+use function realpath;
+
+use const DIRECTORY_SEPARATOR;
 
 /**
  * @group      Laminas_View
  */
 class TemplatePathStackTest extends TestCase
 {
-    /**
-     * @var TemplatePathStack
-     */
+    /** @var TemplatePathStack */
     private $stack;
 
-    /**
-     * @var string[]
-     */
+    /** @var string[] */
     private $paths;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $baseDir;
 
     protected function setUp(): void
@@ -40,7 +45,7 @@ class TemplatePathStackTest extends TestCase
     {
         $this->stack->addPath($this->baseDir);
         $paths = $this->stack->getPaths();
-        $this->assertEquals(1, count($paths));
+        $this->assertCount(1, $paths);
         $this->assertEquals(TemplatePathStack::normalizePath($this->baseDir), $paths->pop());
     }
 
@@ -183,25 +188,25 @@ class TemplatePathStackTest extends TestCase
             [1],
             [1.0],
             ['foo'],
-            [new \stdClass],
+            [new stdClass()],
         ];
     }
 
     /**
      * @param mixed $options
-     *
      * @dataProvider invalidOptions
      */
     public function testSettingOptionsWithInvalidArgumentRaisesException($options): void
     {
         $this->expectException(Exception\ExceptionInterface::class);
+        /** @psalm-suppress MixedArgument */
         $this->stack->setOptions($options);
     }
 
     /**
-     * @return mixed[][]
+     * @return array<array-key, array{0: mixed[]|ArrayObject}>
      */
-    public function validOptions()
+    public function validOptions(): array
     {
         $options = [
             'lfi_protection'     => false,
@@ -210,13 +215,12 @@ class TemplatePathStackTest extends TestCase
         ];
         return [
             [$options],
-            [new \ArrayObject($options)],
+            [new ArrayObject($options)],
         ];
     }
 
     /**
-     * @param array|\ArrayObject $options
-     *
+     * @param array|ArrayObject $options
      * @dataProvider validOptions
      */
     public function testAllowsSettingOptions($options): void
@@ -235,14 +239,13 @@ class TemplatePathStackTest extends TestCase
     }
 
     /**
-     * @param array $options
-     *
+     * @param array|ArrayObject $options
      * @dataProvider validOptions
      */
     public function testAllowsPassingOptionsToConstructor($options): void
     {
         $options['script_paths'] = $this->paths;
-        $stack = new TemplatePathStack($options);
+        $stack                   = new TemplatePathStack($options);
         $this->assertFalse($stack->isLfiProtectionOn());
 
         $expected = (bool) ini_get('short_open_tag');

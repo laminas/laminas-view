@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper\Service;
 
 use Interop\Container\ContainerInterface;
@@ -8,16 +10,18 @@ use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\View\Exception;
 use Laminas\View\Helper\Asset;
 
+use function is_array;
+use function method_exists;
+
 class AssetFactory implements FactoryInterface
 {
     /**
-     * @param ContainerInterface $container
      * @param string $name
      * @param null|array $options
      * @return Asset
      * @throws Exception\RuntimeException
      */
-    public function __invoke(ContainerInterface $container, $name, array $options = null)
+    public function __invoke(ContainerInterface $container, $name, ?array $options = null)
     {
         // test if we are using Laminas\ServiceManager v2 or v3
         if (! method_exists($container, 'configure')) {
@@ -41,7 +45,6 @@ class AssetFactory implements FactoryInterface
     /**
      * Create service
      *
-     * @param ServiceLocatorInterface $serviceLocator
      * @param string|null $rName
      * @param string|null $cName
      * @return Asset

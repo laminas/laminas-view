@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
 use Laminas\Console\Console;
@@ -12,6 +14,7 @@ use Laminas\Router\Http;
 use Laminas\ServiceManager\Config;
 use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
+use ReflectionObject;
 
 /**
  * url() helper test -- tests integration with MVC
@@ -27,12 +30,12 @@ class UrlIntegrationTest extends TestCase
     protected function setUp(): void
     {
         $config = [
-            'router' => [
+            'router'  => [
                 'routes' => [
                     'test' => [
-                        'type' => Http\Literal::class,
+                        'type'    => Http\Literal::class,
                         'options' => [
-                            'route' => '/test',
+                            'route'    => '/test',
                             'defaults' => [
                                 'controller' => 'Test\Controller\Test',
                             ],
@@ -44,9 +47,9 @@ class UrlIntegrationTest extends TestCase
                 'router' => [
                     'routes' => [
                         'test' => [
-                            'type' => 'Simple',
+                            'type'    => 'Simple',
                             'options' => [
-                                'route' => 'test this',
+                                'route'    => 'test this',
                                 'defaults' => [
                                     'controller' => 'Test\Controller\TestConsole',
                                 ],
@@ -57,9 +60,9 @@ class UrlIntegrationTest extends TestCase
             ],
         ];
 
-        $serviceListenerFactory = new ServiceListenerFactory();
-        $serviceListenerFactoryReflection = new \ReflectionObject($serviceListenerFactory);
-        $serviceConfigReflection = $serviceListenerFactoryReflection->getProperty('defaultServiceConfig');
+        $serviceListenerFactory           = new ServiceListenerFactory();
+        $serviceListenerFactoryReflection = new ReflectionObject($serviceListenerFactory);
+        $serviceConfigReflection          = $serviceListenerFactoryReflection->getProperty('defaultServiceConfig');
         $serviceConfigReflection->setAccessible(true);
         $serviceConfig = $serviceConfigReflection->getValue($serviceListenerFactory);
 

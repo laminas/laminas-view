@@ -1,10 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View;
 
+use ArrayObject;
+use Exception;
 use Laminas\Filter\FilterChain;
 use Laminas\ServiceManager\ServiceManager;
-use Laminas\View\Exception;
+use Laminas\View\Exception\DomainException;
+use Laminas\View\Exception\ExceptionInterface;
+use Laminas\View\Exception\RuntimeException;
+use Laminas\View\Exception\UnexpectedValueException;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\HelperPluginManager;
 use Laminas\View\Model\ViewModel;
@@ -12,14 +19,27 @@ use Laminas\View\Renderer\PhpRenderer;
 use Laminas\View\Resolver\TemplateMapResolver;
 use Laminas\View\Resolver\TemplatePathStack;
 use Laminas\View\Variables;
-use LaminasTest\View\TestAsset;
+use LaminasTest\View\TestAsset\Invokable;
+use LaminasTest\View\TestAsset\SharedInstance;
+use LaminasTest\View\TestAsset\Uninvokable;
 use PHPUnit\Framework\TestCase;
+use ReflectionObject;
+use stdClass;
+use Throwable;
+
+use function assert;
+use function realpath;
+use function restore_error_handler;
+use function str_replace;
 
 /**
  * @group      Laminas_View
  */
 class PhpRendererTest extends TestCase
 {
+    /** @var PhpRenderer */
+    private $renderer;
+
     protected function setUp(): void
     {
         $this->renderer = new PhpRenderer();
@@ -42,9 +62,17 @@ class PhpRendererTest extends TestCase
         $this->assertSame($resolver, $this->renderer->resolver());
     }
 
+    private function resolver(): TemplatePathStack
+    {
+        $resolver = $this->renderer->resolver();
+        assert($resolver instanceof TemplatePathStack);
+
+        return $resolver;
+    }
+
     public function testPassingNameToResolverReturnsScriptName(): void
     {
-        $this->renderer->resolver()->addPath(__DIR__ . '/_templates');
+        $this->resolver()->addPath(__DIR__ . '/_templates');
         $filename = $this->renderer->resolver('test.phtml');
         $this->assertEquals(realpath(__DIR__ . '/_templates/test.phtml'), $filename);
     }
@@ -56,7 +84,7 @@ class PhpRendererTest extends TestCase
 
     public function testCanSpecifyArrayAccessForVars(): void
     {
-        $a = new \ArrayObject;
+        $a = new ArrayObject();
         $this->renderer->setVars($a);
         $this->assertSame($a->getArrayCopy(), $this->renderer->vars()->getArrayCopy());
     }
@@ -87,7 +115,7 @@ class PhpRendererTest extends TestCase
 
     public function testPassingStringOfUndefinedClassToSetHelperPluginManagerRaisesException(): void
     {
-        $this->expectException(Exception\ExceptionInterface::class);
+        $this->expectException(ExceptionInterface::class);
         $this->expectExceptionMessage('Invalid');
         $this->renderer->setHelperPluginManager('__foo__');
     }
@@ -108,17 +136,19 @@ class PhpRendererTest extends TestCase
             [1],
             [1.0],
             [['foo']],
-            [new \stdClass],
+            [new stdClass()],
         ];
     }
 
     /**
      * @dataProvider invalidPluginManagers
+     * @param mixed $plugins
      */
     public function testPassingInvalidArgumentToSetHelperPluginManagerRaisesException($plugins): void
     {
-        $this->expectException(Exception\ExceptionInterface::class);
+        $this->expectException(ExceptionInterface::class);
         $this->expectExceptionMessage('must extend');
+        /** @psalm-suppress MixedArgument */
         $this->renderer->setHelperPluginManager($plugins);
     }
 
@@ -144,7 +174,7 @@ class PhpRendererTest extends TestCase
     {
         $expected = 'foo INJECT baz';
         $this->renderer->vars()->assign(['bar' => 'INJECT']);
-        $this->renderer->resolver()->addPath(__DIR__ . '/_templates');
+        $this->resolver()->addPath(__DIR__ . '/_templates');
         $test = $this->renderer->render('test.phtml');
         $this->assertStringContainsString($expected, $test);
     }
@@ -156,14 +186,14 @@ class PhpRendererTest extends TestCase
             return str_replace('INJECT', 'bar', $content);
         });
         $this->renderer->vars()->assign(['bar' => 'INJECT']);
-        $this->renderer->resolver()->addPath(__DIR__ . '/_templates');
+        $this->resolver()->addPath(__DIR__ . '/_templates');
         $test = $this->renderer->render('test.phtml');
         $this->assertStringContainsString($expected, $test);
     }
 
     public function testCanAccessHelpersInTemplates(): void
     {
-        $this->renderer->resolver()->addPath(__DIR__ . '/_templates');
+        $this->resolver()->addPath(__DIR__ . '/_templates');
         $content = $this->renderer->render('test-with-helpers.phtml');
         foreach (['foo', 'bar', 'baz'] as $value) {
             $this->assertStringContainsString("<li>$value</li>", $content);
@@ -196,7 +226,7 @@ class PhpRendererTest extends TestCase
     public function testNestedRenderingRestoresVariablesCorrectly(): void
     {
         $expected = "inner\n<p>content</p>";
-        $this->renderer->resolver()->addPath(__DIR__ . '/_templates');
+        $this->resolver()->addPath(__DIR__ . '/_templates');
         $test = $this->renderer->render('testNestedOuter.phtml', ['content' => '<p>content</p>']);
         $this->assertEquals($expected, $test);
     }
@@ -215,12 +245,15 @@ class PhpRendererTest extends TestCase
      */
     public function testMethodOverloadingShouldReturnHelperInstanceIfNotInvokable(): void
     {
-        $helpers = new HelperPluginManager(new ServiceManager(), ['invokables' => [
-            'uninvokable' => TestAsset\Uninvokable::class,
-        ]]);
+        $helpers = new HelperPluginManager(new ServiceManager(), [
+            'invokables' => [
+                'uninvokable' => Uninvokable::class,
+            ],
+        ]);
         $this->renderer->setHelperPluginManager($helpers);
+        /** @psalm-suppress UndefinedMagicMethod */
         $helper = $this->renderer->uninvokable();
-        $this->assertInstanceOf(TestAsset\Uninvokable::class, $helper);
+        $this->assertInstanceOf(Uninvokable::class, $helper);
     }
 
     /**
@@ -228,10 +261,13 @@ class PhpRendererTest extends TestCase
      */
     public function testMethodOverloadingShouldInvokeHelperIfInvokable(): void
     {
-        $helpers = new HelperPluginManager(new ServiceManager(), ['invokables' => [
-            'invokable' => TestAsset\Invokable::class,
-        ]]);
+        $helpers = new HelperPluginManager(new ServiceManager(), [
+            'invokables' => [
+                'invokable' => Invokable::class,
+            ],
+        ]);
         $this->renderer->setHelperPluginManager($helpers);
+        /** @psalm-suppress UndefinedMagicMethod */
         $return = $this->renderer->invokable('it works!');
         $this->assertEquals('LaminasTest\View\TestAsset\Invokable::__invoke: it works!', $return);
     }
@@ -242,7 +278,7 @@ class PhpRendererTest extends TestCase
     public function testGetMethodShouldRetrieveVariableFromVariableContainer(): void
     {
         $this->renderer->foo = '<p>Bar</p>';
-        $foo = $this->renderer->get('foo');
+        $foo                 = $this->renderer->get('foo');
         $this->assertSame($this->renderer->vars()->foo, $foo);
     }
 
@@ -253,7 +289,7 @@ class PhpRendererTest extends TestCase
     {
         $expected = '10 > 9';
         $this->renderer->vars()->assign(['foo' => '10 > 9']);
-        $this->renderer->resolver()->addPath(__DIR__ . '/_templates');
+        $this->resolver()->addPath(__DIR__ . '/_templates');
         $test = $this->renderer->render('testLocalVars.phtml');
         $this->assertStringContainsString($expected, $test);
     }
@@ -293,7 +329,7 @@ class PhpRendererTest extends TestCase
     public function testViewModelWithoutTemplateRaisesException(): void
     {
         $model = new ViewModel();
-        $this->expectException(Exception\DomainException::class);
+        $this->expectException(DomainException::class);
         $this->renderer->render($model);
     }
 
@@ -329,7 +365,7 @@ class PhpRendererTest extends TestCase
         $model->setTemplate('empty');
 
         $this->renderer->render($model);
-        $helper  = $this->renderer->plugin('view_model');
+        $helper = $this->renderer->plugin('view_model');
         $this->assertTrue($helper->hasCurrent());
         $this->assertSame($model, $helper->getCurrent());
     }
@@ -347,43 +383,42 @@ class PhpRendererTest extends TestCase
         try {
             $this->renderer->render($model);
             $this->fail('Exception from renderer should propagate');
-        } catch (\Exception $e) {
-            $this->assertInstanceOf('Exception', $e);
+        } catch (Throwable $e) {
+            $this->assertInstanceOf(Exception::class, $e);
         }
     }
 
     public function testRendererRaisesExceptionIfResolverCannotResolveTemplate(): void
     {
         $this->renderer->vars()->assign(['foo' => '10 > 9']);
-        $this->expectException(Exception\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('could not resolve');
         $this->renderer->render('should-not-find-this');
     }
 
     /**
      * @return string[][]
-     *
      * @psalm-return array{0: array{0: '/does/not/exists'}, 1: array{0: '.'}}
      */
     public function invalidTemplateFiles(): array
     {
         return [
             ['/does/not/exists'],
-            ['.']
+            ['.'],
         ];
     }
 
     /**
      * @dataProvider invalidTemplateFiles
      */
-    public function testRendererRaisesExceptionIfResolvedTemplateIsInvalid($template): void
+    public function testRendererRaisesExceptionIfResolvedTemplateIsInvalid(string $template): void
     {
         $resolver = new TemplateMapResolver([
             'invalid' => $template,
         ]);
 
         // @codingStandardsIgnoreStart
-        set_error_handler(function ($errno, $errstr) { return true; }, E_WARNING);
+        set_error_handler(function (int $errno, string $errstr) { return true; }, E_WARNING);
         // @codingStandardsIgnoreEnd
 
         $this->renderer->setResolver($resolver);
@@ -391,12 +426,12 @@ class PhpRendererTest extends TestCase
         try {
             $this->renderer->render('invalid');
             $caught = false;
-        } catch (\Exception $e) {
+        } catch (Throwable $e) {
             $caught = $e;
         }
 
         restore_error_handler();
-        $this->assertInstanceOf(Exception\UnexpectedValueException::class, $caught);
+        $this->assertInstanceOf(UnexpectedValueException::class, $caught);
         $this->assertStringContainsString('file include failed', $caught->getMessage());
     }
 
@@ -426,7 +461,7 @@ class PhpRendererTest extends TestCase
     {
         $model = new ViewModel();
         $model->setTemplate('template');
-        $vars  = $model->getVariables();
+        $vars        = $model->getVariables();
         $vars['foo'] = 'BAR-BAZ-BAT';
 
         $resolver = new TemplateMapResolver([
@@ -439,14 +474,15 @@ class PhpRendererTest extends TestCase
 
     /**
      * @group Laminas-4221
+     * @psalm-suppress UndefinedMagicMethod
      */
     public function testSharedInstanceHelper(): void
     {
         $helpers = new HelperPluginManager(new ServiceManager(), [
             'invokables' => [
-                'sharedinstance' => TestAsset\SharedInstance::class,
+                'sharedinstance' => SharedInstance::class,
             ],
-            'shared' => [
+            'shared'     => [
                 'sharedinstance' => false,
             ],
         ]);
@@ -459,9 +495,9 @@ class PhpRendererTest extends TestCase
 
         $helpers = new HelperPluginManager(new ServiceManager(), [
             'invokables' => [
-                'sharedinstance' => TestAsset\SharedInstance::class,
+                'sharedinstance' => SharedInstance::class,
             ],
-            'shared' => [
+            'shared'     => [
                 'sharedinstance' => true,
             ],
         ]);
@@ -474,13 +510,13 @@ class PhpRendererTest extends TestCase
 
     public function testDoesNotCallFilterChainIfNoFilterChainWasSet(): void
     {
-        $this->renderer->resolver()->addPath(__DIR__ . '/_templates');
+        $this->resolver()->addPath(__DIR__ . '/_templates');
 
         $result = $this->renderer->render('empty.phtml');
 
         $this->assertStringContainsString('Empty view', $result);
-        $rendererReflection = new \ReflectionObject($this->renderer);
-        $method = $rendererReflection->getProperty('__filterChain');
+        $rendererReflection = new ReflectionObject($this->renderer);
+        $method             = $rendererReflection->getProperty('__filterChain');
         $method->setAccessible(true);
         $filterChain = $method->getValue($this->renderer);
 
@@ -488,13 +524,13 @@ class PhpRendererTest extends TestCase
     }
 
     /**
-     * @group laminas-view-120
-     *
      * @see https://github.com/zendframework/zend-view/issues/120
+     *
+     * @group laminas-view-120
      */
     public function testRendererDoesntUsePreviousRenderedOutputWhenInvokedWithEmptyString(): void
     {
-        $this->renderer->resolver()->addPath(__DIR__ . '/_templates');
+        $this->resolver()->addPath(__DIR__ . '/_templates');
 
         $previousOutput = $this->renderer->render('empty.phtml');
 
@@ -504,16 +540,17 @@ class PhpRendererTest extends TestCase
     }
 
     /**
-     * @group laminas-view-120
-     *
      * @see https://github.com/zendframework/zend-view/issues/120
+     *
+     * @group laminas-view-120
      */
     public function testRendererDoesntUsePreviousRenderedOutputWhenInvokedWithFalse(): void
     {
-        $this->renderer->resolver()->addPath(__DIR__ . '/_templates');
+        $this->resolver()->addPath(__DIR__ . '/_templates');
 
         $previousOutput = $this->renderer->render('empty.phtml');
 
+        /** @psalm-suppress InvalidArgument */
         $actual = $this->renderer->render(false);
 
         $this->assertNotSame($previousOutput, $actual);

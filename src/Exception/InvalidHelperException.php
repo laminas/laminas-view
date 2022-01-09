@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Exception;
 
-/**
- * Invalid helper exception
- */
-class InvalidHelperException extends \Exception implements ExceptionInterface
+use Exception;
+
+class InvalidHelperException extends Exception implements ExceptionInterface
 {
 }

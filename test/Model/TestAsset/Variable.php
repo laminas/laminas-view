@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Model\TestAsset;
 
 use Iterator;
-use ReturnTypeWillChange;
+use ReturnTypeWillChange; // phpcs:ignore
 
 class Variable implements Iterator
 {
@@ -33,11 +35,8 @@ class Variable implements Iterator
     {
     }
 
-    #[ReturnTypeWillChange]
-    /**
-     * @return void
-     */
-    public function valid()
+    public function valid(): bool
     {
+        return false;
     }
 }

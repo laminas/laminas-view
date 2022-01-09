@@ -15,9 +15,7 @@ use function sprintf;
  */
 class AbstractHtmlElementTest extends TestCase
 {
-    /**
-     * @var ConcreteElementHelper
-     */
+    /** @var ConcreteElementHelper */
     protected $helper;
 
     protected function setUp(): void
@@ -45,7 +43,6 @@ class AbstractHtmlElementTest extends TestCase
 
     /**
      * @param scalar|scalar[]|null $attributeValue
-     *
      * @dataProvider attributeValuesProvider
      */
     public function testThatAttributesOfVariousNativeTypesProduceTheExpectedAttributeString(
@@ -64,10 +61,10 @@ class AbstractHtmlElementTest extends TestCase
     public function attributeValuesProvider(): array
     {
         return [
-            'Integer' => [1, '"1"', '"1"'],
-            'Float' => [0.5, '"0.5"', '"0.5"'],
-            'String' => ['whatever', '"whatever"', '"whatever"'],
-            'Null' => [null, '""', '"null"'],
+            'Integer'    => [1, '"1"', '"1"'],
+            'Float'      => [0.5, '"0.5"', '"0.5"'],
+            'String'     => ['whatever', '"whatever"', '"whatever"'],
+            'Null'       => [null, '""', '"null"'],
             'Class List' => [
                 ['foo', 'bar', 'baz'],
                 '"foo&#x20;bar&#x20;baz"',

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper\Navigation;
 
 use Laminas\Navigation\AbstractContainer;
@@ -9,6 +11,29 @@ use Laminas\Stdlib\ErrorHandler;
 use Laminas\View\Exception;
 use RecursiveIteratorIterator;
 use Traversable;
+
+use function array_diff;
+use function array_keys;
+use function array_merge;
+use function array_search;
+use function array_values;
+use function count;
+use function in_array;
+use function is_array;
+use function is_int;
+use function is_numeric;
+use function is_string;
+use function key;
+use function method_exists;
+use function preg_match;
+use function rtrim;
+use function sprintf;
+use function strlen;
+use function strtolower;
+use function ucfirst;
+
+use const E_WARNING;
+use const PHP_EOL;
 
 /**
  * Helper for printing <link> elements
@@ -20,30 +45,30 @@ class Links extends AbstractHelper
      *
      * @var int
      */
-    const RENDER_ALTERNATE  = 0x0001;
-    const RENDER_STYLESHEET = 0x0002;
-    const RENDER_START      = 0x0004;
-    const RENDER_NEXT       = 0x0008;
-    const RENDER_PREV       = 0x0010;
-    const RENDER_CONTENTS   = 0x0020;
-    const RENDER_INDEX      = 0x0040;
-    const RENDER_GLOSSARY   = 0x0080;
-    const RENDER_COPYRIGHT  = 0x0100;
-    const RENDER_CHAPTER    = 0x0200;
-    const RENDER_SECTION    = 0x0400;
-    const RENDER_SUBSECTION = 0x0800;
-    const RENDER_APPENDIX   = 0x1000;
-    const RENDER_HELP       = 0x2000;
-    const RENDER_BOOKMARK   = 0x4000;
-    const RENDER_CUSTOM     = 0x8000;
-    const RENDER_ALL        = 0xffff;
+    public const RENDER_ALTERNATE  = 0x0001;
+    public const RENDER_STYLESHEET = 0x0002;
+    public const RENDER_START      = 0x0004;
+    public const RENDER_NEXT       = 0x0008;
+    public const RENDER_PREV       = 0x0010;
+    public const RENDER_CONTENTS   = 0x0020;
+    public const RENDER_INDEX      = 0x0040;
+    public const RENDER_GLOSSARY   = 0x0080;
+    public const RENDER_COPYRIGHT  = 0x0100;
+    public const RENDER_CHAPTER    = 0x0200;
+    public const RENDER_SECTION    = 0x0400;
+    public const RENDER_SUBSECTION = 0x0800;
+    public const RENDER_APPENDIX   = 0x1000;
+    public const RENDER_HELP       = 0x2000;
+    public const RENDER_BOOKMARK   = 0x4000;
+    public const RENDER_CUSTOM     = 0x8000;
+    public const RENDER_ALL        = 0xffff;
 
     /**
      * Maps render constants to W3C link types
      *
      * @var array
      */
-    protected static $RELATIONS = [
+    protected static $RELATIONS = [ // phpcs:ignore
         self::RENDER_ALTERNATE  => 'alternate',
         self::RENDER_STYLESHEET => 'stylesheet',
         self::RENDER_START      => 'start',
@@ -66,6 +91,7 @@ class Links extends AbstractHelper
      *
      * @see render()
      * @see setRenderFlag()
+     *
      * @var int
      */
     protected $renderFlag = self::RENDER_ALL;
@@ -77,6 +103,7 @@ class Links extends AbstractHelper
      * the {@link render()} method.
      *
      * @see _findRoot()
+     *
      * @var AbstractContainer
      */
     protected $root;
@@ -150,8 +177,8 @@ class Links extends AbstractHelper
             return '';
         }
 
-        $output = '';
-        $indent = $this->getIndent();
+        $output     = '';
+        $indent     = $this->getIndent();
         $this->root = $container;
 
         $result = $this->findAllRelations($active, $this->getRenderFlag());
@@ -203,14 +230,14 @@ class Links extends AbstractHelper
         // TODO: add more attribs
         // http://www.w3.org/TR/html401/struct/links.html#h-12.2
         $attribs = [
-            $attrib  => $relation,
-            'href'   => $href,
-            'title'  => $page->getLabel()
+            $attrib => $relation,
+            'href'  => $href,
+            'title' => $page->getLabel(),
         ];
 
-        return '<link' .
-            $this->htmlAttribs($attribs) .
-            $this->getClosingBracket();
+        return '<link'
+            . $this->htmlAttribs($attribs)
+            . $this->getClosingBracket();
     }
 
     // Finder methods:
@@ -251,7 +278,7 @@ class Links extends AbstractHelper
         $native = array_values(static::$RELATIONS);
 
         foreach (array_keys($result) as $rel) {
-            $meth = 'getDefined' . ucfirst($rel);
+            $meth  = 'getDefined' . ucfirst($rel);
             $types = array_merge($native, array_diff($page->$meth(), $native));
 
             foreach ($types as $type) {
@@ -285,7 +312,7 @@ class Links extends AbstractHelper
      * @param  string       $rel  relation, "rel" or "rev"
      * @param  string       $type link type, e.g. 'start', 'next'
      * @return AbstractPage|array|null
-     * @throws Exception\DomainException if $rel is not "rel" or "rev"
+     * @throws Exception\DomainException If $rel is not "rel" or "rev".
      */
     public function findRelation(AbstractPage $page, $rel, $type)
     {
@@ -329,11 +356,9 @@ class Links extends AbstractHelper
                     }
                 }
 
-                return count($result) == 1 ? $result[0] : $result;
+                return count($result) === 1 ? $result[0] : $result;
             }
         }
-
-        return;
     }
 
     /**
@@ -368,7 +393,6 @@ class Links extends AbstractHelper
      * tells search engines which document is considered by the author to be the
      * starting point of the collection.
      *
-     * @param  AbstractPage $page
      * @return AbstractPage|null
      */
     public function searchRelStart(AbstractPage $page)
@@ -395,13 +419,12 @@ class Links extends AbstractHelper
      * agents may choose to preload the "next" document, to reduce the perceived
      * load time.
      *
-     * @param  AbstractPage $page
      * @return AbstractPage|null
      */
     public function searchRelNext(AbstractPage $page)
     {
-        $found = null;
-        $break = false;
+        $found    = null;
+        $break    = false;
         $iterator = new RecursiveIteratorIterator($this->findRoot($page), RecursiveIteratorIterator::SELF_FIRST);
         foreach ($iterator as $intermediate) {
             if ($intermediate === $page) {
@@ -427,13 +450,12 @@ class Links extends AbstractHelper
      * Refers to the previous document in an ordered series of documents. Some
      * user agents also support the synonym "Previous".
      *
-     * @param  AbstractPage $page
      * @return AbstractPage|null
      */
     public function searchRelPrev(AbstractPage $page)
     {
-        $found = null;
-        $prev = null;
+        $found    = null;
+        $prev     = null;
         $iterator = new RecursiveIteratorIterator(
             $this->findRoot($page),
             RecursiveIteratorIterator::SELF_FIRST
@@ -460,7 +482,6 @@ class Links extends AbstractHelper
      * From {@link http://www.w3.org/TR/html4/types.html#type-links}:
      * Refers to a document serving as a chapter in a collection of documents.
      *
-     * @param  AbstractPage $page
      * @return AbstractPage|array|null
      */
     public function searchRelChapter(AbstractPage $page)
@@ -478,9 +499,11 @@ class Links extends AbstractHelper
 
         foreach ($root as $chapter) {
             // exclude self and start page from chapters
-            if ($chapter !== $page &&
+            if (
+                $chapter !== $page &&
                 ! in_array($chapter, $start) &&
-                $this->accept($chapter)) {
+                $this->accept($chapter)
+            ) {
                 $found[] = $chapter;
             }
         }
@@ -502,7 +525,6 @@ class Links extends AbstractHelper
      * From {@link http://www.w3.org/TR/html4/types.html#type-links}:
      * Refers to a document serving as a section in a collection of documents.
      *
-     * @param  AbstractPage $page
      * @return AbstractPage|array|null
      */
     public function searchRelSection(AbstractPage $page)
@@ -536,7 +558,6 @@ class Links extends AbstractHelper
      * Refers to a document serving as a subsection in a collection of
      * documents.
      *
-     * @param  AbstractPage $page
      * @return AbstractPage|array|null
      */
     public function searchRelSubsection(AbstractPage $page)
@@ -574,7 +595,6 @@ class Links extends AbstractHelper
      * From {@link http://www.w3.org/TR/html4/types.html#type-links}:
      * Refers to a document serving as a section in a collection of documents.
      *
-     * @param  AbstractPage $page
      * @return AbstractPage|null
      */
     public function searchRevSection(AbstractPage $page)
@@ -582,8 +602,10 @@ class Links extends AbstractHelper
         $found  = null;
         $parent = $page->getParent();
         if ($parent) {
-            if ($parent instanceof AbstractPage &&
-                $this->findRoot($page)->hasPage($parent)) {
+            if (
+                $parent instanceof AbstractPage &&
+                $this->findRoot($page)->hasPage($parent)
+            ) {
                 $found = $parent;
             }
         }
@@ -599,7 +621,6 @@ class Links extends AbstractHelper
      * Refers to a document serving as a subsection in a collection of
      * documents.
      *
-     * @param  AbstractPage $page
      * @return AbstractPage|null
      */
     public function searchRevSubsection(AbstractPage $page)
@@ -631,7 +652,6 @@ class Links extends AbstractHelper
      * makes sure finder methods will not traverse above the container given
      * to the render method.
      *
-     * @param  AbstractPage $page
      * @return AbstractContainer
      */
     protected function findRoot(AbstractPage $page)
@@ -680,7 +700,7 @@ class Links extends AbstractHelper
             // value is a string; make a URI page
             return AbstractPage::factory([
                 'type' => 'uri',
-                'uri'  => $mixed
+                'uri'  => $mixed,
             ]);
         }
 
@@ -698,15 +718,13 @@ class Links extends AbstractHelper
             } else {
                 // pass array to factory directly
                 try {
-                    $page = AbstractPage::factory($mixed);
-                    return $page;
+                    return AbstractPage::factory($mixed);
                 } catch (\Exception $e) {
                 }
             }
         }
 
         // nothing found
-        return;
     }
 
     /**

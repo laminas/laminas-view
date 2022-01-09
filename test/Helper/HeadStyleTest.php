@@ -1,10 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
+use DOMDocument;
 use Laminas\View;
 use Laminas\View\Helper;
 use PHPUnit\Framework\TestCase;
+
+use function array_shift;
+use function count;
+use function substr_count;
+
+use const PHP_EOL;
 
 /**
  * Test class for Laminas\View\Helper\HeadStyle.
@@ -14,14 +23,10 @@ use PHPUnit\Framework\TestCase;
  */
 class HeadStyleTest extends TestCase
 {
-    /**
-     * @var Helper\HeadStyle
-     */
+    /** @var Helper\HeadStyle */
     public $helper;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $basePath;
 
     /**
@@ -31,7 +36,7 @@ class HeadStyleTest extends TestCase
     protected function setUp(): void
     {
         $this->basePath = __DIR__ . '/_files/modules';
-        $this->helper = new Helper\HeadStyle();
+        $this->helper   = new Helper\HeadStyle();
     }
 
     public function testHeadStyleReturnsObjectInstance(): void
@@ -127,7 +132,7 @@ class HeadStyleTest extends TestCase
             'title' => 'foo',
             'media' => 'projection',
             'dir'   => 'rtol',
-            'bogus' => 'unused'
+            'bogus' => 'unused',
         ]);
         $value = $this->helper->getValue();
 
@@ -153,7 +158,7 @@ class HeadStyleTest extends TestCase
             'title' => 'foo',
             'media' => 'screen',
             'dir'   => 'rtol',
-            'bogus' => 'unused'
+            'bogus' => 'unused',
         ]);
         $value = $this->helper->toString();
         $this->assertStringContainsString('<!--' . PHP_EOL, $value);
@@ -162,8 +167,7 @@ class HeadStyleTest extends TestCase
 
     public function testRenderedStyleTagsContainsDefaultMedia(): void
     {
-        $this->helper->setStyle('a {}', [
-        ]);
+        $this->helper->setStyle('a {}', []);
         $value = $this->helper->toString();
         $this->assertMatchesRegularExpression('#<style [^>]*?media="screen"#', $value, $value);
     }
@@ -204,7 +208,7 @@ class HeadStyleTest extends TestCase
                      ->__invoke($style2, 'PREPEND')
                      ->__invoke($style3, 'APPEND');
         $html = $this->helper->toString();
-        $doc  = new \DOMDocument;
+        $doc  = new DOMDocument();
         $dom  = $doc->loadHtml($html);
         $this->assertTrue($dom);
 
@@ -378,7 +382,7 @@ a {
         $style2 = 'h1 {font-weight: bold}';
         $this->helper->offsetSetStyle(5, $style2);
 
-        $test = $this->helper->toString();
+        $test     = $this->helper->toString();
         $expected = '<style type="text/css" media="screen">' . PHP_EOL
                   . '<!--' . PHP_EOL
                   . $style2 . PHP_EOL
@@ -400,7 +404,7 @@ a {
     {
         $style = 'a{display:none;}';
         $this->helper->appendStyle($style, [
-            'conditional' => 'IE 8'
+            'conditional' => 'IE 8',
         ]);
         $value = $this->helper->toString();
 

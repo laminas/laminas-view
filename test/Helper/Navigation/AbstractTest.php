@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper\Navigation;
 
 use Laminas\I18n\Translator\Translator;
@@ -20,6 +22,8 @@ use LaminasTest\View\Helper\TestAsset;
 use PHPUnit\Framework\TestCase;
 
 use function assert;
+use function class_exists;
+use function file_get_contents;
 
 /**
  * Base class for navigation view helper tests
@@ -28,69 +32,64 @@ use function assert;
  */
 abstract class AbstractTest extends TestCase
 {
-    /**
-     * @var ServiceManager
-     */
+    /** @var ServiceManager */
     protected $serviceManager;
 
-    // @codingStandardsIgnoreStart
     /**
      * Path to files needed for test
      *
      * @var string
      */
-    protected $_files;
+    protected $files;
 
     /**
      * View helper
      *
      * @var AbstractHelper
      */
-    protected $_helper;
+    protected $_helper; // phpcs:ignore
 
     /**
      * The first container in the config file (files/navigation.xml)
      *
      * @var Navigation
      */
-    protected $_nav1;
+    protected $nav1;
 
     /**
      * The second container in the config file (files/navigation.xml)
      *
      * @var Navigation
      */
-    protected $_nav2;
+    protected $nav2;
 
     /**
      * The third container in the config file (files/navigation.xml)
      *
      * @var Navigation
      */
-    protected $_nav3;
-    // @codingStandardsIgnoreEnd
+    protected $nav3;
 
     /**
      * Prepares the environment before running a test
-     *
      */
     protected function setUp(): void
     {
         $cwd = __DIR__;
 
         // read navigation config
-        $this->_files = $cwd . '/_files';
+        $this->files = $cwd . '/_files';
 
         /** @var array{nav_test1: mixed[], nav_test2: mixed[], nav_test3: mixed[]} $config */
         $config = require __DIR__ . '/_files/navigation-config.php';
 
         // setup containers from config
-        $this->_nav1 = new Navigation($config['nav_test1']);
-        $this->_nav2 = new Navigation($config['nav_test2']);
-        $this->_nav3 = new Navigation($config['nav_test3']);
+        $this->nav1 = new Navigation($config['nav_test1']);
+        $this->nav2 = new Navigation($config['nav_test2']);
+        $this->nav3 = new Navigation($config['nav_test3']);
 
         // setup view
-        $view = new PhpRenderer();
+        $view     = new PhpRenderer();
         $resolver = $view->resolver();
         assert($resolver instanceof TemplatePathStack);
         $resolver->addPath($cwd . '/_files/mvc/views');
@@ -99,7 +98,7 @@ abstract class AbstractTest extends TestCase
         $this->_helper->setView($view);
 
         // set nav1 in helper as default
-        $this->_helper->setContainer($this->_nav1);
+        $this->_helper->setContainer($this->nav1);
 
         // setup service manager
         $smConfig = [
@@ -111,18 +110,17 @@ abstract class AbstractTest extends TestCase
                 'extra_config'         => [
                     'service_manager' => [
                         'factories' => [
-                            'config' => /**
-                             * @return array[]
-                             *
-                             * @psalm-return array{navigation: array{default: mixed}}
+                            /**
+                            'config' =>  * @return array[]
+                            'config' =>  * @psalm-return array{navigation: array{default: mixed}}
                              */
-                            function () use ($config): array {
+                            'config' => function () use ($config): array {
                                 return [
                                     'navigation' => [
                                         'default' => $config['nav_test1'],
                                     ],
                                 ];
-                            }
+                            },
                         ],
                     ],
                 ],
@@ -144,8 +142,8 @@ abstract class AbstractTest extends TestCase
         $sm->get('Application')->bootstrap();
         $sm->setFactory('Navigation', DefaultNavigationFactory::class);
 
-        $sm->setService('nav1', $this->_nav1);
-        $sm->setService('nav2', $this->_nav2);
+        $sm->setService('nav1', $this->nav1);
+        $sm->setService('nav2', $this->nav2);
 
         $sm->setAllowOverride(false);
 
@@ -158,28 +156,18 @@ abstract class AbstractTest extends TestCase
     }
 
     /**
-     * Returns the contens of the expected $file
-     * @param  string $file
-     * @return string
+     * Returns the expected contents of the given $filename
      */
-    // @codingStandardsIgnoreStart
-    protected function _getExpected($file)
+    protected function getExpectedFileContents(string $filename): string
     {
-        // @codingStandardsIgnoreEnd
-        return file_get_contents($this->_files . '/expected/' . $file);
+        return file_get_contents($this->files . '/expected/' . $filename);
     }
 
     /**
-     * Sets up ACL
-     *
-     * @return (Acl|string)[]
-     *
-     * @psalm-return array{acl: Acl, role: 'special'}
+     * @preturn array{acl: Acl, role: 'special'}
      */
-    // @codingStandardsIgnoreLine
-    protected function _getAcl(): array
+    protected function getAcl(): array
     {
-        // @codingStandardsIgnoreEnd
         $acl = new Acl();
 
         $acl->addRole(new GenericRole('guest'));
@@ -201,16 +189,9 @@ abstract class AbstractTest extends TestCase
         return ['acl' => $acl, 'role' => 'special'];
     }
 
-    /**
-     * Returns translator
-     *
-     * @return Translator
-     */
-    // @codingStandardsIgnoreStart
-    protected function _getTranslator()
+    protected function getTranslator(): Translator
     {
-        // @codingStandardsIgnoreEnd
-        $loader = new TestAsset\ArrayTranslator();
+        $loader               = new TestAsset\ArrayTranslator();
         $loader->translations = [
             'Page 1'       => 'Side 1',
             'Page 1.1'     => 'Side 1.1',
@@ -218,24 +199,17 @@ abstract class AbstractTest extends TestCase
             'Page 2.3'     => 'Side 2.3',
             'Page 2.3.3.1' => 'Side 2.3.3.1',
             'Home'         => 'Hjem',
-            'Go home'      => 'Gå hjem'
+            'Go home'      => 'Gå hjem',
         ];
-        $translator = new Translator();
+        $translator           = new Translator();
         $translator->getPluginManager()->setService('default', $loader);
         $translator->addTranslationFile('default', null);
         return $translator;
     }
 
-    /**
-     * Returns translator with text domain
-     *
-     * @return Translator
-     */
-    // @codingStandardsIgnoreStart
-    protected function _getTranslatorWithTextDomain()
+    protected function getTranslatorWithTextDomain(): Translator
     {
-        // @codingStandardsIgnoreEnd
-        $loader1 = new TestAsset\ArrayTranslator();
+        $loader1               = new TestAsset\ArrayTranslator();
         $loader1->translations = [
             'Page 1'       => 'TextDomain1 1',
             'Page 1.1'     => 'TextDomain1 1.1',
@@ -245,7 +219,7 @@ abstract class AbstractTest extends TestCase
             'Page 2.3.3.1' => 'TextDomain1 2.3.3.1',
         ];
 
-        $loader2 = new TestAsset\ArrayTranslator();
+        $loader2               = new TestAsset\ArrayTranslator();
         $loader2->translations = [
             'Page 1'       => 'TextDomain2 1',
             'Page 1.1'     => 'TextDomain2 1.1',

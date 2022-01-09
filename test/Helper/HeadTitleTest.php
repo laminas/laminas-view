@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
 use Laminas\I18n\Translator\Translator;
@@ -14,14 +16,10 @@ use PHPUnit\Framework\TestCase;
  */
 class HeadTitleTest extends TestCase
 {
-    /**
-     * @var Helper\HeadTitle
-     */
+    /** @var Helper\HeadTitle */
     public $helper;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $basePath;
 
     /**
@@ -31,7 +29,7 @@ class HeadTitleTest extends TestCase
     protected function setUp(): void
     {
         $this->basePath = __DIR__ . '/_files/modules';
-        $this->helper = new Helper\HeadTitle();
+        $this->helper   = new Helper\HeadTitle();
     }
 
     public function testHeadTitleReturnsObjectInstance(): void
@@ -111,14 +109,13 @@ class HeadTitleTest extends TestCase
         $this->helper->__invoke()->setAutoEscape(false);
         $this->assertFalse($this->helper->__invoke()->getAutoEscape());
 
-
         $this->assertEquals('Some Title &copyright;', $this->helper->renderTitle());
     }
 
     /**
-     * @issue Laminas-2918
-     *
      * @link https://getlaminas.org/issues/browse/Laminas-2918
+     *
+     * @issue Laminas-2918
      */
     public function testLaminas918(): void
     {
@@ -130,9 +127,9 @@ class HeadTitleTest extends TestCase
     }
 
     /**
-     * @issue Laminas-3577
-     *
      * @link https://getlaminas.org/issues/browse/Laminas-3577
+     *
+     * @issue Laminas-3577
      */
     public function testLaminas577(): void
     {
@@ -146,11 +143,11 @@ class HeadTitleTest extends TestCase
 
     public function testCanTranslateTitle(): void
     {
-        $loader = new TestAsset\ArrayTranslator();
+        $loader               = new TestAsset\ArrayTranslator();
         $loader->translations = [
             'Message_1' => 'Message 1 (en)',
         ];
-        $translator = new Translator();
+        $translator           = new Translator();
         $translator->getPluginManager()->setService('default', $loader);
         $translator->addTranslationFile('default', '');
 

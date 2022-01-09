@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper\Navigation;
 
 use Laminas\ServiceManager\Config;
@@ -11,6 +13,8 @@ use Laminas\View\Helper\Navigation\Breadcrumbs;
 use Laminas\View\Helper\Navigation\PluginManager;
 use PHPUnit\Framework\TestCase;
 
+use function method_exists;
+
 /**
  * @group      Laminas_View
  */
@@ -18,17 +22,17 @@ class PluginManagerCompatibilityTest extends TestCase
 {
     use CommonPluginManagerTrait;
 
-    protected function getPluginManager()
+    protected function getPluginManager(): PluginManager
     {
         return new PluginManager(new ServiceManager());
     }
 
-    protected function getV2InvalidPluginException()
+    protected function getV2InvalidPluginException(): string
     {
         return InvalidHelperException::class;
     }
 
-    protected function getInstanceOf()
+    protected function getInstanceOf(): string
     {
         return AbstractHelper::class;
     }
@@ -93,7 +97,7 @@ class PluginManagerCompatibilityTest extends TestCase
     public function testLoadingInvalidElementRaisesException(): void
     {
         $manager = $this->getPluginManager();
-        $manager->setInvokableClass('test', get_class($this));
+        $manager->setInvokableClass('test', static::class);
         $this->expectException($this->getServiceNotFoundException());
         $manager->get('test');
     }

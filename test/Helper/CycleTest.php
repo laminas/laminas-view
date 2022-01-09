@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
 use Laminas\View\Helper;
@@ -13,9 +15,7 @@ use PHPUnit\Framework\TestCase;
  */
 class CycleTest extends TestCase
 {
-    /**
-     * @var Helper\Cycle
-     */
+    /** @var Helper\Cycle */
     public $helper;
 
     /**
@@ -101,8 +101,8 @@ class CycleTest extends TestCase
 
     public function testTwoCyclesInLoop(): void
     {
-        $expected = [5,4,2,3];
-        $expected2 = [7,34,8,6];
+        $expected  = [5, 4, 2, 3];
+        $expected2 = [7, 34, 8, 6];
         for ($i = 0; $i < 4; $i++) {
             $this->assertEquals($expected[$i], (string) $this->helper->__invoke($expected)->next());
             $this->assertEquals($expected2[$i], (string) $this->helper->__invoke($expected2, 'cycle2')->next());

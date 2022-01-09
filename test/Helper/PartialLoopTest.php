@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
 use ArrayObject;
@@ -9,6 +11,8 @@ use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
+use function var_export;
+
 /**
  * Test class for Laminas\View\Helper\PartialLoop.
  *
@@ -17,14 +21,10 @@ use stdClass;
  */
 class PartialLoopTest extends TestCase
 {
-    /**
-     * @var PartialLoop
-     */
+    /** @var PartialLoop */
     public $helper;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $basePath;
 
     /**
@@ -63,9 +63,9 @@ class PartialLoopTest extends TestCase
             ['message' => 'foo'],
             ['message' => 'bar'],
             ['message' => 'baz'],
-            ['message' => 'bat']
+            ['message' => 'bat'],
         ];
-        $o = new TestAsset\IteratorTest($data);
+        $o    = new TestAsset\IteratorTest($data);
 
         $view = new View();
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
@@ -95,7 +95,7 @@ class PartialLoopTest extends TestCase
         $result = $this->helper->__invoke('partialLoop.phtml', $rIterator);
         foreach ($rIterator as $item) {
             foreach ($item as $key => $value) {
-                $this->assertStringContainsString($value, $result, var_export($value, 1));
+                $this->assertStringContainsString($value, $result, var_export($value, true));
             }
         }
     }
@@ -108,7 +108,7 @@ class PartialLoopTest extends TestCase
             ['message' => 'baz'],
             ['message' => 'bat'],
         ];
-        $o = new TestAsset\BogusIteratorTest($data);
+        $o    = new TestAsset\BogusIteratorTest($data);
 
         $view = new View();
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
@@ -141,9 +141,9 @@ class PartialLoopTest extends TestCase
             ['message' => 'foo'],
             ['message' => 'bar'],
             ['message' => 'baz'],
-            ['message' => 'bat']
+            ['message' => 'bat'],
         ];
-        $o = new ArrayObject($data);
+        $o    = new ArrayObject($data);
 
         $view = new View();
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
@@ -162,9 +162,9 @@ class PartialLoopTest extends TestCase
             ['message' => 'foo'],
             ['message' => 'bar'],
             ['message' => 'baz'],
-            ['message' => 'bat']
+            ['message' => 'bat'],
         ];
-        $o = new TestAsset\ToArrayTest($data);
+        $o    = new TestAsset\ToArrayTest($data);
 
         $view = new View();
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
@@ -189,7 +189,7 @@ class PartialLoopTest extends TestCase
             new TestAsset\IteratorWithToArrayTestContainer(['message' => 'baz']),
             new TestAsset\IteratorWithToArrayTestContainer(['message' => 'bat']),
         ];
-        $o = new TestAsset\IteratorWithToArrayTest($data);
+        $o    = new TestAsset\IteratorWithToArrayTest($data);
 
         $view = new View();
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
@@ -225,7 +225,7 @@ class PartialLoopTest extends TestCase
             ['message' => 'foo'],
             ['message' => 'bar'],
             ['message' => 'baz'],
-            ['message' => 'bat']
+            ['message' => 'bat'],
         ];
 
         $view = new View();
@@ -245,7 +245,7 @@ class PartialLoopTest extends TestCase
             ['message' => 'foo'],
             ['message' => 'bar'],
             ['message' => 'baz'],
-            ['message' => 'bat']
+            ['message' => 'bat'],
         ];
 
         $view = new View();
@@ -278,7 +278,7 @@ class PartialLoopTest extends TestCase
 
         foreach ($rIterator as $item) {
             foreach ($item as $key => $value) {
-                $this->assertStringContainsString('This is an iteration: ' . $value, $result, var_export($value, 1));
+                $this->assertStringContainsString('This is an iteration: ' . $value, $result, var_export($value, true));
             }
         }
     }
@@ -290,14 +290,14 @@ class PartialLoopTest extends TestCase
     {
         $data = [];
         for ($i = 0; $i < 3; $i++) {
-            $obj = new stdClass();
-            $obj->helper = $this->helper;
+            $obj            = new stdClass();
+            $obj->helper    = $this->helper;
             $obj->objectKey = "foo" . $i;
-            $obj->message = "bar";
-            $obj->data = [
-                $obj
+            $obj->message   = "bar";
+            $obj->data      = [
+                $obj,
             ];
-            $data[] = $obj;
+            $data[]         = $obj;
         }
 
         $view = new View();
@@ -318,15 +318,19 @@ class PartialLoopTest extends TestCase
      */
     public function testNestedPartialLoopsNestedArray(): void
     {
-        $data = [[
-            'obj' => [
-                'helper' => $this->helper,
-                'message' => 'foo1',
-                'data' => [[
-                    'message' => 'foo2'
-                ]]
-            ]
-        ]];
+        $data = [
+            [
+                'obj' => [
+                    'helper'  => $this->helper,
+                    'message' => 'foo1',
+                    'data'    => [
+                        [
+                            'message' => 'foo2',
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $view = new View();
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
@@ -379,9 +383,9 @@ class PartialLoopTest extends TestCase
             ['message' => 'foo'],
             ['message' => 'bar'],
             ['message' => 'baz'],
-            ['message' => 'bat']
+            ['message' => 'bat'],
         ];
-        $o = new TestAsset\IteratorTest($data);
+        $o    = new TestAsset\IteratorTest($data);
 
         $view = new View();
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
@@ -411,7 +415,7 @@ class PartialLoopTest extends TestCase
         $result = $this->helper->Loop('partialLoop.phtml', $rIterator);
         foreach ($rIterator as $item) {
             foreach ($item as $key => $value) {
-                $this->assertStringContainsString($value, $result, var_export($value, 1));
+                $this->assertStringContainsString($value, $result, var_export($value, true));
             }
         }
     }
@@ -424,7 +428,7 @@ class PartialLoopTest extends TestCase
             ['message' => 'baz'],
             ['message' => 'bat'],
         ];
-        $o = new TestAsset\BogusIteratorTest($data);
+        $o    = new TestAsset\BogusIteratorTest($data);
 
         $view = new View();
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
@@ -450,9 +454,9 @@ class PartialLoopTest extends TestCase
             ['message' => 'foo'],
             ['message' => 'bar'],
             ['message' => 'baz'],
-            ['message' => 'bat']
+            ['message' => 'bat'],
         ];
-        $o = new ArrayObject($data);
+        $o    = new ArrayObject($data);
 
         $view = new View();
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
@@ -471,9 +475,9 @@ class PartialLoopTest extends TestCase
             ['message' => 'foo'],
             ['message' => 'bar'],
             ['message' => 'baz'],
-            ['message' => 'bat']
+            ['message' => 'bat'],
         ];
-        $o = new TestAsset\ToArrayTest($data);
+        $o    = new TestAsset\ToArrayTest($data);
 
         $view = new View();
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
@@ -498,7 +502,7 @@ class PartialLoopTest extends TestCase
             new TestAsset\IteratorWithToArrayTestContainer(['message' => 'baz']),
             new TestAsset\IteratorWithToArrayTestContainer(['message' => 'bat']),
         ];
-        $o = new TestAsset\IteratorWithToArrayTest($data);
+        $o    = new TestAsset\IteratorWithToArrayTest($data);
 
         $view = new View();
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');
@@ -534,7 +538,7 @@ class PartialLoopTest extends TestCase
             ['message' => 'foo'],
             ['message' => 'bar'],
             ['message' => 'baz'],
-            ['message' => 'bat']
+            ['message' => 'bat'],
         ];
 
         $view = new View();
@@ -554,7 +558,7 @@ class PartialLoopTest extends TestCase
             ['message' => 'foo'],
             ['message' => 'bar'],
             ['message' => 'baz'],
-            ['message' => 'bat']
+            ['message' => 'bat'],
         ];
 
         $view = new View();
@@ -587,7 +591,7 @@ class PartialLoopTest extends TestCase
 
         foreach ($rIterator as $item) {
             foreach ($item as $key => $value) {
-                $this->assertStringContainsString('This is an iteration: ' . $value, $result, var_export($value, 1));
+                $this->assertStringContainsString('This is an iteration: ' . $value, $result, var_export($value, true));
             }
         }
     }
@@ -599,14 +603,14 @@ class PartialLoopTest extends TestCase
     {
         $data = [];
         for ($i = 0; $i < 3; $i++) {
-            $obj = new stdClass();
-            $obj->helper = $this->helper;
+            $obj            = new stdClass();
+            $obj->helper    = $this->helper;
             $obj->objectKey = "foo" . $i;
-            $obj->message = "bar";
-            $obj->data = [
-                $obj
+            $obj->message   = "bar";
+            $obj->data      = [
+                $obj,
             ];
-            $data[] = $obj;
+            $data[]         = $obj;
         }
 
         $view = new View();
@@ -627,15 +631,19 @@ class PartialLoopTest extends TestCase
      */
     public function testNestedPartialLoopsNestedArrayInLoopMethod(): void
     {
-        $data = [[
-            'obj' => [
-                'helper' => $this->helper,
-                'message' => 'foo1',
-                'data' => [[
-                    'message' => 'foo2'
-                ]]
-            ]
-        ]];
+        $data = [
+            [
+                'obj' => [
+                    'helper'  => $this->helper,
+                    'message' => 'foo1',
+                    'data'    => [
+                        [
+                            'message' => 'foo2',
+                        ],
+                    ],
+                ],
+            ],
+        ];
 
         $view = new View();
         $view->resolver()->addPath($this->basePath . '/application/views/scripts');

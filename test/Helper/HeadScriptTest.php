@@ -1,13 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
+use DOMDocument;
 use Generator;
 use Laminas\View;
 use Laminas\View\Helper;
 use PHPUnit\Framework\TestCase;
 
+use function array_shift;
+use function count;
 use function sprintf;
+use function strtolower;
+use function substr_count;
+use function ucfirst;
+use function var_export;
+
+use const PHP_EOL;
 
 /**
  * Test class for Laminas\View\Helper\HeadScript.
@@ -17,21 +28,14 @@ use function sprintf;
  */
 class HeadScriptTest extends TestCase
 {
-    /**
-     * @var Helper\HeadScript
-     */
+    /** @var Helper\HeadScript */
     public $helper;
 
-    /**
-     * @var Helper\EscapeHtmlAttr
-     */
+    /** @var Helper\EscapeHtmlAttr */
     public $attributeEscaper;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     public $basePath;
-
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -39,9 +43,9 @@ class HeadScriptTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->basePath = __DIR__ . '/_files/modules';
-        $this->helper = new Helper\HeadScript();
-        $this->attributeEscaper  = new Helper\EscapeHtmlAttr();
+        $this->basePath         = __DIR__ . '/_files/modules';
+        $this->helper           = new Helper\HeadScript();
+        $this->attributeEscaper = new Helper\EscapeHtmlAttr();
     }
 
     public function testHeadScriptReturnsObjectInstance(): void
@@ -78,59 +82,51 @@ class HeadScriptTest extends TestCase
         $this->helper->offsetSet(1, 'foo');
     }
 
-    // @codingStandardsIgnoreStart
-    protected function _inflectAction($type): string
+    private function inflectAction(string $type): string
     {
-        // @codingStandardsIgnoreEnd
         return ucfirst(strtolower($type));
     }
 
-    // @codingStandardsIgnoreStart
-    protected function _testOverloadAppend(string $type): void
+    private function executeOverloadAppend(string $type): void
     {
-        // @codingStandardsIgnoreEnd
-        $action = 'append' . $this->_inflectAction($type);
+        $action = 'append' . $this->inflectAction($type);
         $string = 'foo';
         for ($i = 0; $i < 3; ++$i) {
             $string .= ' foo';
             $this->helper->$action($string);
             $values = $this->helper->getArrayCopy();
-            $this->assertEquals($i + 1, count($values));
-            if ('file' == $type) {
+            $this->assertCount($i + 1, $values);
+            if ('file' === $type) {
                 $this->assertEquals($string, $values[$i]->attributes['src']);
-            } elseif ('script' == $type) {
+            } elseif ('script' === $type) {
                 $this->assertEquals($string, $values[$i]->source);
             }
             $this->assertEquals('text/javascript', $values[$i]->type);
         }
     }
 
-    // @codingStandardsIgnoreStart
-    protected function _testOverloadPrepend(string $type): void
+    private function executeOverloadPrepend(string $type): void
     {
-        // @codingStandardsIgnoreEnd
-        $action = 'prepend' . $this->_inflectAction($type);
+        $action = 'prepend' . $this->inflectAction($type);
         $string = 'foo';
         for ($i = 0; $i < 3; ++$i) {
             $string .= ' foo';
             $this->helper->$action($string);
             $values = $this->helper->getArrayCopy();
-            $this->assertEquals($i + 1, count($values));
+            $this->assertCount($i + 1, $values);
             $first = array_shift($values);
-            if ('file' == $type) {
+            if ('file' === $type) {
                 $this->assertEquals($string, $first->attributes['src']);
-            } elseif ('script' == $type) {
+            } elseif ('script' === $type) {
                 $this->assertEquals($string, $first->source);
             }
             $this->assertEquals('text/javascript', $first->type);
         }
     }
 
-    // @codingStandardsIgnoreStart
-    protected function _testOverloadSet(string $type): void
+    private function executeOverloadSet(string $type): void
     {
-        // @codingStandardsIgnoreEnd
-        $action = 'set' . $this->_inflectAction($type);
+        $action = 'set' . $this->inflectAction($type);
         $string = 'foo';
         for ($i = 0; $i < 3; ++$i) {
             $this->helper->appendScript($string);
@@ -138,27 +134,25 @@ class HeadScriptTest extends TestCase
         }
         $this->helper->$action($string);
         $values = $this->helper->getArrayCopy();
-        $this->assertEquals(1, count($values));
-        if ('file' == $type) {
+        $this->assertCount(1, $values);
+        if ('file' === $type) {
             $this->assertEquals($string, $values[0]->attributes['src']);
-        } elseif ('script' == $type) {
+        } elseif ('script' === $type) {
             $this->assertEquals($string, $values[0]->source);
         }
         $this->assertEquals('text/javascript', $values[0]->type);
     }
 
-    // @codingStandardsIgnoreStart
-    protected function _testOverloadOffsetSet(string $type): void
+    private function executeOverloadOffsetSet(string $type): void
     {
-        // @codingStandardsIgnoreEnd
-        $action = 'offsetSet' . $this->_inflectAction($type);
+        $action = 'offsetSet' . $this->inflectAction($type);
         $string = 'foo';
         $this->helper->$action(5, $string);
         $values = $this->helper->getArrayCopy();
-        $this->assertEquals(1, count($values));
-        if ('file' == $type) {
+        $this->assertCount(1, $values);
+        if ('file' === $type) {
             $this->assertEquals($string, $values[5]->attributes['src']);
-        } elseif ('script' == $type) {
+        } elseif ('script' === $type) {
             $this->assertEquals($string, $values[5]->source);
         }
         $this->assertEquals('text/javascript', $values[5]->type);
@@ -166,48 +160,49 @@ class HeadScriptTest extends TestCase
 
     public function testOverloadAppendFileAppendsScriptsToStack(): void
     {
-        $this->_testOverloadAppend('file');
+        $this->executeOverloadAppend('file');
     }
 
     public function testOverloadAppendScriptAppendsScriptsToStack(): void
     {
-        $this->_testOverloadAppend('script');
+        $this->executeOverloadAppend('script');
     }
 
     public function testOverloadPrependFileAppendsScriptsToStack(): void
     {
-        $this->_testOverloadPrepend('file');
+        $this->executeOverloadPrepend('file');
     }
 
     public function testOverloadPrependScriptAppendsScriptsToStack(): void
     {
-        $this->_testOverloadPrepend('script');
+        $this->executeOverloadPrepend('script');
     }
 
     public function testOverloadSetFileOverwritesStack(): void
     {
-        $this->_testOverloadSet('file');
+        $this->executeOverloadSet('file');
     }
 
     public function testOverloadSetScriptOverwritesStack(): void
     {
-        $this->_testOverloadSet('script');
+        $this->executeOverloadSet('script');
     }
 
     public function testOverloadOffsetSetFileWritesToSpecifiedIndex(): void
     {
-        $this->_testOverloadOffsetSet('file');
+        $this->executeOverloadOffsetSet('file');
     }
 
     public function testOverloadOffsetSetScriptWritesToSpecifiedIndex(): void
     {
-        $this->_testOverloadOffsetSet('script');
+        $this->executeOverloadOffsetSet('script');
     }
 
     public function testOverloadingThrowsExceptionWithInvalidMethod(): void
     {
         $this->expectException(View\Exception\BadMethodCallException::class);
         $this->expectExceptionMessage('Method "fooBar" does not exist');
+        /** @psalm-suppress UndefinedMagicMethod */
         $this->helper->fooBar('foo');
     }
 
@@ -271,7 +266,7 @@ class HeadScriptTest extends TestCase
         $this->assertStringContainsString('bar', $string);
         $this->assertStringContainsString('baz', $string);
 
-        $doc = new \DOMDocument;
+        $doc = new DOMDocument();
         $dom = $doc->loadHtml($string);
         $this->assertTrue($dom);
     }
@@ -282,7 +277,7 @@ class HeadScriptTest extends TestCase
         echo 'foobar';
         $this->helper->captureEnd();
         $values = $this->helper->getArrayCopy();
-        $this->assertEquals(1, count($values), var_export($values, 1));
+        $this->assertEquals(1, count($values), var_export($values, true));
         $item = array_shift($values);
         $this->assertStringContainsString('foobar', $item->source);
     }
@@ -357,9 +352,9 @@ document.write(bar.strlen());');
     }
 
     /**
-     * @issue Laminas-3928
-     *
      * @link https://getlaminas.org/issues/browse/Laminas-3928
+     *
+     * @issue Laminas-3928
      */
     public function testTurnOffAutoEscapeDoesNotEncodeAmpersand(): void
     {
@@ -422,7 +417,6 @@ document.write(bar.strlen());');
         $this->helper->offsetSetFile(20, 'test2.js');
         $this->helper->offsetSetFile(10, 'test3.js');
         $this->helper->offsetSetFile(5, 'test4.js');
-
 
         $test = $this->helper->toString();
 
@@ -500,8 +494,8 @@ document.write(bar.strlen());');
      */
     public function testOmitsTypeAttributeIfEmptyValueAndHtml5Doctype(): void
     {
-        $view = new \Laminas\View\Renderer\PhpRenderer();
-        $view->plugin('doctype')->setDoctype(\Laminas\View\Helper\Doctype::HTML5);
+        $view = new View\Renderer\PhpRenderer();
+        $view->plugin('doctype')->setDoctype(View\Helper\Doctype::HTML5);
         $this->helper->setView($view);
 
         $this->helper->__invoke()->appendScript('// some script' . PHP_EOL, '');
@@ -528,8 +522,8 @@ document.write(bar.strlen());');
      */
     public function testOmitsTypeAttributeIfNoneGivenAndHtml5Doctype(): void
     {
-        $view = new \Laminas\View\Renderer\PhpRenderer();
-        $view->plugin('doctype')->setDoctype(\Laminas\View\Helper\Doctype::HTML5);
+        $view = new View\Renderer\PhpRenderer();
+        $view->plugin('doctype')->setDoctype(View\Helper\Doctype::HTML5);
         $this->helper->setView($view);
 
         $this->helper->__invoke()->appendScript('// some script' . PHP_EOL);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper;
 
 use Laminas\I18n\Translator\TranslatorInterface as Translator;
@@ -15,7 +17,7 @@ trait TranslatorAwareTrait
     /**
      * Translator (optional)
      *
-     * @var Translator
+     * @var Translator|null
      */
     protected $translator;
 
@@ -36,13 +38,13 @@ trait TranslatorAwareTrait
     /**
      * Sets translator to use in helper
      *
-     * @param Translator $translator  [optional] translator.
-     *                                 Default is null, which sets no translator.
-     * @param string     $textDomain  [optional] text domain
-     *                                 Default is null, which skips setTranslatorTextDomain
+     * @param Translator|null $translator [optional] translator.
+     *                                    Default is null, which sets no translator.
+     * @param string          $textDomain [optional] text domain
+     *                                    Default is null, which skips setTranslatorTextDomain
      * @return $this
      */
-    public function setTranslator(Translator $translator = null, $textDomain = null)
+    public function setTranslator(?Translator $translator = null, $textDomain = null)
     {
         $this->translator = $translator;
         if (null !== $textDomain) {

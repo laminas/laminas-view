@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View;
 
 use Laminas\Http\Request;
@@ -11,11 +13,12 @@ use PHPUnit\Framework\TestCase;
 
 class ViewEventTest extends TestCase
 {
+    /** @var ViewEvent */
     protected $event;
 
     protected function setUp(): void
     {
-        $this->event = new ViewEvent;
+        $this->event = new ViewEvent();
     }
 
     public function testModelIsNullByDefault(): void
@@ -126,7 +129,7 @@ class ViewEventTest extends TestCase
         $response = new Response();
         $result   = 'some result';
 
-        $params   = [
+        $params = [
             'model'    => $model,
             'renderer' => $renderer,
             'request'  => $request,

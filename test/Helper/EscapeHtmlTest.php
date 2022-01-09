@@ -1,11 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
 use Laminas\Escaper\Escaper;
+use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\EscapeHtml as EscapeHelper;
 use PHPUnit\Framework\TestCase;
 use stdClass;
+
+use function get_class;
 
 class EscapeHtmlTest extends TestCase
 {
@@ -16,7 +21,7 @@ class EscapeHtmlTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->helper = new EscapeHelper;
+        $this->helper = new EscapeHelper();
     }
 
     public function testUsesUtf8EncodingByDefault(): void
@@ -26,7 +31,7 @@ class EscapeHtmlTest extends TestCase
 
     public function testEncodingIsImmutable(): void
     {
-        $this->expectException(\Laminas\View\Exception\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->helper->setEncoding('BIG5-HKSCS');
         $this->helper->getEscaper();
         $this->helper->setEncoding('UTF-8');
@@ -79,20 +84,20 @@ class EscapeHtmlTest extends TestCase
                 ],
             ],
         ];
-        $test = $this->helper->__invoke($original, EscapeHelper::RECURSE_ARRAY);
+        $test     = $this->helper->__invoke($original, EscapeHelper::RECURSE_ARRAY);
         $this->assertEquals($expected, $test);
     }
 
     public function testWillCastObjectsToStringsBeforeEscaping(): void
     {
-        $object = new TestAsset\Stringified;
-        $test = $this->helper->__invoke($object);
+        $object = new TestAsset\Stringified();
+        $test   = $this->helper->__invoke($object);
         $this->assertEquals(get_class($object), $test);
     }
 
     public function testCanRecurseObjectImplementingToArray(): void
     {
-        $original = [
+        $original      = [
             'foo' => '<b>bar</b>',
             'baz' => [
                 '<em>bat</em>',
@@ -101,7 +106,7 @@ class EscapeHtmlTest extends TestCase
                 ],
             ],
         ];
-        $object = new TestAsset\ToArray();
+        $object        = new TestAsset\ToArray();
         $object->array = $original;
 
         $expected = [
@@ -113,7 +118,7 @@ class EscapeHtmlTest extends TestCase
                 ],
             ],
         ];
-        $test = $this->helper->__invoke($object, EscapeHelper::RECURSE_OBJECT);
+        $test     = $this->helper->__invoke($object, EscapeHelper::RECURSE_OBJECT);
         $this->assertEquals($expected, $test);
     }
 
@@ -128,7 +133,7 @@ class EscapeHtmlTest extends TestCase
                 ],
             ],
         ];
-        $object = new stdClass();
+        $object   = new stdClass();
         foreach ($original as $key => $value) {
             $object->$key = $value;
         }
@@ -142,7 +147,7 @@ class EscapeHtmlTest extends TestCase
                 ],
             ],
         ];
-        $test = $this->helper->__invoke($object, EscapeHelper::RECURSE_OBJECT);
+        $test     = $this->helper->__invoke($object, EscapeHelper::RECURSE_OBJECT);
         $this->assertEquals($expected, $test);
     }
 
@@ -151,7 +156,6 @@ class EscapeHtmlTest extends TestCase
      * warning level error for htmlspecialchars() encoding param. PHP 5.4 attempts
      * to guess the encoding or take it from php.ini default_charset when an empty
      * string is set. Both are insecure behaviours.
-     *
      */
     public function testSettingEncodingToEmptyStringShouldThrowException(): void
     {

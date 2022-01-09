@@ -1,10 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
+use Laminas\View\Helper\Doctype;
+use Laminas\View\Helper\EscapeHtmlAttr;
 use Laminas\View\Helper\HtmlTag;
 use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
+
+use function assert;
+use function sprintf;
 
 /**
  * @group      Laminas_View
@@ -12,10 +19,10 @@ use PHPUnit\Framework\TestCase;
  */
 class HtmlTagTest extends TestCase
 {
-    /**
-     * @var HtmlTag
-     */
+    /** @var HtmlTag */
     public $helper;
+    /** @var View */
+    private $view;
 
     protected function setUp(): void
     {
@@ -24,7 +31,7 @@ class HtmlTagTest extends TestCase
         $this->helper->setView($this->view);
     }
 
-    protected function assertAttribute(string $name, $value = null): void
+    protected function assertAttribute(string $name, ?string $value = null): void
     {
         $attributes = $this->helper->getAttributes();
         $this->assertArrayHasKey($name, $attributes);
@@ -42,7 +49,7 @@ class HtmlTagTest extends TestCase
     public function testAddingMultipleAttributes(): void
     {
         $attribs = [
-            'xmlns' => 'http://www.w3.org/1999/xhtml',
+            'xmlns'  => 'http://www.w3.org/1999/xhtml',
             'prefix' => 'og: http://ogp.me/ns#',
         ];
         $this->helper->setAttributes($attribs);
@@ -57,7 +64,7 @@ class HtmlTagTest extends TestCase
         $this->helper->setAttribute('prefix', 'foobar');
 
         $attribs = [
-            'xmlns' => 'http://www.w3.org/1999/xhtml',
+            'xmlns'  => 'http://www.w3.org/1999/xhtml',
             'prefix' => 'og: http://ogp.me/ns#',
         ];
         $this->helper->setAttributes($attribs);
@@ -76,7 +83,7 @@ class HtmlTagTest extends TestCase
     public function testRenderingOpenTagWithAttributes(): void
     {
         $attribs = [
-            'xmlns' => 'http://www.w3.org/1999/xhtml',
+            'xmlns'    => 'http://www.w3.org/1999/xhtml',
             'xmlns:og' => 'http://ogp.me/ns#',
         ];
 
@@ -87,6 +94,8 @@ class HtmlTagTest extends TestCase
         $this->assertStringStartsWith('<html', $tag);
 
         $escape = $this->view->plugin('escapehtmlattr');
+        assert($escape instanceof EscapeHtmlAttr);
+
         foreach ($attribs as $name => $value) {
             $this->assertStringContainsString(sprintf('%s="%s"', $name, $escape($value)), $tag);
         }
@@ -105,7 +114,9 @@ class HtmlTagTest extends TestCase
 
     public function testAppropriateNamespaceAttributesAreSetIfFlagIsOn(): void
     {
-        $this->view->plugin('doctype')->setDoctype('xhtml');
+        $doctype = $this->view->plugin('doctype');
+        assert($doctype instanceof Doctype);
+        $doctype->setDoctype('xhtml');
 
         $attribs = [
             'prefix' => 'og: http://ogp.me/ns#',
@@ -116,6 +127,7 @@ class HtmlTagTest extends TestCase
         $tag = $this->helper->openTag();
 
         $escape = $this->view->plugin('escapehtmlattr');
+        assert($escape instanceof EscapeHtmlAttr);
 
         $this->assertStringContainsString(sprintf('%s="%s"', 'xmlns', $escape('http://www.w3.org/1999/xhtml')), $tag);
         foreach ($attribs as $name => $value) {

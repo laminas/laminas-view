@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper;
 
 use Laminas\View\Helper\HtmlQuicktime;
@@ -13,9 +15,12 @@ use PHPUnit\Framework\TestCase;
 class HtmlQuicktimeTest extends TestCase
 {
     /**
+     * @psalm-suppress DeprecatedClass
      * @var HtmlQuicktime
      */
     public $helper;
+    /** @var View */
+    private $view;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -25,7 +30,8 @@ class HtmlQuicktimeTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->view   = new View();
+        $this->view = new View();
+        /** @psalm-suppress DeprecatedClass */
         $this->helper = new HtmlQuicktime();
         $this->helper->setView($this->view);
     }

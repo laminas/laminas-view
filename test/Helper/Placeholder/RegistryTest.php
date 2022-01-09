@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper\Placeholder;
 
 use Laminas\View\Exception\InvalidArgumentException;
@@ -16,11 +18,8 @@ use PHPUnit\Framework\TestCase;
  */
 class RegistryTest extends TestCase
 {
-    /**
-     * @var Registry
-     */
+    /** @var Registry */
     public $registry;
-
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -55,6 +54,7 @@ class RegistryTest extends TestCase
 
     public function testSetContainerCreatesRegistryEntry(): void
     {
+        /** @psalm-suppress TooManyArguments */
         $foo = new Container(['foo', 'bar']);
         $this->assertFalse($this->registry->containerExists('foo'));
         $this->registry->setContainer('foo', $foo);
@@ -63,6 +63,7 @@ class RegistryTest extends TestCase
 
     public function testSetContainerCreatesRegistersContainerInstance(): void
     {
+        /** @psalm-suppress TooManyArguments */
         $foo = new Container(['foo', 'bar']);
         $this->assertFalse($this->registry->containerExists('foo'));
         $this->registry->setContainer('foo', $foo);
@@ -115,8 +116,8 @@ class RegistryTest extends TestCase
     public function testSetValueCreateContainer(): void
     {
         $this->registry->setContainerClass(TestAsset\MockContainer::class);
-        $data = [
-            'Laminas-10793'
+        $data      = [
+            'Laminas-10793',
         ];
         $container = $this->registry->createContainer('foo', $data);
         $this->assertEquals(['Laminas-10793'], $container->data);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper\Service;
 
 use Laminas\Authentication\AuthenticationService;
@@ -10,10 +12,19 @@ use Laminas\View\Helper\Service\IdentityFactory;
 use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Prophecy\Prophecy\ObjectProphecy;
+use Psr\Container\ContainerInterface;
+
+use function method_exists;
 
 class IdentityFactoryTest extends TestCase
 {
     use ProphecyTrait;
+
+    /** @var ObjectProphecy&ServiceManager&ContainerInterface */
+    private $services;
+    /** @var HelperPluginManager&ContainerInterface */
+    private $helpers;
 
     protected function setUp(): void
     {
@@ -21,7 +32,7 @@ class IdentityFactoryTest extends TestCase
         $this->helpers  = new HelperPluginManager($this->services->reveal());
     }
 
-    public function getContainerForFactory()
+    public function getContainerForFactory(): ContainerInterface
     {
         if (method_exists($this->helpers, 'configure')) {
             return $this->services->reveal();

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Renderer;
 
 use Laminas\View\Exception;
@@ -9,53 +11,58 @@ use Laminas\View\Renderer\FeedRenderer;
 use Laminas\View\Resolver\PrefixPathStackResolver;
 use PHPUnit\Framework\TestCase;
 
+use function date;
+use function time;
+
 class FeedRendererTest extends TestCase
 {
+    /** @var FeedRenderer */
+    private $renderer;
+
     protected function setUp(): void
     {
         $this->renderer = new FeedRenderer();
     }
 
     /**
-     * @param string $type
      * @psalm-return array<string, mixed>
      */
     protected function getFeedData(string $type): array
     {
         return [
-            'copyright' => date('Y'),
-            'date_created' => time(),
-            'date_modified' => time(),
+            'copyright'       => date('Y'),
+            'date_created'    => time(),
+            'date_modified'   => time(),
             'last_build_date' => time(),
-            'description' => __CLASS__,
-            'id' => 'https://getlaminas.org/',
-            'language' => 'en_US',
-            'feed_link' => [
+            'description'     => self::class,
+            'id'              => 'https://getlaminas.org/',
+            'language'        => 'en_US',
+            'feed_link'       => [
                 'link' => 'https://getlaminas.org/feed.xml',
                 'type' => $type,
             ],
-            'link' => 'https://getlaminas.org/feed.xml',
-            'title' => 'Testing',
-            'encoding' => 'UTF-8',
-            'base_url' => 'https://getlaminas.org/',
-            'entries' => [
+            'link'            => 'https://getlaminas.org/feed.xml',
+            'title'           => 'Testing',
+            'encoding'        => 'UTF-8',
+            'base_url'        => 'https://getlaminas.org/',
+            'entries'         => [
                 [
-                    'content' => 'test content',
-                    'date_created' => time(),
+                    'content'       => 'test content',
+                    'date_created'  => time(),
                     'date_modified' => time(),
-                    'description' => __CLASS__,
-                    'id' => 'https://getlaminas.org/1',
-                    'link' => 'https://getlaminas.org/1',
-                    'title' => 'Test 1',
+                    'description'   => self::class,
+                    'id'            => 'https://getlaminas.org/1',
+                    'link'          => 'https://getlaminas.org/1',
+                    'title'         => 'Test 1',
                 ],
                 [
-                    'content' => 'test content',
-                    'date_created' => time(),
+                    'content'       => 'test content',
+                    'date_created'  => time(),
                     'date_modified' => time(),
-                    'description' => __CLASS__,
-                    'id' => 'https://getlaminas.org/2',
-                    'link' => 'https://getlaminas.org/2',
-                    'title' => 'Test 2',
+                    'description'   => self::class,
+                    'id'            => 'https://getlaminas.org/2',
+                    'link'          => 'https://getlaminas.org/2',
+                    'title'         => 'Test 2',
                 ],
             ],
         ];
@@ -74,7 +81,7 @@ class FeedRendererTest extends TestCase
     {
         $this->renderer->setFeedType('atom');
         $model = new FeedModel($this->getFeedData('atom'));
-        $xml = $this->renderer->render($model);
+        $xml   = $this->renderer->render($model);
         $this->assertStringContainsString('<' . '?xml', $xml);
         $this->assertStringContainsString('atom', $xml);
     }
@@ -92,7 +99,7 @@ class FeedRendererTest extends TestCase
     {
         $this->renderer->setFeedType('atom');
         $model = new ViewModel($this->getFeedData('atom'));
-        $xml = $this->renderer->render($model);
+        $xml   = $this->renderer->render($model);
         $this->assertStringContainsString('<' . '?xml', $xml);
         $this->assertStringContainsString('atom', $xml);
     }
@@ -109,6 +116,7 @@ class FeedRendererTest extends TestCase
     {
         $this->expectException(Exception\InvalidArgumentException::class);
         $this->expectExceptionMessage('expects');
+        /** @psalm-suppress InvalidArgument */
         $this->renderer->render(['foo']);
     }
 
@@ -121,7 +129,7 @@ class FeedRendererTest extends TestCase
 
     public function testReturnsSameRendererInstanceWhenResolverIsSet(): void
     {
-        $resolver = new PrefixPathStackResolver();
+        $resolver    = new PrefixPathStackResolver();
         $returnValue = $this->renderer->setResolver($resolver);
         $this->assertSame($returnValue, $this->renderer);
     }

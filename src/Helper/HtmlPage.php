@@ -1,18 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper;
+
+use function array_merge;
 
 class HtmlPage extends AbstractHtmlElement
 {
     /**
      * Default file type for html
      */
-    const TYPE = 'text/html';
+    public const TYPE = 'text/html';
 
     /**
      * Object classid
      */
-    const ATTRIB_CLASSID  = 'clsid:25336920-03F9-11CF-8FD0-00AA00686F13';
+    public const ATTRIB_CLASSID = 'clsid:25336920-03F9-11CF-8FD0-00AA00686F13';
 
     /**
      * Default attributes

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Model;
 
 use Laminas\View\Model\ConsoleModel;
@@ -10,6 +12,7 @@ class ConsoleModelTest extends TestCase
 {
     public function testImplementsModelInterface(): void
     {
+        /** @psalm-suppress DeprecatedClass */
         $model = new ConsoleModel();
         $this->assertInstanceOf(ModelInterface::class, $model);
     }
@@ -19,7 +22,8 @@ class ConsoleModelTest extends TestCase
      */
     public function testSetErrorLevelImplementsFluentInterface(): void
     {
-        $model = new ConsoleModel();
+        /** @psalm-suppress DeprecatedClass */
+        $model  = new ConsoleModel();
         $actual = $model->setErrorLevel(0);
         $this->assertSame($model, $actual);
     }

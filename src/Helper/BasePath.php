@@ -1,8 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper;
 
 use Laminas\View\Exception;
+
+use function ltrim;
+use function rtrim;
 
 /**
  * Helper for retrieving the base path.

@@ -1,10 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper\Escaper;
 
 use Laminas\Escaper;
 use Laminas\View\Exception;
 use Laminas\View\Helper;
+
+use function is_array;
+use function is_object;
+use function is_string;
+use function method_exists;
 
 /**
  * Helper for escaping values
@@ -14,19 +21,15 @@ abstract class AbstractHelper extends Helper\AbstractHelper
     /**
      * @const Recursion constants
      */
-    const RECURSE_NONE   = 0x00;
-    const RECURSE_ARRAY  = 0x01;
-    const RECURSE_OBJECT = 0x02;
+    public const RECURSE_NONE   = 0x00;
+    public const RECURSE_ARRAY  = 0x01;
+    public const RECURSE_OBJECT = 0x02;
 
-    /**
-     * @var string Encoding
-     */
+    /** @var string Encoding */
     protected $encoding = 'UTF-8';
 
-    /**
-     * @var Escaper\Escaper
-     */
-    protected $escaper = null;
+    /** @var Escaper\Escaper|null */
+    protected $escaper;
 
     /**
      * Invoke this helper: escape a value
@@ -45,7 +48,7 @@ abstract class AbstractHelper extends Helper\AbstractHelper
         }
 
         if (is_array($value)) {
-            if (! (self::RECURSE_ARRAY & $recurse)) {
+            if (! ($recurse & self::RECURSE_ARRAY)) {
                 throw new Exception\InvalidArgumentException(
                     'Array provided to Escape helper, but flags do not allow recursion'
                 );
@@ -57,7 +60,7 @@ abstract class AbstractHelper extends Helper\AbstractHelper
         }
 
         if (is_object($value)) {
-            if (! (self::RECURSE_OBJECT & $recurse)) {
+            if (! ($recurse & self::RECURSE_OBJECT)) {
                 // Attempt to cast it to a string
                 if (method_exists($value, '__toString')) {
                     return $this->escape((string) $value);
@@ -117,8 +120,7 @@ abstract class AbstractHelper extends Helper\AbstractHelper
     /**
      * Set instance of Escaper
      *
-     * @param  Escaper\Escaper $escaper
-     * @return AbstractHelper
+     * @return $this
      */
     public function setEscaper(Escaper\Escaper $escaper)
     {

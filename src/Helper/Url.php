@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Laminas\View\Helper;
 
 use Laminas\Mvc\ModuleRouteListener;
@@ -9,6 +11,16 @@ use Laminas\Router\RouteMatch;
 use Laminas\Router\RouteStackInterface;
 use Laminas\View\Exception;
 use Traversable;
+
+use function array_merge;
+use function func_num_args;
+use function get_class;
+use function gettype;
+use function is_array;
+use function is_bool;
+use function is_object;
+use function iterator_to_array;
+use function sprintf;
 
 /**
  * Helper for making easy links and getting urls that depend on the routes and router.
@@ -34,16 +46,17 @@ class Url extends AbstractHelper
      *
      * @see Laminas\Mvc\Router\RouteInterface::assemble()
      * @see Laminas\Router\RouteInterface::assemble()
+     *
      * @param  string $name Name of the route
      * @param  array $params Parameters for the link
      * @param  array|Traversable $options Options for the route
      * @param  bool $reuseMatchedParams Whether to reuse matched parameters
      * @return string Url For the link href attribute
      * @throws Exception\RuntimeException If no RouteStackInterface was
-     *     provided
-     * @throws Exception\RuntimeException If no RouteMatch was provided
+     *     provided.
+     * @throws Exception\RuntimeException If no RouteMatch was provided.
      * @throws Exception\RuntimeException If RouteMatch didn't contain a
-     *     matched route name
+     *     matched route name.
      * @throws Exception\InvalidArgumentException If the params object was not
      *     an array or Traversable object.
      */
@@ -53,9 +66,9 @@ class Url extends AbstractHelper
             throw new Exception\RuntimeException('No RouteStackInterface instance provided');
         }
 
-        if (3 == func_num_args() && is_bool($options)) {
+        if (3 === func_num_args() && is_bool($options)) {
             $reuseMatchedParams = $options;
-            $options = [];
+            $options            = [];
         }
 
         if ($name === null) {
@@ -104,11 +117,12 @@ class Url extends AbstractHelper
      *
      * @param LegacyRouteStackInterface|RouteStackInterface $router
      * @return Url
-     * @throws Exception\InvalidArgumentException for invalid router types.
+     * @throws Exception\InvalidArgumentException For invalid router types.
      */
     public function setRouter($router)
     {
-        if (! $router instanceof RouteStackInterface
+        if (
+            ! $router instanceof RouteStackInterface
             && ! $router instanceof LegacyRouteStackInterface
         ) {
             throw new Exception\InvalidArgumentException(sprintf(
@@ -116,7 +130,7 @@ class Url extends AbstractHelper
                 __METHOD__,
                 RouteStackInterface::class,
                 LegacyRouteStackInterface::class,
-                (is_object($router) ? get_class($router) : gettype($router))
+                is_object($router) ? get_class($router) : gettype($router)
             ));
         }
 
@@ -132,7 +146,8 @@ class Url extends AbstractHelper
      */
     public function setRouteMatch($routeMatch)
     {
-        if (! $routeMatch instanceof RouteMatch
+        if (
+            ! $routeMatch instanceof RouteMatch
             && ! $routeMatch instanceof LegacyRouteMatch
         ) {
             throw new Exception\InvalidArgumentException(sprintf(
@@ -140,7 +155,7 @@ class Url extends AbstractHelper
                 __METHOD__,
                 RouteMatch::class,
                 LegacyRouteMatch::class,
-                (is_object($routeMatch) ? get_class($routeMatch) : gettype($routeMatch))
+                is_object($routeMatch) ? get_class($routeMatch) : gettype($routeMatch)
             ));
         }
 

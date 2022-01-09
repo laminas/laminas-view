@@ -1,13 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View\Helper\Placeholder;
 
+use Exception;
 use Laminas\View\Helper\Placeholder\Container as PlaceholderContainer;
 use PHPUnit\Framework\TestCase;
 
+use function array_keys;
+use function array_pop;
 use function assert;
+use function count;
 use function is_array;
 use function is_int;
+use function substr_count;
+
+use const PHP_EOL;
 
 /**
  * Test class for Laminas\View\Helper\Placeholder\Container.
@@ -17,9 +26,7 @@ use function is_int;
  */
 class ContainerTest extends TestCase
 {
-    /**
-     * @var PlaceholderContainer
-     */
+    /** @var PlaceholderContainer */
     public $container;
 
     /**
@@ -53,7 +60,7 @@ class ContainerTest extends TestCase
     {
         $this->container['foo'] = 'bar';
         $this->container['bar'] = 'baz';
-        $expected = ['foo' => 'bar', 'bar' => 'baz'];
+        $expected               = ['foo' => 'bar', 'bar' => 'baz'];
         $this->assertEquals($expected, $this->container->getValue());
     }
 
@@ -144,7 +151,7 @@ class ContainerTest extends TestCase
     public function testCapturingToPlaceholderAppendsContent(): void
     {
         $this->container[] = 'foo';
-        $originalCount = count($this->container);
+        $originalCount     = count($this->container);
 
         $this->container->captureStart();
         echo 'This is content intended for capture';
@@ -152,7 +159,7 @@ class ContainerTest extends TestCase
 
         $this->assertCount($originalCount + 1, $this->container);
 
-        $value     = $this->container->getValue();
+        $value = $this->container->getValue();
         assert(is_array($value));
         $keys      = array_keys($value);
         $lastIndex = array_pop($keys);
@@ -167,7 +174,7 @@ class ContainerTest extends TestCase
     public function testCapturingToPlaceholderUsingPrependPrependsContent(): void
     {
         $this->container[] = 'foo';
-        $originalCount = count($this->container);
+        $originalCount     = count($this->container);
 
         $this->container->captureStart('PREPEND');
         echo 'This is content intended for capture';
@@ -175,7 +182,7 @@ class ContainerTest extends TestCase
 
         $this->assertCount($originalCount + 1, $this->container);
 
-        $value     = $this->container->getValue();
+        $value = $this->container->getValue();
         assert(is_array($value));
         $keys      = array_keys($value);
         $lastIndex = array_pop($keys);
@@ -242,13 +249,13 @@ class ContainerTest extends TestCase
     public function testNestedCapturesThrowsException(): void
     {
         $this->container[] = 'foo';
-        $caught = false;
+        $caught            = false;
         try {
             $this->container->captureStart('SET');
             $this->container->captureStart('SET');
             $this->container->captureEnd();
             $this->container->captureEnd();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->container->captureEnd();
             $caught = true;
         }
@@ -277,7 +284,7 @@ class ContainerTest extends TestCase
         $this->container[] = 'foo';
         $this->container[] = 'bar';
         $this->container[] = 'baz';
-        $value = $this->container->toString();
+        $value             = $this->container->toString();
         $this->assertEquals('foobarbaz', $value);
     }
 
@@ -302,7 +309,7 @@ class ContainerTest extends TestCase
                         ->setSeparator('</li>' . PHP_EOL . '<li>')
                         ->setPostfix('</li></ul>')
                         ->setIndent('    ');
-        $value = $this->container->toString();
+        $value         = $this->container->toString();
         $expectedValue = '    <ul><li>foo</li>' . PHP_EOL . '    <li>bar</li>' . PHP_EOL . '    <li>baz</li></ul>';
         $this->assertEquals($expectedValue, $value);
     }
@@ -325,7 +332,7 @@ class ContainerTest extends TestCase
         $this->container->prepend('baz');
 
         $expected = ['baz', 'foo' => 'bar'];
-        $array = $this->container->getArrayCopy();
+        $array    = $this->container->getArrayCopy();
         $this->assertSame($expected, $array);
     }
 

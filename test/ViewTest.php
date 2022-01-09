@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace LaminasTest\View;
 
 use ArrayObject;
@@ -17,16 +19,30 @@ use Laminas\View\ViewEvent;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
+use function count;
+use function json_encode;
+use function sprintf;
+use function var_export;
+
 class ViewTest extends TestCase
 {
+    /** @var stdClass */
     private $result;
+    /** @var Request */
+    private $request;
+    /** @var Response */
+    private $response;
+    /** @var ViewModel */
+    private $model;
+    /** @var View */
+    private $view;
 
     protected function setUp(): void
     {
-        $this->request  = new Request;
-        $this->response = new Response;
-        $this->model    = new ViewModel;
-        $this->view     = new View;
+        $this->request  = new Request();
+        $this->response = new Response();
+        $this->model    = new ViewModel();
+        $this->view     = new View();
 
         $this->view->setRequest($this->request);
         $this->view->setResponse($this->response);
@@ -37,7 +53,7 @@ class ViewTest extends TestCase
         $this->view->addRenderingStrategy(function ($e) {
             return new TestAsset\Renderer\VarExportRenderer();
         });
-        $this->result = $result = new stdClass;
+        $this->result = $result = new stdClass();
         $this->view->addResponseStrategy(function ($e) use ($result) {
             $result->content = $e->getResult();
         });
@@ -123,7 +139,7 @@ class ViewTest extends TestCase
             }
             return new Renderer\JsonRenderer();
         }, 10); // higher priority, so it matches earlier
-        $this->result = $result = new stdClass;
+        $this->result = $result = new stdClass();
         $this->view->addResponseStrategy(function ($e) use ($result) {
             $result->content = $e->getResult();
         });
@@ -206,7 +222,7 @@ class ViewTest extends TestCase
             return new Renderer\JsonRenderer();
         });
 
-        $result = new ArrayObject;
+        $result = new ArrayObject();
         $this->view->addResponseStrategy(function ($e) use ($result) {
             $result[] = $e->getResult();
         });
@@ -240,7 +256,7 @@ class ViewTest extends TestCase
             return $phpRenderer;
         });
 
-        $result = new stdClass;
+        $result = new stdClass();
         $this->view->addResponseStrategy(function ($e) use ($result) {
             $result->content = $e->getResult();
         });
@@ -267,7 +283,7 @@ class ViewTest extends TestCase
             return $jsonRenderer;
         });
 
-        $result = new stdClass;
+        $result = new stdClass();
         $this->view->addResponseStrategy(function ($e) use ($result) {
             $result->content = $e->getResult();
         });
@@ -280,7 +296,7 @@ class ViewTest extends TestCase
         $this->view->render($layout);
 
         $expected = json_encode([
-            'status' => 200,
+            'status'   => 200,
             'response' => ['foo' => 'bar'],
         ]);
 
@@ -310,24 +326,18 @@ class ViewTest extends TestCase
      */
     public function testModelFromEventIsUsedByRenderer(): void
     {
-        $renderer = $this->getMockBuilder(PhpRenderer::class)
-            ->setMethods(['render'])
-            ->getMock();
+        $renderer = $this->createMock(PhpRenderer::class);
 
-        $model1 = new ViewModel;
-        $model2 = new ViewModel;
-
-        $this->view->addRenderingStrategy(function ($e) use ($renderer) {
-            return $renderer;
-        });
-
-        $this->view->getEventManager(ViewEvent::EVENT_RENDERER_POST, function ($e) use ($model2) {
-            $e->setModel($model2);
-        });
+        $model1 = new ViewModel();
+        $model2 = new ViewModel();
 
         $renderer->expects($this->once())
-                 ->method('render')
-                 ->with($model2);
+            ->method('render')
+            ->with($model2);
+
+        $this->view->addRenderingStrategy(function () use ($renderer) {
+            return $renderer;
+        });
 
         $this->view->render($model1);
     }
