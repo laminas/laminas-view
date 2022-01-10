@@ -66,8 +66,7 @@ class LinksTest extends AbstractTest
 
     public function testCanRenderFromServiceAlias(): void
     {
-        $sm = $this->serviceManager;
-        $this->_helper->setServiceLocator($sm);
+        $this->_helper->setServiceLocator($this->serviceManager);
 
         $returned = $this->_helper->render('Navigation');
         $this->assertEquals($returned, $this->getExpectedFileContents('links/default.html'));
