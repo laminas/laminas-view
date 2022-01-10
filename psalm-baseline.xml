@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.18.0.0">
+<files psalm-version="4.18.1@dda05fa913f4dc6eb3386f2f7ce5a45d37a71bcb">
   <file src="bin/templatemap_generator.php">
     <MissingParamType occurrences="1">
       <code>$templatePath</code>
@@ -1768,63 +1768,21 @@
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Helper/Url.php">
-    <DocblockTypeContradiction occurrences="4">
+    <DocblockTypeContradiction occurrences="3">
       <code>3 === func_num_args() &amp;&amp; is_bool($options)</code>
       <code>is_array($params)</code>
       <code>is_bool($options)</code>
-      <code>null === $this-&gt;router</code>
     </DocblockTypeContradiction>
     <InvalidArrayAssignment occurrences="1">
       <code>$options['name']</code>
     </InvalidArrayAssignment>
-    <InvalidDocblock occurrences="1">
-      <code>protected $routeMatch;</code>
-    </InvalidDocblock>
-    <MissingConstructor occurrences="1">
-      <code>$router</code>
-    </MissingConstructor>
-    <MissingPropertyType occurrences="1">
-      <code>$routeMatch</code>
-    </MissingPropertyType>
-    <MixedArgument occurrences="1">
-      <code>$routeMatchParams</code>
-    </MixedArgument>
-    <MixedArrayAccess occurrences="3">
-      <code>$routeMatchParams[ModuleRouteListener::MODULE_NAMESPACE]</code>
-      <code>$routeMatchParams[ModuleRouteListener::ORIGINAL_CONTROLLER]</code>
-      <code>$routeMatchParams[ModuleRouteListener::ORIGINAL_CONTROLLER]</code>
-    </MixedArrayAccess>
-    <MixedArrayAssignment occurrences="1">
-      <code>$routeMatchParams['controller']</code>
-    </MixedArrayAssignment>
-    <MixedAssignment occurrences="5">
-      <code>$name</code>
-      <code>$options['name']</code>
+    <MixedAssignment occurrences="2">
       <code>$reuseMatchedParams</code>
-      <code>$routeMatchParams</code>
       <code>$routeMatchParams['controller']</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="3">
-      <code>Url</code>
-      <code>Url</code>
-      <code>string</code>
-    </MixedInferredReturnType>
-    <MixedMethodCall occurrences="2">
-      <code>getMatchedRouteName</code>
-      <code>getParams</code>
-    </MixedMethodCall>
-    <MixedReturnStatement occurrences="1">
-      <code>$this-&gt;router-&gt;assemble($params, $options)</code>
-    </MixedReturnStatement>
     <PossiblyInvalidArgument occurrences="1">
       <code>$options</code>
     </PossiblyInvalidArgument>
-    <UndefinedDocblockClass occurrences="4">
-      <code>$this-&gt;router</code>
-      <code>LegacyRouteMatch|RouteMatch</code>
-      <code>LegacyRouteStackInterface|RouteStackInterface</code>
-      <code>LegacyRouteStackInterface|RouteStackInterface</code>
-    </UndefinedDocblockClass>
   </file>
   <file src="src/Helper/ViewModel.php">
     <MissingConstructor occurrences="2">
