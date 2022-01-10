@@ -198,7 +198,7 @@
       <code>$escapeHtmlHelper</code>
       <code>$pluginFlashMessenger</code>
     </MissingConstructor>
-    <MixedArgument occurrences="3">
+    <MixedArgument occurrences="2">
       <code>$item</code>
       <code>$messagesToPrint</code>
     </MixedArgument>
@@ -217,9 +217,6 @@
       <code>$messagesToPrint[]</code>
       <code>$this-&gt;escapeHtmlHelper</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="1">
-      <code>FlashMessenger</code>
-    </MixedInferredReturnType>
     <RedundantCastGivenDocblockType occurrences="4">
       <code>(bool) $autoEscape</code>
       <code>(string) $messageCloseString</code>
@@ -230,17 +227,6 @@
       <code>$this-&gt;escapeHtmlHelper</code>
       <code>$this-&gt;escapeHtmlHelper</code>
     </RedundantConditionGivenDocblockType>
-    <UndefinedClass occurrences="1">
-      <code>V2PluginFlashMessenger</code>
-    </UndefinedClass>
-    <UndefinedDocblockClass occurrences="6">
-      <code>$flashMessenger</code>
-      <code>$flashMessenger</code>
-      <code>$flashMessenger</code>
-      <code>V2PluginFlashMessenger|PluginFlashMessenger</code>
-      <code>V2PluginFlashMessenger|PluginFlashMessenger</code>
-      <code>V2PluginFlashMessenger|PluginFlashMessenger</code>
-    </UndefinedDocblockClass>
   </file>
   <file src="src/Helper/Gravatar.php">
     <DocblockTypeContradiction occurrences="1">
@@ -2523,20 +2509,6 @@
       <code>renderCurrent</code>
       <code>renderCurrent</code>
     </PossiblyInvalidMethodCall>
-    <UndefinedClass occurrences="7">
-      <code>$this-&gt;plugin</code>
-      <code>$this-&gt;plugin</code>
-      <code>$this-&gt;plugin</code>
-      <code>$this-&gt;plugin</code>
-      <code>$this-&gt;plugin</code>
-      <code>$this-&gt;plugin</code>
-      <code>$this-&gt;plugin</code>
-    </UndefinedClass>
-    <UndefinedDocblockClass occurrences="3">
-      <code>$this-&gt;plugin</code>
-      <code>$this-&gt;plugin</code>
-      <code>V2PluginFlashMessenger|V3PluginFlashMessenger</code>
-    </UndefinedDocblockClass>
     <UndefinedMethod occurrences="1">
       <code>getMessagesFromNamespace</code>
     </UndefinedMethod>
@@ -3612,13 +3584,7 @@
       <code>$this-&gt;getServiceNotFoundException()</code>
       <code>$this-&gt;getServiceNotFoundException()</code>
     </ArgumentTypeCoercion>
-    <MissingClosureParamType occurrences="3">
-      <code>$name</code>
-      <code>$options</code>
-      <code>$services</code>
-    </MissingClosureParamType>
-    <MixedArgument occurrences="3">
-      <code>$services</code>
+    <MixedArgument occurrences="2">
       <code>$target</code>
       <code>$target</code>
     </MixedArgument>
@@ -3630,13 +3596,6 @@
     <MixedInferredReturnType occurrences="1">
       <code>Generator&lt;mixed, array{0: mixed, 1: mixed}, mixed, void&gt;</code>
     </MixedInferredReturnType>
-    <UndefinedClass occurrences="1">
-      <code>V2FlashMessenger</code>
-    </UndefinedClass>
-    <UnusedClosureParam occurrences="2">
-      <code>$name</code>
-      <code>$options</code>
-    </UnusedClosureParam>
   </file>
   <file src="test/HelperPluginManagerTest.php">
     <MissingClosureParamType occurrences="2">
