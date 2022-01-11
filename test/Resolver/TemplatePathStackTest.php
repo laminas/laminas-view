@@ -204,7 +204,7 @@ class TemplatePathStackTest extends TestCase
     }
 
     /**
-     * @return array<array-key, array{0: mixed[]|ArrayObject}>
+     * @return array<array-key, array{0: array<string, mixed>|ArrayObject<string, mixed>}>
      */
     public function validOptions(): array
     {
@@ -220,7 +220,7 @@ class TemplatePathStackTest extends TestCase
     }
 
     /**
-     * @param array|ArrayObject $options
+     * @param array<string, mixed>|ArrayObject<string, mixed> $options
      * @dataProvider validOptions
      */
     public function testAllowsSettingOptions($options): void
@@ -239,7 +239,7 @@ class TemplatePathStackTest extends TestCase
     }
 
     /**
-     * @param array|ArrayObject $options
+     * @param array<string, mixed>|ArrayObject<string, mixed> $options
      * @dataProvider validOptions
      */
     public function testAllowsPassingOptionsToConstructor($options): void

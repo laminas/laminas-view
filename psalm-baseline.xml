@@ -2106,35 +2106,24 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Resolver/TemplatePathStack.php">
-    <DocblockTypeContradiction occurrences="2">
-      <code>gettype($options)</code>
+    <DocblockTypeContradiction occurrences="1">
       <code>is_string($path)</code>
     </DocblockTypeContradiction>
     <FalsableReturnStatement occurrences="2">
       <code>false</code>
       <code>false</code>
     </FalsableReturnStatement>
-    <MixedArgument occurrences="7">
-      <code>$key</code>
-      <code>$path</code>
-      <code>$path</code>
+    <MixedArgument occurrences="4">
       <code>$value</code>
       <code>$value</code>
       <code>$value</code>
       <code>$value</code>
     </MixedArgument>
-    <MixedAssignment occurrences="6">
-      <code>$key</code>
-      <code>$path</code>
-      <code>$path</code>
+    <MixedAssignment occurrences="3">
       <code>$this-&gt;lastLookupFailure</code>
       <code>$this-&gt;lastLookupFailure</code>
       <code>$value</code>
     </MixedAssignment>
-    <MixedOperand occurrences="2">
-      <code>$path</code>
-      <code>$path</code>
-    </MixedOperand>
     <NullArgument occurrences="1">
       <code>$this-&gt;paths</code>
     </NullArgument>
@@ -2143,10 +2132,6 @@
       <code>(bool) $flag</code>
       <code>(string) $defaultSuffix</code>
     </RedundantCastGivenDocblockType>
-    <RedundantConditionGivenDocblockType occurrences="2">
-      <code>is_array($paths)</code>
-      <code>is_object($options)</code>
-    </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Strategy/FeedStrategy.php">
     <MixedAssignment occurrences="1">
