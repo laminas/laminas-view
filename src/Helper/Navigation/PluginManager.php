@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Laminas\View\Helper\Navigation;
 
 use Interop\Container\ContainerInterface;
-use Laminas\ServiceManager\Factory\InvokableFactory;
+use Laminas\ServiceManager\ConfigInterface;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\HelperPluginManager;
 
@@ -17,53 +17,18 @@ use Laminas\View\HelperPluginManager;
  * helpers.
  *
  * @psalm-import-type ServiceManagerConfiguration from ServiceManager
+ * @psalm-import-type FactoriesConfigurationType from ConfigInterface
  */
 class PluginManager extends HelperPluginManager
 {
     /** {@inheritDoc} */
     protected $instanceOf = AbstractHelper::class;
 
-    /**
-     * Default aliases
-     *
-     * @var array<string, string>
-     */
-    protected $aliases = [
-        'breadcrumbs' => Breadcrumbs::class,
-        'links'       => Links::class,
-        'menu'        => Menu::class,
-        'sitemap'     => Sitemap::class,
+    /** @var array<string, string>|array<array-key, string> */
+    protected $aliases;
 
-        // Legacy Zend Framework aliases
-        \Zend\View\Helper\Navigation\Breadcrumbs::class => Breadcrumbs::class,
-        \Zend\View\Helper\Navigation\Links::class       => Links::class, // phpcs:ignore
-        \Zend\View\Helper\Navigation\Menu::class        => Menu::class,
-        \Zend\View\Helper\Navigation\Sitemap::class     => Sitemap::class,
-
-        // v2 normalized FQCNs
-        'zendviewhelpernavigationbreadcrumbs' => Breadcrumbs::class,
-        'zendviewhelpernavigationlinks'       => Links::class,
-        'zendviewhelpernavigationmenu'        => Menu::class,
-        'zendviewhelpernavigationsitemap'     => Sitemap::class,
-    ];
-
-    /**
-     * Default factories
-     *
-     * {@inheritDoc}
-     */
-    protected $factories = [
-        Breadcrumbs::class => InvokableFactory::class,
-        Links::class       => InvokableFactory::class,
-        Menu::class        => InvokableFactory::class,
-        Sitemap::class     => InvokableFactory::class,
-
-        // v2 canonical FQCNs
-        'laminasviewhelpernavigationbreadcrumbs' => InvokableFactory::class,
-        'laminasviewhelpernavigationlinks'       => InvokableFactory::class,
-        'laminasviewhelpernavigationmenu'        => InvokableFactory::class,
-        'laminasviewhelpernavigationsitemap'     => InvokableFactory::class,
-    ];
+    /** @var FactoriesConfigurationType */
+    protected $factories;
 
     /**
      * @param ContainerInterface $configOrContainerInstance
@@ -72,6 +37,8 @@ class PluginManager extends HelperPluginManager
      */
     public function __construct($configOrContainerInstance = null, array $v3config = [])
     {
+        parent::__construct($configOrContainerInstance, $v3config);
+
         /** @psalm-suppress UnusedClosureParam, MissingClosureParamType */
         $this->initializers[] = function (ContainerInterface $container, $instance): void {
             if (! $instance instanceof AbstractHelper) {
@@ -81,6 +48,7 @@ class PluginManager extends HelperPluginManager
             $instance->setServiceLocator($this->creationContext);
         };
 
-        parent::__construct($configOrContainerInstance, $v3config);
+        $this->aliases   = ConfigProvider::defaultViewHelperAliases();
+        $this->factories = ConfigProvider::defaultViewHelperFactories();
     }
 }
