@@ -35,6 +35,8 @@ use const PATHINFO_EXTENSION;
 
 /**
  * Resolves view scripts based on a stack of paths
+ *
+ * @psalm-type PathStack = SplStack<string>
  */
 class TemplatePathStack implements ResolverInterface
 {
@@ -50,7 +52,7 @@ class TemplatePathStack implements ResolverInterface
      */
     protected $defaultSuffix = 'phtml';
 
-    /** @var SplStack */
+    /** @var PathStack */
     protected $paths;
 
     /**
@@ -81,7 +83,7 @@ class TemplatePathStack implements ResolverInterface
     /**
      * Constructor
      *
-     * @param  null|array|Traversable $options
+     * @param  null|array<string, mixed>|Traversable<string, mixed> $options
      */
     public function __construct($options = null)
     {
@@ -93,7 +95,9 @@ class TemplatePathStack implements ResolverInterface
             }
         }
 
-        $this->paths = new SplStack();
+        /** @psalm-var PathStack $paths */
+        $paths       = new SplStack();
+        $this->paths = $paths;
         if (null !== $options) {
             $this->setOptions($options);
         }
@@ -102,12 +106,13 @@ class TemplatePathStack implements ResolverInterface
     /**
      * Configure object
      *
-     * @param  array|Traversable $options
+     * @param  array<string, mixed>|Traversable<string, mixed> $options
      * @return void
      * @throws Exception\InvalidArgumentException
      */
     public function setOptions($options)
     {
+        /** @psalm-suppress DocblockTypeContradiction */
         if (! is_array($options) && ! $options instanceof Traversable) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'Expected array or Traversable object; received "%s"',
@@ -162,7 +167,7 @@ class TemplatePathStack implements ResolverInterface
     /**
      * Add many paths to the stack at once
      *
-     * @param  array $paths
+     * @param  list<string> $paths
      * @return TemplatePathStack
      */
     public function addPaths(array $paths)
@@ -176,7 +181,7 @@ class TemplatePathStack implements ResolverInterface
     /**
      * Rest the path stack to the paths provided
      *
-     * @param  SplStack|array $paths
+     * @param  PathStack|list<string> $paths
      * @return TemplatePathStack
      * @throws Exception\InvalidArgumentException
      */
@@ -184,16 +189,21 @@ class TemplatePathStack implements ResolverInterface
     {
         if ($paths instanceof SplStack) {
             $this->paths = $paths;
-        } elseif (is_array($paths)) {
-            $this->clearPaths();
-            $this->addPaths($paths);
-        } else {
-            throw new Exception\InvalidArgumentException(
-                "Invalid argument provided for \$paths, expecting either an array or SplStack object"
-            );
+
+            return $this;
         }
 
-        return $this;
+        /** @psalm-suppress RedundantConditionGivenDocblockType */
+        if (is_array($paths)) {
+            $this->clearPaths();
+            $this->addPaths($paths);
+
+            return $this;
+        }
+
+        throw new Exception\InvalidArgumentException(
+            "Invalid argument provided for \$paths, expecting either an array or SplStack object"
+        );
     }
 
     /**
@@ -236,13 +246,15 @@ class TemplatePathStack implements ResolverInterface
      */
     public function clearPaths()
     {
-        $this->paths = new SplStack();
+        /** @psalm-var PathStack $paths */
+        $paths       = new SplStack();
+        $this->paths = $paths;
     }
 
     /**
      * Returns stack of paths
      *
-     * @return SplStack
+     * @return PathStack
      */
     public function getPaths()
     {

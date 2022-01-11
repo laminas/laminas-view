@@ -30,38 +30,11 @@ class HelperPluginManagerTest extends TestCase
 {
     use ProphecyTrait;
 
-    /** @var HelperPluginManager */
-    private $helpers;
+    private HelperPluginManager $helpers;
 
     protected function setUp(): void
     {
         $this->helpers = new HelperPluginManager(new ServiceManager());
-    }
-
-    /**
-     * @group 43
-     */
-    public function testConstructorArgumentsAreOptionalUnderV2(): void
-    {
-        if (method_exists($this->helpers, 'configure')) {
-            $this->markTestSkipped('laminas-servicemanager v3 plugin managers require a container argument');
-        }
-
-        $helpers = new HelperPluginManager();
-        $this->assertInstanceOf(HelperPluginManager::class, $helpers);
-    }
-
-    /**
-     * @group 43
-     */
-    public function testConstructorAllowsConfigInstanceAsFirstArgumentUnderV2(): void
-    {
-        if (method_exists($this->helpers, 'configure')) {
-            $this->markTestSkipped('laminas-servicemanager v3 plugin managers require a container argument');
-        }
-
-        $helpers = new HelperPluginManager(new Config([]));
-        $this->assertInstanceOf(HelperPluginManager::class, $helpers);
     }
 
     public function testViewIsNullByDefault(): void
@@ -183,23 +156,6 @@ class HelperPluginManagerTest extends TestCase
         $helpers = new HelperPluginManager($services);
         $helper  = $helpers->get('HeadTitle');
         $this->assertSame($translator, $helper->getTranslator());
-    }
-
-    /**
-     * @group 47
-     */
-    public function testInjectTranslatorWillReturnEarlyIfThePluginManagerDoesNotHaveAParentContainer(): void
-    {
-        if (method_exists($this->helpers, 'configure')) {
-            $this->markTestSkipped(
-                'Skip test when testing against laminas-servicemanager v3, as that implementation '
-                . 'guarantees a parent container in plugin managers'
-            );
-        }
-        $helpers = new HelperPluginManager();
-        $helper  = new HeadTitle();
-        $this->assertNull($helpers->injectTranslator($helper, $helpers));
-        $this->assertNull($helper->getTranslator());
     }
 
     public function testInjectTranslatorWillReturnEarlyIfTheHelperHasTranslatorAlready(): void

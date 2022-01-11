@@ -7,7 +7,6 @@ namespace LaminasTest\View\Helper\Navigation;
 use Laminas\Navigation\Navigation;
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\Navigation\Breadcrumbs;
-use Laminas\View\HelperPluginManager;
 
 use function extension_loaded;
 use function strlen;
@@ -69,8 +68,7 @@ class BreadcrumbsTest extends AbstractTest
 
     public function testHelperEntryPointWithContainerStringParam(): void
     {
-        $pm = new HelperPluginManager($this->serviceManager);
-        $this->_helper->setServiceLocator($pm);
+        $this->_helper->setServiceLocator($this->serviceManager);
 
         $returned = $this->_helper->__invoke('nav1');
         $this->assertEquals($this->_helper, $returned);

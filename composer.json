@@ -36,7 +36,7 @@
         "laminas/laminas-http": "^2.15",
         "laminas/laminas-i18n": "^2.6",
         "laminas/laminas-modulemanager": "^2.7.1",
-        "laminas/laminas-mvc": "^2.7.14 || ^3.0",
+        "laminas/laminas-mvc": "^3.0",
         "laminas/laminas-mvc-i18n": "^1.1",
         "laminas/laminas-mvc-plugin-flashmessenger": "^1.5.0",
         "laminas/laminas-navigation": "^2.13.1",

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.18.0.0">
+<files psalm-version="4.18.1@dda05fa913f4dc6eb3386f2f7ce5a45d37a71bcb">
   <file src="bin/templatemap_generator.php">
     <MissingParamType occurrences="1">
       <code>$templatePath</code>
@@ -198,7 +198,7 @@
       <code>$escapeHtmlHelper</code>
       <code>$pluginFlashMessenger</code>
     </MissingConstructor>
-    <MixedArgument occurrences="3">
+    <MixedArgument occurrences="2">
       <code>$item</code>
       <code>$messagesToPrint</code>
     </MixedArgument>
@@ -217,9 +217,6 @@
       <code>$messagesToPrint[]</code>
       <code>$this-&gt;escapeHtmlHelper</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="1">
-      <code>FlashMessenger</code>
-    </MixedInferredReturnType>
     <RedundantCastGivenDocblockType occurrences="4">
       <code>(bool) $autoEscape</code>
       <code>(string) $messageCloseString</code>
@@ -230,17 +227,6 @@
       <code>$this-&gt;escapeHtmlHelper</code>
       <code>$this-&gt;escapeHtmlHelper</code>
     </RedundantConditionGivenDocblockType>
-    <UndefinedClass occurrences="1">
-      <code>V2PluginFlashMessenger</code>
-    </UndefinedClass>
-    <UndefinedDocblockClass occurrences="6">
-      <code>$flashMessenger</code>
-      <code>$flashMessenger</code>
-      <code>$flashMessenger</code>
-      <code>V2PluginFlashMessenger|PluginFlashMessenger</code>
-      <code>V2PluginFlashMessenger|PluginFlashMessenger</code>
-      <code>V2PluginFlashMessenger|PluginFlashMessenger</code>
-    </UndefinedDocblockClass>
   </file>
   <file src="src/Helper/Gravatar.php">
     <DocblockTypeContradiction occurrences="1">
@@ -862,10 +848,9 @@
       <code>$view</code>
       <code>$view</code>
     </RedundantCondition>
-    <RedundantConditionGivenDocblockType occurrences="5">
+    <RedundantConditionGivenDocblockType occurrences="4">
       <code>$helper</code>
       <code>$helper</code>
-      <code>$this-&gt;getServiceLocator()</code>
       <code>$this-&gt;plugins</code>
       <code>$view &amp;&amp; $this-&gt;plugins</code>
     </RedundantConditionGivenDocblockType>
@@ -875,16 +860,9 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/Navigation/AbstractHelper.php">
-    <DeprecatedMethod occurrences="2">
-      <code>getServiceLocator</code>
-      <code>getServiceLocator</code>
-    </DeprecatedMethod>
-    <DocblockTypeContradiction occurrences="6">
-      <code>! $services</code>
+    <DocblockTypeContradiction occurrences="3">
       <code>! is_int($this-&gt;minDepth)</code>
       <code>! is_string($message)</code>
-      <code>$services</code>
-      <code>$this-&gt;role === null</code>
       <code>null === $this-&gt;container</code>
     </DocblockTypeContradiction>
     <ImplementedReturnTypeMismatch occurrences="2">
@@ -894,7 +872,7 @@
     <InvalidThrow occurrences="1">
       <code>Navigation\Exception\ExceptionInterface</code>
     </InvalidThrow>
-    <MissingConstructor occurrences="29">
+    <MissingConstructor occurrences="19">
       <code>$container</code>
       <code>$container</code>
       <code>$container</code>
@@ -914,28 +892,16 @@
       <code>$minDepth</code>
       <code>$minDepth</code>
       <code>$minDepth</code>
-      <code>$role</code>
-      <code>$role</code>
-      <code>$role</code>
-      <code>$role</code>
-      <code>$role</code>
-      <code>$serviceLocator</code>
-      <code>$serviceLocator</code>
-      <code>$serviceLocator</code>
-      <code>$serviceLocator</code>
-      <code>$serviceLocator</code>
     </MissingConstructor>
     <MixedArgument occurrences="2">
       <code>$page-&gt;getTextDomain()</code>
       <code>$page-&gt;getTextDomain()</code>
     </MixedArgument>
-    <MixedAssignment occurrences="7">
+    <MixedAssignment occurrences="5">
       <code>$container</code>
       <code>$container</code>
       <code>$container</code>
       <code>$label</code>
-      <code>$serviceLocator</code>
-      <code>$this-&gt;serviceLocator</code>
       <code>$value</code>
     </MixedAssignment>
     <MixedInferredReturnType occurrences="1">
@@ -962,10 +928,9 @@
     <PossiblyNullArgument occurrences="1">
       <code>$page-&gt;getTitle()</code>
     </PossiblyNullArgument>
-    <PossiblyNullPropertyAssignmentValue occurrences="3">
+    <PossiblyNullPropertyAssignmentValue occurrences="2">
       <code>$maxDepth</code>
       <code>$minDepth</code>
-      <code>$role</code>
     </PossiblyNullPropertyAssignmentValue>
     <PossiblyNullReference occurrences="4">
       <code>attach</code>
@@ -978,17 +943,12 @@
       <code>(bool) $useAcl</code>
       <code>(string) $indent</code>
     </RedundantCastGivenDocblockType>
-    <RedundantConditionGivenDocblockType occurrences="11">
-      <code>$serviceLocator-&gt;getServiceLocator()</code>
+    <RedundantConditionGivenDocblockType occurrences="5">
       <code>$this-&gt;acl === null &amp;&amp; static::$defaultAcl !== null</code>
-      <code>$this-&gt;role === null &amp;&amp; static::$defaultRole !== null</code>
       <code>is_int($maxDepth)</code>
       <code>is_int($minDepth)</code>
-      <code>is_string($this-&gt;role)</code>
-      <code>is_string(static::$defaultRole)</code>
       <code>null !== $this-&gt;container</code>
       <code>static::$defaultAcl !== null</code>
-      <code>static::$defaultRole !== null</code>
     </RedundantConditionGivenDocblockType>
     <UndefinedInterfaceMethod occurrences="1">
       <code>plugin</code>
@@ -1664,20 +1624,13 @@
     <MixedArrayAccess occurrences="1">
       <code>$config['view_helper_config']</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="3">
+    <MixedAssignment occurrences="2">
       <code>$config</code>
       <code>$configHelper</code>
-      <code>$container</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="1">
-      <code>get</code>
-    </MixedMethodCall>
     <PossiblyNullArgument occurrences="1">
       <code>$cName</code>
     </PossiblyNullArgument>
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>getServiceLocator</code>
-    </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/Service/DoctypeFactory.php">
     <MixedArgument occurrences="1">
@@ -1711,14 +1664,13 @@
       <code>$configHelper['message_separator_string']</code>
       <code>$config['view_helper_config']</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="5">
+    <MixedAssignment occurrences="4">
       <code>$config</code>
       <code>$configHelper</code>
-      <code>$container</code>
       <code>$controllerPluginManager</code>
       <code>$flashMessenger</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="3">
+    <MixedMethodCall occurrences="1">
       <code>get</code>
       <code>get</code>
       <code>get</code>
@@ -1729,20 +1681,11 @@
     <PossiblyNullArgument occurrences="1">
       <code>$requestedName</code>
     </PossiblyNullArgument>
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>getServiceLocator</code>
-    </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/Service/IdentityFactory.php">
     <DeprecatedInterface occurrences="1">
       <code>IdentityFactory</code>
     </DeprecatedInterface>
-    <MixedArgument occurrences="1">
-      <code>$container</code>
-    </MixedArgument>
-    <MixedAssignment occurrences="1">
-      <code>$container</code>
-    </MixedAssignment>
     <MixedInferredReturnType occurrences="1">
       <code>null|AuthenticationServiceInterface</code>
     </MixedInferredReturnType>
@@ -1753,9 +1696,6 @@
     <PossiblyNullArgument occurrences="1">
       <code>$cName</code>
     </PossiblyNullArgument>
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>getServiceLocator</code>
-    </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/TranslatorAwareTrait.php">
     <DeprecatedClass occurrences="3">
@@ -1768,63 +1708,21 @@
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Helper/Url.php">
-    <DocblockTypeContradiction occurrences="4">
+    <DocblockTypeContradiction occurrences="3">
       <code>3 === func_num_args() &amp;&amp; is_bool($options)</code>
       <code>is_array($params)</code>
       <code>is_bool($options)</code>
-      <code>null === $this-&gt;router</code>
     </DocblockTypeContradiction>
     <InvalidArrayAssignment occurrences="1">
       <code>$options['name']</code>
     </InvalidArrayAssignment>
-    <InvalidDocblock occurrences="1">
-      <code>protected $routeMatch;</code>
-    </InvalidDocblock>
-    <MissingConstructor occurrences="1">
-      <code>$router</code>
-    </MissingConstructor>
-    <MissingPropertyType occurrences="1">
-      <code>$routeMatch</code>
-    </MissingPropertyType>
-    <MixedArgument occurrences="1">
-      <code>$routeMatchParams</code>
-    </MixedArgument>
-    <MixedArrayAccess occurrences="3">
-      <code>$routeMatchParams[ModuleRouteListener::MODULE_NAMESPACE]</code>
-      <code>$routeMatchParams[ModuleRouteListener::ORIGINAL_CONTROLLER]</code>
-      <code>$routeMatchParams[ModuleRouteListener::ORIGINAL_CONTROLLER]</code>
-    </MixedArrayAccess>
-    <MixedArrayAssignment occurrences="1">
-      <code>$routeMatchParams['controller']</code>
-    </MixedArrayAssignment>
-    <MixedAssignment occurrences="5">
-      <code>$name</code>
-      <code>$options['name']</code>
+    <MixedAssignment occurrences="2">
       <code>$reuseMatchedParams</code>
-      <code>$routeMatchParams</code>
       <code>$routeMatchParams['controller']</code>
     </MixedAssignment>
-    <MixedInferredReturnType occurrences="3">
-      <code>Url</code>
-      <code>Url</code>
-      <code>string</code>
-    </MixedInferredReturnType>
-    <MixedMethodCall occurrences="2">
-      <code>getMatchedRouteName</code>
-      <code>getParams</code>
-    </MixedMethodCall>
-    <MixedReturnStatement occurrences="1">
-      <code>$this-&gt;router-&gt;assemble($params, $options)</code>
-    </MixedReturnStatement>
     <PossiblyInvalidArgument occurrences="1">
       <code>$options</code>
     </PossiblyInvalidArgument>
-    <UndefinedDocblockClass occurrences="4">
-      <code>$this-&gt;router</code>
-      <code>LegacyRouteMatch|RouteMatch</code>
-      <code>LegacyRouteStackInterface|RouteStackInterface</code>
-      <code>LegacyRouteStackInterface|RouteStackInterface</code>
-    </UndefinedDocblockClass>
   </file>
   <file src="src/Helper/ViewModel.php">
     <MissingConstructor occurrences="2">
@@ -2208,35 +2106,24 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Resolver/TemplatePathStack.php">
-    <DocblockTypeContradiction occurrences="2">
-      <code>gettype($options)</code>
+    <DocblockTypeContradiction occurrences="1">
       <code>is_string($path)</code>
     </DocblockTypeContradiction>
     <FalsableReturnStatement occurrences="2">
       <code>false</code>
       <code>false</code>
     </FalsableReturnStatement>
-    <MixedArgument occurrences="7">
-      <code>$key</code>
-      <code>$path</code>
-      <code>$path</code>
+    <MixedArgument occurrences="4">
       <code>$value</code>
       <code>$value</code>
       <code>$value</code>
       <code>$value</code>
     </MixedArgument>
-    <MixedAssignment occurrences="6">
-      <code>$key</code>
-      <code>$path</code>
-      <code>$path</code>
+    <MixedAssignment occurrences="3">
       <code>$this-&gt;lastLookupFailure</code>
       <code>$this-&gt;lastLookupFailure</code>
       <code>$value</code>
     </MixedAssignment>
-    <MixedOperand occurrences="2">
-      <code>$path</code>
-      <code>$path</code>
-    </MixedOperand>
     <NullArgument occurrences="1">
       <code>$this-&gt;paths</code>
     </NullArgument>
@@ -2245,10 +2132,6 @@
       <code>(bool) $flag</code>
       <code>(string) $defaultSuffix</code>
     </RedundantCastGivenDocblockType>
-    <RedundantConditionGivenDocblockType occurrences="2">
-      <code>is_array($paths)</code>
-      <code>is_object($options)</code>
-    </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Strategy/FeedStrategy.php">
     <MixedAssignment occurrences="1">
@@ -2565,20 +2448,6 @@
       <code>renderCurrent</code>
       <code>renderCurrent</code>
     </PossiblyInvalidMethodCall>
-    <UndefinedClass occurrences="7">
-      <code>$this-&gt;plugin</code>
-      <code>$this-&gt;plugin</code>
-      <code>$this-&gt;plugin</code>
-      <code>$this-&gt;plugin</code>
-      <code>$this-&gt;plugin</code>
-      <code>$this-&gt;plugin</code>
-      <code>$this-&gt;plugin</code>
-    </UndefinedClass>
-    <UndefinedDocblockClass occurrences="3">
-      <code>$this-&gt;plugin</code>
-      <code>$this-&gt;plugin</code>
-      <code>V2PluginFlashMessenger|V3PluginFlashMessenger</code>
-    </UndefinedDocblockClass>
     <UndefinedMethod occurrences="1">
       <code>getMessagesFromNamespace</code>
     </UndefinedMethod>
@@ -3282,12 +3151,6 @@
       <code>$code</code>
     </UnusedClosureParam>
   </file>
-  <file src="test/Helper/Navigation/PluginManagerCompatibilityTest.php">
-    <ArgumentTypeCoercion occurrences="2">
-      <code>$this-&gt;getServiceNotFoundException()</code>
-      <code>$this-&gt;getServiceNotFoundException()</code>
-    </ArgumentTypeCoercion>
-  </file>
   <file src="test/Helper/Navigation/SitemapTest.php">
     <MixedArgument occurrences="2">
       <code>$acl['acl']</code>
@@ -3654,13 +3517,7 @@
       <code>$this-&gt;getServiceNotFoundException()</code>
       <code>$this-&gt;getServiceNotFoundException()</code>
     </ArgumentTypeCoercion>
-    <MissingClosureParamType occurrences="3">
-      <code>$name</code>
-      <code>$options</code>
-      <code>$services</code>
-    </MissingClosureParamType>
-    <MixedArgument occurrences="3">
-      <code>$services</code>
+    <MixedArgument occurrences="2">
       <code>$target</code>
       <code>$target</code>
     </MixedArgument>
@@ -3672,13 +3529,6 @@
     <MixedInferredReturnType occurrences="1">
       <code>Generator&lt;mixed, array{0: mixed, 1: mixed}, mixed, void&gt;</code>
     </MixedInferredReturnType>
-    <UndefinedClass occurrences="1">
-      <code>V2FlashMessenger</code>
-    </UndefinedClass>
-    <UnusedClosureParam occurrences="2">
-      <code>$name</code>
-      <code>$options</code>
-    </UnusedClosureParam>
   </file>
   <file src="test/HelperPluginManagerTest.php">
     <MissingClosureParamType occurrences="2">
