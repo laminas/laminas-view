@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Laminas\View\Helper\Navigation;
 
 use Interop\Container\ContainerInterface;
-use Laminas\ServiceManager\ConfigInterface;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\HelperPluginManager;
@@ -67,20 +66,19 @@ class PluginManager extends HelperPluginManager
     ];
 
     /**
-     * @param null|ConfigInterface|ContainerInterface $configOrContainerInstance
-     * @param array $v3config If $configOrContainerInstance is a container, this
-     *     value will be passed to the parent constructor.
+     * @param ContainerInterface $configOrContainerInstance
+     * @param array $v3config
      * @psalm-param ServiceManagerConfiguration $v3config
      */
     public function __construct($configOrContainerInstance = null, array $v3config = [])
     {
-        /** @psalm-suppress MissingClosureParamType */
+        /** @psalm-suppress UnusedClosureParam, MissingClosureParamType */
         $this->initializers[] = function (ContainerInterface $container, $instance): void {
             if (! $instance instanceof AbstractHelper) {
                 return;
             }
 
-            $instance->setServiceLocator($container);
+            $instance->setServiceLocator($this->creationContext);
         };
 
         parent::__construct($configOrContainerInstance, $v3config);

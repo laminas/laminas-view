@@ -9,8 +9,6 @@ use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\View\Helper\FlashMessenger;
 
-use function method_exists;
-
 class FlashMessengerFactory implements FactoryInterface
 {
     /**
@@ -22,10 +20,6 @@ class FlashMessengerFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $name, ?array $options = null)
     {
-        // test if we are using Laminas\ServiceManager v2 or v3
-        if (! method_exists($container, 'configure')) {
-            $container = $container->getServiceLocator();
-        }
         $helper                  = new FlashMessenger();
         $controllerPluginManager = $container->get('ControllerPluginManager');
         $flashMessenger          = $controllerPluginManager->get('flashmessenger');

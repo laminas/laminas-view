@@ -14,14 +14,12 @@ use Laminas\Navigation\AbstractContainer;
 use Laminas\Navigation\Page\AbstractPage;
 use Laminas\Permissions\Acl;
 use Laminas\Permissions\Acl\AclInterface;
-use Laminas\ServiceManager\AbstractPluginManager;
 use Laminas\View;
 use Laminas\View\Exception;
 use Laminas\View\Helper\Navigation\Listener\AclListener;
 use Laminas\View\Helper\TranslatorAwareTrait;
 use RecursiveIteratorIterator;
 use ReflectionClass;
-use ReflectionProperty;
 
 use function call_user_func_array;
 use function get_class;
@@ -30,7 +28,6 @@ use function in_array;
 use function is_int;
 use function is_object;
 use function is_string;
-use function method_exists;
 use function sprintf;
 use function str_repeat;
 use function strlen;
@@ -101,11 +98,11 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     /**
      * ACL role to use when iterating pages
      *
-     * @var string|Acl\Role\RoleInterface
+     * @var string|Acl\Role\RoleInterface|null
      */
     protected $role;
 
-    /** @var ContainerInterface */
+    /** @var ContainerInterface|null */
     protected $serviceLocator;
 
     /**
@@ -127,7 +124,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      * Default ACL role to use when iterating pages if not explicitly set in the
      * instance by calling {@link setRole()}
      *
-     * @var string|Acl\Role\RoleInterface
+     * @var string|Acl\Role\RoleInterface|null
      */
     protected static $defaultRole;
 
@@ -767,28 +764,6 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      */
     public function setServiceLocator(ContainerInterface $serviceLocator)
     {
-        // If we are provided a plugin manager, we should pull the parent
-        // context from it.
-        // @todo We should update tests and code to ensure that this situation
-        //       doesn't happen in the future.
-        if (
-            $serviceLocator instanceof AbstractPluginManager
-            && ! method_exists($serviceLocator, 'configure')
-            && $serviceLocator->getServiceLocator()
-        ) {
-            $serviceLocator = $serviceLocator->getServiceLocator();
-        }
-
-        // v3 variant; likely won't be needed.
-        if (
-            $serviceLocator instanceof AbstractPluginManager
-            && method_exists($serviceLocator, 'configure')
-        ) {
-            $r = new ReflectionProperty($serviceLocator, 'creationContext');
-            $r->setAccessible(true);
-            $serviceLocator = $r->getValue($serviceLocator);
-        }
-
         $this->serviceLocator = $serviceLocator;
         return $this;
     }
@@ -798,7 +773,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      *
      * Used internally to pull named navigation containers to render.
      *
-     * @return ContainerInterface
+     * @return ContainerInterface|null
      */
     public function getServiceLocator()
     {

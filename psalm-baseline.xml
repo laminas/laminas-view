@@ -848,10 +848,9 @@
       <code>$view</code>
       <code>$view</code>
     </RedundantCondition>
-    <RedundantConditionGivenDocblockType occurrences="5">
+    <RedundantConditionGivenDocblockType occurrences="4">
       <code>$helper</code>
       <code>$helper</code>
-      <code>$this-&gt;getServiceLocator()</code>
       <code>$this-&gt;plugins</code>
       <code>$view &amp;&amp; $this-&gt;plugins</code>
     </RedundantConditionGivenDocblockType>
@@ -861,16 +860,9 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/Navigation/AbstractHelper.php">
-    <DeprecatedMethod occurrences="2">
-      <code>getServiceLocator</code>
-      <code>getServiceLocator</code>
-    </DeprecatedMethod>
-    <DocblockTypeContradiction occurrences="6">
-      <code>! $services</code>
+    <DocblockTypeContradiction occurrences="3">
       <code>! is_int($this-&gt;minDepth)</code>
       <code>! is_string($message)</code>
-      <code>$services</code>
-      <code>$this-&gt;role === null</code>
       <code>null === $this-&gt;container</code>
     </DocblockTypeContradiction>
     <ImplementedReturnTypeMismatch occurrences="2">
@@ -880,7 +872,7 @@
     <InvalidThrow occurrences="1">
       <code>Navigation\Exception\ExceptionInterface</code>
     </InvalidThrow>
-    <MissingConstructor occurrences="29">
+    <MissingConstructor occurrences="19">
       <code>$container</code>
       <code>$container</code>
       <code>$container</code>
@@ -900,28 +892,16 @@
       <code>$minDepth</code>
       <code>$minDepth</code>
       <code>$minDepth</code>
-      <code>$role</code>
-      <code>$role</code>
-      <code>$role</code>
-      <code>$role</code>
-      <code>$role</code>
-      <code>$serviceLocator</code>
-      <code>$serviceLocator</code>
-      <code>$serviceLocator</code>
-      <code>$serviceLocator</code>
-      <code>$serviceLocator</code>
     </MissingConstructor>
     <MixedArgument occurrences="2">
       <code>$page-&gt;getTextDomain()</code>
       <code>$page-&gt;getTextDomain()</code>
     </MixedArgument>
-    <MixedAssignment occurrences="7">
+    <MixedAssignment occurrences="5">
       <code>$container</code>
       <code>$container</code>
       <code>$container</code>
       <code>$label</code>
-      <code>$serviceLocator</code>
-      <code>$this-&gt;serviceLocator</code>
       <code>$value</code>
     </MixedAssignment>
     <MixedInferredReturnType occurrences="1">
@@ -948,10 +928,9 @@
     <PossiblyNullArgument occurrences="1">
       <code>$page-&gt;getTitle()</code>
     </PossiblyNullArgument>
-    <PossiblyNullPropertyAssignmentValue occurrences="3">
+    <PossiblyNullPropertyAssignmentValue occurrences="2">
       <code>$maxDepth</code>
       <code>$minDepth</code>
-      <code>$role</code>
     </PossiblyNullPropertyAssignmentValue>
     <PossiblyNullReference occurrences="4">
       <code>attach</code>
@@ -964,17 +943,12 @@
       <code>(bool) $useAcl</code>
       <code>(string) $indent</code>
     </RedundantCastGivenDocblockType>
-    <RedundantConditionGivenDocblockType occurrences="11">
-      <code>$serviceLocator-&gt;getServiceLocator()</code>
+    <RedundantConditionGivenDocblockType occurrences="5">
       <code>$this-&gt;acl === null &amp;&amp; static::$defaultAcl !== null</code>
-      <code>$this-&gt;role === null &amp;&amp; static::$defaultRole !== null</code>
       <code>is_int($maxDepth)</code>
       <code>is_int($minDepth)</code>
-      <code>is_string($this-&gt;role)</code>
-      <code>is_string(static::$defaultRole)</code>
       <code>null !== $this-&gt;container</code>
       <code>static::$defaultAcl !== null</code>
-      <code>static::$defaultRole !== null</code>
     </RedundantConditionGivenDocblockType>
     <UndefinedInterfaceMethod occurrences="1">
       <code>plugin</code>
@@ -1650,20 +1624,13 @@
     <MixedArrayAccess occurrences="1">
       <code>$config['view_helper_config']</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="3">
+    <MixedAssignment occurrences="2">
       <code>$config</code>
       <code>$configHelper</code>
-      <code>$container</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="1">
-      <code>get</code>
-    </MixedMethodCall>
     <PossiblyNullArgument occurrences="1">
       <code>$cName</code>
     </PossiblyNullArgument>
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>getServiceLocator</code>
-    </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/Service/DoctypeFactory.php">
     <MixedArgument occurrences="1">
@@ -1697,14 +1664,13 @@
       <code>$configHelper['message_separator_string']</code>
       <code>$config['view_helper_config']</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="5">
+    <MixedAssignment occurrences="4">
       <code>$config</code>
       <code>$configHelper</code>
-      <code>$container</code>
       <code>$controllerPluginManager</code>
       <code>$flashMessenger</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="3">
+    <MixedMethodCall occurrences="1">
       <code>get</code>
       <code>get</code>
       <code>get</code>
@@ -1715,20 +1681,11 @@
     <PossiblyNullArgument occurrences="1">
       <code>$requestedName</code>
     </PossiblyNullArgument>
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>getServiceLocator</code>
-    </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/Service/IdentityFactory.php">
     <DeprecatedInterface occurrences="1">
       <code>IdentityFactory</code>
     </DeprecatedInterface>
-    <MixedArgument occurrences="1">
-      <code>$container</code>
-    </MixedArgument>
-    <MixedAssignment occurrences="1">
-      <code>$container</code>
-    </MixedAssignment>
     <MixedInferredReturnType occurrences="1">
       <code>null|AuthenticationServiceInterface</code>
     </MixedInferredReturnType>
@@ -1739,9 +1696,6 @@
     <PossiblyNullArgument occurrences="1">
       <code>$cName</code>
     </PossiblyNullArgument>
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>getServiceLocator</code>
-    </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/TranslatorAwareTrait.php">
     <DeprecatedClass occurrences="3">
@@ -3211,12 +3165,6 @@
     <UnusedClosureParam occurrences="1">
       <code>$code</code>
     </UnusedClosureParam>
-  </file>
-  <file src="test/Helper/Navigation/PluginManagerCompatibilityTest.php">
-    <ArgumentTypeCoercion occurrences="2">
-      <code>$this-&gt;getServiceNotFoundException()</code>
-      <code>$this-&gt;getServiceNotFoundException()</code>
-    </ArgumentTypeCoercion>
   </file>
   <file src="test/Helper/Navigation/SitemapTest.php">
     <MixedArgument occurrences="2">

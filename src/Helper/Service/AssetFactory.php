@@ -11,7 +11,6 @@ use Laminas\View\Exception;
 use Laminas\View\Helper\Asset;
 
 use function is_array;
-use function method_exists;
 
 class AssetFactory implements FactoryInterface
 {
@@ -23,10 +22,6 @@ class AssetFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $name, ?array $options = null)
     {
-        // test if we are using Laminas\ServiceManager v2 or v3
-        if (! method_exists($container, 'configure')) {
-            $container = $container->getServiceLocator();
-        }
         $helper = new Asset();
 
         $config = $container->get('config');
