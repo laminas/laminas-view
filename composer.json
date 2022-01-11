@@ -28,6 +28,7 @@
         "ext-json": "*",
         "laminas/laminas-eventmanager": "^3.4",
         "laminas/laminas-json": "^3.3",
+        "laminas/laminas-servicemanager": "^3.6",
         "laminas/laminas-stdlib": "^3.6"
     },
     "require-dev": {
@@ -47,7 +48,6 @@
         "laminas/laminas-paginator": "^2.11.0",
         "laminas/laminas-permissions-acl": "^2.6",
         "laminas/laminas-router": "^3.0.1",
-        "laminas/laminas-servicemanager": "^3.4",
         "laminas/laminas-uri": "^2.5",
         "phpspec/prophecy": "^1.12",
         "phpspec/prophecy-phpunit": "^2.0",
