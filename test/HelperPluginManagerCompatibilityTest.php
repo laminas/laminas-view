@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace LaminasTest\View;
 
 use Generator;
-use Laminas\Mvc\Controller\Plugin\FlashMessenger as V2FlashMessenger;
 use Laminas\Mvc\Controller\PluginManager as ControllerPluginManager;
 use Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger;
 use Laminas\ServiceManager\Config;
@@ -14,6 +13,7 @@ use Laminas\ServiceManager\Test\CommonPluginManagerTrait;
 use Laminas\View\Exception\InvalidHelperException;
 use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
 use ReflectionProperty;
 
 use function class_exists;
@@ -29,12 +29,10 @@ class HelperPluginManagerCompatibilityTest extends TestCase
 
         if (class_exists(ControllerPluginManager::class)) {
             // @codingStandardsIgnoreLine
-            $factories['ControllerPluginManager'] = function ($services, $name, $options): \Laminas\Mvc\Controller\PluginManager {
+            $factories['ControllerPluginManager'] = function (ContainerInterface $services): ControllerPluginManager {
                 return new ControllerPluginManager($services, [
                     'invokables' => [
-                        'flashmessenger' => class_exists(FlashMessenger::class)
-                            ? FlashMessenger::class
-                            : V2FlashMessenger::class,
+                        'flashmessenger' => FlashMessenger::class,
                     ],
                 ]);
             };

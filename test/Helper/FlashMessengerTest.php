@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace LaminasTest\View\Helper;
 
 use Laminas\I18n\Translator\Translator;
-use Laminas\Mvc\Controller\Plugin\FlashMessenger as V2PluginFlashMessenger;
 use Laminas\Mvc\Controller\PluginManager;
 use Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger as V3PluginFlashMessenger;
 use Laminas\ServiceManager\Config;
@@ -16,7 +15,6 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 
-use function class_exists;
 use function get_class;
 
 /**
@@ -33,14 +31,12 @@ class FlashMessengerTest extends TestCase
     private $mvcPluginClass;
     /** @var FlashMessenger */
     private $helper;
-    /** @var V2PluginFlashMessenger|V3PluginFlashMessenger */
+    /** @var V3PluginFlashMessenger */
     private $plugin;
 
     protected function setUp(): void
     {
-        $this->mvcPluginClass = class_exists(V2PluginFlashMessenger::class)
-            ? V2PluginFlashMessenger::class
-            : V3PluginFlashMessenger::class;
+        $this->mvcPluginClass = V3PluginFlashMessenger::class;
         /** @psalm-suppress DeprecatedClass */
         $this->helper = new FlashMessenger();
         $this->plugin = $this->helper->getPluginFlashMessenger();

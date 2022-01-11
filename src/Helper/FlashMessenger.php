@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Laminas\View\Helper;
 
-use Laminas\Mvc\Controller\Plugin\FlashMessenger as V2PluginFlashMessenger;
 use Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger as PluginFlashMessenger;
 use Laminas\View\Exception\InvalidArgumentException;
 
 use function array_walk_recursive;
 use function call_user_func_array;
-use function class_exists;
 use function get_class;
 use function gettype;
 use function implode;
@@ -73,7 +71,7 @@ class FlashMessenger extends AbstractHelper
     /**
      * Flash messenger plugin
      *
-     * @var V2PluginFlashMessenger|PluginFlashMessenger
+     * @var PluginFlashMessenger
      */
     protected $pluginFlashMessenger;
 
@@ -298,20 +296,17 @@ class FlashMessenger extends AbstractHelper
     /**
      * Set the flash messenger plugin
      *
-     * @param  V2PluginFlashMessenger|PluginFlashMessenger $pluginFlashMessenger
+     * @param  PluginFlashMessenger $pluginFlashMessenger
      * @return FlashMessenger
      * @throws InvalidArgumentException For an invalid $pluginFlashMessenger.
+     * @psalm-suppress RedundantConditionGivenDocblockType, DocblockTypeContradiction
      */
     public function setPluginFlashMessenger($pluginFlashMessenger)
     {
-        if (
-            ! $pluginFlashMessenger instanceof V2PluginFlashMessenger
-            && ! $pluginFlashMessenger instanceof PluginFlashMessenger
-        ) {
+        if (! $pluginFlashMessenger instanceof PluginFlashMessenger) {
             throw new InvalidArgumentException(sprintf(
-                '%s expects either a %s or %s instance; received %s',
+                '%s expects a %s instance; received %s',
                 __METHOD__,
-                V2PluginFlashMessenger::class,
                 PluginFlashMessenger::class,
                 is_object($pluginFlashMessenger) ? get_class($pluginFlashMessenger) : gettype($pluginFlashMessenger)
             ));
@@ -324,16 +319,12 @@ class FlashMessenger extends AbstractHelper
     /**
      * Get the flash messenger plugin
      *
-     * @return V2PluginFlashMessenger|PluginFlashMessenger
+     * @return PluginFlashMessenger
      */
     public function getPluginFlashMessenger()
     {
         if (null === $this->pluginFlashMessenger) {
-            $this->setPluginFlashMessenger(
-                class_exists(PluginFlashMessenger::class)
-                ? new PluginFlashMessenger()
-                : new V2PluginFlashMessenger()
-            );
+            $this->setPluginFlashMessenger(new PluginFlashMessenger());
         }
 
         return $this->pluginFlashMessenger;
