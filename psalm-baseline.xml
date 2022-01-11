@@ -1223,11 +1223,6 @@
       <code>plugin</code>
     </UndefinedInterfaceMethod>
   </file>
-  <file src="src/Helper/Navigation/PluginManager.php">
-    <NonInvariantDocblockPropertyType occurrences="1">
-      <code>$aliases</code>
-    </NonInvariantDocblockPropertyType>
-  </file>
   <file src="src/Helper/Navigation/Sitemap.php">
     <MissingConstructor occurrences="1">
       <code>$serverUrl</code>
@@ -1753,9 +1748,6 @@
       <code>has</code>
       <code>has</code>
     </MixedMethodCall>
-    <NonInvariantDocblockPropertyType occurrences="1">
-      <code>$aliases</code>
-    </NonInvariantDocblockPropertyType>
     <PropertyTypeCoercion occurrences="1">
       <code>$this-&gt;initializers</code>
     </PropertyTypeCoercion>
