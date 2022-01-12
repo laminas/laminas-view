@@ -22,14 +22,12 @@ use const DIRECTORY_SEPARATOR;
  */
 class TemplatePathStackTest extends TestCase
 {
-    /** @var TemplatePathStack */
-    private $stack;
+    private TemplatePathStack $stack;
 
     /** @var string[] */
-    private $paths;
+    private array $paths;
 
-    /** @var string */
-    private $baseDir;
+    private string $baseDir;
 
     protected function setUp(): void
     {

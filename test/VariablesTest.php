@@ -20,10 +20,8 @@ use const E_USER_NOTICE;
  */
 class VariablesTest extends TestCase
 {
-    /** @var string|null */
-    private $error;
-    /** @var Variables */
-    private $vars;
+    private ?string $error = null;
+    private Variables $vars;
 
     protected function setUp(): void
     {
@@ -139,9 +137,7 @@ class VariablesTest extends TestCase
     public function testAllowsSpecifyingClosureValuesAndReturningTheValue(): void
     {
         /** @psalm-suppress UndefinedPropertyAssignment */
-        $this->vars->foo = function (): string {
-            return 'bar';
-        };
+        $this->vars->foo = static fn(): string => 'bar';
 
         $this->assertEquals('bar', $this->vars->foo);
     }

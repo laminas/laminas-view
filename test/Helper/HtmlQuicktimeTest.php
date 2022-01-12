@@ -19,8 +19,7 @@ class HtmlQuicktimeTest extends TestCase
      * @var HtmlQuicktime
      */
     public $helper;
-    /** @var View */
-    private $view;
+    private View $view;
 
     /**
      * Sets up the fixture, for example, open a network connection.

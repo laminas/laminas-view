@@ -8,6 +8,8 @@ use Laminas\View\Exception;
 use Laminas\View\Exception\ExceptionInterface as ViewException;
 use Laminas\View\Helper;
 use Laminas\View\Helper\Doctype;
+use Laminas\View\Helper\EscapeHtmlAttr;
+use Laminas\View\Helper\HeadMeta;
 use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
 
@@ -30,14 +32,10 @@ use const PHP_EOL;
  */
 class HeadMetaTest extends TestCase
 {
-    /** @var Helper\HeadMeta */
-    private $helper;
-    /** @var Helper\EscapeHtmlAttr */
-    private $attributeEscaper;
-    /** @var string|null */
-    private $error;
-    /** @var View */
-    private $view;
+    private HeadMeta $helper;
+    private EscapeHtmlAttr $attributeEscaper;
+    private ?string $error = null;
+    private View $view;
 
     /**
      * Sets up the fixture, for example, open a network connection.

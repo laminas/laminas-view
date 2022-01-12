@@ -23,14 +23,10 @@ class JsonStrategyTest extends TestCase
 {
     use EventListenerIntrospectionTrait;
 
-    /** @var JsonRenderer */
-    private $renderer;
-    /** @var JsonStrategy */
-    private $strategy;
-    /** @var ViewEvent */
-    private $event;
-    /** @var HttpResponse */
-    private $response;
+    private JsonRenderer $renderer;
+    private JsonStrategy $strategy;
+    private ViewEvent $event;
+    private HttpResponse $response;
 
     protected function setUp(): void
     {

@@ -16,8 +16,7 @@ class EscapeHtmlTest extends TestCase
 {
     use EscaperEncodingsTrait;
 
-    /** @var EscapeHelper */
-    private $helper;
+    private EscapeHelper $helper;
 
     protected function setUp(): void
     {

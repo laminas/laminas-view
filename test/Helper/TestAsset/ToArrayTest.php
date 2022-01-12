@@ -6,8 +6,7 @@ namespace LaminasTest\View\Helper\TestAsset;
 
 class ToArrayTest
 {
-    /** @var array */
-    private $data;
+    private array $data;
 
     public function __construct(array $data)
     {

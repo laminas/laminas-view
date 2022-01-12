@@ -17,7 +17,7 @@ final class PrefixPathStackResolver implements ResolverInterface
      *
      * @var string[]|string[][]|ResolverInterface[]
      */
-    private $prefixes = [];
+    private array $prefixes = [];
 
     /**
      * Constructor
@@ -39,7 +39,7 @@ final class PrefixPathStackResolver implements ResolverInterface
     public function resolve($name, ?Renderer $renderer = null)
     {
         foreach ($this->prefixes as $prefix => &$resolver) {
-            if (strpos($name, $prefix) !== 0) {
+            if (strpos($name, (string) $prefix) !== 0) {
                 continue;
             }
 

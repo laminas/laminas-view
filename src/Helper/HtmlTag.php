@@ -29,8 +29,7 @@ class HtmlTag extends AbstractHtmlElement
      */
     protected $useNamespaces = false;
 
-    /** @var bool */
-    private $handledNamespaces = false;
+    private bool $handledNamespaces = false;
 
     /**
      * Retrieve object instance; optionally add attributes.

@@ -18,10 +18,8 @@ use function assert;
  */
 class RenderToPlaceholderTest extends TestCase
 {
-    /** @var View */
-    private $view;
-    /** @var RenderToPlaceholder */
-    private $helper;
+    private View $view;
+    private RenderToPlaceholder $helper;
 
     protected function setUp(): void
     {
