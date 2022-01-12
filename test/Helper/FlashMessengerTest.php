@@ -75,7 +75,8 @@ class FlashMessengerTest extends TestCase
                         'flashmessenger' => $this->mvcPluginClass,
                     ],
                 ]),
-                'ViewHelperManager'       => static fn(ContainerInterface $services) => new HelperPluginManager($services),
+                'ViewHelperManager'       => static fn(ContainerInterface $services)
+                    => new HelperPluginManager($services),
             ],
         ]);
         $sm     = new ServiceManager();
