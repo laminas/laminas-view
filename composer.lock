@@ -6194,10 +6194,10 @@
     "prefer-lowest": false,
     "platform": {
         "php": "^7.4 || ~8.0.0 || ~8.1.0",
+        "ext-dom": "*",
+        "ext-filter": "*",
         "ext-json": "*"
     },
-    "platform-dev": {
-        "ext-dom": "*"
-    },
+    "platform-dev": [],
     "plugin-api-version": "2.1.0"
 }
