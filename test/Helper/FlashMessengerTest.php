@@ -75,7 +75,7 @@ class FlashMessengerTest extends TestCase
                         'flashmessenger' => $this->mvcPluginClass,
                     ],
                 ]),
-                'ViewHelperManager'       => fn(ContainerInterface $services) => new HelperPluginManager($services),
+                'ViewHelperManager'       => static fn(ContainerInterface $services) => new HelperPluginManager($services),
             ],
         ]);
         $sm     = new ServiceManager();
@@ -172,7 +172,7 @@ class FlashMessengerTest extends TestCase
     public function testCanDisplayListOfMessages(): void
     {
         $plugin = $this->prophesize($this->mvcPluginClass);
-        $plugin->getMessagesFromNamespace('info')->will(fn() => []);
+        $plugin->getMessagesFromNamespace('info')->will(static fn() => []);
         $plugin->addInfoMessage('bar-info')->will(function ($args) {
             $this->getMessagesFromNamespace('info')->willReturn([$args[0]]);
             return null;

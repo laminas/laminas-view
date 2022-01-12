@@ -137,7 +137,7 @@ class VariablesTest extends TestCase
     public function testAllowsSpecifyingClosureValuesAndReturningTheValue(): void
     {
         /** @psalm-suppress UndefinedPropertyAssignment */
-        $this->vars->foo = fn(): string => 'bar';
+        $this->vars->foo = static fn(): string => 'bar';
 
         $this->assertEquals('bar', $this->vars->foo);
     }

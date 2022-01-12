@@ -181,7 +181,7 @@ class PhpRendererTest extends TestCase
     public function testRenderingFiltersContentWithFilterChain(): void
     {
         $expected = 'foo bar baz';
-        $this->renderer->getFilterChain()->attach(fn($content) => str_replace('INJECT', 'bar', $content));
+        $this->renderer->getFilterChain()->attach(static fn($content) => str_replace('INJECT', 'bar', $content));
         $this->renderer->vars()->assign(['bar' => 'INJECT']);
         $this->resolver()->addPath(__DIR__ . '/_templates');
         $test = $this->renderer->render('test.phtml');
@@ -415,7 +415,7 @@ class PhpRendererTest extends TestCase
         ]);
 
         // @codingStandardsIgnoreStart
-        set_error_handler(fn(int $errno, string $errstr) => true, E_WARNING);
+        set_error_handler(static fn(int $errno, string $errstr) => true, E_WARNING);
         // @codingStandardsIgnoreEnd
 
         $this->renderer->setResolver($resolver);

@@ -46,7 +46,7 @@ class ViewTest extends TestCase
 
     public function attachTestStrategies(): void
     {
-        $this->view->addRenderingStrategy(fn($e) => new TestAsset\Renderer\VarExportRenderer());
+        $this->view->addRenderingStrategy(static fn($e) => new TestAsset\Renderer\VarExportRenderer());
         $this->result = $result = new stdClass();
         $this->view->addResponseStrategy(function ($e) use ($result) {
             $result->content = $e->getResult();
@@ -212,7 +212,7 @@ class ViewTest extends TestCase
 
     public function testResponseStrategyIsNotTriggeredForChildModel(): void
     {
-        $this->view->addRenderingStrategy(fn($e) => new Renderer\JsonRenderer());
+        $this->view->addRenderingStrategy(static fn($e) => new Renderer\JsonRenderer());
 
         $result = new ArrayObject();
         $this->view->addResponseStrategy(function ($e) use ($result) {
@@ -244,7 +244,7 @@ class ViewTest extends TestCase
         $phpRenderer->setCanRenderTrees(true);
         $phpRenderer->setResolver($resolver);
 
-        $this->view->addRenderingStrategy(fn($e) => $phpRenderer);
+        $this->view->addRenderingStrategy(static fn($e) => $phpRenderer);
 
         $result = new stdClass();
         $this->view->addResponseStrategy(function ($e) use ($result) {
@@ -269,7 +269,7 @@ class ViewTest extends TestCase
     {
         $jsonRenderer = new Renderer\JsonRenderer();
 
-        $this->view->addRenderingStrategy(fn($e) => $jsonRenderer);
+        $this->view->addRenderingStrategy(static fn($e) => $jsonRenderer);
 
         $result = new stdClass();
         $this->view->addResponseStrategy(function ($e) use ($result) {
@@ -323,7 +323,7 @@ class ViewTest extends TestCase
             ->method('render')
             ->with($model2);
 
-        $this->view->addRenderingStrategy(fn() => $renderer);
+        $this->view->addRenderingStrategy(static fn() => $renderer);
 
         $this->view->render($model1);
     }

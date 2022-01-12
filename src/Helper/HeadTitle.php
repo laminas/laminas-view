@@ -151,11 +151,11 @@ class HeadTitle extends Placeholder\Container\AbstractStandalone
     private function getTitleItemCallback()
     {
         if (! $this->isTranslatorEnabled() || ! $this->hasTranslator()) {
-            return fn($item) => $item;
+            return static fn($item) => $item;
         }
 
         $translator = $this->getTranslator();
         $textDomain = $this->getTranslatorTextDomain();
-        return fn($item) => $translator->translate($item, $textDomain);
+        return static fn($item) => $translator->translate($item, $textDomain);
     }
 }

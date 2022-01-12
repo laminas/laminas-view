@@ -187,7 +187,7 @@ class HelperPluginManagerTest extends TestCase
         $config  = new Config(
             [
                 'factories' => [
-                    Url::class => fn($container) => $helper,
+                    Url::class => static fn($container) => $helper,
                 ],
             ]
         );
@@ -203,7 +203,7 @@ class HelperPluginManagerTest extends TestCase
         $config  = new Config(
             [
                 'factories' => [
-                    'foo' => fn($container) => $helper,
+                    'foo' => static fn($container) => $helper,
                 ],
             ]
         );
