@@ -26,10 +26,12 @@
         "ext-dom": "*",
         "ext-filter": "*",
         "ext-json": "*",
+        "container-interop/container-interop": "^1.2.0",
         "laminas/laminas-eventmanager": "^3.4",
         "laminas/laminas-json": "^3.3",
         "laminas/laminas-servicemanager": "^3.6",
-        "laminas/laminas-stdlib": "^3.6"
+        "laminas/laminas-stdlib": "^3.6",
+        "psr/container": "^1.1.2 || ^2.0.2"
     },
     "require-dev": {
         "laminas/laminas-authentication": "^2.5",
