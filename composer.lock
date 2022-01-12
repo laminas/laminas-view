@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3052afdac31561cdc43064a657f79b64",
+    "content-hash": "b006af227ee9f4657dc359dfc15af9f6",
     "packages": [
         {
             "name": "laminas/laminas-eventmanager",
@@ -6194,10 +6194,10 @@
     "prefer-lowest": false,
     "platform": {
         "php": "^7.4 || ~8.0.0 || ~8.1.0",
+        "ext-dom": "*",
+        "ext-filter": "*",
         "ext-json": "*"
     },
-    "platform-dev": {
-        "ext-dom": "*"
-    },
+    "platform-dev": [],
     "plugin-api-version": "2.1.0"
 }
