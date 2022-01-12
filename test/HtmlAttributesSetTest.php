@@ -10,8 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 class HtmlAttributesSetTest extends TestCase
 {
-    /** @var HtmlAttributesSet */
-    private $helper;
+    private HtmlAttributesSet $helper;
 
     protected function setUp(): void
     {

@@ -18,10 +18,8 @@ use PHPUnit\Framework\TestCase;
  */
 class JsonTest extends TestCase
 {
-    /** @var Response */
-    private $response;
-    /** @var JsonHelper */
-    private $helper;
+    private Response $response;
+    private JsonHelper $helper;
 
     /**
      * Sets up the fixture, for example, open a network connection.

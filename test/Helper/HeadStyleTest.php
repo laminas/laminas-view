@@ -8,6 +8,7 @@ use DOMDocument;
 use Laminas\View;
 use Laminas\View\Helper;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 use function array_shift;
 use function count;
@@ -83,7 +84,7 @@ class HeadStyleTest extends TestCase
             $this->assertEquals($i + 1, count($values));
             $item = $values[$i];
 
-            $this->assertInstanceOf('stdClass', $item);
+            $this->assertInstanceOf(stdClass::class, $item);
             $this->assertObjectHasAttribute('content', $item);
             $this->assertObjectHasAttribute('attributes', $item);
             $this->assertEquals($string, $item->content);
@@ -100,7 +101,7 @@ class HeadStyleTest extends TestCase
             $this->assertEquals($i + 1, count($values));
             $item = array_shift($values);
 
-            $this->assertInstanceOf('stdClass', $item);
+            $this->assertInstanceOf(stdClass::class, $item);
             $this->assertObjectHasAttribute('content', $item);
             $this->assertObjectHasAttribute('attributes', $item);
             $this->assertEquals($string, $item->content);
@@ -119,7 +120,7 @@ class HeadStyleTest extends TestCase
         $this->assertEquals(1, count($values));
         $item = array_shift($values);
 
-        $this->assertInstanceOf('stdClass', $item);
+        $this->assertInstanceOf(stdClass::class, $item);
         $this->assertObjectHasAttribute('content', $item);
         $this->assertObjectHasAttribute('attributes', $item);
         $this->assertEquals($string, $item->content);

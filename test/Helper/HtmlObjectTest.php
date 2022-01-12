@@ -16,10 +16,8 @@ use PHPUnit\Framework\TestCase;
  */
 class HtmlObjectTest extends TestCase
 {
-    /** @var HtmlObject */
-    private $helper;
-    /** @var View */
-    private $view;
+    private HtmlObject $helper;
+    private View $view;
 
     /**
      * Sets up the fixture, for example, open a network connection.

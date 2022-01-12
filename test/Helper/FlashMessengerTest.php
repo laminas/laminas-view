@@ -27,12 +27,9 @@ class FlashMessengerTest extends TestCase
 {
     use ProphecyTrait;
 
-    /** @var string */
-    private $mvcPluginClass;
-    /** @var FlashMessenger */
-    private $helper;
-    /** @var V3PluginFlashMessenger */
-    private $plugin;
+    private string $mvcPluginClass;
+    private FlashMessenger $helper;
+    private V3PluginFlashMessenger $plugin;
 
     protected function setUp(): void
     {
@@ -73,16 +70,12 @@ class FlashMessengerTest extends TestCase
                 'config' => $config,
             ],
             'factories' => [
-                'ControllerPluginManager' => function (ContainerInterface $services) {
-                    return new PluginManager($services, [
-                        'invokables' => [
-                            'flashmessenger' => $this->mvcPluginClass,
-                        ],
-                    ]);
-                },
-                'ViewHelperManager'       => function (ContainerInterface $services) {
-                    return new HelperPluginManager($services);
-                },
+                'ControllerPluginManager' => fn(ContainerInterface $services) => new PluginManager($services, [
+                    'invokables' => [
+                        'flashmessenger' => $this->mvcPluginClass,
+                    ],
+                ]),
+                'ViewHelperManager'       => fn(ContainerInterface $services) => new HelperPluginManager($services),
             ],
         ]);
         $sm     = new ServiceManager();
@@ -179,9 +172,7 @@ class FlashMessengerTest extends TestCase
     public function testCanDisplayListOfMessages(): void
     {
         $plugin = $this->prophesize($this->mvcPluginClass);
-        $plugin->getMessagesFromNamespace('info')->will(function () {
-            return [];
-        });
+        $plugin->getMessagesFromNamespace('info')->will(fn() => []);
         $plugin->addInfoMessage('bar-info')->will(function ($args) {
             $this->getMessagesFromNamespace('info')->willReturn([$args[0]]);
             return null;

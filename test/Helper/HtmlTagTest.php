@@ -21,8 +21,7 @@ class HtmlTagTest extends TestCase
 {
     /** @var HtmlTag */
     public $helper;
-    /** @var View */
-    private $view;
+    private View $view;
 
     protected function setUp(): void
     {

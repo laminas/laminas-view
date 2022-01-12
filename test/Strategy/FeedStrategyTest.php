@@ -26,14 +26,10 @@ class FeedStrategyTest extends TestCase
 {
     use EventListenerIntrospectionTrait;
 
-    /** @var FeedRenderer */
-    private $renderer;
-    /** @var FeedStrategy */
-    private $strategy;
-    /** @var ViewEvent */
-    private $event;
-    /** @var HttpResponse */
-    private $response;
+    private FeedRenderer $renderer;
+    private FeedStrategy $strategy;
+    private ViewEvent $event;
+    private HttpResponse $response;
 
     protected function setUp(): void
     {

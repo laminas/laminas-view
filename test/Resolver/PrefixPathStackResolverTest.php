@@ -20,8 +20,7 @@ class PrefixPathStackResolverTest extends TestCase
 {
     use ProphecyTrait;
 
-    /** @var string */
-    private $basePath;
+    private string $basePath;
 
     /**
      * {@inheritDoc}

@@ -24,8 +24,7 @@ use ReflectionObject;
  */
 class UrlIntegrationTest extends TestCase
 {
-    /** @var ServiceManager */
-    private $serviceManager;
+    private ServiceManager $serviceManager;
 
     protected function setUp(): void
     {

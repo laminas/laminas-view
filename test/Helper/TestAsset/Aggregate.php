@@ -7,7 +7,7 @@ namespace LaminasTest\View\Helper\TestAsset;
 class Aggregate
 {
     /** @var array<string, string> */
-    private $vars = [
+    private array $vars = [
         'foo' => 'bar',
         'bar' => 'baz',
     ];

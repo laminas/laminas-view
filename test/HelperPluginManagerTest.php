@@ -67,9 +67,7 @@ class HelperPluginManagerTest extends TestCase
     {
         $helpers = new HelperPluginManager(new ServiceManager(), [
             'factories' => [
-                'test' => function () {
-                    return $this;
-                },
+                'test' => fn() => $this,
             ],
         ]);
         $this->expectException($this->getServiceNotFoundException($helpers));
@@ -189,9 +187,7 @@ class HelperPluginManagerTest extends TestCase
         $config  = new Config(
             [
                 'factories' => [
-                    Url::class => function ($container) use ($helper) {
-                        return $helper;
-                    },
+                    Url::class => fn($container) => $helper,
                 ],
             ]
         );
@@ -207,9 +203,7 @@ class HelperPluginManagerTest extends TestCase
         $config  = new Config(
             [
                 'factories' => [
-                    'foo' => function ($container) use ($helper) {
-                        return $helper;
-                    },
+                    'foo' => fn($container) => $helper,
                 ],
             ]
         );

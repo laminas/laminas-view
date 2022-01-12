@@ -113,7 +113,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      *
      * @var string[]
      */
-    private $booleanAttributes = [
+    private array $booleanAttributes = [
         'nomodule',
         'defer',
         'async',

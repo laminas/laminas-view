@@ -39,10 +39,8 @@ class LinksTest extends AbstractTest
      * @var Navigation\Links
      */
     protected $_helper; // phpcs:ignore
-    /** @var Doctype */
-    private $doctypeHelper;
-    /** @var string */
-    private $oldDoctype;
+    private Doctype $doctypeHelper;
+    private string $oldDoctype;
 
     protected function setUp(): void
     {
@@ -104,7 +102,7 @@ class LinksTest extends AbstractTest
         ];
 
         $actual = [
-            'type'  => get_class($found),
+            'type'  => $found !== null ? get_class($found) : self::class,
             'href'  => $found->getHref(),
             'label' => $found->getLabel(),
         ];

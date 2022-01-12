@@ -604,8 +604,8 @@
       <code>$item</code>
       <code>$item</code>
     </MissingClosureParamType>
-    <MissingClosureReturnType occurrences="1">
-      <code>function ($item) {</code>
+    <MissingClosureReturnType occurrences="2">
+      <code>fn ($item) </code>
     </MissingClosureReturnType>
     <MixedArgument occurrences="2">
       <code>$item</code>

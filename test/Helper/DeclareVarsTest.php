@@ -19,8 +19,7 @@ use const DIRECTORY_SEPARATOR;
  */
 class DeclareVarsTest extends TestCase
 {
-    /** @var View */
-    private $view;
+    private View $view;
 
     protected function setUp(): void
     {

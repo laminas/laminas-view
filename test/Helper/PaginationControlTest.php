@@ -7,6 +7,7 @@ namespace LaminasTest\View\Helper;
 use Laminas\Paginator;
 use Laminas\View\Exception;
 use Laminas\View\Helper;
+use Laminas\View\Helper\PaginationControl;
 use Laminas\View\Renderer\PhpRenderer as View;
 use Laminas\View\Renderer\RendererInterface;
 use Laminas\View\Resolver;
@@ -20,13 +21,10 @@ use function range;
  */
 class PaginationControlTest extends TestCase
 {
-    /** @var Helper\PaginationControl */
-    private $viewHelper;
+    private PaginationControl $viewHelper;
 
-    /** @var Paginator\Paginator */
-    private $paginator;
-    /** @var View */
-    private $view;
+    private \Laminas\Paginator\Paginator $paginator;
+    private View $view;
 
     /**
      * Sets up the fixture, for example, open a network connection.

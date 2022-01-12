@@ -28,14 +28,10 @@ class ViewTest extends TestCase
 {
     /** @var stdClass */
     private $result;
-    /** @var Request */
-    private $request;
-    /** @var Response */
-    private $response;
-    /** @var ViewModel */
-    private $model;
-    /** @var View */
-    private $view;
+    private Request $request;
+    private Response $response;
+    private ViewModel $model;
+    private View $view;
 
     protected function setUp(): void
     {
@@ -50,9 +46,7 @@ class ViewTest extends TestCase
 
     public function attachTestStrategies(): void
     {
-        $this->view->addRenderingStrategy(function ($e) {
-            return new TestAsset\Renderer\VarExportRenderer();
-        });
+        $this->view->addRenderingStrategy(fn($e) => new TestAsset\Renderer\VarExportRenderer());
         $this->result = $result = new stdClass();
         $this->view->addResponseStrategy(function ($e) use ($result) {
             $result->content = $e->getResult();
@@ -218,9 +212,7 @@ class ViewTest extends TestCase
 
     public function testResponseStrategyIsNotTriggeredForChildModel(): void
     {
-        $this->view->addRenderingStrategy(function ($e) {
-            return new Renderer\JsonRenderer();
-        });
+        $this->view->addRenderingStrategy(fn($e) => new Renderer\JsonRenderer());
 
         $result = new ArrayObject();
         $this->view->addResponseStrategy(function ($e) use ($result) {
@@ -252,9 +244,7 @@ class ViewTest extends TestCase
         $phpRenderer->setCanRenderTrees(true);
         $phpRenderer->setResolver($resolver);
 
-        $this->view->addRenderingStrategy(function ($e) use ($phpRenderer) {
-            return $phpRenderer;
-        });
+        $this->view->addRenderingStrategy(fn($e) => $phpRenderer);
 
         $result = new stdClass();
         $this->view->addResponseStrategy(function ($e) use ($result) {
@@ -279,9 +269,7 @@ class ViewTest extends TestCase
     {
         $jsonRenderer = new Renderer\JsonRenderer();
 
-        $this->view->addRenderingStrategy(function ($e) use ($jsonRenderer) {
-            return $jsonRenderer;
-        });
+        $this->view->addRenderingStrategy(fn($e) => $jsonRenderer);
 
         $result = new stdClass();
         $this->view->addResponseStrategy(function ($e) use ($result) {
@@ -335,9 +323,7 @@ class ViewTest extends TestCase
             ->method('render')
             ->with($model2);
 
-        $this->view->addRenderingStrategy(function () use ($renderer) {
-            return $renderer;
-        });
+        $this->view->addRenderingStrategy(fn() => $renderer);
 
         $this->view->render($model1);
     }

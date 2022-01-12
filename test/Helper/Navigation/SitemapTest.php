@@ -25,7 +25,7 @@ use function trim;
 class SitemapTest extends AbstractTest
 {
     /** @var array<string, string> */
-    private $oldServer = [];
+    private array $oldServer = [];
 
     /**
      * View helper
@@ -33,13 +33,10 @@ class SitemapTest extends AbstractTest
      * @var Sitemap
      */
     protected $_helper; // phpcs:ignore
-
     /**
      * Stores the original set timezone
-     *
-     * @var string
      */
-    private $originaltimezone;
+    private string $originaltimezone;
 
     protected function setUp(): void
     {
@@ -185,11 +182,11 @@ class SitemapTest extends AbstractTest
                 'http://w.'
             );
             $actual   = $e->getMessage();
-            $this->assertEquals($expected, $actual);
+            static::assertEquals($expected, $actual);
             return;
         }
 
-        $this->fail('A Laminas\View\Exception\InvalidArgumentException was not thrown on invalid <loc />');
+        static::fail('A Laminas\View\Exception\InvalidArgumentException was not thrown on invalid <loc />');
     }
 
     public function testDisablingValidators(): void

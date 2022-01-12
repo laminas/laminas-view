@@ -41,9 +41,7 @@ class NavigationTest extends AbstractTest
      * @var Navigation
      */
     protected $_helper; // phpcs:ignore
-
-    /** @var string|null */
-    private $errorHandlerMessage;
+    private ?string $errorHandlerMessage = null;
 
     protected function setUp(): void
     {
