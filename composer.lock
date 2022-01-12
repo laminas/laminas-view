@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3052afdac31561cdc43064a657f79b64",
+    "content-hash": "b006af227ee9f4657dc359dfc15af9f6",
     "packages": [
         {
             "name": "laminas/laminas-eventmanager",
