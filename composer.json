@@ -55,6 +55,7 @@
         "laminas/laminas-permissions-acl": "^2.6",
         "laminas/laminas-router": "^3.0.1",
         "laminas/laminas-uri": "^2.5",
+        "maglnet/composer-require-checker": "^3.8",
         "phpspec/prophecy": "^1.12",
         "phpspec/prophecy-phpunit": "^2.0",
         "phpunit/phpunit": "^9.5.5",
