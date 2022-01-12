@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a003c15d0428178d28dd954a18766ec9",
+    "content-hash": "3052afdac31561cdc43064a657f79b64",
     "packages": [
         {
             "name": "laminas/laminas-eventmanager",
@@ -2073,16 +2073,16 @@
         },
         {
             "name": "laminas/laminas-paginator",
-            "version": "2.12.1",
+            "version": "2.12.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-paginator.git",
-                "reference": "fe51fdf2c938f7f8299e67c6f19628d890ef6868"
+                "reference": "e2e5a17e2b6ca750e4a75b8f34763c63cc6bf8fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-paginator/zipball/fe51fdf2c938f7f8299e67c6f19628d890ef6868",
-                "reference": "fe51fdf2c938f7f8299e67c6f19628d890ef6868",
+                "url": "https://api.github.com/repos/laminas/laminas-paginator/zipball/e2e5a17e2b6ca750e4a75b8f34763c63cc6bf8fa",
+                "reference": "e2e5a17e2b6ca750e4a75b8f34763c63cc6bf8fa",
                 "shasum": ""
             },
             "require": {
@@ -2148,7 +2148,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2021-12-17T16:45:14+00:00"
+            "time": "2022-01-11T18:09:02+00:00"
         },
         {
             "name": "laminas/laminas-permissions-acl",
