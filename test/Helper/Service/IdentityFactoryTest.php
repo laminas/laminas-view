@@ -44,13 +44,15 @@ class IdentityFactoryTest extends TestCase
     {
         $this->services->has(AuthenticationService::class)->willReturn(false);
 
-        $this->services->has(\Zend\Authentication\AuthenticationService::class)->willReturn(false);
+        // @codingStandardsIgnoreStart - Because of non ::class references for Zend
+        $this->services->has('Zend\Authentication\AuthenticationService')->willReturn(false);
         $this->services->get(AuthenticationService::class)->shouldNotBeCalled();
-        $this->services->get(\Zend\Authentication\AuthenticationService::class)->shouldNotBeCalled();
+        $this->services->get('Zend\Authentication\AuthenticationService')->shouldNotBeCalled();
         $this->services->has(AuthenticationServiceInterface::class)->willReturn(false);
-        $this->services->has(\Zend\Authentication\AuthenticationServiceInterface::class)->willReturn(false);
+        $this->services->has('Zend\Authentication\AuthenticationServiceInterface')->willReturn(false);
         $this->services->get(AuthenticationServiceInterface::class)->shouldNotBeCalled();
-        $this->services->get(\Zend\Authentication\AuthenticationServiceInterface::class)->shouldNotBeCalled();
+        $this->services->get('Zend\Authentication\AuthenticationServiceInterface')->shouldNotBeCalled();
+        // @codingStandardsIgnoreEnd
 
         $factory = new IdentityFactory();
 
@@ -67,9 +69,11 @@ class IdentityFactoryTest extends TestCase
         $this->services->has(AuthenticationService::class)->willReturn(true);
         $this->services->get(AuthenticationService::class)->will([$authentication, 'reveal']);
         $this->services->has(AuthenticationServiceInterface::class)->willReturn(false);
-        $this->services->has(\Zend\Authentication\AuthenticationServiceInterface::class)->willReturn(false);
         $this->services->get(AuthenticationServiceInterface::class)->shouldNotBeCalled();
-        $this->services->get(\Zend\Authentication\AuthenticationServiceInterface::class)->shouldNotBeCalled();
+        // @codingStandardsIgnoreStart - Because of non ::class references for Zend
+        $this->services->has('Zend\Authentication\AuthenticationServiceInterface')->willReturn(false);
+        $this->services->get('Zend\Authentication\AuthenticationServiceInterface')->shouldNotBeCalled();
+        // @codingStandardsIgnoreEnd
 
         $factory = new IdentityFactory();
 
@@ -85,9 +89,11 @@ class IdentityFactoryTest extends TestCase
 
         $this->services->has(AuthenticationService::class)->willReturn(false);
 
-        $this->services->has(\Zend\Authentication\AuthenticationService::class)->willReturn(false);
+        // @codingStandardsIgnoreStart - Because of non ::class references for Zend
+        $this->services->has('Zend\Authentication\AuthenticationService')->willReturn(false);
+        $this->services->get('Zend\Authentication\AuthenticationService')->shouldNotBeCalled();
+        // @codingStandardsIgnoreEnd
         $this->services->get(AuthenticationService::class)->shouldNotBeCalled();
-        $this->services->get(\Zend\Authentication\AuthenticationService::class)->shouldNotBeCalled();
         $this->services->has(AuthenticationServiceInterface::class)->willReturn(true);
         $this->services->get(AuthenticationServiceInterface::class)->will([$authentication, 'reveal']);
 

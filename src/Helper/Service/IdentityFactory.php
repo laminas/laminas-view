@@ -50,14 +50,16 @@ class IdentityFactory implements FactoryInterface
             return $container->get(AuthenticationService::class);
         }
 
-        if ($container->has(\Zend\Authentication\AuthenticationService::class)) {
-            return $container->get(\Zend\Authentication\AuthenticationService::class);
+        // @codingStandardsIgnoreStart - Because of non ::class references for Zend
+        if ($container->has('Zend\Authentication\AuthenticationService')) {
+            return $container->get('Zend\Authentication\AuthenticationService');
         }
 
         return $container->has(AuthenticationServiceInterface::class)
             ? $container->get(AuthenticationServiceInterface::class)
-            : ($container->has(\Zend\Authentication\AuthenticationServiceInterface::class)
-                ? $container->get(\Zend\Authentication\AuthenticationServiceInterface::class)
+            : ($container->has('Zend\Authentication\AuthenticationServiceInterface')
+                ? $container->get('Zend\Authentication\AuthenticationServiceInterface')
                 : null);
+        // @codingStandardsIgnoreEnd
     }
 }

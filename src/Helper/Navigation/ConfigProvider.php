@@ -42,10 +42,10 @@ final class ConfigProvider
 
             // Legacy Zend Framework aliases
             // @codingStandardsIgnoreStart
-            \Zend\View\Helper\Navigation\Breadcrumbs::class => Breadcrumbs::class,
-            \Zend\View\Helper\Navigation\Links::class       => Links::class,
-            \Zend\View\Helper\Navigation\Menu::class        => Menu::class,
-            \Zend\View\Helper\Navigation\Sitemap::class     => Sitemap::class,
+            'Zend\View\Helper\Navigation\Breadcrumbs' => Breadcrumbs::class,
+            'Zend\View\Helper\Navigation\Links'       => Links::class,
+            'Zend\View\Helper\Navigation\Menu'        => Menu::class,
+            'Zend\View\Helper\Navigation\Sitemap'     => Sitemap::class,
             // @codingStandardsIgnoreEnd
 
             // v2 normalized FQCNs
