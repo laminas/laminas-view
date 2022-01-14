@@ -1,4 +1,4 @@
-# Migration Guide
+# Migration from Version 2 to 3
 
 Version 3 is the first major release of `laminas-view` and includes a number of backwards incompatible changes.
 
