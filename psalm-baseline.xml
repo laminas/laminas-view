@@ -760,17 +760,6 @@
       <code>InlineScript</code>
     </PropertyNotSetInConstructor>
   </file>
-  <file src="src/Helper/Json.php">
-    <MissingConstructor occurrences="1">
-      <code>$response</code>
-    </MissingConstructor>
-    <NullArgument occurrences="1">
-      <code>null</code>
-    </NullArgument>
-    <RedundantConditionGivenDocblockType occurrences="1">
-      <code>$this-&gt;response instanceof Response</code>
-    </RedundantConditionGivenDocblockType>
-  </file>
   <file src="src/Helper/Layout.php">
     <DocblockTypeContradiction occurrences="1">
       <code>null === $this-&gt;viewModelHelper</code>
@@ -1915,9 +1904,6 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Renderer/JsonRenderer.php">
-    <ImplementedReturnTypeMismatch occurrences="1">
-      <code>void</code>
-    </ImplementedReturnTypeMismatch>
     <MissingConstructor occurrences="1">
       <code>$jsonpCallback</code>
     </MissingConstructor>
