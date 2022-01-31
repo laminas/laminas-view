@@ -24,7 +24,7 @@
     </ImplementedReturnTypeMismatch>
   </file>
   <file src="src/Helper/AbstractHtmlElement.php">
-    <MissingConstructor occurrences="13">
+    <MissingConstructor occurrences="11">
       <code>$closingBracket</code>
       <code>$closingBracket</code>
       <code>$closingBracket</code>
@@ -631,26 +631,6 @@
       <code>translate</code>
     </PossiblyNullReference>
   </file>
-  <file src="src/Helper/HtmlFlash.php">
-    <MixedAssignment occurrences="1">
-      <code>$htmlObject</code>
-    </MixedAssignment>
-    <MixedFunctionCall occurrences="1">
-      <code>$htmlObject($data, self::TYPE, $attribs, $params, $content)</code>
-    </MixedFunctionCall>
-    <MixedInferredReturnType occurrences="1">
-      <code>string</code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="1">
-      <code>$htmlObject($data, self::TYPE, $attribs, $params, $content)</code>
-    </MixedReturnStatement>
-    <PossiblyNullReference occurrences="1">
-      <code>plugin</code>
-    </PossiblyNullReference>
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>plugin</code>
-    </UndefinedInterfaceMethod>
-  </file>
   <file src="src/Helper/HtmlList.php">
     <InvalidParamDefault occurrences="1">
       <code>array</code>
@@ -686,26 +666,6 @@
     </MixedAssignment>
   </file>
   <file src="src/Helper/HtmlPage.php">
-    <MixedAssignment occurrences="1">
-      <code>$htmlObject</code>
-    </MixedAssignment>
-    <MixedFunctionCall occurrences="1">
-      <code>$htmlObject($data, self::TYPE, $attribs, $params, $content)</code>
-    </MixedFunctionCall>
-    <MixedInferredReturnType occurrences="1">
-      <code>string</code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="1">
-      <code>$htmlObject($data, self::TYPE, $attribs, $params, $content)</code>
-    </MixedReturnStatement>
-    <PossiblyNullReference occurrences="1">
-      <code>plugin</code>
-    </PossiblyNullReference>
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>plugin</code>
-    </UndefinedInterfaceMethod>
-  </file>
-  <file src="src/Helper/HtmlQuicktime.php">
     <MixedAssignment occurrences="1">
       <code>$htmlObject</code>
     </MixedAssignment>
@@ -1675,16 +1635,6 @@
     <DeprecatedInterface occurrences="1">
       <code>IdentityFactory</code>
     </DeprecatedInterface>
-    <MixedInferredReturnType occurrences="1">
-      <code>null|AuthenticationServiceInterface</code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="3">
-      <code>$container-&gt;get(AuthenticationService::class)</code>
-      <code>$container-&gt;get(\Zend\Authentication\AuthenticationService::class)</code>
-    </MixedReturnStatement>
-    <PossiblyNullArgument occurrences="1">
-      <code>$cName</code>
-    </PossiblyNullArgument>
   </file>
   <file src="src/Helper/TranslatorAwareTrait.php">
     <DeprecatedClass occurrences="3">
@@ -2842,11 +2792,6 @@
       <code>renderTitle</code>
     </MixedMethodCall>
   </file>
-  <file src="test/Helper/HtmlFlashTest.php">
-    <UndefinedThisPropertyAssignment occurrences="1">
-      <code>$this-&gt;view</code>
-    </UndefinedThisPropertyAssignment>
-  </file>
   <file src="test/Helper/HtmlListTest.php">
     <InvalidArgument occurrences="2">
       <code>false</code>
@@ -3405,34 +3350,6 @@
     <InvalidScalarArgument occurrences="1">
       <code>1337</code>
     </InvalidScalarArgument>
-  </file>
-  <file src="test/Helper/Service/IdentityFactoryTest.php">
-    <ArgumentTypeCoercion occurrences="3">
-      <code>$this-&gt;getContainerForFactory()</code>
-      <code>$this-&gt;getContainerForFactory()</code>
-      <code>$this-&gt;getContainerForFactory()</code>
-    </ArgumentTypeCoercion>
-    <InvalidPropertyAssignmentValue occurrences="1">
-      <code>$this-&gt;prophesize(ServiceManager::class)</code>
-    </InvalidPropertyAssignmentValue>
-    <MixedInferredReturnType occurrences="1">
-      <code>ContainerInterface</code>
-    </MixedInferredReturnType>
-    <MixedMethodCall occurrences="10">
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-    </MixedMethodCall>
-    <MixedReturnStatement occurrences="1">
-      <code>$this-&gt;services-&gt;reveal()</code>
-    </MixedReturnStatement>
   </file>
   <file src="test/Helper/TestAsset/Bar.php">
     <PropertyNotSetInConstructor occurrences="2">
