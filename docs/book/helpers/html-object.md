@@ -2,12 +2,10 @@
 
 The [HTML `<object>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object) is used for embedding external media in web pages. The object view helpers take care of embedding media with minimum effort.
 
-There are four initial Object helpers:
+There are two initial Object helpers:
 
 - `htmlObject()` Generates markup for embedding a custom Object.
 - `htmlPage()` Generates markup for embedding other (X)HTML pages.
-- `htmlFlash()` Generates markup for embedding Flash files. _**Deprecated**_
-- `htmlQuicktime()` Generates markup for embedding QuickTime files. _**Deprecated**_
 
 All of these helpers share a similar interface. For this reason, this
 documentation will only contain examples of two of these helpers.
