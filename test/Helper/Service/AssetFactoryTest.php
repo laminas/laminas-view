@@ -8,16 +8,10 @@ use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Exception;
 use Laminas\View\Helper\Asset;
 use Laminas\View\Helper\Service\AssetFactory;
-use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-
-use function method_exists;
 
 class AssetFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
     public function testAssetFactoryCreateServiceCreatesAssetInstance(): void
     {
         $services = $this->getServices();
@@ -75,18 +69,14 @@ class AssetFactoryTest extends TestCase
         $assetFactory($services, '');
     }
 
-    protected function getServices(array $config = []): ServiceManager
+    private function getServices(array $config = []): ServiceManager
     {
-        $services = $this->prophesize(ServiceManager::class);
-        $services->get('config')->willReturn($config);
+        $services = $this->createMock(ServiceManager::class);
+        $services->expects(self::once())
+            ->method('get')
+            ->with('config')
+            ->willReturn($config);
 
-        $helpers = new HelperPluginManager($services->reveal());
-
-        // test if we are using Laminas\ServiceManager v3
-        if (method_exists($helpers, 'configure')) {
-            return $services->reveal();
-        }
-
-        return $helpers;
+        return $services;
     }
 }

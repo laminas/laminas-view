@@ -19,7 +19,6 @@ use Laminas\View\Helper\Url;
 use Laminas\View\HelperPluginManager;
 use Laminas\View\Renderer\PhpRenderer;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 
 use function method_exists;
 
@@ -28,8 +27,6 @@ use function method_exists;
  */
 class HelperPluginManagerTest extends TestCase
 {
-    use ProphecyTrait;
-
     private HelperPluginManager $helpers;
 
     protected function setUp(): void
@@ -182,7 +179,7 @@ class HelperPluginManagerTest extends TestCase
 
     public function testCanOverrideAFactoryViaConfigurationPassedToConstructor(): void
     {
-        $helper  = $this->prophesize(HelperInterface::class)->reveal();
+        $helper  = $this->createMock(HelperInterface::class);
         $helpers = new HelperPluginManager(new ServiceManager());
         $config  = new Config(
             [

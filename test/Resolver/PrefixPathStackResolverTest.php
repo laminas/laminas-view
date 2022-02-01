@@ -7,7 +7,6 @@ namespace LaminasTest\View\Resolver;
 use Laminas\View\Resolver\PrefixPathStackResolver;
 use Laminas\View\Resolver\ResolverInterface;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 
 use function realpath;
 
@@ -18,8 +17,6 @@ use function realpath;
  */
 class PrefixPathStackResolverTest extends TestCase
 {
-    use ProphecyTrait;
-
     private string $basePath;
 
     /**
@@ -66,13 +63,21 @@ class PrefixPathStackResolverTest extends TestCase
 
     public function testSetCustomPathStackResolver(): void
     {
-        $mockResolver = $this->prophesize(ResolverInterface::class);
-        $mockResolver->resolve('/bar', null)->willReturn('1111');
-        $mockResolver->resolve('/baz', null)->willReturn('2222');
-        $mockResolver->resolve('/tab', null)->willReturn(false);
+        $mockResolver = $this->createMock(ResolverInterface::class);
+        $mockResolver->expects(self::exactly(3))
+            ->method('resolve')
+            ->withConsecutive(
+                ['/bar', null],
+                ['/baz', null],
+                ['/tab', null]
+            )->willReturnOnConsecutiveCalls(
+                '1111',
+                '2222',
+                false
+            );
 
         $resolver = new PrefixPathStackResolver([
-            'foo' => $mockResolver->reveal(),
+            'foo' => $mockResolver,
         ]);
 
         $this->assertSame('1111', $resolver->resolve('foo/bar'));
