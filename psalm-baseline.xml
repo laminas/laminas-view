@@ -2049,7 +2049,7 @@
       <code>false</code>
       <code>false</code>
     </FalsableReturnStatement>
-    <MixedArgument occurrences="4">
+    <MixedArgument occurrences="3">
       <code>$value</code>
       <code>$value</code>
       <code>$value</code>
@@ -2063,7 +2063,7 @@
     <NullArgument occurrences="1">
       <code>$this-&gt;paths</code>
     </NullArgument>
-    <RedundantCastGivenDocblockType occurrences="3">
+    <RedundantCastGivenDocblockType occurrences="2">
       <code>(bool) $flag</code>
       <code>(bool) $flag</code>
       <code>(string) $defaultSuffix</code>
@@ -2119,34 +2119,6 @@
     <UndefinedInterfaceMethod occurrences="1">
       <code>plugin</code>
     </UndefinedInterfaceMethod>
-  </file>
-  <file src="src/Stream.php">
-    <MissingConstructor occurrences="2">
-      <code>$data</code>
-      <code>$stat</code>
-    </MissingConstructor>
-    <MissingParamType occurrences="5">
-      <code>$mode</code>
-      <code>$offset</code>
-      <code>$opened_path</code>
-      <code>$options</code>
-      <code>$whence</code>
-    </MissingParamType>
-    <MixedAssignment occurrences="3">
-      <code>$this-&gt;pos</code>
-      <code>$this-&gt;pos</code>
-      <code>$this-&gt;pos</code>
-    </MixedAssignment>
-    <MixedOperand occurrences="3">
-      <code>$offset</code>
-      <code>$offset</code>
-      <code>$offset</code>
-    </MixedOperand>
-    <UnevaluatedCode occurrences="3">
-      <code>break;</code>
-      <code>break;</code>
-      <code>break;</code>
-    </UnevaluatedCode>
   </file>
   <file src="src/Variables.php">
     <ArgumentTypeCoercion occurrences="1">
