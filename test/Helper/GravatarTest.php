@@ -8,7 +8,6 @@ use Laminas\View\Exception;
 use Laminas\View\Helper\Gravatar;
 use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
-use ReflectionMethod;
 
 use function method_exists;
 use function strtoupper;

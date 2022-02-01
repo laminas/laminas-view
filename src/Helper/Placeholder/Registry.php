@@ -12,9 +12,6 @@ use function class_exists;
 use function class_parents;
 use function in_array;
 use function sprintf;
-use function trigger_error;
-
-use const E_USER_DEPRECATED;
 
 /**
  * Registry for placeholder containers

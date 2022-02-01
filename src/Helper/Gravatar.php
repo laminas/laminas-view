@@ -12,12 +12,9 @@ use function preg_match;
 use function sprintf;
 use function str_replace;
 use function strtolower;
-use function trigger_error;
 use function trim;
 use function ucwords;
 use function urlencode;
-
-use const E_USER_DEPRECATED;
 
 /**
  * Helper for retrieving avatars from gravatar.com
