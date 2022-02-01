@@ -11,14 +11,16 @@ use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\View\Helper\Identity;
 
+use function assert;
+
 class IdentityFactory implements FactoryInterface
 {
     /**
-     * @param string $name
+     * @param string|null $name
      * @param null|array $options
      * @return Identity
      */
-    public function __invoke(ContainerInterface $container, $name, ?array $options = null)
+    public function __invoke(ContainerInterface $container, $name = null, ?array $options = null)
     {
         $helper = new Identity();
 
@@ -41,23 +43,22 @@ class IdentityFactory implements FactoryInterface
         return $this($serviceLocator, $cName);
     }
 
-    /**
-     * @return null|AuthenticationServiceInterface
-     */
-    private function discoverAuthenticationService(ContainerInterface $container)
+    private function discoverAuthenticationService(ContainerInterface $container): ?AuthenticationServiceInterface
     {
         if ($container->has(AuthenticationService::class)) {
-            return $container->get(AuthenticationService::class);
+            $service1 = $container->get(AuthenticationService::class);
+            assert($service1 instanceof AuthenticationServiceInterface);
+
+            return $service1;
         }
 
-        if ($container->has(\Zend\Authentication\AuthenticationService::class)) {
-            return $container->get(\Zend\Authentication\AuthenticationService::class);
+        if ($container->has(AuthenticationServiceInterface::class)) {
+            $service2 = $container->get(AuthenticationServiceInterface::class);
+            assert($service2 instanceof AuthenticationServiceInterface);
+
+            return $service2;
         }
 
-        return $container->has(AuthenticationServiceInterface::class)
-            ? $container->get(AuthenticationServiceInterface::class)
-            : ($container->has(\Zend\Authentication\AuthenticationServiceInterface::class)
-                ? $container->get(\Zend\Authentication\AuthenticationServiceInterface::class)
-                : null);
+        return null;
     }
 }
