@@ -192,7 +192,6 @@ class HelperPluginManager extends AbstractPluginManager
         // v2 canonical FQCNs
         'laminasviewhelperasset'               => Helper\Service\AssetFactory::class,
         'laminasviewhelperattributes'          => InvokableFactory::class,
-        'laminasviewhelperflashmessenger'      => Helper\Service\FlashMessengerFactory::class,
         'laminasviewhelperidentity'            => Helper\Service\IdentityFactory::class,
         'laminasviewhelperbasepath'            => InvokableFactory::class,
         'laminasviewhelpercycle'               => InvokableFactory::class,
