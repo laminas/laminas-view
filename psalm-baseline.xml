@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.18.1@dda05fa913f4dc6eb3386f2f7ce5a45d37a71bcb">
+<files psalm-version="4.19.0@a2ad69ae4f5ab1f7d225a8dc4e2ec2d9415ed599">
   <file src="bin/templatemap_generator.php">
     <MissingParamType occurrences="1">
       <code>$templatePath</code>
@@ -604,9 +604,7 @@
       <code>$item</code>
       <code>$item</code>
     </MissingClosureParamType>
-    <MissingClosureReturnType occurrences="2">
-      <code>fn ($item) </code>
-    </MissingClosureReturnType>
+    <MissingClosureReturnType occurrences="1"/>
     <MixedArgument occurrences="2">
       <code>$item</code>
       <code>$separator</code>
@@ -1735,9 +1733,6 @@
       <code>! $events</code>
       <code>! $events</code>
     </DocblockTypeContradiction>
-    <InvalidScalarArgument occurrences="1">
-      <code>$e-&gt;getCode()</code>
-    </InvalidScalarArgument>
     <MixedArgument occurrences="4">
       <code>$container-&gt;get('EventManager')</code>
       <code>$container-&gt;get('MvcTranslator')</code>
@@ -2213,9 +2208,6 @@
     </UnevaluatedCode>
   </file>
   <file src="src/Variables.php">
-    <ArgumentTypeCoercion occurrences="1">
-      <code>'ArrayIterator'</code>
-    </ArgumentTypeCoercion>
     <MixedArgument occurrences="2">
       <code>$key</code>
       <code>$value</code>
@@ -2649,7 +2641,7 @@
       <code>$item-&gt;{$item-&gt;type}</code>
       <code>$value-&gt;modifiers</code>
     </MixedPropertyFetch>
-    <UndefinedMagicMethod occurrences="13">
+    <UndefinedMagicMethod occurrences="12">
       <code>getArrayCopy</code>
       <code>getArrayCopy</code>
       <code>getArrayCopy</code>
@@ -2661,7 +2653,6 @@
       <code>offsetSetName</code>
       <code>offsetSetName</code>
       <code>offsetSetName</code>
-      <code>setFoo</code>
       <code>setIndent</code>
     </UndefinedMagicMethod>
     <UndefinedMethod occurrences="27">
@@ -2777,18 +2768,7 @@
     </UndefinedMethod>
   </file>
   <file src="test/Helper/HeadStyleTest.php">
-    <ArgumentTypeCoercion occurrences="3">
-      <code>'stdClass'</code>
-      <code>'stdClass'</code>
-      <code>'stdClass'</code>
-    </ArgumentTypeCoercion>
-    <MixedArgument occurrences="20">
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
+    <MixedArgument occurrences="14">
       <code>$item-&gt;content</code>
       <code>$item-&gt;content</code>
       <code>$value</code>
@@ -2810,7 +2790,7 @@
       <code>$values[1]</code>
       <code>$values[2]</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="11">
+    <MixedAssignment occurrences="8">
       <code>$item</code>
       <code>$item</code>
       <code>$item</code>
@@ -2823,7 +2803,7 @@
       <code>$values</code>
       <code>$values</code>
     </MixedAssignment>
-    <MixedPropertyFetch occurrences="9">
+    <MixedPropertyFetch occurrences="6">
       <code>$item-&gt;content</code>
       <code>$item-&gt;content</code>
       <code>$item-&gt;content</code>
@@ -3176,7 +3156,6 @@
     <UnevaluatedCode occurrences="4">
       <code>$nav = clone $this-&gt;nav2;</code>
       <code>$nav-&gt;addPage(['label' =&gt; 'Invalid', 'uri' =&gt; 'http://w.']);</code>
-      <code>$this-&gt;fail('A Laminas\View\Exception\InvalidArgumentException was not thrown on invalid &lt;loc /&gt;');</code>
     </UnevaluatedCode>
   </file>
   <file src="test/Helper/PaginationControlTest.php">
@@ -3711,9 +3690,6 @@
       <code>$priority</code>
       <code>$priority</code>
     </MixedAssignment>
-    <TooManyArguments occurrences="1">
-      <code>detach</code>
-    </TooManyArguments>
   </file>
   <file src="test/ViewTest.php">
     <MissingClosureParamType occurrences="12">
