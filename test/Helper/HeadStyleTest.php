@@ -209,8 +209,9 @@ class HeadStyleTest extends TestCase
                      ->__invoke($style2, 'PREPEND')
                      ->__invoke($style3, 'APPEND');
         $html = $this->helper->toString();
-        $doc  = new DOMDocument();
-        $dom  = $doc->loadHtml($html);
+        self::assertNotEmpty($html);
+        $doc = new DOMDocument();
+        $dom = $doc->loadHtml($html);
         $this->assertTrue($dom);
 
         $styles = substr_count($html, '<style type="text/css"');
@@ -254,6 +255,7 @@ class HeadStyleTest extends TestCase
     {
         $this->expectException(View\Exception\BadMethodCallException::class);
         $this->expectExceptionMessage('Method "appendStyle" requires minimally content for the stylesheet');
+        /** @psalm-suppress TooFewArguments */
         $this->helper->appendStyle();
     }
 

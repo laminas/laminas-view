@@ -196,12 +196,15 @@ class SitemapTest extends AbstractTest
         $this->_helper->setUseSitemapValidators(false);
 
         $expected = $this->getExpectedFileContents('sitemap/invalid.xml');
+        self::assertNotEmpty($expected);
 
         // using DOMDocument::saveXML() to prevent differences in libxml from invalidating test
         $expectedDom = new DOMDocument();
         $receivedDom = new DOMDocument();
         $expectedDom->loadXML($expected);
-        $receivedDom->loadXML($this->_helper->render($nav));
+        $rendered = $this->_helper->render($nav);
+        self::assertNotEmpty($rendered);
+        $receivedDom->loadXML($rendered);
         $this->assertEquals($expectedDom->saveXML(), $receivedDom->saveXML());
     }
 

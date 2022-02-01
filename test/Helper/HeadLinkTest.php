@@ -200,6 +200,7 @@ class HeadLinkTest extends TestCase
     public function testOverloadingThrowsExceptionWithNoArguments(): void
     {
         $this->expectException(Exception\ExceptionInterface::class);
+        /** @psalm-suppress TooFewArguments */
         $this->helper->appendStylesheet();
     }
 
@@ -479,6 +480,7 @@ class HeadLinkTest extends TestCase
 
     public function testItempropAttributeIsSupported(): void
     {
+        /** @psalm-suppress TooFewArguments */
         $this->helper->prependAlternate(['itemprop' => 'url', 'href' => '/bar/baz', 'rel' => 'canonical']);
         $this->assertStringContainsString('itemprop="url"', $this->helper->toString());
     }

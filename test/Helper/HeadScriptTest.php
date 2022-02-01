@@ -11,6 +11,7 @@ use Laminas\View\Helper;
 use PHPUnit\Framework\TestCase;
 
 use function array_shift;
+use function assert;
 use function count;
 use function sprintf;
 use function strtolower;
@@ -210,6 +211,7 @@ class HeadScriptTest extends TestCase
     {
         $this->expectException(View\Exception\BadMethodCallException::class);
         $this->expectExceptionMessage('Method "setScript" requires at least one argument');
+        /** @psalm-suppress TooFewArguments */
         $this->helper->setScript();
     }
 
@@ -217,6 +219,7 @@ class HeadScriptTest extends TestCase
     {
         $this->expectException(View\Exception\BadMethodCallException::class);
         $this->expectExceptionMessage('Method "offsetSetScript" requires at least two arguments, an index and source');
+        /** @psalm-suppress TooFewArguments */
         $this->helper->offsetSetScript(1);
     }
 
@@ -265,6 +268,8 @@ class HeadScriptTest extends TestCase
         $this->assertStringContainsString('src="foo"', $string);
         $this->assertStringContainsString('bar', $string);
         $this->assertStringContainsString('baz', $string);
+
+        assert($string !== '');
 
         $doc = new DOMDocument();
         $dom = $doc->loadHtml($string);

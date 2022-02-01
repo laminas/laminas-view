@@ -195,12 +195,14 @@ class HeadMetaTest extends TestCase
     public function testOverloadingThrowsExceptionWithFewerThanTwoArgs(): void
     {
         $this->expectException(Exception\ExceptionInterface::class);
+        /** @psalm-suppress TooFewArguments */
         $this->helper->setName('foo');
     }
 
     public function testOverloadingThrowsExceptionWithInvalidMethodType(): void
     {
         $this->expectException(Exception\ExceptionInterface::class);
+        /** @psalm-suppress UndefinedMagicMethod */
         $this->helper->setFoo('foo');
     }
 
