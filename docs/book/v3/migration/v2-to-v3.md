@@ -10,6 +10,12 @@ Version 3 is the first major release of `laminas-view` and includes a number of 
 
 ## Removed Features
 
+### Stream Wrapper Functionality
+
+In previous versions of laminas-view, it was possible to enable stream wrapper functionality in order to work around an inability to enable PHP's `short_open_tag` ini setting.
+This functionality has been removed in version 3.
+If you had not explicitly enabled this feature, this change will not affect your code.
+
 ### Helpers
 
 #### Json View Helper
