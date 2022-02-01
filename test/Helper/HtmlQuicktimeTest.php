@@ -8,10 +8,6 @@ use Laminas\View\Helper\HtmlQuicktime;
 use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class HtmlQuicktimeTest extends TestCase
 {
     /**

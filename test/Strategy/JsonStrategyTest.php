@@ -43,9 +43,6 @@ class JsonStrategyTest extends TestCase
         $this->assertSame($this->renderer, $result);
     }
 
-    /**
-     * @group #2410
-     */
     public function testJsonAcceptHeaderDoesNotSelectJsonStrategy(): void
     {
         $request = new HttpRequest();
@@ -55,9 +52,6 @@ class JsonStrategyTest extends TestCase
         $this->assertNotSame($this->renderer, $result);
     }
 
-    /**
-     * @group #2410
-     */
     public function testJavascriptAcceptHeaderDoesNotSelectJsonStrategy(): void
     {
         $request = new HttpRequest();
@@ -67,9 +61,6 @@ class JsonStrategyTest extends TestCase
         $this->assertNotSame($this->renderer, $result);
     }
 
-    /**
-     * @group #2410
-     */
     public function testJsonModelJavascriptAcceptHeaderDoesNotSetJsonpCallback(): void
     {
         $this->event->setModel(new JsonModel());

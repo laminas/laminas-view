@@ -13,12 +13,6 @@ use PHPUnit\Framework\TestCase;
 
 use function assert;
 
-/**
- * Test class for Laminas\View\Helper\Layout
- *
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class LayoutTest extends TestCase
 {
     private Layout $helper;

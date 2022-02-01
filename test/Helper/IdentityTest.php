@@ -9,14 +9,6 @@ use Laminas\Authentication\Storage\NonPersistent as NonPersistentStorage;
 use Laminas\View\Helper\Identity as IdentityHelper;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Laminas_View_Helper_IdentityTest
- *
- * Tests Identity helper
- *
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class IdentityTest extends TestCase
 {
     public function testGetIdentity(): void

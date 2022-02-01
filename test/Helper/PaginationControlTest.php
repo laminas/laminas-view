@@ -15,10 +15,6 @@ use PHPUnit\Framework\TestCase;
 
 use function range;
 
-/**
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class PaginationControlTest extends TestCase
 {
     private PaginationControl $viewHelper;
@@ -76,9 +72,6 @@ class PaginationControlTest extends TestCase
         $this->viewHelper->__invoke($this->paginator);
     }
 
-    /**
-     * @group Laminas-4037
-     */
     public function testUsesDefaultScrollingStyleIfNoneSupplied(): void
     {
         // First we'll make sure the base case works
@@ -94,9 +87,6 @@ class PaginationControlTest extends TestCase
         $this->assertStringContainsString('page count (11) equals pages in range (11)', $output, $output);
     }
 
-    /**
-     * @group Laminas-4153
-     */
     public function testUsesPaginatorFromViewIfNoneSupplied(): void
     {
         $this->view->setVars(['paginator' => $this->paginator]);
@@ -107,9 +97,6 @@ class PaginationControlTest extends TestCase
         $this->assertStringContainsString('pagination control', $output, $output);
     }
 
-    /**
-     * @group Laminas-4153
-     */
     public function testThrowsExceptionIfNoPaginatorFound(): void
     {
         Helper\PaginationControl::setDefaultViewPartial('testPagination.phtml');
@@ -119,9 +106,6 @@ class PaginationControlTest extends TestCase
         $this->viewHelper->__invoke();
     }
 
-    /**
-     * @group Laminas-4233
-     */
     public function testAcceptsViewPartialInOtherModule(): void
     {
         $this->expectException(Exception\RuntimeException::class);
@@ -131,9 +115,6 @@ class PaginationControlTest extends TestCase
         $this->viewHelper->__invoke($this->paginator, null, ['partial.phtml', 'test']);
     }
 
-    /**
-     * @group Laminas-4328
-     */
     public function testUsesPaginatorFromViewOnlyIfNoneSupplied(): void
     {
         $this->view->setVars(['paginator' => $this->paginator]);
@@ -144,9 +125,6 @@ class PaginationControlTest extends TestCase
         $this->assertStringContainsString('page count (3)', $output, $output);
     }
 
-    /**
-     * @group Laminas-4878
-     */
     public function testCanUseObjectForScrollingStyle(): void
     {
         $all = new Paginator\ScrollingStyle\All();

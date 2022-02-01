@@ -8,12 +8,6 @@ use Laminas\View\Helper;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-/**
- * Tests Laminas_View_Helper_ServerUrl
- *
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class ServerUrlTest extends TestCase
 {
     /**
@@ -153,9 +147,6 @@ class ServerUrlTest extends TestCase
         $this->assertEquals('http://example.com', $url->__invoke(new stdClass()));
     }
 
-    /**
-     * @group Laminas-9919
-     */
     public function testServerUrlWithScheme(): void
     {
         $_SERVER['HTTP_SCHEME'] = 'https';
@@ -164,9 +155,6 @@ class ServerUrlTest extends TestCase
         $this->assertEquals('https://example.com', $url->__invoke());
     }
 
-    /**
-     * @group Laminas-9919
-     */
     public function testServerUrlWithPort(): void
     {
         $_SERVER['SERVER_PORT'] = 443;
@@ -175,9 +163,6 @@ class ServerUrlTest extends TestCase
         $this->assertEquals('https://example.com', $url->__invoke());
     }
 
-    /**
-     * @group Laminas-508
-     */
     public function testServerUrlWithProxy(): void
     {
         $_SERVER['HTTP_HOST']             = 'proxyserver.com';
@@ -187,9 +172,6 @@ class ServerUrlTest extends TestCase
         $this->assertEquals('http://www.firsthost.org', $url->__invoke());
     }
 
-    /**
-     * @group Laminas-508
-     */
     public function testServerUrlWithMultipleProxies(): void
     {
         $_SERVER['HTTP_HOST']             = 'proxyserver.com';

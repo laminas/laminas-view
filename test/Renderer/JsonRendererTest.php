@@ -17,9 +17,6 @@ use function json_encode;
 
 use const JSON_THROW_ON_ERROR;
 
-/**
- * @group      Laminas_View
- */
 class JsonRendererTest extends TestCase
 {
     /** @var JsonRenderer */
@@ -231,9 +228,6 @@ class JsonRendererTest extends TestCase
         $this->assertEquals($expected, $test);
     }
 
-    /**
-     * @group 2463
-     */
     public function testRecursesJsonModelChildrenWhenRendering(): void
     {
         $root   = new JsonModel(['foo' => 'bar']);

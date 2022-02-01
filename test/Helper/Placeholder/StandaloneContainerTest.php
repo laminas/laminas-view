@@ -12,12 +12,6 @@ use LaminasTest\View\Helper\TestAsset\Bar;
 use LaminasTest\View\Helper\TestAsset\Foo;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Test class for Laminas\View\Helper\Placeholder\Container.
- *
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class StandaloneContainerTest extends TestCase
 {
     /** @var Foo */

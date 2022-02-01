@@ -7,10 +7,6 @@ namespace LaminasTest\View\Helper;
 use Laminas\View\Helper\BasePath;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class BasePathTest extends TestCase
 {
     public function testBasePathWithoutFile(): void
