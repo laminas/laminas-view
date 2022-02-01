@@ -46,9 +46,6 @@ class FeedStrategyTest extends TestCase
         $this->assertSame($this->renderer, $result);
     }
 
-    /**
-     * @group #2410
-     */
     public function testRssAcceptHeaderDoesNotSelectFeedStrategy(): void
     {
         $request = new HttpRequest();
@@ -58,9 +55,6 @@ class FeedStrategyTest extends TestCase
         $this->assertNotSame($this->renderer, $result);
     }
 
-    /**
-     * @group #2410
-     */
     public function testAtomAcceptHeaderDoesNotSelectFeedStrategy(): void
     {
         $request = new HttpRequest();

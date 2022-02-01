@@ -10,12 +10,6 @@ use Laminas\View\Helper\Placeholder\Registry;
 use LaminasTest\View\Helper\TestAsset;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Test class for Laminas\View\Helper\Placeholder\Registry.
- *
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class RegistryTest extends TestCase
 {
     /** @var Registry */
@@ -110,9 +104,6 @@ class RegistryTest extends TestCase
         $this->assertInstanceOf(TestAsset\MockContainer::class, $container);
     }
 
-    /**
-     * @group Laminas-10793
-     */
     public function testSetValueCreateContainer(): void
     {
         $this->registry->setContainerClass(TestAsset\MockContainer::class);

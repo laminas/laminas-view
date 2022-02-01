@@ -17,9 +17,6 @@ use function realpath;
 
 use const DIRECTORY_SEPARATOR;
 
-/**
- * @group      Laminas_View
- */
 class TemplatePathStackTest extends TestCase
 {
     private TemplatePathStack $stack;

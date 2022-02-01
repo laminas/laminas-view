@@ -18,14 +18,6 @@ use Laminas\View\Helper\Url as UrlHelper;
 use PHPUnit\Framework\TestCase;
 use ReflectionObject;
 
-/**
- * Laminas\View\Helper\Url Test
- *
- * Tests formText helper, including some common functionality of all form helpers
- *
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class UrlTest extends TestCase
 {
     private SimpleRouteStack $router;

@@ -13,10 +13,6 @@ use function str_replace;
 
 use const DIRECTORY_SEPARATOR;
 
-/**
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class DeclareVarsTest extends TestCase
 {
     private View $view;

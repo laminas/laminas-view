@@ -10,12 +10,6 @@ use Laminas\Json\Json as JsonFormatter;
 use Laminas\View\Helper\Json as JsonHelper;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Test class for Laminas\View\Helper\Json
- *
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class JsonTest extends TestCase
 {
     private Response $response;

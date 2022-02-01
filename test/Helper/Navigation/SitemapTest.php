@@ -16,10 +16,6 @@ use function sprintf;
 use function trim;
 
 /**
- * Tests Laminas\View\Helper\Navigation\Sitemap
- *
- * @group      Laminas_View
- * @group      Laminas_View_Helper
  * @psalm-suppress MissingConstructor
  */
 class SitemapTest extends AbstractTest

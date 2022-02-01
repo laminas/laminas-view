@@ -13,10 +13,6 @@ use PHPUnit\Framework\TestCase;
 use function assert;
 use function sprintf;
 
-/**
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class HtmlTagTest extends TestCase
 {
     /** @var HtmlTag */

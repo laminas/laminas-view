@@ -8,12 +8,6 @@ use Laminas\I18n\Translator\Translator;
 use Laminas\View\Helper;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Test class for Laminas\View\Helper\HeadTitle.
- *
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class HeadTitleTest extends TestCase
 {
     /** @var Helper\HeadTitle */
@@ -112,11 +106,6 @@ class HeadTitleTest extends TestCase
         $this->assertEquals('Some Title &copyright;', $this->helper->renderTitle());
     }
 
-    /**
-     * @link https://getlaminas.org/issues/browse/Laminas-2918
-     *
-     * @issue Laminas-2918
-     */
     public function testLaminas918(): void
     {
         $this->helper->__invoke('Some Title');
@@ -126,11 +115,6 @@ class HeadTitleTest extends TestCase
         $this->assertEquals('Prefix: Some Title :Postfix', $this->helper->renderTitle());
     }
 
-    /**
-     * @link https://getlaminas.org/issues/browse/Laminas-3577
-     *
-     * @issue Laminas-3577
-     */
     public function testLaminas577(): void
     {
         $this->helper->setAutoEscape(true);
@@ -171,9 +155,6 @@ class HeadTitleTest extends TestCase
         $this->assertFalse($this->helper->isTranslatorEnabled());
     }
 
-    /**
-     * @group Laminas-8036
-     */
     public function testHeadTitleZero(): void
     {
         $this->helper->__invoke('0');
@@ -188,9 +169,6 @@ class HeadTitleTest extends TestCase
         $this->assertEquals('BarFoo', $placeholder->renderTitle());
     }
 
-    /**
-     * @group Laminas-10284
-     */
     public function testReturnTypeDefaultAttachOrder(): void
     {
         $this->assertInstanceOf(Helper\HeadTitle::class, $this->helper->setDefaultAttachOrder('PREPEND'));

@@ -23,9 +23,6 @@ use Prophecy\PhpUnit\ProphecyTrait;
 
 use function method_exists;
 
-/**
- * @group      Laminas_View
- */
 class HelperPluginManagerTest extends TestCase
 {
     use ProphecyTrait;

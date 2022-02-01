@@ -25,10 +25,6 @@ use function str_replace;
 use const PHP_EOL;
 
 /**
- * Tests Laminas\View\Helper\Navigation\Links
- *
- * @group      Laminas_View
- * @group      Laminas_View_Helper
  * @psalm-suppress MissingConstructor
  */
 class LinksTest extends AbstractTest

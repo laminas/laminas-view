@@ -17,12 +17,6 @@ use Psr\Container\ContainerInterface;
 
 use function get_class;
 
-/**
- * Test class for Laminas\View\Helper\Cycle.
- *
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class FlashMessengerTest extends TestCase
 {
     use ProphecyTrait;

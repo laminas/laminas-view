@@ -18,12 +18,6 @@ use function substr_count;
 
 use const PHP_EOL;
 
-/**
- * Test class for Laminas\View\Helper\Placeholder\Container.
- *
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class ContainerTest extends TestCase
 {
     /** @var PlaceholderContainer */

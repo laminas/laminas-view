@@ -16,12 +16,6 @@ use function substr_count;
 
 use const PHP_EOL;
 
-/**
- * Test class for Laminas\View\Helper\HeadStyle.
- *
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class HeadStyleTest extends TestCase
 {
     /** @var Helper\HeadStyle */
@@ -173,9 +167,6 @@ class HeadStyleTest extends TestCase
         $this->assertMatchesRegularExpression('#<style [^>]*?media="screen"#', $value, $value);
     }
 
-    /**
-     * @group Laminas-8056
-     */
     public function testMediaAttributeCanHaveSpaceInCommaSeparatedString(): void
     {
         $this->helper->appendStyle('a { }', ['media' => 'screen, projection']);
@@ -374,9 +365,6 @@ a {
         $this->assertStringContainsString('<!--<![endif]-->', $test);
     }
 
-    /**
-     * @issue Laminas-5435
-     */
     public function testContainerMaintainsCorrectOrderOfItems(): void
     {
         $style1 = 'a {display: none;}';
@@ -400,9 +388,6 @@ a {
         $this->assertEquals($expected, $test);
     }
 
-    /**
-     * @group Laminas-9532
-     */
     public function testRenderConditionalCommentsShouldNotContainHtmlEscaping(): void
     {
         $style = 'a{display:none;}';

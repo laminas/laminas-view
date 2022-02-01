@@ -15,9 +15,6 @@ use function set_error_handler;
 
 use const E_USER_NOTICE;
 
-/**
- * @group      Laminas_View
- */
 class VariablesTest extends TestCase
 {
     private ?string $error = null;

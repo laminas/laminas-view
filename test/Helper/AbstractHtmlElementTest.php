@@ -24,9 +24,6 @@ class AbstractHtmlElementTest extends TestCase
         $this->helper->setView(new PhpRenderer());
     }
 
-    /**
-     * @group #5991
-     */
     public function testWillEscapeValueAttributeValuesCorrectly(): void
     {
         self::assertEquals(

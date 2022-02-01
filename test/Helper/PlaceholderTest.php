@@ -9,12 +9,6 @@ use Laminas\View\Helper\Placeholder\Container\AbstractContainer;
 use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Test class for Laminas\View\Helper\Placeholder.
- *
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class PlaceholderTest extends TestCase
 {
     /** @var Helper\Placeholder */

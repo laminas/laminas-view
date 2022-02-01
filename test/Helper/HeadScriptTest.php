@@ -21,12 +21,6 @@ use function var_export;
 
 use const PHP_EOL;
 
-/**
- * Test class for Laminas\View\Helper\HeadScript.
- *
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class HeadScriptTest extends TestCase
 {
     /** @var Helper\HeadScript */
@@ -356,11 +350,6 @@ document.write(bar.strlen());');
         }
     }
 
-    /**
-     * @link https://getlaminas.org/issues/browse/Laminas-3928
-     *
-     * @issue Laminas-3928
-     */
     public function testTurnOffAutoEscapeDoesNotEncodeAmpersand(): void
     {
         $this->helper->setAutoEscape(false)->appendFile('test.js?id=123&foo=bar');
@@ -413,9 +402,6 @@ document.write(bar.strlen());');
         $this->assertStringContainsString('<!--<![endif]-->', $test);
     }
 
-    /**
-     * @issue Laminas-5435
-     */
     public function testContainerMaintainsCorrectOrderOfItems(): void
     {
         $this->helper->offsetSetFile(1, 'test1.js');
@@ -479,9 +465,6 @@ document.write(bar.strlen());');
         $this->assertStringNotContainsString('//-->', $test);
     }
 
-    /**
-     * @group 6634
-     */
     public function testSupportsCrossOriginAttribute(): void
     {
         $this->helper->__invoke()->appendScript(
@@ -494,9 +477,6 @@ document.write(bar.strlen());');
         $this->assertStringContainsString('crossorigin="', $test);
     }
 
-    /**
-     * @group 21
-     */
     public function testOmitsTypeAttributeIfEmptyValueAndHtml5Doctype(): void
     {
         $view = new View\Renderer\PhpRenderer();
@@ -508,9 +488,6 @@ document.write(bar.strlen());');
         $this->assertStringNotContainsString('type', $test);
     }
 
-    /**
-     * @group 22
-     */
     public function testSupportsAsyncAttribute(): void
     {
         $this->helper->__invoke()->appendScript(
@@ -522,9 +499,6 @@ document.write(bar.strlen());');
         $this->assertStringContainsString('async="', $test);
     }
 
-    /**
-     * @group 23
-     */
     public function testOmitsTypeAttributeIfNoneGivenAndHtml5Doctype(): void
     {
         $view = new View\Renderer\PhpRenderer();

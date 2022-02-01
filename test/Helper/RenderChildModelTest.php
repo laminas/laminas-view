@@ -14,10 +14,6 @@ use PHPUnit\Framework\TestCase;
 
 use function assert;
 
-/**
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class RenderChildModelTest extends TestCase
 {
     private TemplateMapResolver $resolver;

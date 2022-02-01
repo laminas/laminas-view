@@ -14,10 +14,6 @@ use function method_exists;
 use function strtoupper;
 use function urlencode;
 
-/**
- * @group      Laminasview
- * @group      Laminasview_Helper
- */
 class GravatarTest extends TestCase
 {
     /** @var Gravatar */
