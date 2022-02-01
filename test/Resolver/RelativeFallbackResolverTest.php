@@ -13,8 +13,6 @@ use Laminas\View\Resolver\ResolverInterface;
 use Laminas\View\Resolver\TemplateMapResolver;
 use Laminas\View\Resolver\TemplatePathStack;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
-use Prophecy\PhpUnit\ProphecyTrait;
 use stdClass;
 
 use function realpath;
@@ -24,8 +22,6 @@ use function realpath;
  */
 class RelativeFallbackResolverTest extends TestCase
 {
-    use ProphecyTrait;
-
     public function testReturnsResourceFromTheSameNameSpaceWithMapResolver(): void
     {
         $tplMapResolver = new TemplateMapResolver([
@@ -81,39 +77,47 @@ class RelativeFallbackResolverTest extends TestCase
 
     public function testSkipsResolutionOnViewRendererWithoutPlugins(): void
     {
-        $baseResolver = $this->prophesize(ResolverInterface::class);
-        $baseResolver->resolve()->shouldNotBeCalled();
-        $fallback = new RelativeFallbackResolver($baseResolver->reveal());
+        $baseResolver = $this->createMock(ResolverInterface::class);
+        $baseResolver->expects(self::never())
+            ->method('resolve');
 
-        $renderer = $this->prophesize(PhpRenderer::class)->reveal();
+        $fallback = new RelativeFallbackResolver($baseResolver);
+
+        $renderer = $this->createMock(PhpRenderer::class);
 
         $this->assertFalse($fallback->resolve('foo/bar', $renderer));
     }
 
     public function testSkipsResolutionOnViewRendererWithoutCorrectCurrentPlugin(): void
     {
-        $baseResolver = $this->prophesize(ResolverInterface::class);
-        $baseResolver->resolve()->shouldNotBeCalled();
+        $baseResolver = $this->createMock(ResolverInterface::class);
+        $baseResolver->expects(self::never())
+            ->method('resolve');
 
-        $fallback = new RelativeFallbackResolver($baseResolver->reveal());
+        $fallback = new RelativeFallbackResolver($baseResolver);
 
-        $renderer = $this->prophesize(PhpRenderer::class);
-        $renderer->plugin(Argument::any())->willReturn(new stdClass())->shouldBeCalledTimes(1);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::once())
+            ->method('plugin')
+            ->willReturn(new stdClass());
 
-        $this->assertFalse($fallback->resolve('foo/bar', $renderer->reveal()));
+        $this->assertFalse($fallback->resolve('foo/bar', $renderer));
     }
 
     public function testSkipsResolutionOnNonExistingCurrentViewModel(): void
     {
-        $baseResolver = $this->prophesize(ResolverInterface::class);
-        $baseResolver->resolve()->shouldNotBeCalled();
+        $baseResolver = $this->createMock(ResolverInterface::class);
+        $baseResolver->expects(self::never())
+            ->method('resolve');
 
-        $fallback  = new RelativeFallbackResolver($baseResolver->reveal());
+        $fallback  = new RelativeFallbackResolver($baseResolver);
         $viewModel = new ViewModelHelper();
 
-        $renderer = $this->prophesize(PhpRenderer::class);
-        $renderer->plugin(Argument::any())->willReturn($viewModel)->shouldBeCalledTimes(1);
+        $renderer = $this->createMock(PhpRenderer::class);
+        $renderer->expects(self::once())
+            ->method('plugin')
+            ->willReturn($viewModel);
 
-        $this->assertFalse($fallback->resolve('foo/bar', $renderer->reveal()));
+        $this->assertFalse($fallback->resolve('foo/bar', $renderer));
     }
 }
