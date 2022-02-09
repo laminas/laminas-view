@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace LaminasTest\View;
 
+use Generator;
 use Laminas\Authentication\AuthenticationService;
 use Laminas\I18n\Translator\Translator;
 use Laminas\I18n\Translator\TranslatorInterface;
 use Laminas\Mvc\I18n\Translator as MvcTranslator;
 use Laminas\ServiceManager\Config;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
+use Laminas\ServiceManager\PluginManagerInterface;
 use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\ConfigProvider;
 use Laminas\View\Exception\InvalidHelperException;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\HeadTitle;
@@ -18,8 +21,15 @@ use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Helper\Url;
 use Laminas\View\HelperPluginManager;
 use Laminas\View\Renderer\PhpRenderer;
+use LaminasTest\View\TestAsset\Invokable;
+use LaminasTest\View\TestAsset\UnsupportedDescendantOfPluginManagerWithConstructor;
+use LaminasTest\View\TestAsset\UnsupportedDescendantOfPluginManagerWithPropertyValues;
 use PHPUnit\Framework\TestCase;
 
+use function assert;
+use function count;
+use function in_array;
+use function is_callable;
 use function method_exists;
 
 class HelperPluginManagerTest extends TestCase
@@ -181,7 +191,7 @@ class HelperPluginManagerTest extends TestCase
         $config  = new Config(
             [
                 'factories' => [
-                    Url::class => static fn($container) => $helper,
+                    Url::class => static fn() => $helper,
                 ],
             ]
         );
@@ -191,13 +201,12 @@ class HelperPluginManagerTest extends TestCase
 
     public function testCanUseCallableAsHelper(): void
     {
-        $helper  = function (): void {
-        };
+        $helper  = static fn (): string => 'Foo';
         $helpers = new HelperPluginManager(new ServiceManager());
         $config  = new Config(
             [
                 'factories' => [
-                    'foo' => static fn($container) => $helper,
+                    'foo' => static fn() => $helper,
                 ],
             ]
         );
@@ -219,5 +228,82 @@ class HelperPluginManagerTest extends TestCase
             return InvalidServiceException::class;
         }
         return InvalidHelperException::class;
+    }
+
+    /**
+     * @psalm-suppress DeprecatedClass
+     */
+    public function testThatHelpersConfiguredInADescendantConstructorAddToTheDefaultValues(): void
+    {
+        $container = new ServiceManager();
+        $manager   = new UnsupportedDescendantOfPluginManagerWithConstructor($container);
+        self::assertTrue($manager->has('doctype'));
+        self::assertTrue($manager->has('Laminas\Test\FactoryBackedHelper'));
+        self::assertTrue($manager->has('aliasForTestHelper'));
+        $helper = $manager->get('aliasForTestHelper');
+        assert(is_callable($helper));
+        self::assertEquals(UnsupportedDescendantOfPluginManagerWithConstructor::EXPECTED_HELPER_OUTPUT, $helper());
+    }
+
+    public function testThatDefaultPropertiesInADescendantOverwriteDefaultHelperConfiguration(): void
+    {
+        $container = new ServiceManager();
+        $manager   = new UnsupportedDescendantOfPluginManagerWithPropertyValues($container);
+        self::assertFalse($manager->has('doctype'));
+        self::assertTrue($manager->has(Invokable::class));
+        self::assertTrue($manager->has('aliasForTestHelper'));
+        $helper = $manager->get('aliasForTestHelper');
+        self::assertInstanceOf(Invokable::class, $helper);
+    }
+
+    /** @return Generator<string, array{0: string, 1:string}> */
+    public function standardAliasProvider(): Generator
+    {
+        // @codingStandardsIgnoreStart
+        $helpersToIgnore = [
+            'Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger',
+            'Laminas\View\Helper\FlashMessenger',
+            'Zend\View\Helper\FlashMessenger',
+            'zendviewhelperflashmessenger',
+            'flashMessenger',
+            'flashmessenger',
+            'FlashMessenger',
+            'laminasviewhelperflashmessenger',
+        ];
+        // @codingStandardsIgnoreEnd
+
+        $config = (new ConfigProvider())();
+        /** @psalm-var array{'aliases': array<string, string>} $helperConfig */
+        $helperConfig = $config['view_helpers'] ?? [];
+        self::assertArrayHasKey('aliases', $helperConfig);
+        $standardAliases = $helperConfig['aliases'];
+
+        self::assertGreaterThan(
+            0,
+            count($standardAliases),
+            'There should be at least one helper configured by default'
+        );
+
+        foreach ($standardAliases as $aliasName => $target) {
+            if (in_array($aliasName, $helpersToIgnore, true)) {
+                continue;
+            }
+
+            yield $aliasName => [$aliasName, $target];
+        }
+    }
+
+    /** @dataProvider standardAliasProvider */
+    public function testThatAllDefaultHelpersCanBeRetrievedByAliasAndTarget(string $alias, string $target): void
+    {
+        $plugins = new HelperPluginManager(new ServiceManager([
+            'services' => [
+                'config'                  => [],
+                'ControllerPluginManager' => $this->createMock(PluginManagerInterface::class),
+            ],
+        ]));
+        self::assertTrue($plugins->has($alias));
+        self::assertTrue($plugins->has($target));
+        self::assertSame($plugins->get($alias), $plugins->get($target));
     }
 }
