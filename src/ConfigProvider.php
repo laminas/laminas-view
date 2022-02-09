@@ -8,8 +8,6 @@ use Laminas\ServiceManager\ConfigInterface;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\ServiceManager\ServiceManager;
 
-use function array_merge;
-
 /**
  * @psalm-import-type FactoriesConfigurationType from ConfigInterface
  * @psalm-import-type ServiceManagerConfiguration from ServiceManager
