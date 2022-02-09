@@ -17,7 +17,7 @@ use function array_merge;
  *     view_helpers?: ServiceManagerConfiguration,
  *     view_helper_config?: array<string, array<array-key, mixed>
  * }
- * @psalm-suppress DeprecatedClass
+ * @psalm-suppress DeprecatedClass, DeprecatedMethod
  */
 final class ConfigProvider
 {
@@ -25,20 +25,19 @@ final class ConfigProvider
     public function __invoke(): array
     {
         return [
-            'view_helpers'       => self::viewHelperDependencyConfiguration(),
+            'view_helpers'       => $this->viewHelperDependencyConfiguration(),
             'view_helper_config' => [],
         ];
     }
 
     /**
-     * @psalm-suppress DeprecatedClass
      * @return ServiceManagerConfiguration
      */
-    public static function viewHelperDependencyConfiguration(): array
+    private function viewHelperDependencyConfiguration(): array
     {
         return [
-            'factories' => self::defaultViewHelperFactories(),
-            'aliases'   => self::defaultViewHelperAliases(),
+            'factories' => $this->defaultViewHelperFactories(),
+            'aliases'   => $this->defaultViewHelperAliases(),
         ];
     }
 
@@ -52,7 +51,7 @@ final class ConfigProvider
      *
      * @return FactoriesConfigurationType
      */
-    public static function defaultViewHelperFactories(): array
+    private function defaultViewHelperFactories(): array
     {
         return [
             Helper\Asset::class               => Helper\Service\AssetFactory::class,
@@ -103,22 +102,23 @@ final class ConfigProvider
      *
      * @return array<string,string>|array<array-key, string>
      */
-    public static function defaultViewHelperAliases(): array
+    private function defaultViewHelperAliases(): array
     {
         return array_merge(
-            self::zendFrameworkHelperAliases(),
-            self::legacyNormalizedHelperAliases(),
-            self::standardHelperAliases()
+            $this->zendFrameworkHelperAliases(),
+            $this->legacyNormalizedHelperAliases(),
+            $this->standardHelperAliases()
         );
     }
 
     /**
      * These aliases provide compatibility with legacy Zend helpers
      *
-     * @todo Remove this method in 3.0
+     * @deprecated To be removed in version 3.0.
+     *
      * @return array<string,string>
      */
-    private static function zendFrameworkHelperAliases(): array
+    private function zendFrameworkHelperAliases(): array
     {
         return [
             // @codingStandardsIgnoreStart
@@ -205,7 +205,7 @@ final class ConfigProvider
      *
      * @return array<string,string>
      */
-    private static function standardHelperAliases(): array
+    private function standardHelperAliases(): array
     {
         return [
             'asset'               => Helper\Asset::class,
@@ -251,10 +251,11 @@ final class ConfigProvider
     /**
      * Legacy normalized helper aliases that were typical from v2 Service Manager usage
      *
-     * @todo Remove this method in 3.0
+     * @deprecated To be removed in version 3.0.
+     *
      * @return array<string,string>
      */
-    private static function legacyNormalizedHelperAliases(): array
+    private function legacyNormalizedHelperAliases(): array
     {
         return [
             'Asset'               => Helper\Asset::class,

@@ -6,6 +6,7 @@ namespace Laminas\View\Helper\Navigation;
 
 use Interop\Container\ContainerInterface;
 use Laminas\ServiceManager\ConfigInterface;
+use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\HelperPluginManager;
 
@@ -16,29 +17,66 @@ use Laminas\View\HelperPluginManager;
  * Navigation\HelperInterface. Additionally, it registers a number of default
  * helpers.
  *
+ * @final
  * @psalm-import-type ServiceManagerConfiguration from ServiceManager
  * @psalm-import-type FactoriesConfigurationType from ConfigInterface
+ * @psalm-suppress InvalidExtendClass
  */
 class PluginManager extends HelperPluginManager
 {
     /** {@inheritDoc} */
     protected $instanceOf = AbstractHelper::class;
 
-    /** @var array<string, string>|array<array-key, string> */
-    protected $aliases;
+    /**
+     * Default aliases
+     *
+     * @var array<string, string>|array<array-key, string>
+     */
+    protected $aliases = [
+        'breadcrumbs' => Breadcrumbs::class,
+        'links'       => Links::class,
+        'menu'        => Menu::class,
+        'sitemap'     => Sitemap::class,
 
-    /** @var FactoriesConfigurationType */
-    protected $factories;
+        // Legacy Zend Framework aliases
+        \Zend\View\Helper\Navigation\Breadcrumbs::class => Breadcrumbs::class,
+        \Zend\View\Helper\Navigation\Links::class       => Links::class, // phpcs:ignore
+        \Zend\View\Helper\Navigation\Menu::class        => Menu::class,
+        \Zend\View\Helper\Navigation\Sitemap::class     => Sitemap::class,
+
+        // v2 normalized FQCNs
+        'zendviewhelpernavigationbreadcrumbs' => Breadcrumbs::class,
+        'zendviewhelpernavigationlinks'       => Links::class,
+        'zendviewhelpernavigationmenu'        => Menu::class,
+        'zendviewhelpernavigationsitemap'     => Sitemap::class,
+    ];
 
     /**
-     * @param ContainerInterface $configOrContainerInstance
-     * @param array $v3config
-     * @psalm-param ServiceManagerConfiguration $v3config
+     * Default factories
+     *
+     * @var FactoriesConfigurationType
+     */
+    protected $factories = [
+        Breadcrumbs::class => InvokableFactory::class,
+        Links::class       => InvokableFactory::class,
+        Menu::class        => InvokableFactory::class,
+        Sitemap::class     => InvokableFactory::class,
+
+        // v2 canonical FQCNs
+        'laminasviewhelpernavigationbreadcrumbs' => InvokableFactory::class,
+        'laminasviewhelpernavigationlinks'       => InvokableFactory::class,
+        'laminasviewhelpernavigationmenu'        => InvokableFactory::class,
+        'laminasviewhelpernavigationsitemap'     => InvokableFactory::class,
+    ];
+
+    /**
+     * @param null|ConfigInterface|\Psr\Container\ContainerInterface $configOrContainerInstance
+     * @param array                                                  $v3config
+     * @psalm-param ServiceManagerConfiguration                      $v3config
+     * @psalm-suppress MethodSignatureMismatch
      */
     public function __construct($configOrContainerInstance = null, array $v3config = [])
     {
-        parent::__construct($configOrContainerInstance, $v3config);
-
         /** @psalm-suppress UnusedClosureParam, MissingClosureParamType */
         $this->initializers[] = function (ContainerInterface $container, $instance): void {
             if (! $instance instanceof AbstractHelper) {
@@ -48,7 +86,6 @@ class PluginManager extends HelperPluginManager
             $instance->setServiceLocator($this->creationContext);
         };
 
-        $this->aliases   = ConfigProvider::defaultViewHelperAliases();
-        $this->factories = ConfigProvider::defaultViewHelperFactories();
+        parent::__construct($configOrContainerInstance, $v3config);
     }
 }
