@@ -49,6 +49,12 @@ class PluginManager extends HelperPluginManager
         'zendviewhelpernavigationlinks'       => Links::class,
         'zendviewhelpernavigationmenu'        => Menu::class,
         'zendviewhelpernavigationsitemap'     => Sitemap::class,
+
+        // v2 canonical FQCNs
+        'laminasviewhelpernavigationbreadcrumbs' => Breadcrumbs::class,
+        'laminasviewhelpernavigationlinks'       => Links::class,
+        'laminasviewhelpernavigationmenu'        => Menu::class,
+        'laminasviewhelpernavigationsitemap'     => Sitemap::class,
     ];
 
     /**
@@ -61,12 +67,6 @@ class PluginManager extends HelperPluginManager
         Links::class       => InvokableFactory::class,
         Menu::class        => InvokableFactory::class,
         Sitemap::class     => InvokableFactory::class,
-
-        // v2 canonical FQCNs
-        'laminasviewhelpernavigationbreadcrumbs' => InvokableFactory::class,
-        'laminasviewhelpernavigationlinks'       => InvokableFactory::class,
-        'laminasviewhelpernavigationmenu'        => InvokableFactory::class,
-        'laminasviewhelpernavigationsitemap'     => InvokableFactory::class,
     ];
 
     /**
