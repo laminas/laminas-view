@@ -534,7 +534,7 @@ class HelperPluginManager extends AbstractPluginManager
         try {
             $this->validate($instance);
         } catch (InvalidServiceException $e) {
-            throw new InvalidHelperException($e->getMessage(), $e->getCode(), $e);
+            throw new InvalidHelperException($e->getMessage(), (int) $e->getCode(), $e);
         }
     }
 }

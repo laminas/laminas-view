@@ -245,6 +245,9 @@ class HelperPluginManagerTest extends TestCase
         self::assertEquals(UnsupportedDescendantOfPluginManagerWithConstructor::EXPECTED_HELPER_OUTPUT, $helper());
     }
 
+    /**
+     * @psalm-suppress DeprecatedClass
+     */
     public function testThatDefaultPropertiesInADescendantOverwriteDefaultHelperConfiguration(): void
     {
         $container = new ServiceManager();
