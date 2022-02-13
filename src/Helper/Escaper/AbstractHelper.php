@@ -32,13 +32,13 @@ abstract class AbstractHelper extends Helper\AbstractHelper
     /** @var Escape|null */
     protected $escaper;
 
-    /** @psalm-suppress DeprecatedProperty */
+    /**
+     * @param non-empty-string $encoding
+     * @psalm-suppress DeprecatedProperty
+     */
     public function __construct(?Escape $escaper = null, string $encoding = 'UTF-8')
     {
-        if ($escaper) {
-            $this->escaper = $escaper;
-        }
-
+        $this->escaper  = $escaper;
         $this->encoding = $escaper ? $escaper->getEncoding() : $encoding;
     }
 
@@ -102,7 +102,7 @@ abstract class AbstractHelper extends Helper\AbstractHelper
      *
      * @deprecated Will be removed in 3.0.
      *
-     * @param  string $encoding
+     * @param  non-empty-string $encoding
      * @throws Exception\InvalidArgumentException
      * @return AbstractHelper
      * @psalm-suppress DeprecatedProperty
