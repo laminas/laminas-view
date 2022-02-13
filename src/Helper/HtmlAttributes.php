@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Laminas\View\Helper;
 
-use Laminas\Escaper\Escaper;
 use Laminas\View\Helper\Escaper\AbstractHelper as AbstractEscapeHelper;
 use Laminas\View\HtmlAttributesSet;
 use Laminas\View\Renderer\PhpRenderer;
@@ -29,7 +28,6 @@ class HtmlAttributes extends AbstractHelper
         $escapePlugin = $renderer->plugin('escapeHtml');
         assert($escapePlugin instanceof AbstractEscapeHelper);
         $escaper = $escapePlugin->getEscaper();
-        assert($escaper instanceof Escaper);
 
         return new HtmlAttributesSet(
             $escaper,

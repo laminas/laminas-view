@@ -182,4 +182,13 @@ class EscapeHtmlTest extends TestCase
         $this->helper->setEncoding('completely-invalid');
         $this->helper->getEscaper();
     }
+
+    public function testThatAnEscaperProvidedToTheConstructorWillBeUsedWithItsConfiguredEncoding(): void
+    {
+        $escaper = new Escaper('iso-8859-1');
+        $helper  = new EscapeHelper($escaper, 'UTF-8');
+
+        self::assertSame($escaper, $helper->getEscaper());
+        self::assertEquals('iso-8859-1', $helper->getEncoding());
+    }
 }

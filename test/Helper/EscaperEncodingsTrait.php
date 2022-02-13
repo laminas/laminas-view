@@ -6,8 +6,8 @@ namespace LaminasTest\View\Helper;
 
 trait EscaperEncodingsTrait
 {
-    /** @var string[] */
-    private $supportedEncodings = [
+    /** @var list<string> */
+    private array $supportedEncodings = [
         'iso-8859-1',
         'iso8859-1',
         'iso-8859-5',
