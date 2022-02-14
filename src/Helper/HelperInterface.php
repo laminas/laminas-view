@@ -18,7 +18,7 @@ interface HelperInterface
     /**
      * Get the View object
      *
-     * @return Renderer
+     * @return Renderer|null
      */
     public function getView();
 }

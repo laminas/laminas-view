@@ -7,6 +7,7 @@ namespace Laminas\View\Helper\Escaper;
 use Laminas\Escaper\Escaper as Escape;
 use Laminas\View\Exception;
 use Laminas\View\Helper;
+use Laminas\View\Helper\DeprecatedAbstractHelperHierarchyTrait;
 
 use function is_array;
 use function is_object;
@@ -18,6 +19,8 @@ use function method_exists;
  */
 abstract class AbstractHelper extends Helper\AbstractHelper
 {
+    use DeprecatedAbstractHelperHierarchyTrait;
+
     public const RECURSE_NONE   = 0x00;
     public const RECURSE_ARRAY  = 0x01;
     public const RECURSE_OBJECT = 0x02;

@@ -18,11 +18,6 @@
       <code>getPathname</code>
     </MixedMethodCall>
   </file>
-  <file src="src/Helper/AbstractHelper.php">
-    <ImplementedReturnTypeMismatch occurrences="1">
-      <code>null|Renderer</code>
-    </ImplementedReturnTypeMismatch>
-  </file>
   <file src="src/Helper/AbstractHtmlElement.php">
     <MissingConstructor occurrences="13">
       <code>$closingBracket</code>
@@ -59,14 +54,6 @@
       <code>plugin</code>
       <code>plugin</code>
     </UndefinedInterfaceMethod>
-  </file>
-  <file src="src/Helper/Asset.php">
-    <MixedInferredReturnType occurrences="1">
-      <code>string</code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="1">
-      <code>$this-&gt;resourceMap[$asset]</code>
-    </MixedReturnStatement>
   </file>
   <file src="src/Helper/BasePath.php">
     <DocblockTypeContradiction occurrences="1">
@@ -785,9 +772,6 @@
     <InvalidThrow occurrences="1">
       <code>ExceptionInterface</code>
     </InvalidThrow>
-    <LessSpecificImplementedReturnType occurrences="1">
-      <code>self</code>
-    </LessSpecificImplementedReturnType>
     <MissingConstructor occurrences="1">
       <code>$plugins</code>
     </MissingConstructor>
@@ -1591,16 +1575,6 @@
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Helper/Service/AssetFactory.php">
-    <DeprecatedInterface occurrences="1">
-      <code>AssetFactory</code>
-    </DeprecatedInterface>
-    <MixedArrayAccess occurrences="1">
-      <code>$config['view_helper_config']</code>
-    </MixedArrayAccess>
-    <MixedAssignment occurrences="2">
-      <code>$config</code>
-      <code>$configHelper</code>
-    </MixedAssignment>
     <PossiblyNullArgument occurrences="1">
       <code>$cName</code>
     </PossiblyNullArgument>
