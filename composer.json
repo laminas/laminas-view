@@ -19,6 +19,9 @@
         "sort-packages": true,
         "platform": {
             "php": "7.4"
+        },
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
     "require": {
@@ -26,6 +29,7 @@
         "ext-dom": "*",
         "ext-filter": "*",
         "ext-json": "*",
+        "laminas/laminas-escaper": "^2.5",
         "laminas/laminas-eventmanager": "^3.4",
         "laminas/laminas-json": "^3.3",
         "laminas/laminas-stdlib": "^3.6"
@@ -34,7 +38,6 @@
         "laminas/laminas-authentication": "^2.5",
         "laminas/laminas-coding-standard": "~2.3.0",
         "laminas/laminas-console": "^2.6",
-        "laminas/laminas-escaper": "^2.5",
         "laminas/laminas-feed": "^2.15",
         "laminas/laminas-filter": "^2.13.0",
         "laminas/laminas-http": "^2.15",

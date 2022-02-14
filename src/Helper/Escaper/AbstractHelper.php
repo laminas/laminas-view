@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Laminas\View\Helper\Escaper;
 
-use Laminas\Escaper;
+use Laminas\Escaper\Escaper as Escape;
 use Laminas\View\Exception;
 use Laminas\View\Helper;
 
@@ -14,22 +14,33 @@ use function is_string;
 use function method_exists;
 
 /**
- * Helper for escaping values
+ * @psalm-internal Laminas\View
  */
 abstract class AbstractHelper extends Helper\AbstractHelper
 {
-    /**
-     * @const Recursion constants
-     */
     public const RECURSE_NONE   = 0x00;
     public const RECURSE_ARRAY  = 0x01;
     public const RECURSE_OBJECT = 0x02;
 
-    /** @var string Encoding */
-    protected $encoding = 'UTF-8';
+    /**
+     * @deprecated
+     *
+     * @var string
+     */
+    protected $encoding;
 
-    /** @var Escaper\Escaper|null */
+    /** @var Escape|null */
     protected $escaper;
+
+    /**
+     * @param non-empty-string $encoding
+     * @psalm-suppress DeprecatedProperty
+     */
+    public function __construct(?Escape $escaper = null, string $encoding = 'UTF-8')
+    {
+        $this->escaper  = $escaper;
+        $this->encoding = $escaper ? $escaper->getEncoding() : $encoding;
+    }
 
     /**
      * Invoke this helper: escape a value
@@ -89,9 +100,12 @@ abstract class AbstractHelper extends Helper\AbstractHelper
     /**
      * Set the encoding to use for escape operations
      *
-     * @param  string $encoding
+     * @deprecated Will be removed in 3.0.
+     *
+     * @param  non-empty-string $encoding
      * @throws Exception\InvalidArgumentException
      * @return AbstractHelper
+     * @psalm-suppress DeprecatedProperty
      */
     public function setEncoding($encoding)
     {
@@ -110,7 +124,10 @@ abstract class AbstractHelper extends Helper\AbstractHelper
     /**
      * Get the encoding to use for escape operations
      *
+     * @deprecated Will be removed in 3.0.
+     *
      * @return string
+     * @psalm-suppress DeprecatedProperty
      */
     public function getEncoding()
     {
@@ -118,11 +135,14 @@ abstract class AbstractHelper extends Helper\AbstractHelper
     }
 
     /**
-     * Set instance of Escaper
+     * Set instance of Escape
+     *
+     * @deprecated The escaper should be provided to the constructor. This method will be removed in 3.0.
      *
      * @return $this
+     * @psalm-suppress DeprecatedProperty
      */
-    public function setEscaper(Escaper\Escaper $escaper)
+    public function setEscaper(Escape $escaper)
     {
         $this->escaper  = $escaper;
         $this->encoding = $escaper->getEncoding();
@@ -133,12 +153,15 @@ abstract class AbstractHelper extends Helper\AbstractHelper
     /**
      * Get instance of Escaper
      *
-     * @return null|Escaper\Escaper
+     * @deprecated To be removed in 3.0
+     *
+     * @return Escape
+     * @psalm-suppress DeprecatedProperty
      */
     public function getEscaper()
     {
         if (null === $this->escaper) {
-            $this->setEscaper(new Escaper\Escaper($this->getEncoding()));
+            $this->escaper = new Escape($this->encoding);
         }
 
         return $this->escaper;
