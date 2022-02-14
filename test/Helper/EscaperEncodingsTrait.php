@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper;
 
+use function assert;
+
 trait EscaperEncodingsTrait
 {
     /** @var list<string> */
@@ -44,10 +46,11 @@ trait EscaperEncodingsTrait
         'macroman',
     ];
 
-    /** @return iterable<string, array<int, string>> */
+    /** @return iterable<string, array<int, non-empty-string>> */
     public function supportedEncodingsProvider(): iterable
     {
         foreach ($this->supportedEncodings as $encoding) {
+            assert(! empty($encoding));
             yield $encoding => [$encoding];
         }
     }
