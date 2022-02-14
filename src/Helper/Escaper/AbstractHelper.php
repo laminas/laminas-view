@@ -100,10 +100,9 @@ abstract class AbstractHelper extends Helper\AbstractHelper
     /**
      * Set the encoding to use for escape operations
      *
-     * The encoding should now be provided in configuration under `view_manager.encoding`. This value is passed to the
-     * underlying escaper during factory based construction.
-     *
-     * @deprecated For removal in 3.0
+     * @deprecated since 2.20.0, this method will be removed in version 3.0.0 of this component.
+     *             The encoding should now be provided in configuration under `view_manager.encoding`.
+     *             This value is passed to the underlying escaper during factory based construction.
      *
      * @param  non-empty-string $encoding
      * @throws Exception\InvalidArgumentException
@@ -127,7 +126,8 @@ abstract class AbstractHelper extends Helper\AbstractHelper
     /**
      * Get the encoding to use for escape operations
      *
-     * @deprecated Encoding is now considered a configuration item and not relevant in a template context
+     * @deprecated since 2.20.0, this method will be removed in version 3.0.0 of this component.
+     *             Encoding is now considered a configuration item and not relevant in a template context
      *
      * @return string
      * @psalm-suppress DeprecatedProperty
@@ -140,9 +140,8 @@ abstract class AbstractHelper extends Helper\AbstractHelper
     /**
      * Set instance of Escape
      *
-     * The escaper is now provided to the constructor by factories for each specific helper type.
-     *
-     * @deprecated This method will be removed in 3.0.
+     * @deprecated since 2.20.0, this method will be removed in version 3.0.0 of this component.
+     *             The escaper is now provided to the constructor by factories for each specific helper type.
      *
      * @return $this
      * @psalm-suppress DeprecatedProperty
@@ -158,7 +157,8 @@ abstract class AbstractHelper extends Helper\AbstractHelper
     /**
      * Get instance of Escaper
      *
-     * @deprecated Exposing the underlying escaper to the template layer has been deprecated without replacement.
+     * @deprecated since 2.20.0, this method will be removed in version 3.0.0 of this component.
+     *             Exposing the underlying escaper to the template layer has been deprecated without replacement.
      *
      * @return Escape
      * @psalm-suppress DeprecatedProperty
