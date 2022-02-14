@@ -23,7 +23,7 @@ abstract class AbstractHelper extends Helper\AbstractHelper
     public const RECURSE_OBJECT = 0x02;
 
     /**
-     * @deprecated
+     * @deprecated This property should be set in the underlying Escaper which should be passed to the constructor
      *
      * @var string
      */
@@ -100,7 +100,10 @@ abstract class AbstractHelper extends Helper\AbstractHelper
     /**
      * Set the encoding to use for escape operations
      *
-     * @deprecated Will be removed in 3.0.
+     * The encoding should now be provided in configuration under `view_manager.encoding`. This value is passed to the
+     * underlying escaper during factory based construction.
+     *
+     * @deprecated For removal in 3.0
      *
      * @param  non-empty-string $encoding
      * @throws Exception\InvalidArgumentException
@@ -124,7 +127,7 @@ abstract class AbstractHelper extends Helper\AbstractHelper
     /**
      * Get the encoding to use for escape operations
      *
-     * @deprecated Will be removed in 3.0.
+     * @deprecated Encoding is now considered a configuration item and not relevant in a template context
      *
      * @return string
      * @psalm-suppress DeprecatedProperty
@@ -137,7 +140,9 @@ abstract class AbstractHelper extends Helper\AbstractHelper
     /**
      * Set instance of Escape
      *
-     * @deprecated The escaper should be provided to the constructor. This method will be removed in 3.0.
+     * The escaper is now provided to the constructor by factories for each specific helper type.
+     *
+     * @deprecated This method will be removed in 3.0.
      *
      * @return $this
      * @psalm-suppress DeprecatedProperty
@@ -153,7 +158,7 @@ abstract class AbstractHelper extends Helper\AbstractHelper
     /**
      * Get instance of Escaper
      *
-     * @deprecated To be removed in 3.0
+     * @deprecated Exposing the underlying escaper to the template layer has been deprecated without replacement.
      *
      * @return Escape
      * @psalm-suppress DeprecatedProperty

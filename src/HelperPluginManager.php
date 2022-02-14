@@ -256,7 +256,7 @@ class HelperPluginManager extends AbstractPluginManager
         Helper\EscapeHtml::class          => InvokableFactory::class,
         Helper\EscapeHtmlAttr::class      => InvokableFactory::class,
         Helper\EscapeJs::class            => InvokableFactory::class,
-        Helper\EscapeCss::class           => InvokableFactory::class,
+        Helper\EscapeCss::class           => Helper\Service\EscapeCssFactory::class,
         Helper\EscapeUrl::class           => InvokableFactory::class,
         Helper\Gravatar::class            => InvokableFactory::class,
         Helper\HtmlTag::class             => InvokableFactory::class,
