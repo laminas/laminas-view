@@ -14,6 +14,9 @@ use function is_array;
 use function is_string;
 use function sprintf;
 
+/**
+ * @internal Laminas\View
+ */
 trait EscaperFactoryTrait
 {
     /** @return non-empty-string */
