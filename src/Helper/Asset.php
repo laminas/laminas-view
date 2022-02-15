@@ -47,7 +47,8 @@ class Asset extends AbstractHelper
     }
 
     /**
-     * @deprecated The Resource map should be provided to the constructor from version 3.0
+     * @deprecated since 2.20.0, this method will be removed in version 3.0.0 of this component.
+     *             The Resource map should be provided to the constructor from version 3.0
      *
      * @param array<non-empty-string, non-empty-string> $resourceMap
      * @return $this
@@ -60,7 +61,8 @@ class Asset extends AbstractHelper
     }
 
     /**
-     * @deprecated
+     * @deprecated since 2.20.0, this method will be removed in version 3.0.0 of this component.
+     *             Runtime retrieval of the resource map from the view will be removed without replacement.
      *
      * @return array<non-empty-string, non-empty-string>
      */
