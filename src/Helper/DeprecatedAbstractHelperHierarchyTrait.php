@@ -18,7 +18,7 @@ trait DeprecatedAbstractHelperHierarchyTrait
     /**
      * Set the View object
      *
-     * @deprecated
+     * @deprecated since >= 2.20.0, this method will be removed in version 3.0 of this component.
      *
      * @return self
      */
@@ -32,7 +32,7 @@ trait DeprecatedAbstractHelperHierarchyTrait
     /**
      * Get the view object
      *
-     * @deprecated
+     * @deprecated since >= 2.20.0, this method will be removed in version 3.0 of this component.
      *
      * @return Renderer|null
      */
