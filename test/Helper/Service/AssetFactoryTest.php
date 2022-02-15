@@ -70,7 +70,10 @@ class AssetFactoryTest extends TestCase
         ]);
 
         $this->expectException(Exception\RuntimeException::class);
-        $this->expectExceptionMessage('Invalid resource map configuration');
+        $this->expectExceptionMessage(
+            'Invalid resource map configuration. Expected the key '
+            . '"resource_map" to contain an array value but received "string"'
+        );
         (new AssetFactory())($container, '');
     }
 

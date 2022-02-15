@@ -9,8 +9,12 @@ use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\View\Exception;
 use Laminas\View\Helper\Asset;
+use Traversable;
 
+use function gettype;
 use function is_array;
+use function iterator_to_array;
+use function sprintf;
 
 /**
  * @final
@@ -28,6 +32,8 @@ class AssetFactory implements FactoryInterface
     {
         /** @psalm-var mixed $config */
         $config = $container->get('config');
+        /** @psalm-var mixed $config */
+        $config = $config instanceof Traversable ? iterator_to_array($config, true) : $config;
         $config = is_array($config) ? $config : [];
 
         $helperConfig = $this->assertArray('view_helper_config', $config);
@@ -41,7 +47,8 @@ class AssetFactory implements FactoryInterface
     /**
      * Create service
      *
-     * @deprecated
+     * @deprecated since 2.20.0, this method will be removed in version 3.0.0 of this component.
+     *             Compatibility with the 2.x series of Laminas\ServiceManager is no longer supported.
      *
      * @param string|null $rName
      * @param string|null $cName
@@ -60,7 +67,12 @@ class AssetFactory implements FactoryInterface
     {
         $value = $array[$key] ?? [];
         if (! is_array($value)) {
-            throw new Exception\RuntimeException('Invalid resource map configuration.');
+            throw new Exception\RuntimeException(sprintf(
+                'Invalid resource map configuration. '
+                . 'Expected the key "%s" to contain an array value but received "%s"',
+                $key,
+                gettype($value)
+            ));
         }
 
         return $value;
