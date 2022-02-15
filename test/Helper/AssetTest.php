@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 class AssetTest extends TestCase
 {
-    /** @var array<string, string> */
+    /** @var array<non-empty-string, non-empty-string> */
     protected $resourceMap = [
         'css/style.css' => 'css/style-3a97ff4ee3.css',
         'js/vendor.js'  => 'js/vendor-a507086eba.js',
@@ -24,8 +24,7 @@ class AssetTest extends TestCase
     {
         parent::setUp();
 
-        $this->asset = new Asset();
-        $this->asset->setResourceMap($this->resourceMap);
+        $this->asset = new Asset($this->resourceMap);
     }
 
     public function testHelperPluginManagerReturnsAssetHelper(): void
@@ -47,13 +46,14 @@ class AssetTest extends TestCase
     public function testInvalidAssetName(): void
     {
         $this->expectException(Exception\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Asset is not defined');
+        $this->expectExceptionMessage('The asset with the name "unknown" has not been defined');
 
         $this->asset->__invoke('unknown');
     }
 
     /**
      * @dataProvider assets
+     * @param non-empty-string $name
      */
     public function testInvokeResult(string $name, string $expected): void
     {
@@ -63,7 +63,7 @@ class AssetTest extends TestCase
     }
 
     /**
-     * @return array<array-key, array{0: string, 1: string}>
+     * @return array<array-key, array{0: non-empty-string, 1: non-empty-string}>
      */
     public function assets(): array
     {

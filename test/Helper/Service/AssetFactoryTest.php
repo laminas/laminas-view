@@ -12,6 +12,9 @@ use PHPUnit\Framework\TestCase;
 
 class AssetFactoryTest extends TestCase
 {
+    /**
+     * @deprecated for removal in 3.0
+     */
     public function testAssetFactoryCreateServiceCreatesAssetInstance(): void
     {
         $services = $this->getServices();
@@ -32,6 +35,9 @@ class AssetFactoryTest extends TestCase
         $this->assertInstanceOf(Asset::class, $asset);
     }
 
+    /**
+     * @deprecated for removal in 3.0
+     */
     public function testValidConfiguration(): void
     {
         $config = [
@@ -53,22 +59,81 @@ class AssetFactoryTest extends TestCase
         $this->assertEquals($config['view_helper_config']['asset']['resource_map'], $asset->getResourceMap());
     }
 
-    public function testInvalidConfiguration(): void
+    public function testThatAnExceptionWillBeThrownWhenTheResourceMapIsSetToANonArray(): void
     {
-        $config   = [
+        $container = $this->getServices([
             'view_helper_config' => [
-                'asset' => [],
+                'asset' => [
+                    'resource_map' => 'Not an array',
+                ],
             ],
-        ];
-        $services = $this->getServices($config);
-
-        $assetFactory = new AssetFactory();
+        ]);
 
         $this->expectException(Exception\RuntimeException::class);
-        $this->expectExceptionMessage('Invalid resource map configuration');
-        $assetFactory($services, '');
+        $this->expectExceptionMessage(
+            'Invalid resource map configuration. Expected the key '
+            . '"resource_map" to contain an array value but received "string"'
+        );
+        (new AssetFactory())($container, '');
     }
 
+    /**
+     * @return array<string, array{0: array<string, mixed>}>
+     */
+    public function validConfigProvider(): array
+    {
+        return [
+            'No View Helper Configuration' => [
+                [],
+            ],
+            'No Asset Config At All'       => [
+                [
+                    'view_helper_config' => [],
+                ],
+            ],
+            'No Resource Map Key'          => [
+                [
+                    'view_helper_config' => [
+                        'asset' => [],
+                    ],
+                ],
+            ],
+            'Empty Resource Map'           => [
+                [
+                    'view_helper_config' => [
+                        'asset' => [
+                            'resource_map' => [],
+                        ],
+                    ],
+                ],
+            ],
+            'Non-Empty Resource Map'       => [
+                [
+                    'view_helper_config' => [
+                        'asset' => [
+                            'resource_map' => [
+                                'foo.css' => 'assets/foo.1.css',
+                                'bar.css' => 'assets/bar.1.css',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider validConfigProvider
+     * @param array<string, mixed> $config
+     */
+    public function testThatAnExceptionWillNotBeThrownWhenGivenUnsetOrEmptyArrayConfiguration(array $config): void
+    {
+        $container = $this->getServices($config);
+        (new AssetFactory())($container, 'foo');
+        self::assertTrue(true);
+    }
+
+    /** @param array<string, mixed> $config */
     private function getServices(array $config = []): ServiceManager
     {
         $services = $this->createMock(ServiceManager::class);
