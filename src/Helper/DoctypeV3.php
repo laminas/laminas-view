@@ -6,10 +6,14 @@ namespace Laminas\View\Helper;
 
 use Laminas\View\Exception\InvalidArgumentException;
 
+use function array_key_exists;
 use function sprintf;
 use function stripos;
 use function stristr;
 
+/**
+ * @psalm-type DoctypeID = key-of<DoctypeV3::DOCTYPE_DECLARATIONS>
+ */
 final class DoctypeV3
 {
     public const DEFAULT_DOCTYPE = self::HTML5;
@@ -28,7 +32,7 @@ final class DoctypeV3
     public const HTML5               = 'HTML5';
 
     /** @var array<string, non-empty-string> */
-    private static $docTypeDefinitions = [
+    private const DOCTYPE_DECLARATIONS = [
         self::XHTML11             => '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" '
                                      . '"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">',
         self::XHTML1_STRICT       => '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" '
@@ -53,8 +57,10 @@ final class DoctypeV3
         self::HTML5               => '<!DOCTYPE html>',
     ];
 
+    /** @var DoctypeID */
     private string $doctype;
 
+    /** @param DoctypeID $configuredDocTypeId */
     public function __construct(string $configuredDocTypeId = self::DEFAULT_DOCTYPE)
     {
         $this->doctype = $configuredDocTypeId;
@@ -65,27 +71,34 @@ final class DoctypeV3
         return $this;
     }
 
+    /** @return non-empty-string */
     public function __toString(): string
     {
         return $this->doctypeDeclaration();
     }
 
-    /** @return non-empty-string */
+    /**
+     * @param DoctypeID|null $doctypeId
+     * @return non-empty-string
+     */
     public function doctypeDeclaration(?string $doctypeId = null): string
     {
         $id = $doctypeId ?: $this->doctype;
-        if (! isset(self::$docTypeDefinitions[$id])) {
+        /** @psalm-suppress DocblockTypeContradiction */
+        if (! array_key_exists($id, self::DOCTYPE_DECLARATIONS)) {
             throw new InvalidArgumentException(sprintf(
                 'There is not a doctype declaration known with the id "%s"',
                 $id
             ));
         }
 
-        return self::$docTypeDefinitions[$id];
+        return self::DOCTYPE_DECLARATIONS[$id];
     }
 
     /**
      * Is doctype XHTML?
+     *
+     * @param DoctypeID|null $doctypeId
      */
     public function isXhtml(?string $doctypeId = null): bool
     {
@@ -94,6 +107,8 @@ final class DoctypeV3
 
     /**
      * Is doctype HTML5?
+     *
+     * @param DoctypeID|null $doctypeId
      */
     public function isHtml5(?string $doctypeId = null): bool
     {
@@ -102,6 +117,8 @@ final class DoctypeV3
 
     /**
      * Is doctype RDFa?
+     *
+     * @param DoctypeID|null $doctypeId
      */
     public function isRdfa(?string $doctypeId = null): bool
     {
