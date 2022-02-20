@@ -10,6 +10,11 @@ use Laminas\View\Helper\Placeholder\Registry;
 use LaminasTest\View\Helper\TestAsset;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @deprecated To be removed in v3.0 along with {@link Registry}
+ *
+ * @psalm-suppress DeprecatedClass, DeprecatedMethod
+ */
 class RegistryTest extends TestCase
 {
     /** @var Registry */
