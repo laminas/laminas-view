@@ -15,6 +15,7 @@ use const E_USER_DEPRECATED;
  * Helper for simplifying JSON responses
  *
  * @psalm-suppress DeprecatedProperty
+ * @final
  */
 class Json extends AbstractHelper
 {

@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace Laminas\View\Helper;
 
 use Laminas\Escaper\Escaper;
-use Laminas\View\Helper\Escaper\AbstractHelper as AbstractEscapeHelper;
 use Laminas\View\HtmlAttributesSet;
-use Laminas\View\Renderer\PhpRenderer;
-
-use function assert;
 
 /**
  * Helper for creating HtmlAttributesSet objects
+ *
+ * @final
  */
 class HtmlAttributes extends AbstractHelper
 {
