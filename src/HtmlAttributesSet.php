@@ -26,6 +26,8 @@ use const JSON_THROW_ON_ERROR;
 
 /**
  * Class for storing and processing HTML tag attributes.
+ *
+ * @psalm-type AttributeSet = iterable<string, scalar|array|null>
  */
 final class HtmlAttributesSet extends ArrayObject
 {
