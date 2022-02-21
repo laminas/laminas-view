@@ -16,7 +16,10 @@
         "forum": "https://discourse.laminas.dev"
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "platform": {
+            "php": "7.4.99"
+        }
     },
     "require": {
         "php": "^7.4 || ~8.0.0 || ~8.1.0",
