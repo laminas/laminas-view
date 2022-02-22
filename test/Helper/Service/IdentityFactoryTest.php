@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper\Service;
 
+use Laminas\Authentication\AuthenticationService;
+use Laminas\Authentication\AuthenticationServiceInterface;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Helper\Identity;
 use Laminas\View\Helper\Service\IdentityFactory;
@@ -26,13 +28,13 @@ class IdentityFactoryTest extends TestCase
         self::assertInstanceOf(Identity::class, $helper);
     }
 
-    /** @return array<array-key, array{0: string}> */
+    /** @return array<array-key, array{0: string|class-string}> */
     public function serviceNameProvider(): array
     {
         // phpcs:disable WebimpressCodingStandard.Formatting.StringClassReference
         return [
-            ['Laminas\Authentication\AuthenticationService'],
-            ['Laminas\Authentication\AuthenticationServiceInterface'],
+            [AuthenticationService::class],
+            [AuthenticationServiceInterface::class],
             ['Zend\Authentication\AuthenticationService'],
             ['Zend\Authentication\AuthenticationServiceInterface'],
         ];

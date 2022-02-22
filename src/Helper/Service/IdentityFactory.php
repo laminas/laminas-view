@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Laminas\View\Helper\Service;
 
 use Interop\Container\ContainerInterface;
+use Laminas\Authentication\AuthenticationService;
 use Laminas\Authentication\AuthenticationServiceInterface;
 use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
@@ -41,8 +42,8 @@ class IdentityFactory implements FactoryInterface
     {
         // phpcs:disable WebimpressCodingStandard.Formatting.StringClassReference
         $search = [
-            'Laminas\Authentication\AuthenticationService',
-            'Laminas\Authentication\AuthenticationServiceInterface',
+            AuthenticationService::class,
+            AuthenticationServiceInterface::class,
             'Zend\Authentication\AuthenticationService',
             'Zend\Authentication\AuthenticationServiceInterface',
         ];
