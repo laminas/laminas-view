@@ -5,31 +5,25 @@ declare(strict_types=1);
 namespace Laminas\View\Helper\Service;
 
 use Interop\Container\ContainerInterface;
-use Laminas\Authentication\AuthenticationService;
-use Laminas\Authentication\AuthenticationServiceInterface;
 use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\View\Helper\Identity;
 
+use function is_object;
+
 /**
- * @psalm-suppress DeprecatedMethod
+ * @psalm-suppress DeprecatedInterface
  */
 class IdentityFactory implements FactoryInterface
 {
     /**
-     * @param string $name
-     * @param null|array $options
+     * @param string|null $name
+     * @param array<array-key, mixed>|null $options
      * @return Identity
      */
     public function __invoke(ContainerInterface $container, $name, ?array $options = null)
     {
-        $helper = new Identity();
-
-        if (null !== ($authenticationService = $this->discoverAuthenticationService($container))) {
-            $helper->setAuthenticationService($authenticationService);
-        }
-
-        return $helper;
+        return new Identity($this->discoverAuthenticationService($container));
     }
 
     /**
@@ -44,23 +38,30 @@ class IdentityFactory implements FactoryInterface
         return $this($serviceLocator, $cName);
     }
 
-    /**
-     * @return null|AuthenticationServiceInterface
-     */
-    private function discoverAuthenticationService(ContainerInterface $container)
+    private function discoverAuthenticationService(ContainerInterface $container): ?object
     {
-        if ($container->has(AuthenticationService::class)) {
-            return $container->get(AuthenticationService::class);
+        // phpcs:disable WebimpressCodingStandard.Formatting.StringClassReference
+        $search = [
+            'Laminas\Authentication\AuthenticationService',
+            'Laminas\Authentication\AuthenticationServiceInterface',
+            'Zend\Authentication\AuthenticationService',
+            'Zend\Authentication\AuthenticationServiceInterface',
+        ];
+        // phpcs:enable
+
+        foreach ($search as $id) {
+            if (! $container->has($id)) {
+                continue;
+            }
+
+            $service = $container->get($id);
+            if (! is_object($service)) {
+                continue;
+            }
+
+            return $service;
         }
 
-        if ($container->has(\Zend\Authentication\AuthenticationService::class)) {
-            return $container->get(\Zend\Authentication\AuthenticationService::class);
-        }
-
-        return $container->has(AuthenticationServiceInterface::class)
-            ? $container->get(AuthenticationServiceInterface::class)
-            : ($container->has(\Zend\Authentication\AuthenticationServiceInterface::class)
-                ? $container->get(\Zend\Authentication\AuthenticationServiceInterface::class)
-                : null);
+        return null;
     }
 }
