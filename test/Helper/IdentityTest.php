@@ -9,6 +9,9 @@ use Laminas\Authentication\Storage\NonPersistent as NonPersistentStorage;
 use Laminas\View\Helper\Identity as IdentityHelper;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @psalm-suppress DeprecatedMethod
+ */
 class IdentityTest extends TestCase
 {
     public function testGetIdentity(): void

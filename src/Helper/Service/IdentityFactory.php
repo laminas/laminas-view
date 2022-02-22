@@ -11,6 +11,9 @@ use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\View\Helper\Identity;
 
+/**
+ * @psalm-suppress DeprecatedMethod
+ */
 class IdentityFactory implements FactoryInterface
 {
     /**
