@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace LaminasTest\View;
 
-use Laminas\Authentication\AuthenticationService;
 use Laminas\I18n\Translator\Translator;
 use Laminas\I18n\Translator\TranslatorInterface;
 use Laminas\Mvc\I18n\Translator as MvcTranslator;
@@ -15,6 +14,7 @@ use Laminas\View\Exception\InvalidHelperException;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\HeadTitle;
 use Laminas\View\Helper\HelperInterface;
+use Laminas\View\Helper\Identity;
 use Laminas\View\Helper\Url;
 use Laminas\View\HelperPluginManager;
 use Laminas\View\Renderer\PhpRenderer;
@@ -82,21 +82,7 @@ class HelperPluginManagerTest extends TestCase
     public function testDefinesFactoryForIdentityPlugin(): void
     {
         $this->assertTrue($this->helpers->has('identity'));
-    }
-
-    public function testIdentityFactoryCanInjectAuthenticationServiceIfInParentServiceManager(): void
-    {
-        $config   = new Config([
-            'invokables' => [
-                AuthenticationService::class => AuthenticationService::class,
-            ],
-        ]);
-        $services = new ServiceManager();
-        $config->configureServiceManager($services);
-        $helpers  = new HelperPluginManager($services);
-        $identity = $helpers->get('identity');
-        $expected = $services->get(AuthenticationService::class);
-        $this->assertSame($expected, $identity->getAuthenticationService());
+        $this->assertTrue($this->helpers->has(Identity::class));
     }
 
     public function testIfHelperIsTranslatorAwareAndMvcTranslatorIsAvailableItWillInjectTheMvcTranslator(): void

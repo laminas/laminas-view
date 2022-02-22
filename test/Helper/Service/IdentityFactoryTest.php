@@ -9,93 +9,60 @@ use Laminas\Authentication\AuthenticationServiceInterface;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Helper\Identity;
 use Laminas\View\Helper\Service\IdentityFactory;
-use Laminas\View\HelperPluginManager;
+use LaminasTest\View\Helper\TestAsset\AuthenticationServiceStub;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-use Prophecy\Prophecy\ObjectProphecy;
-use Psr\Container\ContainerInterface;
-
-use function method_exists;
 
 class IdentityFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
-    /** @var ObjectProphecy&ServiceManager&ContainerInterface */
-    private $services;
-    /** @var HelperPluginManager&ContainerInterface */
-    private $helpers;
-
-    protected function setUp(): void
+    public function testThatAHelperCanBeCreatedWhenThereAreNoAuthenticationServicesFound(): void
     {
-        $this->services = $this->prophesize(ServiceManager::class);
-        $this->helpers  = new HelperPluginManager($this->services->reveal());
-    }
+        $container = $this->createMock(ServiceManager::class);
+        $container->expects(self::exactly(4))
+            ->method('has')
+            ->willReturn(false);
 
-    public function getContainerForFactory(): ContainerInterface
-    {
-        if (method_exists($this->helpers, 'configure')) {
-            return $this->services->reveal();
-        }
-        return $this->helpers;
-    }
-
-    public function testFactoryReturnsEmptyIdentityIfNoAuthenticationServicePresent(): void
-    {
-        $this->services->has(AuthenticationService::class)->willReturn(false);
-
-        $this->services->has(\Zend\Authentication\AuthenticationService::class)->willReturn(false);
-        $this->services->get(AuthenticationService::class)->shouldNotBeCalled();
-        $this->services->get(\Zend\Authentication\AuthenticationService::class)->shouldNotBeCalled();
-        $this->services->has(AuthenticationServiceInterface::class)->willReturn(false);
-        $this->services->has(\Zend\Authentication\AuthenticationServiceInterface::class)->willReturn(false);
-        $this->services->get(AuthenticationServiceInterface::class)->shouldNotBeCalled();
-        $this->services->get(\Zend\Authentication\AuthenticationServiceInterface::class)->shouldNotBeCalled();
+        $container->expects(self::never())->method('get');
 
         $factory = new IdentityFactory();
-
-        $plugin = $factory($this->getContainerForFactory(), Identity::class);
-
-        $this->assertInstanceOf(Identity::class, $plugin);
-        $this->assertNull($plugin->getAuthenticationService());
+        $helper  = $factory($container, null);
+        self::assertInstanceOf(Identity::class, $helper);
     }
 
-    public function testFactoryReturnsIdentityWithConfiguredAuthenticationServiceWhenPresent(): void
+    /** @return array<array-key, array{0: string|class-string}> */
+    public function serviceNameProvider(): array
     {
-        $authentication = $this->prophesize(AuthenticationService::class);
-
-        $this->services->has(AuthenticationService::class)->willReturn(true);
-        $this->services->get(AuthenticationService::class)->will([$authentication, 'reveal']);
-        $this->services->has(AuthenticationServiceInterface::class)->willReturn(false);
-        $this->services->has(\Zend\Authentication\AuthenticationServiceInterface::class)->willReturn(false);
-        $this->services->get(AuthenticationServiceInterface::class)->shouldNotBeCalled();
-        $this->services->get(\Zend\Authentication\AuthenticationServiceInterface::class)->shouldNotBeCalled();
-
-        $factory = new IdentityFactory();
-
-        $plugin = $factory($this->getContainerForFactory(), Identity::class);
-
-        $this->assertInstanceOf(Identity::class, $plugin);
-        $this->assertSame($authentication->reveal(), $plugin->getAuthenticationService());
+        // phpcs:disable WebimpressCodingStandard.Formatting.StringClassReference
+        return [
+            [AuthenticationService::class],
+            [AuthenticationServiceInterface::class],
+            ['Zend\Authentication\AuthenticationService'],
+            ['Zend\Authentication\AuthenticationServiceInterface'],
+        ];
+        // phpcs:enable
     }
 
-    public function testFactoryReturnsIdentityWithConfiguredAuthenticationServiceInterfaceWhenPresent(): void
+    private function authService(?string $id): AuthenticationServiceStub
     {
-        $authentication = $this->prophesize(AuthenticationServiceInterface::class);
+        return new AuthenticationServiceStub($id);
+    }
 
-        $this->services->has(AuthenticationService::class)->willReturn(false);
+    /** @dataProvider serviceNameProvider */
+    public function testThatAFoundAuthenticationServiceWillBeUsed(string $serviceId): void
+    {
+        $service = $this->authService('james bond');
 
-        $this->services->has(\Zend\Authentication\AuthenticationService::class)->willReturn(false);
-        $this->services->get(AuthenticationService::class)->shouldNotBeCalled();
-        $this->services->get(\Zend\Authentication\AuthenticationService::class)->shouldNotBeCalled();
-        $this->services->has(AuthenticationServiceInterface::class)->willReturn(true);
-        $this->services->get(AuthenticationServiceInterface::class)->will([$authentication, 'reveal']);
+        $container = $this->createMock(ServiceManager::class);
+        $container->expects(self::atLeast(1))
+            ->method('has')
+            ->willReturnCallback(static fn (string $argument): bool => $argument === $serviceId);
+
+        $container->expects(self::once())
+            ->method('get')
+            ->with($serviceId)
+            ->willReturn($service);
 
         $factory = new IdentityFactory();
-
-        $plugin = $factory($this->getContainerForFactory(), Identity::class);
-
-        $this->assertInstanceOf(Identity::class, $plugin);
-        $this->assertSame($authentication->reveal(), $plugin->getAuthenticationService());
+        $helper  = $factory($container, null);
+        self::assertEquals('james bond', $helper());
     }
 }

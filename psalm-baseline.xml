@@ -702,11 +702,6 @@
       <code>(bool) $useNamespaces</code>
     </RedundantCastGivenDocblockType>
   </file>
-  <file src="src/Helper/Identity.php">
-    <MissingConstructor occurrences="1">
-      <code>$authenticationService</code>
-    </MissingConstructor>
-  </file>
   <file src="src/Helper/InlineScript.php">
     <LessSpecificReturnStatement occurrences="1">
       <code>parent::__invoke($mode, $spec, $placement, $attrs, $type)</code>
@@ -1627,21 +1622,6 @@
     </ParamNameMismatch>
     <PossiblyNullArgument occurrences="1">
       <code>$requestedName</code>
-    </PossiblyNullArgument>
-  </file>
-  <file src="src/Helper/Service/IdentityFactory.php">
-    <DeprecatedInterface occurrences="1">
-      <code>IdentityFactory</code>
-    </DeprecatedInterface>
-    <MixedInferredReturnType occurrences="1">
-      <code>null|AuthenticationServiceInterface</code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="3">
-      <code>$container-&gt;get(AuthenticationService::class)</code>
-      <code>$container-&gt;get(\Zend\Authentication\AuthenticationService::class)</code>
-    </MixedReturnStatement>
-    <PossiblyNullArgument occurrences="1">
-      <code>$cName</code>
     </PossiblyNullArgument>
   </file>
   <file src="src/Helper/TranslatorAwareTrait.php">
@@ -2805,14 +2785,6 @@
       <code>$escape('http://www.w3.org/1999/xhtml')</code>
     </MixedArgument>
   </file>
-  <file src="test/Helper/IdentityTest.php">
-    <PossiblyNullReference occurrences="1">
-      <code>setIdentity</code>
-    </PossiblyNullReference>
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>setIdentity</code>
-    </UndefinedInterfaceMethod>
-  </file>
   <file src="test/Helper/LayoutTest.php">
     <UndefinedMethod occurrences="1">
       <code>setTemplate</code>
@@ -3344,34 +3316,6 @@
       <code>1337</code>
     </InvalidScalarArgument>
   </file>
-  <file src="test/Helper/Service/IdentityFactoryTest.php">
-    <ArgumentTypeCoercion occurrences="3">
-      <code>$this-&gt;getContainerForFactory()</code>
-      <code>$this-&gt;getContainerForFactory()</code>
-      <code>$this-&gt;getContainerForFactory()</code>
-    </ArgumentTypeCoercion>
-    <InvalidPropertyAssignmentValue occurrences="1">
-      <code>$this-&gt;prophesize(ServiceManager::class)</code>
-    </InvalidPropertyAssignmentValue>
-    <MixedInferredReturnType occurrences="1">
-      <code>ContainerInterface</code>
-    </MixedInferredReturnType>
-    <MixedMethodCall occurrences="10">
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-      <code>willReturn</code>
-    </MixedMethodCall>
-    <MixedReturnStatement occurrences="1">
-      <code>$this-&gt;services-&gt;reveal()</code>
-    </MixedReturnStatement>
-  </file>
   <file src="test/Helper/TestAsset/Bar.php">
     <PropertyNotSetInConstructor occurrences="2">
       <code>Bar</code>
@@ -3459,18 +3403,15 @@
       <code>$container</code>
       <code>$container</code>
     </MissingClosureParamType>
-    <MixedAssignment occurrences="8">
-      <code>$expected</code>
+    <MixedAssignment occurrences="6">
       <code>$helper</code>
       <code>$helper</code>
       <code>$helper</code>
       <code>$helper</code>
       <code>$helper</code>
       <code>$helperB</code>
-      <code>$identity</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="7">
-      <code>getAuthenticationService</code>
+    <MixedMethodCall occurrences="6">
       <code>getTranslator</code>
       <code>getTranslator</code>
       <code>getTranslator</code>
