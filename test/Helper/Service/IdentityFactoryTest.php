@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace LaminasTest\View\Helper\Service;
 
 use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\Helper\Identity;
 use Laminas\View\Helper\Service\IdentityFactory;
+use LaminasTest\View\Helper\TestAsset\AuthenticationServiceStub;
 use PHPUnit\Framework\TestCase;
 
 class IdentityFactoryTest extends TestCase
@@ -21,7 +23,7 @@ class IdentityFactoryTest extends TestCase
 
         $factory = new IdentityFactory();
         $helper  = $factory($container, null);
-        self::assertNull($helper());
+        self::assertInstanceOf(Identity::class, $helper);
     }
 
     /** @return array<array-key, array{0: string}> */
@@ -37,26 +39,9 @@ class IdentityFactoryTest extends TestCase
         // phpcs:enable
     }
 
-    private function authService(?string $id): object
+    private function authService(?string $id): AuthenticationServiceStub
     {
-        return new class ($id) {
-            private ?string $id;
-
-            public function __construct(?string $id)
-            {
-                $this->id = $id;
-            }
-
-            public function hasIdentity(): bool
-            {
-                return $this->id !== null;
-            }
-
-            public function getIdentity(): ?string
-            {
-                return $this->id;
-            }
-        };
+        return new AuthenticationServiceStub($id);
     }
 
     /** @dataProvider serviceNameProvider */

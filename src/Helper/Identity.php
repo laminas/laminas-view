@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Laminas\View\Helper;
 
-use function method_exists;
+use Laminas\Authentication\AuthenticationServiceInterface;
+use Laminas\View\Exception\RuntimeException;
 
 /**
  * View helper plugin to fetch the authenticated identity.
@@ -13,10 +14,10 @@ class Identity extends AbstractHelper
 {
     use DeprecatedAbstractHelperHierarchyTrait;
 
-    /** @var object|null */
+    /** @var AuthenticationServiceInterface|null */
     protected $authenticationService;
 
-    public function __construct(?object $authenticationService = null)
+    public function __construct(?AuthenticationServiceInterface $authenticationService = null)
     {
         $this->authenticationService = $authenticationService;
     }
@@ -31,19 +32,13 @@ class Identity extends AbstractHelper
     public function __invoke()
     {
         $service = $this->authenticationService;
-        if (! $service) {
-            return null;
+        if (! $service instanceof AuthenticationServiceInterface) {
+            throw new RuntimeException('No AuthenticationServiceInterface instance provided');
         }
 
-        if (method_exists($service, 'hasIdentity') && $service->hasIdentity() === false) {
-            return null;
-        }
-
-        if (method_exists($service, 'getIdentity')) {
-            return $service->getIdentity();
-        }
-
-        return null;
+        return $service->hasIdentity()
+            ? $service->getIdentity()
+            : null;
     }
 
     /**
@@ -54,7 +49,7 @@ class Identity extends AbstractHelper
      *
      * @return $this
      */
-    public function setAuthenticationService(object $authenticationService)
+    public function setAuthenticationService(AuthenticationServiceInterface $authenticationService)
     {
         $this->authenticationService = $authenticationService;
 

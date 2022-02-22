@@ -4,31 +4,16 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper;
 
+use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Helper\Identity as IdentityHelper;
+use LaminasTest\View\Helper\TestAsset\AuthenticationServiceStub;
 use PHPUnit\Framework\TestCase;
 
 class IdentityTest extends TestCase
 {
-    private function authService(?string $id): object
+    private function authService(?string $id): AuthenticationServiceStub
     {
-        return new class ($id) {
-            private ?string $id;
-
-            public function __construct(?string $id)
-            {
-                $this->id = $id;
-            }
-
-            public function hasIdentity(): bool
-            {
-                return $this->id !== null;
-            }
-
-            public function getIdentity(): ?string
-            {
-                return $this->id;
-            }
-        };
+        return new AuthenticationServiceStub($id);
     }
 
     public function testIdentityIsNullWhenTheAuthServiceDoesNotHaveAnIdentity(): void
@@ -37,9 +22,11 @@ class IdentityTest extends TestCase
         self::assertNull($helper());
     }
 
-    public function testIdentityIsNullWhenThereIsNoAuthServiceAtAll(): void
+    public function testAnExceptionIsThrownWhenThereIsNoAuthServiceAtAll(): void
     {
         $helper = new IdentityHelper();
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('No AuthenticationServiceInterface instance provided');
         self::assertNull($helper());
     }
 
@@ -47,25 +34,5 @@ class IdentityTest extends TestCase
     {
         $helper = new IdentityHelper($this->authService('goat-man'));
         self::assertSame('goat-man', $helper());
-    }
-
-    public function testIdentityIsNullWhenTheAuthServiceDoesNotImplementHasIdentity(): void
-    {
-        $object = new class () {
-        };
-        $helper = new IdentityHelper($object);
-        self::assertNull($helper());
-    }
-
-    public function testIdentityIsNullWhenTheAuthServiceDoesNotImplementGetIdentity(): void
-    {
-        $object = new class () {
-            public function hasIdentity(): bool
-            {
-                return true;
-            }
-        };
-        $helper = new IdentityHelper($object);
-        self::assertNull($helper());
     }
 }

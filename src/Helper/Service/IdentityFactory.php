@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Laminas\View\Helper\Service;
 
 use Interop\Container\ContainerInterface;
+use Laminas\Authentication\AuthenticationServiceInterface;
 use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\View\Helper\Identity;
-
-use function is_object;
 
 /**
  * @psalm-suppress DeprecatedInterface
@@ -38,7 +37,7 @@ class IdentityFactory implements FactoryInterface
         return $this($serviceLocator, $cName);
     }
 
-    private function discoverAuthenticationService(ContainerInterface $container): ?object
+    private function discoverAuthenticationService(ContainerInterface $container): ?AuthenticationServiceInterface
     {
         // phpcs:disable WebimpressCodingStandard.Formatting.StringClassReference
         $search = [
@@ -55,7 +54,7 @@ class IdentityFactory implements FactoryInterface
             }
 
             $service = $container->get($id);
-            if (! is_object($service)) {
+            if (! $service instanceof AuthenticationServiceInterface) {
                 continue;
             }
 
