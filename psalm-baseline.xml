@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.20.0@f82a70e7edfc6cf2705e9374c8a0b6a974a779ed">
+<files psalm-version="4.22.0@fc2c6ab4d5fa5d644d8617089f012f3bb84b8703">
   <file src="bin/templatemap_generator.php">
     <MissingParamType occurrences="1">
       <code>$templatePath</code>
@@ -1567,17 +1567,6 @@
       <code>clearVariables</code>
     </MissingReturnType>
   </file>
-  <file src="src/Model/ConsoleModel.php">
-    <MixedInferredReturnType occurrences="1">
-      <code>int</code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="1">
-      <code>$this-&gt;options['errorLevel']</code>
-    </MixedReturnStatement>
-    <NonInvariantDocblockPropertyType occurrences="1">
-      <code>$captureTo</code>
-    </NonInvariantDocblockPropertyType>
-  </file>
   <file src="src/Model/FeedModel.php">
     <MixedAssignment occurrences="2">
       <code>$this-&gt;type</code>
@@ -1660,27 +1649,6 @@
     <RedundantConditionGivenDocblockType occurrences="1">
       <code>is_object($variables)</code>
     </RedundantConditionGivenDocblockType>
-  </file>
-  <file src="src/Renderer/ConsoleRenderer.php">
-    <ImplementedParamTypeMismatch occurrences="1">
-      <code>$values</code>
-    </ImplementedParamTypeMismatch>
-    <MixedArgument occurrences="1">
-      <code>$child</code>
-    </MixedArgument>
-    <MixedAssignment occurrences="2">
-      <code>$child</code>
-      <code>$value</code>
-    </MixedAssignment>
-    <MixedOperand occurrences="1">
-      <code>$this-&gt;getFilterChain()-&gt;filter($values['result'])</code>
-    </MixedOperand>
-    <ParamNameMismatch occurrences="1">
-      <code>$model</code>
-    </ParamNameMismatch>
-    <PossiblyInvalidArgument occurrences="1">
-      <code>$values</code>
-    </PossiblyInvalidArgument>
   </file>
   <file src="src/Renderer/FeedRenderer.php">
     <MissingConstructor occurrences="1">
@@ -3098,7 +3066,7 @@
     <MixedArgumentTypeCoercion occurrences="1">
       <code>(new RouterConfigProvider())-&gt;getDependencyConfig()</code>
     </MixedArgumentTypeCoercion>
-    <MixedAssignment occurrences="11">
+    <MixedAssignment occurrences="8">
       <code>$router</code>
       <code>$serviceConfig</code>
       <code>$test</code>
@@ -3111,12 +3079,12 @@
       <code>$viewHelpers</code>
       <code>$viewHelpers</code>
     </MixedAssignment>
-    <MixedFunctionCall occurrences="3">
+    <MixedFunctionCall occurrences="2">
       <code>$urlHelper('test')</code>
       <code>$urlHelper('test')</code>
       <code>$urlHelper('test', [], ['force_canonical' =&gt; true])</code>
     </MixedFunctionCall>
-    <MixedMethodCall occurrences="7">
+    <MixedMethodCall occurrences="5">
       <code>bootstrap</code>
       <code>bootstrap</code>
       <code>bootstrap</code>
