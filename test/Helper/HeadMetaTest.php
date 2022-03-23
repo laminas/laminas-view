@@ -8,6 +8,8 @@ use Laminas\View\Exception;
 use Laminas\View\Exception\ExceptionInterface as ViewException;
 use Laminas\View\Helper;
 use Laminas\View\Helper\Doctype;
+use Laminas\View\Helper\EscapeHtmlAttr;
+use Laminas\View\Helper\HeadMeta;
 use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
 
@@ -22,22 +24,12 @@ use function ucwords;
 
 use const PHP_EOL;
 
-/**
- * Test class for Laminas\View\Helper\HeadMeta.
- *
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class HeadMetaTest extends TestCase
 {
-    /** @var Helper\HeadMeta */
-    private $helper;
-    /** @var Helper\EscapeHtmlAttr */
-    private $attributeEscaper;
-    /** @var string|null */
-    private $error;
-    /** @var View */
-    private $view;
+    private HeadMeta $helper;
+    private EscapeHtmlAttr $attributeEscaper;
+    private ?string $error = null;
+    private View $view;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -197,12 +189,14 @@ class HeadMetaTest extends TestCase
     public function testOverloadingThrowsExceptionWithFewerThanTwoArgs(): void
     {
         $this->expectException(Exception\ExceptionInterface::class);
+        /** @psalm-suppress TooFewArguments */
         $this->helper->setName('foo');
     }
 
     public function testOverloadingThrowsExceptionWithInvalidMethodType(): void
     {
         $this->expectException(Exception\ExceptionInterface::class);
+        /** @psalm-suppress UndefinedMagicMethod */
         $this->helper->setFoo('foo');
     }
 
@@ -246,9 +240,6 @@ class HeadMetaTest extends TestCase
         $this->assertStringContainsString('name="title" content="' . $attributeEscaper('boo bah') . '"', $string);
     }
 
-    /**
-     * @group Laminas-6637
-     */
     public function testToStringWhenInvalidKeyProvidedShouldConvertThrownException(): void
     {
         $this->helper->__invoke('some-content', 'tag value', 'not allowed key');
@@ -306,9 +297,6 @@ class HeadMetaTest extends TestCase
         $this->assertStringContainsString('foo', $test);
     }
 
-    /**
-     * @issue Laminas-2663
-     */
     public function testSetNameDoesntClobber(): void
     {
         $view = new View();
@@ -324,9 +312,6 @@ class HeadMetaTest extends TestCase
         );
     }
 
-    /**
-     * @issue Laminas-2663
-     */
     public function testSetNameDoesntClobberPart2(): void
     {
         $view = new View();
@@ -347,11 +332,6 @@ class HeadMetaTest extends TestCase
         $this->assertEquals($expected, $view->plugin('headMeta')->toString());
     }
 
-    /**
-     * @link https://getlaminas.org/issues/browse/Laminas-3780
-     *
-     * @issue Laminas-3780
-     */
     public function testPlacesMetaTagsInProperOrder(): void
     {
         $view = new View();
@@ -375,9 +355,6 @@ class HeadMetaTest extends TestCase
         $this->assertEquals($expected, $view->plugin('headMeta')->toString());
     }
 
-    /**
-     * @issue Laminas-5435
-     */
     public function testContainerMaintainsCorrectOrderOfItems(): void
     {
         $this->helper->offsetSetName(1, 'keywords', 'foo');
@@ -398,9 +375,6 @@ class HeadMetaTest extends TestCase
         $this->assertEquals($expected, $test);
     }
 
-    /**
-     * @issue Laminas-7722
-     */
     public function testCharsetValidateFail(): void
     {
         $view = new View();
@@ -410,9 +384,6 @@ class HeadMetaTest extends TestCase
         $view->plugin('headMeta')->setCharset('utf-8');
     }
 
-    /**
-     * @issue Laminas-7722
-     */
     public function testCharset(): void
     {
         $view = new View();
@@ -460,9 +431,6 @@ class HeadMetaTest extends TestCase
              ->setCharset('utf-8');
     }
 
-    /**
-     * @group Laminas-9743
-     */
     public function testPropertyIsSupportedWithRdfaDoctype(): void
     {
         $this->view->doctype('XHTML1_RDFA');
@@ -474,9 +442,6 @@ class HeadMetaTest extends TestCase
         $this->assertEquals($expected, $this->helper->toString());
     }
 
-    /**
-     * @group Laminas-9743
-     */
     public function testPropertyIsNotSupportedByDefaultDoctype(): void
     {
         try {
@@ -488,7 +453,6 @@ class HeadMetaTest extends TestCase
     }
 
     /**
-     * @group Laminas-9743
      * @depends testPropertyIsSupportedWithRdfaDoctype
      */
     public function testOverloadingAppendPropertyAppendsMetaTagToStack(): void
@@ -498,7 +462,6 @@ class HeadMetaTest extends TestCase
     }
 
     /**
-     * @group Laminas-9743
      * @depends testPropertyIsSupportedWithRdfaDoctype
      */
     public function testOverloadingPrependPropertyPrependsMetaTagToStack(): void
@@ -508,7 +471,6 @@ class HeadMetaTest extends TestCase
     }
 
     /**
-     * @group Laminas-9743
      * @depends testPropertyIsSupportedWithRdfaDoctype
      */
     public function testOverloadingSetPropertyOverwritesMetaTagStack(): void
@@ -517,9 +479,6 @@ class HeadMetaTest extends TestCase
         $this->executeOverloadSet('property');
     }
 
-     /**
-      * @issue 3751
-      */
     public function testItempropIsSupportedWithHtml5Doctype(): void
     {
         $this->view->doctype('HTML5');
@@ -531,9 +490,6 @@ class HeadMetaTest extends TestCase
         $this->assertEquals($expected, $this->helper->toString());
     }
 
-    /**
-     * @issue 3751
-     */
     public function testItempropIsNotSupportedByDefaultDoctype(): void
     {
         try {
@@ -545,7 +501,6 @@ class HeadMetaTest extends TestCase
     }
 
     /**
-     * @issue 3751
      * @depends testItempropIsSupportedWithHtml5Doctype
      */
     public function testOverloadingAppendItempropAppendsMetaTagToStack(): void
@@ -555,7 +510,6 @@ class HeadMetaTest extends TestCase
     }
 
     /**
-     * @issue 3751
      * @depends testItempropIsSupportedWithHtml5Doctype
      */
     public function testOverloadingPrependItempropPrependsMetaTagToStack(): void
@@ -565,7 +519,6 @@ class HeadMetaTest extends TestCase
     }
 
     /**
-     * @issue 3751
      * @depends testItempropIsSupportedWithHtml5Doctype
      */
     public function testOverloadingSetItempropOverwritesMetaTagStack(): void
@@ -574,9 +527,6 @@ class HeadMetaTest extends TestCase
         $this->executeOverloadSet('itemprop');
     }
 
-    /**
-     * @group Laminas-11835
-     */
     public function testConditional(): void
     {
         $html = $this->helper->appendHttpEquiv('foo', 'bar', ['conditional' => 'lt IE 7'])->toString();

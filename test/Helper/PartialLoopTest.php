@@ -13,12 +13,6 @@ use stdClass;
 
 use function var_export;
 
-/**
- * Test class for Laminas\View\Helper\PartialLoop.
- *
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class PartialLoopTest extends TestCase
 {
     /** @var PartialLoop */
@@ -177,10 +171,6 @@ class PartialLoopTest extends TestCase
         }
     }
 
-    /**
-     * @group Laminas-3350
-     * @group Laminas-3352
-     */
     public function testShouldNotCastToArrayIfObjectIsTraversable(): void
     {
         $data = [
@@ -203,9 +193,6 @@ class PartialLoopTest extends TestCase
         }
     }
 
-    /**
-     * @group Laminas-3083
-     */
     public function testEmptyArrayPassedToPartialLoopShouldNotThrowException(): void
     {
         $view = new View();
@@ -216,9 +203,6 @@ class PartialLoopTest extends TestCase
         self::assertEquals(0, $this->helper->getPartialCounter());
     }
 
-    /**
-     * @group Laminas-2737
-     */
     public function testPartialLoopIncrementsPartialCounter(): void
     {
         $data = [
@@ -236,9 +220,6 @@ class PartialLoopTest extends TestCase
         $this->assertEquals(4, $this->helper->getPartialCounter());
     }
 
-    /**
-     * @group Laminas-5174
-     */
     public function testPartialLoopPartialCounterResets(): void
     {
         $data = [
@@ -283,9 +264,6 @@ class PartialLoopTest extends TestCase
         }
     }
 
-    /**
-     * @group 7093
-     */
     public function testNestedCallsShouldNotOverrideObjectKey(): void
     {
         $data = [];
@@ -313,9 +291,6 @@ class PartialLoopTest extends TestCase
         }
     }
 
-    /**
-     * @group 7450
-     */
     public function testNestedPartialLoopsNestedArray(): void
     {
         $data = [
@@ -490,10 +465,6 @@ class PartialLoopTest extends TestCase
         }
     }
 
-    /**
-     * @group Laminas-3350
-     * @group Laminas-3352
-     */
     public function testShouldNotCastToArrayIfObjectIsTraversableInLoopMethod(): void
     {
         $data = [
@@ -516,9 +487,6 @@ class PartialLoopTest extends TestCase
         }
     }
 
-    /**
-     * @group Laminas-3083
-     */
     public function testEmptyArrayPassedToPartialLoopShouldNotThrowExceptionInLoopMethod(): void
     {
         $view = new View();
@@ -529,9 +497,6 @@ class PartialLoopTest extends TestCase
         self::assertEquals(0, $this->helper->getPartialCounter());
     }
 
-    /**
-     * @group Laminas-2737
-     */
     public function testPartialLoopIncrementsPartialCounterInLoopMethod(): void
     {
         $data = [
@@ -549,9 +514,6 @@ class PartialLoopTest extends TestCase
         $this->assertEquals(4, $this->helper->getPartialCounter());
     }
 
-    /**
-     * @group Laminas-5174
-     */
     public function testPartialLoopPartialCounterResetsInLoopMethod(): void
     {
         $data = [
@@ -596,9 +558,6 @@ class PartialLoopTest extends TestCase
         }
     }
 
-    /**
-     * @group 7093
-     */
     public function testNestedCallsShouldNotOverrideObjectKeyInLoopMethod(): void
     {
         $data = [];
@@ -626,9 +585,6 @@ class PartialLoopTest extends TestCase
         }
     }
 
-    /**
-     * @group 7450
-     */
     public function testNestedPartialLoopsNestedArrayInLoopMethod(): void
     {
         $data = [

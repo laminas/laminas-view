@@ -13,16 +13,11 @@ use function array_walk_recursive;
 
 use const PHP_EOL;
 
-/**
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class HtmlListTest extends TestCase
 {
     /** @var Helper\HtmlList */
     public $helper;
-    /** @var View */
-    private $view;
+    private View $view;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -95,9 +90,6 @@ class HtmlListTest extends TestCase
         }
     }
 
-    /**
-     * @group Laminas-5018
-     */
     public function testMakeNestedUnorderedList(): void
     {
         $items = ['one', ['four', 'five', 'six'], 'two', 'three'];
@@ -111,9 +103,6 @@ class HtmlListTest extends TestCase
             . PHP_EOL . '</li>' . PHP_EOL . '<li>two', $list);
     }
 
-    /**
-     * @group Laminas-5018
-     */
     public function testMakeNestedDeepUnorderedList(): void
     {
         $items = ['one', ['four', ['six', 'seven', 'eight'], 'five'], 'two', 'three'];
@@ -154,9 +143,6 @@ class HtmlListTest extends TestCase
         $this->assertStringContainsString('<li>one <b>small</b> test</li>', $list);
     }
 
-    /**
-     * @group Laminas-2527
-     */
     public function testEscapeFlagHonoredForMultidimensionalLists(): void
     {
         $items = ['<b>one</b>', ['<b>four</b>', '<b>five</b>', '<b>six</b>'], '<b>two</b>', '<b>three</b>'];
@@ -169,7 +155,6 @@ class HtmlListTest extends TestCase
     }
 
     /**
-     * @group Laminas-2527
      * Added the s modifier to match newlines after Laminas-5018
      */
     public function testAttribsPassedIntoMultidimensionalLists(): void
@@ -183,9 +168,6 @@ class HtmlListTest extends TestCase
         }
     }
 
-    /**
-     * @group Laminas-2870
-     */
     public function testEscapeFlagShouldBePassedRecursively(): void
     {
         $items = [
@@ -214,9 +196,6 @@ class HtmlListTest extends TestCase
         $this->assertStringContainsString('<li>' . $value, $userdata);
     }
 
-    /**
-     * @group Laminas-6063
-     */
     public function testEmptyItems(): void
     {
         $this->expectException(Exception\InvalidArgumentException::class);

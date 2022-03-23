@@ -14,8 +14,7 @@ class EscapeJsTest extends TestCase
 {
     use EscaperEncodingsTrait;
 
-    /** @var EscapeHelper */
-    private $helper;
+    private EscapeHelper $helper;
 
     protected function setUp(): void
     {
@@ -161,11 +160,15 @@ class EscapeJsTest extends TestCase
     public function testSettingEncodingToEmptyStringShouldThrowException(): void
     {
         $this->expectException(\Laminas\Escaper\Exception\InvalidArgumentException::class);
+        /** @psalm-suppress InvalidArgument */
         $this->helper->setEncoding('');
         $this->helper->getEscaper();
     }
 
-    /** @dataProvider supportedEncodingsProvider */
+    /**
+     * @dataProvider supportedEncodingsProvider
+     * @param non-empty-string $encoding
+     */
     public function testSettingValidEncodingShouldNotThrowExceptions(string $encoding): void
     {
         $this->helper->setEncoding($encoding);

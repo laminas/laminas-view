@@ -114,13 +114,11 @@ abstract class AbstractTest extends TestCase
                             'config' =>  * @return array[]
                             'config' =>  * @psalm-return array{navigation: array{default: mixed}}
                              */
-                            'config' => function () use ($config): array {
-                                return [
-                                    'navigation' => [
-                                        'default' => $config['nav_test1'],
-                                    ],
-                                ];
-                            },
+                            'config' => static fn(): array => [
+                                'navigation' => [
+                                    'default' => $config['nav_test1'],
+                                ],
+                            ],
                         ],
                     ],
                 ],

@@ -159,9 +159,7 @@ class View implements EventManagerAwareInterface
         $event->setModel($model);
         $event->setName(ViewEvent::EVENT_RENDERER);
         $events   = $this->getEventManager();
-        $results  = $events->triggerEventUntil(function ($result) {
-            return $result instanceof Renderer;
-        }, $event);
+        $results  = $events->triggerEventUntil(static fn($result) => $result instanceof Renderer, $event);
         $renderer = $results->last();
         if (! $renderer instanceof Renderer) {
             throw new Exception\RuntimeException(sprintf(

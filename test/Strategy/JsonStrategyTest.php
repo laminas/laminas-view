@@ -23,14 +23,10 @@ class JsonStrategyTest extends TestCase
 {
     use EventListenerIntrospectionTrait;
 
-    /** @var JsonRenderer */
-    private $renderer;
-    /** @var JsonStrategy */
-    private $strategy;
-    /** @var ViewEvent */
-    private $event;
-    /** @var HttpResponse */
-    private $response;
+    private JsonRenderer $renderer;
+    private JsonStrategy $strategy;
+    private ViewEvent $event;
+    private HttpResponse $response;
 
     protected function setUp(): void
     {
@@ -47,9 +43,6 @@ class JsonStrategyTest extends TestCase
         $this->assertSame($this->renderer, $result);
     }
 
-    /**
-     * @group #2410
-     */
     public function testJsonAcceptHeaderDoesNotSelectJsonStrategy(): void
     {
         $request = new HttpRequest();
@@ -59,9 +52,6 @@ class JsonStrategyTest extends TestCase
         $this->assertNotSame($this->renderer, $result);
     }
 
-    /**
-     * @group #2410
-     */
     public function testJavascriptAcceptHeaderDoesNotSelectJsonStrategy(): void
     {
         $request = new HttpRequest();
@@ -71,9 +61,6 @@ class JsonStrategyTest extends TestCase
         $this->assertNotSame($this->renderer, $result);
     }
 
-    /**
-     * @group #2410
-     */
     public function testJsonModelJavascriptAcceptHeaderDoesNotSetJsonpCallback(): void
     {
         $this->event->setModel(new JsonModel());

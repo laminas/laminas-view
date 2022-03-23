@@ -13,22 +13,19 @@ use Laminas\View\Helper\Identity;
 
 use function assert;
 
+/**
+ * @psalm-suppress DeprecatedInterface
+ */
 class IdentityFactory implements FactoryInterface
 {
     /**
      * @param string|null $name
-     * @param null|array $options
+     * @param array<array-key, mixed>|null $options
      * @return Identity
      */
     public function __invoke(ContainerInterface $container, $name = null, ?array $options = null)
     {
-        $helper = new Identity();
-
-        if (null !== ($authenticationService = $this->discoverAuthenticationService($container))) {
-            $helper->setAuthenticationService($authenticationService);
-        }
-
-        return $helper;
+        return new Identity($this->discoverAuthenticationService($container));
     }
 
     /**

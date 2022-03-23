@@ -18,14 +18,10 @@ class PhpRendererStrategyTest extends TestCase
 {
     use EventListenerIntrospectionTrait;
 
-    /** @var PhpRendererStrategy */
-    private $strategy;
-    /** @var PhpRenderer */
-    private $renderer;
-    /** @var ViewEvent */
-    private $event;
-    /** @var HttpResponse */
-    private $response;
+    private PhpRendererStrategy $strategy;
+    private PhpRenderer $renderer;
+    private ViewEvent $event;
+    private HttpResponse $response;
 
     protected function setUp(): void
     {
@@ -171,7 +167,7 @@ class PhpRendererStrategyTest extends TestCase
         $listeners = iterator_to_array($this->getListenersForEvent('response', $events));
         $this->assertCount(1, $listeners);
 
-        $this->strategy->detach($events, 100);
+        $this->strategy->detach($events);
         $listeners = iterator_to_array($this->getListenersForEvent('renderer', $events));
         $this->assertCount(0, $listeners);
         $listeners = iterator_to_array($this->getListenersForEvent('response', $events));

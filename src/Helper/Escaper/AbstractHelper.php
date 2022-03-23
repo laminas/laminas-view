@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Laminas\View\Helper\Escaper;
 
-use Laminas\Escaper;
+use Laminas\Escaper\Escaper as Escape;
 use Laminas\View\Exception;
 use Laminas\View\Helper;
+use Laminas\View\Helper\DeprecatedAbstractHelperHierarchyTrait;
 
 use function is_array;
 use function is_object;
@@ -14,22 +15,35 @@ use function is_string;
 use function method_exists;
 
 /**
- * Helper for escaping values
+ * @psalm-internal Laminas\View
  */
 abstract class AbstractHelper extends Helper\AbstractHelper
 {
-    /**
-     * @const Recursion constants
-     */
+    use DeprecatedAbstractHelperHierarchyTrait;
+
     public const RECURSE_NONE   = 0x00;
     public const RECURSE_ARRAY  = 0x01;
     public const RECURSE_OBJECT = 0x02;
 
-    /** @var string Encoding */
-    protected $encoding = 'UTF-8';
+    /**
+     * @deprecated This property should be set in the underlying Escaper which should be passed to the constructor
+     *
+     * @var string
+     */
+    protected $encoding;
 
-    /** @var Escaper\Escaper|null */
+    /** @var Escape|null */
     protected $escaper;
+
+    /**
+     * @param non-empty-string $encoding
+     * @psalm-suppress DeprecatedProperty
+     */
+    public function __construct(?Escape $escaper = null, string $encoding = 'UTF-8')
+    {
+        $this->escaper  = $escaper;
+        $this->encoding = $escaper ? $escaper->getEncoding() : $encoding;
+    }
 
     /**
      * Invoke this helper: escape a value
@@ -89,9 +103,14 @@ abstract class AbstractHelper extends Helper\AbstractHelper
     /**
      * Set the encoding to use for escape operations
      *
-     * @param  string $encoding
+     * @deprecated since 2.20.0, this method will be removed in version 3.0.0 of this component.
+     *             The encoding should now be provided in configuration under `view_manager.encoding`.
+     *             This value is passed to the underlying escaper during factory based construction.
+     *
+     * @param  non-empty-string $encoding
      * @throws Exception\InvalidArgumentException
      * @return AbstractHelper
+     * @psalm-suppress DeprecatedProperty
      */
     public function setEncoding($encoding)
     {
@@ -110,7 +129,11 @@ abstract class AbstractHelper extends Helper\AbstractHelper
     /**
      * Get the encoding to use for escape operations
      *
+     * @deprecated since 2.20.0, this method will be removed in version 3.0.0 of this component.
+     *             Encoding is now considered a configuration item and not relevant in a template context
+     *
      * @return string
+     * @psalm-suppress DeprecatedProperty
      */
     public function getEncoding()
     {
@@ -118,11 +141,15 @@ abstract class AbstractHelper extends Helper\AbstractHelper
     }
 
     /**
-     * Set instance of Escaper
+     * Set instance of Escape
+     *
+     * @deprecated since 2.20.0, this method will be removed in version 3.0.0 of this component.
+     *             The escaper is now provided to the constructor by factories for each specific helper type.
      *
      * @return $this
+     * @psalm-suppress DeprecatedProperty
      */
-    public function setEscaper(Escaper\Escaper $escaper)
+    public function setEscaper(Escape $escaper)
     {
         $this->escaper  = $escaper;
         $this->encoding = $escaper->getEncoding();
@@ -133,12 +160,16 @@ abstract class AbstractHelper extends Helper\AbstractHelper
     /**
      * Get instance of Escaper
      *
-     * @return null|Escaper\Escaper
+     * @deprecated since 2.20.0, this method will be removed in version 3.0.0 of this component.
+     *             Exposing the underlying escaper to the template layer has been deprecated without replacement.
+     *
+     * @return Escape
+     * @psalm-suppress DeprecatedProperty
      */
     public function getEscaper()
     {
         if (null === $this->escaper) {
-            $this->setEscaper(new Escaper\Escaper($this->getEncoding()));
+            $this->escaper = new Escape($this->encoding);
         }
 
         return $this->escaper;

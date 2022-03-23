@@ -16,16 +16,9 @@ use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
 use ReflectionObject;
 
-/**
- * url() helper test -- tests integration with MVC
- *
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class UrlIntegrationTest extends TestCase
 {
-    /** @var ServiceManager */
-    private $serviceManager;
+    private ServiceManager $serviceManager;
 
     protected function setUp(): void
     {

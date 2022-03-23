@@ -4,43 +4,35 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper;
 
-use Laminas\Authentication\AuthenticationService;
-use Laminas\Authentication\Storage\NonPersistent as NonPersistentStorage;
+use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Helper\Identity as IdentityHelper;
+use LaminasTest\View\Helper\TestAsset\AuthenticationServiceStub;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Laminas_View_Helper_IdentityTest
- *
- * Tests Identity helper
- *
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class IdentityTest extends TestCase
 {
-    public function testGetIdentity(): void
+    private function authService(?string $id): AuthenticationServiceStub
     {
-        $identity = new TestAsset\IdentityObject();
-        $identity->setUsername('a username');
-        $identity->setPassword('a password');
+        return new AuthenticationServiceStub($id);
+    }
 
-        $authenticationService = new AuthenticationService(
-            new NonPersistentStorage(),
-            new TestAsset\AuthenticationAdapter()
-        );
+    public function testIdentityIsNullWhenTheAuthServiceDoesNotHaveAnIdentity(): void
+    {
+        $helper = new IdentityHelper($this->authService(null));
+        self::assertNull($helper());
+    }
 
-        $identityHelper = new IdentityHelper();
-        $identityHelper->setAuthenticationService($authenticationService);
+    public function testAnExceptionIsThrownWhenThereIsNoAuthServiceAtAll(): void
+    {
+        $helper = new IdentityHelper();
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('No AuthenticationServiceInterface instance provided');
+        self::assertNull($helper());
+    }
 
-        $this->assertNull($identityHelper());
-
-        $this->assertFalse($authenticationService->hasIdentity());
-
-        $authenticationService->getAdapter()->setIdentity($identity);
-        $result = $authenticationService->authenticate();
-        $this->assertTrue($result->isValid());
-
-        $this->assertEquals($identity, $identityHelper());
+    public function testIdentityIsTheExpectedValueWhenTheAuthServiceHasAnIdentity(): void
+    {
+        $helper = new IdentityHelper($this->authService('goat-man'));
+        self::assertSame('goat-man', $helper());
     }
 }

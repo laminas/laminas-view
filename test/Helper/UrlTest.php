@@ -18,21 +18,11 @@ use Laminas\View\Helper\Url as UrlHelper;
 use PHPUnit\Framework\TestCase;
 use ReflectionObject;
 
-/**
- * Laminas\View\Helper\Url Test
- *
- * Tests formText helper, including some common functionality of all form helpers
- *
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class UrlTest extends TestCase
 {
-    /** @var SimpleRouteStack */
-    private $router;
+    private SimpleRouteStack $router;
 
-    /** @var UrlHelper */
-    private $url;
+    private UrlHelper $url;
 
     /**
      * Sets up the fixture, for example, open a network connection.

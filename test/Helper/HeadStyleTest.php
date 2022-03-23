@@ -8,6 +8,7 @@ use DOMDocument;
 use Laminas\View;
 use Laminas\View\Helper;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 use function array_shift;
 use function count;
@@ -15,12 +16,6 @@ use function substr_count;
 
 use const PHP_EOL;
 
-/**
- * Test class for Laminas\View\Helper\HeadStyle.
- *
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class HeadStyleTest extends TestCase
 {
     /** @var Helper\HeadStyle */
@@ -83,7 +78,7 @@ class HeadStyleTest extends TestCase
             $this->assertEquals($i + 1, count($values));
             $item = $values[$i];
 
-            $this->assertInstanceOf('stdClass', $item);
+            $this->assertInstanceOf(stdClass::class, $item);
             $this->assertObjectHasAttribute('content', $item);
             $this->assertObjectHasAttribute('attributes', $item);
             $this->assertEquals($string, $item->content);
@@ -100,7 +95,7 @@ class HeadStyleTest extends TestCase
             $this->assertEquals($i + 1, count($values));
             $item = array_shift($values);
 
-            $this->assertInstanceOf('stdClass', $item);
+            $this->assertInstanceOf(stdClass::class, $item);
             $this->assertObjectHasAttribute('content', $item);
             $this->assertObjectHasAttribute('attributes', $item);
             $this->assertEquals($string, $item->content);
@@ -119,7 +114,7 @@ class HeadStyleTest extends TestCase
         $this->assertEquals(1, count($values));
         $item = array_shift($values);
 
-        $this->assertInstanceOf('stdClass', $item);
+        $this->assertInstanceOf(stdClass::class, $item);
         $this->assertObjectHasAttribute('content', $item);
         $this->assertObjectHasAttribute('attributes', $item);
         $this->assertEquals($string, $item->content);
@@ -172,9 +167,6 @@ class HeadStyleTest extends TestCase
         $this->assertMatchesRegularExpression('#<style [^>]*?media="screen"#', $value, $value);
     }
 
-    /**
-     * @group Laminas-8056
-     */
     public function testMediaAttributeCanHaveSpaceInCommaSeparatedString(): void
     {
         $this->helper->appendStyle('a { }', ['media' => 'screen, projection']);
@@ -208,8 +200,9 @@ class HeadStyleTest extends TestCase
                      ->__invoke($style2, 'PREPEND')
                      ->__invoke($style3, 'APPEND');
         $html = $this->helper->toString();
-        $doc  = new DOMDocument();
-        $dom  = $doc->loadHtml($html);
+        self::assertNotEmpty($html);
+        $doc = new DOMDocument();
+        $dom = $doc->loadHtml($html);
         $this->assertTrue($dom);
 
         $styles = substr_count($html, '<style type="text/css"');
@@ -253,6 +246,7 @@ class HeadStyleTest extends TestCase
     {
         $this->expectException(View\Exception\BadMethodCallException::class);
         $this->expectExceptionMessage('Method "appendStyle" requires minimally content for the stylesheet');
+        /** @psalm-suppress TooFewArguments */
         $this->helper->appendStyle();
     }
 
@@ -371,9 +365,6 @@ a {
         $this->assertStringContainsString('<!--<![endif]-->', $test);
     }
 
-    /**
-     * @issue Laminas-5435
-     */
     public function testContainerMaintainsCorrectOrderOfItems(): void
     {
         $style1 = 'a {display: none;}';
@@ -397,9 +388,6 @@ a {
         $this->assertEquals($expected, $test);
     }
 
-    /**
-     * @group Laminas-9532
-     */
     public function testRenderConditionalCommentsShouldNotContainHtmlEscaping(): void
     {
         $style = 'a{display:none;}';

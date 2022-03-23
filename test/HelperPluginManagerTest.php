@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace LaminasTest\View;
 
-use Laminas\Authentication\AuthenticationService;
 use Laminas\I18n\Translator\Translator;
 use Laminas\I18n\Translator\TranslatorInterface;
 use Laminas\Mvc\I18n\Translator as MvcTranslator;
@@ -15,21 +14,16 @@ use Laminas\View\Exception\InvalidHelperException;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\HeadTitle;
 use Laminas\View\Helper\HelperInterface;
+use Laminas\View\Helper\Identity;
 use Laminas\View\Helper\Url;
 use Laminas\View\HelperPluginManager;
 use Laminas\View\Renderer\PhpRenderer;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 
 use function method_exists;
 
-/**
- * @group      Laminas_View
- */
 class HelperPluginManagerTest extends TestCase
 {
-    use ProphecyTrait;
-
     private HelperPluginManager $helpers;
 
     protected function setUp(): void
@@ -67,9 +61,7 @@ class HelperPluginManagerTest extends TestCase
     {
         $helpers = new HelperPluginManager(new ServiceManager(), [
             'factories' => [
-                'test' => function () {
-                    return $this;
-                },
+                'test' => fn() => $this,
             ],
         ]);
         $this->expectException($this->getServiceNotFoundException($helpers));
@@ -90,21 +82,7 @@ class HelperPluginManagerTest extends TestCase
     public function testDefinesFactoryForIdentityPlugin(): void
     {
         $this->assertTrue($this->helpers->has('identity'));
-    }
-
-    public function testIdentityFactoryCanInjectAuthenticationServiceIfInParentServiceManager(): void
-    {
-        $config   = new Config([
-            'invokables' => [
-                AuthenticationService::class => AuthenticationService::class,
-            ],
-        ]);
-        $services = new ServiceManager();
-        $config->configureServiceManager($services);
-        $helpers  = new HelperPluginManager($services);
-        $identity = $helpers->get('identity');
-        $expected = $services->get(AuthenticationService::class);
-        $this->assertSame($expected, $identity->getAuthenticationService());
+        $this->assertTrue($this->helpers->has(Identity::class));
     }
 
     public function testIfHelperIsTranslatorAwareAndMvcTranslatorIsAvailableItWillInjectTheMvcTranslator(): void
@@ -184,14 +162,12 @@ class HelperPluginManagerTest extends TestCase
 
     public function testCanOverrideAFactoryViaConfigurationPassedToConstructor(): void
     {
-        $helper  = $this->prophesize(HelperInterface::class)->reveal();
+        $helper  = $this->createMock(HelperInterface::class);
         $helpers = new HelperPluginManager(new ServiceManager());
         $config  = new Config(
             [
                 'factories' => [
-                    Url::class => function ($container) use ($helper) {
-                        return $helper;
-                    },
+                    Url::class => static fn($container) => $helper,
                 ],
             ]
         );
@@ -207,9 +183,7 @@ class HelperPluginManagerTest extends TestCase
         $config  = new Config(
             [
                 'factories' => [
-                    'foo' => function ($container) use ($helper) {
-                        return $helper;
-                    },
+                    'foo' => static fn($container) => $helper,
                 ],
             ]
         );

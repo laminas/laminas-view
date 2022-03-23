@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Laminas\View;
 
+use ArrayIterator;
 use ArrayObject;
 use ReturnTypeWillChange; // phpcs:ignore
 
@@ -47,7 +48,7 @@ class Variables extends ArrayObject
         parent::__construct(
             $variables,
             ArrayObject::ARRAY_AS_PROPS,
-            'ArrayIterator'
+            ArrayIterator::class
         );
 
         $this->setOptions($options);

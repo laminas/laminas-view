@@ -8,8 +8,7 @@ use Laminas\View\Helper\AbstractHelper as Helper;
 
 class SharedInstance extends Helper
 {
-    /** @var int */
-    private $count = 0;
+    private int $count = 0;
 
     /**
      * Invokable functor

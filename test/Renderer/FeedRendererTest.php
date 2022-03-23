@@ -16,8 +16,7 @@ use function time;
 
 class FeedRendererTest extends TestCase
 {
-    /** @var FeedRenderer */
-    private $renderer;
+    private FeedRenderer $renderer;
 
     protected function setUp(): void
     {

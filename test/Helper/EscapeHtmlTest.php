@@ -16,8 +16,7 @@ class EscapeHtmlTest extends TestCase
 {
     use EscaperEncodingsTrait;
 
-    /** @var EscapeHelper */
-    private $helper;
+    private EscapeHelper $helper;
 
     protected function setUp(): void
     {
@@ -160,11 +159,15 @@ class EscapeHtmlTest extends TestCase
     public function testSettingEncodingToEmptyStringShouldThrowException(): void
     {
         $this->expectException(\Laminas\Escaper\Exception\InvalidArgumentException::class);
+        /** @psalm-suppress InvalidArgument */
         $this->helper->setEncoding('');
         $this->helper->getEscaper();
     }
 
-    /** @dataProvider supportedEncodingsProvider */
+    /**
+     * @dataProvider supportedEncodingsProvider
+     * @param non-empty-string $encoding
+     */
     public function testSettingValidEncodingShouldNotThrowExceptions(string $encoding): void
     {
         $this->helper->setEncoding($encoding);
@@ -182,5 +185,14 @@ class EscapeHtmlTest extends TestCase
         $this->expectException(\Laminas\Escaper\Exception\InvalidArgumentException::class);
         $this->helper->setEncoding('completely-invalid');
         $this->helper->getEscaper();
+    }
+
+    public function testThatAnEscaperProvidedToTheConstructorWillBeUsedWithItsConfiguredEncoding(): void
+    {
+        $escaper = new Escaper('iso-8859-1');
+        $helper  = new EscapeHelper($escaper, 'UTF-8');
+
+        self::assertSame($escaper, $helper->getEscaper());
+        self::assertEquals('iso-8859-1', $helper->getEncoding());
     }
 }

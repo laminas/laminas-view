@@ -15,6 +15,9 @@ use function sprintf;
 
 /**
  * Registry for placeholder containers
+ *
+ * @deprecated since >= 2.20.0. This class is currently unused and will be removed in version 3.0 of this component.
+ *             There is no replacement.
  */
 class Registry
 {

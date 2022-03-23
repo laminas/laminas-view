@@ -7,12 +7,6 @@ namespace LaminasTest\View\Helper;
 use Laminas\View\Helper;
 use PHPUnit\Framework\TestCase;
 
-/**
- * Test class for Laminas\View\Helper\Cycle.
- *
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class CycleTest extends TestCase
 {
     /** @var Helper\Cycle */

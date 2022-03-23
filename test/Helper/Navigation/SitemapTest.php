@@ -16,16 +16,12 @@ use function sprintf;
 use function trim;
 
 /**
- * Tests Laminas\View\Helper\Navigation\Sitemap
- *
- * @group      Laminas_View
- * @group      Laminas_View_Helper
  * @psalm-suppress MissingConstructor
  */
 class SitemapTest extends AbstractTest
 {
     /** @var array<string, string> */
-    private $oldServer = [];
+    private array $oldServer = [];
 
     /**
      * View helper
@@ -33,13 +29,10 @@ class SitemapTest extends AbstractTest
      * @var Sitemap
      */
     protected $_helper; // phpcs:ignore
-
     /**
      * Stores the original set timezone
-     *
-     * @var string
      */
-    private $originaltimezone;
+    private string $originaltimezone;
 
     protected function setUp(): void
     {
@@ -185,11 +178,11 @@ class SitemapTest extends AbstractTest
                 'http://w.'
             );
             $actual   = $e->getMessage();
-            $this->assertEquals($expected, $actual);
+            static::assertEquals($expected, $actual);
             return;
         }
 
-        $this->fail('A Laminas\View\Exception\InvalidArgumentException was not thrown on invalid <loc />');
+        static::fail('A Laminas\View\Exception\InvalidArgumentException was not thrown on invalid <loc />');
     }
 
     public function testDisablingValidators(): void
@@ -199,12 +192,15 @@ class SitemapTest extends AbstractTest
         $this->_helper->setUseSitemapValidators(false);
 
         $expected = $this->getExpectedFileContents('sitemap/invalid.xml');
+        self::assertNotEmpty($expected);
 
         // using DOMDocument::saveXML() to prevent differences in libxml from invalidating test
         $expectedDom = new DOMDocument();
         $receivedDom = new DOMDocument();
         $expectedDom->loadXML($expected);
-        $receivedDom->loadXML($this->_helper->render($nav));
+        $rendered = $this->_helper->render($nav);
+        self::assertNotEmpty($rendered);
+        $receivedDom->loadXML($rendered);
         $this->assertEquals($expectedDom->saveXML(), $receivedDom->saveXML());
     }
 

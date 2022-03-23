@@ -32,13 +32,9 @@ use function realpath;
 use function restore_error_handler;
 use function str_replace;
 
-/**
- * @group      Laminas_View
- */
 class PhpRendererTest extends TestCase
 {
-    /** @var PhpRenderer */
-    private $renderer;
+    private PhpRenderer $renderer;
 
     protected function setUp(): void
     {
@@ -182,9 +178,7 @@ class PhpRendererTest extends TestCase
     public function testRenderingFiltersContentWithFilterChain(): void
     {
         $expected = 'foo bar baz';
-        $this->renderer->getFilterChain()->attach(function ($content) {
-            return str_replace('INJECT', 'bar', $content);
-        });
+        $this->renderer->getFilterChain()->attach(static fn($content) => str_replace('INJECT', 'bar', $content));
         $this->renderer->vars()->assign(['bar' => 'INJECT']);
         $this->resolver()->addPath(__DIR__ . '/_templates');
         $test = $this->renderer->render('test.phtml');
@@ -200,9 +194,6 @@ class PhpRendererTest extends TestCase
         }
     }
 
-    /**
-     * @group Laminas-68
-     */
     public function testCanSpecifyArrayForVarsAndGetAlwaysArrayObject(): void
     {
         $vars = ['foo' => 'bar'];
@@ -210,9 +201,6 @@ class PhpRendererTest extends TestCase
         $this->assertInstanceOf(Variables::class, $this->renderer->vars());
     }
 
-    /**
-     * @group Laminas-68
-     */
     public function testPassingVariablesObjectToSetVarsShouldUseItDirectory(): void
     {
         $vars = new Variables(['foo' => '<p>Bar</p>']);
@@ -220,9 +208,6 @@ class PhpRendererTest extends TestCase
         $this->assertSame($vars, $this->renderer->vars());
     }
 
-    /**
-     * @group Laminas-86
-     */
     public function testNestedRenderingRestoresVariablesCorrectly(): void
     {
         $expected = "inner\n<p>content</p>";
@@ -231,18 +216,12 @@ class PhpRendererTest extends TestCase
         $this->assertEquals($expected, $test);
     }
 
-    /**
-     * @group convenience-api
-     */
     public function testPropertyOverloadingShouldProxyToVariablesContainer(): void
     {
         $this->renderer->foo = '<p>Bar</p>';
         $this->assertEquals($this->renderer->vars('foo'), $this->renderer->foo);
     }
 
-    /**
-     * @group convenience-api
-     */
     public function testMethodOverloadingShouldReturnHelperInstanceIfNotInvokable(): void
     {
         $helpers = new HelperPluginManager(new ServiceManager(), [
@@ -256,9 +235,6 @@ class PhpRendererTest extends TestCase
         $this->assertInstanceOf(Uninvokable::class, $helper);
     }
 
-    /**
-     * @group convenience-api
-     */
     public function testMethodOverloadingShouldInvokeHelperIfInvokable(): void
     {
         $helpers = new HelperPluginManager(new ServiceManager(), [
@@ -272,9 +248,6 @@ class PhpRendererTest extends TestCase
         $this->assertEquals('LaminasTest\View\TestAsset\Invokable::__invoke: it works!', $return);
     }
 
-    /**
-     * @group convenience-api
-     */
     public function testGetMethodShouldRetrieveVariableFromVariableContainer(): void
     {
         $this->renderer->foo = '<p>Bar</p>';
@@ -282,9 +255,6 @@ class PhpRendererTest extends TestCase
         $this->assertSame($this->renderer->vars()->foo, $foo);
     }
 
-    /**
-     * @group convenience-api
-     */
     public function testRenderingLocalVariables(): void
     {
         $expected = '10 > 9';
@@ -306,9 +276,6 @@ class PhpRendererTest extends TestCase
         $this->assertMatchesRegularExpression('#<body>\s*Block content\s*</body>#', $content);
     }
 
-    /**
-     * @group view-model
-     */
     public function testCanRenderViewModel(): void
     {
         $resolver = new TemplateMapResolver([
@@ -323,9 +290,6 @@ class PhpRendererTest extends TestCase
         $this->assertMatchesRegularExpression('/\s*Empty view\s*/s', $content);
     }
 
-    /**
-     * @group view-model
-     */
     public function testViewModelWithoutTemplateRaisesException(): void
     {
         $model = new ViewModel();
@@ -333,9 +297,6 @@ class PhpRendererTest extends TestCase
         $this->renderer->render($model);
     }
 
-    /**
-     * @group view-model
-     */
     public function testRendersViewModelWithVariablesSpecified(): void
     {
         $resolver = new TemplateMapResolver([
@@ -351,9 +312,6 @@ class PhpRendererTest extends TestCase
         $this->assertMatchesRegularExpression('/\s*foo bar baz\s*/s', $content);
     }
 
-    /**
-     * @group view-model
-     */
     public function testRenderedViewModelIsRegisteredAsCurrentViewModel(): void
     {
         $resolver = new TemplateMapResolver([
@@ -418,7 +376,7 @@ class PhpRendererTest extends TestCase
         ]);
 
         // @codingStandardsIgnoreStart
-        set_error_handler(function (int $errno, string $errstr) { return true; }, E_WARNING);
+        set_error_handler(static fn(int $errno, string $errstr) => true, E_WARNING);
         // @codingStandardsIgnoreEnd
 
         $this->renderer->setResolver($resolver);
@@ -435,17 +393,11 @@ class PhpRendererTest extends TestCase
         $this->assertStringContainsString('file include failed', $caught->getMessage());
     }
 
-    /**
-     * @group view-model
-     */
     public function testDoesNotRenderTreesOfViewModelsByDefault(): void
     {
         $this->assertFalse($this->renderer->canRenderTrees());
     }
 
-    /**
-     * @group view-model
-     */
     public function testRenderTreesOfViewModelsCapabilityIsMutable(): void
     {
         $this->renderer->setCanRenderTrees(true);
@@ -454,9 +406,6 @@ class PhpRendererTest extends TestCase
         $this->assertFalse($this->renderer->canRenderTrees());
     }
 
-    /**
-     * @group view-model
-     */
     public function testIfViewModelComposesVariablesInstanceThenRendererUsesIt(): void
     {
         $model = new ViewModel();
@@ -473,7 +422,6 @@ class PhpRendererTest extends TestCase
     }
 
     /**
-     * @group Laminas-4221
      * @psalm-suppress UndefinedMagicMethod
      */
     public function testSharedInstanceHelper(): void
@@ -523,11 +471,6 @@ class PhpRendererTest extends TestCase
         $this->assertEmpty($filterChain);
     }
 
-    /**
-     * @see https://github.com/zendframework/zend-view/issues/120
-     *
-     * @group laminas-view-120
-     */
     public function testRendererDoesntUsePreviousRenderedOutputWhenInvokedWithEmptyString(): void
     {
         $this->resolver()->addPath(__DIR__ . '/_templates');
@@ -539,11 +482,6 @@ class PhpRendererTest extends TestCase
         $this->assertNotSame($previousOutput, $actual);
     }
 
-    /**
-     * @see https://github.com/zendframework/zend-view/issues/120
-     *
-     * @group laminas-view-120
-     */
     public function testRendererDoesntUsePreviousRenderedOutputWhenInvokedWithFalse(): void
     {
         $this->resolver()->addPath(__DIR__ . '/_templates');
