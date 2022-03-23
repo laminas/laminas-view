@@ -7,6 +7,7 @@ namespace LaminasTest\View\Helper\Service;
 use Interop\Container\ContainerInterface;
 use Laminas\Authentication\AuthenticationService;
 use Laminas\Authentication\AuthenticationServiceInterface;
+use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Helper\Identity;
 use Laminas\View\Helper\Service\IdentityFactory;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -36,12 +37,17 @@ class IdentityFactoryTest extends TestCase
         $plugin = $factory($this->services);
 
         $this->assertInstanceOf(Identity::class, $plugin);
-        $this->assertNull($plugin->getAuthenticationService());
+        $this->expectException(RuntimeException::class);
+        $plugin();
     }
 
     public function testFactoryReturnsIdentityWithConfiguredAuthenticationServiceWhenPresent(): void
     {
         $authService = $this->createMock(AuthenticationServiceInterface::class);
+        $authService->expects(self::once())
+            ->method('hasIdentity')
+            ->willReturn(false);
+
         $this->services->expects(self::once())
             ->method('has')
             ->with(AuthenticationService::class)
@@ -57,12 +63,15 @@ class IdentityFactoryTest extends TestCase
         $plugin = $factory($this->services);
 
         $this->assertInstanceOf(Identity::class, $plugin);
-        $this->assertSame($authService, $plugin->getAuthenticationService());
+        $this->assertNull($plugin());
     }
 
     public function testFactoryReturnsIdentityWithConfiguredAuthenticationServiceInterfaceWhenPresent(): void
     {
         $authService = $this->createMock(AuthenticationServiceInterface::class);
+        $authService->expects(self::once())
+            ->method('hasIdentity')
+            ->willReturn(false);
 
         $this->services->expects(self::exactly(2))
             ->method('has')
@@ -78,6 +87,6 @@ class IdentityFactoryTest extends TestCase
         $plugin = $factory($this->services);
 
         $this->assertInstanceOf(Identity::class, $plugin);
-        $this->assertSame($authService, $plugin->getAuthenticationService());
+        $this->assertNull($plugin());
     }
 }
