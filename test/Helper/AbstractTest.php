@@ -8,10 +8,6 @@ use Laminas\View\Renderer\RendererInterface;
 use LaminasTest\View\Helper\TestAsset\ConcreteHelper;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class AbstractTest extends TestCase
 {
     /** @var ConcreteHelper */

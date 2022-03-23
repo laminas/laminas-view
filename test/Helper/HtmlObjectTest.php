@@ -10,16 +10,10 @@ use Laminas\View\Renderer\PhpRenderer as View;
 use Laminas\View\Renderer\RendererInterface;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class HtmlObjectTest extends TestCase
 {
-    /** @var HtmlObject */
-    private $helper;
-    /** @var View */
-    private $view;
+    private HtmlObject $helper;
+    private View $view;
 
     /**
      * Sets up the fixture, for example, open a network connection.

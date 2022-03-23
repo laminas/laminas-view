@@ -13,18 +13,10 @@ use function json_encode;
 
 use const JSON_THROW_ON_ERROR;
 
-/**
- * Test class for Laminas\View\Helper\Json
- *
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class JsonTest extends TestCase
 {
-    /** @var Response */
-    private $response;
-    /** @var JsonHelper */
-    private $helper;
+    private Response $response;
+    private JsonHelper $helper;
 
     /**
      * Sets up the fixture, for example, open a network connection.

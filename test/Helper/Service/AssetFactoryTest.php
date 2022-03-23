@@ -8,16 +8,13 @@ use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Exception;
 use Laminas\View\Helper\Asset;
 use Laminas\View\Helper\Service\AssetFactory;
-use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
-
-use function method_exists;
 
 class AssetFactoryTest extends TestCase
 {
-    use ProphecyTrait;
-
+    /**
+     * @deprecated for removal in 3.0
+     */
     public function testAssetFactoryCreateServiceCreatesAssetInstance(): void
     {
         $services = $this->getServices();
@@ -38,6 +35,9 @@ class AssetFactoryTest extends TestCase
         $this->assertInstanceOf(Asset::class, $asset);
     }
 
+    /**
+     * @deprecated for removal in 3.0
+     */
     public function testValidConfiguration(): void
     {
         $config = [
@@ -59,34 +59,89 @@ class AssetFactoryTest extends TestCase
         $this->assertEquals($config['view_helper_config']['asset']['resource_map'], $asset->getResourceMap());
     }
 
-    public function testInvalidConfiguration(): void
+    public function testThatAnExceptionWillBeThrownWhenTheResourceMapIsSetToANonArray(): void
     {
-        $config   = [
+        $container = $this->getServices([
             'view_helper_config' => [
-                'asset' => [],
+                'asset' => [
+                    'resource_map' => 'Not an array',
+                ],
             ],
-        ];
-        $services = $this->getServices($config);
-
-        $assetFactory = new AssetFactory();
+        ]);
 
         $this->expectException(Exception\RuntimeException::class);
-        $this->expectExceptionMessage('Invalid resource map configuration');
-        $assetFactory($services, '');
+        $this->expectExceptionMessage(
+            'Invalid resource map configuration. Expected the key '
+            . '"resource_map" to contain an array value but received "string"'
+        );
+        (new AssetFactory())($container, '');
     }
 
-    protected function getServices(array $config = []): ServiceManager
+    /**
+     * @return array<string, array{0: array<string, mixed>}>
+     */
+    public function validConfigProvider(): array
     {
-        $services = $this->prophesize(ServiceManager::class);
-        $services->get('config')->willReturn($config);
+        return [
+            'No View Helper Configuration' => [
+                [],
+            ],
+            'No Asset Config At All'       => [
+                [
+                    'view_helper_config' => [],
+                ],
+            ],
+            'No Resource Map Key'          => [
+                [
+                    'view_helper_config' => [
+                        'asset' => [],
+                    ],
+                ],
+            ],
+            'Empty Resource Map'           => [
+                [
+                    'view_helper_config' => [
+                        'asset' => [
+                            'resource_map' => [],
+                        ],
+                    ],
+                ],
+            ],
+            'Non-Empty Resource Map'       => [
+                [
+                    'view_helper_config' => [
+                        'asset' => [
+                            'resource_map' => [
+                                'foo.css' => 'assets/foo.1.css',
+                                'bar.css' => 'assets/bar.1.css',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+    }
 
-        $helpers = new HelperPluginManager($services->reveal());
+    /**
+     * @dataProvider validConfigProvider
+     * @param array<string, mixed> $config
+     */
+    public function testThatAnExceptionWillNotBeThrownWhenGivenUnsetOrEmptyArrayConfiguration(array $config): void
+    {
+        $container = $this->getServices($config);
+        (new AssetFactory())($container, 'foo');
+        self::assertTrue(true);
+    }
 
-        // test if we are using Laminas\ServiceManager v3
-        if (method_exists($helpers, 'configure')) {
-            return $services->reveal();
-        }
+    /** @param array<string, mixed> $config */
+    private function getServices(array $config = []): ServiceManager
+    {
+        $services = $this->createMock(ServiceManager::class);
+        $services->expects(self::once())
+            ->method('get')
+            ->with('config')
+            ->willReturn($config);
 
-        return $helpers;
+        return $services;
     }
 }

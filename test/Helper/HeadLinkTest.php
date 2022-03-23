@@ -17,12 +17,6 @@ use function var_export;
 
 use const PHP_EOL;
 
-/**
- * Test class for Laminas\View\Helper\HeadLink.
- *
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class HeadLinkTest extends TestCase
 {
     /** @var Helper\HeadLink */
@@ -200,6 +194,7 @@ class HeadLinkTest extends TestCase
     public function testOverloadingThrowsExceptionWithNoArguments(): void
     {
         $this->expectException(Exception\ExceptionInterface::class);
+        /** @psalm-suppress TooFewArguments */
         $this->helper->appendStylesheet();
     }
 
@@ -350,9 +345,6 @@ class HeadLinkTest extends TestCase
         $this->assertEquals(1, count($this->helper), var_export($this->helper->getContainer()->getArrayCopy(), true));
     }
 
-    /**
-     * test for Laminas-2889
-     */
     public function testBooleanStylesheet(): void
     {
         $this->helper->appendStylesheet(['href' => '/bar/baz', 'conditionalStylesheet' => false]);
@@ -360,9 +352,6 @@ class HeadLinkTest extends TestCase
         $this->assertStringNotContainsString('[if false]', $test);
     }
 
-    /**
-     * test for Laminas-3271
-     */
     public function testBooleanTrueConditionalStylesheet(): void
     {
         $this->helper->appendStylesheet(['href' => '/bar/baz', 'conditionalStylesheet' => true]);
@@ -371,11 +360,6 @@ class HeadLinkTest extends TestCase
         $this->assertStringNotContainsString('[if true]', $test);
     }
 
-    /**
-     * @link https://getlaminas.org/issues/browse/Laminas-3928
-     *
-     * @issue Laminas-3928
-     */
     public function testTurnOffAutoEscapeDoesNotEncodeAmpersand(): void
     {
         $this->helper->setAutoEscape(false)->appendStylesheet('/css/rules.css?id=123&foo=bar');
@@ -429,9 +413,6 @@ class HeadLinkTest extends TestCase
         $this->assertStringContainsString('rel="next"', $test);
     }
 
-    /**
-     * @issue Laminas-5435
-     */
     public function testContainerMaintainsCorrectOrderOfItems(): void
     {
         $this->helper->__invoke()->offsetSetStylesheet(1, '/test1.css');
@@ -459,18 +440,12 @@ class HeadLinkTest extends TestCase
         $this->assertEquals($expected, $test);
     }
 
-    /**
-     * @issue Laminas-10345
-     */
     public function testIdAttributeIsSupported(): void
     {
         $this->helper->appendStylesheet(['href' => '/bar/baz', 'id' => 'foo']);
         $this->assertStringContainsString('id="foo"', $this->helper->toString());
     }
 
-    /**
-     * @group 6635
-     */
     public function testSizesAttributeIsSupported(): void
     {
         $this->helper->appendStylesheet(['rel' => 'icon', 'href' => '/bar/baz', 'sizes' => '123x456']);
@@ -479,6 +454,7 @@ class HeadLinkTest extends TestCase
 
     public function testItempropAttributeIsSupported(): void
     {
+        /** @psalm-suppress TooFewArguments */
         $this->helper->prependAlternate(['itemprop' => 'url', 'href' => '/bar/baz', 'rel' => 'canonical']);
         $this->assertStringContainsString('itemprop="url"', $this->helper->toString());
     }

@@ -13,9 +13,6 @@ use Laminas\View\Helper\Navigation\Breadcrumbs;
 use Laminas\View\Helper\Navigation\PluginManager;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group      Laminas_View
- */
 class PluginManagerCompatibilityTest extends TestCase
 {
     use CommonPluginManagerTrait;

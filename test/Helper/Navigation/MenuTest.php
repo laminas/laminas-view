@@ -18,10 +18,6 @@ use function trim;
 use const PHP_EOL;
 
 /**
- * Tests Laminas\View\Helper\Navigation\Menu.
- *
- * @group      Laminas_View
- * @group      Laminas_View_Helper
  * @psalm-suppress MissingConstructor
  */
 class MenuTest extends AbstractTest

@@ -15,9 +15,8 @@ use stdClass;
 use function get_object_vars;
 use function json_encode;
 
-/**
- * @group      Laminas_View
- */
+use const JSON_THROW_ON_ERROR;
+
 class JsonRendererTest extends TestCase
 {
     /** @var JsonRenderer */
@@ -119,7 +118,7 @@ class JsonRendererTest extends TestCase
      */
     public function testRendersNonObjectModelAsJson($model): void
     {
-        $expected = json_encode($model);
+        $expected = json_encode($model, JSON_THROW_ON_ERROR);
         /** @psalm-suppress MixedArgument $test */
         $test = $this->renderer->render($model);
         $this->assertEquals($expected, $test);
@@ -140,7 +139,7 @@ class JsonRendererTest extends TestCase
             'foo' => 'bar',
             'bar' => 'baz',
         ]);
-        $expected = json_encode($model->getArrayCopy());
+        $expected = json_encode($model->getArrayCopy(), JSON_THROW_ON_ERROR);
         $test     = $this->renderer->render($model);
         $this->assertEquals($expected, $test);
     }
@@ -150,7 +149,7 @@ class JsonRendererTest extends TestCase
         $model      = new stdClass();
         $model->foo = 'bar';
         $model->bar = 'baz';
-        $expected   = json_encode(get_object_vars($model));
+        $expected   = json_encode(get_object_vars($model), JSON_THROW_ON_ERROR);
         $test       = $this->renderer->render($model);
         $this->assertEquals($expected, $test);
     }
@@ -190,7 +189,7 @@ class JsonRendererTest extends TestCase
      */
     public function testRendersNonObjectModelAsJsonWithJsonpCallback($model): void
     {
-        $expected = 'callback(' . json_encode($model) . ');';
+        $expected = 'callback(' . json_encode($model, JSON_THROW_ON_ERROR) . ');';
         $this->renderer->setJsonpCallback('callback');
         $test = $this->renderer->render($model);
         $this->assertEquals($expected, $test);
@@ -212,7 +211,7 @@ class JsonRendererTest extends TestCase
             'foo' => 'bar',
             'bar' => 'baz',
         ]);
-        $expected = 'callback(' . json_encode($model->getArrayCopy()) . ');';
+        $expected = 'callback(' . json_encode($model->getArrayCopy(), JSON_THROW_ON_ERROR) . ');';
         $this->renderer->setJsonpCallback('callback');
         $test = $this->renderer->render($model);
         $this->assertEquals($expected, $test);
@@ -223,15 +222,12 @@ class JsonRendererTest extends TestCase
         $model      = new stdClass();
         $model->foo = 'bar';
         $model->bar = 'baz';
-        $expected   = 'callback(' . json_encode(get_object_vars($model)) . ');';
+        $expected   = 'callback(' . json_encode(get_object_vars($model), JSON_THROW_ON_ERROR) . ');';
         $this->renderer->setJsonpCallback('callback');
         $test = $this->renderer->render($model);
         $this->assertEquals($expected, $test);
     }
 
-    /**
-     * @group 2463
-     */
     public function testRecursesJsonModelChildrenWhenRendering(): void
     {
         $root   = new JsonModel(['foo' => 'bar']);

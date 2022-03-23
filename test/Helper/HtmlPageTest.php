@@ -8,16 +8,11 @@ use Laminas\View\Helper\HtmlPage;
 use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
 
-/**
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class HtmlPageTest extends TestCase
 {
     /** @var HtmlPage */
     public $helper;
-    /** @var View */
-    private $view;
+    private View $view;
 
     /**
      * Sets up the fixture, for example, open a network connection.

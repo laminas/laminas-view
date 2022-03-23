@@ -12,16 +12,10 @@ use PHPUnit\Framework\TestCase;
 
 use function assert;
 
-/**
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class RenderToPlaceholderTest extends TestCase
 {
-    /** @var View */
-    private $view;
-    /** @var RenderToPlaceholder */
-    private $helper;
+    private View $view;
+    private RenderToPlaceholder $helper;
 
     protected function setUp(): void
     {

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.18.1@dda05fa913f4dc6eb3386f2f7ce5a45d37a71bcb">
+<files psalm-version="4.20.0@f82a70e7edfc6cf2705e9374c8a0b6a974a779ed">
   <file src="bin/templatemap_generator.php">
     <MissingParamType occurrences="1">
       <code>$templatePath</code>
@@ -17,11 +17,6 @@
       <code>getExtension</code>
       <code>getPathname</code>
     </MixedMethodCall>
-  </file>
-  <file src="src/Helper/AbstractHelper.php">
-    <ImplementedReturnTypeMismatch occurrences="1">
-      <code>null|Renderer</code>
-    </ImplementedReturnTypeMismatch>
   </file>
   <file src="src/Helper/AbstractHtmlElement.php">
     <MissingConstructor occurrences="11">
@@ -59,14 +54,6 @@
       <code>plugin</code>
       <code>plugin</code>
     </UndefinedInterfaceMethod>
-  </file>
-  <file src="src/Helper/Asset.php">
-    <MixedInferredReturnType occurrences="1">
-      <code>string</code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="1">
-      <code>$this-&gt;resourceMap[$asset]</code>
-    </MixedReturnStatement>
   </file>
   <file src="src/Helper/BasePath.php">
     <DocblockTypeContradiction occurrences="1">
@@ -155,31 +142,6 @@
     <PropertyNotSetInConstructor occurrences="1">
       <code>$registry</code>
     </PropertyNotSetInConstructor>
-  </file>
-  <file src="src/Helper/EscapeCss.php">
-    <PossiblyNullReference occurrences="1">
-      <code>escapeCss</code>
-    </PossiblyNullReference>
-  </file>
-  <file src="src/Helper/EscapeHtml.php">
-    <PossiblyNullReference occurrences="1">
-      <code>escapeHtml</code>
-    </PossiblyNullReference>
-  </file>
-  <file src="src/Helper/EscapeHtmlAttr.php">
-    <PossiblyNullReference occurrences="1">
-      <code>escapeHtmlAttr</code>
-    </PossiblyNullReference>
-  </file>
-  <file src="src/Helper/EscapeJs.php">
-    <PossiblyNullReference occurrences="1">
-      <code>escapeJs</code>
-    </PossiblyNullReference>
-  </file>
-  <file src="src/Helper/EscapeUrl.php">
-    <PossiblyNullReference occurrences="1">
-      <code>escapeUrl</code>
-    </PossiblyNullReference>
   </file>
   <file src="src/Helper/Escaper/AbstractHelper.php">
     <MixedAssignment occurrences="2">
@@ -604,9 +566,7 @@
       <code>$item</code>
       <code>$item</code>
     </MissingClosureParamType>
-    <MissingClosureReturnType occurrences="1">
-      <code>function ($item) {</code>
-    </MissingClosureReturnType>
+    <MissingClosureReturnType occurrences="1"/>
     <MixedArgument occurrences="2">
       <code>$item</code>
       <code>$separator</code>
@@ -702,11 +662,6 @@
       <code>(bool) $useNamespaces</code>
     </RedundantCastGivenDocblockType>
   </file>
-  <file src="src/Helper/Identity.php">
-    <MissingConstructor occurrences="1">
-      <code>$authenticationService</code>
-    </MissingConstructor>
-  </file>
   <file src="src/Helper/InlineScript.php">
     <LessSpecificReturnStatement occurrences="1">
       <code>parent::__invoke($mode, $spec, $placement, $attrs, $type)</code>
@@ -761,9 +716,6 @@
     <InvalidThrow occurrences="1">
       <code>ExceptionInterface</code>
     </InvalidThrow>
-    <LessSpecificImplementedReturnType occurrences="1">
-      <code>self</code>
-    </LessSpecificImplementedReturnType>
     <MissingConstructor occurrences="1">
       <code>$plugins</code>
     </MissingConstructor>
@@ -1561,16 +1513,6 @@
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Helper/Service/AssetFactory.php">
-    <DeprecatedInterface occurrences="1">
-      <code>AssetFactory</code>
-    </DeprecatedInterface>
-    <MixedArrayAccess occurrences="1">
-      <code>$config['view_helper_config']</code>
-    </MixedArrayAccess>
-    <MixedAssignment occurrences="2">
-      <code>$config</code>
-      <code>$configHelper</code>
-    </MixedAssignment>
     <PossiblyNullArgument occurrences="1">
       <code>$cName</code>
     </PossiblyNullArgument>
@@ -1625,11 +1567,6 @@
       <code>$requestedName</code>
     </PossiblyNullArgument>
   </file>
-  <file src="src/Helper/Service/IdentityFactory.php">
-    <DeprecatedInterface occurrences="1">
-      <code>IdentityFactory</code>
-    </DeprecatedInterface>
-  </file>
   <file src="src/Helper/TranslatorAwareTrait.php">
     <DeprecatedClass occurrences="3">
       <code>$this</code>
@@ -1668,9 +1605,6 @@
       <code>! $events</code>
       <code>! $events</code>
     </DocblockTypeContradiction>
-    <InvalidScalarArgument occurrences="1">
-      <code>$e-&gt;getCode()</code>
-    </InvalidScalarArgument>
     <MixedArgument occurrences="4">
       <code>$container-&gt;get('EventManager')</code>
       <code>$container-&gt;get('MvcTranslator')</code>
@@ -2115,9 +2049,6 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Variables.php">
-    <ArgumentTypeCoercion occurrences="1">
-      <code>'ArrayIterator'</code>
-    </ArgumentTypeCoercion>
     <MixedArgument occurrences="2">
       <code>$key</code>
       <code>$value</code>
@@ -2547,7 +2478,7 @@
       <code>$item-&gt;{$item-&gt;type}</code>
       <code>$value-&gt;modifiers</code>
     </MixedPropertyFetch>
-    <UndefinedMagicMethod occurrences="13">
+    <UndefinedMagicMethod occurrences="12">
       <code>getArrayCopy</code>
       <code>getArrayCopy</code>
       <code>getArrayCopy</code>
@@ -2559,7 +2490,6 @@
       <code>offsetSetName</code>
       <code>offsetSetName</code>
       <code>offsetSetName</code>
-      <code>setFoo</code>
       <code>setIndent</code>
     </UndefinedMagicMethod>
     <UndefinedMethod occurrences="27">
@@ -2675,18 +2605,7 @@
     </UndefinedMethod>
   </file>
   <file src="test/Helper/HeadStyleTest.php">
-    <ArgumentTypeCoercion occurrences="3">
-      <code>'stdClass'</code>
-      <code>'stdClass'</code>
-      <code>'stdClass'</code>
-    </ArgumentTypeCoercion>
-    <MixedArgument occurrences="20">
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
+    <MixedArgument occurrences="14">
       <code>$item-&gt;content</code>
       <code>$item-&gt;content</code>
       <code>$value</code>
@@ -2708,7 +2627,7 @@
       <code>$values[1]</code>
       <code>$values[2]</code>
     </MixedArrayAccess>
-    <MixedAssignment occurrences="11">
+    <MixedAssignment occurrences="8">
       <code>$item</code>
       <code>$item</code>
       <code>$item</code>
@@ -2721,7 +2640,7 @@
       <code>$values</code>
       <code>$values</code>
     </MixedAssignment>
-    <MixedPropertyFetch occurrences="9">
+    <MixedPropertyFetch occurrences="6">
       <code>$item-&gt;content</code>
       <code>$item-&gt;content</code>
       <code>$item-&gt;content</code>
@@ -2772,14 +2691,6 @@
       <code>$escape($value)</code>
       <code>$escape('http://www.w3.org/1999/xhtml')</code>
     </MixedArgument>
-  </file>
-  <file src="test/Helper/IdentityTest.php">
-    <PossiblyNullReference occurrences="1">
-      <code>setIdentity</code>
-    </PossiblyNullReference>
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>setIdentity</code>
-    </UndefinedInterfaceMethod>
   </file>
   <file src="test/Helper/LayoutTest.php">
     <UndefinedMethod occurrences="1">
@@ -3069,7 +2980,6 @@
     <UnevaluatedCode occurrences="4">
       <code>$nav = clone $this-&gt;nav2;</code>
       <code>$nav-&gt;addPage(['label' =&gt; 'Invalid', 'uri' =&gt; 'http://w.']);</code>
-      <code>$this-&gt;fail('A Laminas\View\Exception\InvalidArgumentException was not thrown on invalid &lt;loc /&gt;');</code>
     </UnevaluatedCode>
   </file>
   <file src="test/Helper/PaginationControlTest.php">
@@ -3400,18 +3310,15 @@
       <code>$container</code>
       <code>$container</code>
     </MissingClosureParamType>
-    <MixedAssignment occurrences="8">
-      <code>$expected</code>
+    <MixedAssignment occurrences="6">
       <code>$helper</code>
       <code>$helper</code>
       <code>$helper</code>
       <code>$helper</code>
       <code>$helper</code>
       <code>$helperB</code>
-      <code>$identity</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="7">
-      <code>getAuthenticationService</code>
+    <MixedMethodCall occurrences="6">
       <code>getTranslator</code>
       <code>getTranslator</code>
       <code>getTranslator</code>
@@ -3576,9 +3483,6 @@
       <code>$priority</code>
       <code>$priority</code>
     </MixedAssignment>
-    <TooManyArguments occurrences="1">
-      <code>detach</code>
-    </TooManyArguments>
   </file>
   <file src="test/ViewTest.php">
     <MissingClosureParamType occurrences="12">

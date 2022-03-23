@@ -31,10 +31,8 @@ final class HtmlAttributesSet extends ArrayObject
 {
     /**
      * HTML escaper
-     *
-     * @var Escaper
      */
-    private $escaper;
+    private Escaper $escaper;
 
     public function __construct(Escaper $escaper, iterable $attributes = [])
     {

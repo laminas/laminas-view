@@ -1,6 +1,7 @@
 {
     "extensions": [
         "dom",
+        "filter",
         "intl"
     ],
     "ignore_php_platform_requirements": {

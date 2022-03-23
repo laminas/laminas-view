@@ -13,18 +13,10 @@ use PHPUnit\Framework\TestCase;
 
 use function assert;
 
-/**
- * Test class for Laminas\View\Helper\Layout
- *
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class LayoutTest extends TestCase
 {
-    /** @var Layout */
-    private $helper;
-    /** @var ViewModel */
-    private $parent;
+    private Layout $helper;
+    private ViewModel $parent;
 
     /**
      * Sets up the fixture, for example, open a network connection.

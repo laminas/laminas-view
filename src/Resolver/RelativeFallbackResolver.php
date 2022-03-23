@@ -7,6 +7,7 @@ namespace Laminas\View\Resolver;
 use Laminas\View\Helper\ViewModel as ViewModelHelper;
 use Laminas\View\Model\ModelInterface;
 use Laminas\View\Renderer\RendererInterface;
+use Laminas\View\Resolver\ResolverInterface;
 
 use function call_user_func;
 use function is_callable;
@@ -24,8 +25,7 @@ class RelativeFallbackResolver implements ResolverInterface
 {
     public const NS_SEPARATOR = '/';
 
-    /** @var ResolverInterface */
-    private $resolver;
+    private ResolverInterface $resolver;
 
     public function __construct(ResolverInterface $resolver)
     {

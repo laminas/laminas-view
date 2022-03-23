@@ -9,27 +9,22 @@ use Laminas\View\Exception;
 use Laminas\View\Helper\Asset;
 use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 
 class AssetTest extends TestCase
 {
-    use ProphecyTrait;
-
-    /** @var array<string, string> */
+    /** @var array<non-empty-string, non-empty-string> */
     protected $resourceMap = [
         'css/style.css' => 'css/style-3a97ff4ee3.css',
         'js/vendor.js'  => 'js/vendor-a507086eba.js',
     ];
 
-    /** @var Asset */
-    protected $asset;
+    private Asset $asset;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->asset = new Asset();
-        $this->asset->setResourceMap($this->resourceMap);
+        $this->asset = new Asset($this->resourceMap);
     }
 
     public function testHelperPluginManagerReturnsAssetHelper(): void
@@ -51,13 +46,14 @@ class AssetTest extends TestCase
     public function testInvalidAssetName(): void
     {
         $this->expectException(Exception\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Asset is not defined');
+        $this->expectExceptionMessage('The asset with the name "unknown" has not been defined');
 
         $this->asset->__invoke('unknown');
     }
 
     /**
      * @dataProvider assets
+     * @param non-empty-string $name
      */
     public function testInvokeResult(string $name, string $expected): void
     {
@@ -67,7 +63,7 @@ class AssetTest extends TestCase
     }
 
     /**
-     * @return array<array-key, array{0: string, 1: string}>
+     * @return array<array-key, array{0: non-empty-string, 1: non-empty-string}>
      */
     public function assets(): array
     {
@@ -80,9 +76,12 @@ class AssetTest extends TestCase
 
     protected function getHelperPluginManager(array $config = []): HelperPluginManager
     {
-        $services = $this->prophesize(ServiceManager::class);
-        $services->get('config')->willReturn($config);
+        $services = $this->createMock(ServiceManager::class);
+        $services->expects(self::atLeast(1))
+            ->method('get')
+            ->with('config')
+            ->willReturn($config);
 
-        return new HelperPluginManager($services->reveal());
+        return new HelperPluginManager($services);
     }
 }

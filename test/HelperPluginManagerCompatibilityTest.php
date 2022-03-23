@@ -29,13 +29,11 @@ class HelperPluginManagerCompatibilityTest extends TestCase
 
         if (class_exists(ControllerPluginManager::class)) {
             // @codingStandardsIgnoreLine
-            $factories['ControllerPluginManager'] = function (ContainerInterface $services): ControllerPluginManager {
-                return new ControllerPluginManager($services, [
-                    'invokables' => [
-                        'flashmessenger' => FlashMessenger::class,
-                    ],
-                ]);
-            };
+            $factories['ControllerPluginManager'] = static fn(ContainerInterface $services): ControllerPluginManager => new ControllerPluginManager($services, [
+                'invokables' => [
+                    'flashmessenger' => FlashMessenger::class,
+                ],
+            ]);
         }
 
         $config  = new Config([

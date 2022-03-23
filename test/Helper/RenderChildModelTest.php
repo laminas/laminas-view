@@ -14,22 +14,13 @@ use PHPUnit\Framework\TestCase;
 
 use function assert;
 
-/**
- * @group      Laminas_View
- * @group      Laminas_View_Helper
- */
 class RenderChildModelTest extends TestCase
 {
-    /** @var TemplateMapResolver */
-    private $resolver;
-    /** @var PhpRenderer */
-    private $renderer;
-    /** @var ViewModelHelper */
-    private $viewModelHelper;
-    /** @var RenderChildModel */
-    private $helper;
-    /** @var ViewModel */
-    private $parent;
+    private TemplateMapResolver $resolver;
+    private PhpRenderer $renderer;
+    private ViewModelHelper $viewModelHelper;
+    private RenderChildModel $helper;
+    private ViewModel $parent;
 
     protected function setUp(): void
     {

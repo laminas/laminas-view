@@ -9,9 +9,17 @@ use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\View\Exception;
 use Laminas\View\Helper\Asset;
+use Traversable;
 
+use function gettype;
 use function is_array;
+use function iterator_to_array;
+use function sprintf;
 
+/**
+ * @final
+ * @psalm-suppress DeprecatedInterface Compatibility with Service Manager 2 should be removed in version 3.0.
+ */
 class AssetFactory implements FactoryInterface
 {
     /**
@@ -22,23 +30,25 @@ class AssetFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $name, ?array $options = null)
     {
-        $helper = new Asset();
-
+        /** @psalm-var mixed $config */
         $config = $container->get('config');
-        if (isset($config['view_helper_config']['asset'])) {
-            $configHelper = $config['view_helper_config']['asset'];
-            if (isset($configHelper['resource_map']) && is_array($configHelper['resource_map'])) {
-                $helper->setResourceMap($configHelper['resource_map']);
-            } else {
-                throw new Exception\RuntimeException('Invalid resource map configuration.');
-            }
-        }
+        /** @psalm-var mixed $config */
+        $config = $config instanceof Traversable ? iterator_to_array($config, true) : $config;
+        $config = is_array($config) ? $config : [];
 
-        return $helper;
+        $helperConfig = $this->assertArray('view_helper_config', $config);
+        $helperConfig = $this->assertArray('asset', $helperConfig);
+        /** @psalm-var array<non-empty-string, non-empty-string> $resourceMap */
+        $resourceMap = $this->assertArray('resource_map', $helperConfig);
+
+        return new Asset($resourceMap);
     }
 
     /**
      * Create service
+     *
+     * @deprecated since 2.20.0, this method will be removed in version 3.0.0 of this component.
+     *             Compatibility with the 2.x series of Laminas\ServiceManager is no longer supported.
      *
      * @param string|null $rName
      * @param string|null $cName
@@ -47,5 +57,24 @@ class AssetFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator, $rName = null, $cName = null)
     {
         return $this($serviceLocator, $cName);
+    }
+
+    /**
+     * @param array<array-key, mixed> $array
+     * @return array<array-key, mixed>
+     */
+    private function assertArray(string $key, array $array): array
+    {
+        $value = $array[$key] ?? [];
+        if (! is_array($value)) {
+            throw new Exception\RuntimeException(sprintf(
+                'Invalid resource map configuration. '
+                . 'Expected the key "%s" to contain an array value but received "%s"',
+                $key,
+                gettype($value)
+            ));
+        }
+
+        return $value;
     }
 }

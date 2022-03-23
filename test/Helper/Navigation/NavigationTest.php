@@ -27,10 +27,6 @@ use function str_replace;
 use const PHP_EOL;
 
 /**
- * Tests Laminas\View\Helper\Navigation
- *
- * @group      Laminas_View
- * @group      Laminas_View_Helper
  * @psalm-suppress MissingConstructor
  */
 class NavigationTest extends AbstractTest
@@ -41,9 +37,7 @@ class NavigationTest extends AbstractTest
      * @var Navigation
      */
     protected $_helper; // phpcs:ignore
-
-    /** @var string|null */
-    private $errorHandlerMessage;
+    private ?string $errorHandlerMessage = null;
 
     protected function setUp(): void
     {
@@ -438,9 +432,6 @@ class NavigationTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @group Laminas-6854
-     */
     public function testRenderInvisibleItem(): void
     {
         $container = new Container([
@@ -491,9 +482,6 @@ class NavigationTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @group #3859
-     */
     public function testMultipleNavigationsWithDifferentHelpersAndDifferentContainers(): void
     {
         $sm   = new ServiceManager();
@@ -520,9 +508,6 @@ class NavigationTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @group #3859
-     */
     public function testMultipleNavigationsWithDifferentHelpersAndSameContainer(): void
     {
         $sm   = new ServiceManager();
@@ -547,9 +532,6 @@ class NavigationTest extends AbstractTest
         $this->assertEquals($expected, $actual);
     }
 
-    /**
-     * @group #3859
-     */
     public function testMultipleNavigationsWithSameHelperAndSameContainer(): void
     {
         $sm   = new ServiceManager();
@@ -586,9 +568,6 @@ class NavigationTest extends AbstractTest
         $this->assertEquals($view, $pluginManager->getRenderer());
     }
 
-    /**
-     * @group 49
-     */
     public function testInjectsLazyInstantiatedPluginManagerWithCurrentServiceLocator(): void
     {
         $services = $this->createMock(ContainerInterface::class);
