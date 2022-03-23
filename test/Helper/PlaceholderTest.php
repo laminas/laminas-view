@@ -4,15 +4,14 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper;
 
-use Laminas\View\Helper;
+use Laminas\View\Helper\Placeholder;
 use Laminas\View\Helper\Placeholder\Container\AbstractContainer;
 use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
 
 class PlaceholderTest extends TestCase
 {
-    /** @var Helper\Placeholder */
-    public $placeholder;
+    public Placeholder $placeholder;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -20,7 +19,7 @@ class PlaceholderTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->placeholder = new Helper\Placeholder();
+        $this->placeholder = new Placeholder();
     }
 
     public function testSetView(): void

@@ -37,7 +37,10 @@ class Placeholder extends AbstractHelper
      *
      * @param  string $name
      * @throws InvalidArgumentException
-     * @return AbstractContainer
+     * @return AbstractContainer|self
+     * @psalm-template T of string|null
+     * @psalm-param T $name
+     * @psalm-return (T is null ? self : AbstractContainer)
      */
     public function __invoke($name = null)
     {
