@@ -53,8 +53,6 @@
         "laminas/laminas-permissions-acl": "^2.6",
         "laminas/laminas-router": "^3.0.1",
         "laminas/laminas-uri": "^2.5",
-        "phpspec/prophecy": "^1.12",
-        "phpspec/prophecy-phpunit": "^2.0",
         "phpunit/phpunit": "^9.5.5",
         "psalm/plugin-phpunit": "^0.16.1",
         "vimeo/psalm": "^4.10"
