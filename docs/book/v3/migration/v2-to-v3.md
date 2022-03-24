@@ -17,6 +17,11 @@ Both of these methods have been removed.
 Now, the only way to configure the resource map is via constructor injection.
 The method of configuring the resource map remains unchanged.
 
+#### Identity Helper
+
+The deprecated runtime retrieval and modification of the underlying authentication service has been removed and the service must be injected into the helper constructor.
+Specifically, the methods `Laminas\View\Helper\Identity::setAuthenticationService()` and `Laminas\View\Helper\Identity::getAuthenticationService()` have been removed.
+
 ## Removed Features
 
 ### Stream Wrapper Functionality
