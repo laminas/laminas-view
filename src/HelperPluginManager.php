@@ -248,7 +248,7 @@ class HelperPluginManager extends AbstractPluginManager
         Helper\HtmlAttributes::class => InvokableFactory::class,
         Helper\FlashMessenger::class => Helper\Service\FlashMessengerFactory::class,
         Helper\Identity::class       => Helper\Service\IdentityFactory::class,
-        Helper\BasePath::class       => InvokableFactory::class,
+        Helper\BasePath::class       => Helper\Service\BasePathFactory::class,
         Helper\Cycle::class          => InvokableFactory::class,
         Helper\DeclareVars::class    => InvokableFactory::class,
         // overridden in ViewHelperManagerFactory
