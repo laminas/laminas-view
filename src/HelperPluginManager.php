@@ -71,9 +71,6 @@ class HelperPluginManager extends AbstractPluginManager
         'escapeUrl'           => Helper\EscapeUrl::class,
         'EscapeUrl'           => Helper\EscapeUrl::class,
         'escapeurl'           => Helper\EscapeUrl::class,
-        'flashmessenger'      => Helper\FlashMessenger::class,
-        'flashMessenger'      => Helper\FlashMessenger::class,
-        'FlashMessenger'      => Helper\FlashMessenger::class,
         'Gravatar'            => Helper\Gravatar::class,
         'gravatar'            => Helper\Gravatar::class,
         'headLink'            => Helper\HeadLink::class,
@@ -158,7 +155,6 @@ class HelperPluginManager extends AbstractPluginManager
     protected $factories = [
         Helper\Asset::class          => Helper\Service\AssetFactory::class,
         Helper\HtmlAttributes::class => InvokableFactory::class,
-        Helper\FlashMessenger::class => Helper\Service\FlashMessengerFactory::class,
         Helper\Identity::class       => Helper\Service\IdentityFactory::class,
         Helper\BasePath::class       => InvokableFactory::class,
         Helper\Cycle::class          => InvokableFactory::class,
@@ -196,7 +192,6 @@ class HelperPluginManager extends AbstractPluginManager
         // v2 canonical FQCNs
         'laminasviewhelperasset'               => Helper\Service\AssetFactory::class,
         'laminasviewhelperattributes'          => InvokableFactory::class,
-        'laminasviewhelperflashmessenger'      => Helper\Service\FlashMessengerFactory::class,
         'laminasviewhelperidentity'            => Helper\Service\IdentityFactory::class,
         'laminasviewhelperbasepath'            => InvokableFactory::class,
         'laminasviewhelpercycle'               => InvokableFactory::class,

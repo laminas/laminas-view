@@ -41,7 +41,6 @@
     "require-dev": {
         "laminas/laminas-authentication": "^2.5",
         "laminas/laminas-coding-standard": "~2.3.0",
-        "laminas/laminas-escaper": "^2.5",
         "laminas/laminas-feed": "^2.15",
         "laminas/laminas-filter": "^2.13.0",
         "laminas/laminas-http": "^2.15",
@@ -49,14 +48,11 @@
         "laminas/laminas-modulemanager": "^2.7.1",
         "laminas/laminas-mvc": "^3.0",
         "laminas/laminas-mvc-i18n": "^1.1",
-        "laminas/laminas-mvc-plugin-flashmessenger": "^1.5.0",
         "laminas/laminas-navigation": "^2.13.1",
         "laminas/laminas-paginator": "^2.11.0",
         "laminas/laminas-permissions-acl": "^2.6",
         "laminas/laminas-router": "^3.0.1",
         "laminas/laminas-uri": "^2.5",
-        "phpspec/prophecy": "^1.12",
-        "phpspec/prophecy-phpunit": "^2.0",
         "phpunit/phpunit": "^9.5.5",
         "psalm/plugin-phpunit": "^0.16.1",
         "vimeo/psalm": "^4.10"
