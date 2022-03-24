@@ -19,7 +19,7 @@
     </MixedMethodCall>
   </file>
   <file src="src/Helper/AbstractHtmlElement.php">
-    <MissingConstructor occurrences="13">
+    <MissingConstructor occurrences="12">
       <code>$closingBracket</code>
       <code>$closingBracket</code>
       <code>$closingBracket</code>
@@ -611,28 +611,6 @@
       <code>plugin</code>
     </UndefinedInterfaceMethod>
   </file>
-  <file src="src/Helper/HtmlList.php">
-    <InvalidParamDefault occurrences="1">
-      <code>array</code>
-    </InvalidParamDefault>
-    <MixedAssignment occurrences="3">
-      <code>$escaper</code>
-      <code>$item</code>
-      <code>$item</code>
-    </MixedAssignment>
-    <MixedFunctionCall occurrences="1">
-      <code>$escaper($item)</code>
-    </MixedFunctionCall>
-    <MixedOperand occurrences="1">
-      <code>$item</code>
-    </MixedOperand>
-    <PossiblyNullReference occurrences="1">
-      <code>plugin</code>
-    </PossiblyNullReference>
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>plugin</code>
-    </UndefinedInterfaceMethod>
-  </file>
   <file src="src/Helper/HtmlObject.php">
     <DocblockTypeContradiction occurrences="1">
       <code>is_array($content)</code>
@@ -727,32 +705,9 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Helper/Layout.php">
-    <DocblockTypeContradiction occurrences="1">
-      <code>null === $this-&gt;viewModelHelper</code>
-    </DocblockTypeContradiction>
-    <MissingConstructor occurrences="1">
-      <code>$viewModelHelper</code>
-    </MissingConstructor>
-    <MixedAssignment occurrences="1">
-      <code>$this-&gt;viewModelHelper</code>
-    </MixedAssignment>
-    <MixedInferredReturnType occurrences="1">
-      <code>ViewModel</code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="1">
-      <code>$this-&gt;viewModelHelper</code>
-    </MixedReturnStatement>
-    <PossiblyNullReference occurrences="3">
-      <code>getTemplate</code>
-      <code>plugin</code>
-      <code>setTemplate</code>
-    </PossiblyNullReference>
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(string) $template</code>
     </RedundantCastGivenDocblockType>
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>plugin</code>
-    </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/Navigation.php">
     <DocblockTypeContradiction occurrences="1">
@@ -1650,12 +1605,6 @@
     <PossiblyInvalidArgument occurrences="1">
       <code>$options</code>
     </PossiblyInvalidArgument>
-  </file>
-  <file src="src/Helper/ViewModel.php">
-    <MissingConstructor occurrences="2">
-      <code>$current</code>
-      <code>$root</code>
-    </MissingConstructor>
   </file>
   <file src="src/HelperPluginManager.php">
     <DocblockTypeContradiction occurrences="2">
@@ -2765,12 +2714,6 @@
     <UndefinedThisPropertyAssignment occurrences="1">
       <code>$this-&gt;view</code>
     </UndefinedThisPropertyAssignment>
-  </file>
-  <file src="test/Helper/HtmlListTest.php">
-    <InvalidArgument occurrences="2">
-      <code>false</code>
-      <code>false</code>
-    </InvalidArgument>
   </file>
   <file src="test/Helper/HtmlObjectTest.php">
     <UndefinedMethod occurrences="2">
