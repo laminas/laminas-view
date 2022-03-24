@@ -8,6 +8,15 @@ Version 3 is the first major release of `laminas-view` and includes a number of 
 
 ## Signature Changes and Behaviour Changes
 
+### Helpers
+
+#### Asset Helper
+
+Previous versions of the asset helper permitted run-time modification and retrieval of the resource map with `Laminas\View\Helper\Asset::setResourceMap()` and `Laminas\View\Helper\Asset::getResourceMap()`.
+Both of these methods have been removed.
+Now, the only way to configure the resource map is via constructor injection.
+The method of configuring the resource map remains unchanged.
+
 ## Removed Features
 
 ### Stream Wrapper Functionality
@@ -24,7 +33,8 @@ If you had not explicitly enabled this feature, this change will not affect your
 
 #### Escape Helpers: `escapeCss`, `escapeHtml`, `escapeHtmlAttr`, `escapeJs`, and `escapeUrl`
 
-The methods `setEncoding()`, `getEncoding()`, `setView()`, `getView()`, `setEscaper()`, and `getEscaper()` have been removed from the escape helpers. These helpers now have constructors that expect an [Escaper](https://docs.laminas.dev/laminas-escaper/) instance that has been configured with the encoding you expect to output in your view.
+The methods `setEncoding()`, `getEncoding()`, `setView()`, `getView()`, `setEscaper()`, and `getEscaper()` have been removed from the escape helpers.
+These helpers now have constructors that expect an [Escaper](https://docs.laminas.dev/laminas-escaper/) instance that has been configured with the encoding you expect to output in your view.
 
 The encoding defaults to UTF-8 as it has always done but can be overridden in configuration by setting `view_manager.encoding` to your preferred value.
 
@@ -66,7 +76,8 @@ echo $this->htmlObject(
 
 #### Gravatar
 
-The deprecated Gravatar view helper has been removed and replaced with a simplified version that doesn't store any state. The replacement helper is called [GravatarImage](helpers/gravatar-image.md) and has the following signature when accessed via view scripts:
+The deprecated Gravatar view helper has been removed and replaced with a simplified version that doesn't store any state.
+The replacement helper is called [GravatarImage](helpers/gravatar-image.md) and has the following signature when accessed via view scripts:
 
 ```php
 function gravatarImage(
