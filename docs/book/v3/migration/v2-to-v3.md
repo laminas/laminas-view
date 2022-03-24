@@ -59,3 +59,17 @@ echo $this->htmlObject(
     'Fallback Text Content'
 );
 ```
+
+#### Gravatar
+
+The deprecated Gravatar view helper has been removed and replaced with a simplified version that doesn't store any state. The replacement helper is called [GravatarImage](helpers/gravatar-image.md) and has the following signature when accessed via view scripts:
+
+```php
+function gravatarImage(
+    string $email,
+    int $imageSize = 80,
+    array $imageAttributes = [],
+    string $defaultImage = 'mm',
+    string $rating = 'g'
+);
+```
