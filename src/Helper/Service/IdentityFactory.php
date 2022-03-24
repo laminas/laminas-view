@@ -4,40 +4,18 @@ declare(strict_types=1);
 
 namespace Laminas\View\Helper\Service;
 
-use Interop\Container\ContainerInterface;
 use Laminas\Authentication\AuthenticationService;
 use Laminas\Authentication\AuthenticationServiceInterface;
-use Laminas\ServiceManager\FactoryInterface;
-use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\View\Helper\Identity;
+use Psr\Container\ContainerInterface;
 
 use function assert;
 
-/**
- * @psalm-suppress DeprecatedInterface
- */
-class IdentityFactory implements FactoryInterface
+final class IdentityFactory
 {
-    /**
-     * @param string|null $name
-     * @param array<array-key, mixed>|null $options
-     * @return Identity
-     */
-    public function __invoke(ContainerInterface $container, $name = null, ?array $options = null)
+    public function __invoke(ContainerInterface $container): Identity
     {
         return new Identity($this->discoverAuthenticationService($container));
-    }
-
-    /**
-     * Create service
-     *
-     * @param string|null $rName
-     * @param string|null $cName
-     * @return Identity
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator, $rName = null, $cName = null)
-    {
-        return $this($serviceLocator, $cName);
     }
 
     private function discoverAuthenticationService(ContainerInterface $container): ?AuthenticationServiceInterface
