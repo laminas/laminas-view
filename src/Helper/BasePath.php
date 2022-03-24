@@ -42,7 +42,7 @@ class BasePath extends AbstractHelper
             throw new RuntimeException('No base path provided');
         }
 
-        if (! empty($file)) {
+        if ($file !== null && $file !== '') {
             return sprintf(
                 '%s/%s',
                 rtrim($this->basePath, '/'),
