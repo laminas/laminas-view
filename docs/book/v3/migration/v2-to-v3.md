@@ -16,6 +16,10 @@ In previous versions of laminas-view, it was possible to enable stream wrapper f
 This functionality has been removed in version 3.
 If you had not explicitly enabled this feature, this change will not affect your code.
 
+### Laminas Console Integration
+
+`Laminas\View\RendererConsoleRenderer` and `Laminas\View\Model\ConsoleModel` have been removed effectively removing all support for the deprecated `laminas-console` component.
+
 ### Helpers
 
 #### Escape Helpers: `escapeCss`, `escapeHtml`, `escapeHtmlAttr`, `escapeJs`, and `escapeUrl`
