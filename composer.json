@@ -30,6 +30,7 @@
         "ext-filter": "*",
         "ext-json": "*",
         "container-interop/container-interop": "^1.2",
+        "laminas/laminas-diactoros": "^2.8",
         "laminas/laminas-escaper": "^2.5",
         "laminas/laminas-eventmanager": "^3.4",
         "laminas/laminas-json": "^3.3",

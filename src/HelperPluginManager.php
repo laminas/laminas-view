@@ -286,7 +286,7 @@ class HelperPluginManager extends AbstractPluginManager
         Helper\Placeholder::class         => InvokableFactory::class,
         Helper\RenderChildModel::class    => InvokableFactory::class,
         Helper\RenderToPlaceholder::class => InvokableFactory::class,
-        Helper\ServerUrl::class           => InvokableFactory::class,
+        Helper\ServerUrl::class           => Helper\Service\ServerUrlFactory::class,
         Helper\Url::class                 => InvokableFactory::class,
         Helper\ViewModel::class           => InvokableFactory::class,
 
