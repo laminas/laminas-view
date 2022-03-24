@@ -8,6 +8,11 @@ Version 3 is the first major release of `laminas-view` and includes a number of 
 
 ## Signature Changes and Behaviour Changes
 
+### Legacy Zend-Related Service and Helper Names
+
+All helper aliases that referred to the `Zend` equivalent of a helper or service have been removed.
+Similarly, factories that previously searched for services in the container such as a Translator or Authentication Service for example, no longer check for the presence of the Zend equivalent.
+
 ### Helpers
 
 #### Asset Helper
