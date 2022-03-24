@@ -15,11 +15,19 @@ use function trim;
 
 /**
  * Helper for returning the current server URL (optionally with request URI)
+ *
+ * @psalm-suppress DeprecatedProperty,DeprecatedMethod
+ * @final
  */
 class ServerUrl extends AbstractHelper
 {
+    use DeprecatedAbstractHelperHierarchyTrait;
+
     /**
      * Host (including port)
+     *
+     * @deprecated since 2.21.0, this property will be removed in version 3.0.0 of this component.
+     *             The server url should be given to the constructor.
      *
      * @var string|null
      */
@@ -28,12 +36,18 @@ class ServerUrl extends AbstractHelper
     /**
      * Port
      *
+     * @deprecated since 2.21.0, this property will be removed in version 3.0.0 of this component.
+     *             The server url should be given to the constructor.
+     *
      * @var int|null
      */
     protected $port;
 
     /**
      * Scheme
+     *
+     * @deprecated since 2.21.0, this property will be removed in version 3.0.0 of this component.
+     *             The server url should be given to the constructor.
      *
      * @var string|null
      */
@@ -42,9 +56,19 @@ class ServerUrl extends AbstractHelper
     /**
      * Whether or not to query proxy servers for address
      *
+     * @deprecated since 2.21.0, this property will be removed in version 3.0.0 of this component.
+     *             The server url should be given to the constructor.
+     *
      * @var bool
      */
     protected $useProxy = false;
+
+    private ?string $serverUrl;
+
+    public function __construct(?string $serverUrl = null)
+    {
+        $this->serverUrl = $serverUrl;
+    }
 
     /**
      * View helper entry point:
@@ -60,18 +84,27 @@ class ServerUrl extends AbstractHelper
     public function __invoke($requestUri = null)
     {
         if ($requestUri === true) {
-            $path = $_SERVER['REQUEST_URI'];
-        } elseif (is_string($requestUri)) {
-            $path = $requestUri;
-        } else {
-            $path = '';
+            /** @var string|null $requestUri */
+            $requestUri = $_SERVER['REQUEST_URI'] ?? null;
         }
 
-        return $this->getScheme() . '://' . $this->getHost() . $path;
+        $path      = is_string($requestUri) ? $requestUri : '';
+        $serverUrl = $this->serverUrl ?: $this->legacyServerUrlDetection();
+
+        return $serverUrl . $path;
+    }
+
+    private function legacyServerUrlDetection(): string
+    {
+        /** @psalm-suppress DeprecatedMethod */
+        return $this->getScheme() . '://' . $this->getHost();
     }
 
     /**
      * Detect the host based on headers
+     *
+     * @deprecated since 2.21.0, this method will be removed in version 3.0.0 of this component.
+     *             The server url should be given to the constructor.
      *
      * @return void
      */
@@ -118,6 +151,9 @@ class ServerUrl extends AbstractHelper
 
     /**
      * Detect the port
+     *
+     * @deprecated since 2.21.0, this method will be removed in version 3.0.0 of this component.
+     *             The server url should be given to the constructor.
      */
     protected function detectPort(): void
     {
@@ -136,6 +172,9 @@ class ServerUrl extends AbstractHelper
 
     /**
      * Detect the scheme
+     *
+     * @deprecated since 2.21.0, this method will be removed in version 3.0.0 of this component.
+     *             The server url should be given to the constructor.
      */
     protected function detectScheme(): void
     {
@@ -158,6 +197,10 @@ class ServerUrl extends AbstractHelper
         $this->setScheme($scheme);
     }
 
+    /**
+     * @deprecated since 2.21.0, this method will be removed in version 3.0.0 of this component.
+     *             The server url should be given to the constructor.
+     */
     protected function isReversedProxy(): bool
     {
         return isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https';
@@ -165,6 +208,9 @@ class ServerUrl extends AbstractHelper
 
     /**
      * Detect if a proxy is in use, and, if so, set the host based on it
+     *
+     * @deprecated since 2.21.0, this method will be removed in version 3.0.0 of this component.
+     *             The server url should be given to the constructor.
      *
      * @return bool
      */
@@ -194,6 +240,9 @@ class ServerUrl extends AbstractHelper
     /**
      * Set port based on detected proxy headers
      *
+     * @deprecated since 2.21.0, this method will be removed in version 3.0.0 of this component.
+     *             The server url should be given to the constructor.
+     *
      * @return bool
      */
     protected function setPortFromProxy()
@@ -214,6 +263,9 @@ class ServerUrl extends AbstractHelper
 
     /**
      * Set the current scheme based on detected proxy headers
+     *
+     * @deprecated since 2.21.0, this method will be removed in version 3.0.0 of this component.
+     *             The server url should be given to the constructor.
      *
      * @return bool
      */
@@ -248,6 +300,9 @@ class ServerUrl extends AbstractHelper
     /**
      * Sets host
      *
+     * @deprecated since 2.21.0, this method will be removed in version 3.0.0 of this component.
+     *             The server url should be given to the constructor.
+     *
      * @param  string $host
      * @return ServerUrl
      */
@@ -272,6 +327,9 @@ class ServerUrl extends AbstractHelper
     /**
      * Returns host
      *
+     * @deprecated since 2.21.0, this method will be removed in version 3.0.0 of this component.
+     *             The server url should be given to the constructor.
+     *
      * @return string
      */
     public function getHost()
@@ -286,6 +344,9 @@ class ServerUrl extends AbstractHelper
     /**
      * Set server port
      *
+     * @deprecated since 2.21.0, this method will be removed in version 3.0.0 of this component.
+     *             The server url should be given to the constructor.
+     *
      * @param  int|numeric-string $port
      * @return ServerUrl
      */
@@ -298,6 +359,9 @@ class ServerUrl extends AbstractHelper
 
     /**
      * Retrieve the server port
+     *
+     * @deprecated since 2.21.0, this method will be removed in version 3.0.0 of this component.
+     *             The server url should be given to the constructor.
      *
      * @return int|null
      */
@@ -313,6 +377,9 @@ class ServerUrl extends AbstractHelper
     /**
      * Sets scheme (typically http or https)
      *
+     * @deprecated since 2.21.0, this method will be removed in version 3.0.0 of this component.
+     *             The server url should be given to the constructor.
+     *
      * @param  string $scheme
      * @return ServerUrl
      */
@@ -325,6 +392,9 @@ class ServerUrl extends AbstractHelper
 
     /**
      * Returns scheme (typically http or https)
+     *
+     * @deprecated since 2.21.0, this method will be removed in version 3.0.0 of this component.
+     *             The server url should be given to the constructor.
      *
      * @return string
      */
@@ -339,6 +409,9 @@ class ServerUrl extends AbstractHelper
 
     /**
      * Set flag indicating whether or not to query proxy servers
+     *
+     * @deprecated since 2.21.0, this method will be removed in version 3.0.0 of this component.
+     *             The server url should be given to the constructor.
      *
      * @param  bool $useProxy
      * @return ServerUrl
