@@ -4,19 +4,23 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper;
 
+use Laminas\Escaper\Escaper;
 use Laminas\View\Helper\GravatarImage;
 use PHPUnit\Framework\TestCase;
 
 use function md5;
+use function sprintf;
 
 class GravatarImageTest extends TestCase
 {
     private GravatarImage $helper;
+    private Escaper $escaper;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->helper = new GravatarImage();
+        $this->helper  = new GravatarImage();
+        $this->escaper = new Escaper();
     }
 
     public function testThatTheGivenEmailAddressWillBeHashed(): string
@@ -34,8 +38,13 @@ class GravatarImageTest extends TestCase
     /** @depends testThatTheGivenEmailAddressWillBeHashed  */
     public function testTheRatingWillDefaultToG(string $markup): void
     {
+        $expect = $this->escaper->escapeHtmlAttr(sprintf(
+            'r=%s',
+            GravatarImage::RATING_G
+        ));
+
         self::assertStringContainsString(
-            'r&#x3D;g&amp;',
+            $expect,
             $markup
         );
     }
@@ -52,8 +61,10 @@ class GravatarImageTest extends TestCase
     /** @depends testThatTheGivenEmailAddressWillBeHashed  */
     public function testTheImageSizeWillBe80(string $markup): void
     {
+        $expect = $this->escaper->escapeHtmlAttr('s=80');
+
         self::assertStringContainsString(
-            's&#x3D;80',
+            $expect,
             $markup
         );
     }
@@ -72,10 +83,15 @@ class GravatarImageTest extends TestCase
     }
 
     /** @depends testThatTheGivenEmailAddressWillBeHashed  */
-    public function testTheDefaultFallbackImageImageSizeWillBeMM(string $markup): void
+    public function testTheDefaultFallbackImageImageSizeWillBeMP(string $markup): void
     {
+        $expect = $this->escaper->escapeHtmlAttr(sprintf(
+            'd=%s',
+            GravatarImage::DEFAULT_MP
+        ));
+
         self::assertStringContainsString(
-            'd&#x3D;mm',
+            $expect,
             $markup
         );
     }
@@ -91,9 +107,11 @@ class GravatarImageTest extends TestCase
 
     public function testThatTheImageSizeCanBeAltered(): string
     {
-        $image = ($this->helper)('me@example.com', 123);
+        $image  = ($this->helper)('me@example.com', 123);
+        $expect = $this->escaper->escapeHtmlAttr('s=123');
+
         self::assertStringContainsString(
-            's&#x3D;123',
+            $expect,
             $image
         );
 
@@ -115,26 +133,41 @@ class GravatarImageTest extends TestCase
 
     public function testThatTheRatingCanBeAltered(): void
     {
-        $image = ($this->helper)('me@example.com', 80, [], 'mm', 'x');
+        $image  = ($this->helper)('me@example.com', 80, [], GravatarImage::DEFAULT_MP, GravatarImage::RATING_X);
+        $expect = $this->escaper->escapeHtmlAttr(sprintf(
+            'r=%s',
+            GravatarImage::RATING_X
+        ));
+
         self::assertStringContainsString(
-            'r&#x3D;x&amp;',
+            $expect,
             $image
         );
     }
 
     public function testThatTheDefaultImageCanBeAltered(): void
     {
-        $image = ($this->helper)('me@example.com', 80, [], 'wavatar');
+        $image  = ($this->helper)('me@example.com', 80, [], GravatarImage::DEFAULT_WAVATAR);
+        $expect = $this->escaper->escapeHtmlAttr(sprintf(
+            'd=%s',
+            GravatarImage::DEFAULT_WAVATAR
+        ));
+
         self::assertStringContainsString(
-            'd&#x3D;wavatar',
+            $expect,
             $image
         );
     }
 
     public function testThatTheDefaultImageCanBeAnUrl(): void
     {
-        $image  = ($this->helper)('me@example.com', 80, [], 'https://example.com/someimage');
-        $expect = 'https&#x25;3A&#x25;2F&#x25;2Fexample.com&#x25;2Fsomeimage';
+        $customImage = 'https://example.com/someimage';
+        $image       = ($this->helper)('me@example.com', 80, [], $customImage);
+        $expect      = $this->escaper->escapeHtmlAttr(sprintf(
+            'd=%s',
+            $this->escaper->escapeUrl($customImage)
+        ));
+
         self::assertStringContainsString($expect, $image);
     }
 }
