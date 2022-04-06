@@ -246,7 +246,7 @@ class HelperPluginManager extends AbstractPluginManager
      */
     protected $factories = [
         Helper\Asset::class          => Helper\Service\AssetFactory::class,
-        Helper\HtmlAttributes::class => InvokableFactory::class,
+        Helper\HtmlAttributes::class => Helper\Service\HtmlAttributesFactory::class,
         Helper\FlashMessenger::class => Helper\Service\FlashMessengerFactory::class,
         Helper\Identity::class       => Helper\Service\IdentityFactory::class,
         Helper\BasePath::class       => InvokableFactory::class,
