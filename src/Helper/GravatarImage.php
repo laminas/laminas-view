@@ -19,11 +19,21 @@ final class GravatarImage
 {
     private const GRAVATAR_URL = '//www.gravatar.com/avatar';
 
+    /**
+     * RATING_* constants describe the "rating" of the avatar image that is most suitable for your audience.
+     *
+     * @link https://en.gravatar.com/site/implement/images/#rating
+     */
     public const RATING_G  = 'g';
     public const RATING_PG = 'pg';
     public const RATING_R  = 'r';
     public const RATING_X  = 'x';
 
+    /**
+     * DEFAULT_* constants describe the fallback image type that will be displayed when a profile does not exist.
+     *
+     * @link https://en.gravatar.com/site/implement/images/#default-image
+     */
     public const DEFAULT_404       = '404';
     public const DEFAULT_MP        = 'mp';
     public const DEFAULT_IDENTICON = 'identicon';
