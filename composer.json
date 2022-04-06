@@ -24,6 +24,12 @@
             "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
+    "extra": {
+        "laminas": {
+            "component": "Laminas\\View",
+            "config-provider": "Laminas\\View\\ConfigProvider"
+        }
+    },
     "require": {
         "php": "^7.4 || ~8.0.0 || ~8.1.0",
         "ext-dom": "*",
