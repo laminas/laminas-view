@@ -36,7 +36,7 @@ class BasePathTest extends TestCase
     public function testBasePathHelperYieldsExpectedOutput(string $basePath, ?string $argument, string $expect): void
     {
         $helper = new BasePath($basePath);
-        self::assertEquals($expect, $helper($argument));
+        self::assertEquals($expect, $helper->__invoke($argument));
     }
 
     public function testThatAnExceptionIsThrownWhenTheBasePathIsNull(): void
@@ -44,6 +44,13 @@ class BasePathTest extends TestCase
         $helper = new BasePath(null);
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('No base path provided');
-        $helper();
+        $helper->__invoke();
+    }
+
+    public function testThatTheBasePathCanBeChanged(): void
+    {
+        $helper = new BasePath(null);
+        $helper->setBasePath('something');
+        self::assertEquals('something/else', $helper->__invoke('else'));
     }
 }

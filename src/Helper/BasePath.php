@@ -56,9 +56,6 @@ class BasePath extends AbstractHelper
     /**
      * Set the base path.
      *
-     * @deprecated since 2.21.0, this method will be removed in version 3.0.0 of this component.
-     *             The base path should be provided to the constructor from version 3.0
-     *
      * @param  string $basePath
      * @return self
      */
