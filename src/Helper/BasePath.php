@@ -24,7 +24,9 @@ class BasePath extends AbstractHelper
 
     public function __construct(?string $basePath = null)
     {
-        $this->basePath = $basePath;
+        if ($basePath !== null) {
+            $this->setBasePath($basePath);
+        }
     }
 
     /**
@@ -45,12 +47,12 @@ class BasePath extends AbstractHelper
         if ($file !== null && $file !== '') {
             return sprintf(
                 '%s/%s',
-                rtrim($this->basePath, '/'),
+                $this->basePath,
                 ltrim($file, '/')
             );
         }
 
-        return rtrim($this->basePath, '/');
+        return $this->basePath;
     }
 
     /**
