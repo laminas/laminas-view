@@ -30,6 +30,8 @@ use function sprintf;
  * Helper\HelperInterface. Additionally, it registers a number of default
  * helpers.
  *
+ * @template InstanceType of Helper\HelperInterface|callable
+ * @extends AbstractPluginManager<InstanceType>
  * @psalm-import-type ServiceManagerConfiguration from ServiceManager
  */
 class HelperPluginManager extends AbstractPluginManager
@@ -507,6 +509,7 @@ class HelperPluginManager extends AbstractPluginManager
      *
      * @param mixed $instance
      * @throws InvalidServiceException
+     * @psalm-assert InstanceType $instance
      */
     public function validate($instance)
     {
@@ -527,9 +530,13 @@ class HelperPluginManager extends AbstractPluginManager
      *
      * Proxies to `validate()`.
      *
+     * @deprecated Since 2.21.0 - This method will be removed in version 3.0. It provides BC with Service Manager v2
+     *             which can no longer be installed with this component.
+     *
      * @param mixed $instance
      * @return void
      * @throws InvalidHelperException
+     * @psalm-assert InstanceType $instance
      */
     public function validatePlugin($instance)
     {

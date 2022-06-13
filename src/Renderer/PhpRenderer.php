@@ -9,6 +9,7 @@ use Laminas\Filter\FilterChain;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Exception;
 use Laminas\View\Helper\AbstractHelper;
+use Laminas\View\Helper\HelperInterface;
 use Laminas\View\HelperPluginManager;
 use Laminas\View\Model\ModelInterface as Model;
 use Laminas\View\Renderer\RendererInterface as Renderer;
@@ -42,6 +43,8 @@ use function sprintf;
  * Note: all private variables in this class are prefixed with "__". This is to
  * mark them as part of the internal implementation, and thus prevent conflict
  * with variables injected into the renderer.
+ *
+ * @template InstanceType of callable|HelperInterface|AbstractHelper
  *
  * Convenience methods for build in helpers (@see __call):
  *
@@ -378,9 +381,9 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     /**
      * Get plugin instance
      *
-     * @param  string     $name Name of plugin to return
+     * @param  string|class-string<InstanceType> $name Name of plugin to return
      * @param  null|array $options Options to pass to plugin constructor (if not already instantiated)
-     * @return AbstractHelper
+     * @return InstanceType
      */
     public function plugin($name, ?array $options = null)
     {
