@@ -8,14 +8,17 @@ namespace Psr\Container {
      */
     interface ContainerInterface
     {
-        /** @param string|class-string $id */
-        public function has(string $id): bool;
+        /**
+         * @param string|class-string $id
+         * @return bool
+         */
+        public function has(string $id);
 
         /**
          * @template T
          * @psalm-param string|class-string<T> $id
          * @psalm-return ($id is class-string ? T : mixed)
          */
-        public function get(string $id): object;
+        public function get(string $id);
     }
 }
