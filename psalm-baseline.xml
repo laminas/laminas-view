@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.22.0@fc2c6ab4d5fa5d644d8617089f012f3bb84b8703">
+<files psalm-version="4.24.0@06dd975cb55d36af80f242561738f16c5f58264f">
   <file src="bin/templatemap_generator.php">
     <MissingParamType occurrences="1">
       <code>$templatePath</code>
@@ -710,38 +710,12 @@
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Helper/Navigation.php">
-    <DocblockTypeContradiction occurrences="1">
-      <code>null === $this-&gt;plugins</code>
-    </DocblockTypeContradiction>
-    <FalsableReturnStatement occurrences="1">
-      <code>false</code>
-    </FalsableReturnStatement>
     <InvalidFunctionCall occurrences="1">
       <code>call_user_func_array($helper, $arguments)</code>
     </InvalidFunctionCall>
     <InvalidThrow occurrences="1">
       <code>ExceptionInterface</code>
     </InvalidThrow>
-    <MissingConstructor occurrences="1">
-      <code>$plugins</code>
-    </MissingConstructor>
-    <MixedArgument occurrences="2">
-      <code>$helper</code>
-      <code>$helper</code>
-    </MixedArgument>
-    <MixedAssignment occurrences="1">
-      <code>$helper</code>
-    </MixedAssignment>
-    <MixedInferredReturnType occurrences="1">
-      <code>NavigationHelper</code>
-    </MixedInferredReturnType>
-    <MixedMethodCall occurrences="2">
-      <code>setContainer</code>
-      <code>setContainer</code>
-    </MixedMethodCall>
-    <MixedReturnStatement occurrences="1">
-      <code>$helper</code>
-    </MixedReturnStatement>
     <MoreSpecificImplementedParamType occurrences="1">
       <code>$container</code>
     </MoreSpecificImplementedParamType>
@@ -755,12 +729,6 @@
       <code>$view</code>
       <code>$view</code>
     </RedundantCondition>
-    <RedundantConditionGivenDocblockType occurrences="4">
-      <code>$helper</code>
-      <code>$helper</code>
-      <code>$this-&gt;plugins</code>
-      <code>$view &amp;&amp; $this-&gt;plugins</code>
-    </RedundantConditionGivenDocblockType>
     <UndefinedInterfaceMethod occurrences="2">
       <code>hasTranslator</code>
       <code>setTranslator</code>
@@ -1631,9 +1599,6 @@
       <code>has</code>
       <code>has</code>
     </MixedMethodCall>
-    <NonInvariantDocblockPropertyType occurrences="1">
-      <code>$aliases</code>
-    </NonInvariantDocblockPropertyType>
     <PropertyTypeCoercion occurrences="1">
       <code>$this-&gt;initializers</code>
     </PropertyTypeCoercion>
@@ -1828,17 +1793,13 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Renderer/PhpRenderer.php">
-    <DocblockTypeContradiction occurrences="3">
+    <DocblockTypeContradiction occurrences="2">
       <code>gettype($helpers)</code>
       <code>gettype($variables)</code>
-      <code>is_callable($plugin)</code>
     </DocblockTypeContradiction>
     <ImplementedParamTypeMismatch occurrences="1">
       <code>$values</code>
     </ImplementedParamTypeMismatch>
-    <InvalidNullableReturnType occurrences="1">
-      <code>HelperPluginManager</code>
-    </InvalidNullableReturnType>
     <MixedArgument occurrences="4">
       <code>$__vars</code>
       <code>$this-&gt;__template</code>
@@ -1872,11 +1833,7 @@
     <MixedClone occurrences="1">
       <code>clone $this-&gt;vars()</code>
     </MixedClone>
-    <MixedFunctionCall occurrences="1">
-      <code>call_user_func_array($plugin, $argv)</code>
-    </MixedFunctionCall>
-    <MixedInferredReturnType occurrences="3">
-      <code>AbstractHelper</code>
+    <MixedInferredReturnType occurrences="2">
       <code>string</code>
       <code>string|Resolver</code>
     </MixedInferredReturnType>
@@ -1889,8 +1846,7 @@
       <code>$this-&gt;__templateResolver-&gt;resolve($name, $this)</code>
       <code>$this-&gt;getHelperPluginManager()-&gt;get($name, $options)</code>
     </MixedReturnStatement>
-    <NullableReturnStatement occurrences="2">
-      <code>$this-&gt;__helpers</code>
+    <NullableReturnStatement occurrences="1">
       <code>$this-&gt;__templateResolver</code>
     </NullableReturnStatement>
     <PossibleRawObjectIteration occurrences="1">
@@ -1919,9 +1875,6 @@
       <code>is_object($helpers)</code>
       <code>is_object($variables)</code>
     </RedundantConditionGivenDocblockType>
-    <UndefinedMethod occurrences="1">
-      <code>setCurrent</code>
-    </UndefinedMethod>
     <UnresolvableInclude occurrences="1">
       <code>include $this-&gt;__file</code>
     </UnresolvableInclude>
@@ -2490,9 +2443,6 @@
       <code>$values</code>
       <code>$values</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="1">
-      <code>setCharset</code>
-    </MixedMethodCall>
     <MixedOperand occurrences="2">
       <code>$attributeEscaper('boo bah')</code>
       <code>$attributeEscaper('foo bar')</code>
@@ -2529,35 +2479,6 @@
       <code>offsetSetName</code>
       <code>setIndent</code>
     </UndefinedMagicMethod>
-    <UndefinedMethod occurrences="27">
-      <code>__invoke</code>
-      <code>__invoke</code>
-      <code>__invoke</code>
-      <code>__invoke</code>
-      <code>__invoke</code>
-      <code>__invoke</code>
-      <code>__invoke</code>
-      <code>appendHttpEquiv</code>
-      <code>appendHttpEquiv</code>
-      <code>appendHttpEquiv</code>
-      <code>appendHttpEquiv</code>
-      <code>setCharset</code>
-      <code>setCharset</code>
-      <code>setCharset</code>
-      <code>setName</code>
-      <code>setName</code>
-      <code>setName</code>
-      <code>setName</code>
-      <code>setName</code>
-      <code>setName</code>
-      <code>setProperty</code>
-      <code>toString</code>
-      <code>toString</code>
-      <code>toString</code>
-      <code>toString</code>
-      <code>toString</code>
-      <code>toString</code>
-    </UndefinedMethod>
   </file>
   <file src="test/Helper/HeadScriptTest.php">
     <InvalidDocblock occurrences="1">
@@ -2636,10 +2557,6 @@
       <code>setIndent</code>
       <code>setIndent</code>
     </UndefinedMagicMethod>
-    <UndefinedMethod occurrences="2">
-      <code>setDoctype</code>
-      <code>setDoctype</code>
-    </UndefinedMethod>
   </file>
   <file src="test/Helper/HeadStyleTest.php">
     <MixedArgument occurrences="14">
@@ -2715,23 +2632,12 @@
       <code>$this-&gt;view</code>
     </UndefinedThisPropertyAssignment>
   </file>
-  <file src="test/Helper/HtmlObjectTest.php">
-    <UndefinedMethod occurrences="2">
-      <code>__invoke</code>
-      <code>__invoke</code>
-    </UndefinedMethod>
-  </file>
   <file src="test/Helper/HtmlTagTest.php">
     <MixedArgument occurrences="3">
       <code>$escape($value)</code>
       <code>$escape($value)</code>
       <code>$escape('http://www.w3.org/1999/xhtml')</code>
     </MixedArgument>
-  </file>
-  <file src="test/Helper/LayoutTest.php">
-    <UndefinedMethod occurrences="1">
-      <code>setTemplate</code>
-    </UndefinedMethod>
   </file>
   <file src="test/Helper/Navigation/AbstractHelperTest.php">
     <MixedArgument occurrences="3">
@@ -2924,15 +2830,11 @@
       <code>getLabel</code>
       <code>getLabel</code>
     </PossiblyInvalidMethodCall>
-    <PossiblyNullReference occurrences="4">
+    <PossiblyNullReference occurrences="3">
       <code>getHref</code>
       <code>getLabel</code>
       <code>getLabel</code>
-      <code>plugin</code>
     </PossiblyNullReference>
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>plugin</code>
-    </UndefinedInterfaceMethod>
     <UnusedForeachValue occurrences="2">
       <code>$discard</code>
       <code>$discard</code>
@@ -3324,10 +3226,6 @@
     </InvalidArgument>
   </file>
   <file src="test/HelperPluginManagerCompatibilityTest.php">
-    <ArgumentTypeCoercion occurrences="2">
-      <code>$this-&gt;getServiceNotFoundException()</code>
-      <code>$this-&gt;getServiceNotFoundException()</code>
-    </ArgumentTypeCoercion>
     <MixedArgument occurrences="2">
       <code>$target</code>
       <code>$target</code>
@@ -3346,12 +3244,7 @@
       <code>$container</code>
       <code>$container</code>
     </MissingClosureParamType>
-    <MixedAssignment occurrences="6">
-      <code>$helper</code>
-      <code>$helper</code>
-      <code>$helper</code>
-      <code>$helper</code>
-      <code>$helper</code>
+    <MixedAssignment occurrences="1">
       <code>$helperB</code>
     </MixedAssignment>
     <MixedMethodCall occurrences="6">
@@ -3409,10 +3302,6 @@
     <PossiblyUndefinedMethod occurrences="1">
       <code>$vars</code>
     </PossiblyUndefinedMethod>
-    <UndefinedMethod occurrences="2">
-      <code>getCurrent</code>
-      <code>hasCurrent</code>
-    </UndefinedMethod>
     <UnusedClosureParam occurrences="2">
       <code>$errno</code>
       <code>$errstr</code>
@@ -3521,7 +3410,7 @@
     </MixedAssignment>
   </file>
   <file src="test/ViewTest.php">
-    <MissingClosureParamType occurrences="12">
+    <MissingClosureParamType occurrences="11">
       <code>$e</code>
       <code>$e</code>
       <code>$e</code>
@@ -3554,7 +3443,7 @@
     <NullArgument occurrences="1">
       <code>null</code>
     </NullArgument>
-    <UnusedClosureParam occurrences="5">
+    <UnusedClosureParam occurrences="4">
       <code>$e</code>
       <code>$e</code>
       <code>$e</code>
