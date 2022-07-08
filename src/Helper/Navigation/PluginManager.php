@@ -16,7 +16,9 @@ use Laminas\View\HelperPluginManager;
  * Navigation\HelperInterface. Additionally, it registers a number of default
  * helpers.
  *
+ * @template InstanceType of HelperInterface|AbstractHelper
  * @psalm-import-type ServiceManagerConfiguration from ServiceManager
+ * @extends HelperPluginManager<InstanceType>
  */
 class PluginManager extends HelperPluginManager
 {

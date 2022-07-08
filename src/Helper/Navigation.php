@@ -11,6 +11,7 @@ use Laminas\View\Helper\Navigation\AbstractHelper as AbstractNavigationHelper;
 use Laminas\View\Helper\Navigation\HelperInterface as NavigationHelper;
 use Laminas\View\Renderer\RendererInterface as Renderer;
 
+use function assert;
 use function call_user_func_array;
 use function method_exists;
 use function spl_object_hash;
@@ -68,7 +69,7 @@ class Navigation extends AbstractNavigationHelper
      */
     protected $injectTranslator = true;
 
-    /** @var Navigation\PluginManager */
+    /** @var Navigation\PluginManager|null */
     protected $plugins;
 
     /**
@@ -101,7 +102,7 @@ class Navigation extends AbstractNavigationHelper
      * $blogPages = $this->navigation()->findAllByRoute('blog');
      * </code>
      *
-     * @param  string $method             helper name or method name in container
+     * @param  string|class-string<NavigationHelper> $method helper name or method name in container
      * @param  array  $arguments          [optional] arguments to pass
      * @throws Exception\ExceptionInterface        If proxying to a helper, and the
      *                                    helper is not an instance of the
@@ -140,15 +141,15 @@ class Navigation extends AbstractNavigationHelper
     /**
      * Returns the helper matching $proxy
      *
-     * The helper must implement the interface
-     * {@link Laminas\View\Helper\Navigation\Helper}.
+     * The helper must implement the interface {@link NavigationHelper}.
      *
-     * @param string $proxy  helper name
+     * @param string|class-string<NavigationHelper> $proxy  helper name
      * @param bool   $strict [optional] whether exceptions should be
      *                                  thrown if something goes
      *                                  wrong. Default is true.
      * @throws Exception\RuntimeException If $strict is true and helper cannot be found.
-     * @return NavigationHelper  helper instance
+     * @return NavigationHelper|false  helper instance
+     * @psalm-return ($strict is true ? NavigationHelper : NavigationHelper|false)
      */
     public function findHelper($proxy, $strict = true)
     {
@@ -160,10 +161,12 @@ class Navigation extends AbstractNavigationHelper
                     $proxy
                 ));
             }
+
             return false;
         }
 
-        $helper    = $plugins->get($proxy);
+        $helper = $plugins->get($proxy);
+        assert($helper instanceof NavigationHelper);
         $container = $this->getContainer();
         $hash      = spl_object_hash($container) . spl_object_hash($helper);
 
@@ -324,11 +327,13 @@ class Navigation extends AbstractNavigationHelper
      */
     public function getPluginManager()
     {
-        if (null === $this->plugins) {
-            $this->setPluginManager(new Navigation\PluginManager($this->getServiceLocator()));
+        $pluginManager = $this->plugins;
+        if ($pluginManager === null) {
+            $pluginManager = new Navigation\PluginManager($this->getServiceLocator());
+            $this->setPluginManager($pluginManager);
         }
 
-        return $this->plugins;
+        return $pluginManager;
     }
 
     /**
