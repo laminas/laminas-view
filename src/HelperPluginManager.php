@@ -14,6 +14,8 @@ use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Exception\InvalidHelperException;
+use Laminas\View\Helper\AbstractHelper;
+use Laminas\View\Helper\HelperInterface;
 use Psr\Container\ContainerInterface;
 
 use function get_class;
@@ -30,7 +32,8 @@ use function sprintf;
  * Helper\HelperInterface. Additionally, it registers a number of default
  * helpers.
  *
- * @template InstanceType of Helper\HelperInterface|callable
+ * @psalm-type ViewHelperType = HelperInterface|AbstractHelper|object
+ * @template InstanceType of ViewHelperType
  * @extends AbstractPluginManager<InstanceType>
  * @psalm-import-type ServiceManagerConfiguration from ServiceManager
  */
@@ -42,8 +45,8 @@ class HelperPluginManager extends AbstractPluginManager
      * Most of these are present for legacy purposes, as v2 of the service
      * manager normalized names when fetching services.
      *
-     * @psalm-suppress DeprecatedClass
-     * @var array<string, string>
+     * @psalm-suppress DeprecatedClass, NonInvariantDocblockPropertyType
+     * @var non-empty-array<string, class-string>
      */
     protected $aliases = [
         'asset'               => Helper\Asset::class,
@@ -377,9 +380,9 @@ class HelperPluginManager extends AbstractPluginManager
     /**
      * Inject a helper instance with the registered renderer
      *
-     * @param ContainerInterface|Helper\HelperInterface $first helper instance
+     * @param ContainerInterface|HelperInterface $first helper instance
      *     under laminas-servicemanager v2, ContainerInterface under v3.
-     * @param ContainerInterface|Helper\HelperInterface $second
+     * @param ContainerInterface|HelperInterface $second
      *     ContainerInterface under laminas-servicemanager v3, helper instance
      *     under v2. Ignored regardless.
      * @return void
@@ -404,9 +407,9 @@ class HelperPluginManager extends AbstractPluginManager
     /**
      * Inject a helper instance with the registered translator
      *
-     * @param ContainerInterface|Helper\HelperInterface $first helper instance
+     * @param ContainerInterface|HelperInterface $first helper instance
      *     under laminas-servicemanager v2, ContainerInterface under v3.
-     * @param ContainerInterface|Helper\HelperInterface $second
+     * @param ContainerInterface|HelperInterface $second
      *     ContainerInterface under laminas-servicemanager v3, helper instance
      *     under v2. Ignored regardless.
      * @return void
@@ -461,9 +464,9 @@ class HelperPluginManager extends AbstractPluginManager
     /**
      * Inject a helper instance with the registered event manager
      *
-     * @param ContainerInterface|Helper\HelperInterface $first helper instance
+     * @param ContainerInterface|HelperInterface $first helper instance
      *     under laminas-servicemanager v2, ContainerInterface under v3.
-     * @param ContainerInterface|Helper\HelperInterface $second
+     * @param ContainerInterface|HelperInterface $second
      *     ContainerInterface under laminas-servicemanager v3, helper instance
      *     under v2. Ignored regardless.
      * @return void
@@ -513,12 +516,12 @@ class HelperPluginManager extends AbstractPluginManager
      */
     public function validate($instance)
     {
-        if (! is_callable($instance) && ! $instance instanceof Helper\HelperInterface) {
+        if (! is_callable($instance) && ! $instance instanceof HelperInterface) {
             throw new InvalidServiceException(
                 sprintf(
                     '%s can only create instances of %s and/or callables; %s is invalid',
                     static::class,
-                    Helper\HelperInterface::class,
+                    HelperInterface::class,
                     is_object($instance) ? get_class($instance) : gettype($instance)
                 )
             );
