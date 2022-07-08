@@ -12,7 +12,7 @@ namespace Psr\Container {
         public function has(string $id): bool;
 
         /**
-         * @template T of object
+         * @template T
          * @psalm-param string|class-string<T> $id
          * @psalm-return ($id is class-string ? T : mixed)
          */
