@@ -12,8 +12,6 @@ use Laminas\View\Renderer\PhpRenderer;
 use Laminas\View\Resolver\TemplateMapResolver;
 use PHPUnit\Framework\TestCase;
 
-use function assert;
-
 class RenderChildModelTest extends TestCase
 {
     private TemplateMapResolver $resolver;
@@ -34,12 +32,10 @@ class RenderChildModelTest extends TestCase
         $renderer->setCanRenderTrees(true);
         $renderer->setResolver($this->resolver);
 
-        $helper = $renderer->plugin('view_model');
-        assert($helper instanceof ViewModelHelper);
+        $helper                = $renderer->plugin(ViewModelHelper::class);
         $this->viewModelHelper = $helper;
 
-        $helper = $renderer->plugin('render_child_model');
-        assert($helper instanceof RenderChildModel);
+        $helper       = $renderer->plugin(RenderChildModel::class);
         $this->helper = $helper;
 
         $this->parent = new ViewModel();

@@ -10,7 +10,6 @@ use Laminas\View\Helper\HtmlTag;
 use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
 
-use function assert;
 use function sprintf;
 
 class HtmlTagTest extends TestCase
@@ -88,8 +87,7 @@ class HtmlTagTest extends TestCase
 
         $this->assertStringStartsWith('<html', $tag);
 
-        $escape = $this->view->plugin('escapehtmlattr');
-        assert($escape instanceof EscapeHtmlAttr);
+        $escape = $this->view->plugin(EscapeHtmlAttr::class);
 
         foreach ($attribs as $name => $value) {
             $this->assertStringContainsString(sprintf('%s="%s"', $name, $escape($value)), $tag);
@@ -109,8 +107,7 @@ class HtmlTagTest extends TestCase
 
     public function testAppropriateNamespaceAttributesAreSetIfFlagIsOn(): void
     {
-        $doctype = $this->view->plugin('doctype');
-        assert($doctype instanceof Doctype);
+        $doctype = $this->view->plugin(Doctype::class);
         $doctype->setDoctype('xhtml');
 
         $attribs = [
@@ -121,8 +118,7 @@ class HtmlTagTest extends TestCase
 
         $tag = $this->helper->openTag();
 
-        $escape = $this->view->plugin('escapehtmlattr');
-        assert($escape instanceof EscapeHtmlAttr);
+        $escape = $this->view->plugin(EscapeHtmlAttr::class);
 
         $this->assertStringContainsString(sprintf('%s="%s"', 'xmlns', $escape('http://www.w3.org/1999/xhtml')), $tag);
         foreach ($attribs as $name => $value) {

@@ -294,9 +294,9 @@ class ViewTest extends TestCase
     public function testCanTriggerPostRendererEvent(): void
     {
         $this->attachTestStrategies();
-        $test = (object) ['flag' => false];
-        $this->view->getEventManager()->attach(ViewEvent::EVENT_RENDERER_POST, function ($e) use ($test) {
-            $test->flag = true;
+        $flag = false;
+        $this->view->getEventManager()->attach(ViewEvent::EVENT_RENDERER_POST, function () use (&$flag) {
+            $flag = true;
         });
         $variables = [
             'foo' => 'bar',
@@ -304,7 +304,7 @@ class ViewTest extends TestCase
         ];
         $this->model->setVariables($variables);
         $this->view->render($this->model);
-        $this->assertTrue($test->flag);
+        $this->assertTrue($flag);
     }
 
     /**

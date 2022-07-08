@@ -59,7 +59,7 @@ class HtmlObjectTest extends TestCase
 
     public function testMakeHtmlObjectWithoutAttribsWithParamsHtml(): void
     {
-        $this->view->plugin('doctype')->__invoke(Doctype::HTML4_STRICT);
+        $this->view->plugin(Doctype::class)->__invoke(Doctype::HTML4_STRICT);
 
         $params = [
             'paramname1' => 'paramvalue1',
@@ -80,7 +80,7 @@ class HtmlObjectTest extends TestCase
 
     public function testMakeHtmlObjectWithoutAttribsWithParamsXhtml(): void
     {
-        $this->view->plugin('doctype')->__invoke(Doctype::XHTML1_STRICT);
+        $this->view->plugin(Doctype::class)->__invoke(Doctype::XHTML1_STRICT);
 
         $params = [
             'paramname1' => 'paramvalue1',

@@ -13,6 +13,7 @@ use Laminas\View\Exception\ExceptionInterface;
 use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Exception\UnexpectedValueException;
 use Laminas\View\Helper\Doctype;
+use Laminas\View\Helper\ViewModel as ViewModelHelper;
 use Laminas\View\HelperPluginManager;
 use Laminas\View\Model\ViewModel;
 use Laminas\View\Renderer\PhpRenderer;
@@ -323,7 +324,7 @@ class PhpRendererTest extends TestCase
         $model->setTemplate('empty');
 
         $this->renderer->render($model);
-        $helper = $this->renderer->plugin('view_model');
+        $helper = $this->renderer->plugin(ViewModelHelper::class);
         $this->assertTrue($helper->hasCurrent());
         $this->assertSame($model, $helper->getCurrent());
     }

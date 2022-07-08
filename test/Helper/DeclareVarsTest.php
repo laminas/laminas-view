@@ -8,7 +8,6 @@ use Laminas\View\Helper\DeclareVars;
 use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
 
-use function assert;
 use function str_replace;
 
 use const DIRECTORY_SEPARATOR;
@@ -28,8 +27,7 @@ class DeclareVarsTest extends TestCase
 
     private function declareVars(): void
     {
-        $helper = $this->view->plugin('declareVars');
-        assert($helper instanceof DeclareVars);
+        $helper = $this->view->plugin(DeclareVars::class);
 
         $helper->__invoke(
             'varName1',
