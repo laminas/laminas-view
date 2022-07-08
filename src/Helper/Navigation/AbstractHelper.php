@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Laminas\View\Helper\Navigation;
 
-use Interop\Container\ContainerInterface;
+use Interop\Container\ContainerInterface; // phpcs:ignore
 use Laminas\EventManager\EventManager;
 use Laminas\EventManager\EventManagerAwareInterface;
 use Laminas\EventManager\EventManagerInterface;
