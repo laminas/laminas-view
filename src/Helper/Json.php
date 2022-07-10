@@ -32,8 +32,8 @@ class Json extends AbstractHelper
      * Encode data as JSON and set response header
      *
      * @param  mixed $data
-     * @param  array $jsonOptions Options to pass to JsonFormatter::encode()
-     * @return string|void
+     * @param array{prettyPrint?: bool} $jsonOptions Options to pass to JsonFormatter::encode()
+     * @return string
      */
     public function __invoke($data, array $jsonOptions = [])
     {
