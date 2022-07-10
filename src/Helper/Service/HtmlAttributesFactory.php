@@ -8,8 +8,6 @@ use Laminas\Escaper\Escaper;
 use Laminas\View\Helper\HtmlAttributes;
 use Psr\Container\ContainerInterface;
 
-use function assert;
-
 final class HtmlAttributesFactory
 {
     public function __invoke(ContainerInterface $container): HtmlAttributes
@@ -17,8 +15,6 @@ final class HtmlAttributesFactory
         $escaper = $container->has(Escaper::class)
             ? $container->get(Escaper::class)
             : new Escaper();
-
-        assert($escaper instanceof Escaper);
 
         return new HtmlAttributes($escaper);
     }

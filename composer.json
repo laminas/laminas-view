@@ -33,8 +33,8 @@
         "laminas/laminas-escaper": "^2.5",
         "laminas/laminas-eventmanager": "^3.4",
         "laminas/laminas-json": "^3.3",
-        "laminas/laminas-servicemanager": "^3.10",
-        "laminas/laminas-stdlib": "^3.6",
+        "laminas/laminas-servicemanager": "^3.14.0",
+        "laminas/laminas-stdlib": "^3.10.1",
         "psr/container": "^1 || ^2"
     },
     "require-dev": {

@@ -8,6 +8,7 @@ use DOMDocument;
 use Generator;
 use Laminas\View;
 use Laminas\View\Helper;
+use Laminas\View\Helper\Doctype;
 use PHPUnit\Framework\TestCase;
 
 use function array_shift;
@@ -480,7 +481,7 @@ document.write(bar.strlen());');
     public function testOmitsTypeAttributeIfEmptyValueAndHtml5Doctype(): void
     {
         $view = new View\Renderer\PhpRenderer();
-        $view->plugin('doctype')->setDoctype(View\Helper\Doctype::HTML5);
+        $view->plugin(Doctype::class)->setDoctype(View\Helper\Doctype::HTML5);
         $this->helper->setView($view);
 
         $this->helper->__invoke()->appendScript('// some script' . PHP_EOL, '');
@@ -502,7 +503,7 @@ document.write(bar.strlen());');
     public function testOmitsTypeAttributeIfNoneGivenAndHtml5Doctype(): void
     {
         $view = new View\Renderer\PhpRenderer();
-        $view->plugin('doctype')->setDoctype(View\Helper\Doctype::HTML5);
+        $view->plugin(Doctype::class)->setDoctype(View\Helper\Doctype::HTML5);
         $this->helper->setView($view);
 
         $this->helper->__invoke()->appendScript('// some script' . PHP_EOL);

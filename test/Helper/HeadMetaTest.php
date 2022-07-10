@@ -14,7 +14,6 @@ use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
 
 use function array_shift;
-use function assert;
 use function count;
 use function set_error_handler;
 use function sprintf;
@@ -39,12 +38,11 @@ class HeadMetaTest extends TestCase
     {
         Doctype::unsetDoctypeRegistry();
         $this->view = new View();
-        $doctype    = $this->view->plugin('doctype');
-        assert($doctype instanceof Doctype);
+        $doctype    = $this->view->plugin(Doctype::class);
         $doctype->__invoke('XHTML1_STRICT');
-        $this->helper = new Helper\HeadMeta();
+        $this->helper = new HeadMeta();
         $this->helper->setView($this->view);
-        $this->attributeEscaper = new Helper\EscapeHtmlAttr();
+        $this->attributeEscaper = new EscapeHtmlAttr();
     }
 
     public function handleErrors(int $errno, string $errstr): void
@@ -285,7 +283,7 @@ class HeadMetaTest extends TestCase
 
     public function testStringRepresentationReflectsDoctype(): void
     {
-        $this->view->plugin('doctype')->__invoke('HTML4_STRICT');
+        $this->view->plugin(Doctype::class)->__invoke('HTML4_STRICT');
         $this->helper->__invoke('some content', 'foo');
 
         $test = $this->helper->toString();
@@ -300,26 +298,26 @@ class HeadMetaTest extends TestCase
     public function testSetNameDoesntClobber(): void
     {
         $view = new View();
-        $view->plugin('headMeta')->setName('keywords', 'foo');
-        $view->plugin('headMeta')->appendHttpEquiv('pragma', 'bar');
-        $view->plugin('headMeta')->appendHttpEquiv('Cache-control', 'baz');
-        $view->plugin('headMeta')->setName('keywords', 'bat');
+        $view->plugin(HeadMeta::class)->setName('keywords', 'foo');
+        $view->plugin(HeadMeta::class)->appendHttpEquiv('pragma', 'bar');
+        $view->plugin(HeadMeta::class)->appendHttpEquiv('Cache-control', 'baz');
+        $view->plugin(HeadMeta::class)->setName('keywords', 'bat');
 
         $this->assertEquals(
             '<meta http-equiv="pragma" content="bar" />' . PHP_EOL . '<meta http-equiv="Cache-control" content="baz" />'
             . PHP_EOL . '<meta name="keywords" content="bat" />',
-            $view->plugin('headMeta')->toString()
+            $view->plugin(HeadMeta::class)->toString()
         );
     }
 
     public function testSetNameDoesntClobberPart2(): void
     {
         $view = new View();
-        $view->plugin('headMeta')->setName('keywords', 'foo');
-        $view->plugin('headMeta')->setName('description', 'foo');
-        $view->plugin('headMeta')->appendHttpEquiv('pragma', 'baz');
-        $view->plugin('headMeta')->appendHttpEquiv('Cache-control', 'baz');
-        $view->plugin('headMeta')->setName('keywords', 'bar');
+        $view->plugin(HeadMeta::class)->setName('keywords', 'foo');
+        $view->plugin(HeadMeta::class)->setName('description', 'foo');
+        $view->plugin(HeadMeta::class)->appendHttpEquiv('pragma', 'baz');
+        $view->plugin(HeadMeta::class)->appendHttpEquiv('Cache-control', 'baz');
+        $view->plugin(HeadMeta::class)->setName('keywords', 'bar');
 
         $expected = sprintf(
             '<meta name="description" content="foo" />%1$s'
@@ -329,14 +327,14 @@ class HeadMetaTest extends TestCase
             PHP_EOL
         );
 
-        $this->assertEquals($expected, $view->plugin('headMeta')->toString());
+        $this->assertEquals($expected, $view->plugin(HeadMeta::class)->toString());
     }
 
     public function testPlacesMetaTagsInProperOrder(): void
     {
         $view = new View();
-        $view->plugin('headMeta')->setName('keywords', 'foo');
-        $view->plugin('headMeta')->__invoke(
+        $view->plugin(HeadMeta::class)->setName('keywords', 'foo');
+        $view->plugin(HeadMeta::class)->__invoke(
             'some content',
             'bar',
             'name',
@@ -352,7 +350,7 @@ class HeadMetaTest extends TestCase
             $attributeEscaper('some content'),
             PHP_EOL
         );
-        $this->assertEquals($expected, $view->plugin('headMeta')->toString());
+        $this->assertEquals($expected, $view->plugin(HeadMeta::class)->toString());
     }
 
     public function testContainerMaintainsCorrectOrderOfItems(): void
@@ -378,44 +376,44 @@ class HeadMetaTest extends TestCase
     public function testCharsetValidateFail(): void
     {
         $view = new View();
-        $view->plugin('doctype')->__invoke('HTML4_STRICT');
+        $view->plugin(Doctype::class)->__invoke('HTML4_STRICT');
 
         $this->expectException(Exception\ExceptionInterface::class);
-        $view->plugin('headMeta')->setCharset('utf-8');
+        $view->plugin(HeadMeta::class)->setCharset('utf-8');
     }
 
     public function testCharset(): void
     {
         $view = new View();
-        $view->plugin('doctype')->__invoke('HTML5');
+        $view->plugin(Doctype::class)->__invoke('HTML5');
 
-        $view->plugin('headMeta')->setCharset('utf-8');
+        $view->plugin(HeadMeta::class)->setCharset('utf-8');
         $this->assertEquals(
             '<meta charset="utf-8">',
-            $view->plugin('headMeta')->toString()
+            $view->plugin(HeadMeta::class)->toString()
         );
 
-        $view->plugin('doctype')->__invoke('XHTML5');
+        $view->plugin(Doctype::class)->__invoke('XHTML5');
 
         $this->assertEquals(
             '<meta charset="utf-8"/>',
-            $view->plugin('headMeta')->toString()
+            $view->plugin(HeadMeta::class)->toString()
         );
     }
 
     public function testCharsetPosition(): void
     {
         $view = new View();
-        $view->plugin('doctype')->__invoke('HTML5');
+        $view->plugin(Doctype::class)->__invoke('HTML5');
 
-        $view->plugin('headMeta')
+        $view->plugin(HeadMeta::class)
             ->setProperty('description', 'foobar')
             ->setCharset('utf-8');
 
         $this->assertEquals(
             '<meta charset="utf-8">' . PHP_EOL
             . '<meta property="description" content="foobar">',
-            $view->plugin('headMeta')->toString()
+            $view->plugin(HeadMeta::class)->toString()
         );
     }
 
@@ -425,9 +423,9 @@ class HeadMetaTest extends TestCase
         $this->expectExceptionMessage('XHTML* doctype has no attribute charset; please use appendHttpEquiv()');
 
         $view = new View();
-        $view->plugin('doctype')->__invoke('XHTML1_RDFA');
+        $view->plugin(Doctype::class)->__invoke('XHTML1_RDFA');
 
-        $view->plugin('headMeta')
+        $view->plugin(HeadMeta::class)
              ->setCharset('utf-8');
     }
 
