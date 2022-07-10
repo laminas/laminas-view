@@ -78,24 +78,4 @@ class HelperPluginManagerCompatibilityTest extends TestCase
     {
         $this->markTestSkipped('instanceOf is not used with this implementation');
     }
-
-    /**
-     * @todo remove this test once we set the minimum laminas-servicemanager version to 3
-     */
-    public function testRegisteringInvalidElementRaisesException(): void
-    {
-        $this->expectException($this->getServiceNotFoundException());
-        $this->getPluginManager()->setService('test', $this);
-    }
-
-    /**
-     * @todo remove this test once we set the minimum laminas-servicemanager version to 3
-     */
-    public function testLoadingInvalidElementRaisesException(): void
-    {
-        $manager = $this->getPluginManager();
-        $manager->setInvokableClass('test', static::class);
-        $this->expectException($this->getServiceNotFoundException());
-        $manager->get('test');
-    }
 }

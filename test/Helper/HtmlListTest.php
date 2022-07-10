@@ -5,8 +5,7 @@ declare(strict_types=1);
 namespace LaminasTest\View\Helper;
 
 use Laminas\View\Exception;
-use Laminas\View\Helper;
-use Laminas\View\Renderer\PhpRenderer as View;
+use Laminas\View\Helper\HtmlList;
 use PHPUnit\Framework\TestCase;
 
 use function array_walk_recursive;
@@ -15,21 +14,11 @@ use const PHP_EOL;
 
 class HtmlListTest extends TestCase
 {
-    /** @var Helper\HtmlList */
-    public $helper;
-    private View $view;
+    public HtmlList $helper;
 
-    /**
-     * Sets up the fixture, for example, open a network connection.
-     * This method is called before a test is executed.
-     *
-     * @access protected
-     */
     protected function setUp(): void
     {
-        $this->view   = new View();
-        $this->helper = new Helper\HtmlList();
-        $this->helper->setView($this->view);
+        $this->helper = new HtmlList();
     }
 
     public function testMakeUnorderedList(): void
@@ -135,7 +124,7 @@ class HtmlListTest extends TestCase
     {
         $items = ['one <b>small</b> test'];
 
-        $list = $this->helper->__invoke($items, false, false, false);
+        $list = $this->helper->__invoke($items, false, null, false);
 
         $this->assertStringContainsString('<ul>', $list);
         $this->assertStringContainsString('</ul>', $list);
@@ -147,7 +136,7 @@ class HtmlListTest extends TestCase
     {
         $items = ['<b>one</b>', ['<b>four</b>', '<b>five</b>', '<b>six</b>'], '<b>two</b>', '<b>three</b>'];
 
-        $list = $this->helper->__invoke($items, false, false, false);
+        $list = $this->helper->__invoke($items, false, null, false);
 
         foreach ($items[1] as $item) {
             $this->assertStringContainsString($item, $list);

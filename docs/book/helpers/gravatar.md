@@ -3,6 +3,11 @@
 The `Gravatar` helper is useful for rendering image HTML markup returned from
 the [gravatar.com](http://gravatar.com) service.
 
+> WARNING: **Deprecated**
+>
+> The existing Gravatar helper has been deprecated and will be removed in version 3.0.
+> Please use the replacement helper [GravatarImage](gravatar-image.md) for any new projects.
+
 ## Basic Usage
 
 You can use the `Gravatar` helper anywhere in view scripts per the following example:

@@ -24,16 +24,14 @@ class RenderToPlaceholderTest extends TestCase
         assert($resolver instanceof TemplatePathStack);
         $resolver->addPath(__DIR__ . '/_files/scripts/');
 
-        $helper = $this->view->plugin('renderToPlaceholder');
-        assert($helper instanceof RenderToPlaceholder);
+        $helper       = $this->view->plugin(RenderToPlaceholder::class);
         $this->helper = $helper;
     }
 
     public function testDefaultEmpty(): void
     {
         $this->helper->__invoke('rendertoplaceholderscript.phtml', 'fooPlaceholder');
-        $placeholder = $this->view->plugin('placeholder');
-        assert($placeholder instanceof Placeholder);
+        $placeholder = $this->view->plugin(Placeholder::class);
         $this->assertEquals("Foo Bar\n", $placeholder->__invoke('fooPlaceholder')->getValue());
     }
 }

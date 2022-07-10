@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Laminas\View\Helper\Navigation;
 
-use Interop\Container\ContainerInterface;
+use Interop\Container\ContainerInterface; // phpcs:ignore
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\HelperPluginManager;
@@ -16,7 +16,9 @@ use Laminas\View\HelperPluginManager;
  * Navigation\HelperInterface. Additionally, it registers a number of default
  * helpers.
  *
+ * @template InstanceType of HelperInterface|AbstractHelper
  * @psalm-import-type ServiceManagerConfiguration from ServiceManager
+ * @extends HelperPluginManager<InstanceType>
  */
 class PluginManager extends HelperPluginManager
 {

@@ -31,8 +31,7 @@ class RelativeFallbackResolverTest extends TestCase
         $renderer       = new PhpRenderer();
         $view           = new ViewModel();
         $view->setTemplate('foo/zaz');
-        $helper = $renderer->plugin('view_model');
-        /** @var ViewModelHelper $helper */
+        $helper = $renderer->plugin(ViewModelHelper::class);
         $helper->setCurrent($view);
 
         $test = $resolver->resolve('bar', $renderer);
@@ -47,8 +46,7 @@ class RelativeFallbackResolverTest extends TestCase
         $renderer = new PhpRenderer();
         $view     = new ViewModel();
         $view->setTemplate('name-space/any-view');
-        /** @var ViewModelHelper $helper */
-        $helper = $renderer->plugin('view_model');
+        $helper = $renderer->plugin(ViewModelHelper::class);
         $helper->setCurrent($view);
 
         $test = $resolver->resolve('bar', $renderer);
@@ -67,8 +65,7 @@ class RelativeFallbackResolverTest extends TestCase
         $renderer = new PhpRenderer();
         $view     = new ViewModel();
         $view->setTemplate('foo/zaz');
-        $helper = $renderer->plugin('view_model');
-        /** @var ViewModelHelper $helper */
+        $helper = $renderer->plugin(ViewModelHelper::class);
         $helper->setCurrent($view);
 
         $test = $resolver->resolve('bar', $renderer);

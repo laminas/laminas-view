@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper;
 
+use Laminas\Escaper\Escaper;
 use Laminas\View\Helper\HtmlAttributes;
-use Laminas\View\Renderer\PhpRenderer;
 use PHPUnit\Framework\TestCase;
 
 class HtmlAttributesTest extends TestCase
@@ -16,8 +16,7 @@ class HtmlAttributesTest extends TestCase
     {
         parent::setUp();
 
-        $this->helper = new HtmlAttributes();
-        $this->helper->setView(new PhpRenderer());
+        $this->helper = new HtmlAttributes(new Escaper());
     }
 
     public function testThatInvokeWillReturnAttributeSetWithTheExpectedValues(): void

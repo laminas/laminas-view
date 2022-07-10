@@ -8,19 +8,23 @@ use Laminas\View\Model\ModelInterface as Model;
 
 /**
  * Helper for storing and retrieving the root and current view model
+ *
+ * @final
  */
 class ViewModel extends AbstractHelper
 {
-    /** @var Model */
+    use DeprecatedAbstractHelperHierarchyTrait;
+
+    /** @var Model|null */
     protected $current;
 
-    /** @var Model */
+    /** @var Model|null */
     protected $root;
 
     /**
      * Set the current view model
      *
-     * @return ViewModel
+     * @return $this
      */
     public function setCurrent(Model $model)
     {
@@ -31,7 +35,7 @@ class ViewModel extends AbstractHelper
     /**
      * Get the current view model
      *
-     * @return null|Model
+     * @return Model|null
      */
     public function getCurrent()
     {
@@ -51,7 +55,7 @@ class ViewModel extends AbstractHelper
     /**
      * Set the root view model
      *
-     * @return ViewModel
+     * @return $this
      */
     public function setRoot(Model $model)
     {
@@ -62,7 +66,7 @@ class ViewModel extends AbstractHelper
     /**
      * Get the root view model
      *
-     * @return null|Model
+     * @return Model|null
      */
     public function getRoot()
     {

@@ -5,6 +5,7 @@
         "intl"
     ],
     "ignore_php_platform_requirements": {
+        "8.0": true,
         "8.1": true
     }
 }
