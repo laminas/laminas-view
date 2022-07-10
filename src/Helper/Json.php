@@ -13,17 +13,26 @@ use const JSON_THROW_ON_ERROR;
 
 /**
  * Helper for simplifying JSON responses
+ *
+ * @psalm-suppress DeprecatedProperty
+ * @final
  */
 class Json extends AbstractHelper
 {
-    /** @var Response|null */
+    use DeprecatedAbstractHelperHierarchyTrait;
+
+    /**
+     * @deprecated since >= 2.20.0
+     *
+     * @var Response|null
+     */
     protected $response;
 
     /**
      * Encode data as JSON and set response header
      *
      * @param  mixed $data
-     * @param  array{prettyPrint?: bool} $jsonOptions
+     * @param array{prettyPrint?: bool} $jsonOptions Options to pass to JsonFormatter::encode()
      * @return string
      */
     public function __invoke($data, array $jsonOptions = [])
@@ -50,6 +59,11 @@ class Json extends AbstractHelper
 
     /**
      * Set the response object
+     *
+     * @deprecated since >= 2.20.0. If you need to set response headers, use the methods available in
+     *             the framework. For example in Laminas MVC this can be achieved in the controller or in
+     *             Mezzio, you can change response headers in Middleware. This method will be removed in 3.0
+     *             without replacement functionality.
      *
      * @return Json
      */

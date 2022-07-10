@@ -26,6 +26,8 @@ use const JSON_THROW_ON_ERROR;
 
 /**
  * Class for storing and processing HTML tag attributes.
+ *
+ * @psalm-type AttributeSet = array<string, scalar|array|null>
  */
 final class HtmlAttributesSet extends ArrayObject
 {
@@ -44,7 +46,7 @@ final class HtmlAttributesSet extends ArrayObject
     /**
      * Set several attributes at once.
      *
-     * @param iterable<string, scalar|array|null> $attributes
+     * @param AttributeSet $attributes
      */
     public function set(iterable $attributes): self
     {
@@ -77,7 +79,7 @@ final class HtmlAttributesSet extends ArrayObject
     /**
      * Merge attributes with existing attributes.
      *
-     * @param iterable<string, scalar|array|null> $attributes
+     * @param AttributeSet $attributes
      */
     public function merge(iterable $attributes): self
     {

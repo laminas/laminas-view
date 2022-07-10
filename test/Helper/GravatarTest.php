@@ -13,6 +13,7 @@ use function method_exists;
 use function strtoupper;
 use function urlencode;
 
+/** @psalm-suppress DeprecatedClass */
 class GravatarTest extends TestCase
 {
     /** @var Gravatar */

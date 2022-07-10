@@ -18,6 +18,8 @@ use function urlencode;
 
 /**
  * Helper for retrieving avatars from gravatar.com
+ *
+ * @deprecated This helper has been deprecated in favour of {@link GravatarImage} and will be removed in version 3.0
  */
 class Gravatar extends AbstractHtmlElement
 {

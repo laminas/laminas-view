@@ -6,16 +6,28 @@ namespace Laminas\View\Helper;
 
 use Laminas\View\Exception;
 use Laminas\View\Model\ModelInterface as Model;
+use Laminas\View\Renderer\PhpRenderer;
 
+use function assert;
 use function sprintf;
 
 /**
  * View helper for retrieving layout object
+ *
+ * @psalm-suppress DeprecatedMethod
+ * @final
  */
 class Layout extends AbstractHelper
 {
-    /** @var ViewModel */
+    use DeprecatedAbstractHelperHierarchyTrait;
+
+    /** @var ViewModel|null */
     protected $viewModelHelper;
+
+    public function __construct(?ViewModel $viewModelHelper = null)
+    {
+        $this->viewModelHelper = $viewModelHelper;
+    }
 
     /**
      * Set layout template or retrieve "layout" view model
@@ -49,20 +61,19 @@ class Layout extends AbstractHelper
      * Get the root view model
      *
      * @throws Exception\RuntimeException
-     * @return null|Model
+     * @return Model
      */
     protected function getRoot()
     {
-        $helper = $this->getViewModelHelper();
-
-        if (! $helper->hasRoot()) {
+        $root = $this->getViewModelHelper()->getRoot();
+        if (! $root instanceof Model) {
             throw new Exception\RuntimeException(sprintf(
                 '%s: no view model currently registered as root in renderer',
                 __METHOD__
             ));
         }
 
-        return $helper->getRoot();
+        return $root;
     }
 
     /**
@@ -80,12 +91,22 @@ class Layout extends AbstractHelper
     /**
      * Retrieve the view model helper
      *
+     * @deprecated since >= 2.20.0. The view model helper should be injected into the constructor.
+     *             This method will be removed in version 3.0 of this component.
+     *
      * @return ViewModel
      */
     protected function getViewModelHelper()
     {
-        if (null === $this->viewModelHelper) {
-            $this->viewModelHelper = $this->getView()->plugin('view_model');
+        if (! $this->viewModelHelper) {
+            /**
+             * @psalm-suppress DeprecatedMethod
+             */
+            $renderer = $this->getView();
+            assert($renderer instanceof PhpRenderer);
+            $helper = $renderer->plugin('view_model');
+            assert($helper instanceof ViewModel);
+            $this->viewModelHelper = $helper;
         }
 
         return $this->viewModelHelper;

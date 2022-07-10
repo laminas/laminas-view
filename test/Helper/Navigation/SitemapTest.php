@@ -6,6 +6,7 @@ namespace LaminasTest\View\Helper\Navigation;
 
 use DOMDocument;
 use Laminas\View;
+use Laminas\View\Helper\BasePath;
 use Laminas\View\Helper\Navigation\Sitemap;
 use Throwable; // phpcs:ignore
 
@@ -59,7 +60,7 @@ class SitemapTest extends AbstractTest
         parent::setUp();
 
         $this->_helper->setFormatOutput(true);
-        $this->_helper->getView()->plugin('basepath')->setBasePath('');
+        $this->_helper->getView()->plugin(BasePath::class)->setBasePath('');
     }
 
     protected function tearDown(): void

@@ -47,13 +47,13 @@ class HelperPluginManagerTest extends TestCase
     {
         $renderer = new PhpRenderer();
         $this->helpers->setRenderer($renderer);
-        $helper = $this->helpers->get('doctype');
+        $helper = $this->helpers->get(Doctype::class);
         $this->assertSame($renderer, $helper->getView());
     }
 
     public function testNoRendererInjectedInHelperWhenRendererIsNotPresent(): void
     {
-        $helper = $this->helpers->get('doctype');
+        $helper = $this->helpers->get(Doctype::class);
         $this->assertNull($helper->getView());
     }
 
@@ -98,7 +98,7 @@ class HelperPluginManagerTest extends TestCase
         $services   = new ServiceManager();
         $config->configureServiceManager($services);
         $helpers = new HelperPluginManager($services);
-        $helper  = $helpers->get('HeadTitle');
+        $helper  = $helpers->get(HeadTitle::class);
         $this->assertSame($translator, $helper->getTranslator());
     }
 
@@ -115,7 +115,7 @@ class HelperPluginManagerTest extends TestCase
         $services   = new ServiceManager();
         $config->configureServiceManager($services);
         $helpers = new HelperPluginManager($services);
-        $helper  = $helpers->get('HeadTitle');
+        $helper  = $helpers->get(HeadTitle::class);
         $this->assertSame($translator, $helper->getTranslator());
     }
 
@@ -132,7 +132,7 @@ class HelperPluginManagerTest extends TestCase
         $services   = new ServiceManager();
         $config->configureServiceManager($services);
         $helpers = new HelperPluginManager($services);
-        $helper  = $helpers->get('HeadTitle');
+        $helper  = $helpers->get(HeadTitle::class);
         $this->assertSame($translator, $helper->getTranslator());
     }
 
@@ -172,7 +172,7 @@ class HelperPluginManagerTest extends TestCase
             ]
         );
         $config->configureServiceManager($helpers);
-        $this->assertSame($helper, $helpers->get('url'));
+        $this->assertSame($helper, $helpers->get(Url::class));
     }
 
     public function testCanUseCallableAsHelper(): void

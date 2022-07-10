@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper\Navigation;
 
-use Interop\Container\ContainerInterface;
+use Interop\Container\ContainerInterface; // phpcs:ignore
 use Laminas\I18n\Translator\Translator;
 use Laminas\Navigation\Navigation as Container;
 use Laminas\Navigation\Page;

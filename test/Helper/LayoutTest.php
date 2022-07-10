@@ -11,8 +11,6 @@ use Laminas\View\Model\ViewModel;
 use Laminas\View\Renderer\PhpRenderer;
 use PHPUnit\Framework\TestCase;
 
-use function assert;
-
 class LayoutTest extends TestCase
 {
     private Layout $helper;
@@ -25,10 +23,8 @@ class LayoutTest extends TestCase
     protected function setUp(): void
     {
         $renderer        = new PhpRenderer();
-        $viewModelHelper = $renderer->plugin('view_model');
-        assert($viewModelHelper instanceof ViewModelHelper);
-        $helper = $renderer->plugin('layout');
-        assert($helper instanceof Layout);
+        $viewModelHelper = $renderer->plugin(ViewModelHelper::class);
+        $helper          = $renderer->plugin(Layout::class);
 
         $this->helper = $helper;
         $this->parent = new ViewModel();
@@ -64,8 +60,8 @@ class LayoutTest extends TestCase
     public function testRaisesExceptionIfViewModelHelperHasNoRoot(): void
     {
         $renderer = new PhpRenderer();
-        $renderer->plugin('view_model');
-        $helper = $renderer->plugin('layout');
+        $renderer->plugin(ViewModelHelper::class);
+        $helper = $renderer->plugin(Layout::class);
 
         $this->expectException(Exception\RuntimeException::class);
         $this->expectExceptionMessage('view model');

@@ -13,6 +13,7 @@ use Laminas\Permissions\Acl\Role;
 use Laminas\View;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\Navigation;
+use Laminas\View\Renderer\PhpRenderer;
 use RecursiveIteratorIterator;
 
 use function assert;
@@ -44,8 +45,9 @@ class LinksTest extends AbstractTest
         parent::setUp();
 
         // doctype fix (someone forgot to clean up after their unit tests)
-        $helper = $this->_helper->getView()->plugin('doctype');
-        assert($helper instanceof Doctype);
+        $renderer = $this->_helper->getView();
+        assert($renderer instanceof PhpRenderer);
+        $helper              = $renderer->plugin(Doctype::class);
         $this->doctypeHelper = $helper;
         $this->oldDoctype    = $helper->getDoctype();
         $this->doctypeHelper->setDoctype(

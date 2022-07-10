@@ -6,6 +6,7 @@ namespace LaminasTest\View\Helper;
 
 use Laminas\View\Exception;
 use Laminas\View\Helper;
+use Laminas\View\Helper\Doctype;
 use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
 
@@ -331,7 +332,7 @@ class HeadLinkTest extends TestCase
 
     public function testLinkRendersAsPlainHtmlIfDoctypeNotXhtml(): void
     {
-        $this->view->plugin('doctype')->__invoke('HTML4_STRICT');
+        $this->view->plugin(Doctype::class)->__invoke('HTML4_STRICT');
         $this->helper->__invoke(['rel' => 'icon', 'src' => '/foo/bar'])
                      ->__invoke(['rel' => 'foo', 'href' => '/bar/baz']);
         $test = $this->helper->toString();
