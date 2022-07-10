@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Laminas\View\Helper\Service;
 
 use ArrayAccess;
+use Laminas\Diactoros\ServerRequestFactory;
 use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Helper\ServerUrl;
 use Psr\Container\ContainerInterface;
@@ -12,8 +13,6 @@ use Psr\Container\ContainerInterface;
 use function assert;
 use function is_array;
 use function is_string;
-use function Laminas\Diactoros\marshalHeadersFromSapi;
-use function Laminas\Diactoros\marshalUriFromSapi;
 
 final class ServerUrlFactory
 {
@@ -40,7 +39,8 @@ final class ServerUrlFactory
 
     private function detectServerUrlFromEnvironment(): string
     {
-        $uri = marshalUriFromSapi($_SERVER, marshalHeadersFromSapi($_SERVER))
+        $serverRequest = ServerRequestFactory::fromGlobals($_SERVER);
+        $uri           = $serverRequest->getUri()
             ->withPath('')
             ->withQuery('')
             ->withFragment('');
