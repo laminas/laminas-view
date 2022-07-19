@@ -1594,7 +1594,7 @@
       <code>$container</code>
     </MixedAssignment>
     <MixedInferredReturnType occurrences="1">
-      <code>($name is class-string ? T : callable)</code>
+      <code>($name is class-string ? T : HelperInterface|callable)</code>
     </MixedInferredReturnType>
     <MixedMethodCall occurrences="8">
       <code>get</code>

@@ -23,12 +23,6 @@ final class PluginRetrieval
         return ($this->pluginManager->get(GravatarImage::class))($email);
     }
 
-    public function retrievalByAliasAssumesCallable(): void
-    {
-        $helper = $this->pluginManager->get('something');
-        $helper();
-    }
-
     public function retrievalByClassNameInfersKnownMethods(): string
     {
         $helper = $this->pluginManager->get(Layout::class);

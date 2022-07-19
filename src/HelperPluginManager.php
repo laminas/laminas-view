@@ -554,7 +554,7 @@ class HelperPluginManager extends AbstractPluginManager
      * @param class-string<T>|string $name Service name of plugin to retrieve.
      * @param null|array<mixed> $options Options to use when creating the instance.
      * @return HelperInterface|callable
-     * @psalm-return ($name is class-string ? T : callable)
+     * @psalm-return ($name is class-string ? T : HelperInterface|callable)
      */
     public function get($name, ?array $options = null)
     {
