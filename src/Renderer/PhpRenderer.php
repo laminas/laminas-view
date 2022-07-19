@@ -8,6 +8,7 @@ use ArrayAccess;
 use Laminas\Filter\FilterChain;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Exception;
+use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Helper\ViewModel;
 use Laminas\View\HelperPluginManager;
 use Laminas\View\Model\ModelInterface as Model;
@@ -42,8 +43,6 @@ use function sprintf;
  * Note: all private variables in this class are prefixed with "__". This is to
  * mark them as part of the internal implementation, and thus prevent conflict
  * with variables injected into the renderer.
- *
- * @psalm-import-type ViewHelperType from HelperPluginManager
  *
  * Convenience methods for build in helpers (@see __call):
  *
@@ -387,7 +386,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      * @template T
      * @param  string|class-string<T> $name Name of plugin to return
      * @param  null|array $options Options to pass to plugin constructor (if not already instantiated)
-     * @return ($name is class-string ? T : ViewHelperType|mixed)
+     * @return ($name is class-string ? T : HelperInterface|callable)
      */
     public function plugin($name, ?array $options = null)
     {
@@ -405,7 +404,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      *
      * @param  string $method
      * @param  array $argv
-     * @return mixed|ViewHelperType
+     * @return HelperInterface|callable|mixed
      */
     public function __call($method, $argv)
     {
