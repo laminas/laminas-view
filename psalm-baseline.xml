@@ -1445,6 +1445,9 @@
       <code>$container</code>
       <code>$container</code>
     </MixedAssignment>
+    <MixedInferredReturnType occurrences="1">
+      <code>($name is class-string ? T : HelperInterface|callable)</code>
+    </MixedInferredReturnType>
     <MixedMethodCall occurrences="8">
       <code>get</code>
       <code>get</code>
@@ -1455,6 +1458,9 @@
       <code>has</code>
       <code>has</code>
     </MixedMethodCall>
+    <MixedReturnStatement occurrences="1">
+      <code>parent::get($name, $options)</code>
+    </MixedReturnStatement>
     <PropertyTypeCoercion occurrences="1">
       <code>$this-&gt;initializers</code>
     </PropertyTypeCoercion>
@@ -1662,10 +1668,9 @@
       <code>getArrayCopy</code>
       <code>new $helpers(new ServiceManager())</code>
     </MixedMethodCall>
-    <MixedReturnStatement occurrences="3">
+    <MixedReturnStatement occurrences="2">
       <code>$this-&gt;__filterChain-&gt;filter($this-&gt;__content)</code>
       <code>$this-&gt;__templateResolver-&gt;resolve($name, $this)</code>
-      <code>$this-&gt;getHelperPluginManager()-&gt;get($name, $options)</code>
     </MixedReturnStatement>
     <NullableReturnStatement occurrences="1">
       <code>$this-&gt;__templateResolver</code>
@@ -2956,17 +2961,6 @@
       <code>$container</code>
       <code>$container</code>
     </MissingClosureParamType>
-    <MixedAssignment occurrences="1">
-      <code>$helperB</code>
-    </MixedAssignment>
-    <MixedMethodCall occurrences="6">
-      <code>getTranslator</code>
-      <code>getTranslator</code>
-      <code>getTranslator</code>
-      <code>getTranslator</code>
-      <code>getView</code>
-      <code>getView</code>
-    </MixedMethodCall>
     <UnusedClosureParam occurrences="2">
       <code>$container</code>
       <code>$container</code>

@@ -157,6 +157,7 @@ class HelperPluginManagerTest extends TestCase
             }
         );
         $helperB = $helpers->get('TestHelper');
+        self::assertInstanceOf(HeadTitle::class, $helperB);
         $this->assertSame($translatorA, $helperB->getTranslator());
     }
 

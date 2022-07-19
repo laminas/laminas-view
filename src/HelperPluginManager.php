@@ -14,7 +14,6 @@ use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Exception\InvalidHelperException;
-use Laminas\View\Helper\AbstractHelper;
 use Laminas\View\Helper\HelperInterface;
 use Psr\Container\ContainerInterface;
 
@@ -32,9 +31,8 @@ use function sprintf;
  * Helper\HelperInterface. Additionally, it registers a number of default
  * helpers.
  *
- * @psalm-type ViewHelperType = HelperInterface|AbstractHelper|object
- * @template InstanceType of ViewHelperType
- * @extends AbstractPluginManager<InstanceType>
+ * @template InstanceType of HelperInterface|callable
+ * @extends AbstractPluginManager<HelperInterface|callable>
  * @psalm-import-type ServiceManagerConfiguration from ServiceManager
  */
 class HelperPluginManager extends AbstractPluginManager
@@ -415,7 +413,7 @@ class HelperPluginManager extends AbstractPluginManager
      *
      * @param mixed $instance
      * @throws InvalidServiceException
-     * @psalm-assert InstanceType $instance
+     * @psalm-assert HelperInterface|callable $instance
      */
     public function validate($instance)
     {
@@ -442,7 +440,7 @@ class HelperPluginManager extends AbstractPluginManager
      * @param mixed $instance
      * @return void
      * @throws InvalidHelperException
-     * @psalm-assert InstanceType $instance
+     * @psalm-assert HelperInterface|callable $instance
      */
     public function validatePlugin($instance)
     {
@@ -451,5 +449,18 @@ class HelperPluginManager extends AbstractPluginManager
         } catch (InvalidServiceException $e) {
             throw new InvalidHelperException($e->getMessage(), $e->getCode(), $e);
         }
+    }
+
+    /**
+     * @inheritDoc
+     * @template T
+     * @param class-string<T>|string $name Service name of plugin to retrieve.
+     * @param null|array<mixed> $options Options to use when creating the instance.
+     * @return HelperInterface|callable
+     * @psalm-return ($name is class-string ? T : HelperInterface|callable)
+     */
+    public function get($name, ?array $options = null)
+    {
+        return parent::get($name, $options);
     }
 }
