@@ -19,9 +19,7 @@
     </MixedMethodCall>
   </file>
   <file src="src/Helper/AbstractHtmlElement.php">
-    <MissingConstructor occurrences="12">
-      <code>$closingBracket</code>
-      <code>$closingBracket</code>
+    <MissingConstructor occurrences="10">
       <code>$closingBracket</code>
       <code>$closingBracket</code>
       <code>$closingBracket</code>
@@ -147,47 +145,6 @@
       <code>$v</code>
       <code>$value[$k]</code>
     </MixedAssignment>
-  </file>
-  <file src="src/Helper/FlashMessenger.php">
-    <DocblockTypeContradiction occurrences="1">
-      <code>null === $this-&gt;pluginFlashMessenger</code>
-    </DocblockTypeContradiction>
-    <MissingClosureParamType occurrences="1">
-      <code>$item</code>
-    </MissingClosureParamType>
-    <MissingConstructor occurrences="2">
-      <code>$escapeHtmlHelper</code>
-      <code>$pluginFlashMessenger</code>
-    </MissingConstructor>
-    <MixedArgument occurrences="2">
-      <code>$item</code>
-      <code>$messagesToPrint</code>
-    </MixedArgument>
-    <MixedArgumentTypeCoercion occurrences="2">
-      <code>$classes</code>
-      <code>$classes</code>
-    </MixedArgumentTypeCoercion>
-    <MixedArrayAssignment occurrences="2">
-      <code>$messagesToPrint[]</code>
-      <code>$messagesToPrint[]</code>
-    </MixedArrayAssignment>
-    <MixedAssignment occurrences="5">
-      <code>$classes</code>
-      <code>$classes</code>
-      <code>$messagesToPrint[]</code>
-      <code>$messagesToPrint[]</code>
-      <code>$this-&gt;escapeHtmlHelper</code>
-    </MixedAssignment>
-    <RedundantCastGivenDocblockType occurrences="4">
-      <code>(bool) $autoEscape</code>
-      <code>(string) $messageCloseString</code>
-      <code>(string) $messageOpenFormat</code>
-      <code>(string) $messageSeparatorString</code>
-    </RedundantCastGivenDocblockType>
-    <RedundantConditionGivenDocblockType occurrences="2">
-      <code>$this-&gt;escapeHtmlHelper</code>
-      <code>$this-&gt;escapeHtmlHelper</code>
-    </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Helper/Gravatar.php">
     <DocblockTypeContradiction occurrences="1">
@@ -598,26 +555,6 @@
       <code>translate</code>
     </PossiblyNullReference>
   </file>
-  <file src="src/Helper/HtmlFlash.php">
-    <MixedAssignment occurrences="1">
-      <code>$htmlObject</code>
-    </MixedAssignment>
-    <MixedFunctionCall occurrences="1">
-      <code>$htmlObject($data, self::TYPE, $attribs, $params, $content)</code>
-    </MixedFunctionCall>
-    <MixedInferredReturnType occurrences="1">
-      <code>string</code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="1">
-      <code>$htmlObject($data, self::TYPE, $attribs, $params, $content)</code>
-    </MixedReturnStatement>
-    <PossiblyNullReference occurrences="1">
-      <code>plugin</code>
-    </PossiblyNullReference>
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>plugin</code>
-    </UndefinedInterfaceMethod>
-  </file>
   <file src="src/Helper/HtmlObject.php">
     <DocblockTypeContradiction occurrences="1">
       <code>is_array($content)</code>
@@ -631,26 +568,6 @@
     </MixedAssignment>
   </file>
   <file src="src/Helper/HtmlPage.php">
-    <MixedAssignment occurrences="1">
-      <code>$htmlObject</code>
-    </MixedAssignment>
-    <MixedFunctionCall occurrences="1">
-      <code>$htmlObject($data, self::TYPE, $attribs, $params, $content)</code>
-    </MixedFunctionCall>
-    <MixedInferredReturnType occurrences="1">
-      <code>string</code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="1">
-      <code>$htmlObject($data, self::TYPE, $attribs, $params, $content)</code>
-    </MixedReturnStatement>
-    <PossiblyNullReference occurrences="1">
-      <code>plugin</code>
-    </PossiblyNullReference>
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>plugin</code>
-    </UndefinedInterfaceMethod>
-  </file>
-  <file src="src/Helper/HtmlQuicktime.php">
     <MixedAssignment occurrences="1">
       <code>$htmlObject</code>
     </MixedAssignment>
@@ -699,17 +616,6 @@
       <code>InlineScript</code>
       <code>InlineScript</code>
     </PropertyNotSetInConstructor>
-  </file>
-  <file src="src/Helper/Json.php">
-    <MissingConstructor occurrences="1">
-      <code>$response</code>
-    </MissingConstructor>
-    <NullArgument occurrences="1">
-      <code>null</code>
-    </NullArgument>
-    <RedundantConditionGivenDocblockType occurrences="1">
-      <code>$this-&gt;response instanceof Response</code>
-    </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Helper/Layout.php">
     <RedundantCastGivenDocblockType occurrences="1">
@@ -1283,12 +1189,11 @@
     <PropertyTypeCoercion occurrences="1">
       <code>$this-&gt;items</code>
     </PropertyTypeCoercion>
-    <RedundantCastGivenDocblockType occurrences="5">
+    <RedundantCastGivenDocblockType occurrences="4">
       <code>(string) $key</code>
       <code>(string) $key</code>
       <code>(string) $key</code>
       <code>(string) $key</code>
-      <code>(string) $name</code>
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Helper/Placeholder/Container.php">
@@ -1379,9 +1284,6 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Helper/Placeholder/Registry.php">
-    <DocblockTypeContradiction occurrences="1">
-      <code>null === static::$instance</code>
-    </DocblockTypeContradiction>
     <InvalidStringClass occurrences="1">
       <code>new $this-&gt;containerClass($value)</code>
     </InvalidStringClass>
@@ -1404,9 +1306,6 @@
       <code>(string) $key</code>
       <code>(string) $key</code>
     </RedundantCastGivenDocblockType>
-    <UnsafeInstantiation occurrences="1">
-      <code>new static()</code>
-    </UnsafeInstantiation>
   </file>
   <file src="src/Helper/RenderChildModel.php">
     <MissingConstructor occurrences="2">
@@ -1498,11 +1397,6 @@
       <code>(bool) $useProxy</code>
     </RedundantCastGivenDocblockType>
   </file>
-  <file src="src/Helper/Service/AssetFactory.php">
-    <PossiblyNullArgument occurrences="1">
-      <code>$cName</code>
-    </PossiblyNullArgument>
-  </file>
   <file src="src/Helper/Service/DoctypeFactory.php">
     <MixedArgument occurrences="1">
       <code>$config['view_helper_config']['doctype']</code>
@@ -1514,49 +1408,7 @@
       <code>$config</code>
     </MixedAssignment>
   </file>
-  <file src="src/Helper/Service/FlashMessengerFactory.php">
-    <DeprecatedClass occurrences="3">
-      <code>FlashMessenger</code>
-      <code>FlashMessenger</code>
-      <code>new FlashMessenger()</code>
-    </DeprecatedClass>
-    <DeprecatedInterface occurrences="1">
-      <code>FlashMessengerFactory</code>
-    </DeprecatedInterface>
-    <MixedArgument occurrences="4">
-      <code>$configHelper['message_close_string']</code>
-      <code>$configHelper['message_open_format']</code>
-      <code>$configHelper['message_separator_string']</code>
-      <code>$flashMessenger</code>
-    </MixedArgument>
-    <MixedArrayAccess occurrences="4">
-      <code>$configHelper['message_close_string']</code>
-      <code>$configHelper['message_open_format']</code>
-      <code>$configHelper['message_separator_string']</code>
-      <code>$config['view_helper_config']</code>
-    </MixedArrayAccess>
-    <MixedAssignment occurrences="4">
-      <code>$config</code>
-      <code>$configHelper</code>
-      <code>$controllerPluginManager</code>
-      <code>$flashMessenger</code>
-    </MixedAssignment>
-    <MixedMethodCall occurrences="1">
-      <code>get</code>
-    </MixedMethodCall>
-    <ParamNameMismatch occurrences="1">
-      <code>$container</code>
-    </ParamNameMismatch>
-    <PossiblyNullArgument occurrences="1">
-      <code>$requestedName</code>
-    </PossiblyNullArgument>
-  </file>
   <file src="src/Helper/TranslatorAwareTrait.php">
-    <DeprecatedClass occurrences="3">
-      <code>$this</code>
-      <code>$this</code>
-      <code>$this</code>
-    </DeprecatedClass>
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(bool) $enabled</code>
     </RedundantCastGivenDocblockType>
@@ -1632,17 +1484,6 @@
       <code>clearOptions</code>
       <code>clearVariables</code>
     </MissingReturnType>
-  </file>
-  <file src="src/Model/ConsoleModel.php">
-    <MixedInferredReturnType occurrences="1">
-      <code>int</code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="1">
-      <code>$this-&gt;options['errorLevel']</code>
-    </MixedReturnStatement>
-    <NonInvariantDocblockPropertyType occurrences="1">
-      <code>$captureTo</code>
-    </NonInvariantDocblockPropertyType>
   </file>
   <file src="src/Model/FeedModel.php">
     <MixedAssignment occurrences="2">
@@ -1727,27 +1568,6 @@
       <code>is_object($variables)</code>
     </RedundantConditionGivenDocblockType>
   </file>
-  <file src="src/Renderer/ConsoleRenderer.php">
-    <ImplementedParamTypeMismatch occurrences="1">
-      <code>$values</code>
-    </ImplementedParamTypeMismatch>
-    <MixedArgument occurrences="1">
-      <code>$child</code>
-    </MixedArgument>
-    <MixedAssignment occurrences="2">
-      <code>$child</code>
-      <code>$value</code>
-    </MixedAssignment>
-    <MixedOperand occurrences="1">
-      <code>$this-&gt;getFilterChain()-&gt;filter($values['result'])</code>
-    </MixedOperand>
-    <ParamNameMismatch occurrences="1">
-      <code>$model</code>
-    </ParamNameMismatch>
-    <PossiblyInvalidArgument occurrences="1">
-      <code>$values</code>
-    </PossiblyInvalidArgument>
-  </file>
   <file src="src/Renderer/FeedRenderer.php">
     <MissingConstructor occurrences="1">
       <code>$resolver</code>
@@ -1763,9 +1583,6 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Renderer/JsonRenderer.php">
-    <ImplementedReturnTypeMismatch occurrences="1">
-      <code>void</code>
-    </ImplementedReturnTypeMismatch>
     <MissingConstructor occurrences="1">
       <code>$jsonpCallback</code>
     </MissingConstructor>
@@ -1948,8 +1765,7 @@
       <code>false</code>
       <code>false</code>
     </FalsableReturnStatement>
-    <MixedArgument occurrences="4">
-      <code>$value</code>
+    <MixedArgument occurrences="3">
       <code>$value</code>
       <code>$value</code>
       <code>$value</code>
@@ -1962,8 +1778,7 @@
     <NullArgument occurrences="1">
       <code>$this-&gt;paths</code>
     </NullArgument>
-    <RedundantCastGivenDocblockType occurrences="3">
-      <code>(bool) $flag</code>
+    <RedundantCastGivenDocblockType occurrences="2">
       <code>(bool) $flag</code>
       <code>(string) $defaultSuffix</code>
     </RedundantCastGivenDocblockType>
@@ -2018,34 +1833,6 @@
     <UndefinedInterfaceMethod occurrences="1">
       <code>plugin</code>
     </UndefinedInterfaceMethod>
-  </file>
-  <file src="src/Stream.php">
-    <MissingConstructor occurrences="2">
-      <code>$data</code>
-      <code>$stat</code>
-    </MissingConstructor>
-    <MissingParamType occurrences="5">
-      <code>$mode</code>
-      <code>$offset</code>
-      <code>$opened_path</code>
-      <code>$options</code>
-      <code>$whence</code>
-    </MissingParamType>
-    <MixedAssignment occurrences="3">
-      <code>$this-&gt;pos</code>
-      <code>$this-&gt;pos</code>
-      <code>$this-&gt;pos</code>
-    </MixedAssignment>
-    <MixedOperand occurrences="3">
-      <code>$offset</code>
-      <code>$offset</code>
-      <code>$offset</code>
-    </MixedOperand>
-    <UnevaluatedCode occurrences="3">
-      <code>break;</code>
-      <code>break;</code>
-      <code>break;</code>
-    </UnevaluatedCode>
   </file>
   <file src="src/Variables.php">
     <MixedArgument occurrences="2">
@@ -2218,71 +2005,6 @@
       <code>$test</code>
       <code>$test</code>
     </MixedAssignment>
-  </file>
-  <file src="test/Helper/FlashMessengerTest.php">
-    <ArgumentTypeCoercion occurrences="3">
-      <code>$plugin-&gt;reveal()</code>
-      <code>$plugin-&gt;reveal()</code>
-      <code>$this-&gt;mvcPluginClass</code>
-    </ArgumentTypeCoercion>
-    <DeprecatedClass occurrences="7">
-      <code>FlashMessenger</code>
-      <code>new FlashMessenger()</code>
-      <code>new FlashMessenger()</code>
-      <code>new FlashMessenger()</code>
-      <code>new FlashMessenger()</code>
-      <code>new FlashMessenger()</code>
-      <code>new FlashMessenger()</code>
-    </DeprecatedClass>
-    <MissingClosureParamType occurrences="1">
-      <code>$args</code>
-    </MissingClosureParamType>
-    <MixedArrayAccess occurrences="1">
-      <code>$args[0]</code>
-    </MixedArrayAccess>
-    <MixedAssignment occurrences="12">
-      <code>$displayInfo</code>
-      <code>$displayInfo</code>
-      <code>$displayInfo</code>
-      <code>$displayInfo</code>
-      <code>$helper</code>
-      <code>$helper</code>
-      <code>$helper</code>
-      <code>$helper</code>
-      <code>$helperPluginManager</code>
-      <code>$helperPluginManager</code>
-      <code>$helperPluginManager</code>
-      <code>$helperPluginManager</code>
-    </MixedAssignment>
-    <MixedMethodCall occurrences="9">
-      <code>get</code>
-      <code>get</code>
-      <code>get</code>
-      <code>get</code>
-      <code>render</code>
-      <code>render</code>
-      <code>renderCurrent</code>
-      <code>renderCurrent</code>
-      <code>willReturn</code>
-    </MixedMethodCall>
-    <PossiblyInvalidMethodCall occurrences="13">
-      <code>hasCurrentErrorMessages</code>
-      <code>hasCurrentInfoMessages</code>
-      <code>hasCurrentMessages</code>
-      <code>hasCurrentSuccessMessages</code>
-      <code>hasErrorMessages</code>
-      <code>hasInfoMessages</code>
-      <code>hasMessages</code>
-      <code>hasSuccessMessages</code>
-      <code>hasWarningMessages</code>
-      <code>render</code>
-      <code>render</code>
-      <code>renderCurrent</code>
-      <code>renderCurrent</code>
-    </PossiblyInvalidMethodCall>
-    <UndefinedMethod occurrences="1">
-      <code>getMessagesFromNamespace</code>
-    </UndefinedMethod>
   </file>
   <file src="test/Helper/GravatarTest.php">
     <InvalidScalarArgument occurrences="3">
@@ -2629,11 +2351,6 @@
     <MixedMethodCall occurrences="1">
       <code>renderTitle</code>
     </MixedMethodCall>
-  </file>
-  <file src="test/Helper/HtmlFlashTest.php">
-    <UndefinedThisPropertyAssignment occurrences="1">
-      <code>$this-&gt;view</code>
-    </UndefinedThisPropertyAssignment>
   </file>
   <file src="test/Helper/HtmlTagTest.php">
     <MixedArgument occurrences="3">
@@ -3193,29 +2910,23 @@
     <MixedArgumentTypeCoercion occurrences="1">
       <code>(new RouterConfigProvider())-&gt;getDependencyConfig()</code>
     </MixedArgumentTypeCoercion>
-    <MixedAssignment occurrences="11">
+    <MixedAssignment occurrences="8">
       <code>$router</code>
       <code>$serviceConfig</code>
       <code>$test</code>
       <code>$test</code>
-      <code>$test</code>
       <code>$urlHelper</code>
       <code>$urlHelper</code>
-      <code>$urlHelper</code>
-      <code>$viewHelpers</code>
       <code>$viewHelpers</code>
       <code>$viewHelpers</code>
     </MixedAssignment>
-    <MixedFunctionCall occurrences="3">
-      <code>$urlHelper('test')</code>
+    <MixedFunctionCall occurrences="2">
       <code>$urlHelper('test')</code>
       <code>$urlHelper('test', [], ['force_canonical' =&gt; true])</code>
     </MixedFunctionCall>
-    <MixedMethodCall occurrences="7">
+    <MixedMethodCall occurrences="5">
       <code>bootstrap</code>
       <code>bootstrap</code>
-      <code>bootstrap</code>
-      <code>get</code>
       <code>get</code>
       <code>get</code>
       <code>setRequestUri</code>
@@ -3233,8 +2944,7 @@
     </InvalidArgument>
   </file>
   <file src="test/HelperPluginManagerCompatibilityTest.php">
-    <MixedArgument occurrences="2">
-      <code>$target</code>
+    <MixedArgument occurrences="1">
       <code>$target</code>
     </MixedArgument>
     <MixedAssignment occurrences="3">

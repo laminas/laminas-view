@@ -11,17 +11,8 @@ use function strpos;
 use function substr;
 use function trim;
 
-use const PHP_EOL;
-
 abstract class AbstractHtmlElement extends AbstractHelper
 {
-    /**
-     * EOL character
-     *
-     * @deprecated just use PHP_EOL
-     */
-    public const EOL = PHP_EOL;
-
     /**
      * The tag closing bracket
      *
