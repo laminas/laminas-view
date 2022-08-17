@@ -712,9 +712,15 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Helper/Layout.php">
+    <PossiblyNullReference occurrences="1">
+      <code>plugin</code>
+    </PossiblyNullReference>
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(string) $template</code>
     </RedundantCastGivenDocblockType>
+    <UndefinedInterfaceMethod occurrences="1">
+      <code>plugin</code>
+    </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/Navigation.php">
     <InvalidFunctionCall occurrences="1">

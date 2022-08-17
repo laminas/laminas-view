@@ -6,7 +6,6 @@ namespace Laminas\View\Helper;
 
 use Laminas\View\Exception;
 use Laminas\View\Model\ModelInterface as Model;
-use Laminas\View\Renderer\PhpRenderer;
 
 use function assert;
 use function sprintf;
@@ -99,12 +98,8 @@ class Layout extends AbstractHelper
     protected function getViewModelHelper()
     {
         if (! $this->viewModelHelper) {
-            /**
-             * @psalm-suppress DeprecatedMethod
-             */
             $renderer = $this->getView();
-            assert($renderer instanceof PhpRenderer);
-            $helper = $renderer->plugin('view_model');
+            $helper   = $renderer->plugin('view_model');
             assert($helper instanceof ViewModel);
             $this->viewModelHelper = $helper;
         }
