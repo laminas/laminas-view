@@ -99,7 +99,7 @@ class Layout extends AbstractHelper
     {
         if (! $this->viewModelHelper) {
             $renderer = $this->getView();
-            $helper = $renderer->plugin('view_model');
+            $helper   = $renderer->plugin('view_model');
             assert($helper instanceof ViewModel);
             $this->viewModelHelper = $helper;
         }
