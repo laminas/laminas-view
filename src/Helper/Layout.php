@@ -6,7 +6,6 @@ namespace Laminas\View\Helper;
 
 use Laminas\View\Exception;
 use Laminas\View\Model\ModelInterface as Model;
-use Laminas\View\Renderer\PhpRenderer;
 
 use function assert;
 use function sprintf;
