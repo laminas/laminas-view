@@ -100,7 +100,7 @@ class Layout extends AbstractHelper
     {
         if (! $this->viewModelHelper) {
             /**
-             * @psalm-suppress DeprecatedMethod
+             * @psalm-suppress PossiblyNullReference, UndefinedInterfaceMethod
              */
             $helper = $this->getView()->plugin('view_model');
             assert($helper instanceof ViewModel);
