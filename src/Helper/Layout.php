@@ -102,9 +102,7 @@ class Layout extends AbstractHelper
             /**
              * @psalm-suppress DeprecatedMethod
              */
-            $renderer = $this->getView();
-            assert($renderer instanceof PhpRenderer);
-            $helper = $renderer->plugin('view_model');
+            $helper = $this->getView()->plugin('view_model');
             assert($helper instanceof ViewModel);
             $this->viewModelHelper = $helper;
         }
