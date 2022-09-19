@@ -160,7 +160,7 @@ class HelperPluginManager extends AbstractPluginManager
         Helper\Asset::class          => Helper\Service\AssetFactory::class,
         Helper\HtmlAttributes::class => Helper\Service\HtmlAttributesFactory::class,
         Helper\Identity::class       => Helper\Service\IdentityFactory::class,
-        Helper\BasePath::class       => InvokableFactory::class,
+        Helper\BasePath::class       => Helper\Service\BasePathFactory::class,
         Helper\Cycle::class          => InvokableFactory::class,
         Helper\DeclareVars::class    => InvokableFactory::class,
         // overridden in ViewHelperManagerFactory
