@@ -9,7 +9,6 @@ use Laminas\View\Exception;
 use Traversable;
 
 use function func_num_args;
-use function get_class;
 use function gettype;
 use function is_array;
 use function is_object;
@@ -169,7 +168,7 @@ class PartialLoop extends Partial
 
         throw new Exception\InvalidArgumentException(sprintf(
             'PartialLoop helper requires iterable data, %s given',
-            is_object($values) ? get_class($values) : gettype($values)
+            is_object($values) ? $values::class : gettype($values)
         ));
     }
 }

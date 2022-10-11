@@ -10,11 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 class HtmlFlashTest extends TestCase
 {
-    /**
-     * @psalm-suppress DeprecatedClass
-     * @var HtmlFlash
-     */
-    public $helper;
+    /** @psalm-suppress DeprecatedClass */
+    private HtmlFlash $helper;
+    private View $view;
 
     /**
      * Sets up the fixture, for example, open a network connection.

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.24.0@06dd975cb55d36af80f242561738f16c5f58264f">
+<files psalm-version="4.28.0@52e96bea381e6cb07a672aefec791a5817694a26">
   <file src="bin/templatemap_generator.php">
     <MissingParamType occurrences="1">
       <code>$templatePath</code>
@@ -53,17 +53,6 @@
       <code>plugin</code>
       <code>plugin</code>
     </UndefinedInterfaceMethod>
-  </file>
-  <file src="src/Helper/BasePath.php">
-    <DocblockTypeContradiction occurrences="1">
-      <code>null === $this-&gt;basePath</code>
-    </DocblockTypeContradiction>
-    <MissingConstructor occurrences="1">
-      <code>$basePath</code>
-    </MissingConstructor>
-    <PossiblyNullOperand occurrences="1">
-      <code>$file</code>
-    </PossiblyNullOperand>
   </file>
   <file src="src/Helper/Cycle.php">
     <ImplementedReturnTypeMismatch occurrences="2">
@@ -1471,38 +1460,27 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/ServerUrl.php">
+    <ArgumentTypeCoercion occurrences="2">
+      <code>$_SERVER['SERVER_PORT']</code>
+      <code>$port</code>
+    </ArgumentTypeCoercion>
     <InvalidNullableReturnType occurrences="2">
       <code>string</code>
       <code>string</code>
     </InvalidNullableReturnType>
-    <MixedArgument occurrences="10">
-      <code>$_SERVER['HTTP_HOST']</code>
-      <code>$_SERVER['HTTP_HOST']</code>
-      <code>$_SERVER['HTTP_X_FORWARDED_PROTO']</code>
-      <code>$_SERVER['SERVER_PORT']</code>
-      <code>$_SERVER['SSL_HTTPS']</code>
-      <code>$host</code>
-      <code>$host</code>
-      <code>$host</code>
-      <code>$name</code>
-      <code>$port</code>
-    </MixedArgument>
-    <MixedAssignment occurrences="4">
-      <code>$host</code>
-      <code>$name</code>
-      <code>$path</code>
-      <code>$port</code>
-    </MixedAssignment>
-    <MixedOperand occurrences="1">
-      <code>$path</code>
-    </MixedOperand>
     <NullableReturnStatement occurrences="2">
       <code>$this-&gt;host</code>
       <code>$this-&gt;scheme</code>
     </NullableReturnStatement>
+    <PossiblyUndefinedArrayOffset occurrences="1">
+      <code>$_SERVER['REQUEST_URI']</code>
+    </PossiblyUndefinedArrayOffset>
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(bool) $useProxy</code>
     </RedundantCastGivenDocblockType>
+    <TypeDoesNotContainType occurrences="1">
+      <code>$_SERVER['HTTPS'] === true</code>
+    </TypeDoesNotContainType>
   </file>
   <file src="src/Helper/Service/AssetFactory.php">
     <PossiblyNullArgument occurrences="1">
@@ -2226,9 +2204,7 @@
     </MixedAssignment>
   </file>
   <file src="test/Helper/FlashMessengerTest.php">
-    <ArgumentTypeCoercion occurrences="3">
-      <code>$plugin-&gt;reveal()</code>
-      <code>$plugin-&gt;reveal()</code>
+    <ArgumentTypeCoercion occurrences="1">
       <code>$this-&gt;mvcPluginClass</code>
     </ArgumentTypeCoercion>
     <DeprecatedClass occurrences="7">
@@ -2240,12 +2216,10 @@
       <code>new FlashMessenger()</code>
       <code>new FlashMessenger()</code>
     </DeprecatedClass>
-    <MissingClosureParamType occurrences="1">
-      <code>$args</code>
-    </MissingClosureParamType>
-    <MixedArrayAccess occurrences="1">
-      <code>$args[0]</code>
-    </MixedArrayAccess>
+    <InvalidArgument occurrences="2">
+      <code>$plugin</code>
+      <code>$plugin</code>
+    </InvalidArgument>
     <MixedAssignment occurrences="12">
       <code>$displayInfo</code>
       <code>$displayInfo</code>
@@ -2260,7 +2234,7 @@
       <code>$helperPluginManager</code>
       <code>$helperPluginManager</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="9">
+    <MixedMethodCall occurrences="8">
       <code>get</code>
       <code>get</code>
       <code>get</code>
@@ -2269,7 +2243,6 @@
       <code>render</code>
       <code>renderCurrent</code>
       <code>renderCurrent</code>
-      <code>willReturn</code>
     </MixedMethodCall>
     <PossiblyInvalidMethodCall occurrences="13">
       <code>hasCurrentErrorMessages</code>
@@ -2286,9 +2259,6 @@
       <code>renderCurrent</code>
       <code>renderCurrent</code>
     </PossiblyInvalidMethodCall>
-    <UndefinedMethod occurrences="1">
-      <code>getMessagesFromNamespace</code>
-    </UndefinedMethod>
   </file>
   <file src="test/Helper/GravatarTest.php">
     <InvalidScalarArgument occurrences="3">
@@ -2348,10 +2318,6 @@
     <MixedInferredReturnType occurrences="1">
       <code>iterable</code>
     </MixedInferredReturnType>
-    <MixedMethodCall occurrences="2">
-      <code>__invoke</code>
-      <code>plugin</code>
-    </MixedMethodCall>
     <MixedOperand occurrences="11">
       <code>$attributeEscaper($link['href'])</code>
       <code>$attributeEscaper($link['href'])</code>
@@ -2391,12 +2357,6 @@
       <code>getValue</code>
       <code>setIndent</code>
     </UndefinedMagicMethod>
-    <UndefinedThisPropertyAssignment occurrences="1">
-      <code>$this-&gt;view</code>
-    </UndefinedThisPropertyAssignment>
-    <UndefinedThisPropertyFetch occurrences="1">
-      <code>$this-&gt;view</code>
-    </UndefinedThisPropertyFetch>
   </file>
   <file src="test/Helper/HeadMetaTest.php">
     <InvalidArgument occurrences="4">
@@ -2637,9 +2597,9 @@
     </MixedMethodCall>
   </file>
   <file src="test/Helper/HtmlFlashTest.php">
-    <UndefinedThisPropertyAssignment occurrences="1">
-      <code>$this-&gt;view</code>
-    </UndefinedThisPropertyAssignment>
+    <DeprecatedClass occurrences="1">
+      <code>HtmlFlash</code>
+    </DeprecatedClass>
   </file>
   <file src="test/Helper/HtmlTagTest.php">
     <MixedArgument occurrences="3">
@@ -2669,9 +2629,6 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="test/Helper/Navigation/AbstractTest.php">
-    <MixedArgumentTypeCoercion occurrences="1">
-      <code>(new RouterConfigProvider())-&gt;getDependencyConfig()</code>
-    </MixedArgumentTypeCoercion>
     <MixedAssignment occurrences="1">
       <code>$app</code>
     </MixedAssignment>
@@ -2703,7 +2660,7 @@
     </NonInvariantDocblockPropertyType>
   </file>
   <file src="test/Helper/Navigation/LinksTest.php">
-    <MixedArgument occurrences="13">
+    <MixedArgument occurrences="10">
       <code>$active</code>
       <code>$active</code>
       <code>$active</code>
@@ -2712,9 +2669,6 @@
       <code>$active</code>
       <code>$active</code>
       <code>$active</code>
-      <code>$found</code>
-      <code>$found</code>
-      <code>$found</code>
       <code>$found</code>
       <code>$found</code>
     </MixedArgument>
@@ -2831,9 +2785,6 @@
     <NonInvariantDocblockPropertyType occurrences="1">
       <code>$_helper</code>
     </NonInvariantDocblockPropertyType>
-    <PossiblyInvalidArgument occurrences="1">
-      <code>$found</code>
-    </PossiblyInvalidArgument>
     <PossiblyInvalidMethodCall occurrences="3">
       <code>getHref</code>
       <code>getLabel</code>
@@ -2913,11 +2864,6 @@
     <MixedMethodCall occurrences="1">
       <code>setBasePath</code>
     </MixedMethodCall>
-    <MixedPropertyTypeCoercion occurrences="3">
-      <code>$this-&gt;oldServer</code>
-      <code>$this-&gt;oldServer</code>
-      <code>$this-&gt;oldServer</code>
-    </MixedPropertyTypeCoercion>
     <NonInvariantDocblockPropertyType occurrences="1">
       <code>$_helper</code>
     </NonInvariantDocblockPropertyType>
@@ -3196,9 +3142,6 @@
       <code>$serviceConfig</code>
       <code>$test</code>
     </MixedArgument>
-    <MixedArgumentTypeCoercion occurrences="1">
-      <code>(new RouterConfigProvider())-&gt;getDependencyConfig()</code>
-    </MixedArgumentTypeCoercion>
     <MixedAssignment occurrences="11">
       <code>$router</code>
       <code>$serviceConfig</code>
@@ -3263,15 +3206,15 @@
     </UnusedClosureParam>
   </file>
   <file src="test/Model/ViewModelTest.php">
-    <ArgumentTypeCoercion occurrences="1">
-      <code>$vars</code>
-    </ArgumentTypeCoercion>
     <InvalidArgument occurrences="2">
       <code>new stdClass()</code>
       <code>new stdClass()</code>
     </InvalidArgument>
     <LessSpecificReturnStatement occurrences="1"/>
     <MoreSpecificReturnType occurrences="1"/>
+    <PossiblyInvalidArgument occurrences="1">
+      <code>$vars</code>
+    </PossiblyInvalidArgument>
     <PossiblyUndefinedMethod occurrences="3">
       <code>$variables</code>
       <code>$variables</code>
@@ -3279,9 +3222,6 @@
     </PossiblyUndefinedMethod>
   </file>
   <file src="test/PhpRendererTest.php">
-    <MissingClosureParamType occurrences="1">
-      <code>$content</code>
-    </MissingClosureParamType>
     <MixedArgument occurrences="1">
       <code>$content</code>
     </MixedArgument>

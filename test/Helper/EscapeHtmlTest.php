@@ -10,8 +10,6 @@ use Laminas\View\Helper\EscapeHtml as EscapeHelper;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-use function get_class;
-
 class EscapeHtmlTest extends TestCase
 {
     use EscaperEncodingsTrait;
@@ -91,7 +89,7 @@ class EscapeHtmlTest extends TestCase
     {
         $object = new TestAsset\Stringified();
         $test   = $this->helper->__invoke($object);
-        $this->assertEquals(get_class($object), $test);
+        $this->assertEquals($object::class, $test);
     }
 
     public function testCanRecurseObjectImplementingToArray(): void
