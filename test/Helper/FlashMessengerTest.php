@@ -12,15 +12,12 @@ use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Helper\FlashMessenger;
 use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\TestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 
 use function get_class;
 
 class FlashMessengerTest extends TestCase
 {
-    use ProphecyTrait;
-
     private string $mvcPluginClass;
     private FlashMessenger $helper;
     private V3PluginFlashMessenger $plugin;
@@ -166,21 +163,20 @@ class FlashMessengerTest extends TestCase
 
     public function testCanDisplayListOfMessages(): void
     {
-        $plugin = $this->prophesize($this->mvcPluginClass);
-        $plugin->getMessagesFromNamespace('info')->will(fn() => []);
-        $plugin->addInfoMessage('bar-info')->will(function ($args) {
-            $this->getMessagesFromNamespace('info')->willReturn([$args[0]]);
-            return null;
-        });
+        $plugin = $this->createMock($this->mvcPluginClass);
+        $plugin->expects(self::once())
+            ->method('getMessagesFromNamespace')
+            ->with('info')
+            ->willReturn(['bar-info']);
 
-        $this->helper->setPluginFlashMessenger($plugin->reveal());
+        $plugin->expects(self::once())
+            ->method('addInfoMessage')
+            ->with('bar-info');
 
-        $displayInfoAssertion = '';
-        $displayInfo          = $this->helper->render('info');
-        $this->assertEquals($displayInfoAssertion, $displayInfo);
+        $this->helper->setPluginFlashMessenger($plugin);
 
         $helper = new FlashMessenger();
-        $helper->setPluginFlashMessenger($plugin->reveal());
+        $helper->setPluginFlashMessenger($plugin);
         $helper->addInfoMessage('bar-info');
         unset($helper);
 
@@ -392,10 +388,13 @@ class FlashMessengerTest extends TestCase
 
     public function testCanTranslateMessages(): void
     {
-        $mockTranslator = $this->prophesize(Translator::class);
-        $mockTranslator->translate('bar-info', 'default')->willReturn('translated message')->shouldBeCalledTimes(1);
+        $mockTranslator = $this->createMock(Translator::class);
+        $mockTranslator->expects(self::once())
+            ->method('translate')
+            ->with('bar-info', 'default')
+            ->willReturn('translated message');
 
-        $this->helper->setTranslator($mockTranslator->reveal());
+        $this->helper->setTranslator($mockTranslator);
         $this->assertTrue($this->helper->hasTranslator());
 
         $this->seedMessages();
@@ -407,10 +406,13 @@ class FlashMessengerTest extends TestCase
 
     public function testCanTranslateCurrentMessages(): void
     {
-        $mockTranslator = $this->prophesize(Translator::class);
-        $mockTranslator->translate('bar-info', 'default')->willReturn('translated message')->shouldBeCalledTimes(1);
+        $mockTranslator = $this->createMock(Translator::class);
+        $mockTranslator->expects(self::once())
+            ->method('translate')
+            ->with('bar-info', 'default')
+            ->willReturn('translated message');
 
-        $this->helper->setTranslator($mockTranslator->reveal());
+        $this->helper->setTranslator($mockTranslator);
         $this->assertTrue($this->helper->hasTranslator());
 
         $this->seedCurrentMessages();

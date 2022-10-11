@@ -2204,9 +2204,7 @@
     </MixedAssignment>
   </file>
   <file src="test/Helper/FlashMessengerTest.php">
-    <ArgumentTypeCoercion occurrences="3">
-      <code>$plugin-&gt;reveal()</code>
-      <code>$plugin-&gt;reveal()</code>
+    <ArgumentTypeCoercion occurrences="1">
       <code>$this-&gt;mvcPluginClass</code>
     </ArgumentTypeCoercion>
     <DeprecatedClass occurrences="7">
@@ -2218,12 +2216,10 @@
       <code>new FlashMessenger()</code>
       <code>new FlashMessenger()</code>
     </DeprecatedClass>
-    <MissingClosureParamType occurrences="1">
-      <code>$args</code>
-    </MissingClosureParamType>
-    <MixedArrayAccess occurrences="1">
-      <code>$args[0]</code>
-    </MixedArrayAccess>
+    <InvalidArgument occurrences="2">
+      <code>$plugin</code>
+      <code>$plugin</code>
+    </InvalidArgument>
     <MixedAssignment occurrences="12">
       <code>$displayInfo</code>
       <code>$displayInfo</code>
@@ -2238,7 +2234,7 @@
       <code>$helperPluginManager</code>
       <code>$helperPluginManager</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="9">
+    <MixedMethodCall occurrences="8">
       <code>get</code>
       <code>get</code>
       <code>get</code>
@@ -2247,7 +2243,6 @@
       <code>render</code>
       <code>renderCurrent</code>
       <code>renderCurrent</code>
-      <code>willReturn</code>
     </MixedMethodCall>
     <PossiblyInvalidMethodCall occurrences="13">
       <code>hasCurrentErrorMessages</code>
@@ -2264,9 +2259,6 @@
       <code>renderCurrent</code>
       <code>renderCurrent</code>
     </PossiblyInvalidMethodCall>
-    <UndefinedMethod occurrences="1">
-      <code>getMessagesFromNamespace</code>
-    </UndefinedMethod>
   </file>
   <file src="test/Helper/GravatarTest.php">
     <InvalidScalarArgument occurrences="3">
