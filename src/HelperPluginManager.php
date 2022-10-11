@@ -17,7 +17,6 @@ use Laminas\View\Exception\InvalidHelperException;
 use Laminas\View\Helper\HelperInterface;
 use Psr\Container\ContainerInterface;
 
-use function get_class;
 use function gettype;
 use function is_callable;
 use function is_object;
@@ -423,7 +422,7 @@ class HelperPluginManager extends AbstractPluginManager
                     '%s can only create instances of %s and/or callables; %s is invalid',
                     static::class,
                     HelperInterface::class,
-                    is_object($instance) ? get_class($instance) : gettype($instance)
+                    is_object($instance) ? $instance::class : gettype($instance)
                 )
             );
         }

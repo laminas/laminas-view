@@ -7,6 +7,8 @@ namespace LaminasTest\View\Helper;
 use Laminas\View\Exception;
 use Laminas\View\Helper;
 use Laminas\View\Helper\Doctype;
+use Laminas\View\Helper\EscapeHtmlAttr;
+use Laminas\View\Helper\HeadLink;
 use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
 
@@ -20,14 +22,10 @@ use const PHP_EOL;
 
 class HeadLinkTest extends TestCase
 {
-    /** @var Helper\HeadLink */
-    public $helper;
-
-    /** @var Helper\EscapeHtmlAttr */
-    public $attributeEscaper;
-
-    /** @var string */
-    public $basePath;
+    private HeadLink $helper;
+    private EscapeHtmlAttr $attributeEscaper;
+    private string $basePath;
+    private View $view;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -38,15 +36,15 @@ class HeadLinkTest extends TestCase
         Helper\Doctype::unsetDoctypeRegistry();
         $this->basePath = __DIR__ . '/_files/modules';
         $this->view     = new View();
-        $this->helper   = new Helper\HeadLink();
+        $this->helper   = new HeadLink();
         $this->helper->setView($this->view);
-        $this->attributeEscaper = new Helper\EscapeHtmlAttr();
+        $this->attributeEscaper = new EscapeHtmlAttr();
     }
 
     public function testHeadLinkReturnsObjectInstance(): void
     {
         $placeholder = $this->helper->__invoke();
-        $this->assertInstanceOf(Helper\HeadLink::class, $placeholder);
+        $this->assertInstanceOf(HeadLink::class, $placeholder);
     }
 
     public function testPrependThrowsExceptionWithoutArrayArgument(): void

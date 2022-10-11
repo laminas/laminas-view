@@ -12,7 +12,6 @@ use Traversable;
 
 use function count;
 use function file_exists;
-use function get_class;
 use function gettype;
 use function is_array;
 use function is_object;
@@ -94,7 +93,7 @@ class TemplatePathStack implements ResolverInterface
         if (! is_array($options) && ! $options instanceof Traversable) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'Expected array or Traversable object; received "%s"',
-                is_object($options) ? get_class($options) : gettype($options)
+                is_object($options) ? $options::class : gettype($options)
             ));
         }
 

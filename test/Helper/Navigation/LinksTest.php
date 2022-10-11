@@ -18,7 +18,6 @@ use RecursiveIteratorIterator;
 
 use function assert;
 use function count;
-use function get_class;
 use function gettype;
 use function is_array;
 use function str_replace;
@@ -100,7 +99,7 @@ class LinksTest extends AbstractTest
         ];
 
         $actual = [
-            'type'  => $found !== null ? get_class($found) : self::class,
+            'type'  => $found !== null ? $found::class : self::class,
             'href'  => $found->getHref(),
             'label' => $found->getLabel(),
         ];
@@ -124,7 +123,7 @@ class LinksTest extends AbstractTest
         ];
 
         $actual = [
-            'type'  => get_class($found),
+            'type'  => $found::class,
             'href'  => $found->getHref(),
             'label' => $found->getLabel(),
         ];
@@ -148,7 +147,7 @@ class LinksTest extends AbstractTest
         ];
 
         $actual = [
-            'type'  => get_class($found),
+            'type'  => $found::class,
             'href'  => $found->getHref(),
             'label' => $found->getLabel(),
         ];
@@ -172,7 +171,7 @@ class LinksTest extends AbstractTest
         ];
 
         $actual = [
-            'type'  => get_class($found),
+            'type'  => $found::class,
             'href'  => $found->getHref(),
             'label' => $found->getLabel(),
         ];

@@ -10,7 +10,6 @@ use Laminas\View\Model\FeedModel;
 use Laminas\View\Model\ModelInterface as Model;
 use Laminas\View\Resolver\ResolverInterface as Resolver;
 
-use function get_class;
 use function gettype;
 use function in_array;
 use function is_object;
@@ -88,7 +87,7 @@ class FeedRenderer implements RendererInterface
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s expects a ViewModel or a string feed type as the first argument; received "%s"',
                 __METHOD__,
-                is_object($nameOrModel) ? get_class($nameOrModel) : gettype($nameOrModel)
+                is_object($nameOrModel) ? $nameOrModel::class : gettype($nameOrModel)
             ));
         }
 
