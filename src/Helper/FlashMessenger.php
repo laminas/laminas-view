@@ -9,7 +9,6 @@ use Laminas\View\Exception\InvalidArgumentException;
 
 use function array_walk_recursive;
 use function call_user_func_array;
-use function get_class;
 use function gettype;
 use function implode;
 use function is_object;
@@ -308,7 +307,7 @@ class FlashMessenger extends AbstractHelper
                 '%s expects a %s instance; received %s',
                 __METHOD__,
                 PluginFlashMessenger::class,
-                is_object($pluginFlashMessenger) ? get_class($pluginFlashMessenger) : gettype($pluginFlashMessenger)
+                is_object($pluginFlashMessenger) ? $pluginFlashMessenger::class : gettype($pluginFlashMessenger)
             ));
         }
 
