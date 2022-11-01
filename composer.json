@@ -55,7 +55,7 @@
         "laminas/laminas-router": "^3.10",
         "laminas/laminas-uri": "^2.9.1",
         "phpunit/phpunit": "^9.5.25",
-        "psalm/plugin-phpunit": "^0.17.0",
+        "psalm/plugin-phpunit": "^0.18.0",
         "vimeo/psalm": "^4.28"
     },
     "conflict": {
