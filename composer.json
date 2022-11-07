@@ -45,7 +45,7 @@
         "laminas/laminas-http": "^2.17",
         "laminas/laminas-i18n": "^2.19",
         "laminas/laminas-modulemanager": "^2.14",
-        "laminas/laminas-mvc": "^3.3.5",
+        "laminas/laminas-mvc": "^3.5",
         "laminas/laminas-mvc-i18n": "^1.6",
         "laminas/laminas-navigation": "^2.16",
         "laminas/laminas-paginator": "^2.15",
