@@ -50,6 +50,23 @@ introduction.
 <?php endif;?>
 ```
 
+> TIP: **IDE Auto-Completion in View Scripts**
+> The `Laminas\View\Renderer\PhpRenderer` class can be used to provide auto-completion for modern IDEs.
+> It defines the aliases of the view helpers in a DocBlock as `@method` tags.
+>
+> ### Usage
+>
+> In order to allow auto-completion in view scripts, `$this` variable should be type-hinted via a DocBlock at the top of a view script.
+> It is recommended that always the `Laminas\View\Renderer\PhpRenderer` is added as the first type, so that the IDE can auto-suggest the default view helpers from `laminas-view`:
+>
+> ```php
+> /**
+>  * @var Laminas\View\Renderer\PhpRenderer $this
+>  */
+> ```
+> The different Laminas components that contain view helpers provide `HelperTrait` traits with more aliases of the view helpers.
+> These traits can be chained with a pipe symbol (a.k.a. vertical bar) `|` as many as needed, depending on which view helpers from the different Laminas component are used and where the auto-completion is to be made.
+
 ## Escaping Output
 
 One of the most important tasks to perform in a view script is to make sure that
