@@ -13,10 +13,10 @@
     <meta name="docsearch:language" content="en">
     <meta name="docsearch:component" content="laminas-view">
 
-    <link rel="canonical" href="https://docs.laminas.dev/laminas-view/helpers/html-object/">
+    <link rel="canonical" href="https://docs.laminas.dev/laminas-view/helpers/gravatar-image/">
     <link rel="shortcut icon" href="https://docs.laminas.dev/img/trademark-laminas-foundation-rgb.svg">
 
-    <title>HtmlObject - laminas-view - Laminas Docs</title>
+    <title>GravatarImage - laminas-view - Laminas Docs</title>
 
     <link rel="stylesheet" href="https://docs.laminas.dev/css/styles.css">
     
@@ -280,8 +280,8 @@
 
                                     
                                         
-    <li class="subnavigation__list-item subnavigation__list-item--active">
-        <a href="./" class="subnavigation__link">HtmlObject</a>
+    <li class="subnavigation__list-item ">
+        <a href="../html-object/" class="subnavigation__link">HtmlObject</a>
     </li>
 
                                     
@@ -461,11 +461,11 @@
             <ul class="toc__list">
                 
                     <li class="toc__entry">
-                        <a href="#htmlpage-helper" class="toc__link nav-link">HtmlPage helper</a>
+                        <a href="#basic-usage" class="toc__link nav-link">Basic Usage</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#customizing-the-object-by-passing-additional-arguments" class="toc__link nav-link">Customizing the object by passing additional arguments</a>
+                        <a href="#custom-settings" class="toc__link nav-link">Custom Settings</a>
                     </li>
                 
             </ul>
@@ -485,15 +485,8 @@
                 <li class="breadcrumb-item"><a href="../..">laminas-view</a></li>
 
                 
-                    
-                        
-                        
-                            <li class="breadcrumb-item">Helpers</li>
-                        
-                    
-                
 
-                <li class="breadcrumb-item active" aria-current="page">HtmlObject</li>
+                <li class="breadcrumb-item active" aria-current="page">GravatarImage</li>
             
         
     </ol>
@@ -506,91 +499,55 @@
 
     
     
-        <h2 class="chapter__headline">Helpers</h2>
-    
 
-    <h1 id="htmlobject">HtmlObject</h1>
-<p>The <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/object">HTML <code>&lt;object&gt;</code> element</a> is used for embedding external media in web pages. The object view helpers take care of embedding media with minimum effort.</p>
-<p>There are four initial Object helpers:</p>
-<ul>
-<li><code>htmlObject()</code> Generates markup for embedding a custom Object.</li>
-<li><code>htmlPage()</code> Generates markup for embedding other (X)HTML pages.</li>
-<li><code>htmlFlash()</code> Generates markup for embedding Flash files. <em><strong>Deprecated</strong></em></li>
-<li><code>htmlQuicktime()</code> Generates markup for embedding QuickTime files. <em><strong>Deprecated</strong></em></li>
-</ul>
-<p>All of these helpers share a similar interface. For this reason, this
-documentation will only contain examples of two of these helpers.</p>
-<h2 id="htmlpage-helper">HtmlPage helper</h2>
-<p>Embedding an external HTML page in your page using the helper only requires the resource URI.</p>
-<pre class="highlight"><code class="language-php">&lt;?= $this-&gt;htmlPage('https://www.example.com/some-page.html'); ?&gt;</code></pre>
-<p>This outputs the following HTML:</p>
-<pre class="highlight"><code class="language-html">&lt;object data="https://www.example.com/some-page.html"
-        type="text/html"
-        classid="clsid:25336920-03F9-11CF-8FD0-00AA00686F13"&gt;
-&lt;/object&gt;</code></pre>
-<p>Additionally, you can specify attributes, parameters, and content that can be
-rendered along with the <code>&lt;object&gt;</code>. This will be demonstrated using the
-<code>htmlObject()</code> helper.</p>
-<h2 id="customizing-the-object-by-passing-additional-arguments">Customizing the object by passing additional arguments</h2>
-<p>The first argument in the object helpers is always required. It is the URI to
-the resource you want to embed. The second argument is only required in the
-<code>htmlObject()</code> helper. The other helpers already contain the correct value for
-this argument. The third argument is used for passing along attributes to the
-object element. It only accepts an array with key-value pairs. <code>classid</code> and
-<code>codebase</code> are examples of such attributes. The fourth argument also only takes
-a key-value array and uses them to create <code>&lt;param&gt;</code> elements. You will see an
-example of this shortly. Lastly, there is the option of providing additional
-content to the object. The following example utilizes all arguments.</p>
-<pre class="highlight"><code class="language-php">echo $this-&gt;htmlObject(
-    '/path/to/file.ext',
-    'mime/type',
-    [
-        'attr1' =&gt; 'aval1',
-        'attr2' =&gt; 'aval2',
-    ],
-    [
-        'param1' =&gt; 'pval1',
-        'param2' =&gt; 'pval2',
-    ],
-    'some content'
-);</code></pre>
-<p>This would output:</p>
-<pre class="highlight"><code class="language-html">&lt;object data="/path/to/file.ext" type="mime/type"
-    attr1="aval1" attr2="aval2"&gt;
-    &lt;param name="param1" value="pval1" /&gt;
-    &lt;param name="param2" value="pval2" /&gt;
-    some content
-&lt;/object&gt;</code></pre>
+    <h1 id="gravatarimage">GravatarImage</h1>
+<p>The <code>GravatarImage</code> helper is useful for rendering image HTML markup returned from
+the <a href="https://gravatar.com">gravatar.com</a> service.</p>
+<h2 id="basic-usage">Basic Usage</h2>
+<p>You can use the <code>GravatarImage</code> helper anywhere in view scripts per the following example:</p>
+<pre class="highlight"><code class="language-php">echo $this-&gt;gravatarImage('email@example.com');</code></pre>
+<p>The first argument passed to the helper should be an e-mail address for which you want grab an avatar from gravatar.com. For convenience, this e-mail will be automatically hashed via the md5 algorithm.</p>
+<p>This will render an HTML img tag similar to the following:</p>
+<pre class="highlight"><code class="language-html">&lt;img src="//www.gravatar.com/avatar/5658ffccee7f0ebfda2b226238b1eb6e?s=80&amp;d=mp&amp;r=g" /&gt;</code></pre>
+<h2 id="custom-settings">Custom Settings</h2>
+<p>You can customize the request and HTML output for a gravatar.com image by passing additional arguments to the view helper:</p>
+<h3 id="set-image-size">Set Image Size</h3>
+<p>Provide a positive integer value to the second argument to yield an image with the given dimensions:</p>
+<pre class="highlight"><code class="language-php">echo $this-&gt;gravatarImage('email@example.com', 120);</code></pre>
+<p>Output:</p>
+<pre class="highlight"><code class="language-html">&lt;img src="..." width="120" height="120" /&gt;</code></pre>
+<h3 id="set-arbitrary-image-attributes">Set arbitrary image attributes</h3>
+<p>You can provide attributes for the resulting image tag as an associative array, but bear in mind that <code>src</code>, <code>width</code> and <code>height</code> attributes will be ignored.</p>
+<pre class="highlight"><code class="language-php">echo $this-&gt;gravatarImage('email@example.com', 120, [
+    'alt' =&gt; 'Profile Picture for Someone',
+    'data-something' =&gt; 'other-thing',
+]);</code></pre>
+<p>Output:</p>
+<pre class="highlight"><code class="language-html">&lt;img src="..." alt="Profile Picture for Someone" data-something="other-thing" /&gt;</code></pre>
+<h3 id="change-the-fallback-image">Change the fallback image</h3>
+<p>The Gravatar service will present a default image when a given email address does not correspond to a known profile picture. The possible values are listed in <code>GravatarImage::DEFAULT_IMAGE_VALUES</code> and <a href="https://en.gravatar.com/site/implement/images/">documented here</a>. Each possible value has a constant <em>(Prefixed <code>DEFAULT_*</code>)</em> you can refer to when specifying the fallback image type. Provide the value as the 4th argument.</p>
+<pre class="highlight"><code class="language-php">use Laminas\View\Helper\GravatarImage;
+
+// Set the default avatar image to use if gravatar.com does not find a match
+echo $this-&gt;gravatarImage('email@example.com', 120, [], GravatarImage::DEFAULT_RETRO);</code></pre>
+<p>You can also supply your own fallback image as a fully qualified url:</p>
+<pre class="highlight"><code class="language-php">echo $this-&gt;gravatarImage('email@example.com', 120, [], 'https://example.com/default-image.png');</code></pre>
+<h3 id="change-the-image-rating-allowed">Change the image rating allowed</h3>
+<p>The Gravatar service allows users to provide a rating for the images they upload to indicate the type of audience they should be acceptable to. By default, the rating is "G". You can allow potentially explicit profile images by changing the rating to a value as <a href="https://en.gravatar.com/site/implement/images/">documented by the Gravatar service</a>. Again, each of the possible ratings are available as constants defined in the helper <em>(Prefixed <code>RATING_*</code>)</em> and can be provided as the 5th argument:</p>
+<pre class="highlight"><code class="language-php">use Laminas\View\Helper\GravatarImage;
+
+// Set the avatar "rating" threshold (often used to omit NSFW avatars)
+$this-&gt;gravatarImage(
+    'email@example.com',
+    120,
+    [],
+    GravatarImage::DEFAULT_MP,
+    GravatarImage::RATING_PG
+);
+</code></pre>
 
 
 
-
-    <nav>
-    <ul class="page-nav hidden-print">
-
-        
-        <li class="page-nav__item">
-            
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../html-list/">
-                    <small class="page-nav__label">Previous</small>
-                    <i class="fa fa-chevron-left"></i>
-                    HtmlList
-                </a>
-            
-        </li>
-
-        
-        <li class="page-nav__item">
-            
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../html-tag/">
-                    <small class="page-nav__label">Next</small>
-                    HtmlTag
-                    <i class="fa fa-chevron-right"></i>
-                </a>
-            
-        </li>
-    </ul>
-</nav>
 
 
 
@@ -775,8 +732,8 @@ content to the object. The following example utilizes all arguments.</p>
 
                                     
                                         
-    <li class="subnavigation__list-item subnavigation__list-item--active">
-        <a href="./" class="subnavigation__link">HtmlObject</a>
+    <li class="subnavigation__list-item ">
+        <a href="../html-object/" class="subnavigation__link">HtmlObject</a>
     </li>
 
                                     
