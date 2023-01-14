@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper;
 
-use Laminas\Console\Console;
-use Laminas\Console\Request as ConsoleRequest;
 use Laminas\Http\Request as HttpRequest;
 use Laminas\Mvc\Service\ServiceListenerFactory;
 use Laminas\Mvc\Service\ServiceManagerConfig;
@@ -23,7 +21,7 @@ class UrlIntegrationTest extends TestCase
     protected function setUp(): void
     {
         $config = [
-            'router'  => [
+            'router' => [
                 'routes' => [
                     'test' => [
                         'type'    => Http\Literal::class,
@@ -31,21 +29,6 @@ class UrlIntegrationTest extends TestCase
                             'route'    => '/test',
                             'defaults' => [
                                 'controller' => 'Test\Controller\Test',
-                            ],
-                        ],
-                    ],
-                ],
-            ],
-            'console' => [
-                'router' => [
-                    'routes' => [
-                        'test' => [
-                            'type'    => 'Simple',
-                            'options' => [
-                                'route'    => 'test this',
-                                'defaults' => [
-                                    'controller' => 'Test\Controller\TestConsole',
-                                ],
                             ],
                         ],
                     ],
@@ -73,7 +56,6 @@ class UrlIntegrationTest extends TestCase
 
     public function testUrlHelperWorksUnderNormalHttpParadigms(): void
     {
-        Console::overrideIsConsole(false);
         $this->serviceManager->get('Application')->bootstrap();
         $request = $this->serviceManager->get('Request');
         $this->assertInstanceOf(HttpRequest::class, $request);
@@ -85,7 +67,6 @@ class UrlIntegrationTest extends TestCase
 
     public function testUrlHelperWorksWithForceCanonicalFlag(): void
     {
-        Console::overrideIsConsole(false);
         $this->serviceManager->get('Application')->bootstrap();
         $request = $this->serviceManager->get('Request');
         $this->assertInstanceOf(HttpRequest::class, $request);
@@ -96,19 +77,5 @@ class UrlIntegrationTest extends TestCase
         $urlHelper   = $viewHelpers->get('url');
         $test        = $urlHelper('test', [], ['force_canonical' => true]);
         $this->assertStringContainsString('/test', $test);
-    }
-
-    public function testUrlHelperUnderConsoleParadigmShouldReturnHttpRoutes(): void
-    {
-        Console::overrideIsConsole(true);
-        $this->serviceManager->setAllowOverride(true);
-        $this->serviceManager->setService('Request', new ConsoleRequest());
-        $this->serviceManager->get('Application')->bootstrap();
-        $request = $this->serviceManager->get('Request');
-        $this->assertInstanceOf(ConsoleRequest::class, $request);
-        $viewHelpers = $this->serviceManager->get('ViewHelperManager');
-        $urlHelper   = $viewHelpers->get('url');
-        $test        = $urlHelper('test');
-        $this->assertEquals('/test', $test);
     }
 }
