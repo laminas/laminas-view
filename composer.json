@@ -38,7 +38,7 @@
     },
     "require-dev": {
         "laminas/laminas-authentication": "^2.13",
-        "laminas/laminas-coding-standard": "~2.4.0",
+        "laminas/laminas-coding-standard": "~2.5.0",
         "laminas/laminas-console": "^2.8",
         "laminas/laminas-feed": "^2.19",
         "laminas/laminas-filter": "^2.28.1",
@@ -55,7 +55,7 @@
         "laminas/laminas-uri": "^2.10",
         "phpunit/phpunit": "^9.5.26",
         "psalm/plugin-phpunit": "^0.18.3",
-        "vimeo/psalm": "^5.0"
+        "vimeo/psalm": "^5.4"
     },
     "conflict": {
         "container-interop/container-interop": "<1.2",
