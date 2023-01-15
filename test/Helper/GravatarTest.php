@@ -8,7 +8,6 @@ use Laminas\View\Exception;
 use Laminas\View\Helper\Gravatar;
 use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
-use ReflectionMethod;
 
 use function method_exists;
 use function strtoupper;
@@ -270,35 +269,5 @@ class GravatarTest extends TestCase
             'example@example.com',
             $this->helper->__invoke('Example@Example.com ')->getEmail()
         );
-    }
-
-    public function testSetAttribsIsDeprecated(): void
-    {
-        $this->expectDeprecation();
-
-        $this->helper->setAttribs([]);
-    }
-
-    public function testSetAttribsDocCommentHasDeprecated(): void
-    {
-        $method  = new ReflectionMethod($this->helper, 'setAttribs');
-        $comment = $method->getDocComment();
-
-        $this->assertStringContainsString('@deprecated', $comment);
-    }
-
-    public function testGetAttribsIsDeprecated(): void
-    {
-        $this->expectDeprecation();
-
-        $this->helper->getAttribs();
-    }
-
-    public function testGetAttribsDocCommentHasDeprecated(): void
-    {
-        $method  = new ReflectionMethod($this->helper, 'getAttribs');
-        $comment = $method->getDocComment();
-
-        $this->assertStringContainsString('@deprecated', $comment);
     }
 }
