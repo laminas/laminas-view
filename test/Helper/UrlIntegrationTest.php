@@ -21,7 +21,7 @@ class UrlIntegrationTest extends TestCase
     protected function setUp(): void
     {
         $config = [
-            'router'  => [
+            'router' => [
                 'routes' => [
                     'test' => [
                         'type'    => Http\Literal::class,
@@ -29,21 +29,6 @@ class UrlIntegrationTest extends TestCase
                             'route'    => '/test',
                             'defaults' => [
                                 'controller' => 'Test\Controller\Test',
-                            ],
-                        ],
-                    ],
-                ],
-            ],
-            'console' => [
-                'router' => [
-                    'routes' => [
-                        'test' => [
-                            'type'    => 'Simple',
-                            'options' => [
-                                'route'    => 'test this',
-                                'defaults' => [
-                                    'controller' => 'Test\Controller\TestConsole',
-                                ],
                             ],
                         ],
                     ],

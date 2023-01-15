@@ -244,6 +244,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      *
      * @param AbstractContainer|string|null $container
      * @return void
+     * @param-out AbstractContainer $container
      * @throws Exception\InvalidArgumentException
      */
     protected function parseContainer(&$container = null)

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.28.0@52e96bea381e6cb07a672aefec791a5817694a26">
+<files psalm-version="5.4.0@62db5d4f6a7ae0a20f7cc5a4952d730272fc0863">
   <file src="bin/templatemap_generator.php">
     <MissingParamType occurrences="1">
       <code>$templatePath</code>
@@ -57,6 +57,9 @@
       <code>Cycle</code>
       <code>Cycle</code>
     </ImplementedReturnTypeMismatch>
+    <MissingTemplateParam occurrences="1">
+      <code>Iterator</code>
+    </MissingTemplateParam>
     <MixedArgument occurrences="2">
       <code>$this-&gt;data[$this-&gt;name]</code>
       <code>$this-&gt;data[$this-&gt;name]</code>
@@ -255,10 +258,6 @@
     <RedundantCast occurrences="1">
       <code>(string) $conditionalStylesheet</code>
     </RedundantCast>
-    <RedundantCondition occurrences="2">
-      <code>$args</code>
-      <code>$args</code>
-    </RedundantCondition>
     <UndefinedMagicMethod occurrences="4">
       <code>getIndent</code>
       <code>getSeparator</code>
@@ -323,7 +322,8 @@
       <code>$item-&gt;type</code>
       <code>$item-&gt;{$item-&gt;type}</code>
     </MixedPropertyFetch>
-    <MixedReturnStatement occurrences="1">
+    <MixedReturnStatement occurrences="2">
+      <code>parent::__call($method, $args)</code>
       <code>parent::__call($method, $args)</code>
     </MixedReturnStatement>
     <MoreSpecificImplementedParamType occurrences="1">
@@ -336,14 +336,6 @@
       <code>$index</code>
       <code>$index</code>
     </ParamNameMismatch>
-    <PossiblyInvalidArgument occurrences="2">
-      <code>$args[0]</code>
-      <code>$args[1]</code>
-    </PossiblyInvalidArgument>
-    <PossiblyInvalidCast occurrences="2">
-      <code>$args[0]</code>
-      <code>$args[1]</code>
-    </PossiblyInvalidCast>
     <PossiblyNullArgument occurrences="1">
       <code>$this-&gt;view</code>
     </PossiblyNullArgument>
@@ -415,7 +407,8 @@
       <code>$item-&gt;source</code>
       <code>$item-&gt;type</code>
     </MixedPropertyFetch>
-    <MixedReturnStatement occurrences="1">
+    <MixedReturnStatement occurrences="2">
+      <code>parent::__call($method, $args)</code>
       <code>parent::__call($method, $args)</code>
     </MixedReturnStatement>
     <ParamNameMismatch occurrences="1">
@@ -633,8 +626,7 @@
       <code>(bool) $injectTranslator</code>
       <code>(string) $proxy</code>
     </RedundantCastGivenDocblockType>
-    <RedundantCondition occurrences="2">
-      <code>$view</code>
+    <RedundantCondition occurrences="1">
       <code>$view</code>
     </RedundantCondition>
     <UndefinedInterfaceMethod occurrences="2">
@@ -643,9 +635,10 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/Navigation/AbstractHelper.php">
-    <DocblockTypeContradiction occurrences="3">
+    <DocblockTypeContradiction occurrences="4">
       <code>! is_int($this-&gt;minDepth)</code>
       <code>! is_string($message)</code>
+      <code>$container instanceof AbstractContainer</code>
       <code>null === $this-&gt;container</code>
     </DocblockTypeContradiction>
     <ImplementedReturnTypeMismatch occurrences="2">
@@ -701,12 +694,6 @@
     <PossiblyFalseArgument occurrences="1">
       <code>strrpos($prefix, '\\')</code>
     </PossiblyFalseArgument>
-    <PossiblyInvalidArgument occurrences="1">
-      <code>$container</code>
-    </PossiblyInvalidArgument>
-    <PossiblyInvalidPropertyAssignmentValue occurrences="1">
-      <code>$container</code>
-    </PossiblyInvalidPropertyAssignmentValue>
     <PossiblyNullArgument occurrences="1">
       <code>$page-&gt;getTitle()</code>
     </PossiblyNullArgument>
@@ -732,6 +719,9 @@
       <code>null !== $this-&gt;container</code>
       <code>static::$defaultAcl !== null</code>
     </RedundantConditionGivenDocblockType>
+    <ReferenceConstraintViolation occurrences="1">
+      <code>return;</code>
+    </ReferenceConstraintViolation>
     <UndefinedInterfaceMethod occurrences="1">
       <code>plugin</code>
     </UndefinedInterfaceMethod>
@@ -769,13 +759,12 @@
       <code>$model['pages'][]</code>
       <code>$model['pages'][]</code>
     </MixedArrayAssignment>
-    <MixedAssignment occurrences="7">
+    <MixedAssignment occurrences="6">
       <code>$active</code>
       <code>$active</code>
       <code>$active</code>
       <code>$html</code>
       <code>$model['pages'][]</code>
-      <code>$parent</code>
       <code>$parent</code>
     </MixedAssignment>
     <MixedMethodCall occurrences="4">
@@ -790,10 +779,6 @@
     <MoreSpecificImplementedParamType occurrences="1">
       <code>$container</code>
     </MoreSpecificImplementedParamType>
-    <PossiblyInvalidArgument occurrences="2">
-      <code>$container</code>
-      <code>$container</code>
-    </PossiblyInvalidArgument>
     <PossiblyNullPropertyAssignmentValue occurrences="1">
       <code>$partial</code>
     </PossiblyNullPropertyAssignmentValue>
@@ -808,6 +793,10 @@
       <code>is_array($partial)</code>
       <code>is_string($separator)</code>
     </RedundantConditionGivenDocblockType>
+    <TypeDoesNotContainNull occurrences="2">
+      <code>null === $container</code>
+      <code>null === $container</code>
+    </TypeDoesNotContainNull>
     <UndefinedInterfaceMethod occurrences="2">
       <code>plugin</code>
       <code>plugin</code>
@@ -851,26 +840,27 @@
       <code>AbstractPage|array|null</code>
       <code>array|null</code>
     </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="2">
+    <MixedReturnStatement occurrences="4">
+      <code>$found</code>
       <code>$found</code>
       <code>count($result) === 1 ? $result[0] : $result</code>
+      <code>count($result) === 1 ? $result[0] : $result</code>
     </MixedReturnStatement>
-    <PossiblyInvalidArgument occurrences="1">
-      <code>$container</code>
-    </PossiblyInvalidArgument>
-    <PossiblyInvalidPropertyAssignmentValue occurrences="1">
-      <code>$container</code>
-    </PossiblyInvalidPropertyAssignmentValue>
     <PossiblyNullPropertyAssignmentValue occurrences="1">
       <code>null</code>
     </PossiblyNullPropertyAssignmentValue>
+    <PossiblyUndefinedArrayOffset occurrences="1">
+      <code>$found[0]</code>
+    </PossiblyUndefinedArrayOffset>
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(int) $renderFlag</code>
     </RedundantCastGivenDocblockType>
-    <RedundantConditionGivenDocblockType occurrences="2">
-      <code>$this-&gt;root</code>
+    <RedundantConditionGivenDocblockType occurrences="1">
       <code>$this-&gt;root</code>
     </RedundantConditionGivenDocblockType>
+    <TypeDoesNotContainNull occurrences="1">
+      <code>null === $container</code>
+    </TypeDoesNotContainNull>
   </file>
   <file src="src/Helper/Navigation/Listener/AclListener.php">
     <MixedAssignment occurrences="5">
@@ -969,10 +959,6 @@
     <MoreSpecificImplementedParamType occurrences="1">
       <code>$container</code>
     </MoreSpecificImplementedParamType>
-    <PossiblyInvalidArgument occurrences="2">
-      <code>$container</code>
-      <code>$container</code>
-    </PossiblyInvalidArgument>
     <PossiblyNullArgument occurrences="1">
       <code>$page-&gt;getTitle()</code>
     </PossiblyNullArgument>
@@ -1000,6 +986,10 @@
       <code>is_string($liActiveClass)</code>
       <code>is_string($ulClass)</code>
     </RedundantConditionGivenDocblockType>
+    <TypeDoesNotContainNull occurrences="2">
+      <code>null === $container</code>
+      <code>null === $container</code>
+    </TypeDoesNotContainNull>
     <UndefinedInterfaceMethod occurrences="4">
       <code>plugin</code>
       <code>plugin</code>
@@ -1044,8 +1034,9 @@
       <code>string</code>
       <code>string</code>
     </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="2">
+    <MixedReturnStatement occurrences="3">
       <code>$escaper($string)</code>
+      <code>$this-&gt;serverUrl</code>
       <code>$this-&gt;serverUrl</code>
     </MixedReturnStatement>
     <MoreSpecificImplementedParamType occurrences="1">
@@ -1201,6 +1192,9 @@
     <ImplementedReturnTypeMismatch occurrences="1">
       <code>self</code>
     </ImplementedReturnTypeMismatch>
+    <MissingTemplateParam occurrences="1">
+      <code>AbstractContainer</code>
+    </MissingTemplateParam>
     <MixedArgumentTypeCoercion occurrences="1">
       <code>$items</code>
     </MixedArgumentTypeCoercion>
@@ -1241,6 +1235,10 @@
     <LessSpecificReturnStatement occurrences="1">
       <code>$this-&gt;container</code>
     </LessSpecificReturnStatement>
+    <MissingTemplateParam occurrences="2">
+      <code>ArrayAccess</code>
+      <code>IteratorAggregate</code>
+    </MissingTemplateParam>
     <MixedAssignment occurrences="2">
       <code>$container[$key]</code>
       <code>$return</code>
@@ -1333,8 +1331,7 @@
       <code>plugin</code>
       <code>render</code>
     </PossiblyNullReference>
-    <RedundantConditionGivenDocblockType occurrences="2">
-      <code>$this-&gt;viewModelHelper</code>
+    <RedundantConditionGivenDocblockType occurrences="1">
       <code>$this-&gt;viewModelHelper</code>
     </RedundantConditionGivenDocblockType>
   </file>
@@ -1385,8 +1382,9 @@
     <MixedArgument occurrences="1">
       <code>$config['view_helper_config']['doctype']</code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="1">
+    <MixedArrayAccess occurrences="2">
       <code>$config['view_helper_config']</code>
+      <code>$config['view_helper_config']['doctype']</code>
     </MixedArrayAccess>
     <MixedAssignment occurrences="1">
       <code>$config</code>
@@ -1445,7 +1443,8 @@
     <MixedReturnStatement occurrences="1">
       <code>parent::get($name, $options)</code>
     </MixedReturnStatement>
-    <PropertyTypeCoercion occurrences="1">
+    <PropertyTypeCoercion occurrences="2">
+      <code>$this-&gt;initializers</code>
       <code>$this-&gt;initializers</code>
     </PropertyTypeCoercion>
     <UndefinedInterfaceMethod occurrences="2">
@@ -1454,6 +1453,9 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/HtmlAttributesSet.php">
+    <MissingTemplateParam occurrences="1">
+      <code>HtmlAttributesSet</code>
+    </MissingTemplateParam>
     <MixedArgumentTypeCoercion occurrences="1">
       <code>$value</code>
     </MixedArgumentTypeCoercion>
@@ -1477,7 +1479,8 @@
     <MixedInferredReturnType occurrences="1">
       <code>false|string</code>
     </MixedInferredReturnType>
-    <MixedReturnStatement occurrences="1">
+    <MixedReturnStatement occurrences="2">
+      <code>$this-&gt;type</code>
       <code>$this-&gt;type</code>
     </MixedReturnStatement>
     <PossiblyInvalidArgument occurrences="1">
@@ -1494,6 +1497,14 @@
     <NonInvariantDocblockPropertyType occurrences="1">
       <code>$captureTo</code>
     </NonInvariantDocblockPropertyType>
+    <RedundantCast occurrences="1">
+      <code>(int) $e-&gt;getCode()</code>
+    </RedundantCast>
+  </file>
+  <file src="src/Model/ModelInterface.php">
+    <MissingTemplateParam occurrences="1">
+      <code>IteratorAggregate</code>
+    </MissingTemplateParam>
   </file>
   <file src="src/Model/ViewModel.php">
     <DocblockTypeContradiction occurrences="2">
@@ -1525,19 +1536,16 @@
     <MixedOperand occurrences="1">
       <code>$child-&gt;getChildrenByCaptureTo($capture)</code>
     </MixedOperand>
-    <MixedReturnStatement occurrences="1">
+    <MixedReturnStatement occurrences="2">
+      <code>$children</code>
       <code>$children</code>
     </MixedReturnStatement>
-    <PossiblyInvalidArgument occurrences="1">
-      <code>$variables</code>
-    </PossiblyInvalidArgument>
+    <PossiblyInvalidArrayAccess occurrences="1">
+      <code>$variables[$name]</code>
+    </PossiblyInvalidArrayAccess>
     <PossiblyInvalidPropertyAssignmentValue occurrences="1">
       <code>$variables</code>
     </PossiblyInvalidPropertyAssignmentValue>
-    <PossiblyUndefinedMethod occurrences="2">
-      <code>$variables</code>
-      <code>$variables</code>
-    </PossiblyUndefinedMethod>
     <RedundantCastGivenDocblockType occurrences="8">
       <code>(bool) $append</code>
       <code>(bool) $terminate</code>
@@ -1553,6 +1561,9 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Renderer/FeedRenderer.php">
+    <InvalidArrayAccess occurrences="1">
+      <code>$options['feed_type']</code>
+    </InvalidArrayAccess>
     <MissingConstructor occurrences="1">
       <code>$resolver</code>
     </MissingConstructor>
@@ -1562,9 +1573,6 @@
     <RedundantConditionGivenDocblockType occurrences="1">
       <code>is_string($nameOrModel)</code>
     </RedundantConditionGivenDocblockType>
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>$options</code>
-    </UndefinedInterfaceMethod>
   </file>
   <file src="src/Renderer/JsonRenderer.php">
     <MissingConstructor occurrences="1">
@@ -1593,13 +1601,18 @@
       <code>$children</code>
       <code>$values</code>
     </PossiblyInvalidArgument>
+    <RedundantCast occurrences="1">
+      <code>(int) $e-&gt;getCode()</code>
+    </RedundantCast>
     <RedundantCastGivenDocblockType occurrences="2">
       <code>(bool) $mergeUnnamedChildren</code>
       <code>(string) $callback</code>
     </RedundantCastGivenDocblockType>
-    <RedundantConditionGivenDocblockType occurrences="3">
-      <code>! is_object($nameOrModel)</code>
+    <RedundantCondition occurrences="1">
       <code>$mergeChildren</code>
+    </RedundantCondition>
+    <RedundantConditionGivenDocblockType occurrences="2">
+      <code>! is_object($nameOrModel)</code>
       <code>null !== $this-&gt;jsonpCallback</code>
     </RedundantConditionGivenDocblockType>
   </file>
@@ -1628,8 +1641,9 @@
       <code>$this-&gt;__vars[$key]</code>
       <code>$this-&gt;__vars[$key]</code>
     </MixedArrayOffset>
-    <MixedAssignment occurrences="11">
+    <MixedAssignment occurrences="12">
       <code>$includeReturn</code>
+      <code>$setting</code>
       <code>$this-&gt;__template</code>
       <code>$this-&gt;__vars</code>
       <code>$value</code>
@@ -1652,6 +1666,9 @@
       <code>getArrayCopy</code>
       <code>new $helpers(new ServiceManager())</code>
     </MixedMethodCall>
+    <MixedOperand occurrences="1">
+      <code>$setting</code>
+    </MixedOperand>
     <MixedReturnStatement occurrences="2">
       <code>$this-&gt;__filterChain-&gt;filter($this-&gt;__content)</code>
       <code>$this-&gt;__templateResolver-&gt;resolve($name, $this)</code>
@@ -1690,6 +1707,9 @@
     </UnresolvableInclude>
   </file>
   <file src="src/Resolver/AggregateResolver.php">
+    <MissingTemplateParam occurrences="1">
+      <code>IteratorAggregate</code>
+    </MissingTemplateParam>
     <MixedAssignment occurrences="5">
       <code>$resolver</code>
       <code>$resource</code>
@@ -1723,23 +1743,19 @@
   </file>
   <file src="src/Resolver/TemplateMapResolver.php">
     <DocblockTypeContradiction occurrences="3">
-      <code>gettype($map)</code>
-      <code>gettype($map)</code>
+      <code>! is_array($map) &amp;&amp; ! $map instanceof Traversable</code>
+      <code>! is_array($map) &amp;&amp; ! $map instanceof Traversable</code>
       <code>is_string($nameOrMap)</code>
     </DocblockTypeContradiction>
-    <InvalidArgument occurrences="1">
-      <code>$nameOrMap</code>
-    </InvalidArgument>
+    <MissingTemplateParam occurrences="1">
+      <code>IteratorAggregate</code>
+    </MissingTemplateParam>
     <MixedInferredReturnType occurrences="1">
       <code>false|string</code>
     </MixedInferredReturnType>
     <MixedReturnStatement occurrences="1">
       <code>$this-&gt;map[$name]</code>
     </MixedReturnStatement>
-    <RedundantConditionGivenDocblockType occurrences="2">
-      <code>is_object($map)</code>
-      <code>is_object($map)</code>
-    </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Resolver/TemplatePathStack.php">
     <DocblockTypeContradiction occurrences="1">
@@ -1819,6 +1835,12 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Variables.php">
+    <InvalidCast occurrences="1">
+      <code>ArrayIterator::class</code>
+    </InvalidCast>
+    <MissingTemplateParam occurrences="1">
+      <code>Variables</code>
+    </MissingTemplateParam>
     <MixedArgument occurrences="2">
       <code>$key</code>
       <code>$value</code>
@@ -1843,6 +1865,9 @@
     <ImplementedReturnTypeMismatch occurrences="1">
       <code>View</code>
     </ImplementedReturnTypeMismatch>
+    <InvalidArgument occurrences="1">
+      <code>$options</code>
+    </InvalidArgument>
     <MissingClosureParamType occurrences="1">
       <code>$result</code>
     </MissingClosureParamType>
@@ -1868,24 +1893,15 @@
     <ParamNameMismatch occurrences="1">
       <code>$events</code>
     </ParamNameMismatch>
-    <PossiblyInvalidArgument occurrences="1">
-      <code>$options</code>
-    </PossiblyInvalidArgument>
     <PossiblyNullReference occurrences="1">
       <code>hasChildren</code>
     </PossiblyNullReference>
-    <UndefinedInterfaceMethod occurrences="1">
-      <code>$options</code>
-    </UndefinedInterfaceMethod>
   </file>
   <file src="src/ViewEvent.php">
     <ImplementedReturnTypeMismatch occurrences="2">
       <code>ViewEvent</code>
       <code>ViewEvent</code>
     </ImplementedReturnTypeMismatch>
-    <LessSpecificReturnStatement occurrences="1">
-      <code>$params</code>
-    </LessSpecificReturnStatement>
     <MixedArgument occurrences="4">
       <code>$value</code>
       <code>$value</code>
@@ -1899,20 +1915,6 @@
       <code>$name</code>
       <code>$name</code>
     </MoreSpecificImplementedParamType>
-    <MoreSpecificReturnType occurrences="1">
-      <code>array|ArrayAccess</code>
-    </MoreSpecificReturnType>
-    <PossiblyInvalidArrayAssignment occurrences="5">
-      <code>$params['model']</code>
-      <code>$params['renderer']</code>
-      <code>$params['request']</code>
-      <code>$params['response']</code>
-      <code>$params['result']</code>
-    </PossiblyInvalidArrayAssignment>
-    <PropertyNotSetInConstructor occurrences="2">
-      <code>ViewEvent</code>
-      <code>ViewEvent</code>
-    </PropertyNotSetInConstructor>
   </file>
   <file src="test/Helper/CycleTest.php">
     <RedundantCastGivenDocblockType occurrences="1">
@@ -1991,11 +1993,11 @@
     </MixedAssignment>
   </file>
   <file src="test/Helper/GravatarTest.php">
-    <InvalidScalarArgument occurrences="3">
+    <PossiblyInvalidArgument occurrences="3">
       <code>$value</code>
       <code>$value</code>
       <code>$value</code>
-    </InvalidScalarArgument>
+    </PossiblyInvalidArgument>
     <UndefinedMethod occurrences="1">
       <code>gravatar</code>
     </UndefinedMethod>
@@ -2207,18 +2209,21 @@
       <code>$values</code>
       <code>$values</code>
     </MixedArgument>
-    <MixedArrayAccess occurrences="11">
+    <MixedArrayAccess occurrences="14">
       <code>$first-&gt;attributes['src']</code>
       <code>$items[$i]</code>
       <code>$values[$i]</code>
       <code>$values[$i]</code>
       <code>$values[$i]</code>
+      <code>$values[$i]-&gt;attributes['src']</code>
       <code>$values[0]</code>
       <code>$values[0]</code>
       <code>$values[0]</code>
+      <code>$values[0]-&gt;attributes['src']</code>
       <code>$values[5]</code>
       <code>$values[5]</code>
       <code>$values[5]</code>
+      <code>$values[5]-&gt;attributes['src']</code>
     </MixedArrayAccess>
     <MixedAssignment occurrences="9">
       <code>$first</code>
@@ -2348,8 +2353,7 @@
     <NonInvariantDocblockPropertyType occurrences="1">
       <code>$_helper</code>
     </NonInvariantDocblockPropertyType>
-    <RedundantConditionGivenDocblockType occurrences="2">
-      <code>$this-&gt;_helper</code>
+    <RedundantConditionGivenDocblockType occurrences="1">
       <code>$this-&gt;_helper</code>
     </RedundantConditionGivenDocblockType>
   </file>
@@ -2605,8 +2609,9 @@
     </UnevaluatedCode>
   </file>
   <file src="test/Helper/PaginationControlTest.php">
-    <InvalidArgument occurrences="2">
+    <InvalidArgument occurrences="3">
       <code>$all</code>
+      <code>$paginator</code>
       <code>['partial.phtml', 'test']</code>
     </InvalidArgument>
     <NullArgument occurrences="1">
@@ -2774,12 +2779,16 @@
     </UnusedVariable>
   </file>
   <file src="test/Helper/PartialTest.php">
-    <MixedArgument occurrences="3">
+    <MixedArgument occurrences="5">
+      <code>$key</code>
+      <code>$key</code>
       <code>$value</code>
       <code>$value</code>
       <code>$value</code>
     </MixedArgument>
-    <MixedAssignment occurrences="3">
+    <MixedAssignment occurrences="5">
+      <code>$key</code>
+      <code>$key</code>
       <code>$value</code>
       <code>$value</code>
       <code>$value</code>
@@ -2838,18 +2847,31 @@
     </UndefinedPropertyFetch>
   </file>
   <file src="test/Helper/ServerUrlTest.php">
-    <InvalidArgument occurrences="1">
+    <InvalidArgument occurrences="2">
+      <code>1337</code>
       <code>new stdClass()</code>
     </InvalidArgument>
-    <InvalidScalarArgument occurrences="1">
-      <code>1337</code>
-    </InvalidScalarArgument>
+  </file>
+  <file src="test/Helper/TestAsset/ArrayTranslator.php">
+    <InvalidArgument occurrences="1">
+      <code>$this-&gt;translations</code>
+    </InvalidArgument>
   </file>
   <file src="test/Helper/TestAsset/Bar.php">
     <PropertyNotSetInConstructor occurrences="2">
       <code>Bar</code>
       <code>Bar</code>
     </PropertyNotSetInConstructor>
+  </file>
+  <file src="test/Helper/TestAsset/IteratorTest.php">
+    <MissingTemplateParam occurrences="1">
+      <code>Iterator</code>
+    </MissingTemplateParam>
+  </file>
+  <file src="test/Helper/TestAsset/IteratorWithToArrayTest.php">
+    <MissingTemplateParam occurrences="1">
+      <code>Iterator</code>
+    </MissingTemplateParam>
   </file>
   <file src="test/Helper/TestAsset/IteratorWithToArrayTestContainer.php">
     <MixedAssignment occurrences="1">
@@ -2861,6 +2883,11 @@
       <code>MockContainer</code>
       <code>MockContainer</code>
     </PropertyNotSetInConstructor>
+  </file>
+  <file src="test/Helper/TestAsset/RecursiveIteratorTest.php">
+    <MissingTemplateParam occurrences="1">
+      <code>Iterator</code>
+    </MissingTemplateParam>
   </file>
   <file src="test/Helper/UrlIntegrationTest.php">
     <MixedArgument occurrences="2">
@@ -2893,8 +2920,10 @@
     <DeprecatedClass occurrences="1">
       <code>Wildcard::class</code>
     </DeprecatedClass>
-    <InvalidArgument occurrences="4">
+    <InvalidArgument occurrences="6">
       <code>$it</code>
+      <code>$router</code>
+      <code>$router</code>
       <code>'invalid params'</code>
       <code>true</code>
       <code>true</code>
@@ -2923,21 +2952,22 @@
       <code>$container</code>
     </UnusedClosureParam>
   </file>
+  <file src="test/Model/TestAsset/Variable.php">
+    <MissingTemplateParam occurrences="1">
+      <code>Iterator</code>
+    </MissingTemplateParam>
+  </file>
   <file src="test/Model/ViewModelTest.php">
-    <InvalidArgument occurrences="2">
+    <InvalidArgument occurrences="3">
+      <code>$vars</code>
       <code>new stdClass()</code>
       <code>new stdClass()</code>
     </InvalidArgument>
     <LessSpecificReturnStatement occurrences="1"/>
     <MoreSpecificReturnType occurrences="1"/>
-    <PossiblyInvalidArgument occurrences="1">
-      <code>$vars</code>
-    </PossiblyInvalidArgument>
-    <PossiblyUndefinedMethod occurrences="3">
-      <code>$variables</code>
-      <code>$variables</code>
-      <code>$variables</code>
-    </PossiblyUndefinedMethod>
+    <PossiblyInvalidArrayAccess occurrences="1">
+      <code>$variables['foo']</code>
+    </PossiblyInvalidArrayAccess>
   </file>
   <file src="test/PhpRendererTest.php">
     <MixedArgument occurrences="1">
@@ -2959,28 +2989,26 @@
     <MixedPropertyFetch occurrences="1">
       <code>$this-&gt;renderer-&gt;vars()-&gt;foo</code>
     </MixedPropertyFetch>
-    <PossiblyUndefinedMethod occurrences="1">
-      <code>$vars</code>
-    </PossiblyUndefinedMethod>
+    <PossiblyInvalidArrayAssignment occurrences="1">
+      <code>$vars['foo']</code>
+    </PossiblyInvalidArrayAssignment>
     <UnusedClosureParam occurrences="2">
       <code>$errno</code>
       <code>$errstr</code>
     </UnusedClosureParam>
   </file>
   <file src="test/Renderer/JsonRendererTest.php">
-    <InvalidArgument occurrences="8">
+    <InvalidArgument occurrences="9">
       <code>$model</code>
       <code>$model</code>
       <code>$model</code>
       <code>$model</code>
       <code>$model</code>
       <code>$model</code>
+      <code>0</code>
       <code>false</code>
       <code>false</code>
     </InvalidArgument>
-    <InvalidScalarArgument occurrences="1">
-      <code>0</code>
-    </InvalidScalarArgument>
     <MixedArgument occurrences="1">
       <code>$model</code>
     </MixedArgument>
@@ -3059,6 +3087,12 @@
     </UnusedMethodCall>
   </file>
   <file src="test/Strategy/PhpRendererStrategyTest.php">
+    <InvalidArgument occurrences="4">
+      <code>$e</code>
+      <code>$event</code>
+      <code>$event</code>
+      <code>$event</code>
+    </InvalidArgument>
     <MixedAssignment occurrences="7">
       <code>$content</code>
       <code>$content</code>
