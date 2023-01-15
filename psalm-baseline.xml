@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.0.0@4e177bf0c9f03c17d2fbfd83b7cc9c47605274d8">
+<files psalm-version="5.4.0@62db5d4f6a7ae0a20f7cc5a4952d730272fc0863">
   <file src="bin/templatemap_generator.php">
     <MissingParamType occurrences="1">
       <code>$templatePath</code>
@@ -378,14 +378,6 @@
       <code>$index</code>
       <code>$index</code>
     </ParamNameMismatch>
-    <PossiblyInvalidArgument occurrences="2">
-      <code>$args[0]</code>
-      <code>$args[1]</code>
-    </PossiblyInvalidArgument>
-    <PossiblyInvalidCast occurrences="2">
-      <code>$args[0]</code>
-      <code>$args[1]</code>
-    </PossiblyInvalidCast>
     <PossiblyNullArgument occurrences="1">
       <code>$this-&gt;view</code>
     </PossiblyNullArgument>
@@ -736,9 +728,10 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/Navigation/AbstractHelper.php">
-    <DocblockTypeContradiction occurrences="3">
+    <DocblockTypeContradiction occurrences="4">
       <code>! is_int($this-&gt;minDepth)</code>
       <code>! is_string($message)</code>
+      <code>$container instanceof AbstractContainer</code>
       <code>null === $this-&gt;container</code>
     </DocblockTypeContradiction>
     <ImplementedReturnTypeMismatch occurrences="2">
@@ -794,12 +787,6 @@
     <PossiblyFalseArgument occurrences="1">
       <code>strrpos($prefix, '\\')</code>
     </PossiblyFalseArgument>
-    <PossiblyInvalidArgument occurrences="1">
-      <code>$container</code>
-    </PossiblyInvalidArgument>
-    <PossiblyInvalidPropertyAssignmentValue occurrences="1">
-      <code>$container</code>
-    </PossiblyInvalidPropertyAssignmentValue>
     <PossiblyNullArgument occurrences="1">
       <code>$page-&gt;getTitle()</code>
     </PossiblyNullArgument>
@@ -825,6 +812,9 @@
       <code>null !== $this-&gt;container</code>
       <code>static::$defaultAcl !== null</code>
     </RedundantConditionGivenDocblockType>
+    <ReferenceConstraintViolation occurrences="1">
+      <code>return;</code>
+    </ReferenceConstraintViolation>
     <UndefinedInterfaceMethod occurrences="1">
       <code>plugin</code>
     </UndefinedInterfaceMethod>
@@ -882,10 +872,6 @@
     <MoreSpecificImplementedParamType occurrences="1">
       <code>$container</code>
     </MoreSpecificImplementedParamType>
-    <PossiblyInvalidArgument occurrences="2">
-      <code>$container</code>
-      <code>$container</code>
-    </PossiblyInvalidArgument>
     <PossiblyNullPropertyAssignmentValue occurrences="1">
       <code>$partial</code>
     </PossiblyNullPropertyAssignmentValue>
@@ -900,6 +886,10 @@
       <code>is_array($partial)</code>
       <code>is_string($separator)</code>
     </RedundantConditionGivenDocblockType>
+    <TypeDoesNotContainNull occurrences="2">
+      <code>null === $container</code>
+      <code>null === $container</code>
+    </TypeDoesNotContainNull>
     <UndefinedInterfaceMethod occurrences="2">
       <code>plugin</code>
       <code>plugin</code>
@@ -949,21 +939,21 @@
       <code>count($result) === 1 ? $result[0] : $result</code>
       <code>count($result) === 1 ? $result[0] : $result</code>
     </MixedReturnStatement>
-    <PossiblyInvalidArgument occurrences="1">
-      <code>$container</code>
-    </PossiblyInvalidArgument>
-    <PossiblyInvalidPropertyAssignmentValue occurrences="1">
-      <code>$container</code>
-    </PossiblyInvalidPropertyAssignmentValue>
     <PossiblyNullPropertyAssignmentValue occurrences="1">
       <code>null</code>
     </PossiblyNullPropertyAssignmentValue>
+    <PossiblyUndefinedArrayOffset occurrences="1">
+      <code>$found[0]</code>
+    </PossiblyUndefinedArrayOffset>
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(int) $renderFlag</code>
     </RedundantCastGivenDocblockType>
     <RedundantConditionGivenDocblockType occurrences="1">
       <code>$this-&gt;root</code>
     </RedundantConditionGivenDocblockType>
+    <TypeDoesNotContainNull occurrences="1">
+      <code>null === $container</code>
+    </TypeDoesNotContainNull>
   </file>
   <file src="src/Helper/Navigation/Listener/AclListener.php">
     <MixedAssignment occurrences="5">
@@ -1062,10 +1052,6 @@
     <MoreSpecificImplementedParamType occurrences="1">
       <code>$container</code>
     </MoreSpecificImplementedParamType>
-    <PossiblyInvalidArgument occurrences="2">
-      <code>$container</code>
-      <code>$container</code>
-    </PossiblyInvalidArgument>
     <PossiblyNullArgument occurrences="1">
       <code>$page-&gt;getTitle()</code>
     </PossiblyNullArgument>
@@ -1093,6 +1079,10 @@
       <code>is_string($liActiveClass)</code>
       <code>is_string($ulClass)</code>
     </RedundantConditionGivenDocblockType>
+    <TypeDoesNotContainNull occurrences="2">
+      <code>null === $container</code>
+      <code>null === $container</code>
+    </TypeDoesNotContainNull>
     <UndefinedInterfaceMethod occurrences="4">
       <code>plugin</code>
       <code>plugin</code>
@@ -2121,9 +2111,6 @@
       <code>ViewEvent</code>
       <code>ViewEvent</code>
     </ImplementedReturnTypeMismatch>
-    <LessSpecificReturnStatement occurrences="1">
-      <code>$params</code>
-    </LessSpecificReturnStatement>
     <MixedArgument occurrences="4">
       <code>$value</code>
       <code>$value</code>
@@ -2137,26 +2124,8 @@
       <code>$name</code>
       <code>$name</code>
     </MoreSpecificImplementedParamType>
-    <MoreSpecificReturnType occurrences="1">
-      <code>array|ArrayAccess</code>
-    </MoreSpecificReturnType>
-    <PossiblyInvalidArrayAssignment occurrences="5">
-      <code>$params['model']</code>
-      <code>$params['renderer']</code>
-      <code>$params['request']</code>
-      <code>$params['response']</code>
-      <code>$params['result']</code>
-    </PossiblyInvalidArrayAssignment>
-    <PropertyNotSetInConstructor occurrences="2">
-      <code>ViewEvent</code>
-      <code>ViewEvent</code>
-    </PropertyNotSetInConstructor>
   </file>
   <file src="test/Helper/CycleTest.php">
-    <InvalidArrayOffset occurrences="2">
-      <code>$expected2[$i]</code>
-      <code>$expected[$i]</code>
-    </InvalidArrayOffset>
     <RedundantCastGivenDocblockType occurrences="1">
       <code>(string) $this-&gt;helper-&gt;toString()</code>
     </RedundantCastGivenDocblockType>
@@ -2247,7 +2216,6 @@
       <code>new FlashMessenger()</code>
       <code>new FlashMessenger()</code>
     </DeprecatedClass>
-    <InvalidArgument occurrences="1"/>
     <MixedAssignment occurrences="12">
       <code>$displayInfo</code>
       <code>$displayInfo</code>
@@ -2886,9 +2854,6 @@
       <code>$code</code>
     </UnusedClosureParam>
   </file>
-  <file src="test/Helper/Navigation/PluginManagerCompatibilityTest.php">
-    <InvalidArgument occurrences="1"/>
-  </file>
   <file src="test/Helper/Navigation/SitemapTest.php">
     <MixedArgument occurrences="2">
       <code>$acl['acl']</code>
@@ -2913,8 +2878,9 @@
     </UnevaluatedCode>
   </file>
   <file src="test/Helper/PaginationControlTest.php">
-    <InvalidArgument occurrences="2">
+    <InvalidArgument occurrences="3">
       <code>$all</code>
+      <code>$paginator</code>
       <code>['partial.phtml', 'test']</code>
     </InvalidArgument>
     <NullArgument occurrences="1">
@@ -3229,15 +3195,16 @@
     <DeprecatedClass occurrences="1">
       <code>Wildcard::class</code>
     </DeprecatedClass>
-    <InvalidArgument occurrences="4">
+    <InvalidArgument occurrences="6">
       <code>$it</code>
+      <code>$router</code>
+      <code>$router</code>
       <code>'invalid params'</code>
       <code>true</code>
       <code>true</code>
     </InvalidArgument>
   </file>
   <file src="test/HelperPluginManagerCompatibilityTest.php">
-    <InvalidArgument occurrences="1"/>
     <MixedArgument occurrences="2">
       <code>$target</code>
       <code>$target</code>
@@ -3252,7 +3219,6 @@
     </MixedInferredReturnType>
   </file>
   <file src="test/HelperPluginManagerTest.php">
-    <InvalidArgument occurrences="2"/>
     <MissingClosureParamType occurrences="2">
       <code>$container</code>
       <code>$container</code>
@@ -3280,7 +3246,6 @@
     </PossiblyInvalidArrayAccess>
   </file>
   <file src="test/PhpRendererTest.php">
-    <InvalidArgument occurrences="4"/>
     <MixedArgument occurrences="1">
       <code>$content</code>
     </MixedArgument>
@@ -3398,6 +3363,12 @@
     </UnusedMethodCall>
   </file>
   <file src="test/Strategy/PhpRendererStrategyTest.php">
+    <InvalidArgument occurrences="4">
+      <code>$e</code>
+      <code>$event</code>
+      <code>$event</code>
+      <code>$event</code>
+    </InvalidArgument>
     <MixedAssignment occurrences="7">
       <code>$content</code>
       <code>$content</code>
