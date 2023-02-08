@@ -124,7 +124,7 @@ class BreadcrumbsTest extends AbstractTest
         $this->_helper->setMinDepth(0);
 
         $rendered1 = $this->getExpectedFileContents('bc/default.html');
-        $rendered2 = 'Site 2';
+        $rendered2 = '<span aria-current="page">Site 2</span>';
 
         $expected = [
             'registered'       => $rendered1,
@@ -249,7 +249,7 @@ class BreadcrumbsTest extends AbstractTest
             ],
         ]);
 
-        $expected = 'Live &amp; Learn';
+        $expected = '<span aria-current="page">Live &amp; Learn</span>';
         $actual   = $this->_helper->setMinDepth(0)->render($container);
 
         $this->assertEquals($expected, $actual);
