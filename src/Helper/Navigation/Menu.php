@@ -507,6 +507,10 @@ class Menu extends AbstractHelper
             $element = 'span';
         }
 
+        if ($page->isActive()) {
+            $attribs['aria-current'] = 'page';
+        }
+
         $html  = '<' . $element . $this->htmlAttribs($attribs) . '>';
         $label = $this->translate($page->getLabel(), $page->getTextDomain());
 
