@@ -55,7 +55,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     /**
      * AbstractContainer to operate on by default
      *
-     * @var AbstractContainer
+     * @var AbstractContainer|null
      */
     protected $container;
 
@@ -188,6 +188,10 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     public function findActive($container, $minDepth = null, $maxDepth = -1)
     {
         $this->parseContainer($container);
+        if (null === $container) {
+            return [];
+        }
+
         if (! is_int($minDepth)) {
             $minDepth = $this->getMinDepth();
         }
@@ -244,7 +248,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      *
      * @param AbstractContainer|string|null $container
      * @return void
-     * @param-out AbstractContainer $container
+     * @param-out AbstractContainer|null $container
      * @throws Exception\InvalidArgumentException
      */
     protected function parseContainer(&$container = null)
