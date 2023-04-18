@@ -7,15 +7,12 @@ namespace Laminas\View\Resolver;
 use Laminas\Stdlib\SplStack;
 use Laminas\View\Exception;
 use Laminas\View\Renderer\RendererInterface as Renderer;
-use Laminas\View\Stream;
 use SplFileInfo;
 use Traversable;
 
 use function count;
 use function file_exists;
 use function gettype;
-use function in_array;
-use function ini_get;
 use function is_array;
 use function is_object;
 use function is_string;
@@ -24,8 +21,6 @@ use function pathinfo;
 use function preg_match;
 use function rtrim;
 use function sprintf;
-use function stream_get_wrappers;
-use function stream_wrapper_register;
 use function strpos;
 use function strtolower;
 
@@ -68,15 +63,6 @@ class TemplatePathStack implements ResolverInterface
      */
     protected $lfiProtectionOn = true;
 
-    /**@+
-     * Flags used to determine if a stream wrapper should be used for enabling short tags
-     */
-
-    /** @var bool */
-    protected $useViewStream = false;
-    /** @var bool */
-    protected $useStreamWrapper = false;
-
     /**@-*/
 
     /**
@@ -86,14 +72,6 @@ class TemplatePathStack implements ResolverInterface
      */
     public function __construct($options = null)
     {
-        $this->useViewStream = (bool) ini_get('short_open_tag');
-        if ($this->useViewStream) {
-            if (! in_array('laminas.view', stream_get_wrappers())) {
-                /** @psalm-suppress DeprecatedClass */
-                stream_wrapper_register('laminas.view', Stream::class);
-            }
-        }
-
         /** @psalm-var PathStack $paths */
         $paths       = new SplStack();
         $this->paths = $paths;
@@ -126,10 +104,6 @@ class TemplatePathStack implements ResolverInterface
                     break;
                 case 'script_paths':
                     $this->addPaths($value);
-                    break;
-                case 'use_stream_wrapper':
-                    /** @psalm-suppress DeprecatedMethod */
-                    $this->setUseStreamWrapper($value);
                     break;
                 case 'default_suffix':
                     $this->setDefaultSuffix($value);
@@ -283,35 +257,6 @@ class TemplatePathStack implements ResolverInterface
     }
 
     /**
-     * Set flag indicating if stream wrapper should be used if short_open_tag is off
-     *
-     * @deprecated will be removed in version 3
-     *
-     * @param  bool $flag
-     * @return TemplatePathStack
-     */
-    public function setUseStreamWrapper($flag)
-    {
-        $this->useStreamWrapper = (bool) $flag;
-        return $this;
-    }
-
-    /**
-     * Should the stream wrapper be used if short_open_tag is off?
-     *
-     * Returns true if the use_stream_wrapper flag is set, and if short_open_tag
-     * is disabled.
-     *
-     * @deprecated will be removed in version 3
-     *
-     * @return bool
-     */
-    public function useStreamWrapper()
-    {
-        return $this->useViewStream && $this->useStreamWrapper;
-    }
-
-    /**
      * Retrieve the filesystem path to a view script
      *
      * @param  string $name
@@ -350,11 +295,7 @@ class TemplatePathStack implements ResolverInterface
                         break;
                     }
                 }
-                /** @psalm-suppress DeprecatedMethod */
-                if ($this->useStreamWrapper()) {
-                    // If using a stream wrapper, prepend the spec to the path
-                    $filePath = 'laminas.view://' . $filePath;
-                }
+
                 return $filePath;
             }
         }
