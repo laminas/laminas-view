@@ -411,6 +411,10 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
             'target' => $page->getTarget(),
         ];
 
+        if ($page->isActive()) {
+            $attribs['aria-current'] = 'page';
+        }
+
         /** @var View\Helper\EscapeHtml $escaper */
         $escaper = $this->view->plugin('escapeHtml');
         $label   = $escaper($label);
