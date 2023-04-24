@@ -321,7 +321,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
 
         if (! $page->isVisible(false) && ! $this->getRenderInvisible()) {
             $accept = false;
-        } elseif ($this->hasAcl()) {
+        } elseif ($this->hasAcl() && $this->getUseAcl()) {
             $acl    = $this->getAcl();
             $role   = $this->getRole();
             $params = ['acl' => $acl, 'page' => $page, 'role' => $role];
