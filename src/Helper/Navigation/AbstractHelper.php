@@ -304,7 +304,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
      * Rules:
      * - If a page is not visible it is not accepted, unless RenderInvisible has
      *   been set to true
-     * - If Acl instance has been set hasAcl() returns true and isAllowed() is called
+     * - If Acl instance has been set and $this->useAcl has not been set to false call isAllowed()
      * - If page is accepted and $recursive is true, the page
      *   will not be accepted if it is the descendant of a non-accepted page
      *
