@@ -40,11 +40,11 @@
         "laminas/laminas-authentication": "^2.13",
         "laminas/laminas-coding-standard": "~2.5.0",
         "laminas/laminas-feed": "^2.20",
-        "laminas/laminas-filter": "^2.31",
+        "laminas/laminas-filter": "^2.32",
         "laminas/laminas-http": "^2.18",
-        "laminas/laminas-i18n": "^2.21",
+        "laminas/laminas-i18n": "^2.23",
         "laminas/laminas-modulemanager": "^2.14",
-        "laminas/laminas-mvc": "^3.6",
+        "laminas/laminas-mvc": "^3.6.1",
         "laminas/laminas-mvc-i18n": "^1.7",
         "laminas/laminas-mvc-plugin-flashmessenger": "^1.9",
         "laminas/laminas-navigation": "^2.18.1",
@@ -52,9 +52,9 @@
         "laminas/laminas-permissions-acl": "^2.14",
         "laminas/laminas-router": "^3.11.1",
         "laminas/laminas-uri": "^2.10",
-        "phpunit/phpunit": "^9.6.3",
+        "phpunit/phpunit": "^9.6.8",
         "psalm/plugin-phpunit": "^0.18.4",
-        "vimeo/psalm": "^5.7.1"
+        "vimeo/psalm": "^5.12"
     },
     "conflict": {
         "container-interop/container-interop": "<1.2",
