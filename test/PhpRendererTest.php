@@ -466,8 +466,7 @@ class PhpRendererTest extends TestCase
         $this->assertStringContainsString('Empty view', $result);
         $rendererReflection = new ReflectionObject($this->renderer);
         $method             = $rendererReflection->getProperty('__filterChain');
-        $method->setAccessible(true);
-        $filterChain = $method->getValue($this->renderer);
+        $filterChain        = $method->getValue($this->renderer);
 
         $this->assertEmpty($filterChain);
     }

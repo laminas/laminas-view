@@ -23,7 +23,7 @@ class HelperPluginManagerCompatibilityTest extends TestCase
 {
     use CommonPluginManagerTrait;
 
-    protected function getPluginManager(): HelperPluginManager
+    protected static function getPluginManager(): HelperPluginManager
     {
         $factories = [];
 
@@ -59,8 +59,7 @@ class HelperPluginManagerCompatibilityTest extends TestCase
     {
         $pluginManager = $this->getPluginManager();
         $r             = new ReflectionProperty($pluginManager, 'aliases');
-        $r->setAccessible(true);
-        $aliases = $r->getValue($pluginManager);
+        $aliases       = $r->getValue($pluginManager);
 
         foreach ($aliases as $alias => $target) {
             // Skipping conditionally since it depends on laminas-mvc

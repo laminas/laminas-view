@@ -577,9 +577,8 @@ class NavigationTest extends AbstractTest
         $plugins = $helper->getPluginManager();
         $this->assertInstanceOf(Navigation\PluginManager::class, $plugins);
 
-        $pluginsReflection = new ReflectionObject($plugins);
-        $creationContext   = $pluginsReflection->getProperty('creationContext');
-        $creationContext->setAccessible(true);
+        $pluginsReflection    = new ReflectionObject($plugins);
+        $creationContext      = $pluginsReflection->getProperty('creationContext');
         $creationContextValue = $creationContext->getValue($plugins);
 
         /** Later versions of AbstractPluginManager Decorate Psr Containers */
