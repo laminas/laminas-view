@@ -49,12 +49,12 @@
         "laminas/laminas-mvc-plugin-flashmessenger": "^1.9",
         "laminas/laminas-navigation": "^2.18.1",
         "laminas/laminas-paginator": "^2.17",
-        "laminas/laminas-permissions-acl": "^2.13",
+        "laminas/laminas-permissions-acl": "^2.14",
         "laminas/laminas-router": "^3.11.1",
         "laminas/laminas-uri": "^2.10",
-        "phpunit/phpunit": "^9.5.28",
+        "phpunit/phpunit": "^9.6.3",
         "psalm/plugin-phpunit": "^0.18.4",
-        "vimeo/psalm": "^5.4"
+        "vimeo/psalm": "^5.7.1"
     },
     "conflict": {
         "container-interop/container-interop": "<1.2",
