@@ -52,7 +52,7 @@
         "laminas/laminas-permissions-acl": "^2.14",
         "laminas/laminas-router": "^3.11.1",
         "laminas/laminas-uri": "^2.10",
-        "phpunit/phpunit": "^9.6.8",
+        "phpunit/phpunit": "^10.0.0",
         "psalm/plugin-phpunit": "^0.18.4",
         "vimeo/psalm": "^5.12"
     },
