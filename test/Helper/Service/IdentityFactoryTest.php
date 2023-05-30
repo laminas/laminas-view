@@ -4,65 +4,89 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper\Service;
 
+use Interop\Container\ContainerInterface; // phpcs:ignore
 use Laminas\Authentication\AuthenticationService;
 use Laminas\Authentication\AuthenticationServiceInterface;
-use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Helper\Identity;
 use Laminas\View\Helper\Service\IdentityFactory;
-use LaminasTest\View\Helper\TestAsset\AuthenticationServiceStub;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class IdentityFactoryTest extends TestCase
 {
-    public function testThatAHelperCanBeCreatedWhenThereAreNoAuthenticationServicesFound(): void
+    /** @var MockObject&ContainerInterface */
+    private ContainerInterface $services;
+
+    protected function setUp(): void
     {
-        $container = $this->createMock(ServiceManager::class);
-        $container->expects(self::exactly(4))
+        $this->services = $this->createMock(ContainerInterface::class);
+    }
+
+    public function testFactoryReturnsEmptyIdentityIfNoAuthenticationServicePresent(): void
+    {
+        $this->services->expects(self::exactly(2))
             ->method('has')
+            ->withConsecutive(
+                [AuthenticationService::class],
+                [AuthenticationServiceInterface::class]
+            )->willReturn(false);
+
+        $factory = new IdentityFactory();
+
+        $plugin = $factory($this->services);
+
+        $this->assertInstanceOf(Identity::class, $plugin);
+        $this->expectException(RuntimeException::class);
+        $plugin();
+    }
+
+    public function testFactoryReturnsIdentityWithConfiguredAuthenticationServiceWhenPresent(): void
+    {
+        $authService = $this->createMock(AuthenticationServiceInterface::class);
+        $authService->expects(self::once())
+            ->method('hasIdentity')
             ->willReturn(false);
 
-        $container->expects(self::never())->method('get');
-
-        $factory = new IdentityFactory();
-        $helper  = $factory($container, null);
-        self::assertInstanceOf(Identity::class, $helper);
-    }
-
-    /** @return array<array-key, array{0: string|class-string}> */
-    public function serviceNameProvider(): array
-    {
-        // phpcs:disable WebimpressCodingStandard.Formatting.StringClassReference
-        return [
-            [AuthenticationService::class],
-            [AuthenticationServiceInterface::class],
-            ['Zend\Authentication\AuthenticationService'],
-            ['Zend\Authentication\AuthenticationServiceInterface'],
-        ];
-        // phpcs:enable
-    }
-
-    private function authService(?string $id): AuthenticationServiceStub
-    {
-        return new AuthenticationServiceStub($id);
-    }
-
-    /** @dataProvider serviceNameProvider */
-    public function testThatAFoundAuthenticationServiceWillBeUsed(string $serviceId): void
-    {
-        $service = $this->authService('james bond');
-
-        $container = $this->createMock(ServiceManager::class);
-        $container->expects(self::atLeast(1))
+        $this->services->expects(self::once())
             ->method('has')
-            ->willReturnCallback(static fn (string $argument): bool => $argument === $serviceId);
+            ->with(AuthenticationService::class)
+            ->willReturn(true);
 
-        $container->expects(self::once())
+        $this->services->expects(self::once())
             ->method('get')
-            ->with($serviceId)
-            ->willReturn($service);
+            ->with(AuthenticationService::class)
+            ->willReturn($authService);
 
         $factory = new IdentityFactory();
-        $helper  = $factory($container, null);
-        self::assertEquals('james bond', $helper());
+
+        $plugin = $factory($this->services);
+
+        $this->assertInstanceOf(Identity::class, $plugin);
+        $this->assertNull($plugin());
+    }
+
+    public function testFactoryReturnsIdentityWithConfiguredAuthenticationServiceInterfaceWhenPresent(): void
+    {
+        $authService = $this->createMock(AuthenticationServiceInterface::class);
+        $authService->expects(self::once())
+            ->method('hasIdentity')
+            ->willReturn(false);
+
+        $this->services->expects(self::exactly(2))
+            ->method('has')
+            ->willReturnOnConsecutiveCalls(false, true);
+
+        $this->services->expects(self::once())
+            ->method('get')
+            ->with(AuthenticationServiceInterface::class)
+            ->willReturn($authService);
+
+        $factory = new IdentityFactory();
+
+        $plugin = $factory($this->services);
+
+        $this->assertInstanceOf(Identity::class, $plugin);
+        $this->assertNull($plugin());
     }
 }
