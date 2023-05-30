@@ -197,9 +197,8 @@ class UrlTest extends TestCase
         $url    = new UrlHelper();
         $url->setRouter($router);
 
-        $urlReflection  = new ReflectionObject($url);
-        $routerProperty = $urlReflection->getProperty('router');
-        $routerProperty->setAccessible(true);
+        $urlReflection       = new ReflectionObject($url);
+        $routerProperty      = $urlReflection->getProperty('router');
         $routerPropertyValue = $routerProperty->getValue($url);
 
         $this->assertSame($router, $routerPropertyValue);
@@ -211,9 +210,8 @@ class UrlTest extends TestCase
         $url        = new UrlHelper();
         $url->setRouteMatch($routeMatch);
 
-        $routeMatchReflection = new ReflectionObject($url);
-        $routeMatchProperty   = $routeMatchReflection->getProperty('routeMatch');
-        $routeMatchProperty->setAccessible(true);
+        $routeMatchReflection    = new ReflectionObject($url);
+        $routeMatchProperty      = $routeMatchReflection->getProperty('routeMatch');
         $routeMatchPropertyValue = $routeMatchProperty->getValue($url);
 
         $this->assertSame($routeMatch, $routeMatchPropertyValue);
