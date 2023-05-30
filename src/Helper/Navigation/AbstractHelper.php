@@ -9,6 +9,7 @@ use Laminas\EventManager\EventManager;
 use Laminas\EventManager\EventManagerAwareInterface;
 use Laminas\EventManager\EventManagerInterface;
 use Laminas\EventManager\SharedEventManager;
+use Laminas\I18n\Translator\TranslatorInterface;
 use Laminas\Navigation;
 use Laminas\Navigation\AbstractContainer;
 use Laminas\Navigation\Page\AbstractPage;
@@ -21,6 +22,7 @@ use Laminas\View\Helper\TranslatorAwareTrait;
 use RecursiveIteratorIterator;
 use ReflectionClass;
 
+use function assert;
 use function call_user_func_array;
 use function gettype;
 use function in_array;
@@ -440,6 +442,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
         }
 
         $translator = $this->getTranslator();
+        assert($translator instanceof TranslatorInterface);
         $textDomain = $textDomain ?: $this->getTranslatorTextDomain();
 
         return $translator->translate($message, $textDomain);

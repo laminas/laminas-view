@@ -364,9 +364,9 @@ class ViewModelTest extends TestCase
 
     /**
      * @psalm-return array<array-key, array{
-     *     0: array<string, null|string>|ArrayObject<string, null|string>,
+     *     0: array<string, null|string>|ArrayObject<string, null|string>|ArrayObject,
      *     1: null|string,
-     *     2: null|string
+     *     2: null|string,
      * }>
      */
     public function variableValue(): array
