@@ -798,11 +798,14 @@
     </MixedAssignment>
     <MixedInferredReturnType>
       <code>bool</code>
+      <code>string</code>
     </MixedInferredReturnType>
     <MixedOperand>
       <code>$label</code>
     </MixedOperand>
     <MixedReturnStatement>
+      <code>$message</code>
+      <code>$message</code>
       <code><![CDATA[$results->last()]]></code>
     </MixedReturnStatement>
     <ParamNameMismatch>

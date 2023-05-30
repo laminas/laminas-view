@@ -434,7 +434,7 @@ abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     protected function translate($message, $textDomain = null)
     {
         if (! is_string($message) || empty($message)) {
-            return '';
+            return $message;
         }
 
         if (! $this->isTranslatorEnabled() || ! $this->hasTranslator()) {
