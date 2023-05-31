@@ -32,7 +32,10 @@ use Throwable;
 use function assert;
 use function realpath;
 use function restore_error_handler;
+use function set_error_handler;
 use function str_replace;
+
+use const E_WARNING;
 
 class PhpRendererTest extends TestCase
 {
@@ -330,19 +333,16 @@ class PhpRendererTest extends TestCase
     public function testRendererRaisesExceptionInCaseOfExceptionInView(): void
     {
         $resolver = new TemplateMapResolver([
-            'exception' => __DIR__ . '../../Mvc/View/_files/exception.phtml',
+            'exception' => __DIR__ . '/_templates/exception.phtml',
         ]);
         $this->renderer->setResolver($resolver);
 
         $model = new ViewModel();
         $model->setTemplate('exception');
 
-        try {
-            $this->renderer->render($model);
-            $this->fail('Exception from renderer should propagate');
-        } catch (Throwable $e) {
-            $this->assertInstanceOf(Exception::class, $e);
-        }
+        $this->expectException(DomainException::class);
+        $this->expectExceptionMessage('I was thrown in the view');
+        $this->renderer->render($model);
     }
 
     public function testRendererRaisesExceptionIfResolverCannotResolveTemplate(): void
