@@ -2331,7 +2331,6 @@
       <code>$item</code>
       <code>$item</code>
       <code>$item</code>
-      <code>$item</code>
     </MixedArgument>
     <MixedArrayOffset>
       <code>$order[$key]</code>
@@ -2403,13 +2402,7 @@
       <code><![CDATA[$attributeEscaper('some content')]]></code>
       <code><![CDATA[$attributeEscaper('some content')]]></code>
       <code>$modifiers</code>
-      <code>$modifiers</code>
       <code>$value</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
       <code>$values</code>
       <code>$values</code>
       <code>$values</code>
@@ -2418,14 +2411,8 @@
     <MixedAssignment>
       <code>$item</code>
       <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
       <code>$modifiers</code>
       <code>$value</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
       <code>$values</code>
       <code>$values</code>
     </MixedAssignment>
@@ -2436,20 +2423,12 @@
     <MixedPropertyFetch>
       <code><![CDATA[$item->content]]></code>
       <code><![CDATA[$item->content]]></code>
-      <code><![CDATA[$item->content]]></code>
-      <code><![CDATA[$item->content]]></code>
-      <code><![CDATA[$item->content]]></code>
       <code><![CDATA[$item->name]]></code>
       <code><![CDATA[$item->name]]></code>
-      <code><![CDATA[$item->type]]></code>
-      <code><![CDATA[$item->type]]></code>
-      <code><![CDATA[$item->type]]></code>
       <code><![CDATA[$item->type]]></code>
       <code><![CDATA[$item->type]]></code>
     </MixedPropertyFetch>
     <UndefinedMagicMethod>
-      <code>getArrayCopy</code>
-      <code>getArrayCopy</code>
       <code>getArrayCopy</code>
       <code>getArrayCopy</code>
       <code>getArrayCopy</code>
@@ -2475,11 +2454,6 @@
       <code><![CDATA[$item->source]]></code>
       <code>$values</code>
       <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
     </MixedArgument>
     <MixedArrayAccess>
       <code>$items[$i]</code>
@@ -2489,21 +2463,11 @@
       <code>$item</code>
       <code>$items</code>
       <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
     </MixedAssignment>
     <MixedPropertyFetch>
       <code><![CDATA[$item->source]]></code>
-      <code><![CDATA[$item->source]]></code>
-      <code><![CDATA[$item->source]]></code>
     </MixedPropertyFetch>
     <UndefinedMagicMethod>
-      <code>getArrayCopy</code>
-      <code>getArrayCopy</code>
-      <code>getArrayCopy</code>
-      <code>getArrayCopy</code>
       <code>getArrayCopy</code>
       <code>getArrayCopy</code>
       <code>setIndent</code>
@@ -2535,7 +2499,6 @@
       <code>$values</code>
       <code>$values</code>
       <code>$values</code>
-      <code>$values</code>
     </MixedAssignment>
     <MixedPropertyFetch>
       <code><![CDATA[$item->content]]></code>
@@ -2543,7 +2506,6 @@
     </MixedPropertyFetch>
     <UndefinedMagicMethod>
       <code>bogusMethod</code>
-      <code>getArrayCopy</code>
       <code>getArrayCopy</code>
       <code>getArrayCopy</code>
       <code>getArrayCopy</code>
@@ -2593,6 +2555,11 @@
     <RedundantConditionGivenDocblockType>
       <code><![CDATA[$this->_helper]]></code>
     </RedundantConditionGivenDocblockType>
+  </file>
+  <file src="test/Helper/Navigation/AbstractTestCase.php">
+    <DeprecatedClass>
+      <code><![CDATA[new Config((new RouterConfigProvider())->getDependencyConfig())]]></code>
+    </DeprecatedClass>
   </file>
   <file src="test/Helper/Navigation/BreadcrumbsTest.php">
     <InvalidArgument>
@@ -2872,8 +2839,6 @@
       <code>$o</code>
       <code>$o</code>
       <code>$o</code>
-      <code>$o</code>
-      <code>$o</code>
       <code>$rIterator</code>
       <code>$rIterator</code>
       <code>$rIterator</code>
@@ -2888,7 +2853,6 @@
       <code>$value</code>
     </MixedArgument>
     <MixedAssignment>
-      <code>$key</code>
       <code>$key</code>
       <code>$key</code>
       <code>$key</code>
@@ -3004,7 +2968,6 @@
       <code><![CDATA[$item->message]]></code>
     </UndefinedPropertyFetch>
     <UnusedVariable>
-      <code>$key</code>
       <code>$key</code>
       <code>$key</code>
       <code>$key</code>
