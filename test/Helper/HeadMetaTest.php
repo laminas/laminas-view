@@ -99,14 +99,16 @@ class HeadMetaTest extends TestCase
         for ($i = 0; $i < 3; ++$i) {
             $string .= ' foo';
             $this->helper->$action('keywords', $string);
-            $values = $this->helper->getArrayCopy();
-            $this->assertEquals($i + 1, count($values));
+            $values = $this->helper->getContainer()->getArrayCopy();
+            $this->assertCount($i + 1, $values);
 
             $item = $values[$i];
-            $this->assertObjectHasAttribute('type', $item);
-            $this->assertObjectHasAttribute('modifiers', $item);
-            $this->assertObjectHasAttribute('content', $item);
-            $this->assertObjectHasAttribute($item->type, $item);
+            self::assertIsObject($item);
+            $this->assertObjectHasProperty('type', $item);
+            $this->assertObjectHasProperty('modifiers', $item);
+            $this->assertObjectHasProperty('content', $item);
+            self::assertIsString($item->type);
+            $this->assertObjectHasProperty($item->type, $item);
             $this->assertEquals('keywords', $item->{$item->type});
             $this->assertEquals($string, $item->content);
         }
@@ -119,14 +121,15 @@ class HeadMetaTest extends TestCase
         for ($i = 0; $i < 3; ++$i) {
             $string .= ' foo';
             $this->helper->$action('keywords', $string);
-            $values = $this->helper->getArrayCopy();
-            $this->assertEquals($i + 1, count($values));
+            $values = $this->helper->getContainer()->getArrayCopy();
+            self::assertCount($i + 1, $values);
             $item = array_shift($values);
-
-            $this->assertObjectHasAttribute('type', $item);
-            $this->assertObjectHasAttribute('modifiers', $item);
-            $this->assertObjectHasAttribute('content', $item);
-            $this->assertObjectHasAttribute($item->type, $item);
+            self::assertIsObject($item);
+            $this->assertObjectHasProperty('type', $item);
+            $this->assertObjectHasProperty('modifiers', $item);
+            $this->assertObjectHasProperty('content', $item);
+            self::assertIsString($item->type);
+            $this->assertObjectHasProperty($item->type, $item);
             $this->assertEquals('keywords', $item->{$item->type});
             $this->assertEquals($string, $item->content);
         }
@@ -142,14 +145,18 @@ class HeadMetaTest extends TestCase
             $string .= ' foo';
         }
         $this->helper->$setAction('keywords', $string);
+
         $values = $this->helper->getArrayCopy();
+        self::assertIsArray($values);
         $this->assertCount(1, $values);
         $item = array_shift($values);
+        self::assertIsObject($item);
 
-        $this->assertObjectHasAttribute('type', $item);
-        $this->assertObjectHasAttribute('modifiers', $item);
-        $this->assertObjectHasAttribute('content', $item);
-        $this->assertObjectHasAttribute($item->type, $item);
+        $this->assertObjectHasProperty('type', $item);
+        $this->assertObjectHasProperty('modifiers', $item);
+        $this->assertObjectHasProperty('content', $item);
+        self::assertIsString($item->type);
+        $this->assertObjectHasProperty($item->type, $item);
         $this->assertEquals('keywords', $item->{$item->type});
         $this->assertEquals($string, $item->content);
     }
@@ -203,7 +210,7 @@ class HeadMetaTest extends TestCase
         $this->helper->setName('keywords', 'foo bar', ['lang' => 'us_en', 'scheme' => 'foo', 'bogus' => 'unused']);
         $value = $this->helper->getValue();
 
-        $this->assertObjectHasAttribute('modifiers', $value);
+        $this->assertObjectHasProperty('modifiers', $value);
         $modifiers = $value->modifiers;
         $this->assertArrayHasKey('lang', $modifiers);
         $this->assertEquals('us_en', $modifiers['lang']);

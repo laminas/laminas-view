@@ -8,12 +8,12 @@ use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Exception;
 use Laminas\View\Helper\Asset;
 use Laminas\View\HelperPluginManager;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class AssetTest extends TestCase
 {
-    /** @var array<non-empty-string, non-empty-string> */
-    protected $resourceMap = [
+    private const RESOURCE_MAP = [
         'css/style.css' => 'css/style-3a97ff4ee3.css',
         'js/vendor.js'  => 'js/vendor-a507086eba.js',
     ];
@@ -24,7 +24,7 @@ class AssetTest extends TestCase
     {
         parent::setUp();
 
-        $this->asset = new Asset($this->resourceMap);
+        $this->asset = new Asset(self::RESOURCE_MAP);
     }
 
     public function testHelperPluginManagerReturnsAssetHelper(): void
@@ -51,10 +51,8 @@ class AssetTest extends TestCase
         $this->asset->__invoke('unknown');
     }
 
-    /**
-     * @dataProvider assets
-     * @param non-empty-string $name
-     */
+    /** @param non-empty-string $name */
+    #[DataProvider('assets')]
     public function testInvokeResult(string $name, string $expected): void
     {
         $result = $this->asset->__invoke($name);
@@ -65,10 +63,10 @@ class AssetTest extends TestCase
     /**
      * @return array<array-key, array{0: non-empty-string, 1: non-empty-string}>
      */
-    public function assets(): array
+    public static function assets(): array
     {
         $data = [];
-        foreach ($this->resourceMap as $key => $value) {
+        foreach (self::RESOURCE_MAP as $key => $value) {
             $data[] = [$key, $value];
         }
         return $data;

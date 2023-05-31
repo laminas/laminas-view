@@ -7,6 +7,7 @@ namespace LaminasTest\View\Helper;
 use Laminas\Escaper\Escaper;
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\EscapeHtml as EscapeHelper;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -162,10 +163,8 @@ class EscapeHtmlTest extends TestCase
         $this->helper->getEscaper();
     }
 
-    /**
-     * @dataProvider supportedEncodingsProvider
-     * @param non-empty-string $encoding
-     */
+    /** @param non-empty-string $encoding */
+    #[DataProvider('supportedEncodingsProvider')]
     public function testSettingValidEncodingShouldNotThrowExceptions(string $encoding): void
     {
         $this->helper->setEncoding($encoding);

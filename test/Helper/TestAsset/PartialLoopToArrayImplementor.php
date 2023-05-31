@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper\TestAsset;
 
-class ToArrayTest
+class PartialLoopToArrayImplementor
 {
     private array $data;
 

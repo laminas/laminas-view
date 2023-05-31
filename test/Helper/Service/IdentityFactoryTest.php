@@ -10,6 +10,7 @@ use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Helper\Identity;
 use Laminas\View\Helper\Service\IdentityFactory;
 use LaminasTest\View\Helper\TestAsset\AuthenticationServiceStub;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class IdentityFactoryTest extends TestCase
@@ -29,7 +30,7 @@ class IdentityFactoryTest extends TestCase
     }
 
     /** @return array<array-key, array{0: string|class-string}> */
-    public function serviceNameProvider(): array
+    public static function serviceNameProvider(): array
     {
         // phpcs:disable WebimpressCodingStandard.Formatting.StringClassReference
         return [
@@ -46,7 +47,7 @@ class IdentityFactoryTest extends TestCase
         return new AuthenticationServiceStub($id);
     }
 
-    /** @dataProvider serviceNameProvider */
+    #[DataProvider('serviceNameProvider')]
     public function testThatAFoundAuthenticationServiceWillBeUsed(string $serviceId): void
     {
         $service = $this->authService('james bond');

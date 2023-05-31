@@ -11,8 +11,12 @@ use PHPUnit\Framework\TestCase;
 use ReflectionMethod;
 
 use function method_exists;
+use function restore_error_handler;
+use function set_error_handler;
 use function strtoupper;
 use function urlencode;
+
+use const E_USER_DEPRECATED;
 
 /** @psalm-suppress DeprecatedClass */
 class GravatarTest extends TestCase
@@ -274,9 +278,17 @@ class GravatarTest extends TestCase
 
     public function testSetAttribsIsDeprecated(): void
     {
-        $this->expectDeprecation();
-
-        $this->helper->setAttribs([]);
+        set_error_handler(function ($code, $error) {
+            throw new Exception\RuntimeException($error, $code);
+        }, E_USER_DEPRECATED);
+        try {
+            $this->helper->setAttribs([]);
+            $this->fail('An exception was not thrown');
+        } catch (Exception\RuntimeException $e) {
+            self::assertStringContainsString('setAttribs is deprecated', $e->getMessage());
+        } finally {
+            restore_error_handler();
+        }
     }
 
     public function testSetAttribsDocCommentHasDeprecated(): void
@@ -289,9 +301,17 @@ class GravatarTest extends TestCase
 
     public function testGetAttribsIsDeprecated(): void
     {
-        $this->expectDeprecation();
-
-        $this->helper->getAttribs();
+        set_error_handler(function ($code, $error) {
+            throw new Exception\RuntimeException($error, $code);
+        }, E_USER_DEPRECATED);
+        try {
+            $this->helper->getAttribs();
+            $this->fail('An exception was not thrown');
+        } catch (Exception\RuntimeException $e) {
+            self::assertStringContainsString('getAttribs is deprecated', $e->getMessage());
+        } finally {
+            restore_error_handler();
+        }
     }
 
     public function testGetAttribsDocCommentHasDeprecated(): void

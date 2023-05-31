@@ -7,8 +7,14 @@ namespace LaminasTest\View\Helper;
 use Laminas\Http\Header\HeaderInterface;
 use Laminas\Http\Response;
 use Laminas\Json\Json as JsonFormatter;
+use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Helper\Json as JsonHelper;
 use PHPUnit\Framework\TestCase;
+
+use function restore_error_handler;
+use function set_error_handler;
+
+use const E_USER_DEPRECATED;
 
 class JsonTest extends TestCase
 {
@@ -50,8 +56,17 @@ class JsonTest extends TestCase
 
     public function testThatADeprecationErrorIsTriggeredWhenExpressionFinderOptionIsUsed(): void
     {
-        $this->expectDeprecation();
-        $this->helper->__invoke(['foo'], ['enableJsonExprFinder' => true]);
+        set_error_handler(function ($code, $error) {
+            throw new RuntimeException($error, $code);
+        }, E_USER_DEPRECATED);
+        try {
+            $this->helper->__invoke(['foo'], ['enableJsonExprFinder' => true]);
+            $this->fail('An exception was not thrown');
+        } catch (RuntimeException $e) {
+            self::assertStringContainsString('Json Expression functionality is deprecated', $e->getMessage());
+        } finally {
+            restore_error_handler();
+        }
     }
 
     public function testThatADeprecationErrorIsNotTriggeredWhenExpressionFinderOptionIsNotUsed(): void

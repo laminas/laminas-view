@@ -14,11 +14,12 @@ use function reset;
 
 /**
  * @template T
+ * @implements Iterator<array-key, T>
  */
-class IteratorWithToArrayTest implements Iterator
+class PartialLoopIterator implements Iterator
 {
     /** @var array<array-key, T> */
-    public $items;
+    public array $items;
 
     /** @param array<array-key, T> $array */
     public function __construct(array $array)
@@ -26,14 +27,8 @@ class IteratorWithToArrayTest implements Iterator
         $this->items = $array;
     }
 
-    /** @return array<array-key, T> */
-    public function toArray(): array
-    {
-        return $this->items;
-    }
-
     /**
-     * @return T|false
+     * @return T|null
      */
     #[ReturnTypeWillChange]
     public function current()
@@ -66,5 +61,13 @@ class IteratorWithToArrayTest implements Iterator
     public function valid(): bool
     {
         return current($this->items) !== false;
+    }
+
+    /**
+     * @return array<array-key, T>
+     */
+    public function toArray(): array
+    {
+        return $this->items;
     }
 }

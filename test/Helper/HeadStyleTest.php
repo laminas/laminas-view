@@ -79,8 +79,8 @@ class HeadStyleTest extends TestCase
             $item = $values[$i];
 
             $this->assertInstanceOf(stdClass::class, $item);
-            $this->assertObjectHasAttribute('content', $item);
-            $this->assertObjectHasAttribute('attributes', $item);
+            $this->assertObjectHasProperty('content', $item);
+            $this->assertObjectHasProperty('attributes', $item);
             $this->assertEquals($string, $item->content);
         }
     }
@@ -96,8 +96,8 @@ class HeadStyleTest extends TestCase
             $item = array_shift($values);
 
             $this->assertInstanceOf(stdClass::class, $item);
-            $this->assertObjectHasAttribute('content', $item);
-            $this->assertObjectHasAttribute('attributes', $item);
+            $this->assertObjectHasProperty('content', $item);
+            $this->assertObjectHasProperty('attributes', $item);
             $this->assertEquals($string, $item->content);
         }
     }
@@ -115,8 +115,8 @@ class HeadStyleTest extends TestCase
         $item = array_shift($values);
 
         $this->assertInstanceOf(stdClass::class, $item);
-        $this->assertObjectHasAttribute('content', $item);
-        $this->assertObjectHasAttribute('attributes', $item);
+        $this->assertObjectHasProperty('content', $item);
+        $this->assertObjectHasProperty('attributes', $item);
         $this->assertEquals($string, $item->content);
     }
 
@@ -131,7 +131,7 @@ class HeadStyleTest extends TestCase
         ]);
         $value = $this->helper->getValue();
 
-        $this->assertObjectHasAttribute('attributes', $value);
+        $this->assertObjectHasProperty('attributes', $value);
         $attributes = $value->attributes;
 
         $this->assertTrue(isset($attributes['lang']));
@@ -183,11 +183,17 @@ class HeadStyleTest extends TestCase
         $this->helper->__invoke($style1, 'SET')
                      ->__invoke($style2, 'PREPEND')
                      ->__invoke($style3, 'APPEND');
-        $this->assertEquals(3, count($this->helper));
-        $values = $this->helper->getArrayCopy();
-        $this->assertStringContainsString($values[0]->content, $style2);
-        $this->assertStringContainsString($values[1]->content, $style1);
-        $this->assertStringContainsString($values[2]->content, $style3);
+        self::assertCount(3, $this->helper);
+        $values = $this->helper->getContainer()->getArrayCopy();
+        self::assertIsObject($values[0]);
+        self::assertIsObject($values[1]);
+        self::assertIsObject($values[2]);
+        self::assertIsString($values[0]->content);
+        self::assertIsString($values[1]->content);
+        self::assertIsString($values[2]->content);
+        self::assertStringContainsString($values[0]->content, $style2);
+        self::assertStringContainsString($values[1]->content, $style1);
+        self::assertStringContainsString($values[2]->content, $style3);
     }
 
     public function testToStyleGeneratesValidHtml(): void

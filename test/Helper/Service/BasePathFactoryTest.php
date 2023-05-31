@@ -8,6 +8,7 @@ use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Helper\BasePath;
 use Laminas\View\Helper\Service\BasePathFactory;
 use Laminas\View\HelperPluginManager;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class BasePathFactoryTest extends TestCase
@@ -21,7 +22,7 @@ class BasePathFactoryTest extends TestCase
     }
 
     /** @return array<string, array{0: array}> */
-    public function configDataProvider(): array
+    public static function configDataProvider(): array
     {
         return [
             'Empty Config'             => [[]],
@@ -31,7 +32,7 @@ class BasePathFactoryTest extends TestCase
         ];
     }
 
-    /** @dataProvider configDataProvider */
+    #[DataProvider('configDataProvider')]
     public function testFactoryWithVariousConfigurationSetups(array $config): void
     {
         $this->container->setService('config', $config);

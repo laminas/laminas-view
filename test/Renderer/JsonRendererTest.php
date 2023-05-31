@@ -9,6 +9,7 @@ use Laminas\View\Exception;
 use Laminas\View\Model\JsonModel;
 use Laminas\View\Model\ViewModel;
 use Laminas\View\Renderer\JsonRenderer;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -101,7 +102,7 @@ class JsonRendererTest extends TestCase
     /**
      * @psalm-return array<array-key, array{0: mixed}>
      */
-    public function getNonObjectModels(): array
+    public static function getNonObjectModels(): array
     {
         return [
             ['string'],
@@ -112,11 +113,8 @@ class JsonRendererTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider getNonObjectModels
-     * @param mixed $model
-     */
-    public function testRendersNonObjectModelAsJson($model): void
+    #[DataProvider('getNonObjectModels')]
+    public function testRendersNonObjectModelAsJson(mixed $model): void
     {
         $expected = json_encode($model, JSON_THROW_ON_ERROR);
         /** @psalm-suppress MixedArgument $test */
@@ -183,11 +181,8 @@ class JsonRendererTest extends TestCase
         $this->assertEquals($expected, $test);
     }
 
-    /**
-     * @dataProvider getNonObjectModels
-     * @param mixed $model
-     */
-    public function testRendersNonObjectModelAsJsonWithJsonpCallback($model): void
+    #[DataProvider('getNonObjectModels')]
+    public function testRendersNonObjectModelAsJsonWithJsonpCallback(mixed $model): void
     {
         $expected = 'callback(' . json_encode($model, JSON_THROW_ON_ERROR) . ');';
         $this->renderer->setJsonpCallback('callback');

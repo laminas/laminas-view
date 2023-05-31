@@ -2331,7 +2331,6 @@
       <code>$item</code>
       <code>$item</code>
       <code>$item</code>
-      <code>$item</code>
     </MixedArgument>
     <MixedArrayOffset>
       <code>$order[$key]</code>
@@ -2356,9 +2355,6 @@
       <code>$value</code>
       <code>$value</code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code>iterable</code>
-    </MixedInferredReturnType>
     <MixedOperand>
       <code><![CDATA[$attributeEscaper($link['href'])]]></code>
       <code><![CDATA[$attributeEscaper($link['href'])]]></code>
@@ -2373,12 +2369,6 @@
       <code><![CDATA[$attributeEscaper('/foo/bar')]]></code>
     </MixedOperand>
     <MixedPropertyFetch>
-      <code><![CDATA[$item->conditionalStylesheet]]></code>
-      <code><![CDATA[$item->conditionalStylesheet]]></code>
-      <code><![CDATA[$item->conditionalStylesheet]]></code>
-      <code><![CDATA[$item->conditionalStylesheet]]></code>
-      <code><![CDATA[$item->conditionalStylesheet]]></code>
-      <code><![CDATA[$item->media]]></code>
       <code><![CDATA[$link->href]]></code>
       <code><![CDATA[$link->href]]></code>
       <code><![CDATA[$value->href]]></code>
@@ -2411,51 +2401,18 @@
       <code><![CDATA[$attributeEscaper('og:title')]]></code>
       <code><![CDATA[$attributeEscaper('some content')]]></code>
       <code><![CDATA[$attributeEscaper('some content')]]></code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code><![CDATA[$item->type]]></code>
-      <code><![CDATA[$item->type]]></code>
-      <code><![CDATA[$item->type]]></code>
-      <code>$modifiers</code>
       <code>$modifiers</code>
       <code>$value</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
       <code>$values</code>
       <code>$values</code>
       <code>$values</code>
       <code>$values</code>
     </MixedArgument>
-    <MixedArrayAccess>
-      <code><![CDATA[$modifiers['lang']]]></code>
-      <code><![CDATA[$modifiers['scheme']]]></code>
-      <code>$values[$i]</code>
-      <code>$values[100]</code>
-    </MixedArrayAccess>
     <MixedAssignment>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
       <code>$item</code>
       <code>$item</code>
       <code>$modifiers</code>
       <code>$value</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
       <code>$values</code>
       <code>$values</code>
     </MixedAssignment>
@@ -2466,24 +2423,12 @@
     <MixedPropertyFetch>
       <code><![CDATA[$item->content]]></code>
       <code><![CDATA[$item->content]]></code>
-      <code><![CDATA[$item->content]]></code>
-      <code><![CDATA[$item->content]]></code>
-      <code><![CDATA[$item->content]]></code>
       <code><![CDATA[$item->name]]></code>
       <code><![CDATA[$item->name]]></code>
       <code><![CDATA[$item->type]]></code>
       <code><![CDATA[$item->type]]></code>
-      <code><![CDATA[$item->type]]></code>
-      <code><![CDATA[$item->type]]></code>
-      <code><![CDATA[$item->type]]></code>
-      <code><![CDATA[$item->{$item->type}]]></code>
-      <code><![CDATA[$item->{$item->type}]]></code>
-      <code><![CDATA[$item->{$item->type}]]></code>
-      <code><![CDATA[$value->modifiers]]></code>
     </MixedPropertyFetch>
     <UndefinedMagicMethod>
-      <code>getArrayCopy</code>
-      <code>getArrayCopy</code>
       <code>getArrayCopy</code>
       <code>getArrayCopy</code>
       <code>getArrayCopy</code>
@@ -2497,9 +2442,6 @@
     </UndefinedMagicMethod>
   </file>
   <file src="test/Helper/HeadScriptTest.php">
-    <InvalidDocblock>
-      <code>public function booleanAttributeDataProvider(): Generator</code>
-    </InvalidDocblock>
     <MixedArgument>
       <code><![CDATA[$attributeEscaper('test1.js')]]></code>
       <code><![CDATA[$attributeEscaper('test2.js')]]></code>
@@ -2512,65 +2454,20 @@
       <code><![CDATA[$item->source]]></code>
       <code>$values</code>
       <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
     </MixedArgument>
     <MixedArrayAccess>
-      <code><![CDATA[$first->attributes['src']]]></code>
       <code>$items[$i]</code>
-      <code>$values[$i]</code>
-      <code>$values[$i]</code>
-      <code>$values[$i]</code>
-      <code><![CDATA[$values[$i]->attributes['src']]]></code>
-      <code>$values[0]</code>
-      <code>$values[0]</code>
-      <code>$values[0]</code>
-      <code><![CDATA[$values[0]->attributes['src']]]></code>
-      <code>$values[5]</code>
-      <code>$values[5]</code>
-      <code>$values[5]</code>
-      <code><![CDATA[$values[5]->attributes['src']]]></code>
     </MixedArrayAccess>
     <MixedAssignment>
-      <code>$first</code>
       <code>$item</code>
       <code>$item</code>
       <code>$items</code>
       <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code><![CDATA[Generator<string, array<int, string>]]></code>
-    </MixedInferredReturnType>
     <MixedPropertyFetch>
-      <code><![CDATA[$first->attributes]]></code>
-      <code><![CDATA[$first->source]]></code>
-      <code><![CDATA[$first->type]]></code>
-      <code><![CDATA[$item->attributes]]></code>
       <code><![CDATA[$item->source]]></code>
-      <code><![CDATA[$item->source]]></code>
-      <code><![CDATA[$item->source]]></code>
-      <code><![CDATA[$values[$i]->attributes]]></code>
-      <code><![CDATA[$values[$i]->source]]></code>
-      <code><![CDATA[$values[$i]->type]]></code>
-      <code><![CDATA[$values[0]->attributes]]></code>
-      <code><![CDATA[$values[0]->source]]></code>
-      <code><![CDATA[$values[0]->type]]></code>
-      <code><![CDATA[$values[5]->attributes]]></code>
-      <code><![CDATA[$values[5]->source]]></code>
-      <code><![CDATA[$values[5]->type]]></code>
     </MixedPropertyFetch>
     <UndefinedMagicMethod>
-      <code>getArrayCopy</code>
-      <code>getArrayCopy</code>
-      <code>getArrayCopy</code>
-      <code>getArrayCopy</code>
       <code>getArrayCopy</code>
       <code>getArrayCopy</code>
       <code>setIndent</code>
@@ -2590,15 +2487,9 @@
       <code>$values</code>
       <code>$values</code>
       <code>$values</code>
-      <code><![CDATA[$values[0]->content]]></code>
-      <code><![CDATA[$values[1]->content]]></code>
-      <code><![CDATA[$values[2]->content]]></code>
     </MixedArgument>
     <MixedArrayAccess>
       <code>$values[$i]</code>
-      <code>$values[0]</code>
-      <code>$values[1]</code>
-      <code>$values[2]</code>
     </MixedArrayAccess>
     <MixedAssignment>
       <code>$item</code>
@@ -2608,19 +2499,13 @@
       <code>$values</code>
       <code>$values</code>
       <code>$values</code>
-      <code>$values</code>
     </MixedAssignment>
     <MixedPropertyFetch>
       <code><![CDATA[$item->content]]></code>
       <code><![CDATA[$item->content]]></code>
-      <code><![CDATA[$value->attributes]]></code>
-      <code><![CDATA[$values[0]->content]]></code>
-      <code><![CDATA[$values[1]->content]]></code>
-      <code><![CDATA[$values[2]->content]]></code>
     </MixedPropertyFetch>
     <UndefinedMagicMethod>
       <code>bogusMethod</code>
-      <code>getArrayCopy</code>
       <code>getArrayCopy</code>
       <code>getArrayCopy</code>
       <code>getArrayCopy</code>
@@ -2671,27 +2556,10 @@
       <code><![CDATA[$this->_helper]]></code>
     </RedundantConditionGivenDocblockType>
   </file>
-  <file src="test/Helper/Navigation/AbstractTest.php">
+  <file src="test/Helper/Navigation/AbstractTestCase.php">
     <DeprecatedClass>
       <code><![CDATA[new Config((new RouterConfigProvider())->getDependencyConfig())]]></code>
     </DeprecatedClass>
-    <MixedAssignment>
-      <code>$app</code>
-    </MixedAssignment>
-    <MixedMethodCall>
-      <code>bootstrap</code>
-      <code>getMvcEvent</code>
-      <code>loadModules</code>
-      <code>setRouteMatch</code>
-    </MixedMethodCall>
-    <NullArgument>
-      <code>null</code>
-      <code>null</code>
-      <code>null</code>
-    </NullArgument>
-    <TooManyArguments>
-      <code><![CDATA[new GenericResource('admin_foo', 'member_foo')]]></code>
-    </TooManyArguments>
   </file>
   <file src="test/Helper/Navigation/BreadcrumbsTest.php">
     <InvalidArgument>
@@ -2971,8 +2839,6 @@
       <code>$o</code>
       <code>$o</code>
       <code>$o</code>
-      <code>$o</code>
-      <code>$o</code>
       <code>$rIterator</code>
       <code>$rIterator</code>
       <code>$rIterator</code>
@@ -2990,7 +2856,6 @@
       <code>$key</code>
       <code>$key</code>
       <code>$key</code>
-      <code>$key</code>
       <code>$value</code>
       <code>$value</code>
       <code>$value</code>
@@ -3004,12 +2869,6 @@
       <code>$value</code>
       <code>$value</code>
     </MixedOperand>
-    <PossiblyFalseIterator>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-    </PossiblyFalseIterator>
     <PossiblyInvalidArgument>
       <code>$result</code>
       <code>$result</code>
@@ -3074,10 +2933,6 @@
       <code>addPath</code>
       <code>addPath</code>
     </PossiblyInvalidMethodCall>
-    <TooManyArguments>
-      <code>new TestAsset\BogusIteratorTest($data)</code>
-      <code>new TestAsset\BogusIteratorTest($data)</code>
-    </TooManyArguments>
     <UndefinedInterfaceMethod>
       <code>addPath</code>
       <code>addPath</code>
@@ -3113,9 +2968,6 @@
       <code><![CDATA[$item->message]]></code>
     </UndefinedPropertyFetch>
     <UnusedVariable>
-      <code>$data</code>
-      <code>$data</code>
-      <code>$key</code>
       <code>$key</code>
       <code>$key</code>
       <code>$key</code>
@@ -3206,16 +3058,6 @@
       <code>Bar</code>
     </PropertyNotSetInConstructor>
   </file>
-  <file src="test/Helper/TestAsset/IteratorTest.php">
-    <MissingTemplateParam>
-      <code>Iterator</code>
-    </MissingTemplateParam>
-  </file>
-  <file src="test/Helper/TestAsset/IteratorWithToArrayTest.php">
-    <MissingTemplateParam>
-      <code>Iterator</code>
-    </MissingTemplateParam>
-  </file>
   <file src="test/Helper/TestAsset/IteratorWithToArrayTestContainer.php">
     <MixedAssignment>
       <code>$value</code>
@@ -3229,11 +3071,6 @@
       <code>MockContainer</code>
       <code>MockContainer</code>
     </PropertyNotSetInConstructor>
-  </file>
-  <file src="test/Helper/TestAsset/RecursiveIteratorTest.php">
-    <MissingTemplateParam>
-      <code>Iterator</code>
-    </MissingTemplateParam>
   </file>
   <file src="test/Helper/UrlIntegrationTest.php">
     <DeprecatedClass>
@@ -3287,15 +3124,6 @@
             'factories' => $factories,
         ])]]></code>
     </DeprecatedClass>
-    <MixedArgument>
-      <code>$target</code>
-      <code>$target</code>
-    </MixedArgument>
-    <MixedAssignment>
-      <code>$alias</code>
-      <code>$aliases</code>
-      <code>$target</code>
-    </MixedAssignment>
     <MixedInferredReturnType>
       <code><![CDATA[Generator<mixed, array{0: mixed, 1: mixed}, mixed, void>]]></code>
     </MixedInferredReturnType>

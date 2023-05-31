@@ -55,13 +55,15 @@ class HelperPluginManagerCompatibilityTest extends TestCase
     /**
      * @psalm-return Generator<mixed, array{0: mixed, 1: mixed}, mixed, void>
      */
-    public function aliasProvider(): Generator
+    public static function aliasProvider(): Generator
     {
-        $pluginManager = $this->getPluginManager();
+        $pluginManager = self::getPluginManager();
         $r             = new ReflectionProperty($pluginManager, 'aliases');
         $aliases       = $r->getValue($pluginManager);
+        self::assertIsArray($aliases);
 
         foreach ($aliases as $alias => $target) {
+            self::assertIsString($target);
             // Skipping conditionally since it depends on laminas-mvc
             if (! class_exists(ControllerPluginManager::class) && strpos($target, '\\FlashMessenger')) {
                 continue;
