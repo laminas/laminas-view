@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace LaminasTest\View;
 
 use ArrayObject;
-use Exception;
 use Laminas\Filter\FilterChain;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Exception\DomainException;
