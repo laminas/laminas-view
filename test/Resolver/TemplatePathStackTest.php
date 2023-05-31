@@ -7,6 +7,7 @@ namespace LaminasTest\View\Resolver;
 use ArrayObject;
 use Laminas\View\Exception;
 use Laminas\View\Resolver\TemplatePathStack;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -176,7 +177,7 @@ class TemplatePathStackTest extends TestCase
     /**
      * @psalm-return array<array-key, array{0: mixed}>
      */
-    public function invalidOptions(): array
+    public static function invalidOptions(): array
     {
         return [
             [true],
@@ -187,11 +188,8 @@ class TemplatePathStackTest extends TestCase
         ];
     }
 
-    /**
-     * @param mixed $options
-     * @dataProvider invalidOptions
-     */
-    public function testSettingOptionsWithInvalidArgumentRaisesException($options): void
+    #[DataProvider('invalidOptions')]
+    public function testSettingOptionsWithInvalidArgumentRaisesException(mixed $options): void
     {
         $this->expectException(Exception\ExceptionInterface::class);
         /** @psalm-suppress MixedArgument */
@@ -201,7 +199,7 @@ class TemplatePathStackTest extends TestCase
     /**
      * @return array<array-key, array{0: array<string, mixed>|ArrayObject<string, mixed>}>
      */
-    public function validOptions(): array
+    public static function validOptions(): array
     {
         $options = [
             'lfi_protection'     => false,
@@ -216,8 +214,8 @@ class TemplatePathStackTest extends TestCase
 
     /**
      * @param array<string, mixed>|ArrayObject<string, mixed> $options
-     * @dataProvider validOptions
      */
+    #[DataProvider('validOptions')]
     public function testAllowsSettingOptions($options): void
     {
         $options['script_paths'] = $this->paths;
@@ -235,8 +233,8 @@ class TemplatePathStackTest extends TestCase
 
     /**
      * @param array<string, mixed>|ArrayObject<string, mixed> $options
-     * @dataProvider validOptions
      */
+    #[DataProvider('validOptions')]
     public function testAllowsPassingOptionsToConstructor($options): void
     {
         $options['script_paths'] = $this->paths;

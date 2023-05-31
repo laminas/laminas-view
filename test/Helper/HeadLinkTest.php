@@ -10,6 +10,7 @@ use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\EscapeHtmlAttr;
 use Laminas\View\Helper\HeadLink;
 use Laminas\View\Renderer\PhpRenderer as View;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 use function array_fill;
@@ -297,7 +298,8 @@ class HeadLinkTest extends TestCase
         $this->assertStringContainsString('<!--<![endif]-->', $string);
     }
 
-    public function argumentCountProvider(): iterable
+    /** @return array<string, array{0: int}> */
+    public static function argumentCountProvider(): array
     {
         return [
             'One' => [1],
@@ -305,7 +307,7 @@ class HeadLinkTest extends TestCase
         ];
     }
 
-    /** @dataProvider argumentCountProvider */
+    #[DataProvider('argumentCountProvider')]
     public function testSettingAlternateWithTooFewArgsRaisesException(int $argumentCount): void
     {
         $arguments = array_fill(0, $argumentCount, 'foo');

@@ -2356,9 +2356,6 @@
       <code>$value</code>
       <code>$value</code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code>iterable</code>
-    </MixedInferredReturnType>
     <MixedOperand>
       <code><![CDATA[$attributeEscaper($link['href'])]]></code>
       <code><![CDATA[$attributeEscaper($link['href'])]]></code>
@@ -2466,9 +2463,6 @@
     </UndefinedMagicMethod>
   </file>
   <file src="test/Helper/HeadScriptTest.php">
-    <InvalidDocblock>
-      <code>public function booleanAttributeDataProvider(): Generator</code>
-    </InvalidDocblock>
     <MixedArgument>
       <code><![CDATA[$attributeEscaper('test1.js')]]></code>
       <code><![CDATA[$attributeEscaper('test2.js')]]></code>
@@ -2500,9 +2494,6 @@
       <code>$values</code>
       <code>$values</code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code><![CDATA[Generator<string, array<int, string>]]></code>
-    </MixedInferredReturnType>
     <MixedPropertyFetch>
       <code><![CDATA[$item->source]]></code>
       <code><![CDATA[$item->source]]></code>
@@ -3170,15 +3161,6 @@
             'factories' => $factories,
         ])]]></code>
     </DeprecatedClass>
-    <MixedArgument>
-      <code>$target</code>
-      <code>$target</code>
-    </MixedArgument>
-    <MixedAssignment>
-      <code>$alias</code>
-      <code>$aliases</code>
-      <code>$target</code>
-    </MixedAssignment>
     <MixedInferredReturnType>
       <code><![CDATA[Generator<mixed, array{0: mixed, 1: mixed}, mixed, void>]]></code>
     </MixedInferredReturnType>

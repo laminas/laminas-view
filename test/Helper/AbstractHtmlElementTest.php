@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper;
 
+use Laminas\View\Helper\AbstractHtmlElement;
 use Laminas\View\Renderer\PhpRenderer;
 use LaminasTest\View\Helper\TestAsset\ConcreteElementHelper;
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 use function sprintf;
 
-/**
- * @covers \Laminas\View\Helper\AbstractHtmlElement
- */
+#[CoversClass(AbstractHtmlElement::class)]
 class AbstractHtmlElementTest extends TestCase
 {
     /** @var ConcreteElementHelper */
@@ -38,10 +39,8 @@ class AbstractHtmlElementTest extends TestCase
         self::assertStringContainsString($expect, $this->helper->compileAttributes(['something' => null]));
     }
 
-    /**
-     * @param scalar|scalar[]|null $attributeValue
-     * @dataProvider attributeValuesProvider
-     */
+    /** @param scalar|scalar[]|null $attributeValue */
+    #[DataProvider('attributeValuesProvider')]
     public function testThatAttributesOfVariousNativeTypesProduceTheExpectedAttributeString(
         $attributeValue,
         string $expected,
@@ -55,7 +54,7 @@ class AbstractHtmlElementTest extends TestCase
     }
 
     /** @return array<string, array{0: scalar|scalar[]|null, 1: string, 2: string}> */
-    public function attributeValuesProvider(): array
+    public static function attributeValuesProvider(): array
     {
         return [
             'Integer'    => [1, '"1"', '"1"'],

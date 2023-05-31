@@ -14,6 +14,7 @@ use Laminas\View\Model\ViewModel;
 use Laminas\View\Renderer\JsonRenderer;
 use Laminas\View\Strategy\JsonStrategy;
 use Laminas\View\ViewEvent;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 use function iterator_to_array;
@@ -308,7 +309,7 @@ class JsonStrategyTest extends TestCase
      * @return string[][]
      * @psalm-return array{utf-16: array{0: 'utf-16'}, utf-32: array{0: 'utf-32'}}
      */
-    public function multibyteCharsets(): array
+    public static function multibyteCharsets(): array
     {
         return [
             'utf-16' => ['utf-16'],
@@ -316,11 +317,8 @@ class JsonStrategyTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider multibyteCharsets
-     * @param string $charset
-     */
-    public function testContentTransferEncodingHeaderSetToBinaryForSpecificMultibyteCharsets($charset): void
+    #[DataProvider('multibyteCharsets')]
+    public function testContentTransferEncodingHeaderSetToBinaryForSpecificMultibyteCharsets(string $charset): void
     {
         $this->strategy->setCharset($charset);
 

@@ -9,6 +9,7 @@ use Generator;
 use Laminas\View;
 use Laminas\View\Helper;
 use Laminas\View\Helper\Doctype;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 use function array_shift;
@@ -536,8 +537,8 @@ document.write(bar.strlen());');
         );
     }
 
-    /** @return Generator<string, array<int, string> */
-    public function booleanAttributeDataProvider(): Generator
+    /** @return Generator<string, array<int, string>> */
+    public static function booleanAttributeDataProvider(): Generator
     {
         $values = ['async', 'defer', 'nomodule'];
 
@@ -546,7 +547,7 @@ document.write(bar.strlen());');
         }
     }
 
-    /** @dataProvider booleanAttributeDataProvider */
+    #[DataProvider('booleanAttributeDataProvider')]
     public function testBooleanAttributesUseTheKeyNameAsTheValue(string $attribute): void
     {
         ($this->helper)()->appendScript(
@@ -561,7 +562,7 @@ document.write(bar.strlen());');
         );
     }
 
-    /** @dataProvider booleanAttributeDataProvider */
+    #[DataProvider('booleanAttributeDataProvider')]
     public function testBooleanAttributesCanBeAppliedToModules(string $attribute): void
     {
         ($this->helper)()->appendScript(

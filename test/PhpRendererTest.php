@@ -23,6 +23,7 @@ use Laminas\View\Variables;
 use LaminasTest\View\TestAsset\Invokable;
 use LaminasTest\View\TestAsset\SharedInstance;
 use LaminasTest\View\TestAsset\Uninvokable;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use ReflectionObject;
 use stdClass;
@@ -126,7 +127,7 @@ class PhpRendererTest extends TestCase
     /**
      * @psalm-return array<array-key, array{0: mixed}>
      */
-    public function invalidPluginManagers(): array
+    public static function invalidPluginManagers(): array
     {
         return [
             [true],
@@ -137,11 +138,8 @@ class PhpRendererTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider invalidPluginManagers
-     * @param mixed $plugins
-     */
-    public function testPassingInvalidArgumentToSetHelperPluginManagerRaisesException($plugins): void
+    #[DataProvider('invalidPluginManagers')]
+    public function testPassingInvalidArgumentToSetHelperPluginManagerRaisesException(mixed $plugins): void
     {
         $this->expectException(ExceptionInterface::class);
         $this->expectExceptionMessage('must extend');
@@ -359,7 +357,7 @@ class PhpRendererTest extends TestCase
      * @return string[][]
      * @psalm-return array{0: array{0: '/does/not/exists'}, 1: array{0: '.'}}
      */
-    public function invalidTemplateFiles(): array
+    public static function invalidTemplateFiles(): array
     {
         return [
             ['/does/not/exists'],
@@ -367,9 +365,7 @@ class PhpRendererTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider invalidTemplateFiles
-     */
+    #[DataProvider('invalidTemplateFiles')]
     public function testRendererRaisesExceptionIfResolvedTemplateIsInvalid(string $template): void
     {
         $resolver = new TemplateMapResolver([

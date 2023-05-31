@@ -6,15 +6,12 @@ namespace LaminasTest\View\Resolver;
 
 use Laminas\View\Resolver\PrefixPathStackResolver;
 use Laminas\View\Resolver\TemplateMapResolver;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 use function realpath;
 
-/**
- * Tests for {@see \Laminas\View\Resolver\PrefixPathStackResolver}
- *
- * @covers \Laminas\View\Resolver\PrefixPathStackResolver
- */
+#[CoversClass(PrefixPathStackResolver::class)]
 class PrefixPathStackResolverTest extends TestCase
 {
     private string $basePath;

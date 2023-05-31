@@ -436,9 +436,6 @@ class FlashMessengerTest extends TestCase
         $this->assertTrue($this->helper->getAutoEscape());
     }
 
-    /**
-     * @covers \Laminas\View\Helper\FlashMessenger::render
-     */
     public function testMessageIsEscapedByDefault(): void
     {
         $helper = new FlashMessenger();
@@ -450,9 +447,6 @@ class FlashMessengerTest extends TestCase
         $this->assertSame($displayAssertion, $display);
     }
 
-    /**
-     * @covers \Laminas\View\Helper\FlashMessenger::render
-     */
     public function testMessageIsNotEscapedWhenAutoEscapeIsFalse(): void
     {
         $helper = new FlashMessenger();
@@ -465,9 +459,6 @@ class FlashMessengerTest extends TestCase
         $this->assertSame($displayAssertion, $display);
     }
 
-    /**
-     * @covers \Laminas\View\Helper\FlashMessenger::render
-     */
     public function testCanSetAutoEscapeOnRender(): void
     {
         $helper = new FlashMessenger();
@@ -479,9 +470,6 @@ class FlashMessengerTest extends TestCase
         $this->assertSame($displayAssertion, $display);
     }
 
-    /**
-     * @covers \Laminas\View\Helper\FlashMessenger::render
-     */
     public function testRenderUsesCurrentAutoEscapeByDefault(): void
     {
         $helper = new FlashMessenger();
@@ -503,9 +491,6 @@ class FlashMessengerTest extends TestCase
         $this->assertSame($displayAssertion, $display);
     }
 
-    /**
-     * @covers \Laminas\View\Helper\FlashMessenger::renderCurrent
-     */
     public function testCurrentMessageIsEscapedByDefault(): void
     {
         $this->helper->addMessage('Foo<br />bar');
@@ -515,9 +500,6 @@ class FlashMessengerTest extends TestCase
         $this->assertSame($displayAssertion, $display);
     }
 
-    /**
-     * @covers \Laminas\View\Helper\FlashMessenger::renderCurrent
-     */
     public function testCurrentMessageIsNotEscapedWhenAutoEscapeIsFalse(): void
     {
         $this->helper->addMessage('Foo<br />bar');
@@ -528,9 +510,6 @@ class FlashMessengerTest extends TestCase
         $this->assertSame($displayAssertion, $display);
     }
 
-    /**
-     * @covers \Laminas\View\Helper\FlashMessenger::renderCurrent
-     */
     public function testCanSetAutoEscapeOnRenderCurrent(): void
     {
         $this->helper->addMessage('Foo<br />bar');
@@ -540,9 +519,6 @@ class FlashMessengerTest extends TestCase
         $this->assertSame($displayAssertion, $display);
     }
 
-    /**
-     * @covers \Laminas\View\Helper\FlashMessenger::renderCurrent
-     */
     public function testRenderCurrentUsesCurrentAutoEscapeByDefault(): void
     {
         $this->helper->addMessage('Foo<br />bar');
