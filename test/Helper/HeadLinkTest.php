@@ -229,8 +229,8 @@ class HeadLinkTest extends TestCase
     {
         $this->helper->setStylesheet('/styles.css', 'projection', 'ie6');
         $item = $this->helper->getValue();
-        $this->assertObjectHasAttribute('media', $item);
-        $this->assertObjectHasAttribute('conditionalStylesheet', $item);
+        $this->assertObjectHasProperty('media', $item);
+        $this->assertObjectHasProperty('conditionalStylesheet', $item);
 
         $this->assertEquals('projection', $item->media);
         $this->assertEquals('ie6', $item->conditionalStylesheet);
@@ -240,7 +240,7 @@ class HeadLinkTest extends TestCase
     {
         $this->helper->setStylesheet('/styles.css');
         $item = $this->helper->getValue();
-        $this->assertObjectHasAttribute('conditionalStylesheet', $item);
+        $this->assertObjectHasProperty('conditionalStylesheet', $item);
         $this->assertFalse($item->conditionalStylesheet);
 
         $attributeEscaper = $this->attributeEscaper;
@@ -256,7 +256,7 @@ class HeadLinkTest extends TestCase
     {
         $this->helper->setStylesheet('/styles.css', 'screen', 'ie6');
         $item = $this->helper->getValue();
-        $this->assertObjectHasAttribute('conditionalStylesheet', $item);
+        $this->assertObjectHasProperty('conditionalStylesheet', $item);
         $this->assertEquals('ie6', $item->conditionalStylesheet);
 
         $attributeEscaper = $this->attributeEscaper;
@@ -271,7 +271,7 @@ class HeadLinkTest extends TestCase
     {
         $this->helper->setStylesheet('/styles.css', 'screen', '!IE');
         $item = $this->helper->getValue();
-        $this->assertObjectHasAttribute('conditionalStylesheet', $item);
+        $this->assertObjectHasProperty('conditionalStylesheet', $item);
         $this->assertEquals('!IE', $item->conditionalStylesheet);
 
         $attributeEscaper = $this->attributeEscaper;
@@ -286,7 +286,7 @@ class HeadLinkTest extends TestCase
     {
         $this->helper->setStylesheet('/styles.css', 'screen', '! IE');
         $item = $this->helper->getValue();
-        $this->assertObjectHasAttribute('conditionalStylesheet', $item);
+        $this->assertObjectHasProperty('conditionalStylesheet', $item);
         $this->assertEquals('! IE', $item->conditionalStylesheet);
 
         $attributeEscaper = $this->attributeEscaper;

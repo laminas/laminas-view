@@ -90,14 +90,17 @@ class HeadScriptTest extends TestCase
         for ($i = 0; $i < 3; ++$i) {
             $string .= ' foo';
             $this->helper->$action($string);
-            $values = $this->helper->getArrayCopy();
-            $this->assertCount($i + 1, $values);
+            $values = $this->helper->getContainer()->getArrayCopy();
+            self::assertCount($i + 1, $values);
+            $item = $values[$i];
+            self::assertIsObject($item);
             if ('file' === $type) {
-                $this->assertEquals($string, $values[$i]->attributes['src']);
+                self::assertIsArray($item->attributes);
+                self::assertEquals($string, $item->attributes['src']);
             } elseif ('script' === $type) {
-                $this->assertEquals($string, $values[$i]->source);
+                self::assertEquals($string, $item->source);
             }
-            $this->assertEquals('text/javascript', $values[$i]->type);
+            self::assertEquals('text/javascript', $item->type);
         }
     }
 
@@ -108,15 +111,17 @@ class HeadScriptTest extends TestCase
         for ($i = 0; $i < 3; ++$i) {
             $string .= ' foo';
             $this->helper->$action($string);
-            $values = $this->helper->getArrayCopy();
-            $this->assertCount($i + 1, $values);
+            $values = $this->helper->getContainer()->getArrayCopy();
+            self::assertCount($i + 1, $values);
             $first = array_shift($values);
+            self::assertIsObject($first);
             if ('file' === $type) {
-                $this->assertEquals($string, $first->attributes['src']);
+                self::assertIsArray($first->attributes);
+                self::assertEquals($string, $first->attributes['src']);
             } elseif ('script' === $type) {
-                $this->assertEquals($string, $first->source);
+                self::assertEquals($string, $first->source);
             }
-            $this->assertEquals('text/javascript', $first->type);
+            self::assertEquals('text/javascript', $first->type);
         }
     }
 
@@ -129,14 +134,17 @@ class HeadScriptTest extends TestCase
             $string .= ' foo';
         }
         $this->helper->$action($string);
-        $values = $this->helper->getArrayCopy();
-        $this->assertCount(1, $values);
+        $values = $this->helper->getContainer()->getArrayCopy();
+        self::assertCount(1, $values);
+        $item = $values[0];
+        self::assertIsObject($item);
         if ('file' === $type) {
-            $this->assertEquals($string, $values[0]->attributes['src']);
+            self::assertIsArray($item->attributes);
+            self::assertEquals($string, $item->attributes['src']);
         } elseif ('script' === $type) {
-            $this->assertEquals($string, $values[0]->source);
+            self::assertEquals($string, $item->source);
         }
-        $this->assertEquals('text/javascript', $values[0]->type);
+        self::assertEquals('text/javascript', $item->type);
     }
 
     private function executeOverloadOffsetSet(string $type): void
@@ -144,14 +152,17 @@ class HeadScriptTest extends TestCase
         $action = 'offsetSet' . $this->inflectAction($type);
         $string = 'foo';
         $this->helper->$action(5, $string);
-        $values = $this->helper->getArrayCopy();
-        $this->assertCount(1, $values);
+        $values = $this->helper->getContainer()->getArrayCopy();
+        self::assertCount(1, $values);
+        $item = $values[5];
+        self::assertIsObject($item);
         if ('file' === $type) {
-            $this->assertEquals($string, $values[5]->attributes['src']);
+            self::assertIsArray($item->attributes);
+            self::assertEquals($string, $item->attributes['src']);
         } elseif ('script' === $type) {
-            $this->assertEquals($string, $values[5]->source);
+            self::assertEquals($string, $item->source);
         }
-        $this->assertEquals('text/javascript', $values[5]->type);
+        self::assertEquals('text/javascript', $item->type);
     }
 
     public function testOverloadAppendFileAppendsScriptsToStack(): void
@@ -228,16 +239,16 @@ class HeadScriptTest extends TestCase
             $item = $items[$i];
             switch ($i) {
                 case 0:
-                    $this->assertObjectHasAttribute('source', $item);
+                    $this->assertObjectHasProperty('source', $item);
                     $this->assertEquals('bar', $item->source);
                     break;
                 case 1:
-                    $this->assertObjectHasAttribute('attributes', $item);
+                    $this->assertObjectHasProperty('attributes', $item);
                     $this->assertTrue(isset($item->attributes['src']));
                     $this->assertEquals('foo', $item->attributes['src']);
                     break;
                 case 2:
-                    $this->assertObjectHasAttribute('source', $item);
+                    $this->assertObjectHasProperty('source', $item);
                     $this->assertEquals('baz', $item->source);
                     break;
             }
