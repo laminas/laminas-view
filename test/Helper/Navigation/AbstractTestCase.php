@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace LaminasTest\View\Helper\Navigation;
 
 use Laminas\I18n\Translator\Translator;
+use Laminas\ModuleManager\ModuleManager;
+use Laminas\Mvc\Application;
 use Laminas\Mvc\Service\ServiceManagerConfig;
 use Laminas\Navigation\Navigation;
 use Laminas\Navigation\Service\DefaultNavigationFactory;
@@ -30,7 +32,7 @@ use function file_get_contents;
  *
  * @psalm-suppress MissingConstructor
  */
-abstract class AbstractTest extends TestCase
+abstract class AbstractTestCase extends TestCase
 {
     /** @var ServiceManager */
     protected $serviceManager;
@@ -136,17 +138,19 @@ abstract class AbstractTest extends TestCase
         }
 
         $sm->setService('ApplicationConfig', $smConfig);
-        $sm->get('ModuleManager')->loadModules();
-        $sm->get('Application')->bootstrap();
+        $moduleManager = $sm->get('ModuleManager');
+        self::assertInstanceOf(ModuleManager::class, $moduleManager);
+        $moduleManager->loadModules();
+        $application = $sm->get('Application');
+        self::assertInstanceOf(Application::class, $application);
+        $application->bootstrap();
         $sm->setFactory('Navigation', DefaultNavigationFactory::class);
 
         $sm->setService('nav1', $this->nav1);
         $sm->setService('nav2', $this->nav2);
 
         $sm->setAllowOverride(false);
-
-        $app = $this->serviceManager->get('Application');
-        $app->getMvcEvent()->setRouteMatch(new RouteMatch([
+        $application->getMvcEvent()->setRouteMatch(new RouteMatch([
             'controller' => 'post',
             'action'     => 'view',
             'id'         => '1337',
@@ -175,7 +179,7 @@ abstract class AbstractTest extends TestCase
 
         $acl->addResource(new GenericResource('guest_foo'));
         $acl->addResource(new GenericResource('member_foo'), 'guest_foo');
-        $acl->addResource(new GenericResource('admin_foo', 'member_foo'));
+        $acl->addResource(new GenericResource('admin_foo'));
         $acl->addResource(new GenericResource('special_foo'), 'member_foo');
 
         $acl->allow('guest', 'guest_foo');
@@ -201,7 +205,7 @@ abstract class AbstractTest extends TestCase
         ];
         $translator           = new Translator();
         $translator->getPluginManager()->setService('default', $loader);
-        $translator->addTranslationFile('default', null);
+        $translator->addTranslationFile('default', __FILE__);
         return $translator;
     }
 
@@ -230,8 +234,8 @@ abstract class AbstractTest extends TestCase
         $translator = new Translator();
         $translator->getPluginManager()->setService('default1', $loader1);
         $translator->getPluginManager()->setService('default2', $loader2);
-        $translator->addTranslationFile('default1', null, 'LaminasTest_1');
-        $translator->addTranslationFile('default2', null, 'LaminasTest_2');
+        $translator->addTranslationFile('default1', __FILE__, 'LaminasTest_1');
+        $translator->addTranslationFile('default2', __FILE__, 'LaminasTest_2');
         return $translator;
     }
 }

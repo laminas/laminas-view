@@ -2603,28 +2603,6 @@
       <code><![CDATA[$this->_helper]]></code>
     </RedundantConditionGivenDocblockType>
   </file>
-  <file src="test/Helper/Navigation/AbstractTest.php">
-    <DeprecatedClass>
-      <code><![CDATA[new Config((new RouterConfigProvider())->getDependencyConfig())]]></code>
-    </DeprecatedClass>
-    <MixedAssignment>
-      <code>$app</code>
-    </MixedAssignment>
-    <MixedMethodCall>
-      <code>bootstrap</code>
-      <code>getMvcEvent</code>
-      <code>loadModules</code>
-      <code>setRouteMatch</code>
-    </MixedMethodCall>
-    <NullArgument>
-      <code>null</code>
-      <code>null</code>
-      <code>null</code>
-    </NullArgument>
-    <TooManyArguments>
-      <code><![CDATA[new GenericResource('admin_foo', 'member_foo')]]></code>
-    </TooManyArguments>
-  </file>
   <file src="test/Helper/Navigation/BreadcrumbsTest.php">
     <InvalidArgument>
       <code><![CDATA['Navigation']]></code>
@@ -2936,12 +2914,6 @@
       <code>$value</code>
       <code>$value</code>
     </MixedOperand>
-    <PossiblyFalseIterator>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-    </PossiblyFalseIterator>
     <PossiblyInvalidArgument>
       <code>$result</code>
       <code>$result</code>
@@ -3006,10 +2978,6 @@
       <code>addPath</code>
       <code>addPath</code>
     </PossiblyInvalidMethodCall>
-    <TooManyArguments>
-      <code>new TestAsset\BogusIteratorTest($data)</code>
-      <code>new TestAsset\BogusIteratorTest($data)</code>
-    </TooManyArguments>
     <UndefinedInterfaceMethod>
       <code>addPath</code>
       <code>addPath</code>
@@ -3045,8 +3013,6 @@
       <code><![CDATA[$item->message]]></code>
     </UndefinedPropertyFetch>
     <UnusedVariable>
-      <code>$data</code>
-      <code>$data</code>
       <code>$key</code>
       <code>$key</code>
       <code>$key</code>
@@ -3138,16 +3104,6 @@
       <code>Bar</code>
     </PropertyNotSetInConstructor>
   </file>
-  <file src="test/Helper/TestAsset/IteratorTest.php">
-    <MissingTemplateParam>
-      <code>Iterator</code>
-    </MissingTemplateParam>
-  </file>
-  <file src="test/Helper/TestAsset/IteratorWithToArrayTest.php">
-    <MissingTemplateParam>
-      <code>Iterator</code>
-    </MissingTemplateParam>
-  </file>
   <file src="test/Helper/TestAsset/IteratorWithToArrayTestContainer.php">
     <MixedAssignment>
       <code>$value</code>
@@ -3161,11 +3117,6 @@
       <code>MockContainer</code>
       <code>MockContainer</code>
     </PropertyNotSetInConstructor>
-  </file>
-  <file src="test/Helper/TestAsset/RecursiveIteratorTest.php">
-    <MissingTemplateParam>
-      <code>Iterator</code>
-    </MissingTemplateParam>
   </file>
   <file src="test/Helper/UrlIntegrationTest.php">
     <DeprecatedClass>

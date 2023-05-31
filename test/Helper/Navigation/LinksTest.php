@@ -27,7 +27,7 @@ use const PHP_EOL;
 /**
  * @psalm-suppress MissingConstructor
  */
-class LinksTest extends AbstractTest
+class LinksTest extends AbstractTestCase
 {
     /**
      * View helper

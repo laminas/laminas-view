@@ -9,8 +9,8 @@ use Laminas\I18n\Translator\TranslatorInterface;
 use Laminas\Mvc\I18n\Translator as MvcTranslator;
 use Laminas\ServiceManager\Config;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
+use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\ServiceManager\ServiceManager;
-use Laminas\View\Exception\InvalidHelperException;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\HeadTitle;
 use Laminas\View\Helper\HelperInterface;
@@ -19,8 +19,6 @@ use Laminas\View\Helper\Url;
 use Laminas\View\HelperPluginManager;
 use Laminas\View\Renderer\PhpRenderer;
 use PHPUnit\Framework\TestCase;
-
-use function method_exists;
 
 class HelperPluginManagerTest extends TestCase
 {
@@ -57,25 +55,21 @@ class HelperPluginManagerTest extends TestCase
         $this->assertNull($helper->getView());
     }
 
-    public function testRegisteringInvalidHelperRaisesException(): void
+    public function testRegisteringInvalidHelperRaisesInvalidServiceException(): void
     {
         $helpers = new HelperPluginManager(new ServiceManager(), [
             'factories' => [
                 'test' => fn() => $this,
             ],
         ]);
-        $this->expectException($this->getServiceNotFoundException($helpers));
+        $this->expectException(InvalidServiceException::class);
         $helpers->get('test');
     }
 
-    public function testLoadingInvalidHelperRaisesException(): void
+    public function testRequestingAnUnregisteredHelperRaisesServiceNotFoundException(): void
     {
-        $helpers = new HelperPluginManager(new ServiceManager(), [
-            'invokables' => [
-                'test' => static::class,
-            ],
-        ]);
-        $this->expectException($this->getServiceNotFoundException($helpers));
+        $helpers = new HelperPluginManager(new ServiceManager(), []);
+        $this->expectException(ServiceNotFoundException::class);
         $helpers->get('test');
     }
 
@@ -195,16 +189,5 @@ class HelperPluginManagerTest extends TestCase
     public function testDoctypeFactoryExists(): void
     {
         self::assertTrue($this->helpers->has(Doctype::class));
-    }
-
-    /**
-     * @psalm-return InvalidHelperException::class|InvalidServiceException::class
-     */
-    private function getServiceNotFoundException(HelperPluginManager $manager): string
-    {
-        if (method_exists($manager, 'configure')) {
-            return InvalidServiceException::class;
-        }
-        return InvalidHelperException::class;
     }
 }
