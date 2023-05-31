@@ -3,29 +3,20 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
     bootstrap="./vendor/autoload.php"
-    convertDeprecationsToExceptions="true"
-    colors="true">
+    colors="true"
+    cacheDirectory=".phpunit.cache"
+>
     <testsuites>
         <testsuite name="laminas-view Test Suite">
             <directory>./test/</directory>
         </testsuite>
     </testsuites>
-
-    <groups>
-        <exclude>
-            <group>disable</group>
-        </exclude>
-    </groups>
-
-    <coverage includeUncoveredFiles="true">
+    <php>
+        <ini name="date.timezone" value="UTC"/>
+    </php>
+    <source>
         <include>
             <directory suffix=".php">./src</directory>
         </include>
-    </coverage>
-
-    <php>
-        <ini name="date.timezone" value="UTC"/>
-        <ini name="error_reporting" value="E_ALL"/>
-        <ini name="max_execution_time" value="360"/>
-    </php>
+    </source>
 </phpunit>
