@@ -1179,16 +1179,16 @@
         },
         {
             "name": "laminas/laminas-authentication",
-            "version": "2.14.0",
+            "version": "2.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-authentication.git",
-                "reference": "758604b93889bff20522323b3cfcd8b5a044ed91"
+                "reference": "9036ae55a84862b16f8631460f90eeea6c19c54e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-authentication/zipball/758604b93889bff20522323b3cfcd8b5a044ed91",
-                "reference": "758604b93889bff20522323b3cfcd8b5a044ed91",
+                "url": "https://api.github.com/repos/laminas/laminas-authentication/zipball/9036ae55a84862b16f8631460f90eeea6c19c54e",
+                "reference": "9036ae55a84862b16f8631460f90eeea6c19c54e",
                 "shasum": ""
             },
             "require": {
@@ -1251,7 +1251,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2023-07-11T19:04:48+00:00"
+            "time": "2023-07-12T08:21:19+00:00"
         },
         {
             "name": "laminas/laminas-coding-standard",
