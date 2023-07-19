@@ -103,11 +103,9 @@ class HeadMetaTest extends TestCase
             $this->assertCount($i + 1, $values);
 
             $item = $values[$i];
-            self::assertIsObject($item);
             $this->assertObjectHasProperty('type', $item);
             $this->assertObjectHasProperty('modifiers', $item);
             $this->assertObjectHasProperty('content', $item);
-            self::assertIsString($item->type);
             $this->assertObjectHasProperty($item->type, $item);
             $this->assertEquals('keywords', $item->{$item->type});
             $this->assertEquals($string, $item->content);
@@ -128,7 +126,6 @@ class HeadMetaTest extends TestCase
             $this->assertObjectHasProperty('type', $item);
             $this->assertObjectHasProperty('modifiers', $item);
             $this->assertObjectHasProperty('content', $item);
-            self::assertIsString($item->type);
             $this->assertObjectHasProperty($item->type, $item);
             $this->assertEquals('keywords', $item->{$item->type});
             $this->assertEquals($string, $item->content);
@@ -146,8 +143,7 @@ class HeadMetaTest extends TestCase
         }
         $this->helper->$setAction('keywords', $string);
 
-        $values = $this->helper->getArrayCopy();
-        self::assertIsArray($values);
+        $values = $this->helper->getContainer()->getArrayCopy();
         $this->assertCount(1, $values);
         $item = array_shift($values);
         self::assertIsObject($item);
@@ -155,7 +151,6 @@ class HeadMetaTest extends TestCase
         $this->assertObjectHasProperty('type', $item);
         $this->assertObjectHasProperty('modifiers', $item);
         $this->assertObjectHasProperty('content', $item);
-        self::assertIsString($item->type);
         $this->assertObjectHasProperty($item->type, $item);
         $this->assertEquals('keywords', $item->{$item->type});
         $this->assertEquals($string, $item->content);

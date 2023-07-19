@@ -21,14 +21,14 @@ class Placeholder extends AbstractHelper
     /**
      * Placeholder items
      *
-     * @var AbstractContainer[]
+     * @var array<string, AbstractContainer>
      */
     protected $items = [];
 
     /**
      * Default container class
      *
-     * @var string
+     * @var class-string<AbstractContainer>
      */
     protected $containerClass = Container::class;
 
@@ -47,8 +47,7 @@ class Placeholder extends AbstractHelper
             );
         }
 
-        $name = (string) $name;
-        return $this->getContainer($name);
+        return $this->getContainer((string) $name);
     }
 
     /**

@@ -5,14 +5,18 @@ declare(strict_types=1);
 namespace Laminas\View\Helper;
 
 use Laminas\View\Exception;
-use stdClass;
+use Laminas\View\Helper\Placeholder\Container\AbstractContainer;
+use Laminas\View\Helper\Placeholder\Container\AbstractStandalone;
+use Laminas\View\Renderer\PhpRenderer;
 
 use function array_key_exists;
 use function array_shift;
+use function assert;
 use function count;
 use function filter_var;
 use function implode;
 use function in_array;
+use function is_object;
 use function is_string;
 use function ob_get_clean;
 use function ob_start;
@@ -38,8 +42,14 @@ use const PHP_EOL;
  * @method HeadScript offsetSetScript($index, $src, $type = 'text/javascript', $attrs = [])
  * @method HeadScript prependScript($script, $type = 'text/javascript', $attrs = [])
  * @method HeadScript setScript($script, $type = 'text/javascript', $attrs = [])
+ * @psalm-type ObjectShape = object{
+ *     type: string,
+ *     attributes: array<string, mixed>,
+ *     source: string|null,
+ * }
+ * @extends AbstractStandalone<int, ObjectShape>
  */
-class HeadScript extends Placeholder\Container\AbstractStandalone
+class HeadScript extends AbstractStandalone
 {
     /**
      * Script type constants
@@ -66,33 +76,33 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      *
      * @var bool
      */
-    protected $captureLock;
+    protected $captureLock = false;
 
     /**
      * Capture type
      *
-     * @var string
+     * @var string|null
      */
     protected $captureScriptType;
 
     /**
      * Capture attributes
      *
-     * @var null|array
+     * @var null|array<string, mixed>
      */
     protected $captureScriptAttrs;
 
     /**
      * Capture type (append, prepend, set)
      *
-     * @var string
+     * @var string|null
      */
     protected $captureType;
 
     /**
      * Optional allowed attributes for script tag
      *
-     * @var array
+     * @var list<string>
      */
     protected $optionalAttributes = [
         'charset',
@@ -111,7 +121,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
     /**
      * Script attributes that behave as booleans
      *
-     * @var string[]
+     * @var list<string>
      */
     private array $booleanAttributes = [
         'nomodule',
@@ -122,7 +132,9 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
     /**
      * Required attributes for script tag
      *
-     * @var string
+     * @deprecated This property is unused and will be removed in version 3.0 of this component
+     *
+     * @var list<string>
      */
     protected $requiredAttributes = ['type'];
 
@@ -134,16 +146,11 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      */
     public $useCdata = false;
 
-    /**
-     * Constructor
-     *
-     * Set separator to PHP_EOL.
-     */
     public function __construct()
     {
         parent::__construct();
 
-        $this->setSeparator(PHP_EOL);
+        $this->getContainer()->setSeparator(PHP_EOL);
     }
 
     /**
@@ -155,9 +162,9 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      * @param  string $mode      Script or file
      * @param  string $spec      Script/url
      * @param  string $placement Append, prepend, or set
-     * @param  array  $attrs     Array of script attributes
+     * @param  array<string, mixed> $attrs Array of script attributes
      * @param  string $type      Script type and/or array of script attributes
-     * @return HeadScript
+     * @return $this
      */
     public function __invoke(
         $mode = self::FILE,
@@ -191,7 +198,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      * @param  string $method Method to call
      * @param  array  $args   Arguments of method
      * @throws Exception\BadMethodCallException If too few arguments or invalid method.
-     * @return HeadScript
+     * @return $this
      */
     public function __call($method, $args)
     {
@@ -266,11 +273,14 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
     public function toString($indent = null)
     {
         $indent = null !== $indent
-            ? $this->getWhitespace($indent)
-            : $this->getIndent();
+            ? $this->getContainer()->getWhitespace($indent)
+            : $this->getContainer()->getIndent();
 
-        if ($this->view) {
-            $useCdata = $this->view->plugin('doctype')->isXhtml();
+        if ($this->view instanceof PhpRenderer) {
+            $doctype = $this->view->plugin('doctype');
+            assert($doctype instanceof Doctype);
+
+            $useCdata = $doctype->isXhtml();
         } else {
             $useCdata = $this->useCdata;
         }
@@ -294,14 +304,14 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
     /**
      * Start capture action
      *
-     * @param  mixed  $captureType Type of capture
-     * @param  string $type        Type of script
-     * @param  array  $attrs       Attributes of capture
+     * @param string $captureType Type of capture
+     * @param string $type        Type of script
+     * @param array<string, mixed> $attrs Attributes of capture
      * @throws Exception\RuntimeException
      * @return void
      */
     public function captureStart(
-        $captureType = Placeholder\Container\AbstractContainer::APPEND,
+        $captureType = AbstractContainer::APPEND,
         $type = self::DEFAULT_SCRIPT_TYPE,
         $attrs = []
     ) {
@@ -331,9 +341,9 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
         $this->captureLock        = false;
 
         switch ($this->captureType) {
-            case Placeholder\Container\AbstractContainer::SET:
-            case Placeholder\Container\AbstractContainer::PREPEND:
-            case Placeholder\Container\AbstractContainer::APPEND:
+            case AbstractContainer::SET:
+            case AbstractContainer::PREPEND:
+            case AbstractContainer::APPEND:
                 $action = strtolower($this->captureType) . 'Script';
                 break;
             default:
@@ -347,19 +357,20 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
     /**
      * Create data item containing all necessary components of script
      *
+     * @internal This method will become private in version 3.0
+     *
      * @param  string $type       Type of data
-     * @param  array  $attributes Attributes of data
+     * @param  array<string, mixed> $attributes Attributes of data
      * @param  string $content    Content of data
-     * @return stdClass
+     * @return ObjectShape
      */
     public function createData($type, array $attributes, $content = null)
     {
-        $data             = new stdClass();
-        $data->type       = $type;
-        $data->attributes = $attributes;
-        $data->source     = $content;
-
-        return $data;
+        return (object) [
+            'type'       => $type,
+            'attributes' => $attributes,
+            'source'     => $content,
+        ];
     }
 
     /**
@@ -386,13 +397,15 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
     /**
      * Is the script provided valid?
      *
+     * @internal This method will become private in version 3.0
+     *
      * @param  mixed  $value  Is the given script valid?
      * @return bool
      */
     protected function isValid($value)
     {
         if (
-            ! $value instanceof stdClass
+            ! is_object($value)
             || ! isset($value->type)
             || (! isset($value->source)
                 && ! isset($value->attributes))
@@ -405,6 +418,8 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
 
     /**
      * Create script HTML
+     *
+     * @internal This method will become private in version 3.0
      *
      * @param  mixed  $item        Item to convert
      * @param  string $indent      String to add before the item
@@ -484,9 +499,9 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
     /**
      * Override append
      *
-     * @param string $value Append script or file
+     * @param ObjectShape $value Append script or file
      * @throws Exception\InvalidArgumentException
-     * @return Placeholder\Container\AbstractContainer
+     * @return AbstractContainer
      */
     public function append($value)
     {
@@ -503,9 +518,9 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
     /**
      * Override prepend
      *
-     * @param string $value Prepend script or file
+     * @param ObjectShape $value Prepend script or file
      * @throws Exception\InvalidArgumentException
-     * @return Placeholder\Container\AbstractContainer
+     * @return AbstractContainer
      */
     public function prepend($value)
     {
@@ -522,7 +537,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
     /**
      * Override set
      *
-     * @param  string $value Set script or file
+     * @param ObjectShape $value Set script or file
      * @throws Exception\InvalidArgumentException
      * @return void
      */
@@ -540,8 +555,8 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
     /**
      * Override offsetSet
      *
-     * @param  string|int $index Set script of file offset
-     * @param  mixed      $value
+     * @param int $index Set script of file offset
+     * @param ObjectShape $value
      * @throws Exception\InvalidArgumentException
      * @return void
      */
@@ -561,7 +576,7 @@ class HeadScript extends Placeholder\Container\AbstractStandalone
      * Set flag indicating if arbitrary attributes are allowed
      *
      * @param  bool $flag Set flag
-     * @return HeadScript
+     * @return $this
      */
     public function setAllowArbitraryAttributes($flag)
     {

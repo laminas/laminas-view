@@ -34,6 +34,7 @@ class HeadStyleTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid value passed to append');
+        /** @psalm-suppress InvalidArgument */
         $this->helper->append('foo');
     }
 
@@ -41,6 +42,7 @@ class HeadStyleTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid value passed to prepend');
+        /** @psalm-suppress InvalidArgument */
         $this->helper->prepend('foo');
     }
 
@@ -48,6 +50,7 @@ class HeadStyleTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid value passed to set');
+        /** @psalm-suppress InvalidArgument */
         $this->helper->set('foo');
     }
 
@@ -55,6 +58,7 @@ class HeadStyleTest extends TestCase
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid value passed to offsetSet');
+        /** @psalm-suppress InvalidArgument */
         $this->helper->offsetSet(1, 'foo');
     }
 
@@ -190,12 +194,6 @@ class HeadStyleTest extends TestCase
                      ->__invoke($style3, 'APPEND');
         self::assertCount(3, $this->helper);
         $values = $this->helper->getContainer()->getArrayCopy();
-        self::assertIsObject($values[0]);
-        self::assertIsObject($values[1]);
-        self::assertIsObject($values[2]);
-        self::assertIsString($values[0]->content);
-        self::assertIsString($values[1]->content);
-        self::assertIsString($values[2]->content);
         self::assertStringContainsString($values[0]->content, $style2);
         self::assertStringContainsString($values[1]->content, $style1);
         self::assertStringContainsString($values[2]->content, $style3);
@@ -235,7 +233,6 @@ class HeadStyleTest extends TestCase
         $item = array_shift($values);
         self::assertIsObject($item);
         self::assertObjectHasProperty('content', $item);
-        self::assertIsString($item->content);
         self::assertStringContainsString('foobar', $item->content);
     }
 
@@ -246,9 +243,7 @@ class HeadStyleTest extends TestCase
         self::assertCount(1, $values);
         self::assertTrue(isset($values[100]));
         $item = $values[100];
-        self::assertIsObject($item);
         self::assertObjectHasProperty('content', $item);
-        self::assertIsString($item->content);
         self::assertStringContainsString('foobar', $item->content);
     }
 

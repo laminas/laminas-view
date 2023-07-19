@@ -6,6 +6,8 @@ namespace Laminas\View\Helper;
 
 use Laminas\View;
 use Laminas\View\Exception;
+use Laminas\View\Helper\Placeholder\Container\AbstractContainer;
+use Laminas\View\Helper\Placeholder\Container\AbstractStandalone;
 use stdClass;
 
 use function array_filter;
@@ -28,17 +30,22 @@ use const ARRAY_FILTER_USE_KEY;
 use const PHP_EOL;
 
 /**
- * Helper for setting and retrieving stylesheets
+ * Helper for adding inline CSS to the head in style tags
+ *
+ * @psalm-type ObjectShape = object{
+ *     attributes: array<string, mixed>,
+ *     content: string,
+ * }
+ * @extends AbstractStandalone<int, ObjectShape>
  *
  * Allows the following method calls:
- *
- * @method HeadStyle appendStyle($content, $attributes = array())
- * @method HeadStyle offsetSetStyle($index, $content, $attributes = array())
- * @method HeadStyle prependStyle($content, $attributes = array())
- * @method HeadStyle setStyle($content, $attributes = array())
+ * @method HeadStyle appendStyle(string $content, array $attributes = [])
+ * @method HeadStyle offsetSetStyle(int $index, string $content, array $attributes = [])
+ * @method HeadStyle prependStyle(string $content, array $attributes = [])
+ * @method HeadStyle setStyle(string $content, array $attributes = [])
  * @method HeadStyle setIndent(int|string $indent)
  */
-class HeadStyle extends Placeholder\Container\AbstractStandalone
+class HeadStyle extends AbstractStandalone
 {
     /**
      * Allowed optional attributes
@@ -93,7 +100,7 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
     {
         parent::__construct();
 
-        $this->setSeparator(PHP_EOL);
+        $this->getContainer()->setSeparator(PHP_EOL);
     }
 
     /**
@@ -106,17 +113,17 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
      * @param  string|array $attributes Optional attributes to utilize
      * @return HeadStyle
      */
-    public function __invoke($content = null, $placement = 'APPEND', $attributes = [])
+    public function __invoke($content = null, $placement = AbstractContainer::APPEND, $attributes = [])
     {
         if ((null !== $content) && is_string($content)) {
             switch (strtoupper($placement)) {
-                case 'SET':
+                case AbstractContainer::SET:
                     $action = 'setStyle';
                     break;
-                case 'PREPEND':
+                case AbstractContainer::PREPEND:
                     $action = 'prependStyle';
                     break;
-                case 'APPEND':
+                case AbstractContainer::APPEND:
                 default:
                     $action = 'appendStyle';
                     break;
@@ -210,7 +217,7 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
      * @throws Exception\RuntimeException
      * @return void
      */
-    public function captureStart($type = Placeholder\Container\AbstractContainer::APPEND, $attrs = null)
+    public function captureStart($type = AbstractContainer::APPEND, $attrs = null)
     {
         if ($this->captureLock) {
             throw new Exception\RuntimeException('Cannot nest headStyle captures');
@@ -230,18 +237,18 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
     public function captureEnd()
     {
         $content            = ob_get_clean();
-        $attrs              = $this->captureAttrs;
+        $attrs              = $this->captureAttrs ?? [];
         $this->captureAttrs = null;
         $this->captureLock  = false;
 
         switch ($this->captureType) {
-            case Placeholder\Container\AbstractContainer::SET:
+            case AbstractContainer::SET:
                 $this->setStyle($content, $attrs);
                 break;
-            case Placeholder\Container\AbstractContainer::PREPEND:
+            case AbstractContainer::PREPEND:
                 $this->prependStyle($content, $attrs);
                 break;
-            case Placeholder\Container\AbstractContainer::APPEND:
+            case AbstractContainer::APPEND:
             default:
                 $this->appendStyle($content, $attrs);
                 break;
@@ -254,8 +261,8 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
      * @internal This method is internal and will be made private in version 3.0
      *
      * @param  string $content
-     * @param  array  $attributes
-     * @return stdClass
+     * @param  array<string, mixed> $attributes
+     * @return ObjectShape
      */
     public function createData($content, array $attributes)
     {
@@ -263,11 +270,10 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
             $attributes['media'] = 'screen';
         }
 
-        $data             = new stdClass();
-        $data->content    = $content;
-        $data->attributes = $attributes;
-
-        return $data;
+        return (object) [
+            'content'    => $content,
+            'attributes' => $attributes,
+        ];
     }
 
     /**
@@ -275,11 +281,10 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
      *
      * @internal This method is internal and will be made private in version 3.0
      *
-     * @param mixed $value
      * @return bool
-     * @psalm-assert-if-true stdClass $value
+     * @psalm-assert-if-true ObjectShape $value
      */
-    protected function isValid($value)
+    protected function isValid(mixed $value)
     {
         if (! $value instanceof stdClass || ! isset($value->content) || ! isset($value->attributes)) {
             return false;
@@ -360,11 +365,11 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
      *
      * @internal This method is internal and will be made private in version 3.0
      *
-     * @param stdClass $item Item to render
+     * @param ObjectShape $item Item to render
      * @param string $indent Indentation to use
      * @return string
      */
-    public function itemToString(stdClass $item, $indent)
+    public function itemToString(object $item, $indent)
     {
         if (! isset($item->content) || ! is_string($item->content) || $item->content === '') {
             return '';
@@ -396,9 +401,9 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
     /**
      * Override append to enforce style creation
      *
-     * @param mixed $value
+     * @param ObjectShape $value
      * @throws Exception\InvalidArgumentException
-     * @return Placeholder\Container\AbstractContainer
+     * @return AbstractContainer
      */
     public function append($value)
     {
@@ -414,8 +419,8 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
     /**
      * Override offsetSet to enforce style creation
      *
-     * @param  string|int $index
-     * @param  mixed      $value
+     * @param int $index
+     * @param ObjectShape $value
      * @throws Exception\InvalidArgumentException
      * @return void
      */
@@ -433,9 +438,9 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
     /**
      * Override prepend to enforce style creation
      *
-     * @param mixed $value
+     * @param ObjectShape $value
      * @throws Exception\InvalidArgumentException
-     * @return Placeholder\Container\AbstractContainer
+     * @return AbstractContainer
      */
     public function prepend($value)
     {
@@ -451,7 +456,7 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
     /**
      * Override set to enforce style creation
      *
-     * @param  mixed $value
+     * @param ObjectShape $value
      * @throws Exception\InvalidArgumentException
      * @return void
      */
