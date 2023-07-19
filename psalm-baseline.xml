@@ -2150,59 +2150,14 @@
       <code><![CDATA['foo']]></code>
       <code><![CDATA['foo']]></code>
       <code><![CDATA['foo']]></code>
-      <code><![CDATA[[$this, 'handleErrors']]]></code>
     </InvalidArgument>
-    <MixedArgument>
-      <code><![CDATA[$attributeEscaper('HeadMeta with Microdata')]]></code>
-      <code><![CDATA[$attributeEscaper('og:title')]]></code>
-      <code><![CDATA[$attributeEscaper('some content')]]></code>
-      <code><![CDATA[$attributeEscaper('some content')]]></code>
-      <code>$modifiers</code>
-      <code>$value</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-    </MixedArgument>
-    <MixedAssignment>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$modifiers</code>
-      <code>$value</code>
-      <code>$values</code>
-      <code>$values</code>
-    </MixedAssignment>
-    <MixedOperand>
-      <code><![CDATA[$attributeEscaper('boo bah')]]></code>
-      <code><![CDATA[$attributeEscaper('foo bar')]]></code>
-    </MixedOperand>
-    <MixedPropertyFetch>
-      <code><![CDATA[$item->content]]></code>
-      <code><![CDATA[$item->content]]></code>
-      <code><![CDATA[$item->name]]></code>
-      <code><![CDATA[$item->name]]></code>
-      <code><![CDATA[$item->type]]></code>
-      <code><![CDATA[$item->type]]></code>
-    </MixedPropertyFetch>
     <UndefinedMagicMethod>
-      <code>getArrayCopy</code>
-      <code>getArrayCopy</code>
-      <code>getValue</code>
       <code>offsetSetHttpEquiv</code>
       <code>offsetSetHttpEquiv</code>
       <code>offsetSetName</code>
       <code>offsetSetName</code>
       <code>offsetSetName</code>
     </UndefinedMagicMethod>
-  </file>
-  <file src="test/Helper/HeadScriptTest.php">
-    <MixedArgument>
-      <code><![CDATA[$attributeEscaper('test1.js')]]></code>
-      <code><![CDATA[$attributeEscaper('test2.js')]]></code>
-      <code><![CDATA[$attributeEscaper('test3.js')]]></code>
-      <code><![CDATA[$attributeEscaper('test4.js')]]></code>
-      <code><![CDATA[$attributeEscaper('text/javascript')]]></code>
-    </MixedArgument>
   </file>
   <file src="test/Helper/HtmlFlashTest.php">
     <DeprecatedClass>

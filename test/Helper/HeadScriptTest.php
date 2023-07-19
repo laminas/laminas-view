@@ -6,9 +6,9 @@ namespace LaminasTest\View\Helper;
 
 use DOMDocument;
 use Generator;
+use Laminas\Escaper\Escaper;
 use Laminas\View;
 use Laminas\View\Helper\Doctype;
-use Laminas\View\Helper\EscapeHtmlAttr;
 use Laminas\View\Helper\HeadScript;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -25,20 +25,13 @@ use const PHP_EOL;
 
 class HeadScriptTest extends TestCase
 {
-    /** @var HeadScript */
-    public $helper;
+    private HeadScript $helper;
+    private Escaper $escaper;
 
-    /** @var EscapeHtmlAttr */
-    public $attributeEscaper;
-
-    /**
-     * Sets up the fixture, for example, open a network connection.
-     * This method is called before a test is executed.
-     */
     protected function setUp(): void
     {
-        $this->helper           = new HeadScript();
-        $this->attributeEscaper = new EscapeHtmlAttr();
+        $this->helper  = new HeadScript();
+        $this->escaper = new Escaper();
     }
 
     public function testHeadScriptReturnsObjectInstance(): void
@@ -417,19 +410,17 @@ document.write(bar.strlen());');
 
         $test = $this->helper->toString();
 
-        $attributeEscaper = $this->attributeEscaper;
-
         $expected = sprintf(
             '<script type="%2$s" src="%3$s"></script>%1$s'
             . '<script type="%2$s" src="%4$s"></script>%1$s'
             . '<script type="%2$s" src="%5$s"></script>%1$s'
             . '<script type="%2$s" src="%6$s"></script>',
             PHP_EOL,
-            $attributeEscaper('text/javascript'),
-            $attributeEscaper('test1.js'),
-            $attributeEscaper('test4.js'),
-            $attributeEscaper('test3.js'),
-            $attributeEscaper('test2.js')
+            $this->escaper->escapeHtmlAttr('text/javascript'),
+            $this->escaper->escapeHtmlAttr('test1.js'),
+            $this->escaper->escapeHtmlAttr('test4.js'),
+            $this->escaper->escapeHtmlAttr('test3.js'),
+            $this->escaper->escapeHtmlAttr('test2.js')
         );
 
         $this->assertEquals($expected, $test);
