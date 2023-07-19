@@ -8,9 +8,9 @@ use Laminas\View;
 use Laminas\View\Exception;
 use stdClass;
 
+use function array_filter;
 use function array_shift;
 use function count;
-use function explode;
 use function implode;
 use function in_array;
 use function is_array;
@@ -22,11 +22,9 @@ use function preg_match;
 use function preg_replace;
 use function sprintf;
 use function str_replace;
-use function strpos;
 use function strtoupper;
-use function substr;
-use function trim;
 
+use const ARRAY_FILTER_USE_KEY;
 use const PHP_EOL;
 
 /**
@@ -38,20 +36,25 @@ use const PHP_EOL;
  * @method HeadStyle offsetSetStyle($index, $content, $attributes = array())
  * @method HeadStyle prependStyle($content, $attributes = array())
  * @method HeadStyle setStyle($content, $attributes = array())
+ * @method HeadStyle setIndent(int|string $indent)
  */
 class HeadStyle extends Placeholder\Container\AbstractStandalone
 {
     /**
      * Allowed optional attributes
      *
-     * @var array
+     * @var list<string>
      */
-    protected $optionalAttributes = ['lang', 'title', 'media', 'dir'];
+    protected $optionalAttributes = ['lang', 'title', 'media', 'dir', 'nonce'];
 
     /**
      * Allowed media types
      *
-     * @var array
+     * @deprecated This property is no longer used and will be removed in version 3.0
+     *             Because the media attribute can contain any type of media query, artificially limiting its values
+     *             is counter-productive.
+     *
+     * @var list<string>
      */
     protected $mediaTypes = [
         'all',
@@ -68,7 +71,7 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
     /**
      * Capture type and/or attributes (used for hinting during capture)
      *
-     * @var string
+     * @var array<string, mixed>|null
      */
     protected $captureAttrs;
 
@@ -77,20 +80,15 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
      *
      * @var bool
      */
-    protected $captureLock;
+    protected $captureLock = false;
 
     /**
      * Capture type (append, prepend, set)
      *
-     * @var string
+     * @var string|null
      */
     protected $captureType;
 
-    /**
-     * Constructor
-     *
-     * Set separator to PHP_EOL.
-     */
     public function __construct()
     {
         parent::__construct();
@@ -154,7 +152,7 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
             if (1 > $argc) {
                 throw new Exception\BadMethodCallException(sprintf(
                     'Method "%s" requires minimally content for the stylesheet',
-                    $method
+                    $method,
                 ));
             }
 
@@ -187,8 +185,8 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
     public function toString($indent = null)
     {
         $indent = null !== $indent
-            ? $this->getWhitespace($indent)
-            : $this->getIndent();
+            ? $this->getContainer()->getWhitespace($indent)
+            : $this->getContainer()->getIndent();
 
         $items = [];
         $this->getContainer()->ksort();
@@ -199,17 +197,16 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
             $items[] = $this->itemToString($item, $indent);
         }
 
-        $return = $indent . implode($this->getSeparator() . $indent, $items);
-        $return = preg_replace("/(\r\n?|\n)/", '$1' . $indent, $return);
+        $return = implode($this->getContainer()->getSeparator(), $items);
 
-        return $return;
+        return $indent . preg_replace("/(\r\n?|\n)/", '$1' . $indent, $return);
     }
 
     /**
      * Start capture action
      *
      * @param  string $type
-     * @param  string $attrs
+     * @param  array<string, mixed>|null $attrs optional style tag attributes
      * @throws Exception\RuntimeException
      * @return void
      */
@@ -254,6 +251,8 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
     /**
      * Create data item for use in stack
      *
+     * @internal This method is internal and will be made private in version 3.0
+     *
      * @param  string $content
      * @param  array  $attributes
      * @return stdClass
@@ -262,8 +261,6 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
     {
         if (! isset($attributes['media'])) {
             $attributes['media'] = 'screen';
-        } elseif (is_array($attributes['media'])) {
-            $attributes['media'] = implode(',', $attributes['media']);
         }
 
         $data             = new stdClass();
@@ -276,8 +273,11 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
     /**
      * Determine if a value is a valid style tag
      *
-     * @param  mixed $value
+     * @internal This method is internal and will be made private in version 3.0
+     *
+     * @param mixed $value
      * @return bool
+     * @psalm-assert-if-true stdClass $value
      */
     protected function isValid($value)
     {
@@ -288,67 +288,101 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
         return true;
     }
 
+    private function viewEncoding(): string
+    {
+        $encoding = null;
+        if ($this->view !== null && method_exists($this->view, 'getEncoding')) {
+            /** @var mixed $encoding */
+            $encoding = $this->view->getEncoding();
+        }
+
+        return is_string($encoding) ? $encoding : 'UTF-8';
+    }
+
+    /**
+     * @param array<array-key, mixed> $value
+     * @psalm-assert array<array-key, string> $value
+     */
+    private static function assertAllString(array $value, string $message): void
+    {
+        /** @var mixed $item */
+        foreach ($value as $item) {
+            if (is_string($item)) {
+                continue;
+            }
+
+            throw new Exception\InvalidArgumentException($message);
+        }
+    }
+
+    /**
+     * @param array<array-key, mixed> $attributes
+     * @psalm-return array{media: non-empty-string, ...}|array<array-key, mixed>
+     */
+    private function normalizeMediaAttribute(array $attributes): array
+    {
+        if (! isset($attributes['media']) || $attributes['media'] === '' || $attributes['media'] === []) {
+            unset($attributes['media']);
+
+            return $attributes;
+        }
+
+        if (is_array($attributes['media'])) {
+            self::assertAllString(
+                $attributes['media'],
+                'When the media attribute is an array, the array can only contain string values',
+            );
+
+            $attributes['media'] = implode(', ', $attributes['media']);
+
+            return $attributes;
+        }
+
+        return $attributes;
+    }
+
+    private function styleTagAttributesString(object $item): string
+    {
+        $escaper    = $this->getEscaper($this->viewEncoding());
+        $attributes = isset($item->attributes) && is_array($item->attributes) ? $item->attributes : [];
+        $attributes = $this->normalizeMediaAttribute($attributes);
+        $attributes = array_filter(
+            $attributes,
+            fn (int|string $key) => in_array($key, $this->optionalAttributes, true),
+            ARRAY_FILTER_USE_KEY,
+        );
+
+        return (new View\HtmlAttributesSet($escaper, $attributes))->__toString();
+    }
+
     /**
      * Convert content and attributes into valid style tag
      *
-     * @param  stdClass $item   Item to render
-     * @param  string   $indent Indentation to use
+     * @internal This method is internal and will be made private in version 3.0
+     *
+     * @param stdClass $item Item to render
+     * @param string $indent Indentation to use
      * @return string
      */
     public function itemToString(stdClass $item, $indent)
     {
-        $attrString = '';
-        if (! empty($item->attributes)) {
-            $enc = 'UTF-8';
-            if (
-                $this->view instanceof View\Renderer\RendererInterface
-                && method_exists($this->view, 'getEncoding')
-            ) {
-                $enc = $this->view->getEncoding();
-            }
-            $escaper = $this->getEscaper($enc);
-            foreach ($item->attributes as $key => $value) {
-                if (! in_array($key, $this->optionalAttributes)) {
-                    continue;
-                }
-                if ('media' === $key) {
-                    if (false === strpos($value, ',')) {
-                        if (! in_array($value, $this->mediaTypes)) {
-                            continue;
-                        }
-                    } else {
-                        $mediaTypes = explode(',', $value);
-                        $value      = '';
-                        foreach ($mediaTypes as $type) {
-                            $type = trim($type);
-                            if (! in_array($type, $this->mediaTypes)) {
-                                continue;
-                            }
-                            $value .= $type . ',';
-                        }
-                        $value = substr($value, 0, -1);
-                    }
-                }
-                $attrString .= sprintf(' %s="%s"', $key, $escaper->escapeHtmlAttr($value));
-            }
+        if (! isset($item->content) || ! is_string($item->content) || $item->content === '') {
+            return '';
         }
 
-        $escapeStart = $indent . '<!--' . PHP_EOL;
-        $escapeEnd   = $indent . '-->' . PHP_EOL;
+        $attrString = $this->styleTagAttributesString($item);
+
+        $html = '<style type="text/css"' . $attrString . '>'
+            . PHP_EOL
+            . $item->content
+            . PHP_EOL
+            . '</style>';
+
         if (
             isset($item->attributes['conditional'])
             && ! empty($item->attributes['conditional'])
             && is_string($item->attributes['conditional'])
         ) {
-            $escapeStart = null;
-            $escapeEnd   = null;
-        }
-
-        $html = '<style type="text/css"' . $attrString . '>' . PHP_EOL
-            . $escapeStart . $indent . $item->content . PHP_EOL . $escapeEnd
-            . '</style>';
-
-        if (null === $escapeStart && null === $escapeEnd) {
             // inner wrap with comment end and start if !IE
             if (str_replace(' ', '', $item->attributes['conditional']) === '!IE') {
                 $html = '<!-->' . $html . '<!--';
@@ -370,7 +404,7 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
     {
         if (! $this->isValid($value)) {
             throw new Exception\InvalidArgumentException(
-                'Invalid value passed to append; please use appendStyle()'
+                'Invalid value passed to append; please use appendStyle()',
             );
         }
 
@@ -389,7 +423,7 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
     {
         if (! $this->isValid($value)) {
             throw new Exception\InvalidArgumentException(
-                'Invalid value passed to offsetSet; please use offsetSetStyle()'
+                'Invalid value passed to offsetSet; please use offsetSetStyle()',
             );
         }
 
@@ -407,7 +441,7 @@ class HeadStyle extends Placeholder\Container\AbstractStandalone
     {
         if (! $this->isValid($value)) {
             throw new Exception\InvalidArgumentException(
-                'Invalid value passed to prepend; please use prependStyle()'
+                'Invalid value passed to prepend; please use prependStyle()',
             );
         }
 

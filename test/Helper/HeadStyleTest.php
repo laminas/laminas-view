@@ -6,64 +6,54 @@ namespace LaminasTest\View\Helper;
 
 use DOMDocument;
 use Laminas\View;
-use Laminas\View\Helper;
+use Laminas\View\Exception\InvalidArgumentException;
+use Laminas\View\Helper\HeadStyle;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
 use function array_shift;
-use function count;
 use function substr_count;
 
 use const PHP_EOL;
 
 class HeadStyleTest extends TestCase
 {
-    /** @var Helper\HeadStyle */
-    public $helper;
+    private HeadStyle $helper;
 
-    /** @var string */
-    public $basePath;
-
-    /**
-     * Sets up the fixture, for example, open a network connection.
-     * This method is called before a test is executed.
-     */
     protected function setUp(): void
     {
-        $this->basePath = __DIR__ . '/_files/modules';
-        $this->helper   = new Helper\HeadStyle();
+        $this->helper = new HeadStyle();
     }
 
-    public function testHeadStyleReturnsObjectInstance(): void
+    public function testInvokeWithoutArgumentsReturnsSelf(): void
     {
-        $placeholder = $this->helper->__invoke();
-        $this->assertInstanceOf(Helper\HeadStyle::class, $placeholder);
+        self::assertSame($this->helper, $this->helper->__invoke());
     }
 
     public function testAppendThrowsExceptionGivenNonStyleArgument(): void
     {
-        $this->expectException(View\Exception\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid value passed to append');
         $this->helper->append('foo');
     }
 
     public function testPrependThrowsExceptionGivenNonStyleArgument(): void
     {
-        $this->expectException(View\Exception\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid value passed to prepend');
         $this->helper->prepend('foo');
     }
 
     public function testSetThrowsExceptionGivenNonStyleArgument(): void
     {
-        $this->expectException(View\Exception\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid value passed to set');
         $this->helper->set('foo');
     }
 
     public function testOffsetSetThrowsExceptionGivenNonStyleArgument(): void
     {
-        $this->expectException(View\Exception\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid value passed to offsetSet');
         $this->helper->offsetSet(1, 'foo');
     }
@@ -74,14 +64,14 @@ class HeadStyleTest extends TestCase
         for ($i = 0; $i < 3; ++$i) {
             $string .= PHP_EOL . 'a {}';
             $this->helper->appendStyle($string);
-            $values = $this->helper->getArrayCopy();
-            $this->assertEquals($i + 1, count($values));
+            $values = $this->helper->getContainer()->getArrayCopy();
+            self::assertCount($i + 1, $values);
             $item = $values[$i];
 
-            $this->assertInstanceOf(stdClass::class, $item);
-            $this->assertObjectHasProperty('content', $item);
-            $this->assertObjectHasProperty('attributes', $item);
-            $this->assertEquals($string, $item->content);
+            self::assertInstanceOf(stdClass::class, $item);
+            self::assertObjectHasProperty('content', $item);
+            self::assertObjectHasProperty('attributes', $item);
+            self::assertEquals($string, $item->content);
         }
     }
 
@@ -91,33 +81,34 @@ class HeadStyleTest extends TestCase
         for ($i = 0; $i < 3; ++$i) {
             $string .= PHP_EOL . 'a {}';
             $this->helper->prependStyle($string);
-            $values = $this->helper->getArrayCopy();
-            $this->assertEquals($i + 1, count($values));
+            $values = $this->helper->getContainer()->getArrayCopy();
+            self::assertCount($i + 1, $values);
             $item = array_shift($values);
 
-            $this->assertInstanceOf(stdClass::class, $item);
-            $this->assertObjectHasProperty('content', $item);
-            $this->assertObjectHasProperty('attributes', $item);
-            $this->assertEquals($string, $item->content);
+            self::assertInstanceOf(stdClass::class, $item);
+            self::assertObjectHasProperty('content', $item);
+            self::assertObjectHasProperty('attributes', $item);
+            self::assertEquals($string, $item->content);
         }
     }
 
-    public function testOverloadSetOversitesStack(): void
+    public function testOverloadSetOverwritesStack(): void
     {
         $string = 'a {}';
         for ($i = 0; $i < 3; ++$i) {
             $this->helper->appendStyle($string);
             $string .= PHP_EOL . 'a {}';
         }
+
         $this->helper->setStyle($string);
-        $values = $this->helper->getArrayCopy();
-        $this->assertEquals(1, count($values));
+        $values = $this->helper->getContainer()->getArrayCopy();
+        self::assertCount(1, $values);
         $item = array_shift($values);
 
-        $this->assertInstanceOf(stdClass::class, $item);
-        $this->assertObjectHasProperty('content', $item);
-        $this->assertObjectHasProperty('attributes', $item);
-        $this->assertEquals($string, $item->content);
+        self::assertInstanceOf(stdClass::class, $item);
+        self::assertObjectHasProperty('content', $item);
+        self::assertObjectHasProperty('attributes', $item);
+        self::assertEquals($string, $item->content);
     }
 
     public function testCanBuildStyleTagsWithAttributes(): void
@@ -126,52 +117,66 @@ class HeadStyleTest extends TestCase
             'lang'  => 'us_en',
             'title' => 'foo',
             'media' => 'projection',
-            'dir'   => 'rtol',
+            'dir'   => 'rtl',
             'bogus' => 'unused',
         ]);
-        $value = $this->helper->getValue();
-
-        $this->assertObjectHasProperty('attributes', $value);
+        $value = $this->helper->getContainer()->getValue();
+        self::assertIsObject($value);
+        self::assertObjectHasProperty('attributes', $value);
         $attributes = $value->attributes;
 
-        $this->assertTrue(isset($attributes['lang']));
-        $this->assertTrue(isset($attributes['title']));
-        $this->assertTrue(isset($attributes['media']));
-        $this->assertTrue(isset($attributes['dir']));
-        $this->assertTrue(isset($attributes['bogus']));
-        $this->assertEquals('us_en', $attributes['lang']);
-        $this->assertEquals('foo', $attributes['title']);
-        $this->assertEquals('projection', $attributes['media']);
-        $this->assertEquals('rtol', $attributes['dir']);
-        $this->assertEquals('unused', $attributes['bogus']);
+        self::assertTrue(isset($attributes['lang']));
+        self::assertTrue(isset($attributes['title']));
+        self::assertTrue(isset($attributes['media']));
+        self::assertTrue(isset($attributes['dir']));
+        self::assertTrue(isset($attributes['bogus']));
+        self::assertEquals('us_en', $attributes['lang']);
+        self::assertEquals('foo', $attributes['title']);
+        self::assertEquals('projection', $attributes['media']);
+        self::assertEquals('rtl', $attributes['dir']);
+        self::assertEquals('unused', $attributes['bogus']);
     }
 
-    public function testRenderedStyleTagsContainHtmlEscaping(): void
+    public function testRenderedStyleMarkupHasExpectedOutput(): void
     {
         $this->helper->setStyle('a {}', [
-            'lang'  => 'us_en',
+            'lang'  => 'en_us',
             'title' => 'foo',
             'media' => 'screen',
-            'dir'   => 'rtol',
+            'dir'   => 'rtl',
             'bogus' => 'unused',
         ]);
-        $value = $this->helper->toString();
-        $this->assertStringContainsString('<!--' . PHP_EOL, $value);
-        $this->assertStringContainsString(PHP_EOL . '-->', $value);
+
+        $expect = <<<HTML
+            <style type="text/css" lang="en_us" title="foo" media="screen" dir="rtl">
+            a {}
+            </style>
+            HTML;
+        self::assertSame($expect, $this->helper->toString());
     }
 
     public function testRenderedStyleTagsContainsDefaultMedia(): void
     {
         $this->helper->setStyle('a {}', []);
         $value = $this->helper->toString();
-        $this->assertMatchesRegularExpression('#<style [^>]*?media="screen"#', $value, $value);
+        self::assertMatchesRegularExpression('#<style [^>]*?media="screen"#', $value, $value);
     }
 
     public function testMediaAttributeCanHaveSpaceInCommaSeparatedString(): void
     {
         $this->helper->appendStyle('a { }', ['media' => 'screen, projection']);
         $string = $this->helper->toString();
-        $this->assertStringContainsString('media="screen,projection"', $string);
+        self::assertStringContainsString('media="screen,&#x20;projection"', $string);
+    }
+
+    public function testMediaAttributeCanContainARegularMediaQuery(): void
+    {
+        $this->helper->appendStyle('a { }', ['media' => 'screen and (max-width: 100px)']);
+        $string = $this->helper->toString();
+        self::assertStringContainsString(
+            'media="screen&#x20;and&#x20;&#x28;max-width&#x3A;&#x20;100px&#x29;"',
+            $string,
+        );
     }
 
     public function testHeadStyleProxiesProperly(): void
@@ -209,15 +214,15 @@ class HeadStyleTest extends TestCase
         self::assertNotEmpty($html);
         $doc = new DOMDocument();
         $dom = $doc->loadHtml($html);
-        $this->assertTrue($dom);
+        self::assertTrue($dom);
 
         $styles = substr_count($html, '<style type="text/css"');
-        $this->assertEquals(3, $styles);
+        self::assertEquals(3, $styles);
         $styles = substr_count($html, '</style>');
-        $this->assertEquals(3, $styles);
-        $this->assertStringContainsString($style3, $html);
-        $this->assertStringContainsString($style2, $html);
-        $this->assertStringContainsString($style1, $html);
+        self::assertEquals(3, $styles);
+        self::assertStringContainsString($style3, $html);
+        self::assertStringContainsString($style2, $html);
+        self::assertStringContainsString($style1, $html);
     }
 
     public function testCapturingCapturesToObject(): void
@@ -225,26 +230,33 @@ class HeadStyleTest extends TestCase
         $this->helper->captureStart();
         echo 'foobar';
         $this->helper->captureEnd();
-        $values = $this->helper->getArrayCopy();
-        $this->assertEquals(1, count($values));
+        $values = $this->helper->getContainer()->getArrayCopy();
+        self::assertCount(1, $values);
         $item = array_shift($values);
-        $this->assertStringContainsString('foobar', $item->content);
+        self::assertIsObject($item);
+        self::assertObjectHasProperty('content', $item);
+        self::assertIsString($item->content);
+        self::assertStringContainsString('foobar', $item->content);
     }
 
     public function testOverloadingOffsetSetWritesToSpecifiedIndex(): void
     {
         $this->helper->offsetSetStyle(100, 'foobar');
-        $values = $this->helper->getArrayCopy();
-        $this->assertEquals(1, count($values));
-        $this->assertTrue(isset($values[100]));
+        $values = $this->helper->getContainer()->getArrayCopy();
+        self::assertCount(1, $values);
+        self::assertTrue(isset($values[100]));
         $item = $values[100];
-        $this->assertStringContainsString('foobar', $item->content);
+        self::assertIsObject($item);
+        self::assertObjectHasProperty('content', $item);
+        self::assertIsString($item->content);
+        self::assertStringContainsString('foobar', $item->content);
     }
 
     public function testInvalidMethodRaisesException(): void
     {
         $this->expectException(View\Exception\BadMethodCallException::class);
         $this->expectExceptionMessage('Method "bogusMethod" does not exist');
+        /** @psalm-suppress UndefinedMagicMethod */
         $this->helper->bogusMethod();
     }
 
@@ -256,27 +268,41 @@ class HeadStyleTest extends TestCase
         $this->helper->appendStyle();
     }
 
+    public function testThatEmptyStylesWillYieldAnEmptyValue(): void
+    {
+        $this->helper->appendStyle('', ['media' => 'screen']);
+        self::assertSame('', $this->helper->toString());
+    }
+
     public function testIndentationIsHonored(): void
     {
-        $this->helper->setIndent(4);
-        $this->helper->appendStyle('
-a {
-    display: none;
-}');
-        $this->helper->appendStyle('
-h1 {
-    font-weight: bold
-}');
-        $string = $this->helper->toString();
+        $returnValue = $this->helper->setIndent(4);
+        self::assertSame($this->helper, $returnValue);
+        $this->helper->appendStyle(<<<CSS
+            a {
+                display: none;
+            }
+            CSS);
+        $this->helper->appendStyle(<<<CSS
+            h1 {
+                font-weight: bold
+            }
+            CSS);
 
-        $scripts = substr_count($string, '    <style');
-        $this->assertEquals(2, $scripts);
-        $this->assertStringContainsString('    <!--', $string);
-        $this->assertStringContainsString('    a {', $string);
-        $this->assertStringContainsString('    h1 {', $string);
-        $this->assertStringContainsString('        display', $string);
-        $this->assertStringContainsString('        font-weight', $string);
-        $this->assertStringContainsString('    }', $string);
+        $expect = <<<HTML
+                <style type="text/css" media="screen">
+                a {
+                    display: none;
+                }
+                </style>
+                <style type="text/css" media="screen">
+                h1 {
+                    font-weight: bold
+                }
+                </style>
+            HTML;
+
+        self::assertSame($expect, $this->helper->toString());
     }
 
     public function testSerialCapturingWorks(): void
@@ -303,40 +329,59 @@ h1 {
             $this->fail('Nested capturing should fail');
         } catch (View\Exception\ExceptionInterface $e) {
             $this->helper->__invoke()->captureEnd();
-            $this->assertStringContainsString('Cannot nest', $e->getMessage());
+            self::assertStringContainsString('Cannot nest', $e->getMessage());
         }
     }
 
     public function testMediaAttributeAsArray(): void
     {
         $this->helper->setIndent(4);
-        $this->helper->appendStyle('
-a {
-    display: none;
-}', ['media' => ['screen', 'projection']]);
+        $this->helper->appendStyle(
+            <<<CSS
+            a {
+                display: none;
+            }
+            CSS,
+            ['media' => ['screen', 'projection']],
+        );
         $string = $this->helper->toString();
 
         $scripts = substr_count($string, '    <style');
-        $this->assertEquals(1, $scripts);
-        $this->assertStringContainsString('    <!--', $string);
-        $this->assertStringContainsString('    a {', $string);
-        $this->assertStringContainsString(' media="screen,projection"', $string);
+        self::assertEquals(1, $scripts);
+        self::assertStringContainsString('    a {', $string);
+        self::assertStringContainsString(' media="screen,&#x20;projection"', $string);
+    }
+
+    public function testThatAnExceptionIsThrownIfMediaAttributeArrayContainsNonStringValues(): void
+    {
+        $this->helper->appendStyle(
+            'a {display: none;}',
+            ['media' => [0.2, []]],
+        );
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('When the media attribute is an array, the array can only contain string values');
+
+        $this->helper->toString();
     }
 
     public function testMediaAttributeAsCommaSeparatedString(): void
     {
         $this->helper->setIndent(4);
-        $this->helper->appendStyle('
-a {
-    display: none;
-}', ['media' => 'screen,projection']);
+        $this->helper->appendStyle(
+            <<<CSS
+            a {
+                display: none;
+            }
+            CSS,
+            ['media' => 'screen,projection'],
+        );
         $string = $this->helper->toString();
 
         $scripts = substr_count($string, '    <style');
-        $this->assertEquals(1, $scripts);
-        $this->assertStringContainsString('    <!--', $string);
-        $this->assertStringContainsString('    a {', $string);
-        $this->assertStringContainsString(' media="screen,projection"', $string);
+        self::assertEquals(1, $scripts);
+        self::assertStringContainsString('    a {', $string);
+        self::assertStringContainsString(' media="screen,projection"', $string);
     }
 
     public function testConditionalScript(): void
@@ -346,7 +391,7 @@ a {
     display: none;
 }', ['media' => 'screen,projection', 'conditional' => 'lt IE 7']);
         $test = $this->helper->toString();
-        $this->assertStringContainsString('<!--[if lt IE 7]>', $test);
+        self::assertStringContainsString('<!--[if lt IE 7]>', $test);
     }
 
     public function testConditionalScriptNoIE(): void
@@ -356,8 +401,8 @@ a {
     display: none;
 }', ['media' => 'screen,projection', 'conditional' => '!IE']);
         $test = $this->helper->toString();
-        $this->assertStringContainsString('<!--[if !IE]><!--><', $test);
-        $this->assertStringContainsString('<!--<![endif]-->', $test);
+        self::assertStringContainsString('<!--[if !IE]><!--><', $test);
+        self::assertStringContainsString('<!--<![endif]-->', $test);
     }
 
     public function testConditionalScriptNoIEWidthSpace(): void
@@ -367,8 +412,8 @@ a {
     display: none;
 }', ['media' => 'screen,projection', 'conditional' => '! IE']);
         $test = $this->helper->toString();
-        $this->assertStringContainsString('<!--[if ! IE]><!--><', $test);
-        $this->assertStringContainsString('<!--<![endif]-->', $test);
+        self::assertStringContainsString('<!--[if ! IE]><!--><', $test);
+        self::assertStringContainsString('<!--<![endif]-->', $test);
     }
 
     public function testContainerMaintainsCorrectOrderOfItems(): void
@@ -380,18 +425,19 @@ a {
         $this->helper->offsetSetStyle(5, $style2);
 
         $test     = $this->helper->toString();
-        $expected = '<style type="text/css" media="screen">' . PHP_EOL
-                  . '<!--' . PHP_EOL
-                  . $style2 . PHP_EOL
-                  . '-->' . PHP_EOL
-                  . '</style>' . PHP_EOL
-                  . '<style type="text/css" media="screen">' . PHP_EOL
-                  . '<!--' . PHP_EOL
-                  . $style1 . PHP_EOL
-                  . '-->' . PHP_EOL
-                  . '</style>';
+        $expected = '<style type="text/css" media="screen">'
+            . PHP_EOL
+            . $style2
+            . PHP_EOL
+            . '</style>'
+            . PHP_EOL
+            . '<style type="text/css" media="screen">'
+            . PHP_EOL
+            . $style1
+            . PHP_EOL
+            . '</style>';
 
-        $this->assertEquals($expected, $test);
+        self::assertEquals($expected, $test);
     }
 
     public function testRenderConditionalCommentsShouldNotContainHtmlEscaping(): void
@@ -402,7 +448,7 @@ a {
         ]);
         $value = $this->helper->toString();
 
-        $this->assertStringNotContainsString('<!--' . PHP_EOL, $value);
-        $this->assertStringNotContainsString(PHP_EOL . '-->', $value);
+        self::assertStringNotContainsString('<!--' . PHP_EOL, $value);
+        self::assertStringNotContainsString(PHP_EOL . '-->', $value);
     }
 }
