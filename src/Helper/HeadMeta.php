@@ -8,7 +8,6 @@ use Laminas\View;
 use Laminas\View\Exception;
 use Laminas\View\Helper\Placeholder\Container\AbstractContainer;
 use Laminas\View\Helper\Placeholder\Container\AbstractStandalone;
-use stdClass;
 
 use function array_shift;
 use function array_unshift;
@@ -195,19 +194,20 @@ class HeadMeta extends AbstractStandalone
      */
     public function toString($indent = null)
     {
-        $indent = null !== $indent
-            ? $this->getWhitespace($indent)
-            : $this->getIndent();
+        $container = $this->getContainer();
+        $indent    = null !== $indent
+            ? $container->getWhitespace($indent)
+            : $container->getIndent();
 
         $items = [];
-        $this->getContainer()->ksort();
+        $container->ksort();
 
         $doctype = $this->view->plugin('doctype');
         assert($doctype instanceof Doctype);
         $isHtml5 = $doctype->isHtml5();
 
         try {
-            foreach ($this as $item) {
+            foreach ($container as $item) {
                 $content = $this->itemToString($item);
 
                 if ($isHtml5 && $item->type === 'charset') {
@@ -222,7 +222,7 @@ class HeadMeta extends AbstractStandalone
             return '';
         }
 
-        return $indent . implode($this->escape($this->getSeparator()) . $indent, $items);
+        return $indent . implode($this->escape($container->getSeparator()) . $indent, $items);
     }
 
     /**
@@ -361,7 +361,6 @@ class HeadMeta extends AbstractStandalone
      *
      * @param mixed $item
      * @return bool
-     * @psalm-param-out ObjectShape $item
      */
     protected function isValid($item)
     {
@@ -461,7 +460,7 @@ class HeadMeta extends AbstractStandalone
     /**
      * Prepend
      *
-     * @param  object $value
+     * @param object $value
      * @throws Exception\InvalidArgumentException
      * @return AbstractContainer
      */
@@ -510,11 +509,12 @@ class HeadMeta extends AbstractStandalone
      */
     public function setCharset($charset)
     {
-        $item            = new stdClass();
-        $item->type      = 'charset';
-        $item->charset   = $charset;
-        $item->content   = null;
-        $item->modifiers = [];
+        $item = (object) [
+            'type'      => 'charset',
+            'charset'   => $charset,
+            'content'   => null,
+            'modifiers' => [],
+        ];
 
         if (! $this->isValid($item)) {
             throw new Exception\InvalidArgumentException(

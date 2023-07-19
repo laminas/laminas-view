@@ -289,7 +289,6 @@
       <code>$args[1]</code>
       <code>$args[2]</code>
       <code>$index</code>
-      <code>$item</code>
       <code><![CDATA[$item->$type]]></code>
       <code><![CDATA[$item->content]]></code>
       <code><![CDATA[$item->type]]></code>
@@ -303,9 +302,7 @@
     </MixedArgument>
     <MixedAssignment>
       <code>$doctype</code>
-      <code>$indent</code>
       <code>$index</code>
-      <code>$item</code>
       <code>$key</code>
       <code>$type</code>
       <code>$value</code>
@@ -321,10 +318,6 @@
       <code>isRdfa</code>
       <code>isXhtml</code>
     </MixedMethodCall>
-    <MixedOperand>
-      <code>$indent</code>
-      <code>$indent</code>
-    </MixedOperand>
     <MixedReturnStatement>
       <code>parent::__call($method, $args)</code>
       <code>parent::__call($method, $args)</code>
@@ -346,9 +339,6 @@
       <code>plugin</code>
       <code>plugin</code>
     </UndefinedInterfaceMethod>
-    <UndefinedMagicMethod>
-      <code>getWhitespace</code>
-    </UndefinedMagicMethod>
   </file>
   <file src="src/Helper/HeadScript.php">
     <MethodSignatureMustProvideReturnType>
@@ -374,7 +364,6 @@
       <code><![CDATA[$attrs['src']]]></code>
       <code>$content</code>
       <code>$index</code>
-      <code>$item</code>
       <code>$key</code>
       <code>$type</code>
       <code>$value</code>
@@ -414,17 +403,10 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/HeadStyle.php">
-    <ArgumentTypeCoercion>
-      <code>$item</code>
-    </ArgumentTypeCoercion>
     <DocblockTypeContradiction>
       <code><![CDATA[! is_string($item->content)]]></code>
       <code><![CDATA[! isset($item->content)]]></code>
       <code><![CDATA[! isset($item->content) || ! is_string($item->content)]]></code>
-      <code><![CDATA[$this->isValid($value)]]></code>
-      <code><![CDATA[$this->isValid($value)]]></code>
-      <code><![CDATA[$this->isValid($value)]]></code>
-      <code><![CDATA[$this->isValid($value)]]></code>
     </DocblockTypeContradiction>
     <MethodSignatureMustProvideReturnType>
       <code>offsetSet</code>
@@ -447,14 +429,6 @@
       <code><![CDATA[(null !== $content) && is_string($content)]]></code>
       <code>is_string($content)</code>
     </RedundantConditionGivenDocblockType>
-  </file>
-  <file src="src/Helper/HeadTitle.php">
-    <MixedArgument>
-      <code>$item</code>
-    </MixedArgument>
-    <MixedAssignment>
-      <code>$item</code>
-    </MixedAssignment>
   </file>
   <file src="src/Helper/HtmlFlash.php">
     <MixedAssignment>

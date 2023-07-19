@@ -358,17 +358,18 @@ class HeadLink extends AbstractStandalone
      */
     public function toString($indent = null)
     {
-        $indent = null !== $indent
-                ? $this->getContainer()->getWhitespace($indent)
-                : $this->getContainer()->getIndent();
+        $container = $this->getContainer();
+        $indent    = null !== $indent
+                ? $container->getWhitespace($indent)
+                : $container->getIndent();
 
         $items = [];
-        $this->getContainer()->ksort();
-        foreach ($this as $item) {
+        $container->ksort();
+        foreach ($container as $item) {
             $items[] = $this->itemToString($item);
         }
 
-        return $indent . implode($this->escape($this->getContainer()->getSeparator()) . $indent, $items);
+        return $indent . implode($this->escape($container->getSeparator()) . $indent, $items);
     }
 
     /**

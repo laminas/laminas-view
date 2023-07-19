@@ -272,9 +272,10 @@ class HeadScript extends AbstractStandalone
      */
     public function toString($indent = null)
     {
-        $indent = null !== $indent
-            ? $this->getContainer()->getWhitespace($indent)
-            : $this->getContainer()->getIndent();
+        $container = $this->getContainer();
+        $indent    = null !== $indent
+            ? $container->getWhitespace($indent)
+            : $container->getIndent();
 
         if ($this->view instanceof PhpRenderer) {
             $doctype = $this->view->plugin('doctype');
@@ -289,8 +290,8 @@ class HeadScript extends AbstractStandalone
         $escapeEnd   = $useCdata ? '//]]>' : '//-->';
 
         $items = [];
-        $this->getContainer()->ksort();
-        foreach ($this as $item) {
+        $container->ksort();
+        foreach ($container as $item) {
             if (! $this->isValid($item)) {
                 continue;
             }
@@ -298,7 +299,7 @@ class HeadScript extends AbstractStandalone
             $items[] = $this->itemToString($item, $indent, $escapeStart, $escapeEnd);
         }
 
-        return implode($this->getSeparator(), $items);
+        return implode($container->getSeparator(), $items);
     }
 
     /**
@@ -399,7 +400,7 @@ class HeadScript extends AbstractStandalone
      *
      * @internal This method will become private in version 3.0
      *
-     * @param  mixed  $value  Is the given script valid?
+     * @param mixed $value Is the given script valid?
      * @return bool
      */
     protected function isValid($value)

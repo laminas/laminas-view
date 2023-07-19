@@ -69,9 +69,10 @@ class HeadTitle extends AbstractStandalone
      */
     public function toString($indent = null)
     {
-        $indent = null !== $indent
-                ? $this->getContainer()->getWhitespace($indent)
-                : $this->getContainer()->getIndent();
+        $container = $this->getContainer();
+        $indent    = null !== $indent
+                ? $container->getWhitespace($indent)
+                : $container->getIndent();
 
         $output = $this->renderTitle();
 
@@ -88,21 +89,22 @@ class HeadTitle extends AbstractStandalone
         $items = [];
 
         $itemCallback = $this->getTitleItemCallback();
-        foreach ($this as $item) {
+        $container    = $this->getContainer();
+        foreach ($container as $item) {
             $items[] = $itemCallback($item);
         }
 
-        $separator = $this->getContainer()->getSeparator();
+        $separator = $container->getSeparator();
         $output    = '';
 
-        $prefix = $this->getContainer()->getPrefix();
+        $prefix = $container->getPrefix();
         if ($prefix) {
             $output .= $prefix;
         }
 
         $output .= implode($separator, $items);
 
-        $postfix = $this->getContainer()->getPostfix();
+        $postfix = $container->getPostfix();
         if ($postfix) {
             $output .= $postfix;
         }

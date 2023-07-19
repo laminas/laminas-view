@@ -191,20 +191,21 @@ class HeadStyle extends AbstractStandalone
      */
     public function toString($indent = null)
     {
-        $indent = null !== $indent
-            ? $this->getContainer()->getWhitespace($indent)
-            : $this->getContainer()->getIndent();
+        $container = $this->getContainer();
+        $indent    = null !== $indent
+            ? $container->getWhitespace($indent)
+            : $container->getIndent();
 
         $items = [];
-        $this->getContainer()->ksort();
-        foreach ($this as $item) {
+        $container->ksort();
+        foreach ($container as $item) {
             if (! $this->isValid($item)) {
                 continue;
             }
             $items[] = $this->itemToString($item, $indent);
         }
 
-        $return = implode($this->getContainer()->getSeparator(), $items);
+        $return = implode($container->getSeparator(), $items);
 
         return $indent . preg_replace("/(\r\n?|\n)/", '$1' . $indent, $return);
     }
@@ -282,7 +283,6 @@ class HeadStyle extends AbstractStandalone
      * @internal This method is internal and will be made private in version 3.0
      *
      * @return bool
-     * @psalm-assert-if-true ObjectShape $value
      */
     protected function isValid(mixed $value)
     {
