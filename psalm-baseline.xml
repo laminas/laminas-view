@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.12.0@f90118cdeacd0088e7215e64c0c99ceca819e176">
+<files psalm-version="5.13.1@086b94371304750d1c673315321a55d15fc59015">
   <file src="bin/templatemap_generator.php">
     <MissingParamType>
       <code>$templatePath</code>
@@ -507,64 +507,20 @@
     </MethodSignatureMustProvideReturnType>
     <MixedArgument>
       <code>$content</code>
-      <code>$enc</code>
-      <code><![CDATA[$escaper->escapeHtmlAttr($value)]]></code>
-      <code>$indent</code>
       <code>$index</code>
-      <code>$item</code>
-      <code><![CDATA[$item->attributes['conditional']]]></code>
-      <code>$key</code>
-      <code>$value</code>
     </MixedArgument>
-    <MixedArgumentTypeCoercion>
-      <code><![CDATA[$attributes['media']]]></code>
-    </MixedArgumentTypeCoercion>
-    <MixedArrayAccess>
-      <code><![CDATA[$item->attributes['conditional']]]></code>
-    </MixedArrayAccess>
     <MixedAssignment>
       <code>$content</code>
-      <code>$enc</code>
-      <code>$escaper</code>
-      <code>$indent</code>
       <code>$index</code>
-      <code>$item</code>
-      <code>$key</code>
-      <code>$value</code>
     </MixedAssignment>
-    <MixedMethodCall>
-      <code>escapeHtmlAttr</code>
-    </MixedMethodCall>
-    <MixedOperand>
-      <code>$indent</code>
-      <code>$indent</code>
-      <code><![CDATA[$item->attributes['conditional']]]></code>
-      <code><![CDATA[$item->content]]></code>
-    </MixedOperand>
     <ParamNameMismatch>
       <code>$index</code>
     </ParamNameMismatch>
-    <PossiblyNullOperand>
-      <code>$escapeEnd</code>
-      <code>$escapeStart</code>
-    </PossiblyNullOperand>
-    <PossiblyNullPropertyAssignmentValue>
-      <code>$attrs</code>
-      <code>null</code>
-    </PossiblyNullPropertyAssignmentValue>
-    <PropertyNotSetInConstructor>
-      <code>$captureAttrs</code>
-      <code>$captureLock</code>
-      <code>$captureType</code>
-    </PropertyNotSetInConstructor>
     <RedundantConditionGivenDocblockType>
       <code><![CDATA[(null !== $content) && is_string($content)]]></code>
       <code>is_string($content)</code>
     </RedundantConditionGivenDocblockType>
     <UndefinedMagicMethod>
-      <code>getIndent</code>
-      <code>getSeparator</code>
-      <code>getWhitespace</code>
       <code>setSeparator</code>
     </UndefinedMagicMethod>
   </file>
@@ -1368,24 +1324,9 @@
       <code>$container[$key]</code>
       <code>$return</code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code>string</code>
-      <code>string</code>
-    </MixedInferredReturnType>
-    <MixedMethodCall>
-      <code>escapeHtml</code>
-      <code>escapeHtmlAttr</code>
-    </MixedMethodCall>
-    <MixedReturnStatement>
-      <code><![CDATA[$this->getEscaper()->escapeHtml((string) $string)]]></code>
-      <code><![CDATA[$this->getEscaper()->escapeHtmlAttr((string) $string)]]></code>
-    </MixedReturnStatement>
     <MoreSpecificReturnType>
       <code>AbstractContainer</code>
     </MoreSpecificReturnType>
-    <PossiblyNullArgument>
-      <code>$enc</code>
-    </PossiblyNullArgument>
     <PossiblyNullPropertyAssignmentValue>
       <code>null</code>
     </PossiblyNullPropertyAssignmentValue>
@@ -2474,49 +2415,6 @@
       <code>setIndent</code>
     </UndefinedMagicMethod>
   </file>
-  <file src="test/Helper/HeadStyleTest.php">
-    <MixedArgument>
-      <code><![CDATA[$item->content]]></code>
-      <code><![CDATA[$item->content]]></code>
-      <code>$value</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-    </MixedArgument>
-    <MixedArrayAccess>
-      <code>$values[$i]</code>
-    </MixedArrayAccess>
-    <MixedAssignment>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$value</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-    </MixedAssignment>
-    <MixedPropertyFetch>
-      <code><![CDATA[$item->content]]></code>
-      <code><![CDATA[$item->content]]></code>
-    </MixedPropertyFetch>
-    <UndefinedMagicMethod>
-      <code>bogusMethod</code>
-      <code>getArrayCopy</code>
-      <code>getArrayCopy</code>
-      <code>getArrayCopy</code>
-      <code>getArrayCopy</code>
-      <code>getArrayCopy</code>
-      <code>getValue</code>
-      <code>setIndent</code>
-      <code>setIndent</code>
-      <code>setIndent</code>
-    </UndefinedMagicMethod>
-  </file>
   <file src="test/Helper/HeadTitleTest.php">
     <MixedAssignment>
       <code>$placeholder</code>
@@ -3062,9 +2960,6 @@
     <MixedAssignment>
       <code>$value</code>
     </MixedAssignment>
-    <UndefinedAttributeClass>
-      <code>AllowDynamicProperties</code>
-    </UndefinedAttributeClass>
   </file>
   <file src="test/Helper/TestAsset/MockContainer.php">
     <PropertyNotSetInConstructor>

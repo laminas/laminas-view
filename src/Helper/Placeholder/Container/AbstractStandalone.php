@@ -49,7 +49,7 @@ abstract class AbstractStandalone extends AbstractHelper implements
      */
     protected $containerClass = Container::class;
 
-    /** @var Escaper[] */
+    /** @var array<string, Escaper> */
     protected $escapers = [];
 
     /**
@@ -282,7 +282,7 @@ abstract class AbstractStandalone extends AbstractHelper implements
     /**
      * Set Escaper instance
      *
-     * @return AbstractStandalone
+     * @return $this
      */
     public function setEscaper(Escaper $escaper)
     {
@@ -297,8 +297,8 @@ abstract class AbstractStandalone extends AbstractHelper implements
      *
      * Lazy-loads one if none available
      *
-     * @param  string|null $enc Encoding to use
-     * @return mixed
+     * @param  string $enc Encoding to use
+     * @return Escaper
      */
     public function getEscaper($enc = 'UTF-8')
     {
