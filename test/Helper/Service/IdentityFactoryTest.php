@@ -27,10 +27,15 @@ class IdentityFactoryTest extends TestCase
     {
         $this->services->expects(self::exactly(2))
             ->method('has')
-            ->withConsecutive(
-                [AuthenticationService::class],
-                [AuthenticationServiceInterface::class]
-            )->willReturn(false);
+            ->with(self::callback(static function (string $serviceName): bool {
+                self::assertTrue(
+                    $serviceName === AuthenticationService::class
+                    ||
+                    $serviceName === AuthenticationServiceInterface::class
+                );
+
+                return true;
+            }))->willReturn(false);
 
         $factory = new IdentityFactory();
 
