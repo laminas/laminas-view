@@ -21,6 +21,7 @@ use function in_array;
  * @method HeadTitle set(string $string)
  * @method HeadTitle prepend(string $string)
  * @method HeadTitle append(string $string)
+ * @final
  */
 class HeadTitle extends AbstractStandalone
 {

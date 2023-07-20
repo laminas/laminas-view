@@ -44,6 +44,7 @@ use const PHP_EOL;
  * @method HeadStyle prependStyle(string $content, array $attributes = [])
  * @method HeadStyle setStyle(string $content, array $attributes = [])
  * @method HeadStyle setIndent(int|string $indent)
+ * @final
  */
 class HeadStyle extends AbstractStandalone
 {
@@ -369,7 +370,7 @@ class HeadStyle extends AbstractStandalone
      * @param string $indent Indentation to use
      * @return string
      */
-    public function itemToString(object $item, $indent)
+    public function itemToString(stdClass $item, $indent)
     {
         if (! isset($item->content) || ! is_string($item->content) || $item->content === '') {
             return '';

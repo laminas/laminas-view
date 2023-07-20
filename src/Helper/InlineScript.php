@@ -7,6 +7,8 @@ namespace Laminas\View\Helper;
 /**
  * Helper for setting and retrieving script elements for inclusion in HTML body
  * section
+ *
+ * @final
  */
 class InlineScript extends HeadScript
 {

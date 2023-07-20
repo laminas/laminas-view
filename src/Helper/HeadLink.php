@@ -7,6 +7,7 @@ namespace Laminas\View\Helper;
 use Laminas\View\Exception;
 use Laminas\View\Helper\Placeholder\Container\AbstractContainer;
 use Laminas\View\Helper\Placeholder\Container\AbstractStandalone;
+use stdClass;
 
 use function array_intersect;
 use function array_keys;
@@ -36,6 +37,7 @@ use const PHP_EOL;
  * @method HeadLink offsetSetAlternate($index, $href, $type, $title, $extras = [])
  * @method HeadLink prependAlternate($href, $type, $title, $extras = [])
  * @method HeadLink setAlternate($href, $type, $title, $extras = [])
+ * @final
  */
 class HeadLink extends AbstractStandalone
 {
@@ -300,7 +302,7 @@ class HeadLink extends AbstractStandalone
      *
      * @return string
      */
-    public function itemToString(object $item)
+    public function itemToString(stdClass $item)
     {
         $attributes = (array) $item;
         $link       = '<link';

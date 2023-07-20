@@ -225,6 +225,9 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Helper/HeadLink.php">
+    <ArgumentTypeCoercion>
+      <code>$item</code>
+    </ArgumentTypeCoercion>
     <MethodSignatureMustProvideReturnType>
       <code>offsetSet</code>
     </MethodSignatureMustProvideReturnType>
@@ -236,7 +239,6 @@
       <code>$attributes[$itemKey]</code>
       <code>$href</code>
       <code>$index</code>
-      <code>$item</code>
       <code>$item</code>
       <code><![CDATA[$this->autoEscape ? $this->escapeAttribute($attributes[$itemKey]) : $attributes[$itemKey]]]></code>
       <code><![CDATA[$this->autoEscape ? $this->escapeAttribute($value) : $value]]></code>
@@ -258,7 +260,6 @@
       <code>$href</code>
       <code>$index</code>
       <code>$item</code>
-      <code>$item</code>
       <code>$media</code>
       <code>$title</code>
       <code>$type</code>
@@ -277,6 +278,7 @@
   </file>
   <file src="src/Helper/HeadMeta.php">
     <ArgumentTypeCoercion>
+      <code>$item</code>
       <code>$value</code>
       <code>$value</code>
     </ArgumentTypeCoercion>
@@ -349,10 +351,6 @@
       <code>$content</code>
       <code>$index</code>
       <code>$index</code>
-      <code><![CDATA[$item->attributes['conditional']]]></code>
-      <code><![CDATA[$item->type]]></code>
-      <code><![CDATA[$item->type]]></code>
-      <code>$key</code>
       <code><![CDATA[$this->autoEscape ? $this->escapeAttribute($value) : $value]]></code>
       <code>$value</code>
     </MixedArgument>
@@ -364,8 +362,6 @@
       <code><![CDATA[$attrs['src']]]></code>
       <code>$content</code>
       <code>$index</code>
-      <code>$key</code>
-      <code>$type</code>
       <code>$value</code>
     </MixedAssignment>
     <MixedInferredReturnType>
@@ -374,16 +370,6 @@
     <MixedMethodCall>
       <code>isHtml5</code>
     </MixedMethodCall>
-    <MixedOperand>
-      <code><![CDATA[$item->attributes['conditional']]]></code>
-      <code><![CDATA[$item->source]]></code>
-      <code>$type</code>
-    </MixedOperand>
-    <MixedPropertyFetch>
-      <code><![CDATA[$item->attributes]]></code>
-      <code><![CDATA[$item->source]]></code>
-      <code><![CDATA[$item->type]]></code>
-    </MixedPropertyFetch>
     <MixedReturnStatement>
       <code>parent::__call($method, $args)</code>
       <code>parent::__call($method, $args)</code>
@@ -411,6 +397,9 @@
     <MethodSignatureMustProvideReturnType>
       <code>offsetSet</code>
     </MethodSignatureMustProvideReturnType>
+    <MismatchingDocblockParamType>
+      <code>ObjectShape</code>
+    </MismatchingDocblockParamType>
     <MixedArgument>
       <code>$content</code>
       <code>$index</code>

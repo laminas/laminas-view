@@ -422,10 +422,10 @@ class HeadScript extends AbstractStandalone
      *
      * @internal This method will become private in version 3.0
      *
-     * @param  mixed  $item        Item to convert
-     * @param  string $indent      String to add before the item
-     * @param  string $escapeStart Starting sequence
-     * @param  string $escapeEnd   Ending sequence
+     * @param ObjectShape $item Item to convert
+     * @param string $indent String to add before the item
+     * @param string $escapeStart Starting sequence
+     * @param string $escapeEnd Ending sequence
      * @return string
      */
     public function itemToString($item, $indent, $escapeStart, $escapeEnd)

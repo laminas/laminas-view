@@ -8,6 +8,7 @@ use Laminas\View;
 use Laminas\View\Exception;
 use Laminas\View\Helper\Placeholder\Container\AbstractContainer;
 use Laminas\View\Helper\Placeholder\Container\AbstractStandalone;
+use stdClass;
 
 use function array_shift;
 use function array_unshift;
@@ -63,6 +64,7 @@ use const PHP_EOL;
  *     itemprop?: string,
  * }
  * @extends AbstractStandalone<int, ObjectShape>
+ * @final
  */
 class HeadMeta extends AbstractStandalone
 {
@@ -254,7 +256,7 @@ class HeadMeta extends AbstractStandalone
      * @throws Exception\InvalidArgumentException
      * @return string
      */
-    public function itemToString(object $item)
+    public function itemToString(stdClass $item)
     {
         if (! in_array($item->type, $this->typeKeys)) {
             throw new Exception\InvalidArgumentException(sprintf(
