@@ -11,6 +11,7 @@ use Laminas\View\Model\ModelInterface;
 use Laminas\View\Model\ViewModel;
 use Laminas\View\Variables as ViewVariables;
 use LaminasTest\View\Model\TestAsset\Variable;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -369,7 +370,7 @@ class ViewModelTest extends TestCase
      *     2: null|string,
      * }>
      */
-    public function variableValue(): array
+    public static function variableValue(): array
     {
         return [
             // variables                     default   expected
@@ -392,26 +393,21 @@ class ViewModelTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider variableValue
-     * @param array|ArrayObject $variables
-     * @param string|null $default
-     * @param string|null $expected
-     */
-    public function testGetVariableSetByConstruct($variables, $default, $expected): void
-    {
+    /** @param array|ArrayObject $variables */
+    #[DataProvider('variableValue')]
+    public function testGetVariableSetByConstruct(
+        iterable $variables,
+        string|null $default,
+        string|null $expected
+    ): void {
         $model = new ViewModel($variables);
 
         self::assertSame($expected, $model->getVariable('foo', $default));
     }
 
-    /**
-     * @dataProvider variableValue
-     * @param array|ArrayObject $variables
-     * @param string|null $default
-     * @param string|null $expected
-     */
-    public function testGetVariableSetBySetter($variables, $default, $expected): void
+    /** @param array|ArrayObject $variables */
+    #[DataProvider('variableValue')]
+    public function testGetVariableSetBySetter(iterable $variables, string|null $default, string|null $expected): void
     {
         $model = new ViewModel();
         $model->setVariables($variables);

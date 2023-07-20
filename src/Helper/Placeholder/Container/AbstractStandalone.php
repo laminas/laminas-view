@@ -12,7 +12,7 @@ use Laminas\Escaper\Escaper;
 use Laminas\View\Exception;
 use Laminas\View\Helper\AbstractHelper;
 use Laminas\View\Helper\Placeholder\Container;
-use ReturnTypeWillChange; // phpcs:ignore
+use ReturnTypeWillChange;
 
 use function call_user_func_array;
 use function class_exists;
@@ -25,6 +25,19 @@ use function strtolower;
 
 /**
  * Base class for targeted placeholder helpers
+ *
+ * @template TKey
+ * @template TValue
+ * @implements IteratorAggregate<TKey, TValue>
+ * @implements ArrayAccess<TKey, TValue>
+ * @method static setSeparator(string $separator)
+ * @method string getSeparator()
+ * @method static setIndent(int|string $indent)
+ * @method string getIndent()
+ * @method static setPrefix(string $prefix)
+ * @method string getPrefix()
+ * @method static setPostfix(string $postfix)
+ * @method string getPostfix()
  */
 abstract class AbstractStandalone extends AbstractHelper implements
     IteratorAggregate,
@@ -39,22 +52,19 @@ abstract class AbstractStandalone extends AbstractHelper implements
      */
     protected $autoEscape = true;
 
-    /** @var AbstractContainer */
+    /** @var AbstractContainer<TKey, TValue>|null */
     protected $container;
 
     /**
      * Default container class
      *
-     * @var string
+     * @var class-string<AbstractContainer>
      */
     protected $containerClass = Container::class;
 
-    /** @var Escaper[] */
+    /** @var array<string, Escaper> */
     protected $escapers = [];
 
-    /**
-     * Constructor
-     */
     public function __construct()
     {
         $this->setContainer($this->getContainer());
@@ -88,8 +98,8 @@ abstract class AbstractStandalone extends AbstractHelper implements
     /**
      * Overloading: set property value
      *
-     * @param  string $key
-     * @param  mixed $value
+     * @param TKey $key
+     * @param TValue $value
      * @return void
      */
     public function __set($key, $value)
@@ -101,8 +111,8 @@ abstract class AbstractStandalone extends AbstractHelper implements
     /**
      * Overloading: retrieve property
      *
-     * @param  string $key
-     * @return mixed
+     * @param TKey $key
+     * @return TValue|null
      */
     public function __get($key)
     {
@@ -115,7 +125,7 @@ abstract class AbstractStandalone extends AbstractHelper implements
     /**
      * Overloading: check if property is set
      *
-     * @param  string $key
+     * @param TKey $key
      * @return bool
      */
     public function __isset($key)
@@ -127,7 +137,7 @@ abstract class AbstractStandalone extends AbstractHelper implements
     /**
      * Overloading: unset property
      *
-     * @param  string $key
+     * @param TKey $key
      * @return void
      */
     public function __unset($key)
@@ -184,7 +194,7 @@ abstract class AbstractStandalone extends AbstractHelper implements
      * Set whether or not auto escaping should be used
      *
      * @param  bool $autoEscape whether or not to auto escape output
-     * @return AbstractStandalone
+     * @return $this
      */
     public function setAutoEscape($autoEscape = true)
     {
@@ -205,7 +215,7 @@ abstract class AbstractStandalone extends AbstractHelper implements
     /**
      * Set container on which to operate
      *
-     * @return AbstractStandalone
+     * @return $this
      */
     public function setContainer(AbstractContainer $container)
     {
@@ -216,7 +226,7 @@ abstract class AbstractStandalone extends AbstractHelper implements
     /**
      * Retrieve placeholder container
      *
-     * @return AbstractContainer
+     * @return AbstractContainer<TKey, TValue>
      */
     public function getContainer()
     {
@@ -244,10 +254,10 @@ abstract class AbstractStandalone extends AbstractHelper implements
     /**
      * Set the container class to use
      *
-     * @param  string $name
+     * @param class-string<AbstractContainer> $name
      * @throws Exception\InvalidArgumentException
      * @throws Exception\DomainException
-     * @return AbstractStandalone
+     * @return $this
      */
     public function setContainerClass($name)
     {
@@ -272,7 +282,7 @@ abstract class AbstractStandalone extends AbstractHelper implements
     /**
      * Retrieve the container class
      *
-     * @return string
+     * @return class-string<AbstractContainer>
      */
     public function getContainerClass()
     {
@@ -282,7 +292,7 @@ abstract class AbstractStandalone extends AbstractHelper implements
     /**
      * Set Escaper instance
      *
-     * @return AbstractStandalone
+     * @return $this
      */
     public function setEscaper(Escaper $escaper)
     {
@@ -297,8 +307,8 @@ abstract class AbstractStandalone extends AbstractHelper implements
      *
      * Lazy-loads one if none available
      *
-     * @param  string|null $enc Encoding to use
-     * @return mixed
+     * @param  string $enc Encoding to use
+     * @return Escaper
      */
     public function getEscaper($enc = 'UTF-8')
     {
@@ -325,7 +335,7 @@ abstract class AbstractStandalone extends AbstractHelper implements
     /**
      * ArrayAccess: offsetExists
      *
-     * @param  string|int $offset
+     * @param TKey $offset
      * @return bool
      */
     #[ReturnTypeWillChange]
@@ -337,8 +347,8 @@ abstract class AbstractStandalone extends AbstractHelper implements
     /**
      * ArrayAccess: offsetGet
      *
-     * @param  string|int $offset
-     * @return mixed
+     * @param TKey $offset
+     * @return TValue
      */
     #[ReturnTypeWillChange]
     public function offsetGet($offset)
@@ -349,8 +359,8 @@ abstract class AbstractStandalone extends AbstractHelper implements
     /**
      * ArrayAccess: offsetSet
      *
-     * @param  string|int $offset
-     * @param  mixed $value
+     * @param TKey $offset
+     * @param TValue $value
      * @return void
      */
     #[ReturnTypeWillChange]
@@ -362,7 +372,7 @@ abstract class AbstractStandalone extends AbstractHelper implements
     /**
      * ArrayAccess: offsetUnset
      *
-     * @param  string|int $offset
+     * @param TKey $offset
      * @return void
      */
     #[ReturnTypeWillChange]

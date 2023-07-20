@@ -7,6 +7,7 @@ namespace LaminasTest\View\Helper\Service;
 use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Helper\Asset;
 use Laminas\View\Helper\Service\AssetFactory;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
@@ -43,7 +44,7 @@ class AssetFactoryTest extends TestCase
     /**
      * @return array<string, array{0: array<string, mixed>}>
      */
-    public function validConfigProvider(): array
+    public static function validConfigProvider(): array
     {
         return [
             'No View Helper Configuration' => [
@@ -85,10 +86,8 @@ class AssetFactoryTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider validConfigProvider
-     * @param array<string, mixed> $config
-     */
+    /** @param array<string, mixed> $config */
+    #[DataProvider('validConfigProvider')]
     public function testThatAnExceptionWillNotBeThrownWhenGivenUnsetOrEmptyArrayConfiguration(array $config): void
     {
         $container = $this->getServices($config);

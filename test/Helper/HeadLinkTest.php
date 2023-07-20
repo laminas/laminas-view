@@ -10,6 +10,7 @@ use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\EscapeHtmlAttr;
 use Laminas\View\Helper\HeadLink;
 use Laminas\View\Renderer\PhpRenderer as View;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 use function array_fill;
@@ -24,7 +25,6 @@ class HeadLinkTest extends TestCase
 {
     private HeadLink $helper;
     private EscapeHtmlAttr $attributeEscaper;
-    private string $basePath;
     private View $view;
 
     /**
@@ -34,9 +34,8 @@ class HeadLinkTest extends TestCase
     protected function setUp(): void
     {
         Helper\Doctype::unsetDoctypeRegistry();
-        $this->basePath = __DIR__ . '/_files/modules';
-        $this->view     = new View();
-        $this->helper   = new HeadLink();
+        $this->view   = new View();
+        $this->helper = new HeadLink();
         $this->helper->setView($this->view);
         $this->attributeEscaper = new EscapeHtmlAttr();
     }
@@ -50,24 +49,28 @@ class HeadLinkTest extends TestCase
     public function testPrependThrowsExceptionWithoutArrayArgument(): void
     {
         $this->expectException(Exception\ExceptionInterface::class);
+        /** @psalm-suppress InvalidArgument */
         $this->helper->prepend('foo');
     }
 
     public function testAppendThrowsExceptionWithoutArrayArgument(): void
     {
         $this->expectException(Exception\ExceptionInterface::class);
+        /** @psalm-suppress InvalidArgument */
         $this->helper->append('foo');
     }
 
     public function testSetThrowsExceptionWithoutArrayArgument(): void
     {
         $this->expectException(Exception\ExceptionInterface::class);
+        /** @psalm-suppress InvalidArgument */
         $this->helper->set('foo');
     }
 
     public function testOffsetSetThrowsExceptionWithoutArrayArgument(): void
     {
         $this->expectException(Exception\ExceptionInterface::class);
+        /** @psalm-suppress InvalidArgument */
         $this->helper->offsetSet(1, 'foo');
     }
 
@@ -229,8 +232,8 @@ class HeadLinkTest extends TestCase
     {
         $this->helper->setStylesheet('/styles.css', 'projection', 'ie6');
         $item = $this->helper->getValue();
-        $this->assertObjectHasAttribute('media', $item);
-        $this->assertObjectHasAttribute('conditionalStylesheet', $item);
+        $this->assertObjectHasProperty('media', $item);
+        $this->assertObjectHasProperty('conditionalStylesheet', $item);
 
         $this->assertEquals('projection', $item->media);
         $this->assertEquals('ie6', $item->conditionalStylesheet);
@@ -240,7 +243,7 @@ class HeadLinkTest extends TestCase
     {
         $this->helper->setStylesheet('/styles.css');
         $item = $this->helper->getValue();
-        $this->assertObjectHasAttribute('conditionalStylesheet', $item);
+        $this->assertObjectHasProperty('conditionalStylesheet', $item);
         $this->assertFalse($item->conditionalStylesheet);
 
         $attributeEscaper = $this->attributeEscaper;
@@ -256,7 +259,7 @@ class HeadLinkTest extends TestCase
     {
         $this->helper->setStylesheet('/styles.css', 'screen', 'ie6');
         $item = $this->helper->getValue();
-        $this->assertObjectHasAttribute('conditionalStylesheet', $item);
+        $this->assertObjectHasProperty('conditionalStylesheet', $item);
         $this->assertEquals('ie6', $item->conditionalStylesheet);
 
         $attributeEscaper = $this->attributeEscaper;
@@ -271,7 +274,7 @@ class HeadLinkTest extends TestCase
     {
         $this->helper->setStylesheet('/styles.css', 'screen', '!IE');
         $item = $this->helper->getValue();
-        $this->assertObjectHasAttribute('conditionalStylesheet', $item);
+        $this->assertObjectHasProperty('conditionalStylesheet', $item);
         $this->assertEquals('!IE', $item->conditionalStylesheet);
 
         $attributeEscaper = $this->attributeEscaper;
@@ -286,7 +289,7 @@ class HeadLinkTest extends TestCase
     {
         $this->helper->setStylesheet('/styles.css', 'screen', '! IE');
         $item = $this->helper->getValue();
-        $this->assertObjectHasAttribute('conditionalStylesheet', $item);
+        $this->assertObjectHasProperty('conditionalStylesheet', $item);
         $this->assertEquals('! IE', $item->conditionalStylesheet);
 
         $attributeEscaper = $this->attributeEscaper;
@@ -297,7 +300,8 @@ class HeadLinkTest extends TestCase
         $this->assertStringContainsString('<!--<![endif]-->', $string);
     }
 
-    public function argumentCountProvider(): iterable
+    /** @return array<string, array{0: int}> */
+    public static function argumentCountProvider(): array
     {
         return [
             'One' => [1],
@@ -305,7 +309,7 @@ class HeadLinkTest extends TestCase
         ];
     }
 
-    /** @dataProvider argumentCountProvider */
+    #[DataProvider('argumentCountProvider')]
     public function testSettingAlternateWithTooFewArgsRaisesException(int $argumentCount): void
     {
         $arguments = array_fill(0, $argumentCount, 'foo');

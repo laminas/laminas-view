@@ -12,14 +12,13 @@ use Laminas\View\Resolver\RelativeFallbackResolver;
 use Laminas\View\Resolver\ResolverInterface;
 use Laminas\View\Resolver\TemplateMapResolver;
 use Laminas\View\Resolver\TemplatePathStack;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
 use function realpath;
 
-/**
- * @covers \Laminas\View\Resolver\RelativeFallbackResolver
- */
+#[CoversClass(RelativeFallbackResolver::class)]
 class RelativeFallbackResolverTest extends TestCase
 {
     public function testReturnsResourceFromTheSameNameSpaceWithMapResolver(): void

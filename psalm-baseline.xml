@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.12.0@f90118cdeacd0088e7215e64c0c99ceca819e176">
+<files psalm-version="5.13.1@086b94371304750d1c673315321a55d15fc59015">
   <file src="bin/templatemap_generator.php">
     <MissingParamType>
       <code>$templatePath</code>
@@ -20,6 +20,8 @@
   </file>
   <file src="src/Helper/AbstractHtmlElement.php">
     <MissingConstructor>
+      <code>$closingBracket</code>
+      <code>$closingBracket</code>
       <code>$closingBracket</code>
       <code>$closingBracket</code>
       <code>$closingBracket</code>
@@ -183,18 +185,9 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Helper/HeadLink.php">
-    <InvalidArgument>
+    <ArgumentTypeCoercion>
       <code>$item</code>
-    </InvalidArgument>
-    <InvalidReturnStatement>
-      <code><![CDATA[$this->getContainer()->set($value)]]></code>
-    </InvalidReturnStatement>
-    <InvalidReturnType>
-      <code>HeadLink</code>
-    </InvalidReturnType>
-    <LessSpecificReturnStatement>
-      <code>(object) $attributes</code>
-    </LessSpecificReturnStatement>
+    </ArgumentTypeCoercion>
     <MethodSignatureMustProvideReturnType>
       <code>offsetSet</code>
     </MethodSignatureMustProvideReturnType>
@@ -207,10 +200,8 @@
       <code>$href</code>
       <code>$index</code>
       <code>$item</code>
-      <code>$item</code>
       <code><![CDATA[$this->autoEscape ? $this->escapeAttribute($attributes[$itemKey]) : $attributes[$itemKey]]]></code>
       <code><![CDATA[$this->autoEscape ? $this->escapeAttribute($value) : $value]]></code>
-      <code><![CDATA[$this->getSeparator()]]></code>
       <code>$value</code>
     </MixedArgument>
     <MixedArgumentTypeCoercion>
@@ -227,42 +218,16 @@
       <code>$extras</code>
       <code>$href</code>
       <code>$href</code>
-      <code>$indent</code>
       <code>$index</code>
-      <code>$item</code>
-      <code>$item</code>
       <code>$item</code>
       <code>$media</code>
       <code>$title</code>
       <code>$type</code>
       <code>$value</code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code>HeadLink</code>
-    </MixedInferredReturnType>
-    <MixedOperand>
-      <code>$indent</code>
-      <code>$indent</code>
-    </MixedOperand>
-    <MixedPropertyFetch>
-      <code><![CDATA[$item->href]]></code>
-      <code><![CDATA[$item->rel]]></code>
-    </MixedPropertyFetch>
-    <MixedReturnStatement>
-      <code><![CDATA[call_user_func_array([$this, '__invoke'], func_get_args())]]></code>
-    </MixedReturnStatement>
-    <MoreSpecificImplementedParamType>
-      <code>$value</code>
-    </MoreSpecificImplementedParamType>
-    <MoreSpecificReturnType>
-      <code>stdClass</code>
-    </MoreSpecificReturnType>
     <ParamNameMismatch>
       <code>$index</code>
     </ParamNameMismatch>
-    <PossiblyInvalidArgument>
-      <code>$item</code>
-    </PossiblyInvalidArgument>
     <PossiblyNullArgument>
       <code>$index</code>
       <code><![CDATA[$this->view]]></code>
@@ -270,24 +235,13 @@
     <RedundantCast>
       <code>(string) $conditionalStylesheet</code>
     </RedundantCast>
-    <UndefinedMagicMethod>
-      <code>getIndent</code>
-      <code>getSeparator</code>
-      <code>getWhitespace</code>
-      <code>setSeparator</code>
-    </UndefinedMagicMethod>
   </file>
   <file src="src/Helper/HeadMeta.php">
-    <DocblockTypeContradiction>
-      <code>! $item instanceof stdClass</code>
-    </DocblockTypeContradiction>
-    <InvalidArgument>
+    <ArgumentTypeCoercion>
       <code>$item</code>
       <code>$value</code>
-    </InvalidArgument>
-    <InvalidCast>
-      <code>$item</code>
-    </InvalidCast>
+      <code>$value</code>
+    </ArgumentTypeCoercion>
     <MethodSignatureMustProvideReturnType>
       <code>offsetSet</code>
       <code>offsetUnset</code>
@@ -297,7 +251,6 @@
       <code>$args[1]</code>
       <code>$args[2]</code>
       <code>$index</code>
-      <code>$item</code>
       <code><![CDATA[$item->$type]]></code>
       <code><![CDATA[$item->content]]></code>
       <code><![CDATA[$item->type]]></code>
@@ -305,22 +258,19 @@
       <code><![CDATA[$this->autoEscape ? $this->escapeAttribute($item->$type) : $item->$type]]></code>
       <code><![CDATA[$this->autoEscape ? $this->escapeAttribute($item->content) : $item->content]]></code>
       <code><![CDATA[$this->autoEscape ? $this->escapeAttribute($value) : $value]]></code>
-      <code><![CDATA[$this->getSeparator()]]></code>
       <code>$type</code>
+      <code>$value</code>
       <code>$value</code>
     </MixedArgument>
     <MixedAssignment>
       <code>$doctype</code>
-      <code>$indent</code>
       <code>$index</code>
-      <code>$item</code>
-      <code>$item</code>
       <code>$key</code>
       <code>$type</code>
       <code>$value</code>
     </MixedAssignment>
     <MixedInferredReturnType>
-      <code>HeadMeta</code>
+      <code>$this</code>
     </MixedInferredReturnType>
     <MixedMethodCall>
       <code>isHtml5</code>
@@ -330,24 +280,10 @@
       <code>isRdfa</code>
       <code>isXhtml</code>
     </MixedMethodCall>
-    <MixedOperand>
-      <code>$indent</code>
-      <code>$indent</code>
-    </MixedOperand>
-    <MixedPropertyFetch>
-      <code><![CDATA[$item->type]]></code>
-      <code><![CDATA[$item->{$item->type}]]></code>
-    </MixedPropertyFetch>
     <MixedReturnStatement>
       <code>parent::__call($method, $args)</code>
       <code>parent::__call($method, $args)</code>
     </MixedReturnStatement>
-    <MoreSpecificImplementedParamType>
-      <code>$value</code>
-    </MoreSpecificImplementedParamType>
-    <NullableReturnStatement>
-      <code><![CDATA[$this->offsetSet($index, $item)]]></code>
-    </NullableReturnStatement>
     <ParamNameMismatch>
       <code>$index</code>
       <code>$index</code>
@@ -365,67 +301,35 @@
       <code>plugin</code>
       <code>plugin</code>
     </UndefinedInterfaceMethod>
-    <UndefinedMagicMethod>
-      <code>getIndent</code>
-      <code>getSeparator</code>
-      <code>getWhitespace</code>
-      <code>setSeparator</code>
-    </UndefinedMagicMethod>
   </file>
   <file src="src/Helper/HeadScript.php">
-    <InvalidPropertyAssignmentValue>
-      <code><![CDATA[['type']]]></code>
-    </InvalidPropertyAssignmentValue>
     <MethodSignatureMustProvideReturnType>
       <code>offsetSet</code>
     </MethodSignatureMustProvideReturnType>
     <MixedArgument>
       <code>$content</code>
       <code>$content</code>
-      <code>$indent</code>
       <code>$index</code>
       <code>$index</code>
-      <code><![CDATA[$item->attributes]]></code>
-      <code><![CDATA[$item->attributes['conditional']]]></code>
-      <code><![CDATA[$item->type]]></code>
-      <code><![CDATA[$item->type]]></code>
-      <code>$key</code>
       <code><![CDATA[$this->autoEscape ? $this->escapeAttribute($value) : $value]]></code>
-      <code><![CDATA[$this->getSeparator()]]></code>
       <code>$value</code>
     </MixedArgument>
+    <MixedArgumentTypeCoercion>
+      <code>$attrs</code>
+      <code>$attrs</code>
+    </MixedArgumentTypeCoercion>
     <MixedAssignment>
       <code><![CDATA[$attrs['src']]]></code>
       <code>$content</code>
-      <code>$indent</code>
       <code>$index</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$key</code>
-      <code><![CDATA[$this->captureType]]></code>
-      <code>$type</code>
-      <code>$useCdata</code>
       <code>$value</code>
     </MixedAssignment>
     <MixedInferredReturnType>
-      <code>HeadScript</code>
+      <code>$this</code>
     </MixedInferredReturnType>
     <MixedMethodCall>
       <code>isHtml5</code>
-      <code>isXhtml</code>
     </MixedMethodCall>
-    <MixedOperand>
-      <code><![CDATA[$item->attributes['conditional']]]></code>
-      <code><![CDATA[$item->source]]></code>
-      <code>$type</code>
-    </MixedOperand>
-    <MixedPropertyFetch>
-      <code><![CDATA[$item->attributes]]></code>
-      <code><![CDATA[$item->attributes]]></code>
-      <code><![CDATA[$item->source]]></code>
-      <code><![CDATA[$item->source]]></code>
-      <code><![CDATA[$item->type]]></code>
-    </MixedPropertyFetch>
     <MixedReturnStatement>
       <code>parent::__call($method, $args)</code>
       <code>parent::__call($method, $args)</code>
@@ -433,14 +337,6 @@
     <ParamNameMismatch>
       <code>$index</code>
     </ParamNameMismatch>
-    <PossiblyNullPropertyAssignmentValue>
-      <code>null</code>
-    </PossiblyNullPropertyAssignmentValue>
-    <PropertyNotSetInConstructor>
-      <code>$captureLock</code>
-      <code>$captureScriptType</code>
-      <code>$captureType</code>
-    </PropertyNotSetInConstructor>
     <RedundantCastGivenDocblockType>
       <code>(bool) $flag</code>
     </RedundantCastGivenDocblockType>
@@ -450,113 +346,38 @@
     </RedundantConditionGivenDocblockType>
     <UndefinedInterfaceMethod>
       <code>plugin</code>
-      <code>plugin</code>
     </UndefinedInterfaceMethod>
-    <UndefinedMagicMethod>
-      <code>getIndent</code>
-      <code>getSeparator</code>
-      <code>getWhitespace</code>
-      <code>setSeparator</code>
-    </UndefinedMagicMethod>
   </file>
   <file src="src/Helper/HeadStyle.php">
+    <DocblockTypeContradiction>
+      <code><![CDATA[! is_string($item->content)]]></code>
+      <code><![CDATA[! isset($item->content)]]></code>
+      <code><![CDATA[! isset($item->content) || ! is_string($item->content)]]></code>
+    </DocblockTypeContradiction>
     <MethodSignatureMustProvideReturnType>
       <code>offsetSet</code>
     </MethodSignatureMustProvideReturnType>
+    <MismatchingDocblockParamType>
+      <code>ObjectShape</code>
+    </MismatchingDocblockParamType>
     <MixedArgument>
       <code>$content</code>
-      <code>$enc</code>
-      <code><![CDATA[$escaper->escapeHtmlAttr($value)]]></code>
-      <code>$indent</code>
       <code>$index</code>
-      <code>$item</code>
-      <code><![CDATA[$item->attributes['conditional']]]></code>
-      <code>$key</code>
-      <code>$value</code>
     </MixedArgument>
     <MixedArgumentTypeCoercion>
-      <code><![CDATA[$attributes['media']]]></code>
+      <code>$attrs</code>
     </MixedArgumentTypeCoercion>
-    <MixedArrayAccess>
-      <code><![CDATA[$item->attributes['conditional']]]></code>
-    </MixedArrayAccess>
     <MixedAssignment>
       <code>$content</code>
-      <code>$enc</code>
-      <code>$escaper</code>
-      <code>$indent</code>
       <code>$index</code>
-      <code>$item</code>
-      <code>$key</code>
-      <code>$value</code>
     </MixedAssignment>
-    <MixedMethodCall>
-      <code>escapeHtmlAttr</code>
-    </MixedMethodCall>
-    <MixedOperand>
-      <code>$indent</code>
-      <code>$indent</code>
-      <code><![CDATA[$item->attributes['conditional']]]></code>
-      <code><![CDATA[$item->content]]></code>
-    </MixedOperand>
     <ParamNameMismatch>
       <code>$index</code>
     </ParamNameMismatch>
-    <PossiblyNullOperand>
-      <code>$escapeEnd</code>
-      <code>$escapeStart</code>
-    </PossiblyNullOperand>
-    <PossiblyNullPropertyAssignmentValue>
-      <code>$attrs</code>
-      <code>null</code>
-    </PossiblyNullPropertyAssignmentValue>
-    <PropertyNotSetInConstructor>
-      <code>$captureAttrs</code>
-      <code>$captureLock</code>
-      <code>$captureType</code>
-    </PropertyNotSetInConstructor>
     <RedundantConditionGivenDocblockType>
       <code><![CDATA[(null !== $content) && is_string($content)]]></code>
       <code>is_string($content)</code>
     </RedundantConditionGivenDocblockType>
-    <UndefinedMagicMethod>
-      <code>getIndent</code>
-      <code>getSeparator</code>
-      <code>getWhitespace</code>
-      <code>setSeparator</code>
-    </UndefinedMagicMethod>
-  </file>
-  <file src="src/Helper/HeadTitle.php">
-    <MissingClosureParamType>
-      <code>$item</code>
-      <code>$item</code>
-    </MissingClosureParamType>
-    <MissingClosureReturnType>
-      <code><![CDATA[static fn($item) => $item]]></code>
-    </MissingClosureReturnType>
-    <MixedArgument>
-      <code>$item</code>
-      <code>$separator</code>
-    </MixedArgument>
-    <MixedArgumentTypeCoercion>
-      <code>$items</code>
-    </MixedArgumentTypeCoercion>
-    <MixedAssignment>
-      <code>$indent</code>
-      <code>$item</code>
-      <code>$items[]</code>
-      <code>$postfix</code>
-      <code>$prefix</code>
-      <code>$separator</code>
-    </MixedAssignment>
-    <MixedOperand>
-      <code>$indent</code>
-      <code>$postfix</code>
-      <code>$prefix</code>
-    </MixedOperand>
-    <PossiblyNullReference>
-      <code>translate</code>
-    </PossiblyNullReference>
   </file>
   <file src="src/Helper/HtmlObject.php">
     <DocblockTypeContradiction>
@@ -606,19 +427,6 @@
     <RedundantCastGivenDocblockType>
       <code>(bool) $useNamespaces</code>
     </RedundantCastGivenDocblockType>
-  </file>
-  <file src="src/Helper/InlineScript.php">
-    <LessSpecificReturnStatement>
-      <code>parent::__invoke($mode, $spec, $placement, $attrs, $type)</code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType>
-      <code>InlineScript</code>
-    </MoreSpecificReturnType>
-    <PropertyNotSetInConstructor>
-      <code>InlineScript</code>
-      <code>InlineScript</code>
-      <code>InlineScript</code>
-    </PropertyNotSetInConstructor>
   </file>
   <file src="src/Helper/Layout.php">
     <PossiblyNullReference>
@@ -1188,124 +996,68 @@
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Helper/Placeholder.php">
-    <InvalidStringClass>
-      <code><![CDATA[new $this->containerClass($value)]]></code>
-    </InvalidStringClass>
-    <LessSpecificReturnStatement>
-      <code><![CDATA[$this->items[$key]]]></code>
-    </LessSpecificReturnStatement>
-    <MoreSpecificReturnType>
-      <code>AbstractContainer</code>
-    </MoreSpecificReturnType>
-    <PropertyTypeCoercion>
-      <code><![CDATA[$this->items]]></code>
-    </PropertyTypeCoercion>
     <RedundantCastGivenDocblockType>
       <code>(string) $key</code>
       <code>(string) $key</code>
       <code>(string) $key</code>
       <code>(string) $key</code>
     </RedundantCastGivenDocblockType>
-  </file>
-  <file src="src/Helper/Placeholder/Container.php">
-    <PropertyNotSetInConstructor>
-      <code>Container</code>
-      <code>Container</code>
-    </PropertyNotSetInConstructor>
+    <UnsafeInstantiation>
+      <code><![CDATA[new $this->containerClass($value)]]></code>
+    </UnsafeInstantiation>
   </file>
   <file src="src/Helper/Placeholder/Container/AbstractContainer.php">
     <ImplementedReturnTypeMismatch>
-      <code>self</code>
+      <code>$this</code>
     </ImplementedReturnTypeMismatch>
+    <InvalidArgument>
+      <code>$data</code>
+      <code>$data</code>
+      <code>$data</code>
+      <code>$data</code>
+      <code><![CDATA[$this->nextIndex()]]></code>
+      <code><![CDATA[$this->nextIndex()]]></code>
+      <code>$this[$key] .= $data</code>
+    </InvalidArgument>
+    <InvalidReturnStatement>
+      <code>max($keys) + 1</code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code>int</code>
+    </InvalidReturnType>
     <MethodSignatureMustProvideReturnType>
       <code>__toString</code>
     </MethodSignatureMustProvideReturnType>
-    <MissingTemplateParam>
-      <code>AbstractContainer</code>
-    </MissingTemplateParam>
     <MixedArgumentTypeCoercion>
       <code>$items</code>
+      <code><![CDATA[$this->getArrayCopy()]]></code>
+      <code>$values</code>
     </MixedArgumentTypeCoercion>
-    <MixedArrayOffset>
-      <code>$this[$key]</code>
-    </MixedArrayOffset>
-    <MixedAssignment>
-      <code>$key</code>
-    </MixedAssignment>
-    <MixedInferredReturnType>
-      <code>int</code>
-    </MixedInferredReturnType>
     <MixedOperand>
       <code>$this[$key]</code>
       <code>max($keys)</code>
     </MixedOperand>
-    <MixedReturnStatement>
-      <code>max($keys) + 1</code>
-    </MixedReturnStatement>
-    <PropertyNotSetInConstructor>
-      <code>$captureKey</code>
-      <code>$captureType</code>
-    </PropertyNotSetInConstructor>
     <RedundantCastGivenDocblockType>
-      <code>(string) $indent</code>
       <code>(string) $postfix</code>
       <code>(string) $prefix</code>
       <code>(string) $separator</code>
     </RedundantCastGivenDocblockType>
-    <RedundantConditionGivenDocblockType>
-      <code><![CDATA[null !== $this->captureKey]]></code>
-    </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Helper/Placeholder/Container/AbstractStandalone.php">
-    <InvalidStringClass>
-      <code><![CDATA[new $this->containerClass()]]></code>
-    </InvalidStringClass>
-    <LessSpecificReturnStatement>
-      <code><![CDATA[$this->container]]></code>
-    </LessSpecificReturnStatement>
     <MethodSignatureMustProvideReturnType>
       <code>__toString</code>
     </MethodSignatureMustProvideReturnType>
-    <MissingTemplateParam>
-      <code>ArrayAccess</code>
-      <code>IteratorAggregate</code>
-    </MissingTemplateParam>
     <MixedAssignment>
-      <code>$container[$key]</code>
       <code>$return</code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code>string</code>
-      <code>string</code>
-    </MixedInferredReturnType>
-    <MixedMethodCall>
-      <code>escapeHtml</code>
-      <code>escapeHtmlAttr</code>
-    </MixedMethodCall>
-    <MixedReturnStatement>
-      <code><![CDATA[$this->getEscaper()->escapeHtml((string) $string)]]></code>
-      <code><![CDATA[$this->getEscaper()->escapeHtmlAttr((string) $string)]]></code>
-    </MixedReturnStatement>
-    <MoreSpecificReturnType>
-      <code>AbstractContainer</code>
-    </MoreSpecificReturnType>
-    <PossiblyNullArgument>
-      <code>$enc</code>
-    </PossiblyNullArgument>
-    <PossiblyNullPropertyAssignmentValue>
-      <code>null</code>
-    </PossiblyNullPropertyAssignmentValue>
-    <PropertyTypeCoercion>
-      <code><![CDATA[new $this->containerClass()]]></code>
-    </PropertyTypeCoercion>
     <RedundantCastGivenDocblockType>
       <code>(bool) $autoEscape</code>
       <code>(string) $string</code>
       <code>(string) $string</code>
     </RedundantCastGivenDocblockType>
-    <RedundantConditionGivenDocblockType>
-      <code><![CDATA[null !== $this->container]]></code>
-    </RedundantConditionGivenDocblockType>
+    <UnsafeInstantiation>
+      <code><![CDATA[new $this->containerClass()]]></code>
+    </UnsafeInstantiation>
   </file>
   <file src="src/Helper/Placeholder/Registry.php">
     <InvalidStringClass>
@@ -1534,9 +1286,6 @@
     <NonInvariantDocblockPropertyType>
       <code>$captureTo</code>
     </NonInvariantDocblockPropertyType>
-    <RedundantCast>
-      <code><![CDATA[(int) $e->getCode()]]></code>
-    </RedundantCast>
   </file>
   <file src="src/Model/ModelInterface.php">
     <MissingTemplateParam>
@@ -1635,9 +1384,6 @@
       <code>$children</code>
       <code>$values</code>
     </PossiblyInvalidArgument>
-    <RedundantCast>
-      <code><![CDATA[(int) $e->getCode()]]></code>
-    </RedundantCast>
     <RedundantCastGivenDocblockType>
       <code>(bool) $mergeUnnamedChildren</code>
       <code>(string) $callback</code>
@@ -1803,6 +1549,7 @@
       <code>$value</code>
       <code>$value</code>
       <code>$value</code>
+      <code>$value</code>
     </MixedArgument>
     <MixedAssignment>
       <code><![CDATA[$this->lastLookupFailure]]></code>
@@ -1813,6 +1560,7 @@
       <code><![CDATA[$this->paths]]></code>
     </NullArgument>
     <RedundantCastGivenDocblockType>
+      <code>(bool) $flag</code>
       <code>(bool) $flag</code>
       <code>(string) $defaultSuffix</code>
     </RedundantCastGivenDocblockType>
@@ -2034,10 +1782,6 @@
     </UndefinedMethod>
   </file>
   <file src="test/Helper/HeadLinkTest.php">
-    <InvalidArgument>
-      <code><![CDATA['foo']]></code>
-      <code><![CDATA['foo']]></code>
-    </InvalidArgument>
     <MixedArgument>
       <code><![CDATA[$attributeEscaper('/styles.css')]]></code>
       <code><![CDATA[$attributeEscaper('/styles.css')]]></code>
@@ -2048,7 +1792,6 @@
       <code><![CDATA[$attributeEscaper('/test3.css')]]></code>
       <code><![CDATA[$attributeEscaper('/test4.css')]]></code>
       <code><![CDATA[$attributeEscaper('text/css')]]></code>
-      <code>$item</code>
       <code>$item</code>
       <code>$item</code>
       <code>$item</code>
@@ -2078,9 +1821,6 @@
       <code>$value</code>
       <code>$value</code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code>iterable</code>
-    </MixedInferredReturnType>
     <MixedOperand>
       <code><![CDATA[$attributeEscaper($link['href'])]]></code>
       <code><![CDATA[$attributeEscaper($link['href'])]]></code>
@@ -2095,12 +1835,6 @@
       <code><![CDATA[$attributeEscaper('/foo/bar')]]></code>
     </MixedOperand>
     <MixedPropertyFetch>
-      <code><![CDATA[$item->conditionalStylesheet]]></code>
-      <code><![CDATA[$item->conditionalStylesheet]]></code>
-      <code><![CDATA[$item->conditionalStylesheet]]></code>
-      <code><![CDATA[$item->conditionalStylesheet]]></code>
-      <code><![CDATA[$item->conditionalStylesheet]]></code>
-      <code><![CDATA[$item->media]]></code>
       <code><![CDATA[$link->href]]></code>
       <code><![CDATA[$link->href]]></code>
       <code><![CDATA[$value->href]]></code>
@@ -2118,7 +1852,6 @@
       <code>getValue</code>
       <code>getValue</code>
       <code>getValue</code>
-      <code>setIndent</code>
     </UndefinedMagicMethod>
   </file>
   <file src="test/Helper/HeadMetaTest.php">
@@ -2126,241 +1859,14 @@
       <code><![CDATA['foo']]></code>
       <code><![CDATA['foo']]></code>
       <code><![CDATA['foo']]></code>
-      <code><![CDATA[[$this, 'handleErrors']]]></code>
     </InvalidArgument>
-    <MixedArgument>
-      <code><![CDATA[$attributeEscaper('HeadMeta with Microdata')]]></code>
-      <code><![CDATA[$attributeEscaper('og:title')]]></code>
-      <code><![CDATA[$attributeEscaper('some content')]]></code>
-      <code><![CDATA[$attributeEscaper('some content')]]></code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code><![CDATA[$item->type]]></code>
-      <code><![CDATA[$item->type]]></code>
-      <code><![CDATA[$item->type]]></code>
-      <code>$modifiers</code>
-      <code>$modifiers</code>
-      <code>$value</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-    </MixedArgument>
-    <MixedArrayAccess>
-      <code><![CDATA[$modifiers['lang']]]></code>
-      <code><![CDATA[$modifiers['scheme']]]></code>
-      <code>$values[$i]</code>
-      <code>$values[100]</code>
-    </MixedArrayAccess>
-    <MixedAssignment>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$modifiers</code>
-      <code>$value</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-    </MixedAssignment>
-    <MixedOperand>
-      <code><![CDATA[$attributeEscaper('boo bah')]]></code>
-      <code><![CDATA[$attributeEscaper('foo bar')]]></code>
-    </MixedOperand>
-    <MixedPropertyFetch>
-      <code><![CDATA[$item->content]]></code>
-      <code><![CDATA[$item->content]]></code>
-      <code><![CDATA[$item->content]]></code>
-      <code><![CDATA[$item->content]]></code>
-      <code><![CDATA[$item->content]]></code>
-      <code><![CDATA[$item->name]]></code>
-      <code><![CDATA[$item->name]]></code>
-      <code><![CDATA[$item->type]]></code>
-      <code><![CDATA[$item->type]]></code>
-      <code><![CDATA[$item->type]]></code>
-      <code><![CDATA[$item->type]]></code>
-      <code><![CDATA[$item->type]]></code>
-      <code><![CDATA[$item->{$item->type}]]></code>
-      <code><![CDATA[$item->{$item->type}]]></code>
-      <code><![CDATA[$item->{$item->type}]]></code>
-      <code><![CDATA[$value->modifiers]]></code>
-    </MixedPropertyFetch>
     <UndefinedMagicMethod>
-      <code>getArrayCopy</code>
-      <code>getArrayCopy</code>
-      <code>getArrayCopy</code>
-      <code>getArrayCopy</code>
-      <code>getArrayCopy</code>
-      <code>getValue</code>
       <code>offsetSetHttpEquiv</code>
       <code>offsetSetHttpEquiv</code>
       <code>offsetSetName</code>
       <code>offsetSetName</code>
       <code>offsetSetName</code>
-      <code>setIndent</code>
     </UndefinedMagicMethod>
-  </file>
-  <file src="test/Helper/HeadScriptTest.php">
-    <InvalidDocblock>
-      <code>public function booleanAttributeDataProvider(): Generator</code>
-    </InvalidDocblock>
-    <MixedArgument>
-      <code><![CDATA[$attributeEscaper('test1.js')]]></code>
-      <code><![CDATA[$attributeEscaper('test2.js')]]></code>
-      <code><![CDATA[$attributeEscaper('test3.js')]]></code>
-      <code><![CDATA[$attributeEscaper('test4.js')]]></code>
-      <code><![CDATA[$attributeEscaper('text/javascript')]]></code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code><![CDATA[$item->source]]></code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-    </MixedArgument>
-    <MixedArrayAccess>
-      <code><![CDATA[$first->attributes['src']]]></code>
-      <code>$items[$i]</code>
-      <code>$values[$i]</code>
-      <code>$values[$i]</code>
-      <code>$values[$i]</code>
-      <code><![CDATA[$values[$i]->attributes['src']]]></code>
-      <code>$values[0]</code>
-      <code>$values[0]</code>
-      <code>$values[0]</code>
-      <code><![CDATA[$values[0]->attributes['src']]]></code>
-      <code>$values[5]</code>
-      <code>$values[5]</code>
-      <code>$values[5]</code>
-      <code><![CDATA[$values[5]->attributes['src']]]></code>
-    </MixedArrayAccess>
-    <MixedAssignment>
-      <code>$first</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$items</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-    </MixedAssignment>
-    <MixedInferredReturnType>
-      <code><![CDATA[Generator<string, array<int, string>]]></code>
-    </MixedInferredReturnType>
-    <MixedPropertyFetch>
-      <code><![CDATA[$first->attributes]]></code>
-      <code><![CDATA[$first->source]]></code>
-      <code><![CDATA[$first->type]]></code>
-      <code><![CDATA[$item->attributes]]></code>
-      <code><![CDATA[$item->source]]></code>
-      <code><![CDATA[$item->source]]></code>
-      <code><![CDATA[$item->source]]></code>
-      <code><![CDATA[$values[$i]->attributes]]></code>
-      <code><![CDATA[$values[$i]->source]]></code>
-      <code><![CDATA[$values[$i]->type]]></code>
-      <code><![CDATA[$values[0]->attributes]]></code>
-      <code><![CDATA[$values[0]->source]]></code>
-      <code><![CDATA[$values[0]->type]]></code>
-      <code><![CDATA[$values[5]->attributes]]></code>
-      <code><![CDATA[$values[5]->source]]></code>
-      <code><![CDATA[$values[5]->type]]></code>
-    </MixedPropertyFetch>
-    <UndefinedMagicMethod>
-      <code>getArrayCopy</code>
-      <code>getArrayCopy</code>
-      <code>getArrayCopy</code>
-      <code>getArrayCopy</code>
-      <code>getArrayCopy</code>
-      <code>getArrayCopy</code>
-      <code>setIndent</code>
-      <code>setIndent</code>
-    </UndefinedMagicMethod>
-  </file>
-  <file src="test/Helper/HeadStyleTest.php">
-    <MixedArgument>
-      <code><![CDATA[$item->content]]></code>
-      <code><![CDATA[$item->content]]></code>
-      <code>$value</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code><![CDATA[$values[0]->content]]></code>
-      <code><![CDATA[$values[1]->content]]></code>
-      <code><![CDATA[$values[2]->content]]></code>
-    </MixedArgument>
-    <MixedArrayAccess>
-      <code>$values[$i]</code>
-      <code>$values[0]</code>
-      <code>$values[1]</code>
-      <code>$values[2]</code>
-    </MixedArrayAccess>
-    <MixedAssignment>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$value</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-      <code>$values</code>
-    </MixedAssignment>
-    <MixedPropertyFetch>
-      <code><![CDATA[$item->content]]></code>
-      <code><![CDATA[$item->content]]></code>
-      <code><![CDATA[$value->attributes]]></code>
-      <code><![CDATA[$values[0]->content]]></code>
-      <code><![CDATA[$values[1]->content]]></code>
-      <code><![CDATA[$values[2]->content]]></code>
-    </MixedPropertyFetch>
-    <UndefinedMagicMethod>
-      <code>bogusMethod</code>
-      <code>getArrayCopy</code>
-      <code>getArrayCopy</code>
-      <code>getArrayCopy</code>
-      <code>getArrayCopy</code>
-      <code>getArrayCopy</code>
-      <code>getArrayCopy</code>
-      <code>getValue</code>
-      <code>setIndent</code>
-      <code>setIndent</code>
-      <code>setIndent</code>
-    </UndefinedMagicMethod>
-  </file>
-  <file src="test/Helper/HeadTitleTest.php">
-    <MixedAssignment>
-      <code>$placeholder</code>
-    </MixedAssignment>
-    <MixedMethodCall>
-      <code>renderTitle</code>
-    </MixedMethodCall>
   </file>
   <file src="test/Helper/HtmlTagTest.php">
     <MixedArgument>
@@ -2388,27 +1894,10 @@
       <code><![CDATA[$this->_helper]]></code>
     </RedundantConditionGivenDocblockType>
   </file>
-  <file src="test/Helper/Navigation/AbstractTest.php">
+  <file src="test/Helper/Navigation/AbstractTestCase.php">
     <DeprecatedClass>
       <code><![CDATA[new Config((new RouterConfigProvider())->getDependencyConfig())]]></code>
     </DeprecatedClass>
-    <MixedAssignment>
-      <code>$app</code>
-    </MixedAssignment>
-    <MixedMethodCall>
-      <code>bootstrap</code>
-      <code>getMvcEvent</code>
-      <code>loadModules</code>
-      <code>setRouteMatch</code>
-    </MixedMethodCall>
-    <NullArgument>
-      <code>null</code>
-      <code>null</code>
-      <code>null</code>
-    </NullArgument>
-    <TooManyArguments>
-      <code><![CDATA[new GenericResource('admin_foo', 'member_foo')]]></code>
-    </TooManyArguments>
   </file>
   <file src="test/Helper/Navigation/BreadcrumbsTest.php">
     <InvalidArgument>
@@ -2688,8 +2177,6 @@
       <code>$o</code>
       <code>$o</code>
       <code>$o</code>
-      <code>$o</code>
-      <code>$o</code>
       <code>$rIterator</code>
       <code>$rIterator</code>
       <code>$rIterator</code>
@@ -2707,7 +2194,6 @@
       <code>$key</code>
       <code>$key</code>
       <code>$key</code>
-      <code>$key</code>
       <code>$value</code>
       <code>$value</code>
       <code>$value</code>
@@ -2721,12 +2207,6 @@
       <code>$value</code>
       <code>$value</code>
     </MixedOperand>
-    <PossiblyFalseIterator>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-      <code>$item</code>
-    </PossiblyFalseIterator>
     <PossiblyInvalidArgument>
       <code>$result</code>
       <code>$result</code>
@@ -2791,10 +2271,6 @@
       <code>addPath</code>
       <code>addPath</code>
     </PossiblyInvalidMethodCall>
-    <TooManyArguments>
-      <code>new TestAsset\BogusIteratorTest($data)</code>
-      <code>new TestAsset\BogusIteratorTest($data)</code>
-    </TooManyArguments>
     <UndefinedInterfaceMethod>
       <code>addPath</code>
       <code>addPath</code>
@@ -2830,9 +2306,6 @@
       <code><![CDATA[$item->message]]></code>
     </UndefinedPropertyFetch>
     <UnusedVariable>
-      <code>$data</code>
-      <code>$data</code>
-      <code>$key</code>
       <code>$key</code>
       <code>$key</code>
       <code>$key</code>
@@ -2917,40 +2390,10 @@
       <code><![CDATA[$this->translations]]></code>
     </InvalidArgument>
   </file>
-  <file src="test/Helper/TestAsset/Bar.php">
-    <PropertyNotSetInConstructor>
-      <code>Bar</code>
-      <code>Bar</code>
-    </PropertyNotSetInConstructor>
-  </file>
-  <file src="test/Helper/TestAsset/IteratorTest.php">
-    <MissingTemplateParam>
-      <code>Iterator</code>
-    </MissingTemplateParam>
-  </file>
-  <file src="test/Helper/TestAsset/IteratorWithToArrayTest.php">
-    <MissingTemplateParam>
-      <code>Iterator</code>
-    </MissingTemplateParam>
-  </file>
   <file src="test/Helper/TestAsset/IteratorWithToArrayTestContainer.php">
     <MixedAssignment>
       <code>$value</code>
     </MixedAssignment>
-    <UndefinedAttributeClass>
-      <code>AllowDynamicProperties</code>
-    </UndefinedAttributeClass>
-  </file>
-  <file src="test/Helper/TestAsset/MockContainer.php">
-    <PropertyNotSetInConstructor>
-      <code>MockContainer</code>
-      <code>MockContainer</code>
-    </PropertyNotSetInConstructor>
-  </file>
-  <file src="test/Helper/TestAsset/RecursiveIteratorTest.php">
-    <MissingTemplateParam>
-      <code>Iterator</code>
-    </MissingTemplateParam>
   </file>
   <file src="test/Helper/UrlIntegrationTest.php">
     <DeprecatedClass>
@@ -3004,14 +2447,6 @@
             'factories' => $factories,
         ])]]></code>
     </DeprecatedClass>
-    <MixedArgument>
-      <code>$target</code>
-    </MixedArgument>
-    <MixedAssignment>
-      <code>$alias</code>
-      <code>$aliases</code>
-      <code>$target</code>
-    </MixedAssignment>
     <MixedInferredReturnType>
       <code><![CDATA[Generator<mixed, array{0: mixed, 1: mixed}, mixed, void>]]></code>
     </MixedInferredReturnType>

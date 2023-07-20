@@ -6,12 +6,13 @@ namespace LaminasTest\View\Helper;
 
 use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Helper\BasePath;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class BasePathTest extends TestCase
 {
     /** @return array<array-key, array{0: string, 1: string|null, 2: string}> */
-    public function basePathDataProvider(): array
+    public static function basePathDataProvider(): array
     {
         return [
             ['/foo', null, '/foo'],
@@ -32,7 +33,7 @@ class BasePathTest extends TestCase
         ];
     }
 
-    /** @dataProvider basePathDataProvider */
+    #[DataProvider('basePathDataProvider')]
     public function testBasePathHelperYieldsExpectedOutput(string $basePath, ?string $argument, string $expect): void
     {
         $helper = new BasePath($basePath);

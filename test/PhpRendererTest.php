@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace LaminasTest\View;
 
 use ArrayObject;
-use Exception;
 use Laminas\Filter\FilterChain;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Exception\DomainException;
@@ -23,6 +22,7 @@ use Laminas\View\Variables;
 use LaminasTest\View\TestAsset\Invokable;
 use LaminasTest\View\TestAsset\SharedInstance;
 use LaminasTest\View\TestAsset\Uninvokable;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use ReflectionObject;
 use stdClass;
@@ -31,7 +31,10 @@ use Throwable;
 use function assert;
 use function realpath;
 use function restore_error_handler;
+use function set_error_handler;
 use function str_replace;
+
+use const E_WARNING;
 
 class PhpRendererTest extends TestCase
 {
@@ -126,7 +129,7 @@ class PhpRendererTest extends TestCase
     /**
      * @psalm-return array<array-key, array{0: mixed}>
      */
-    public function invalidPluginManagers(): array
+    public static function invalidPluginManagers(): array
     {
         return [
             [true],
@@ -137,11 +140,8 @@ class PhpRendererTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider invalidPluginManagers
-     * @param mixed $plugins
-     */
-    public function testPassingInvalidArgumentToSetHelperPluginManagerRaisesException($plugins): void
+    #[DataProvider('invalidPluginManagers')]
+    public function testPassingInvalidArgumentToSetHelperPluginManagerRaisesException(mixed $plugins): void
     {
         $this->expectException(ExceptionInterface::class);
         $this->expectExceptionMessage('must extend');
@@ -332,19 +332,16 @@ class PhpRendererTest extends TestCase
     public function testRendererRaisesExceptionInCaseOfExceptionInView(): void
     {
         $resolver = new TemplateMapResolver([
-            'exception' => __DIR__ . '../../Mvc/View/_files/exception.phtml',
+            'exception' => __DIR__ . '/_templates/exception.phtml',
         ]);
         $this->renderer->setResolver($resolver);
 
         $model = new ViewModel();
         $model->setTemplate('exception');
 
-        try {
-            $this->renderer->render($model);
-            $this->fail('Exception from renderer should propagate');
-        } catch (Throwable $e) {
-            $this->assertInstanceOf(Exception::class, $e);
-        }
+        $this->expectException(DomainException::class);
+        $this->expectExceptionMessage('I was thrown in the view');
+        $this->renderer->render($model);
     }
 
     public function testRendererRaisesExceptionIfResolverCannotResolveTemplate(): void
@@ -359,7 +356,7 @@ class PhpRendererTest extends TestCase
      * @return string[][]
      * @psalm-return array{0: array{0: '/does/not/exists'}, 1: array{0: '.'}}
      */
-    public function invalidTemplateFiles(): array
+    public static function invalidTemplateFiles(): array
     {
         return [
             ['/does/not/exists'],
@@ -367,9 +364,7 @@ class PhpRendererTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider invalidTemplateFiles
-     */
+    #[DataProvider('invalidTemplateFiles')]
     public function testRendererRaisesExceptionIfResolvedTemplateIsInvalid(string $template): void
     {
         $resolver = new TemplateMapResolver([

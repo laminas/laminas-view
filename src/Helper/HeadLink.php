@@ -5,17 +5,18 @@ declare(strict_types=1);
 namespace Laminas\View\Helper;
 
 use Laminas\View\Exception;
+use Laminas\View\Helper\Placeholder\Container\AbstractContainer;
+use Laminas\View\Helper\Placeholder\Container\AbstractStandalone;
 use stdClass;
 
 use function array_intersect;
 use function array_keys;
 use function array_shift;
-use function call_user_func_array;
 use function count;
-use function func_get_args;
 use function get_object_vars;
 use function implode;
 use function is_array;
+use function is_object;
 use function is_string;
 use function method_exists;
 use function preg_match;
@@ -24,11 +25,8 @@ use function str_replace;
 
 use const PHP_EOL;
 
-// @codingStandardsIgnoreStart
 /**
- * Laminas_Layout_View_Helper_HeadLink
- *
- * @see http://www.w3.org/TR/xhtml1/dtds.html
+ * @extends AbstractStandalone<int, object>
  *
  * Creates the following virtual methods:
  * @method HeadLink appendStylesheet($href, $media = 'screen', $conditionalStylesheet = '', $extras = [])
@@ -39,9 +37,9 @@ use const PHP_EOL;
  * @method HeadLink offsetSetAlternate($index, $href, $type, $title, $extras = [])
  * @method HeadLink prependAlternate($href, $type, $title, $extras = [])
  * @method HeadLink setAlternate($href, $type, $title, $extras = [])
+ * @final
  */
-class HeadLink extends Placeholder\Container\AbstractStandalone
-// @codingStandardsIgnoreEnd
+class HeadLink extends AbstractStandalone
 {
     /**
      * Allowed attributes
@@ -84,13 +82,13 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
      * Allows calling $helper->headLink(), but, more importantly, chaining calls
      * like ->appendStylesheet()->headLink().
      *
-     * @param  array|null $attributes
+     * @param  array<string, mixed>|null $attributes
      * @param  string     $placement
      * @return HeadLink
      */
-    public function headLink(?array $attributes = null, $placement = Placeholder\Container\AbstractContainer::APPEND)
+    public function headLink(?array $attributes = null, $placement = AbstractContainer::APPEND)
     {
-        return call_user_func_array([$this, '__invoke'], func_get_args());
+        return $this->__invoke($attributes, $placement);
     }
 
     /**
@@ -99,22 +97,22 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
      * Returns current object instance. Optionally, allows passing array of
      * values to build link.
      *
-     * @param  array|null $attributes
-     * @param  string     $placement
-     * @return HeadLink
+     * @param array<string, mixed>|null $attributes
+     * @param string $placement
+     * @return $this
      */
-    public function __invoke(?array $attributes = null, $placement = Placeholder\Container\AbstractContainer::APPEND)
+    public function __invoke(?array $attributes = null, $placement = AbstractContainer::APPEND)
     {
         if (null !== $attributes) {
             $item = $this->createData($attributes);
             switch ($placement) {
-                case Placeholder\Container\AbstractContainer::SET:
+                case AbstractContainer::SET:
                     $this->set($item);
                     break;
-                case Placeholder\Container\AbstractContainer::PREPEND:
+                case AbstractContainer::PREPEND:
                     $this->prepend($item);
                     break;
-                case Placeholder\Container\AbstractContainer::APPEND:
+                case AbstractContainer::APPEND:
                 default:
                     $this->append($item);
                     break;
@@ -201,12 +199,14 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
     /**
      * Check if value is valid
      *
-     * @param  mixed $value
+     * @internal This method will become private in version 3.0
+     *
+     * @param mixed $value
      * @return bool
      */
     protected function isValid($value)
     {
-        if (! $value instanceof stdClass) {
+        if (! is_object($value)) {
             return false;
         }
 
@@ -223,9 +223,9 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
     /**
      * append()
      *
-     * @param mixed $value
+     * @param object $value
      * @throws Exception\InvalidArgumentException
-     * @return Placeholder\Container\AbstractContainer
+     * @return AbstractContainer
      */
     public function append($value)
     {
@@ -241,8 +241,8 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
     /**
      * offsetSet()
      *
-     * @param  string|int $index
-     * @param  array      $value
+     * @param int $index
+     * @param object $value
      * @throws Exception\InvalidArgumentException
      * @return void
      */
@@ -260,9 +260,9 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
     /**
      * prepend()
      *
-     * @param mixed $value
+     * @param object $value
      * @throws Exception\InvalidArgumentException
-     * @return Placeholder\Container\AbstractContainer
+     * @return AbstractContainer
      */
     public function prepend($value)
     {
@@ -278,9 +278,9 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
     /**
      * set()
      *
-     * @param  array $value
+     * @param object $value
      * @throws Exception\InvalidArgumentException
-     * @return HeadLink
+     * @return $this
      */
     public function set($value)
     {
@@ -290,11 +290,15 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
             );
         }
 
-        return $this->getContainer()->set($value);
+        $this->getContainer()->set($value);
+
+        return $this;
     }
 
     /**
      * Create HTML link element from data item
+     *
+     * @internal This method will become private in version 3.0
      *
      * @return string
      */
@@ -356,24 +360,27 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
      */
     public function toString($indent = null)
     {
-        $indent = null !== $indent
-                ? $this->getWhitespace($indent)
-                : $this->getIndent();
+        $container = $this->getContainer();
+        $indent    = null !== $indent
+                ? $container->getWhitespace($indent)
+                : $container->getIndent();
 
         $items = [];
-        $this->getContainer()->ksort();
-        foreach ($this as $item) {
+        $container->ksort();
+        foreach ($container as $item) {
             $items[] = $this->itemToString($item);
         }
 
-        return $indent . implode($this->escape($this->getSeparator()) . $indent, $items);
+        return $indent . implode($this->escape($container->getSeparator()) . $indent, $items);
     }
 
     /**
      * Create data item for stack
      *
-     * @param  array $attributes
-     * @return stdClass
+     * @internal This method will become private in version 3.0
+     *
+     * @param array<string, mixed> $attributes
+     * @return object
      */
     public function createData(array $attributes)
     {
@@ -383,8 +390,10 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
     /**
      * Create item for stylesheet link item
      *
+     * @deprecated This method is unused and will be removed in version 3.0 of this component
+     *
      * @param  array $args
-     * @return stdClass|false Returns false if stylesheet is a duplicate
+     * @return object|false Returns false if stylesheet is a duplicate
      */
     public function createDataStylesheet(array $args)
     {
@@ -435,6 +444,8 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
     /**
      * Is the linked stylesheet a duplicate?
      *
+     * @internal This method will become private in version 3.0
+     *
      * @param  string $uri
      * @return bool
      */
@@ -452,9 +463,11 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
     /**
      * Create item for alternate link item
      *
+     * @deprecated This method is unused and will be removed in version 3.0 of this component
+     *
      * @param  array $args
      * @throws Exception\InvalidArgumentException
-     * @return stdClass
+     * @return object
      */
     public function createDataAlternate(array $args)
     {
@@ -493,8 +506,10 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
     /**
      * Create item for a prev relationship (mainly used for pagination)
      *
+     * @deprecated This method is unused and will be removed in version 3.0 of this component
+     *
      * @param  array $args
-     * @return stdClass
+     * @return object
      */
     public function createDataPrev(array $args)
     {
@@ -507,8 +522,10 @@ class HeadLink extends Placeholder\Container\AbstractStandalone
     /**
      * Create item for a prev relationship (mainly used for pagination)
      *
+     * @deprecated This method is unused and will be removed in version 3.0 of this component
+     *
      * @param  array $args
-     * @return stdClass
+     * @return object
      */
     public function createDataNext(array $args)
     {

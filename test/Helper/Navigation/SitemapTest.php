@@ -8,6 +8,7 @@ use DOMDocument;
 use Laminas\View;
 use Laminas\View\Helper\BasePath;
 use Laminas\View\Helper\Navigation\Sitemap;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Throwable; // phpcs:ignore
 
 use function count;
@@ -19,7 +20,7 @@ use function trim;
 /**
  * @psalm-suppress MissingConstructor
  */
-class SitemapTest extends AbstractTest
+class SitemapTest extends AbstractTestCase
 {
     /** @var array<string, string> */
     private array $oldServer = [];
@@ -206,7 +207,7 @@ class SitemapTest extends AbstractTest
     }
 
     /** @return array<string, array{0:string, 1: class-string<Throwable>, 2:string}> */
-    public function invalidServerUrlDataProvider(): array
+    public static function invalidServerUrlDataProvider(): array
     {
         return [
             'muppets' => [
@@ -217,10 +218,8 @@ class SitemapTest extends AbstractTest
         ];
     }
 
-    /**
-     * @param class-string<Throwable> $expectedType
-     * @dataProvider invalidServerUrlDataProvider
-     */
+    /** @param class-string<Throwable> $expectedType */
+    #[DataProvider('invalidServerUrlDataProvider')]
     public function testSetServerUrlRequiresValidUri(
         string $invalidServerUrl,
         string $expectedType,

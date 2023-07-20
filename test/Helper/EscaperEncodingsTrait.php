@@ -9,7 +9,7 @@ use function assert;
 trait EscaperEncodingsTrait
 {
     /** @var list<string> */
-    private array $supportedEncodings = [
+    private static array $supportedEncodings = [
         'iso-8859-1',
         'iso8859-1',
         'iso-8859-5',
@@ -47,9 +47,9 @@ trait EscaperEncodingsTrait
     ];
 
     /** @return iterable<string, array<int, non-empty-string>> */
-    public function supportedEncodingsProvider(): iterable
+    public static function supportedEncodingsProvider(): iterable
     {
-        foreach ($this->supportedEncodings as $encoding) {
+        foreach (self::$supportedEncodings as $encoding) {
             assert(! empty($encoding));
             yield $encoding => [$encoding];
         }

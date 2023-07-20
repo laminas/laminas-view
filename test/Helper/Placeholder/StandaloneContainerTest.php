@@ -7,6 +7,7 @@ namespace LaminasTest\View\Helper\Placeholder;
 use Laminas\View\Exception\DomainException;
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\Placeholder\Container;
+use Laminas\View\Helper\Placeholder\Container\AbstractContainer;
 use Laminas\View\Renderer\PhpRenderer as View;
 use LaminasTest\View\Helper\TestAsset\Bar;
 use LaminasTest\View\Helper\TestAsset\Foo;
@@ -14,8 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 class StandaloneContainerTest extends TestCase
 {
-    /** @var Foo */
-    protected $helper;
+    private Foo $helper;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -37,14 +37,14 @@ class StandaloneContainerTest extends TestCase
     public function testGetContainer(): void
     {
         $container = $this->helper->getContainer();
-        $this->assertInstanceOf(Container::class, $container);
+        $this->assertInstanceOf(AbstractContainer::class, $container);
     }
 
     public function testGetContainerCreatesNewContainer(): void
     {
         $this->helper->deleteContainer();
         $container = $this->helper->getContainer();
-        $this->assertInstanceOf(Container::class, $container);
+        $this->assertInstanceOf(AbstractContainer::class, $container);
     }
 
     public function testDeleteContainer(): void
@@ -57,12 +57,14 @@ class StandaloneContainerTest extends TestCase
     public function testSetContainerClassThrowsDomainException(): void
     {
         $this->expectException(DomainException::class);
-        $this->helper->setContainerClass('bat');
+        /** @psalm-suppress UndefinedClass, ArgumentTypeCoercion */
+        $this->helper->setContainerClass('not-a-known-class');
     }
 
     public function testSetContainerClassThrowsInvalidArgumentException(): void
     {
         $this->expectException(InvalidArgumentException::class);
+        /** @psalm-suppress InvalidArgument */
         $this->helper->setContainerClass(static::class);
     }
 
@@ -82,11 +84,11 @@ class StandaloneContainerTest extends TestCase
     public function testContainerDoesNotPersistBetweenInstances(): void
     {
         $foo1 = new Foo();
-        $foo1->append('Foo');
+        $foo1->getContainer()->append('Foo');
         $foo1->setSeparator(' - ');
 
         $foo2 = new Foo();
-        $foo2->append('Bar');
+        $foo2->getContainer()->append('Bar');
 
         $test = $foo2->toString();
         $this->assertStringNotContainsString('Foo', $test);

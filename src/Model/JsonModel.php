@@ -76,7 +76,7 @@ class JsonModel extends ViewModel
         try {
             return json_encode($data, $options | JSON_THROW_ON_ERROR);
         } catch (JsonException $e) {
-            throw new DomainException('Failed to encode Json', (int) $e->getCode(), $e);
+            throw new DomainException('Failed to encode Json', $e->getCode(), $e);
         }
     }
 }

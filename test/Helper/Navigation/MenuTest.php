@@ -20,7 +20,7 @@ use const PHP_EOL;
 /**
  * @psalm-suppress MissingConstructor
  */
-class MenuTest extends AbstractTest
+class MenuTest extends AbstractTestCase
 {
     /**
      * View helper.
