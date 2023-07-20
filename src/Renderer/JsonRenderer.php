@@ -248,7 +248,7 @@ class JsonRenderer implements Renderer, TreeRendererInterface
         try {
             return json_encode($data, JSON_THROW_ON_ERROR);
         } catch (JsonException $e) {
-            throw new Exception\DomainException('Json encoding failed', (int) $e->getCode(), $e);
+            throw new Exception\DomainException('Json encoding failed', $e->getCode(), $e);
         }
     }
 }
