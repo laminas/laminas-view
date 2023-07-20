@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace LaminasTest\View\Helper\Placeholder;
 
 use Exception;
-use Laminas\View\Helper\Placeholder\Container as PlaceholderContainer;
+use Laminas\View\Helper\Placeholder\Container;
+use LaminasTest\View\Helper\TestAsset\NonStringableObject;
 use PHPUnit\Framework\TestCase;
+use Throwable;
 
 use function array_keys;
 use function array_pop;
@@ -20,8 +22,8 @@ use const PHP_EOL;
 
 class ContainerTest extends TestCase
 {
-    /** @var PlaceholderContainer */
-    public $container;
+    /** @var Container<string|int, string> */
+    private Container $container;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -29,7 +31,9 @@ class ContainerTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->container = new PlaceholderContainer();
+        /** @var Container<string|int, string> $container */
+        $container       = new Container();
+        $this->container = $container;
     }
 
     public function testSetSetsASingleValue(): void
@@ -136,16 +140,18 @@ class ContainerTest extends TestCase
         $this->container->captureStart();
         echo 'This is content intended for capture';
         $this->container->captureEnd();
+        $value = $this->container->getValue();
+        self::assertIsString($value);
         $this->assertStringContainsString(
             'This is content intended for capture',
-            (string) $this->container->getValue()
+            $value,
         );
     }
 
     public function testCapturingToPlaceholderAppendsContent(): void
     {
-        $this->container[] = 'foo';
-        $originalCount     = count($this->container);
+        $this->container->append('foo');
+        $originalCount = count($this->container);
 
         $this->container->captureStart();
         echo 'This is content intended for capture';
@@ -161,14 +167,14 @@ class ContainerTest extends TestCase
         $this->assertEquals('foo', $value[$lastIndex - 1]);
         $this->assertStringContainsString(
             'This is content intended for capture',
-            (string) $value[$lastIndex]
+            $value[$lastIndex]
         );
     }
 
     public function testCapturingToPlaceholderUsingPrependPrependsContent(): void
     {
-        $this->container[] = 'foo';
-        $originalCount     = count($this->container);
+        $this->container->append('foo');
+        $originalCount = count($this->container);
 
         $this->container->captureStart('PREPEND');
         echo 'This is content intended for capture';
@@ -182,21 +188,23 @@ class ContainerTest extends TestCase
         $lastIndex = array_pop($keys);
         assert(is_int($lastIndex));
         $this->assertEquals('foo', $value[$lastIndex]);
-        $this->assertStringContainsString('This is content intended for capture', (string) $value[$lastIndex - 1]);
+        $this->assertStringContainsString('This is content intended for capture', $value[$lastIndex - 1]);
     }
 
     public function testCapturingToPlaceholderUsingSetOverwritesContent(): void
     {
-        $this->container[] = 'foo';
+        $this->container->append('foo');
         $this->container->captureStart('SET');
         echo 'This is content intended for capture';
         $this->container->captureEnd();
 
         $this->assertCount(1, $this->container);
 
+        $value = $this->container->getValue();
+        self::assertIsString($value);
         $this->assertStringContainsString(
             'This is content intended for capture',
-            (string) $this->container->getValue()
+            $value
         );
     }
 
@@ -210,7 +218,7 @@ class ContainerTest extends TestCase
         $this->assertTrue(isset($this->container['key']));
         $this->assertStringContainsString(
             'This is content intended for capture',
-            (string) $this->container['key']
+            $this->container['key']
         );
     }
 
@@ -223,7 +231,7 @@ class ContainerTest extends TestCase
 
         $this->assertCount(1, $this->container);
         $this->assertTrue(isset($this->container['key']));
-        $value = (string) $this->container['key'];
+        $value = $this->container['key'];
         $this->assertStringContainsString('This is content intended for capture', $value);
     }
 
@@ -236,20 +244,20 @@ class ContainerTest extends TestCase
 
         $this->assertCount(1, $this->container);
         $this->assertTrue(isset($this->container['key']));
-        $value = (string) $this->container['key'];
+        $value = $this->container['key'];
         $this->assertStringContainsString('Foobar This is content intended for capture', $value);
     }
 
     public function testNestedCapturesThrowsException(): void
     {
-        $this->container[] = 'foo';
-        $caught            = false;
+        $this->container->append('foo');
+        $caught = false;
         try {
             $this->container->captureStart('SET');
             $this->container->captureStart('SET');
             $this->container->captureEnd();
             $this->container->captureEnd();
-        } catch (Exception $e) {
+        } catch (Exception) {
             $this->container->captureEnd();
             $caught = true;
         }
@@ -275,18 +283,18 @@ class ContainerTest extends TestCase
 
     public function testToStringWithNoModifiersAndCollectionReturnsImplodedString(): void
     {
-        $this->container[] = 'foo';
-        $this->container[] = 'bar';
-        $this->container[] = 'baz';
-        $value             = $this->container->toString();
+        $this->container->append('foo');
+        $this->container->append('bar');
+        $this->container->append('baz');
+        $value = $this->container->toString();
         $this->assertEquals('foobarbaz', $value);
     }
 
     public function testToStringWithModifiersAndCollectionReturnsFormattedString(): void
     {
-        $this->container[] = 'foo';
-        $this->container[] = 'bar';
-        $this->container[] = 'baz';
+        $this->container->append('foo');
+        $this->container->append('bar');
+        $this->container->append('baz');
         $this->container->setPrefix('<ul><li>')
                         ->setSeparator('</li><li>')
                         ->setPostfix('</li></ul>');
@@ -296,9 +304,9 @@ class ContainerTest extends TestCase
 
     public function testToStringWithModifiersAndCollectionReturnsFormattedStringWithIndentation(): void
     {
-        $this->container[] = 'foo';
-        $this->container[] = 'bar';
-        $this->container[] = 'baz';
+        $this->container->append('foo');
+        $this->container->append('bar');
+        $this->container->append('baz');
         $this->container->setPrefix('<ul><li>')
                         ->setSeparator('</li>' . PHP_EOL . '<li>')
                         ->setPostfix('</li></ul>')
@@ -310,14 +318,26 @@ class ContainerTest extends TestCase
 
     public function testToStringProxiesToToString(): void
     {
-        $this->container[] = 'foo';
-        $this->container[] = 'bar';
-        $this->container[] = 'baz';
+        $this->container->append('foo');
+        $this->container->append('bar');
+        $this->container->append('baz');
         $this->container->setPrefix('<ul><li>')
                         ->setSeparator('</li><li>')
                         ->setPostfix('</li></ul>');
         $value = $this->container->__toString();
         $this->assertEquals('<ul><li>foo</li><li>bar</li><li>baz</li></ul>', $value);
+    }
+
+    public function testThatToStringBehaviourForNonStringableElementsWillCauseErrors(): void
+    {
+        $container = new Container();
+        $container->append(new NonStringableObject());
+        try {
+            $container->toString();
+            self::fail('An exception was not thrown');
+        } catch (Throwable $e) {
+            self::assertStringContainsString('could not be converted to string', $e->getMessage());
+        }
     }
 
     public function testPrependPushesValueToTopOfContainer(): void

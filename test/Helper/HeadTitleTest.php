@@ -5,64 +5,55 @@ declare(strict_types=1);
 namespace LaminasTest\View\Helper;
 
 use Laminas\I18n\Translator\Translator;
-use Laminas\View\Helper;
+use Laminas\View\Helper\HeadTitle;
 use PHPUnit\Framework\TestCase;
 
 class HeadTitleTest extends TestCase
 {
-    /** @var Helper\HeadTitle */
+    /** @var HeadTitle */
     public $helper;
 
-    /** @var string */
-    public $basePath;
-
-    /**
-     * Sets up the fixture, for example, open a network connection.
-     * This method is called before a test is executed.
-     */
     protected function setUp(): void
     {
-        $this->basePath = __DIR__ . '/_files/modules';
-        $this->helper   = new Helper\HeadTitle();
+        $this->helper = new HeadTitle();
     }
 
-    public function testHeadTitleReturnsObjectInstance(): void
+    public function testInvokeWithNoArgumentsReturnsSelf(): void
     {
-        $placeholder = $this->helper->__invoke();
-        $this->assertInstanceOf(Helper\HeadTitle::class, $placeholder);
+        self::assertSame($this->helper, $this->helper->__invoke());
     }
 
     public function testCanSetTitleViaHeadTitle(): void
     {
         $placeholder = $this->helper->__invoke('Foo Bar', 'SET');
-        $this->assertEquals('Foo Bar', $placeholder->renderTitle());
+        self::assertEquals('Foo Bar', $placeholder->renderTitle());
     }
 
     public function testToStringWrapsToTitleTag(): void
     {
         $placeholder = $this->helper->__invoke('Foo Bar', 'SET');
-        $this->assertEquals('<title>Foo Bar</title>', $placeholder->toString());
+        self::assertEquals('<title>Foo Bar</title>', $placeholder->toString());
     }
 
     public function testCanAppendTitleViaHeadTitle(): void
     {
         $this->helper->__invoke('Foo');
-        $placeholder = $this->helper->__invoke('Bar');
-        $this->assertEquals('FooBar', $placeholder->renderTitle());
+        $this->helper->__invoke('Bar');
+        self::assertEquals('FooBar', $this->helper->renderTitle());
     }
 
     public function testCanPrependTitleViaHeadTitle(): void
     {
         $this->helper->__invoke('Foo');
         $placeholder = $this->helper->__invoke('Bar', 'PREPEND');
-        $this->assertEquals('BarFoo', $placeholder->renderTitle());
+        self::assertEquals('BarFoo', $placeholder->renderTitle());
     }
 
     public function testReturnedPlaceholderRenderTitleContainsFullTitleElement(): void
     {
         $this->helper->__invoke('Foo');
-        $placeholder = $this->helper->__invoke('Bar', 'APPEND')->setSeparator(' :: ');
-        $this->assertEquals('Foo :: Bar', $placeholder->renderTitle());
+        $this->helper->__invoke('Bar', 'APPEND')->setSeparator(' :: ');
+        self::assertEquals('Foo :: Bar', $this->helper->renderTitle());
     }
 
     public function testRenderTitleEscapesEntries(): void
@@ -82,7 +73,7 @@ class HeadTitleTest extends TestCase
         $this->assertStringNotContainsString('<br />', $string);
         $this->assertStringContainsString('Foo', $string);
         $this->assertStringContainsString('Bar', $string);
-        $this->assertStringContainsString('br /', $string);
+        $this->assertStringContainsString('&lt;br /&gt;', $string);
     }
 
     public function testIndentationIsHonored(): void
@@ -106,7 +97,7 @@ class HeadTitleTest extends TestCase
         $this->assertEquals('Some Title &copyright;', $this->helper->renderTitle());
     }
 
-    public function testLaminas918(): void
+    public function testThatAPrefixAndPostfixCanBeApplied(): void
     {
         $this->helper->__invoke('Some Title');
         $this->helper->setPrefix('Prefix: ');
@@ -115,7 +106,7 @@ class HeadTitleTest extends TestCase
         $this->assertEquals('Prefix: Some Title :Postfix', $this->helper->renderTitle());
     }
 
-    public function testLaminas577(): void
+    public function testThatPrefixAndPostfixAreEscapedProperly(): void
     {
         $this->helper->setAutoEscape(true);
         $this->helper->__invoke('Some Title');
@@ -171,7 +162,17 @@ class HeadTitleTest extends TestCase
 
     public function testReturnTypeDefaultAttachOrder(): void
     {
-        $this->assertInstanceOf(Helper\HeadTitle::class, $this->helper->setDefaultAttachOrder('PREPEND'));
+        $this->assertInstanceOf(HeadTitle::class, $this->helper->setDefaultAttachOrder('PREPEND'));
         $this->assertEquals('PREPEND', $this->helper->getDefaultAttachOrder());
+    }
+
+    public function testCommonMagicMethods(): void
+    {
+        $this->helper->set('a little');
+        $this->helper->prepend('Mary had');
+        $this->helper->append('lamb');
+        $this->helper->setSeparator(' ');
+
+        self::assertSame('<title>Mary had a little lamb</title>', (string) $this->helper);
     }
 }

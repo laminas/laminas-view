@@ -6,15 +6,15 @@ namespace LaminasTest\View\Helper;
 
 use DOMDocument;
 use Generator;
+use Laminas\Escaper\Escaper;
 use Laminas\View;
-use Laminas\View\Helper;
 use Laminas\View\Helper\Doctype;
+use Laminas\View\Helper\HeadScript;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 use function array_shift;
 use function assert;
-use function count;
 use function sprintf;
 use function strtolower;
 use function substr_count;
@@ -25,36 +25,26 @@ use const PHP_EOL;
 
 class HeadScriptTest extends TestCase
 {
-    /** @var Helper\HeadScript */
-    public $helper;
+    private HeadScript $helper;
+    private Escaper $escaper;
 
-    /** @var Helper\EscapeHtmlAttr */
-    public $attributeEscaper;
-
-    /** @var string */
-    public $basePath;
-
-    /**
-     * Sets up the fixture, for example, open a network connection.
-     * This method is called before a test is executed.
-     */
     protected function setUp(): void
     {
-        $this->basePath         = __DIR__ . '/_files/modules';
-        $this->helper           = new Helper\HeadScript();
-        $this->attributeEscaper = new Helper\EscapeHtmlAttr();
+        $this->helper  = new HeadScript();
+        $this->escaper = new Escaper();
     }
 
     public function testHeadScriptReturnsObjectInstance(): void
     {
         $placeholder = $this->helper->__invoke();
-        $this->assertInstanceOf(Helper\HeadScript::class, $placeholder);
+        $this->assertInstanceOf(HeadScript::class, $placeholder);
     }
 
     public function testAppendThrowsExceptionWithInvalidArguments(): void
     {
         $this->expectException(View\Exception\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid argument passed to append');
+        /** @psalm-suppress InvalidArgument */
         $this->helper->append('foo');
     }
 
@@ -62,6 +52,7 @@ class HeadScriptTest extends TestCase
     {
         $this->expectException(View\Exception\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid argument passed to prepend');
+        /** @psalm-suppress InvalidArgument */
         $this->helper->prepend('foo');
     }
 
@@ -69,6 +60,7 @@ class HeadScriptTest extends TestCase
     {
         $this->expectException(View\Exception\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid argument passed to set');
+        /** @psalm-suppress InvalidArgument */
         $this->helper->set('foo');
     }
 
@@ -76,6 +68,7 @@ class HeadScriptTest extends TestCase
     {
         $this->expectException(View\Exception\InvalidArgumentException::class);
         $this->expectExceptionMessage('Invalid argument passed to offsetSet');
+        /** @psalm-suppress InvalidArgument */
         $this->helper->offsetSet(1, 'foo');
     }
 
@@ -94,9 +87,7 @@ class HeadScriptTest extends TestCase
             $values = $this->helper->getContainer()->getArrayCopy();
             self::assertCount($i + 1, $values);
             $item = $values[$i];
-            self::assertIsObject($item);
             if ('file' === $type) {
-                self::assertIsArray($item->attributes);
                 self::assertEquals($string, $item->attributes['src']);
             } elseif ('script' === $type) {
                 self::assertEquals($string, $item->source);
@@ -117,7 +108,6 @@ class HeadScriptTest extends TestCase
             $first = array_shift($values);
             self::assertIsObject($first);
             if ('file' === $type) {
-                self::assertIsArray($first->attributes);
                 self::assertEquals($string, $first->attributes['src']);
             } elseif ('script' === $type) {
                 self::assertEquals($string, $first->source);
@@ -138,9 +128,7 @@ class HeadScriptTest extends TestCase
         $values = $this->helper->getContainer()->getArrayCopy();
         self::assertCount(1, $values);
         $item = $values[0];
-        self::assertIsObject($item);
         if ('file' === $type) {
-            self::assertIsArray($item->attributes);
             self::assertEquals($string, $item->attributes['src']);
         } elseif ('script' === $type) {
             self::assertEquals($string, $item->source);
@@ -156,9 +144,7 @@ class HeadScriptTest extends TestCase
         $values = $this->helper->getContainer()->getArrayCopy();
         self::assertCount(1, $values);
         $item = $values[5];
-        self::assertIsObject($item);
         if ('file' === $type) {
-            self::assertIsArray($item->attributes);
             self::assertEquals($string, $item->attributes['src']);
         } elseif ('script' === $type) {
             self::assertEquals($string, $item->source);
@@ -235,7 +221,7 @@ class HeadScriptTest extends TestCase
         $this->helper->__invoke('FILE', 'foo', 'set')
                      ->__invoke('SCRIPT', 'bar', 'prepend')
                      ->__invoke('SCRIPT', 'baz', 'append');
-        $items = $this->helper->getArrayCopy();
+        $items = $this->helper->getContainer()->getArrayCopy();
         for ($i = 0; $i < 3; ++$i) {
             $item = $items[$i];
             switch ($i) {
@@ -288,8 +274,8 @@ class HeadScriptTest extends TestCase
         $this->helper->captureStart();
         echo 'foobar';
         $this->helper->captureEnd();
-        $values = $this->helper->getArrayCopy();
-        $this->assertEquals(1, count($values), var_export($values, true));
+        $values = $this->helper->getContainer()->getArrayCopy();
+        $this->assertCount(1, $values, var_export($values, true));
         $item = array_shift($values);
         $this->assertStringContainsString('foobar', $item->source);
     }
@@ -317,7 +303,7 @@ document.write(bar.strlen());');
     {
         $this->helper->__invoke('FILE', '/js/prototype.js');
         $this->helper->__invoke('FILE', '/js/prototype.js');
-        $this->assertEquals(1, count($this->helper));
+        $this->assertCount(1, $this->helper);
     }
 
     public function testRenderingDoesNotRenderArbitraryAttributesByDefault(): void
@@ -424,19 +410,17 @@ document.write(bar.strlen());');
 
         $test = $this->helper->toString();
 
-        $attributeEscaper = $this->attributeEscaper;
-
         $expected = sprintf(
             '<script type="%2$s" src="%3$s"></script>%1$s'
             . '<script type="%2$s" src="%4$s"></script>%1$s'
             . '<script type="%2$s" src="%5$s"></script>%1$s'
             . '<script type="%2$s" src="%6$s"></script>',
             PHP_EOL,
-            $attributeEscaper('text/javascript'),
-            $attributeEscaper('test1.js'),
-            $attributeEscaper('test4.js'),
-            $attributeEscaper('test3.js'),
-            $attributeEscaper('test2.js')
+            $this->escaper->escapeHtmlAttr('text/javascript'),
+            $this->escaper->escapeHtmlAttr('test1.js'),
+            $this->escaper->escapeHtmlAttr('test4.js'),
+            $this->escaper->escapeHtmlAttr('test3.js'),
+            $this->escaper->escapeHtmlAttr('test2.js')
         );
 
         $this->assertEquals($expected, $test);

@@ -4,30 +4,30 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper;
 
+use Laminas\Escaper\Escaper;
 use Laminas\View\Exception;
 use Laminas\View\Exception\ExceptionInterface as ViewException;
 use Laminas\View\Helper;
 use Laminas\View\Helper\Doctype;
-use Laminas\View\Helper\EscapeHtmlAttr;
 use Laminas\View\Helper\HeadMeta;
 use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
 
 use function array_shift;
-use function count;
+use function restore_error_handler;
 use function set_error_handler;
 use function sprintf;
 use function str_replace;
 use function substr_count;
 use function ucwords;
 
+use const E_USER_WARNING;
 use const PHP_EOL;
 
 class HeadMetaTest extends TestCase
 {
     private HeadMeta $helper;
-    private EscapeHtmlAttr $attributeEscaper;
-    private ?string $error = null;
+    private Escaper $escaper;
     private View $view;
 
     /**
@@ -42,12 +42,7 @@ class HeadMetaTest extends TestCase
         $doctype->__invoke('XHTML1_STRICT');
         $this->helper = new HeadMeta();
         $this->helper->setView($this->view);
-        $this->attributeEscaper = new EscapeHtmlAttr();
-    }
-
-    public function handleErrors(int $errno, string $errstr): void
-    {
-        $this->error = $errstr;
+        $this->escaper = new Escaper();
     }
 
     public function testHeadMetaReturnsObjectInstance(): void
@@ -103,11 +98,9 @@ class HeadMetaTest extends TestCase
             $this->assertCount($i + 1, $values);
 
             $item = $values[$i];
-            self::assertIsObject($item);
             $this->assertObjectHasProperty('type', $item);
             $this->assertObjectHasProperty('modifiers', $item);
             $this->assertObjectHasProperty('content', $item);
-            self::assertIsString($item->type);
             $this->assertObjectHasProperty($item->type, $item);
             $this->assertEquals('keywords', $item->{$item->type});
             $this->assertEquals($string, $item->content);
@@ -128,7 +121,6 @@ class HeadMetaTest extends TestCase
             $this->assertObjectHasProperty('type', $item);
             $this->assertObjectHasProperty('modifiers', $item);
             $this->assertObjectHasProperty('content', $item);
-            self::assertIsString($item->type);
             $this->assertObjectHasProperty($item->type, $item);
             $this->assertEquals('keywords', $item->{$item->type});
             $this->assertEquals($string, $item->content);
@@ -146,8 +138,7 @@ class HeadMetaTest extends TestCase
         }
         $this->helper->$setAction('keywords', $string);
 
-        $values = $this->helper->getArrayCopy();
-        self::assertIsArray($values);
+        $values = $this->helper->getContainer()->getArrayCopy();
         $this->assertCount(1, $values);
         $item = array_shift($values);
         self::assertIsObject($item);
@@ -155,7 +146,6 @@ class HeadMetaTest extends TestCase
         $this->assertObjectHasProperty('type', $item);
         $this->assertObjectHasProperty('modifiers', $item);
         $this->assertObjectHasProperty('content', $item);
-        self::assertIsString($item->type);
         $this->assertObjectHasProperty($item->type, $item);
         $this->assertEquals('keywords', $item->{$item->type});
         $this->assertEquals($string, $item->content);
@@ -208,8 +198,8 @@ class HeadMetaTest extends TestCase
     public function testCanBuildMetaTagsWithAttributes(): void
     {
         $this->helper->setName('keywords', 'foo bar', ['lang' => 'us_en', 'scheme' => 'foo', 'bogus' => 'unused']);
-        $value = $this->helper->getValue();
-
+        $value = $this->helper->getContainer()->getValue();
+        self::assertIsObject($value);
         $this->assertObjectHasProperty('modifiers', $value);
         $modifiers = $value->modifiers;
         $this->assertArrayHasKey('lang', $modifiers);
@@ -234,31 +224,45 @@ class HeadMetaTest extends TestCase
         $metas = substr_count($string, 'http-equiv="');
         $this->assertEquals(1, $metas);
 
-        $attributeEscaper = $this->attributeEscaper;
-
         $this->assertStringContainsString('http-equiv="screen" content="projection"', $string);
-        $this->assertStringContainsString('name="keywords" content="' . $attributeEscaper('foo bar') . '"', $string);
+        $this->assertStringContainsString(
+            'name="keywords" content="' . $this->escaper->escapeHtmlAttr('foo bar') . '"',
+            $string,
+        );
         $this->assertStringContainsString('lang="us_en"', $string);
         $this->assertStringContainsString('scheme="foo"', $string);
         $this->assertStringNotContainsString('bogus', $string);
         $this->assertStringNotContainsString('unused', $string);
-        $this->assertStringContainsString('name="title" content="' . $attributeEscaper('boo bah') . '"', $string);
+        $this->assertStringContainsString(
+            'name="title" content="' . $this->escaper->escapeHtmlAttr('boo bah') . '"',
+            $string,
+        );
     }
 
     public function testToStringWhenInvalidKeyProvidedShouldConvertThrownException(): void
     {
         $this->helper->__invoke('some-content', 'tag value', 'not allowed key');
-        set_error_handler([$this, 'handleErrors']);
-        $string = @$this->helper->toString();
-        $this->assertEquals('', $string);
-        $this->assertIsString($this->error);
+        $error = null;
+        set_error_handler(function (int $code, string $message) use (&$error): bool {
+            self::assertSame(E_USER_WARNING, $code);
+            $error = $message;
+
+            return true;
+        }, E_USER_WARNING);
+        $string = $this->helper->toString();
+        self::assertEquals('', $string);
+        self::assertEquals(
+            'Invalid type "not allowed key" provided for meta',
+            $error,
+        );
+        restore_error_handler();
     }
 
     public function testHeadMetaHelperCreatesItemEntry(): void
     {
         $this->helper->__invoke('foo', 'keywords');
-        $values = $this->helper->getArrayCopy();
-        $this->assertEquals(1, count($values));
+        $values = $this->helper->getContainer()->getArrayCopy();
+        $this->assertCount(1, $values);
         $item = array_shift($values);
         $this->assertEquals('foo', $item->content);
         $this->assertEquals('name', $item->type);
@@ -268,8 +272,8 @@ class HeadMetaTest extends TestCase
     public function testOverloadingOffsetInsertsAtOffset(): void
     {
         $this->helper->offsetSetName(100, 'keywords', 'foo');
-        $values = $this->helper->getArrayCopy();
-        $this->assertEquals(1, count($values));
+        $values = $this->helper->getContainer()->getArrayCopy();
+        $this->assertCount(1, $values);
         $this->assertArrayHasKey(100, $values);
         $item = $values[100];
         $this->assertEquals('foo', $item->content);
@@ -295,36 +299,32 @@ class HeadMetaTest extends TestCase
 
         $test = $this->helper->toString();
 
-        $attributeEscaper = $this->attributeEscaper;
-
         $this->assertStringNotContainsString('/>', $test);
-        $this->assertStringContainsString($attributeEscaper('some content'), $test);
+        $this->assertStringContainsString($this->escaper->escapeHtmlAttr('some content'), $test);
         $this->assertStringContainsString('foo', $test);
     }
 
     public function testSetNameDoesntClobber(): void
     {
-        $view = new View();
-        $view->plugin(HeadMeta::class)->setName('keywords', 'foo');
-        $view->plugin(HeadMeta::class)->appendHttpEquiv('pragma', 'bar');
-        $view->plugin(HeadMeta::class)->appendHttpEquiv('Cache-control', 'baz');
-        $view->plugin(HeadMeta::class)->setName('keywords', 'bat');
+        $this->helper->setName('keywords', 'foo');
+        $this->helper->appendHttpEquiv('pragma', 'bar');
+        $this->helper->appendHttpEquiv('Cache-control', 'baz');
+        $this->helper->setName('keywords', 'bat');
 
         $this->assertEquals(
             '<meta http-equiv="pragma" content="bar" />' . PHP_EOL . '<meta http-equiv="Cache-control" content="baz" />'
             . PHP_EOL . '<meta name="keywords" content="bat" />',
-            $view->plugin(HeadMeta::class)->toString()
+            $this->helper->toString()
         );
     }
 
     public function testSetNameDoesntClobberPart2(): void
     {
-        $view = new View();
-        $view->plugin(HeadMeta::class)->setName('keywords', 'foo');
-        $view->plugin(HeadMeta::class)->setName('description', 'foo');
-        $view->plugin(HeadMeta::class)->appendHttpEquiv('pragma', 'baz');
-        $view->plugin(HeadMeta::class)->appendHttpEquiv('Cache-control', 'baz');
-        $view->plugin(HeadMeta::class)->setName('keywords', 'bar');
+        $this->helper->setName('keywords', 'foo');
+        $this->helper->setName('description', 'foo');
+        $this->helper->appendHttpEquiv('pragma', 'baz');
+        $this->helper->appendHttpEquiv('Cache-control', 'baz');
+        $this->helper->setName('keywords', 'bar');
 
         $expected = sprintf(
             '<meta name="description" content="foo" />%1$s'
@@ -334,14 +334,13 @@ class HeadMetaTest extends TestCase
             PHP_EOL
         );
 
-        $this->assertEquals($expected, $view->plugin(HeadMeta::class)->toString());
+        $this->assertEquals($expected, $this->helper->toString());
     }
 
     public function testPlacesMetaTagsInProperOrder(): void
     {
-        $view = new View();
-        $view->plugin(HeadMeta::class)->setName('keywords', 'foo');
-        $view->plugin(HeadMeta::class)->__invoke(
+        $this->helper->setName('keywords', 'foo');
+        $this->helper->__invoke(
             'some content',
             'bar',
             'name',
@@ -349,15 +348,13 @@ class HeadMetaTest extends TestCase
             Helper\Placeholder\Container\AbstractContainer::PREPEND
         );
 
-        $attributeEscaper = $this->attributeEscaper;
-
         $expected = sprintf(
             '<meta name="bar" content="%s" />%s'
             . '<meta name="keywords" content="foo" />',
-            $attributeEscaper('some content'),
+            $this->escaper->escapeHtmlAttr('some content'),
             PHP_EOL
         );
-        $this->assertEquals($expected, $view->plugin(HeadMeta::class)->toString());
+        $this->assertEquals($expected, $this->helper->toString());
     }
 
     public function testContainerMaintainsCorrectOrderOfItems(): void
@@ -386,7 +383,7 @@ class HeadMetaTest extends TestCase
         $view->plugin(Doctype::class)->__invoke('HTML4_STRICT');
 
         $this->expectException(Exception\ExceptionInterface::class);
-        $view->plugin(HeadMeta::class)->setCharset('utf-8');
+        $this->helper->setCharset('utf-8');
     }
 
     public function testCharset(): void
@@ -394,17 +391,17 @@ class HeadMetaTest extends TestCase
         $view = new View();
         $view->plugin(Doctype::class)->__invoke('HTML5');
 
-        $view->plugin(HeadMeta::class)->setCharset('utf-8');
+        $this->helper->setCharset('utf-8');
         $this->assertEquals(
             '<meta charset="utf-8">',
-            $view->plugin(HeadMeta::class)->toString()
+            $this->helper->toString()
         );
 
         $view->plugin(Doctype::class)->__invoke('XHTML5');
 
         $this->assertEquals(
             '<meta charset="utf-8"/>',
-            $view->plugin(HeadMeta::class)->toString()
+            $this->helper->toString()
         );
     }
 
@@ -413,18 +410,18 @@ class HeadMetaTest extends TestCase
         $view = new View();
         $view->plugin(Doctype::class)->__invoke('HTML5');
 
-        $view->plugin(HeadMeta::class)
+        $this->helper
             ->setProperty('description', 'foobar')
             ->setCharset('utf-8');
 
         $this->assertEquals(
             '<meta charset="utf-8">' . PHP_EOL
             . '<meta property="description" content="foobar">',
-            $view->plugin(HeadMeta::class)->toString()
+            $this->helper->toString()
         );
     }
 
-    public function testCarsetWithXhtmlDoctypeGotException(): void
+    public function testCharsetWithXhtmlDoctypeGotException(): void
     {
         $this->expectException(Exception\InvalidArgumentException::class);
         $this->expectExceptionMessage('XHTML* doctype has no attribute charset; please use appendHttpEquiv()');
@@ -432,7 +429,7 @@ class HeadMetaTest extends TestCase
         $view = new View();
         $view->plugin(Doctype::class)->__invoke('XHTML1_RDFA');
 
-        $view->plugin(HeadMeta::class)
+        $this->helper
              ->setCharset('utf-8');
     }
 
@@ -441,9 +438,7 @@ class HeadMetaTest extends TestCase
         $this->view->doctype('XHTML1_RDFA');
         $this->helper->__invoke('foo', 'og:title', 'property');
 
-        $attributeEscaper = $this->attributeEscaper;
-
-        $expected = sprintf('<meta property="%s" content="foo" />', $attributeEscaper('og:title'));
+        $expected = sprintf('<meta property="%s" content="foo" />', $this->escaper->escapeHtmlAttr('og:title'));
         $this->assertEquals($expected, $this->helper->toString());
     }
 
@@ -489,9 +484,10 @@ class HeadMetaTest extends TestCase
         $this->view->doctype('HTML5');
         $this->helper->__invoke('HeadMeta with Microdata', 'description', 'itemprop');
 
-        $attributeEscaper = $this->attributeEscaper;
-
-        $expected = sprintf('<meta itemprop="description" content="%s">', $attributeEscaper('HeadMeta with Microdata'));
+        $expected = sprintf(
+            '<meta itemprop="description" content="%s">',
+            $this->escaper->escapeHtmlAttr('HeadMeta with Microdata'),
+        );
         $this->assertEquals($expected, $this->helper->toString());
     }
 
