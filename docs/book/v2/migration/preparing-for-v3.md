@@ -30,3 +30,9 @@ try {
 This method has an undocumented feature where passing `null` to the `$path` parameter allows removal of an existing template providing that `$name` is a string. This feature is deprecated and will now issue an `E_USER_DEPRECATED` runtime error if used in this way.
 
 This deprecation can be safely ignored but in order to prepare for its removal in v3, you should ensure that you provide the complete map to the `TemplateMapResolver`'s constructor rather than changing it at runtime.
+
+### Deprecated Stream Wrappers for Short Open Tags
+
+In version 2, the `TemplatePathStack` template resolver automatically registers a stream wrapper for templates when the php.ini setting `short_open_tag` was turned off. The purpose of the stream wrapper was to convert template files using the short open tag `<?= $variable ?>` to `<?php echo $variable ?>` so that templates would continue to be processed in environments where short_open_tag was turned off. Since PHP 5.4.0, `<?=` is always available, therefore the wrapper became mostly unnecessary.
+
+The impact of this future removal will affect templates that use a regular short open tag for general PHP code, i.e. `<? $i = 1; echo $i ?>` in environments where `short_open_tag` is **off**. To mitigate the impact of this removal, you should ensure that, where relevant, all of your templates use the full `<?php` open tag. Use of the short echo tag `<?=` is unaffected.
