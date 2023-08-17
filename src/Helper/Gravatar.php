@@ -55,7 +55,7 @@ class Gravatar extends AbstractHtmlElement
     /**
      * Attributes for HTML image tag
      *
-     * @var array
+     * @var array<string, mixed>
      */
     protected $attributes;
 
@@ -76,7 +76,7 @@ class Gravatar extends AbstractHtmlElement
     /**
      * Options
      *
-     * @var array
+     * @var array<string, mixed>
      */
     protected $options = [
         'img_size'    => 80,
@@ -97,9 +97,9 @@ class Gravatar extends AbstractHtmlElement
      * @see    http://pl.gravatar.com/site/implement/url
      * @see    http://pl.gravatar.com/site/implement/url More information about gravatar's service.
      *
-     * @param  string|null $email      Email address.
-     * @param  null|array  $options    Options
-     * @param  array       $attributes Attributes for image tag (title, alt etc.)
+     * @param  string|null $email Email address.
+     * @param  array<string, mixed> $options Options
+     * @param  array<string, mixed> $attributes Attributes for image tag (title, alt etc.)
      * @return Gravatar
      */
     public function __invoke($email = "", $options = [], $attributes = [])
@@ -130,7 +130,7 @@ class Gravatar extends AbstractHtmlElement
     /**
      * Configure state
      *
-     * @param  array $options
+     * @param  array<string, mixed> $options
      * @return Gravatar
      */
     public function setOptions(array $options)
@@ -189,7 +189,7 @@ class Gravatar extends AbstractHtmlElement
      * This attribute is overwritten in protected method setSrcAttribForImg().
      * This method(_setSrcAttribForImg) is called in public method getImgTag().
      *
-     * @param  array $attributes
+     * @param  array<string, mixed> $attributes
      * @return Gravatar
      */
     public function setAttributes(array $attributes)
@@ -203,7 +203,7 @@ class Gravatar extends AbstractHtmlElement
      *
      * @deprecated Please use Laminas\View\Helper\Gravatar::setAttributes
      *
-     * @param  array $attribs
+     * @param  array<string, mixed> $attribs
      * @return Gravatar
      */
     public function setAttribs(array $attribs)
@@ -226,7 +226,7 @@ class Gravatar extends AbstractHtmlElement
      * protected method setSrcAttribForImg(). And finally your get other src
      * value!
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function getAttributes()
     {
@@ -243,7 +243,7 @@ class Gravatar extends AbstractHtmlElement
      *
      * @deprecated Please use Laminas\View\Helper\Gravatar::getAttributes
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function getAttribs()
     {
