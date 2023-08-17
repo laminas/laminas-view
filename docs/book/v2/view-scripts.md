@@ -50,6 +50,7 @@ introduction.
 <?php endif;?>
 ```
 
+<!-- markdownlint-disable header-increment -->
 > TIP: **IDE Auto-Completion in View Scripts**
 > The `Laminas\View\Renderer\PhpRenderer` class can be used to provide auto-completion for modern IDEs.
 > It defines the aliases of the view helpers in a DocBlock as `@method` tags.
@@ -64,8 +65,10 @@ introduction.
 >  * @var Laminas\View\Renderer\PhpRenderer $this
 >  */
 > ```
+>
 > The different Laminas components that contain view helpers provide `HelperTrait` traits with more aliases of the view helpers.
 > These traits can be chained with a pipe symbol (a.k.a. vertical bar) `|` as many as needed, depending on which view helpers from the different Laminas component are used and where the auto-completion is to be made.
+<!-- markdownlint-enable header-increment -->
 
 ## Escaping Output
 

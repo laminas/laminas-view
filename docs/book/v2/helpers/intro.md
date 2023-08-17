@@ -61,7 +61,7 @@ for, and rendering, the various HTML `<head>` tags, such as `HeadTitle`,
 - [Cycle](cycle.md)
 - [Doctype](doctype.md)
 - [FlashMessenger](flash-messenger.md)
-- [Gravatar](gravatar.md) _(Deprecated)_
+- [Gravatar](gravatar.md) *(Deprecated)*
 - [GravatarImage](gravatar-image.md)
 - [HeadLink](head-link.md)
 - [HeadMeta](head-meta.md)
