@@ -5,6 +5,8 @@ requested view script and executes it "inside" the scope of the `PhpRenderer`
 instance. Therefore, in your view scripts, references to `$this` actually point
 to the `PhpRenderer` instance itself.
 
+## Variables
+
 Variables assigned to the view, either via a [View Model](quick-start.md#controllers-and-view-models),
 [Variables container](quick-start.md), or by passing an array of variables to
 `render()`, may be retrieved in three ways:
@@ -64,6 +66,7 @@ introduction.
 >  * @var Laminas\View\Renderer\PhpRenderer $this
 >  */
 > ```
+>
 > The different Laminas components that contain view helpers provide `HelperTrait` traits with more aliases of the view helpers.
 > These traits can be chained with a pipe symbol (a.k.a. vertical bar) `|` as many as needed, depending on which view helpers from the different Laminas component are used and where the auto-completion is to be made.
 
