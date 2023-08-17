@@ -1,0 +1,32 @@
+# Preparing for Version 3
+
+Version 3 will introduce a number of backwards incompatible changes. This document is intended to help you prepare for these changes.
+
+## Template Resolvers
+
+In version 2, template resolvers, which all implement the method `ResolverInterface::resolve()` have varying return types along with some undocumented or inconsistent behaviour, specifically concerned with error handling, for example, when a template cannot be found, or no templates have been configured.
+
+Version 3 will solve these issues by guaranteeing a string return type from `ResolverInterface::resolve()` or throw a `\Laminas\View\Exception\ExceptionInterface`.
+
+If you use template resolvers standalone, you can prepare for this change by wrapping existing code in a try/catch
+
+```php
+// Before
+
+// Maybe null, false or string:
+return $this->resolver->resolve($name, $this->renderer);
+
+// After
+try {
+    return $this->resolver->resolve($name, $this->renderer);
+} catch (\Laminas\View\Exception\ExceptionInterface $error) {
+    return null; // Or whatever else signals a missing template in your application
+}
+```
+
+### Deprecations of undocumented behaviour
+
+`\Laminas\View\Resolver\TemplateMapResolver` allows runtime mutation of the template map with the `add($name, $path)` method.
+This method has an undocumented feature where passing `null` to the `$path` parameter allows removal of an existing template providing that `$name` is a string. This feature is deprecated and will now issue an `E_USER_DEPRECATED` runtime error if used in this way.
+
+This deprecation can be safely ignored but in order to prepare for its removal in v3, you should ensure that you provide the complete map to the `TemplateMapResolver`'s constructor rather than changing it at runtime.
