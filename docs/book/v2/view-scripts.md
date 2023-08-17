@@ -5,6 +5,8 @@ requested view script and executes it "inside" the scope of the `PhpRenderer`
 instance. Therefore, in your view scripts, references to `$this` actually point
 to the `PhpRenderer` instance itself.
 
+## Variables
+
 Variables assigned to the view, either via a [View Model](quick-start.md#controllers-and-view-models),
 [Variables container](quick-start.md), or by passing an array of variables to
 `render()`, may be retrieved in three ways:
@@ -50,7 +52,6 @@ introduction.
 <?php endif;?>
 ```
 
-<!-- markdownlint-disable header-increment -->
 > TIP: **IDE Auto-Completion in View Scripts**
 > The `Laminas\View\Renderer\PhpRenderer` class can be used to provide auto-completion for modern IDEs.
 > It defines the aliases of the view helpers in a DocBlock as `@method` tags.
@@ -68,7 +69,6 @@ introduction.
 >
 > The different Laminas components that contain view helpers provide `HelperTrait` traits with more aliases of the view helpers.
 > These traits can be chained with a pipe symbol (a.k.a. vertical bar) `|` as many as needed, depending on which view helpers from the different Laminas component are used and where the auto-completion is to be made.
-<!-- markdownlint-enable header-increment -->
 
 ## Escaping Output
 
