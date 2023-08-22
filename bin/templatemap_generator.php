@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-$help = <<< EOH
+$help = <<<'EOH'
 Generate template maps.
 
 Usage:
@@ -86,7 +86,7 @@ if (! is_dir($argv[1])) {
 }
 
 $basePath = $argv[1];
-$files = ($argc < 3)
+$files    = $argc < 3
     ? findTemplateFilesInTemplatePath($basePath)
     : array_slice($argv, 2);
 
@@ -99,14 +99,14 @@ if (empty($files)) {
 
 $realPath = realpath($basePath);
 
-$entries = array_map(function ($file) use ($basePath, $realPath) {
+$entries = array_map(function (string $file) use ($basePath, $realPath) {
     $file = str_replace('\\', '/', $file);
 
-    $template = (0 === strpos($file, $realPath))
+    $template = 0 === strpos($file, $realPath)
         ? substr($file, strlen($realPath))
         : $file;
 
-    $template = (0 === strpos($template, $basePath))
+    $template = 0 === strpos($template, $basePath)
         ? substr($template, strlen($basePath))
         : $template;
 
@@ -126,7 +126,8 @@ echo '<' . "?php\nreturn [\n"
 exit(0);
 
 /**
- * @psalm-return list<mixed>
+ * @param string $templatePath
+ * @return list<string>
  */
 function findTemplateFilesInTemplatePath($templatePath): array
 {
@@ -138,7 +139,8 @@ function findTemplateFilesInTemplatePath($templatePath): array
 
     $files = [];
     foreach ($rii as $file) {
-        if (strtolower($file->getExtension()) != 'phtml') {
+        assert($file instanceof SplFileInfo);
+        if (strtolower($file->getExtension()) !== 'phtml') {
             continue;
         }
 
