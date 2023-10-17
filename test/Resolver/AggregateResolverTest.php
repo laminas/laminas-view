@@ -8,23 +8,21 @@ use Exception;
 use Laminas\View\Resolver;
 use PHPUnit\Framework\TestCase;
 
-use function count;
-
 class AggregateResolverTest extends TestCase
 {
     public function testAggregateIsEmptyByDefault(): void
     {
         $resolver = new Resolver\AggregateResolver();
-        $this->assertEquals(0, count($resolver));
+        $this->assertCount(0, $resolver);
     }
 
     public function testCanAttachResolvers(): void
     {
         $resolver = new Resolver\AggregateResolver();
         $resolver->attach(new Resolver\TemplateMapResolver());
-        $this->assertEquals(1, count($resolver));
+        $this->assertCount(1, $resolver);
         $resolver->attach(new Resolver\TemplateMapResolver());
-        $this->assertEquals(2, count($resolver));
+        $this->assertCount(2, $resolver);
     }
 
     public function testReturnsNonFalseValueWhenAtLeastOneResolverSucceeds(): void

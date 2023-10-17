@@ -9,20 +9,26 @@ use IteratorAggregate;
 use Laminas\Stdlib\ArrayUtils;
 use Laminas\View\Exception;
 use Laminas\View\Renderer\RendererInterface as Renderer;
-use ReturnTypeWillChange; // phpcs:ignore
+use ReturnTypeWillChange;
 use Traversable;
 
 use function array_key_exists;
 use function array_replace_recursive;
-use function gettype;
-use function is_array;
-use function is_object;
+use function get_debug_type;
+use function is_iterable;
 use function is_string;
 use function sprintf;
+use function trigger_error;
 
+use const E_USER_DEPRECATED;
+
+/**
+ * @implements IteratorAggregate<string, string>
+ * @final
+ */
 class TemplateMapResolver implements IteratorAggregate, ResolverInterface
 {
-    /** @var array */
+    /** @var array<string, string> */
     protected $map = [];
 
     /**
@@ -30,7 +36,7 @@ class TemplateMapResolver implements IteratorAggregate, ResolverInterface
      *
      * Instantiate and optionally populate template map.
      *
-     * @param  array|Traversable $map
+     * @param iterable<string, string> $map
      */
     public function __construct($map = [])
     {
@@ -40,7 +46,7 @@ class TemplateMapResolver implements IteratorAggregate, ResolverInterface
     /**
      * IteratorAggregate: return internal iterator
      *
-     * @return Traversable
+     * @return Traversable<string, string>
      */
     #[ReturnTypeWillChange]
     public function getIterator()
@@ -53,17 +59,17 @@ class TemplateMapResolver implements IteratorAggregate, ResolverInterface
      *
      * Maps should be arrays or Traversable objects with name => path pairs
      *
-     * @param  array|Traversable $map
+     * @param iterable<string, string> $map
      * @throws Exception\InvalidArgumentException
-     * @return TemplateMapResolver
+     * @return $this
      */
     public function setMap($map)
     {
-        if (! is_array($map) && ! $map instanceof Traversable) {
+        if (! is_iterable($map)) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s: expects an array or Traversable, received "%s"',
                 __METHOD__,
-                is_object($map) ? $map::class : gettype($map)
+                get_debug_type($map),
             ));
         }
 
@@ -78,51 +84,54 @@ class TemplateMapResolver implements IteratorAggregate, ResolverInterface
     /**
      * Add an entry to the map
      *
-     * @param  string|array|Traversable $nameOrMap
-     * @param  null|string $path
+     * @param string|iterable<string, string> $nameOrMap
+     * @param null|string $path
      * @throws Exception\InvalidArgumentException
-     * @return TemplateMapResolver
+     * @return $this
      */
     public function add($nameOrMap, $path = null)
     {
-        if (is_array($nameOrMap) || $nameOrMap instanceof Traversable) {
-            $this->merge($nameOrMap);
+        if (is_string($nameOrMap) && ($path === null || $path === '')) {
+            trigger_error(
+                'Using add() to remove individual templates is deprecated and will be removed in version 3.0',
+                E_USER_DEPRECATED,
+            );
+            unset($this->map[$nameOrMap]);
+
             return $this;
         }
 
-        if (! is_string($nameOrMap)) {
+        $map = is_string($nameOrMap) && is_string($path)
+            ? [$nameOrMap => $path]
+            : $nameOrMap;
+
+        if (! is_iterable($map)) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s: expects a string, array, or Traversable for the first argument; received "%s"',
                 __METHOD__,
-                is_object($nameOrMap) ? $nameOrMap::class : gettype($nameOrMap)
+                get_debug_type($map),
             ));
         }
 
-        if (empty($path)) {
-            if (isset($this->map[$nameOrMap])) {
-                unset($this->map[$nameOrMap]);
-            }
-            return $this;
-        }
+        $this->merge($map);
 
-        $this->map[$nameOrMap] = $path;
         return $this;
     }
 
     /**
      * Merge internal map with provided map
      *
-     * @param  array|Traversable $map
+     * @param  iterable<string, string> $map
      * @throws Exception\InvalidArgumentException
-     * @return TemplateMapResolver
+     * @return $this
      */
     public function merge($map)
     {
-        if (! is_array($map) && ! $map instanceof Traversable) {
+        if (! is_iterable($map)) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s: expects an array or Traversable, received "%s"',
                 __METHOD__,
-                is_object($map) ? $map::class : gettype($map)
+                get_debug_type($map),
             ));
         }
 
@@ -155,15 +164,17 @@ class TemplateMapResolver implements IteratorAggregate, ResolverInterface
     public function get($name)
     {
         if (! $this->has($name)) {
+            // @TODO This should be exceptional
             return false;
         }
+
         return $this->map[$name];
     }
 
     /**
      * Retrieve the template map
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getMap()
     {
