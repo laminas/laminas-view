@@ -16,7 +16,7 @@ interface RetrievableChildrenInterface
      *
      * @param string $capture
      * @param bool $recursive search recursive through children, default true
-     * @return array
+     * @return list<ModelInterface>
      */
     public function getChildrenByCaptureTo($capture, $recursive = true);
 }

@@ -16,6 +16,8 @@ use Traversable;
  * to the model.
  *
  * Extends "IteratorAggregate"; should allow iterating over children.
+ *
+ * @extends IteratorAggregate<int, ModelInterface>
  */
 interface ModelInterface extends Countable, IteratorAggregate
 {
@@ -105,7 +107,7 @@ interface ModelInterface extends Countable, IteratorAggregate
      *
      * Return specifies an array, but may be any iterable object.
      *
-     * @return array
+     * @return list<ModelInterface>
      */
     public function getChildren();
 
