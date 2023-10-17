@@ -8,19 +8,23 @@ In version 2, template resolvers, which all implement the method `ResolverInterf
 
 Version 3 will solve these issues by guaranteeing a string return type from `ResolverInterface::resolve()` or throw a `\Laminas\View\Exception\ExceptionInterface`.
 
-If you use template resolvers standalone, you can prepare for this change by wrapping existing code in a try/catch
+#### Before
+
+Before version 3 the return type can `null`, `false` or `string`:
 
 ```php
-// Before
-
-// Maybe null, false or string:
 return $this->resolver->resolve($name, $this->renderer);
+```
 
-// After
+#### After
+
+If the template resolvers is used as standalone, use a `try`-`catch` block to create a custom signal for a missing template in an application:
+
+```
 try {
     return $this->resolver->resolve($name, $this->renderer);
 } catch (\Laminas\View\Exception\ExceptionInterface $error) {
-    return null; // Or whatever else signals a missing template in your application
+    return null; // custom return type
 }
 ```
 
