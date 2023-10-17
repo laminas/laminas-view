@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Flexible view layer supporting and providing multiple view layers, helpers, and more."> 
+
+    
+    
+        
+    
+    <meta name="docsearch:version" content="2.0.0,latest">
+    <meta name="docsearch:language" content="en">
+    <meta name="docsearch:component" content="laminas-view">
+
+    <link rel="canonical" href="https://docs.laminas.dev/laminas-view/v2/helpers/url/">
+    <link rel="shortcut icon" href="https://docs.laminas.dev/img/trademark-laminas-foundation-rgb.svg">
+
+    <title>Url - laminas-view - Laminas Docs</title>
+
+    <link rel="stylesheet" href="https://docs.laminas.dev/css/styles.css">
+    
+</head>
+<body id="page-top" class="components" data-spy="scroll" data-target=".toc" data-offset="20">
+
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        
+        <a class="logo-link navbar-brand" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+            <img src="https://docs.laminas.dev/img/laminas-foundation-white.svg" height="28" alt="Laminas">
+        </a>
+        <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
+            Documentation
+        </a>
+
+        
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <div class="dropdown sub-project-selector">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a href="https://docs.mezzio.dev/" class="dropdown-item">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4 col-sm-12">
+                                        <img src="https://docs.laminas.dev/img/laminas-mezzio-rgb.svg">
+                                    </div>
+                                    <div class="col-md-8 col-sm-12">
+                                        <strong>Mezzio</strong><br>
+                                        PSR-15 Middleware in Minutes
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="https://docs.laminas.dev/components/" class="dropdown-item">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4 col-sm-12">
+                                        <img src="https://docs.laminas.dev/img/laminas-components-rgb.svg">
+                                    </div>
+                                    <div class="col-md-8 col-sm-12">
+                                        <strong>Components</strong><br>
+                                        Components for Enterprise Applications
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="https://docs.laminas.dev/mvc" class="dropdown-item">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4 col-sm-12">
+                                        <img src="https://docs.laminas.dev/img/laminas-mvc-rgb.svg">
+                                    </div>
+                                    <div class="col-md-8 col-sm-12">
+                                        <strong>MVC</strong><br>
+                                        MVC for Enterprise Applications
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="https://api-tools.getlaminas.org/documentation" class="dropdown-item">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4 col-sm-12">
+                                        <img src="https://docs.laminas.dev/img/laminas-api-tools-rgb.svg">
+                                    </div>
+                                    <div class="col-md-8 col-sm-12">
+                                        <strong>API Tools</strong><br>
+                                        Build RESTful APIs in Minutes
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item dropdown-item--secondardy" href="https://docs.laminas.dev/migration/">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8 offset-md-4 col-sm-12">
+                                        Migration to Laminas
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item dropdown-item--secondardy" href="https://docs.laminas.dev/tutorials/">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8 offset-md-4 col-sm-12">
+                                        Tutorials
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
+                </li>
+            </ul>
+
+            
+            
+                <div class="d-block d-sm-none">
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../../..">laminas-view</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+                    
+                        
+    <li class="subnavigation__list-item ">
+        <a href="../../quick-start/" class="subnavigation__link">Quick Start</a>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Rendering Views</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../php-renderer/" class="subnavigation__link">The PhpRenderer</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../view-scripts/" class="subnavigation__link">View Scripts</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../view-event/" class="subnavigation__link">The ViewEvent</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Helpers</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../intro/" class="subnavigation__link">Introduction</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../asset/" class="subnavigation__link">Asset</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../base-path/" class="subnavigation__link">BasePath</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../cycle/" class="subnavigation__link">Cycle</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../doctype/" class="subnavigation__link">Doctype</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../escape/" class="subnavigation__link">Escape</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../flash-messenger/" class="subnavigation__link">FlashMessenger</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../gravatar/" class="subnavigation__link">Gravatar</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../head-link/" class="subnavigation__link">HeadLink</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../head-meta/" class="subnavigation__link">HeadMeta</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../head-script/" class="subnavigation__link">HeadScript</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../head-style/" class="subnavigation__link">HeadStyle</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../head-title/" class="subnavigation__link">HeadTitle</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../html-attributes/" class="subnavigation__link">HtmlAttributes</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../html-list/" class="subnavigation__link">HtmlList</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../html-object/" class="subnavigation__link">HtmlObject</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../html-tag/" class="subnavigation__link">HtmlTag</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../identity/" class="subnavigation__link">Identity</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../inline-script/" class="subnavigation__link">InlineScript</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../json/" class="subnavigation__link">Json</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../layout/" class="subnavigation__link">Layout</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../partial/" class="subnavigation__link">Partial</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../placeholder/" class="subnavigation__link">Placeholder</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Url</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../advanced-usage/" class="subnavigation__link">Advanced usage of helpers</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Application Integration</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../application-integration/stand-alone/" class="subnavigation__link">Stand-Alone</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Cookbook</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../cookbook/setting-module-specific-layouts/" class="subnavigation__link">Setting module-specific Layouts</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Migration</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/preparing-for-v3/" class="subnavigation__link">Preparing for Version 3</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                    
+                
+            
+        </ul>
+    </div>
+
+                </div>
+            
+
+            
+            <div class="d-block d-sm-none">
+                <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    
+    <header class="header">
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="col-8">
+                <h1 class="header__title">
+                    Components
+
+                    
+                        <small class="header__subtitle">laminas-view</small>
+                    
+                </h1>
+            </div>
+
+            
+            <div class="col-4 text-right">
+                
+                    
+<div class="version-selector">
+    <div class="btn-group">
+        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false" id="version-selector-dropdown">
+            
+                v2
+            
+        </button>
+        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="version-selector-dropdown">
+            
+                
+                    <a href="../../quick-start/" class="dropdown-item active">
+                        
+                            v2 (latest)
+                        
+                    </a>
+                
+            
+        </div>
+    </div>
+</div>
+
+
+                    <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                    <a href="https://github.com/laminas/laminas-view" class="header__link header__link--github" title="Go to repository of laminas-view">
+                        <i class="fa fa-github"></i> GitHub
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-sm-12 content" role="main">
+                
+                
+                    
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+                
+                    <li class="toc__entry">
+                        <a href="#basic-usage" class="toc__link nav-link">Basic Usage</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#query-string-arguments" class="toc__link nav-link">Query String Arguments</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#fragments" class="toc__link nav-link">Fragments</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#fully-qualified-domain-name" class="toc__link nav-link">Fully Qualified Domain Name</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#reusing-matched-parameters" class="toc__link nav-link">Reusing Matched Parameters</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+                
+
+                
+                    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        
+            <li class="breadcrumb-item"><a href="https://docs.laminas.dev/">Overview</a></li>
+            <li class="breadcrumb-item"><a href="https://docs.laminas.dev/components/">Components</a></li>
+
+            
+                <li class="breadcrumb-item"><a href="../../..">laminas-view</a></li>
+
+                
+                    
+                        
+                        
+                    
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">Helpers</li>
+                        
+                    
+                
+
+                <li class="breadcrumb-item active" aria-current="page">Url</li>
+            
+        
+    </ol>
+</nav>
+
+
+
+
+
+
+    
+    
+        <h2 class="chapter__headline">Helpers</h2>
+    
+
+    <h1 id="url">Url</h1>
+<p>The URL view helper is used to create a string representation of the routes that
+you define within your application. The syntax for the view helper is
+<code>$this-&gt;url($name, $params, $options, $reuseMatchedParameters)</code>, using the
+following definitions for the helper arguments:</p>
+<ul>
+<li><code>$name</code>: The name of the route you want to output.</li>
+<li><code>$params</code>: An array of parameters that is defined within the respective route
+  configuration.</li>
+<li><code>$options</code>: An array of options that will be used to create the URL.</li>
+<li><code>$reuseMatchedParams</code>: A flag indicating if the currently matched route
+  parameters should be used when generating the new URL.</li>
+</ul>
+<p>Let's take a look at how this view helper is used in real-world applications.</p>
+<h2 id="basic-usage">Basic Usage</h2>
+<p>The following example shows a simple configuration for a news module. The route
+is called <code>news</code> and it has two <strong>optional</strong> parameters called <code>action</code> and
+<code>id</code>.</p>
+<pre class="highlight"><code class="language-php">// In a configuration array (e.g. returned by some module's module.config.php)
+'router' =&gt; [
+    'routes' =&gt; [
+        'news' =&gt; [
+            'type'    =&gt; 'segment',
+            'options' =&gt; [
+                'route'       =&gt; '/news[/:action][/:id]',
+                'constraints' =&gt; [
+                    'action' =&gt; '[a-zA-Z][a-zA-Z0-9_-]*',
+                ],
+                'defaults' =&gt; [
+                    'controller' =&gt; 'news',
+                    'action'     =&gt; 'index',
+                ],
+            ],
+        ],
+    ],
+],</code></pre>
+<p>First, let's use the view helper to create the output for the URL <code>/news</code> without any of the
+optional parameters being used:</p>
+<pre class="highlight"><code class="language-php">&lt;a href="&lt;?= $this-&gt;url('news'); ?&gt;"&gt;News Index&lt;/a&gt;</code></pre>
+<p>This will render the output:</p>
+<pre class="highlight"><code class="language-html">&lt;a href="/news"&gt;News Index&lt;/a&gt;</code></pre>
+<p>Now let's assume we want to get a link to display the detail page of a single
+news entry. For this task, the optional parameters <code>action</code> and <code>id</code> need to
+have values assigned. This is how you do that:</p>
+<pre class="highlight"><code class="language-php">&lt;a href="&lt;?= $this-&gt;url('news', ['action' =&gt; 'details', 'id' =&gt; 42]); ?&gt;"&gt;
+    Details of News #42
+&lt;/a&gt;</code></pre>
+<p>This will render the output:</p>
+<pre class="highlight"><code class="language-html">&lt;a href="/news/details/42"&gt;News Index&lt;/a&gt;</code></pre>
+<h2 id="query-string-arguments">Query String Arguments</h2>
+<p>Most SEO experts agree that pagination parameters should not be part of the URL
+path; for example, the following URL would be considered a bad practice:
+<code>/news/archive/page/13</code>. Pagination is more correctly accomplished using a query
+string arguments, such as <code>/news/archive?page=13</code>. To achieve this, you'll need
+to make use of the <code>$options</code> argument from the view helper.</p>
+<p>We will use the same route configuration as defined above:</p>
+<pre class="highlight"><code class="language-php">// In a configuration array (e.g. returned by some module's module.config.php)
+'router' =&gt; [
+    'routes' =&gt; [
+        'news' =&gt; [
+            'type'    =&gt; 'segment',
+            'options' =&gt; [
+                'route'       =&gt; '/news[/:action][/:id]',
+                'constraints' =&gt; [
+                    'action' =&gt; '[a-zA-Z][a-zA-Z0-9_-]*',
+                ],
+                'defaults' =&gt; [
+                    'controller' =&gt; 'news',
+                    'action'     =&gt; 'index',
+                ],
+            ],
+        ],
+    ],
+],</code></pre>
+<p>To generate query string arguments from the view helper, you need to assign them
+as the third argument using the <code>query</code> key like this:</p>
+<pre class="highlight"><code class="language-php">&lt;?php
+$url = $this-&gt;url(
+    'news',
+    ['action' =&gt; 'archive'],
+    [
+        'query' =&gt; [
+            'page' =&gt; 13,
+        ],
+    ]
+);
+?&gt;
+&lt;a href="&lt;?= $url; ?&gt;"&gt;News Archive Page #13&lt;/a&gt;</code></pre>
+<p>The above code sample would output:</p>
+<pre class="highlight"><code class="language-html">&lt;a href="/news/archive?page=13"&gt;News Archive Page #13&lt;/a&gt;</code></pre>
+<h2 id="fragments">Fragments</h2>
+<p>Another possible entry within the <code>$options</code> array is the assignment of URL
+fragments (typically used to link to in-page anchors), denoted with using the
+<code>fragment</code> key. Let's assume we want to enter a link for users to directly jump
+to the comment section of a details page:</p>
+<pre class="highlight"><code class="language-php">&lt;?php
+$url = $this-&gt;url(
+    'news',
+    ['action' =&gt; 'details', 'id' =&gt; 42],
+    [
+        'fragment' =&gt; 'comments',
+    ]
+);
+?&gt;
+&lt;a href="&lt;?= $url; ?&gt;"&gt;Comment Section of News #42&lt;/a&gt;</code></pre>
+<p>The above code sample would output:</p>
+<pre class="highlight"><code class="language-html">&lt;a href="/news/details/42#comments"&gt;Comment Section of News #42&lt;/a&gt;</code></pre>
+<p>You can use <code>fragment</code> and <code>query</code> options at the same time!</p>
+<pre class="highlight"><code class="language-php">&lt;?php
+$url = $this-&gt;url(
+    'news',
+    ['action' =&gt; 'details', 'id' =&gt; 42],
+    [
+        'query' =&gt; [
+            'commentPage' =&gt; 3,
+        ],
+        'fragment' =&gt; 'comments',
+    ]
+);
+?&gt;
+&lt;a href="&lt;?= $url; ?&gt;"&gt;Comment Section of News #42&lt;/a&gt;</code></pre>
+<p>The above code sample would output:</p>
+<pre class="highlight"><code class="language-html">&lt;a href="/news/details/42?commentPage=3#comments"&gt;Comment Section of News #42&lt;/a&gt;</code></pre>
+<h2 id="fully-qualified-domain-name">Fully Qualified Domain Name</h2>
+<p>Another possible entry within the <code>$options</code> array is to output a fully
+qualified domain name (absolute URL), denoted using the <code>force_canonical</code> key:</p>
+<pre class="highlight"><code class="language-php">&lt;?php
+$url = $this-&gt;url(
+    'news',
+    [],
+    [
+        'force_canonical' =&gt; true,
+    ]
+);
+?&gt;
+&lt;a href="&lt;?= $url; ?&gt;"&gt;News Index&lt;/a&gt;</code></pre>
+<p>The above code sample would output:</p>
+<pre class="highlight"><code class="language-html">&lt;a href="http://www.example.com/news"&gt;News Index&lt;/a&gt;</code></pre>
+<h2 id="reusing-matched-parameters">Reusing Matched Parameters</h2>
+<p>When you're on a route that has many parameters, often times it makes sense to
+reuse currently matched parameters instead of assigning them explicitly. In this
+case, the argument <code>$reuseMatchedParams</code> will come in handy.</p>
+<p>As an example, we will imagine being on a detail page for our <code>news</code> route. We
+want to display links to the <code>edit</code> and <code>delete</code> actions without having to
+assign the ID again:</p>
+<pre class="highlight"><code class="language-php">// Currently url /news/details/777
+
+&lt;a href="&lt;?= $this-&gt;url('news', ['action' =&gt; 'edit'], null, true); ?&gt;"&gt;Edit Me&lt;/a&gt;
+&lt;a href="&lt;?= $this-&gt;url('news', ['action' =&gt; 'delete'], null, true); ?&gt;"&gt;Delete Me&lt;/a&gt;</code></pre>
+<p>Notice the <code>true</code> argument in the fourth position. This tells the view helper to
+use the matched <code>id</code> (<code>777</code>) when creating the new URL:</p>
+<pre class="highlight"><code class="language-html">&lt;a href="/news/edit/777"&gt;Edit Me&lt;/a&gt;
+&lt;a href="/news/delete/777"&gt;Edit Me&lt;/a&gt;</code></pre>
+<h3 id="shorthand">Shorthand</h3>
+<p>Due to the fact that reusing parameters is a use case that can happen when no
+route options are set, the third argument for the URL view helper will be
+checked against its type; when a <code>boolean</code> is passed, the helper uses it to set
+the value of the <code>$reuseMatchedParams</code> flag:</p>
+<pre class="highlight"><code class="language-php">$this-&gt;url('news', ['action' =&gt; 'archive'], null, true);
+// is equal to
+$this-&gt;url('news', ['action' =&gt; 'archive'], true);</code></pre>
+
+
+
+
+    <nav>
+    <ul class="page-nav hidden-print">
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../placeholder/">
+                    <small class="page-nav__label">Previous</small>
+                    <i class="fa fa-chevron-left"></i>
+                    Placeholder
+                </a>
+            
+        </li>
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../advanced-usage/">
+                    <small class="page-nav__label">Next</small>
+                    Advanced usage of helpers
+                    <i class="fa fa-chevron-right"></i>
+                </a>
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+                
+            </div>
+            <div class="col-md-3 col-sm-12 sidebar">
+                <div class="donation-banner">
+    <a href="https://getlaminas.org/support/">
+        <h2>Donate</h2>
+        <p>Support Laminas Developers Directly</p>
+        <img src="https://funding.communitybridge.org/assets/cb-f-horizontal-white.svg">
+    </a>
+</div>
+
+                
+                    <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../../..">laminas-view</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+                    
+                        
+    <li class="subnavigation__list-item ">
+        <a href="../../quick-start/" class="subnavigation__link">Quick Start</a>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Rendering Views</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../php-renderer/" class="subnavigation__link">The PhpRenderer</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../view-scripts/" class="subnavigation__link">View Scripts</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../view-event/" class="subnavigation__link">The ViewEvent</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Helpers</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../intro/" class="subnavigation__link">Introduction</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../asset/" class="subnavigation__link">Asset</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../base-path/" class="subnavigation__link">BasePath</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../cycle/" class="subnavigation__link">Cycle</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../doctype/" class="subnavigation__link">Doctype</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../escape/" class="subnavigation__link">Escape</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../flash-messenger/" class="subnavigation__link">FlashMessenger</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../gravatar/" class="subnavigation__link">Gravatar</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../head-link/" class="subnavigation__link">HeadLink</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../head-meta/" class="subnavigation__link">HeadMeta</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../head-script/" class="subnavigation__link">HeadScript</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../head-style/" class="subnavigation__link">HeadStyle</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../head-title/" class="subnavigation__link">HeadTitle</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../html-attributes/" class="subnavigation__link">HtmlAttributes</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../html-list/" class="subnavigation__link">HtmlList</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../html-object/" class="subnavigation__link">HtmlObject</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../html-tag/" class="subnavigation__link">HtmlTag</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../identity/" class="subnavigation__link">Identity</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../inline-script/" class="subnavigation__link">InlineScript</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../json/" class="subnavigation__link">Json</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../layout/" class="subnavigation__link">Layout</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../partial/" class="subnavigation__link">Partial</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../placeholder/" class="subnavigation__link">Placeholder</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Url</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../advanced-usage/" class="subnavigation__link">Advanced usage of helpers</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Application Integration</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../application-integration/stand-alone/" class="subnavigation__link">Stand-Alone</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Cookbook</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../cookbook/setting-module-specific-layouts/" class="subnavigation__link">Setting module-specific Layouts</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Migration</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../migration/preparing-for-v3/" class="subnavigation__link">Preparing for Version 3</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                    
+                
+            
+        </ul>
+    </div>
+
+                    
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+    <div class="container">
+
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h5>Laminas</h5>
+                <ul>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+
+                    
+                    <div class="col-md-4">
+                        <h4 class="footer__headline">Support</h4>
+                        <ul class="support__list">
+                            <li class="support__list-item">
+                                <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                            </li>
+                            <li class="support__list-item">
+                                <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                            </li>
+                            <li class="support__list-item">
+                                <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                            </li>
+                            <li class="support__list-item">
+                                <a href="https://twitter.com/getlaminas" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                            </li>
+                            <li class="support__list-item">
+                                <a href="https://getlaminas.org/blog/rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                            </li>
+                            <li class="support__list-item">
+                                <a href="https://getlaminas.org/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    
+                    <div class="col-md-4">
+                        <h4 class="footer__headline">License</h4>
+                        <p>
+                            Code licensed under <a
+                                href="https://github.com/laminas/laminas-view/blob/-/LICENSE.md">BSD 3-Clause</a>.
+                        </p>
+                    </div>
+
+                    
+                    <div class="col-md-4">
+                        <h4 class="footer__headline">Copyright</h4>
+                        <p>
+                            <!--Built with love by the Laminas team with the help of our
+                            <a href="https://github.com/laminas/laminas-view/graphs/contributors">contributors</a>.<br>-->
+                            &copy; 2023 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        let base_url = '../../..',
+            project  = "components",
+            siteName = 'laminas-view';
+    </script>
+    <script src="https://docs.laminas.dev/js/scripts.js"></script>
+    
+        <script src="../../../search/main.js"></script>
+    
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Search</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search in laminas-view" id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>
