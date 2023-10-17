@@ -1,23 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.14.0@b2942cefed8443002bd3f245c4cd0a54193716d8">
-  <file src="bin/templatemap_generator.php">
-    <MissingParamType>
-      <code>$templatePath</code>
-    </MissingParamType>
-    <MixedArgument>
-      <code>$file</code>
-      <code><![CDATA[$file->getExtension()]]></code>
-      <code>$templatePath</code>
-    </MixedArgument>
-    <MixedAssignment>
-      <code>$file</code>
-      <code>$files[]</code>
-    </MixedAssignment>
-    <MixedMethodCall>
-      <code>getExtension</code>
-      <code>getPathname</code>
-    </MixedMethodCall>
-  </file>
+<files psalm-version="5.15.0@5c774aca4746caf3d239d9c8cadb9f882ca29352">
   <file src="src/Helper/AbstractHtmlElement.php">
     <MissingConstructor>
       <code>$closingBracket</code>
@@ -1184,18 +1166,12 @@
       <code>$viewModelHelper</code>
     </MissingConstructor>
     <MixedAssignment>
-      <code>$childModel</code>
       <code><![CDATA[$this->viewModelHelper]]></code>
     </MixedAssignment>
     <MixedInferredReturnType>
       <code>ViewModel</code>
-      <code>false|Model</code>
     </MixedInferredReturnType>
-    <MixedMethodCall>
-      <code>captureTo</code>
-    </MixedMethodCall>
     <MixedReturnStatement>
-      <code>$childModel</code>
       <code><![CDATA[$this->viewModelHelper]]></code>
     </MixedReturnStatement>
     <PossiblyNullArgument>
@@ -1441,11 +1417,6 @@
       <code>$captureTo</code>
     </NonInvariantDocblockPropertyType>
   </file>
-  <file src="src/Model/ModelInterface.php">
-    <MissingTemplateParam>
-      <code>IteratorAggregate</code>
-    </MissingTemplateParam>
-  </file>
   <file src="src/Model/ViewModel.php">
     <DocblockTypeContradiction>
       <code>gettype($variables)</code>
@@ -1457,29 +1428,9 @@
     <MixedArgumentTypeCoercion>
       <code>$key</code>
     </MixedArgumentTypeCoercion>
-    <MixedArrayAssignment>
-      <code>$children[]</code>
-    </MixedArrayAssignment>
     <MixedAssignment>
-      <code>$child</code>
-      <code>$children</code>
-      <code>$children[]</code>
       <code>$value</code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code>array</code>
-    </MixedInferredReturnType>
-    <MixedMethodCall>
-      <code>captureTo</code>
-      <code>getChildrenByCaptureTo</code>
-    </MixedMethodCall>
-    <MixedOperand>
-      <code><![CDATA[$child->getChildrenByCaptureTo($capture)]]></code>
-    </MixedOperand>
-    <MixedReturnStatement>
-      <code>$children</code>
-      <code>$children</code>
-    </MixedReturnStatement>
     <PossiblyInvalidArrayAccess>
       <code>$variables[$name]</code>
     </PossiblyInvalidArrayAccess>
@@ -1501,11 +1452,7 @@
     <ImplementedParamTypeMismatch>
       <code>$values</code>
     </ImplementedParamTypeMismatch>
-    <MixedArgument>
-      <code>$child</code>
-    </MixedArgument>
     <MixedAssignment>
-      <code>$child</code>
       <code>$setting</code>
       <code>$value</code>
     </MixedAssignment>
@@ -1542,23 +1489,14 @@
       <code>$jsonpCallback</code>
     </MissingConstructor>
     <MixedArgument>
-      <code>$child</code>
       <code>$nameOrModel</code>
     </MixedArgument>
     <MixedArgumentTypeCoercion>
       <code>$child</code>
     </MixedArgumentTypeCoercion>
-    <MixedArrayOffset>
-      <code>$values[$captureTo]</code>
-    </MixedArrayOffset>
     <MixedAssignment>
-      <code>$captureTo</code>
-      <code>$child</code>
       <code>$value</code>
     </MixedAssignment>
-    <MixedMethodCall>
-      <code>captureTo</code>
-    </MixedMethodCall>
     <PossiblyInvalidArgument>
       <code>$childValues</code>
       <code>$children</code>
@@ -1858,17 +1796,9 @@
       <code>$request</code>
       <code>$response</code>
     </MissingConstructor>
-    <MixedArgument>
-      <code>$child</code>
-    </MixedArgument>
     <MixedAssignment>
-      <code>$child</code>
       <code>$oldResult</code>
     </MixedAssignment>
-    <MixedMethodCall>
-      <code>setOption</code>
-      <code>terminate</code>
-    </MixedMethodCall>
     <MixedOperand>
       <code>$oldResult</code>
     </MixedOperand>
