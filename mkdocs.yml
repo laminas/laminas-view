@@ -38,6 +38,8 @@ nav:
           - 'Stand-Alone': v2/application-integration/stand-alone.md
       - Cookbook:
           - "Setting module-specific Layouts": v2/cookbook/setting-module-specific-layouts.md
+      - Migration:
+          - "Preparing for Version 3": v2/migration/preparing-for-v3.md
 site_name: laminas-view
 site_description: 'Flexible view layer supporting and providing multiple view layers, helpers, and more.'
 repo_url: 'https://github.com/laminas/laminas-view'
