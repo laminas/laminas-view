@@ -32,6 +32,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
      * Child models
      *
      * @var array
+     * @psalm-type list<ModelInterface>
      */
     protected $children = [];
 
@@ -508,7 +509,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
     /**
      * Get iterator of children
      *
-     * @return ArrayIterator
+     * @return Traversable<int, ModelInterface>
      */
     #[ReturnTypeWillChange]
     public function getIterator()
