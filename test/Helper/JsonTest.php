@@ -6,15 +6,12 @@ namespace LaminasTest\View\Helper;
 
 use Laminas\Http\Header\HeaderInterface;
 use Laminas\Http\Response;
-use Laminas\Json\Json as JsonFormatter;
-use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Helper\Json as JsonHelper;
 use PHPUnit\Framework\TestCase;
 
-use function restore_error_handler;
-use function set_error_handler;
+use function json_encode;
 
-use const E_USER_DEPRECATED;
+use const JSON_THROW_ON_ERROR;
 
 class JsonTest extends TestCase
 {
@@ -32,7 +29,7 @@ class JsonTest extends TestCase
         $this->helper->setResponse($this->response);
     }
 
-    public function verifyJsonHeader(): void
+    private function verifyJsonHeader(): void
     {
         $headers = $this->response->getHeaders();
         $this->assertTrue($headers->has('Content-Type'));
@@ -49,29 +46,11 @@ class JsonTest extends TestCase
 
     public function testJsonHelperReturnsJsonEncodedString(): void
     {
-        $data = $this->helper->__invoke('foobar');
-        $this->assertIsString($data);
-        $this->assertEquals('foobar', JsonFormatter::decode($data));
-    }
-
-    public function testThatADeprecationErrorIsTriggeredWhenExpressionFinderOptionIsUsed(): void
-    {
-        set_error_handler(function ($code, $error) {
-            throw new RuntimeException($error, $code);
-        }, E_USER_DEPRECATED);
-        try {
-            $this->helper->__invoke(['foo'], ['enableJsonExprFinder' => true]);
-            $this->fail('An exception was not thrown');
-        } catch (RuntimeException $e) {
-            self::assertStringContainsString('Json Expression functionality is deprecated', $e->getMessage());
-        } finally {
-            restore_error_handler();
-        }
-    }
-
-    public function testThatADeprecationErrorIsNotTriggeredWhenExpressionFinderOptionIsNotUsed(): void
-    {
-        $this->expectNotToPerformAssertions();
-        $this->helper->__invoke(['foo'], ['enableJsonExprFinder' => 'anything other than true']);
+        $input  = [
+            'dory' => 'blue',
+            'nemo' => 'orange',
+        ];
+        $expect = json_encode($input, JSON_THROW_ON_ERROR);
+        self::assertJsonStringEqualsJsonString($expect, ($this->helper)($input));
     }
 }

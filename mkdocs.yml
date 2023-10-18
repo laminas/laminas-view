@@ -15,7 +15,6 @@ nav:
           - Cycle: v2/helpers/cycle.md
           - Doctype: v2/helpers/doctype.md
           - Escape: v2/helpers/escape.md
-          - FlashMessenger: v2/helpers/flash-messenger.md
           - Gravatar: v2/helpers/gravatar.md
           - HeadLink: v2/helpers/head-link.md
           - HeadMeta: v2/helpers/head-meta.md
