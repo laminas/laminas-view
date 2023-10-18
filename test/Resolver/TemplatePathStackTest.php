@@ -17,11 +17,14 @@ use function realpath;
 
 use const DIRECTORY_SEPARATOR;
 
+/**
+ * @psalm-import-type Options from TemplatePathStack
+ */
 class TemplatePathStackTest extends TestCase
 {
     private TemplatePathStack $stack;
 
-    /** @var string[] */
+    /** @var list<string> */
     private array $paths;
 
     private string $baseDir;
@@ -164,7 +167,7 @@ class TemplatePathStackTest extends TestCase
     }
 
     /**
-     * @return array<array-key, array{0: array<string, mixed>|ArrayObject<string, mixed>}>
+     * @return array<array-key, array{0: Options|ArrayObject}>
      */
     public static function validOptions(): array
     {
@@ -179,7 +182,7 @@ class TemplatePathStackTest extends TestCase
     }
 
     /**
-     * @param array<string, mixed>|ArrayObject<string, mixed> $options
+     * @param Options|ArrayObject $options
      */
     #[DataProvider('validOptions')]
     public function testAllowsSettingOptions($options): void
@@ -194,7 +197,7 @@ class TemplatePathStackTest extends TestCase
     }
 
     /**
-     * @param array<string, mixed>|ArrayObject<string, mixed> $options
+     * @param Options|ArrayObject $options
      */
     #[DataProvider('validOptions')]
     public function testAllowsPassingOptionsToConstructor($options): void

@@ -13,6 +13,7 @@ use ReturnTypeWillChange; // phpcs:ignore
 use Traversable;
 
 use function array_key_exists;
+use function array_merge;
 use function count;
 use function gettype;
 use function is_array;
@@ -31,7 +32,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
     /**
      * Child models
      *
-     * @var array
+     * @var list<ModelInterface>
      */
     protected $children = [];
 
@@ -376,7 +377,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
      *
      * Return specifies an array, but may be any iterable object.
      *
-     * @return array
+     * @return list<ModelInterface>
      */
     public function getChildren()
     {
@@ -409,15 +410,15 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
      *
      * @param string $capture
      * @param bool $recursive search recursive through children, default true
-     * @return array
+     * @return list<ModelInterface>
      */
     public function getChildrenByCaptureTo($capture, $recursive = true)
     {
         $children = [];
 
         foreach ($this->children as $child) {
-            if ($recursive === true) {
-                $children += $child->getChildrenByCaptureTo($capture);
+            if ($recursive === true && $child instanceof RetrievableChildrenInterface) {
+                $children = array_merge($children, $child->getChildrenByCaptureTo($capture));
             }
 
             if ($child->captureTo() === $capture) {
@@ -508,7 +509,7 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
     /**
      * Get iterator of children
      *
-     * @return ArrayIterator
+     * @return Traversable<int, ModelInterface>
      */
     #[ReturnTypeWillChange]
     public function getIterator()

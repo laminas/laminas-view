@@ -60,7 +60,7 @@ for, and rendering, the various HTML `<head>` tags, such as `HeadTitle`,
 - [BasePath](base-path.md)
 - [Cycle](cycle.md)
 - [Doctype](doctype.md)
-- [Gravatar](gravatar.md) _(Deprecated)_
+- [Gravatar](gravatar.md) *(Deprecated)*
 - [GravatarImage](gravatar-image.md)
 - [HeadLink](head-link.md)
 - [HeadMeta](head-meta.md)

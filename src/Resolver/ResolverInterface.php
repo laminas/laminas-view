@@ -11,8 +11,10 @@ interface ResolverInterface
     /**
      * Resolve a template/pattern name to a resource the renderer can consume
      *
+     * In version 3.0 of this component, this method will guarantee a string return type or an exception will be thrown.
+     *
      * @param  string $name
-     * @return mixed
+     * @return string|false
      */
     public function resolve($name, ?Renderer $renderer = null);
 }
