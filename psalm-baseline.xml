@@ -1,27 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.14.0@b2942cefed8443002bd3f245c4cd0a54193716d8">
-  <file src="bin/templatemap_generator.php">
-    <MissingParamType>
-      <code>$templatePath</code>
-    </MissingParamType>
-    <MixedArgument>
-      <code>$file</code>
-      <code><![CDATA[$file->getExtension()]]></code>
-      <code>$templatePath</code>
-    </MixedArgument>
-    <MixedAssignment>
-      <code>$file</code>
-      <code>$files[]</code>
-    </MixedAssignment>
-    <MixedMethodCall>
-      <code>getExtension</code>
-      <code>getPathname</code>
-    </MixedMethodCall>
-  </file>
+<files psalm-version="5.15.0@5c774aca4746caf3d239d9c8cadb9f882ca29352">
   <file src="src/Helper/AbstractHtmlElement.php">
     <MissingConstructor>
-      <code>$closingBracket</code>
-      <code>$closingBracket</code>
       <code>$closingBracket</code>
       <code>$closingBracket</code>
       <code>$closingBracket</code>
@@ -1086,18 +1066,12 @@
       <code>$viewModelHelper</code>
     </MissingConstructor>
     <MixedAssignment>
-      <code>$childModel</code>
       <code><![CDATA[$this->viewModelHelper]]></code>
     </MixedAssignment>
     <MixedInferredReturnType>
       <code>ViewModel</code>
-      <code>false|Model</code>
     </MixedInferredReturnType>
-    <MixedMethodCall>
-      <code>captureTo</code>
-    </MixedMethodCall>
     <MixedReturnStatement>
-      <code>$childModel</code>
       <code><![CDATA[$this->viewModelHelper]]></code>
     </MixedReturnStatement>
     <PossiblyNullArgument>
@@ -1284,11 +1258,6 @@
       <code>$captureTo</code>
     </NonInvariantDocblockPropertyType>
   </file>
-  <file src="src/Model/ModelInterface.php">
-    <MissingTemplateParam>
-      <code>IteratorAggregate</code>
-    </MissingTemplateParam>
-  </file>
   <file src="src/Model/ViewModel.php">
     <DocblockTypeContradiction>
       <code>gettype($variables)</code>
@@ -1300,29 +1269,9 @@
     <MixedArgumentTypeCoercion>
       <code>$key</code>
     </MixedArgumentTypeCoercion>
-    <MixedArrayAssignment>
-      <code>$children[]</code>
-    </MixedArrayAssignment>
     <MixedAssignment>
-      <code>$child</code>
-      <code>$children</code>
-      <code>$children[]</code>
       <code>$value</code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code>array</code>
-    </MixedInferredReturnType>
-    <MixedMethodCall>
-      <code>captureTo</code>
-      <code>getChildrenByCaptureTo</code>
-    </MixedMethodCall>
-    <MixedOperand>
-      <code><![CDATA[$child->getChildrenByCaptureTo($capture)]]></code>
-    </MixedOperand>
-    <MixedReturnStatement>
-      <code>$children</code>
-      <code>$children</code>
-    </MixedReturnStatement>
     <PossiblyInvalidArrayAccess>
       <code>$variables[$name]</code>
     </PossiblyInvalidArrayAccess>
@@ -1359,23 +1308,14 @@
       <code>$jsonpCallback</code>
     </MissingConstructor>
     <MixedArgument>
-      <code>$child</code>
       <code>$nameOrModel</code>
     </MixedArgument>
     <MixedArgumentTypeCoercion>
       <code>$child</code>
     </MixedArgumentTypeCoercion>
-    <MixedArrayOffset>
-      <code>$values[$captureTo]</code>
-    </MixedArrayOffset>
     <MixedAssignment>
-      <code>$captureTo</code>
-      <code>$child</code>
       <code>$value</code>
     </MixedAssignment>
-    <MixedMethodCall>
-      <code>captureTo</code>
-    </MixedMethodCall>
     <PossiblyInvalidArgument>
       <code>$childValues</code>
       <code>$children</code>
@@ -1398,9 +1338,15 @@
       <code>gettype($helpers)</code>
       <code>gettype($variables)</code>
     </DocblockTypeContradiction>
+    <FalsableReturnStatement>
+      <code><![CDATA[$this->__templateResolver->resolve($name, $this)]]></code>
+    </FalsableReturnStatement>
     <ImplementedParamTypeMismatch>
       <code>$values</code>
     </ImplementedParamTypeMismatch>
+    <InvalidNullableReturnType>
+      <code>string|Resolver</code>
+    </InvalidNullableReturnType>
     <MixedArgument>
       <code>$__vars</code>
       <code><![CDATA[$this->__template]]></code>
@@ -1437,7 +1383,6 @@
     </MixedClone>
     <MixedInferredReturnType>
       <code>string</code>
-      <code>string|Resolver</code>
     </MixedInferredReturnType>
     <MixedMethodCall>
       <code>getArrayCopy</code>
@@ -1448,7 +1393,6 @@
     </MixedOperand>
     <MixedReturnStatement>
       <code><![CDATA[$this->__filterChain->filter($this->__content)]]></code>
-      <code><![CDATA[$this->__templateResolver->resolve($name, $this)]]></code>
     </MixedReturnStatement>
     <NullableReturnStatement>
       <code><![CDATA[$this->__templateResolver]]></code>
@@ -1484,57 +1428,48 @@
     </UnresolvableInclude>
   </file>
   <file src="src/Resolver/AggregateResolver.php">
-    <MissingTemplateParam>
-      <code>IteratorAggregate</code>
-    </MissingTemplateParam>
-    <MixedAssignment>
-      <code>$resolver</code>
-      <code>$resource</code>
+    <DeprecatedProperty>
+      <code><![CDATA[$this->lastLookupFailure]]></code>
+      <code><![CDATA[$this->lastLookupFailure]]></code>
       <code><![CDATA[$this->lastLookupFailure]]></code>
       <code><![CDATA[$this->lastLookupFailure]]></code>
       <code><![CDATA[$this->lastSuccessfulResolver]]></code>
-    </MixedAssignment>
-    <MixedInferredReturnType>
-      <code>false|string</code>
-    </MixedInferredReturnType>
-    <MixedMethodCall>
-      <code>resolve</code>
-    </MixedMethodCall>
-    <MixedReturnStatement>
-      <code>$resource</code>
-    </MixedReturnStatement>
-    <PossiblyNullPropertyAssignmentValue>
-      <code>null</code>
-    </PossiblyNullPropertyAssignmentValue>
-    <PropertyNotSetInConstructor>
-      <code>$lastSuccessfulResolver</code>
-    </PropertyNotSetInConstructor>
+      <code><![CDATA[$this->lastSuccessfulResolver]]></code>
+      <code><![CDATA[$this->lastSuccessfulResolver]]></code>
+    </DeprecatedProperty>
   </file>
   <file src="src/Resolver/PrefixPathStackResolver.php">
-    <MixedArgumentTypeCoercion>
-      <code>$prefix</code>
-    </MixedArgumentTypeCoercion>
-    <MixedAssignment>
-      <code>$result</code>
-    </MixedAssignment>
+    <InvalidNullableReturnType>
+      <code>resolve</code>
+    </InvalidNullableReturnType>
+    <RedundantCastGivenDocblockType>
+      <code>(string) $prefix</code>
+    </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Resolver/TemplateMapResolver.php">
     <DocblockTypeContradiction>
-      <code><![CDATA[! is_array($map) && ! $map instanceof Traversable]]></code>
-      <code><![CDATA[! is_array($map) && ! $map instanceof Traversable]]></code>
-      <code>is_string($nameOrMap)</code>
+      <code>is_iterable($map)</code>
+      <code>is_iterable($map)</code>
     </DocblockTypeContradiction>
-    <MissingTemplateParam>
-      <code>IteratorAggregate</code>
-    </MissingTemplateParam>
-    <MixedInferredReturnType>
-      <code>false|string</code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement>
-      <code><![CDATA[$this->map[$name]]]></code>
-    </MixedReturnStatement>
+    <MixedPropertyTypeCoercion>
+      <code><![CDATA[array_replace_recursive($this->map, $map)]]></code>
+    </MixedPropertyTypeCoercion>
+    <RedundantConditionGivenDocblockType>
+      <code><![CDATA[is_string($nameOrMap) && is_string($path)]]></code>
+      <code>is_string($path)</code>
+    </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Resolver/TemplatePathStack.php">
+    <DeprecatedConstant>
+      <code>static::FAILURE_NOT_FOUND</code>
+      <code>static::FAILURE_NO_PATHS</code>
+    </DeprecatedConstant>
+    <DeprecatedProperty>
+      <code><![CDATA[$this->lastLookupFailure]]></code>
+      <code><![CDATA[$this->lastLookupFailure]]></code>
+      <code><![CDATA[$this->lastLookupFailure]]></code>
+      <code><![CDATA[$this->lastLookupFailure]]></code>
+    </DeprecatedProperty>
     <DocblockTypeContradiction>
       <code>is_string($path)</code>
     </DocblockTypeContradiction>
@@ -1543,21 +1478,11 @@
       <code>false</code>
     </FalsableReturnStatement>
     <MixedArgument>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
-      <code>$value</code>
+      <code><![CDATA[$options['default_suffix']]]></code>
+      <code><![CDATA[$options['lfi_protection']]]></code>
+      <code><![CDATA[$options['script_paths']]]></code>
     </MixedArgument>
-    <MixedAssignment>
-      <code><![CDATA[$this->lastLookupFailure]]></code>
-      <code><![CDATA[$this->lastLookupFailure]]></code>
-      <code>$value</code>
-    </MixedAssignment>
-    <NullArgument>
-      <code><![CDATA[$this->paths]]></code>
-    </NullArgument>
     <RedundantCastGivenDocblockType>
-      <code>(bool) $flag</code>
       <code>(bool) $flag</code>
       <code>(string) $defaultSuffix</code>
     </RedundantCastGivenDocblockType>
@@ -1652,17 +1577,9 @@
       <code>$request</code>
       <code>$response</code>
     </MissingConstructor>
-    <MixedArgument>
-      <code>$child</code>
-    </MixedArgument>
     <MixedAssignment>
-      <code>$child</code>
       <code>$oldResult</code>
     </MixedAssignment>
-    <MixedMethodCall>
-      <code>setOption</code>
-      <code>terminate</code>
-    </MixedMethodCall>
     <MixedOperand>
       <code>$oldResult</code>
     </MixedOperand>
@@ -2553,11 +2470,19 @@
       <code>$model</code>
     </MixedArgument>
   </file>
-  <file src="test/Resolver/RelativeFallbackResolverTest.php">
-    <MixedAssignment>
-      <code>$test</code>
-      <code>$test</code>
-    </MixedAssignment>
+  <file src="test/Resolver/AggregateResolverTest.php">
+    <DocblockTypeContradiction>
+      <code>assertNull</code>
+    </DocblockTypeContradiction>
+  </file>
+  <file src="test/Resolver/TemplatePathStackTest.php">
+    <DeprecatedConstant>
+      <code>TemplatePathStack::FAILURE_NOT_FOUND</code>
+      <code>TemplatePathStack::FAILURE_NO_PATHS</code>
+    </DeprecatedConstant>
+    <PossiblyUndefinedArrayOffset>
+      <code><![CDATA[$options['default_suffix']]]></code>
+    </PossiblyUndefinedArrayOffset>
   </file>
   <file src="test/Strategy/FeedStrategyTest.php">
     <MixedAssignment>
