@@ -4,9 +4,8 @@
         "filter",
         "intl"
     ],
+    ],
     "ignore_php_platform_requirements": {
-        "8.0": false,
-        "8.1": false,
-        "8.2": false
+        "8.3": true
     }
 }
