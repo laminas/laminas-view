@@ -4,60 +4,23 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper\Service;
 
-use Laminas\ServiceManager\ServiceManager;
-use Laminas\View\Exception;
+use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Helper\Asset;
 use Laminas\View\Helper\Service\AssetFactory;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
 
 class AssetFactoryTest extends TestCase
 {
-    /**
-     * @deprecated for removal in 3.0
-     */
-    public function testAssetFactoryCreateServiceCreatesAssetInstance(): void
-    {
-        $services = $this->getServices();
-
-        $assetFactory = new AssetFactory();
-        $asset        = $assetFactory->createService($services);
-
-        $this->assertInstanceOf(Asset::class, $asset);
-    }
-
     public function testAssetFactoryInvokableCreatesAssetInstance(): void
     {
         $services = $this->getServices();
 
         $assetFactory = new AssetFactory();
-        $asset        = $assetFactory($services, '');
+        $asset        = $assetFactory($services);
 
         $this->assertInstanceOf(Asset::class, $asset);
-    }
-
-    /**
-     * @deprecated for removal in 3.0
-     */
-    public function testValidConfiguration(): void
-    {
-        $config = [
-            'view_helper_config' => [
-                'asset' => [
-                    'resource_map' => [
-                        'css/style.css' => 'css/style-3a97ff4ee3.css',
-                        'js/vendor.js'  => 'js/vendor-a507086eba.js',
-                    ],
-                ],
-            ],
-        ];
-
-        $services     = $this->getServices($config);
-        $assetFactory = new AssetFactory();
-
-        $asset = $assetFactory($services, '');
-
-        $this->assertEquals($config['view_helper_config']['asset']['resource_map'], $asset->getResourceMap());
     }
 
     public function testThatAnExceptionWillBeThrownWhenTheResourceMapIsSetToANonArray(): void
@@ -70,12 +33,12 @@ class AssetFactoryTest extends TestCase
             ],
         ]);
 
-        $this->expectException(Exception\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage(
             'Invalid resource map configuration. Expected the key '
             . '"resource_map" to contain an array value but received "string"'
         );
-        (new AssetFactory())($container, '');
+        (new AssetFactory())($container);
     }
 
     /**
@@ -128,14 +91,14 @@ class AssetFactoryTest extends TestCase
     public function testThatAnExceptionWillNotBeThrownWhenGivenUnsetOrEmptyArrayConfiguration(array $config): void
     {
         $container = $this->getServices($config);
-        (new AssetFactory())($container, 'foo');
+        (new AssetFactory())($container);
         self::assertTrue(true);
     }
 
     /** @param array<string, mixed> $config */
-    private function getServices(array $config = []): ServiceManager
+    private function getServices(array $config = []): ContainerInterface
     {
-        $services = $this->createMock(ServiceManager::class);
+        $services = $this->createMock(ContainerInterface::class);
         $services->expects(self::once())
             ->method('get')
             ->with('config')
