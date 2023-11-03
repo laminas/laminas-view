@@ -2,172 +2,172 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://docs.laminas.dev/laminas-view/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/php-renderer/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/quick-start/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/view-event/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/view-scripts/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/application-integration/stand-alone/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/cookbook/setting-module-specific-layouts/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/helpers/advanced-usage/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/helpers/asset/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/helpers/base-path/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/helpers/cycle/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/helpers/doctype/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/helpers/escape/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/helpers/flash-messenger/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/helpers/gravatar-image/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/helpers/gravatar/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/helpers/head-link/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/helpers/head-meta/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/helpers/head-script/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/helpers/head-style/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/helpers/head-title/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/helpers/html-attributes/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/helpers/html-list/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/helpers/html-object/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/helpers/html-tag/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/helpers/identity/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/helpers/inline-script/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/helpers/intro/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/helpers/json/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/helpers/layout/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/helpers/partial/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/helpers/placeholder/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/helpers/url/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://docs.laminas.dev/laminas-view/v2/migration/preparing-for-v3/</loc>
-         <lastmod>2023-10-17</lastmod>
+         <lastmod>2023-11-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
