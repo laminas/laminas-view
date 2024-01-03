@@ -10,9 +10,8 @@ use Laminas\View\Model\FeedModel;
 use Laminas\View\Model\ModelInterface as Model;
 use Laminas\View\Resolver\ResolverInterface as Resolver;
 
-use function gettype;
+use function get_debug_type;
 use function in_array;
-use function is_object;
 use function is_string;
 use function sprintf;
 use function strtolower;
@@ -59,7 +58,7 @@ class FeedRenderer implements RendererInterface
      *
      * @todo   Determine what use case exists for accepting only $nameOrModel
      * @param  string|Model $nameOrModel The script/resource process, or a view model
-     * @param  null|array|ArrayAccess $values Values to use during rendering
+     * @param  null|array<string, mixed>|ArrayAccess<string, mixed> $values Values to use during rendering
      * @throws Exception\InvalidArgumentException
      * @return string The script output.
      */
@@ -87,7 +86,7 @@ class FeedRenderer implements RendererInterface
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s expects a ViewModel or a string feed type as the first argument; received "%s"',
                 __METHOD__,
-                is_object($nameOrModel) ? $nameOrModel::class : gettype($nameOrModel)
+                get_debug_type($nameOrModel),
             ));
         }
 

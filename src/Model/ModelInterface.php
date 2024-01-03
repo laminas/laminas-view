@@ -33,7 +33,7 @@ interface ModelInterface extends Countable, IteratorAggregate
     /**
      * Set renderer options/hints en masse
      *
-     * @param  array|Traversable $options
+     * @param  array<string, mixed>|Traversable<string, mixed> $options
      * @return ModelInterface
      */
     public function setOptions($options);
@@ -41,7 +41,7 @@ interface ModelInterface extends Countable, IteratorAggregate
     /**
      * Get renderer options/hints
      *
-     * @return array|Traversable
+     * @return array<string, mixed>|Traversable<string, mixed>
      */
     public function getOptions();
 
@@ -66,7 +66,7 @@ interface ModelInterface extends Countable, IteratorAggregate
     /**
      * Set view variables en masse
      *
-     * @param  array|ArrayAccess $variables
+     * @param  array<string, mixed>|ArrayAccess<string, mixed> $variables
      * @return ModelInterface
      */
     public function setVariables($variables);
@@ -74,7 +74,7 @@ interface ModelInterface extends Countable, IteratorAggregate
     /**
      * Get view variables
      *
-     * @return array|ArrayAccess
+     * @return array<string, mixed>|ArrayAccess<string, mixed>
      */
     public function getVariables();
 

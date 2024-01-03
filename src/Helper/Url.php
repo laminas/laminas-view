@@ -12,10 +12,9 @@ use Traversable;
 
 use function array_merge;
 use function func_num_args;
-use function gettype;
+use function get_debug_type;
 use function is_array;
 use function is_bool;
-use function is_object;
 use function iterator_to_array;
 use function sprintf;
 
@@ -121,7 +120,7 @@ class Url extends AbstractHelper
                 '%s expects a %s instance; received %s',
                 __METHOD__,
                 RouteStackInterface::class,
-                is_object($router) ? $router::class : gettype($router)
+                get_debug_type($router),
             ));
         }
 
@@ -143,7 +142,7 @@ class Url extends AbstractHelper
                 '%s expects a %s instance; received %s',
                 __METHOD__,
                 RouteMatch::class,
-                is_object($routeMatch) ? $routeMatch::class : gettype($routeMatch)
+                get_debug_type($routeMatch),
             ));
         }
 

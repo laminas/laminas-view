@@ -53,7 +53,10 @@ class RegistryTest extends TestCase
 
     public function testSetContainerCreatesRegistryEntry(): void
     {
-        /** @psalm-suppress TooManyArguments */
+        /**
+         * @psalm-suppress TooManyArguments
+         * @psalm-var Container<array-key, mixed> $foo
+         */
         $foo = new Container(['foo', 'bar']);
         $this->assertFalse($this->registry->containerExists('foo'));
         $this->registry->setContainer('foo', $foo);
@@ -62,7 +65,10 @@ class RegistryTest extends TestCase
 
     public function testSetContainerCreatesRegistersContainerInstance(): void
     {
-        /** @psalm-suppress TooManyArguments */
+        /**
+         * @psalm-suppress TooManyArguments
+         * @psalm-var Container<array-key, mixed> $foo
+         */
         $foo = new Container(['foo', 'bar']);
         $this->assertFalse($this->registry->containerExists('foo'));
         $this->registry->setContainer('foo', $foo);

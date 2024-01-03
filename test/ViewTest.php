@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace LaminasTest\View;
 
-use ArrayObject;
 use Laminas\Http\Request;
 use Laminas\Http\Response;
 use Laminas\View\Exception;
@@ -46,9 +45,9 @@ class ViewTest extends TestCase
 
     public function attachTestStrategies(): void
     {
-        $this->view->addRenderingStrategy(static fn($e) => new TestAsset\Renderer\VarExportRenderer());
+        $this->view->addRenderingStrategy(static fn() => new TestAsset\Renderer\VarExportRenderer());
         $this->result = $result = new stdClass();
-        $this->view->addResponseStrategy(function ($e) use ($result) {
+        $this->view->addResponseStrategy(function (ViewEvent $e) use ($result) {
             $result->content = $e->getResult();
         });
     }
@@ -119,14 +118,14 @@ class ViewTest extends TestCase
 
     public function testChildrenMayInvokeDifferentRenderingStrategiesThanParents(): void
     {
-        $this->view->addRenderingStrategy(function ($e) {
+        $this->view->addRenderingStrategy(function (ViewEvent $e) {
             $model = $e->getModel();
             if (! $model instanceof ViewModel) {
                 return;
             }
             return new TestAsset\Renderer\VarExportRenderer();
         });
-        $this->view->addRenderingStrategy(function ($e) {
+        $this->view->addRenderingStrategy(function (ViewEvent $e) {
             $model = $e->getModel();
             if (! $model instanceof JsonModel) {
                 return;
@@ -134,7 +133,7 @@ class ViewTest extends TestCase
             return new Renderer\JsonRenderer();
         }, 10); // higher priority, so it matches earlier
         $this->result = $result = new stdClass();
-        $this->view->addResponseStrategy(function ($e) use ($result) {
+        $this->view->addResponseStrategy(function (ViewEvent $e) use ($result) {
             $result->content = $e->getResult();
         });
 
@@ -212,10 +211,12 @@ class ViewTest extends TestCase
 
     public function testResponseStrategyIsNotTriggeredForChildModel(): void
     {
-        $this->view->addRenderingStrategy(static fn($e) => new Renderer\JsonRenderer());
+        $this->view->addRenderingStrategy(static fn() => new Renderer\JsonRenderer());
 
-        $result = new ArrayObject();
-        $this->view->addResponseStrategy(function ($e) use ($result) {
+        $result = [];
+        $this->view->addResponseStrategy(function (ViewEvent $e) use (&$result) {
+            self::assertIsArray($result);
+            /** @psalm-var mixed */
             $result[] = $e->getResult();
         });
 
@@ -231,7 +232,8 @@ class ViewTest extends TestCase
 
         $this->view->render($this->model);
 
-        $this->assertEquals(1, count($result));
+        self::assertIsArray($result);
+        self::assertEquals(1, count($result));
     }
 
     public function testUsesTreeRendererInterfaceToDetermineWhetherOrNotToPassOnlyRootViewModelToPhpRenderer(): void
@@ -244,10 +246,10 @@ class ViewTest extends TestCase
         $phpRenderer->setCanRenderTrees(true);
         $phpRenderer->setResolver($resolver);
 
-        $this->view->addRenderingStrategy(static fn($e) => $phpRenderer);
+        $this->view->addRenderingStrategy(static fn() => $phpRenderer);
 
         $result = new stdClass();
-        $this->view->addResponseStrategy(function ($e) use ($result) {
+        $this->view->addResponseStrategy(function (ViewEvent $e) use ($result) {
             $result->content = $e->getResult();
         });
 
@@ -269,10 +271,10 @@ class ViewTest extends TestCase
     {
         $jsonRenderer = new Renderer\JsonRenderer();
 
-        $this->view->addRenderingStrategy(static fn($e) => $jsonRenderer);
+        $this->view->addRenderingStrategy(static fn() => $jsonRenderer);
 
         $result = new stdClass();
-        $this->view->addResponseStrategy(function ($e) use ($result) {
+        $this->view->addResponseStrategy(function (ViewEvent $e) use ($result) {
             $result->content = $e->getResult();
         });
 

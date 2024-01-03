@@ -21,9 +21,11 @@ use Traversable;
 
 use function array_key_exists;
 use function array_pop;
+use function assert;
 use function call_user_func_array;
 use function class_exists;
 use function extract;
+use function get_debug_type;
 use function gettype;
 use function is_array;
 use function is_callable;
@@ -140,7 +142,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     private $__filterChain;
 
     /**
-     * @var ArrayAccess|array|null ArrayAccess or associative array representing available variables
+     * @var Variables|null
      */
     private $__vars;
 
@@ -221,7 +223,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      *
      * Expects either an array, or an object implementing ArrayAccess.
      *
-     * @param  array|ArrayAccess $variables
+     * @param  array<string, mixed>|ArrayAccess<string, mixed> $variables
      * @return PhpRenderer
      * @throws Exception\InvalidArgumentException
      */
@@ -230,7 +232,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
         if (! is_array($variables) && ! $variables instanceof ArrayAccess) {
             throw new Exception\InvalidArgumentException(sprintf(
                 'Expected array or ArrayAccess object; received "%s"',
-                is_object($variables) ? $variables::class : gettype($variables)
+                get_debug_type($variables),
             ));
         }
 
@@ -250,14 +252,16 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     /**
      * Get a single variable, or all variables
      *
-     * @param  mixed $key
-     * @return mixed
+     * @param string|null $key
+     * @return ($key is null ? Variables : mixed)
      */
     public function vars($key = null)
     {
         if (null === $this->__vars) {
             $this->setVars(new Variables());
         }
+
+        assert($this->__vars !== null);
 
         if (null === $key) {
             return $this->__vars;
@@ -268,7 +272,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     /**
      * Get a single variable
      *
-     * @param  mixed $key
+     * @param string $key
      * @return mixed
      */
     public function get($key)

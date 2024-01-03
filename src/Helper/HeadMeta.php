@@ -446,17 +446,17 @@ class HeadMeta extends AbstractStandalone
     /**
      * OffsetUnset
      *
-     * @param  int $index
+     * @param  int $offset
      * @return void
      * @throws Exception\InvalidArgumentException
      */
-    public function offsetUnset($index)
+    public function offsetUnset($offset)
     {
-        if (! in_array($index, $this->getContainer()->getKeys())) {
+        if (! in_array($offset, $this->getContainer()->getKeys())) {
             throw new Exception\InvalidArgumentException('Invalid index passed to offsetUnset()');
         }
 
-        $this->getContainer()->offsetUnset($index);
+        $this->getContainer()->offsetUnset($offset);
     }
 
     /**
