@@ -84,7 +84,7 @@ class PhpRendererTest extends TestCase
 
     public function testCanSpecifyArrayAccessForVars(): void
     {
-        $a = new ArrayObject();
+        $a = new ArrayObject(['baz' => 'bat']);
         $this->renderer->setVars($a);
         $this->assertSame($a->getArrayCopy(), $this->renderer->vars()->getArrayCopy());
     }

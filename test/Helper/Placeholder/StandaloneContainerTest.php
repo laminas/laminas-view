@@ -28,6 +28,7 @@ class StandaloneContainerTest extends TestCase
 
     public function testSetContainer(): void
     {
+        /** @var Container<array-key, mixed> $container */
         $container = new Container();
         $this->assertNotSame($container, $this->helper->getContainer());
         $this->helper->setContainer($container);

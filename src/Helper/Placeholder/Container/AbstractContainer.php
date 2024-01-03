@@ -24,7 +24,7 @@ use function str_repeat;
 /**
  * Abstract class representing container for placeholder values
  *
- * @template TKey
+ * @template TKey of array-key
  * @template TValue
  * @extends ArrayObject<TKey, TValue>
  */
