@@ -15,7 +15,6 @@ nav:
           - Cycle: v2/helpers/cycle.md
           - Doctype: v2/helpers/doctype.md
           - Escape: v2/helpers/escape.md
-          - FlashMessenger: v2/helpers/flash-messenger.md
           - Gravatar: v2/helpers/gravatar.md
           - HeadLink: v2/helpers/head-link.md
           - HeadMeta: v2/helpers/head-meta.md
@@ -40,46 +39,84 @@ nav:
           - "Setting module-specific Layouts": v2/cookbook/setting-module-specific-layouts.md
       - Migration:
           - "Preparing for Version 3": v2/migration/preparing-for-v3.md
+  - v3:
+      - "Quick Start": v3/quick-start.md
+      - "Rendering Views":
+          - "The PhpRenderer": v3/php-renderer.md
+          - "View Scripts": v3/view-scripts.md
+          - "The ViewEvent": v3/view-event.md
+      - Helpers:
+          - Introduction: v3/helpers/intro.md
+          - Asset: v3/helpers/asset.md
+          - BasePath: v3/helpers/base-path.md
+          - Cycle: v3/helpers/cycle.md
+          - Doctype: v3/helpers/doctype.md
+          - Escape: v3/helpers/escape.md
+          - Gravatar: v3/helpers/gravatar-image.md
+          - HeadLink: v3/helpers/head-link.md
+          - HeadMeta: v3/helpers/head-meta.md
+          - HeadScript: v3/helpers/head-script.md
+          - HeadStyle: v3/helpers/head-style.md
+          - HeadTitle: v3/helpers/head-title.md
+          - HtmlAttributes: v3/helpers/html-attributes.md
+          - HtmlList: v3/helpers/html-list.md
+          - HtmlObject: v3/helpers/html-object.md
+          - HtmlTag: v3/helpers/html-tag.md
+          - Identity: v3/helpers/identity.md
+          - InlineScript: v3/helpers/inline-script.md
+          - Json: v3/helpers/json.md
+          - Layout: v3/helpers/layout.md
+          - Partial: v3/helpers/partial.md
+          - Placeholder: v3/helpers/placeholder.md
+          - Url: v3/helpers/url.md
+          - "Advanced usage of helpers": v3/helpers/advanced-usage.md
+      - 'Application Integration':
+          - 'Stand-Alone': v3/application-integration/stand-alone.md
+      - Cookbook:
+          - "Setting module-specific Layouts": v3/cookbook/setting-module-specific-layouts.md
 site_name: laminas-view
 site_description: 'Flexible view layer supporting and providing multiple view layers, helpers, and more.'
 repo_url: 'https://github.com/laminas/laminas-view'
 extra:
   project: Components
-  current_version: v2
+  current_version: v3
   versions:
     - v2
+    - v3
 
 plugins:
   - redirects:
       redirect_maps:
-        quick-start.md: v2/quick-start.md
-        php-renderer.md: v2/php-renderer.md
-        view-scripts.md: v2/view-scripts.md
-        view-event.md: v2/view-event.md
-        helpers/intro.md: v2/helpers/intro.md
-        helpers/asset.md: v2/helpers/asset.md
-        helpers/base-path.md: v2/helpers/base-path.md
-        helpers/cycle.md: v2/helpers/cycle.md
-        helpers/doctype.md: v2/helpers/doctype.md
-        helpers/escape.md: v2/helpers/escape.md
+        # Old helpers no longer present in v3
         helpers/flash-messenger.md: v2/helpers/flash-messenger.md
         helpers/gravatar.md: v2/helpers/gravatar.md
-        helpers/head-link.md: v2/helpers/head-link.md
-        helpers/head-meta.md: v2/helpers/head-meta.md
-        helpers/head-script.md: v2/helpers/head-script.md
-        helpers/head-style.md: v2/helpers/head-style.md
-        helpers/head-title.md: v2/helpers/head-title.md
-        helpers/html-attributes.md: v2/helpers/html-attributes.md
-        helpers/html-list.md: v2/helpers/html-list.md
-        helpers/html-object.md: v2/helpers/html-object.md
-        helpers/html-tag.md: v2/helpers/html-tag.md
-        helpers/identity.md: v2/helpers/identity.md
-        helpers/inline-script.md: v2/helpers/inline-script.md
-        helpers/json.md: v2/helpers/json.md
-        helpers/layout.md: v2/helpers/layout.md
-        helpers/partial.md: v2/helpers/partial.md
-        helpers/placeholder.md: v2/helpers/placeholder.md
-        helpers/url.md: v2/helpers/url.md
-        helpers/advanced-usage.md: v2/helpers/advanced-usage.md
-        application-integration/stand-alone.md: v2/application-integration/stand-alone.md
-        cookbook/setting-module-specific-layouts.md: v2/cookbook/setting-module-specific-layouts.md
+        # Existing content with an equivalent target in the v3 docs tree
+        quick-start.md: v3/quick-start.md
+        php-renderer.md: v3/php-renderer.md
+        view-scripts.md: v3/view-scripts.md
+        view-event.md: v3/view-event.md
+        helpers/intro.md: v3/helpers/intro.md
+        helpers/asset.md: v3/helpers/asset.md
+        helpers/base-path.md: v3/helpers/base-path.md
+        helpers/cycle.md: v3/helpers/cycle.md
+        helpers/doctype.md: v3/helpers/doctype.md
+        helpers/escape.md: v3/helpers/escape.md
+        helpers/head-link.md: v3/helpers/head-link.md
+        helpers/head-meta.md: v3/helpers/head-meta.md
+        helpers/head-script.md: v3/helpers/head-script.md
+        helpers/head-style.md: v3/helpers/head-style.md
+        helpers/head-title.md: v3/helpers/head-title.md
+        helpers/html-attributes.md: v3/helpers/html-attributes.md
+        helpers/html-list.md: v3/helpers/html-list.md
+        helpers/html-object.md: v3/helpers/html-object.md
+        helpers/html-tag.md: v3/helpers/html-tag.md
+        helpers/identity.md: v3/helpers/identity.md
+        helpers/inline-script.md: v3/helpers/inline-script.md
+        helpers/json.md: v3/helpers/json.md
+        helpers/layout.md: v3/helpers/layout.md
+        helpers/partial.md: v3/helpers/partial.md
+        helpers/placeholder.md: v3/helpers/placeholder.md
+        helpers/url.md: v3/helpers/url.md
+        helpers/advanced-usage.md: v3/helpers/advanced-usage.md
+        application-integration/stand-alone.md: v3/application-integration/stand-alone.md
+        cookbook/setting-module-specific-layouts.md: v3/cookbook/setting-module-specific-layouts.md
