@@ -420,12 +420,12 @@ class HeadStyle extends AbstractStandalone
     /**
      * Override offsetSet to enforce style creation
      *
-     * @param int $index
+     * @param int $offset
      * @param ObjectShape $value
-     * @throws Exception\InvalidArgumentException
      * @return void
+     * @throws Exception\InvalidArgumentException
      */
-    public function offsetSet($index, $value)
+    public function offsetSet($offset, $value)
     {
         if (! $this->isValid($value)) {
             throw new Exception\InvalidArgumentException(
@@ -433,7 +433,7 @@ class HeadStyle extends AbstractStandalone
             );
         }
 
-        $this->getContainer()->offsetSet($index, $value);
+        $this->getContainer()->offsetSet($offset, $value);
     }
 
     /**

@@ -33,6 +33,8 @@ class SitemapTest extends AbstractTestCase
     protected $_helper; // phpcs:ignore
     /**
      * Stores the original set timezone
+     *
+     * @var non-empty-string
      */
     private string $originaltimezone;
 

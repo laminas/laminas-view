@@ -241,12 +241,12 @@ class HeadLink extends AbstractStandalone
     /**
      * offsetSet()
      *
-     * @param int $index
+     * @param int $offset
      * @param object $value
-     * @throws Exception\InvalidArgumentException
      * @return void
+     * @throws Exception\InvalidArgumentException
      */
-    public function offsetSet($index, $value)
+    public function offsetSet($offset, $value)
     {
         if (! $this->isValid($value)) {
             throw new Exception\InvalidArgumentException(
@@ -254,7 +254,7 @@ class HeadLink extends AbstractStandalone
             );
         }
 
-        $this->getContainer()->offsetSet($index, $value);
+        $this->getContainer()->offsetSet($offset, $value);
     }
 
     /**

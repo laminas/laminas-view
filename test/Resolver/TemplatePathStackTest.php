@@ -182,7 +182,7 @@ class TemplatePathStackTest extends TestCase
     }
 
     /**
-     * @param Options|ArrayObject $options
+     * @param Options $options
      */
     #[DataProvider('validOptions')]
     public function testAllowsSettingOptions($options): void
@@ -197,7 +197,7 @@ class TemplatePathStackTest extends TestCase
     }
 
     /**
-     * @param Options|ArrayObject $options
+     * @param Options $options
      */
     #[DataProvider('validOptions')]
     public function testAllowsPassingOptionsToConstructor($options): void
