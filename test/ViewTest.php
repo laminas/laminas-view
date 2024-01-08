@@ -18,7 +18,6 @@ use Laminas\View\ViewEvent;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-use function count;
 use function json_encode;
 use function sprintf;
 use function var_export;
@@ -215,7 +214,6 @@ class ViewTest extends TestCase
 
         $result = [];
         $this->view->addResponseStrategy(function (ViewEvent $e) use (&$result) {
-            self::assertIsArray($result);
             /** @psalm-var mixed */
             $result[] = $e->getResult();
         });
@@ -232,8 +230,7 @@ class ViewTest extends TestCase
 
         $this->view->render($this->model);
 
-        self::assertIsArray($result);
-        self::assertEquals(1, count($result));
+        self::assertCount(1, $result);
     }
 
     public function testUsesTreeRendererInterfaceToDetermineWhetherOrNotToPassOnlyRootViewModelToPhpRenderer(): void
