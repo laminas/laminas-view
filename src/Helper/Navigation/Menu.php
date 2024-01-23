@@ -269,21 +269,21 @@ class Menu extends AbstractHelper
         $liActiveClass
     ) {
         $html = '';
-        
+
         $escaper = $this->view->plugin('escapeHtmlAttr');
         assert($escaper instanceof EscapeHtmlAttr);
 
         $foundPage  = null;
         $foundDepth = 0;
-        
+
         if ($onlyActive) {
-			// find deepest active
-			$found = $this->findActive($container, $minDepth, $maxDepth);
-			if ($found) {
-				$foundPage = $found['page'];
-				$foundDepth = $found['depth'];
-			}
-		}
+            // find deepest active
+            $found = $this->findActive($container, $minDepth, $maxDepth);
+            if ($found) {
+                $foundPage = $found['page'];
+                foundDepth = $found['depth'];
+            }
+        }
 
         // create iterator
         $iterator = new RecursiveIteratorIterator(
