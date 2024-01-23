@@ -280,7 +280,7 @@ class Menu extends AbstractHelper
             // find deepest active
             $found = $this->findActive($container, $minDepth, $maxDepth);
             if ($found) {
-                $foundPage = $found['page'];
+                $foundPage  = $found['page'];
                 $foundDepth = $found['depth'];
             }
         }
