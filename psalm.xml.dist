@@ -32,6 +32,14 @@
                 <referencedMethod name="Laminas\View\Helper\Escaper\AbstractHelper::getEscaper" />
             </errorLevel>
         </DeprecatedMethod>
+        <RiskyTruthyFalsyComparison>
+            <!--
+            The navigation view helpers rely heavily on these sorts of comparisons. Fixing them is more risky
+            -->
+            <errorLevel type="suppress">
+                <directory name="src/Helper/Navigation" />
+            </errorLevel>
+        </RiskyTruthyFalsyComparison>
     </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>
