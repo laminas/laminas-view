@@ -18,15 +18,6 @@
     <issueHandlers>
         <InternalMethod>
             <errorLevel type="suppress">
-                <referencedMethod name="PHPUnit\Framework\MockObject\Builder\InvocationMocker::method"/>
-            </errorLevel>
-            <errorLevel type="suppress">
-                <referencedMethod name="PHPUnit\Framework\MockObject\Builder\InvocationMocker::willReturn"/>
-            </errorLevel>
-            <errorLevel type="suppress">
-                <referencedMethod name="PHPUnit\Framework\MockObject\Builder\InvocationMocker::with"/>
-            </errorLevel>
-            <errorLevel type="suppress">
                 <directory name="test" />
                 <referencedMethod name="Laminas\View\Helper\Escaper\AbstractHelper::__construct"/>
             </errorLevel>
