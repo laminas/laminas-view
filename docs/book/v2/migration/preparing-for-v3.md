@@ -30,7 +30,7 @@ try {
 }
 ```
 
-## Deprecations 
+## Deprecations
 
 ### Undocumented Behaviour
 
@@ -44,3 +44,13 @@ This deprecation can be safely ignored but in order to prepare for its removal i
 In version 2, the `TemplatePathStack` template resolver automatically registers a stream wrapper for templates when the php.ini setting `short_open_tag` was turned off. The purpose of the stream wrapper was to convert template files using the short open tag `<?= $variable ?>` to `<?php echo $variable ?>` so that templates would continue to be processed in environments where short_open_tag was turned off. Since PHP 5.4.0, `<?=` is always available, therefore the wrapper became mostly unnecessary.
 
 The impact of this future removal will affect templates that use a regular short open tag for general PHP code, i.e. `<? $i = 1; echo $i ?>` in environments where `short_open_tag` is **off**. To mitigate the impact of this removal, you should ensure that, where relevant, all of your templates use the full `<?php` open tag. Use of the short echo tag `<?=` is unaffected.
+
+## View Helper Changes
+
+### [Json View Helper](../helpers/json.md)
+
+In version 3, the JSON view helper will no longer set response headers _(For MVC requests)_ when used.
+If you are using this feature, you will need to refactor your controllers to return the correct mime-type rather than relying on the view helper to do it for you.
+
+Currently, the [Json View Helper](../helpers/json.md) makes use of the [laminas-json](https://docs.laminas.dev/laminas-json/) library enabling the encoding of [JSON Expressions](https://docs.laminas.dev/laminas-json/advanced/#json-expressions).
+Support for JSON expressions is being removed in version 3, so you will need to ensure that you are not using this feature prior to upgrading.
