@@ -74,7 +74,7 @@ class PluginManager extends HelperPluginManager
      */
     public function __construct($configOrContainerInstance = null, array $v3config = [])
     {
-        /** @psalm-suppress UnusedClosureParam, MissingClosureParamType */
+        /** @psalm-suppress MissingClosureParamType */
         $this->initializers[] = function (ContainerInterface $container, $instance): void {
             if (! $instance instanceof AbstractHelper) {
                 return;

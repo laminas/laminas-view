@@ -93,7 +93,7 @@ class FeedRenderer implements RendererInterface
         // Get feed and type
         $feed = $nameOrModel->getFeed();
         $type = $nameOrModel->getFeedType();
-        if (! $type) {
+        if (! is_string($type)) {
             $type = $this->getFeedType();
         } else {
             $this->setFeedType($type);

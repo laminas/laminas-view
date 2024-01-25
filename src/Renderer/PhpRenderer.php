@@ -518,7 +518,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
         $this->__content = '';
         while ($this->__template = array_pop($this->__templates)) {
             $this->__file = $this->resolver($this->__template);
-            if (! $this->__file) {
+            if (! is_string($this->__file)) {
                 throw new Exception\RuntimeException(sprintf(
                     '%s: Unable to render template "%s"; resolver could not resolve to a file',
                     __METHOD__,
@@ -534,7 +534,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
                 throw $ex;
             }
 
-            if ($includeReturn === false && empty($this->__content)) {
+            if ($includeReturn === false && $this->__content === '') {
                 throw new Exception\UnexpectedValueException(sprintf(
                     '%s: Unable to render template "%s"; file include failed',
                     __METHOD__,

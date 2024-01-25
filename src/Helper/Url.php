@@ -111,7 +111,7 @@ class Url extends AbstractHelper
      * @param RouteStackInterface $router
      * @return Url
      * @throws Exception\InvalidArgumentException For invalid router types.
-     * @psalm-suppress RedundantConditionGivenDocblockType, DocblockTypeContradiction
+     * @psalm-suppress DocblockTypeContradiction
      */
     public function setRouter($router)
     {
@@ -133,7 +133,6 @@ class Url extends AbstractHelper
      *
      * @param  RouteMatch $routeMatch
      * @return Url
-     * @psalm-suppress RedundantConditionGivenDocblockType, DocblockTypeContradiction
      */
     public function setRouteMatch($routeMatch)
     {

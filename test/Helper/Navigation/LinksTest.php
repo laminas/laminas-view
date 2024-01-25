@@ -36,7 +36,6 @@ class LinksTest extends AbstractTestCase
      */
     protected $_helper; // phpcs:ignore
     private Doctype $doctypeHelper;
-    private string $oldDoctype;
 
     protected function setUp(): void
     {
@@ -48,7 +47,6 @@ class LinksTest extends AbstractTestCase
         assert($renderer instanceof PhpRenderer);
         $helper              = $renderer->plugin(Doctype::class);
         $this->doctypeHelper = $helper;
-        $this->oldDoctype    = $helper->getDoctype();
         $this->doctypeHelper->setDoctype(
             Doctype::HTML4_LOOSE
         );

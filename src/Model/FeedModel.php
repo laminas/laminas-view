@@ -34,7 +34,7 @@ class FeedModel extends ViewModel
             return $this->feed;
         }
 
-        if (! $this->type) {
+        if ($this->type === false) {
             $options = $this->getOptions();
             if (isset($options['feed_type'])) {
                 $this->type = $options['feed_type'];
@@ -66,7 +66,7 @@ class FeedModel extends ViewModel
      */
     public function getFeedType()
     {
-        if ($this->type) {
+        if ($this->type === false) {
             return $this->type;
         }
 

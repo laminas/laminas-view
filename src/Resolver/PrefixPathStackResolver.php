@@ -6,6 +6,7 @@ namespace Laminas\View\Resolver;
 
 use Laminas\View\Renderer\RendererInterface as Renderer;
 
+use function is_string;
 use function strlen;
 use function strpos;
 use function substr;
@@ -53,7 +54,8 @@ final class PrefixPathStackResolver implements ResolverInterface
              *       It relies on internal knowledge that some resolvers return false when really
              *       they should always return a string or throw an exception.
              */
-            if ($result = $resolver->resolve(substr($name, strlen($prefix)), $renderer)) {
+            $result = $resolver->resolve(substr($name, strlen($prefix)), $renderer);
+            if (is_string($result)) {
                 return $result;
             }
         }

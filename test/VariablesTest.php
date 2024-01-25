@@ -109,17 +109,6 @@ class VariablesTest extends TestCase
         $this->assertStringContainsString('does not exist', $this->error);
     }
 
-    /**
-     * @psalm-return array<array-key, string[]>
-     */
-    public function values(): array
-    {
-        return [
-            ['foo', 'bar'],
-            ['xss', '<tag id="foo">\'value\'</tag>'],
-        ];
-    }
-
     public function testCallingClearEmptiesObject(): void
     {
         $this->vars->assign([

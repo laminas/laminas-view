@@ -65,12 +65,12 @@ class HelperPluginManagerCompatibilityTest extends TestCase
         foreach ($aliases as $alias => $target) {
             self::assertIsString($target);
             // Skipping conditionally since it depends on laminas-mvc
-            if (! class_exists(ControllerPluginManager::class) && strpos($target, '\\FlashMessenger')) {
+            if (! class_exists(ControllerPluginManager::class) && strpos($target, '\\FlashMessenger') !== false) {
                 continue;
             }
 
             // Skipping conditionally since it depends on laminas-mvc
-            if (! class_exists(ControllerPluginManager::class) && strpos($target, '\\Url')) {
+            if (! class_exists(ControllerPluginManager::class) && strpos($target, '\\Url') !== false) {
                 continue;
             }
 
