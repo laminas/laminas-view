@@ -36,6 +36,11 @@
       <code>plugin</code>
     </UndefinedInterfaceMethod>
   </file>
+  <file src="src/Helper/Asset.php">
+    <PossiblyUnusedMethod>
+      <code>setResourceMap</code>
+    </PossiblyUnusedMethod>
+  </file>
   <file src="src/Helper/Cycle.php">
     <ImplementedReturnTypeMismatch>
       <code>Cycle</code>
@@ -64,6 +69,9 @@
       <code><![CDATA[$this->data[$this->name]]]></code>
       <code><![CDATA[$this->pointers[$this->name]]]></code>
     </MixedReturnStatement>
+    <PossiblyUnusedMethod>
+      <code>getName</code>
+    </PossiblyUnusedMethod>
   </file>
   <file src="src/Helper/DeclareVars.php">
     <MissingConstructor>
@@ -183,6 +191,9 @@
       <code><![CDATA[$this->options['rating']]]></code>
       <code><![CDATA[$this->options['secure']]]></code>
     </MixedReturnStatement>
+    <PossiblyUnusedReturnValue>
+      <code><![CDATA[array<string, mixed>]]></code>
+    </PossiblyUnusedReturnValue>
     <RedundantCastGivenDocblockType>
       <code>(bool) $flag</code>
       <code>(int) $imgSize</code>
@@ -235,6 +246,16 @@
       <code>$index</code>
       <code><![CDATA[$this->view]]></code>
     </PossiblyNullArgument>
+    <PossiblyUnusedMethod>
+      <code>createDataAlternate</code>
+      <code>createDataNext</code>
+      <code>createDataPrev</code>
+      <code>createDataStylesheet</code>
+    </PossiblyUnusedMethod>
+    <PossiblyUnusedReturnValue>
+      <code>AbstractContainer</code>
+      <code>AbstractContainer</code>
+    </PossiblyUnusedReturnValue>
     <RedundantCast>
       <code>(string) $conditionalStylesheet</code>
     </RedundantCast>
@@ -299,6 +320,10 @@
       <code>plugin</code>
       <code>plugin</code>
     </PossiblyNullReference>
+    <PossiblyUnusedReturnValue>
+      <code>AbstractContainer</code>
+      <code>AbstractContainer</code>
+    </PossiblyUnusedReturnValue>
     <UndefinedInterfaceMethod>
       <code>plugin</code>
       <code>plugin</code>
@@ -337,6 +362,10 @@
       <code>parent::__call($method, $args)</code>
       <code>parent::__call($method, $args)</code>
     </MixedReturnStatement>
+    <PossiblyUnusedReturnValue>
+      <code>AbstractContainer</code>
+      <code>AbstractContainer</code>
+    </PossiblyUnusedReturnValue>
     <RedundantCastGivenDocblockType>
       <code>(bool) $flag</code>
     </RedundantCastGivenDocblockType>
@@ -371,10 +400,22 @@
       <code>$content</code>
       <code>$index</code>
     </MixedAssignment>
+    <PossiblyUnusedReturnValue>
+      <code>AbstractContainer</code>
+      <code>AbstractContainer</code>
+    </PossiblyUnusedReturnValue>
     <RedundantConditionGivenDocblockType>
       <code><![CDATA[(null !== $content) && is_string($content)]]></code>
       <code>is_string($content)</code>
     </RedundantConditionGivenDocblockType>
+    <UnusedParam>
+      <code>$indent</code>
+    </UnusedParam>
+  </file>
+  <file src="src/Helper/HelperInterface.php">
+    <PossiblyUnusedReturnValue>
+      <code>HelperInterface</code>
+    </PossiblyUnusedReturnValue>
   </file>
   <file src="src/Helper/HtmlFlash.php">
     <MixedAssignment>
@@ -464,6 +505,12 @@
       <code>(bool) $useNamespaces</code>
     </RedundantCastGivenDocblockType>
   </file>
+  <file src="src/Helper/Identity.php">
+    <PossiblyUnusedMethod>
+      <code>getAuthenticationService</code>
+      <code>setAuthenticationService</code>
+    </PossiblyUnusedMethod>
+  </file>
   <file src="src/Helper/Json.php">
     <MissingConstructor>
       <code>$response</code>
@@ -479,6 +526,9 @@
     <PossiblyNullReference>
       <code>plugin</code>
     </PossiblyNullReference>
+    <PossiblyUnusedMethod>
+      <code>__construct</code>
+    </PossiblyUnusedMethod>
     <RedundantCastGivenDocblockType>
       <code>(string) $template</code>
     </RedundantCastGivenDocblockType>
@@ -674,6 +724,13 @@
       <code>plugin</code>
     </UndefinedInterfaceMethod>
   </file>
+  <file src="src/Helper/Navigation/HelperInterface.php">
+    <PossiblyUnusedReturnValue>
+      <code>HelperInterface</code>
+      <code>HelperInterface</code>
+      <code>HelperInterface</code>
+    </PossiblyUnusedReturnValue>
+  </file>
   <file src="src/Helper/Navigation/Links.php">
     <InvalidOperand>
       <code>$relFlag</code>
@@ -721,6 +778,16 @@
     <PossiblyNullPropertyAssignmentValue>
       <code>null</code>
     </PossiblyNullPropertyAssignmentValue>
+    <PossiblyUnusedMethod>
+      <code>searchRelChapter</code>
+      <code>searchRelNext</code>
+      <code>searchRelPrev</code>
+      <code>searchRelSection</code>
+      <code>searchRelStart</code>
+      <code>searchRelSubsection</code>
+      <code>searchRevSection</code>
+      <code>searchRevSubsection</code>
+    </PossiblyUnusedMethod>
     <RedundantCastGivenDocblockType>
       <code>(int) $renderFlag</code>
     </RedundantCastGivenDocblockType>
@@ -750,6 +817,9 @@
       <code><![CDATA[$params['page']]]></code>
       <code><![CDATA[$params['role']]]></code>
     </PossiblyInvalidArrayAccess>
+    <PossiblyUnusedReturnValue>
+      <code>bool</code>
+    </PossiblyUnusedReturnValue>
   </file>
   <file src="src/Helper/Navigation/Menu.php">
     <DocblockTypeContradiction>
@@ -844,6 +914,10 @@
       <code>plugin</code>
       <code>plugin</code>
     </PossiblyNullReference>
+    <PossiblyUnusedMethod>
+      <code>escapeLabels</code>
+      <code>setAddClassToListItem</code>
+    </PossiblyUnusedMethod>
     <RedundantCastGivenDocblockType>
       <code>(bool) $flag</code>
       <code>(bool) $flag</code>
@@ -1027,6 +1101,9 @@
     <PossiblyInvalidOperand>
       <code>parent::__invoke($name, $item)</code>
     </PossiblyInvalidOperand>
+    <PossiblyUnusedReturnValue>
+      <code>self</code>
+    </PossiblyUnusedReturnValue>
     <RedundantCastGivenDocblockType>
       <code>(string) $key</code>
     </RedundantCastGivenDocblockType>
@@ -1110,6 +1187,10 @@
     <MixedAssignment>
       <code>$return</code>
     </MixedAssignment>
+    <PossiblyUnusedMethod>
+      <code>__get</code>
+      <code>__set</code>
+    </PossiblyUnusedMethod>
     <RedundantCastGivenDocblockType>
       <code>(bool) $autoEscape</code>
       <code>(string) $string</code>
@@ -1138,6 +1219,10 @@
     <MoreSpecificReturnType>
       <code>AbstractContainer</code>
     </MoreSpecificReturnType>
+    <PossiblyUnusedMethod>
+      <code>getRegistry</code>
+      <code>unsetRegistry</code>
+    </PossiblyUnusedMethod>
     <RedundantCastGivenDocblockType>
       <code>(string) $key</code>
       <code>(string) $key</code>
@@ -1309,6 +1394,11 @@
       <code>$reuseMatchedParams</code>
     </UnusedVariable>
   </file>
+  <file src="src/Helper/ViewModel.php">
+    <PossiblyUnusedMethod>
+      <code>hasRoot</code>
+    </PossiblyUnusedMethod>
+  </file>
   <file src="src/HelperPluginManager.php">
     <DeprecatedInterface>
       <code>null|ConfigInterface|ContainerInterface</code>
@@ -1332,6 +1422,12 @@
     <MixedReturnStatement>
       <code>parent::get($name, $options)</code>
     </MixedReturnStatement>
+    <PossiblyUnusedMethod>
+      <code>injectEventManager</code>
+      <code>injectRenderer</code>
+      <code>injectTranslator</code>
+      <code>validatePlugin</code>
+    </PossiblyUnusedMethod>
     <PropertyTypeCoercion>
       <code><![CDATA[$this->initializers]]></code>
       <code><![CDATA[$this->initializers]]></code>
@@ -1370,6 +1466,11 @@
     <NonInvariantDocblockPropertyType>
       <code>$captureTo</code>
     </NonInvariantDocblockPropertyType>
+    <PossiblyUnusedMethod>
+      <code>getErrorLevel</code>
+      <code>getResult</code>
+      <code>setResult</code>
+    </PossiblyUnusedMethod>
   </file>
   <file src="src/Model/FeedModel.php">
     <MixedAssignment>
@@ -1397,6 +1498,18 @@
     <NonInvariantDocblockPropertyType>
       <code>$captureTo</code>
     </NonInvariantDocblockPropertyType>
+  </file>
+  <file src="src/Model/ModelInterface.php">
+    <PossiblyUnusedReturnValue>
+      <code>ModelInterface</code>
+      <code>ModelInterface</code>
+      <code>ModelInterface</code>
+      <code>ModelInterface</code>
+      <code>ModelInterface</code>
+      <code>ModelInterface</code>
+      <code>ModelInterface</code>
+      <code>ModelInterface</code>
+    </PossiblyUnusedReturnValue>
   </file>
   <file src="src/Model/ViewModel.php">
     <DocblockTypeContradiction>
@@ -1445,6 +1558,13 @@
     <PossiblyInvalidArgument>
       <code>$values</code>
     </PossiblyInvalidArgument>
+    <PossiblyUnusedMethod>
+      <code>__construct</code>
+      <code>setFilterChain</code>
+    </PossiblyUnusedMethod>
+    <PossiblyUnusedParam>
+      <code>$config</code>
+    </PossiblyUnusedParam>
   </file>
   <file src="src/Renderer/FeedRenderer.php">
     <InvalidArgument>
@@ -1462,6 +1582,9 @@
     <MoreSpecificImplementedParamType>
       <code>$values</code>
     </MoreSpecificImplementedParamType>
+    <PossiblyUnusedProperty>
+      <code>$resolver</code>
+    </PossiblyUnusedProperty>
     <RedundantConditionGivenDocblockType>
       <code>is_string($nameOrModel)</code>
     </RedundantConditionGivenDocblockType>
@@ -1488,6 +1611,9 @@
       <code>$children</code>
       <code>$values</code>
     </PossiblyInvalidArgument>
+    <PossiblyUnusedProperty>
+      <code>$resolver</code>
+    </PossiblyUnusedProperty>
     <RedundantCastGivenDocblockType>
       <code>(bool) $mergeUnnamedChildren</code>
       <code>(string) $callback</code>
@@ -1559,6 +1685,9 @@
       <code><![CDATA[$this->__vars]]></code>
       <code>resolve</code>
     </PossiblyNullReference>
+    <PossiblyUnusedParam>
+      <code>$config</code>
+    </PossiblyUnusedParam>
     <RedundantCastGivenDocblockType>
       <code>(bool) $renderTrees</code>
     </RedundantCastGivenDocblockType>
@@ -1633,6 +1762,9 @@
       <code><![CDATA[$options['script_paths']]]></code>
       <code><![CDATA[$options['use_stream_wrapper']]]></code>
     </MixedArgument>
+    <PossiblyUnusedReturnValue>
+      <code>TemplatePathStack</code>
+    </PossiblyUnusedReturnValue>
     <RedundantCastGivenDocblockType>
       <code>(bool) $flag</code>
       <code>(bool) $flag</code>
@@ -1686,6 +1818,9 @@
     <PossiblyNullReference>
       <code>plugin</code>
     </PossiblyNullReference>
+    <PossiblyUnusedParam>
+      <code>$e</code>
+    </PossiblyUnusedParam>
     <UndefinedInterfaceMethod>
       <code>plugin</code>
     </UndefinedInterfaceMethod>
@@ -1712,6 +1847,20 @@
       <code>$offset</code>
       <code>$offset</code>
     </MixedOperand>
+    <PossiblyUnusedMethod>
+      <code>stream_eof</code>
+      <code>stream_open</code>
+      <code>stream_read</code>
+      <code>stream_seek</code>
+      <code>stream_stat</code>
+      <code>stream_tell</code>
+      <code>url_stat</code>
+    </PossiblyUnusedMethod>
+    <PossiblyUnusedParam>
+      <code>$mode</code>
+      <code>$opened_path</code>
+      <code>$options</code>
+    </PossiblyUnusedParam>
     <UnevaluatedCode>
       <code>break;</code>
       <code>break;</code>
@@ -2023,6 +2172,11 @@
     <DeprecatedClass>
       <code>HtmlFlash</code>
     </DeprecatedClass>
+  </file>
+  <file src="test/Helper/HtmlListTest.php">
+    <PossiblyUnusedParam>
+      <code>$key</code>
+    </PossiblyUnusedParam>
   </file>
   <file src="test/Helper/HtmlTagTest.php">
     <MixedArgument>
@@ -2529,11 +2683,6 @@
     <UndefinedPropertyAssignment>
       <code><![CDATA[$view->vars()->message]]></code>
     </UndefinedPropertyAssignment>
-  </file>
-  <file src="test/Helper/Placeholder/RegistryTest.php">
-    <UndefinedPropertyFetch>
-      <code><![CDATA[$container->data]]></code>
-    </UndefinedPropertyFetch>
   </file>
   <file src="test/Helper/ServerUrlTest.php">
     <InvalidArgument>

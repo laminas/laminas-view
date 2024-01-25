@@ -7,6 +7,7 @@
     errorBaseline="psalm-baseline.xml"
     findUnusedBaselineEntry="true"
     findUnusedPsalmSuppress="true"
+    findUnusedCode="true"
 >
     <projectFiles>
         <directory name="bin"/>
@@ -42,6 +43,18 @@
                 <directory name="src/Helper/Navigation" />
             </errorLevel>
         </RiskyTruthyFalsyComparison>
+        <UnusedMethod>
+            <!-- PHPUnit DataProviders appear as unused when an Attribute is used -->
+            <errorLevel type="suppress">
+                <directory name="test" />
+            </errorLevel>
+        </UnusedMethod>
+        <UnusedClass>
+            <!-- SA Test cases are never referenced -->
+            <errorLevel type="suppress">
+                <directory name="test/StaticAnalysis" />
+            </errorLevel>
+        </UnusedClass>
     </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>

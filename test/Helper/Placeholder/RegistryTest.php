@@ -122,6 +122,7 @@ class RegistryTest extends TestCase
             'Laminas-10793',
         ];
         $container = $this->registry->createContainer('foo', $data);
+        self::assertInstanceOf(TestAsset\MockContainer::class, $container);
         $this->assertEquals(['Laminas-10793'], $container->data);
     }
 }

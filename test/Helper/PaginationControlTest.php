@@ -19,7 +19,7 @@ class PaginationControlTest extends TestCase
 {
     private PaginationControl $viewHelper;
 
-    private \Laminas\Paginator\Paginator $paginator;
+    private Paginator\Paginator $paginator;
     private View $view;
 
     /**
@@ -110,7 +110,7 @@ class PaginationControlTest extends TestCase
     {
         $this->expectException(Exception\RuntimeException::class);
         $this->expectExceptionMessage(
-            'Unable to render template "partial.phtml"; resolver could not resolve to a file'
+            'Unable to render template "partial.phtml"; resolver could not resolve to a file',
         );
         $this->viewHelper->__invoke($this->paginator, null, ['partial.phtml', 'test']);
     }
@@ -132,5 +132,16 @@ class PaginationControlTest extends TestCase
         $output = $this->viewHelper->__invoke($this->paginator, $all, 'testPagination.phtml');
 
         $this->assertStringContainsString('page count (11) equals pages in range (11)', $output, $output);
+    }
+
+    public function testSetAndGetDefaultScrollingStyle(): void
+    {
+        $default = PaginationControl::getDefaultScrollingStyle();
+
+        PaginationControl::setDefaultScrollingStyle('muppets');
+
+        self::assertSame('muppets', PaginationControl::getDefaultScrollingStyle());
+
+        PaginationControl::setDefaultScrollingStyle($default);
     }
 }
