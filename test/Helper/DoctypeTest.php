@@ -13,9 +13,6 @@ class DoctypeTest extends TestCase
     /** @var Doctype */
     public $helper;
 
-    /** @var string */
-    public $basePath;
-
     /**
      * Sets up the fixture, for example, open a network connection.
      * This method is called before a test is executed.

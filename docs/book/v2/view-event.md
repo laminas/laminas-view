@@ -1,7 +1,7 @@
 # The ViewEvent
 
 laminas-view incorporates and utilizes a custom [laminas-eventmanager
-Event](https://laminas.github.com/laminas-eventmanager) implementation,
+Event](https://docs.laminas.dev/laminas-eventmanager/) implementation,
 `Laminas\View\ViewEvent`. This event is created during `Laminas\View\View::getEvent()`
 and is passed directly to all the events the `View` class triggers.
 

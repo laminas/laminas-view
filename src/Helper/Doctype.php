@@ -94,7 +94,7 @@ class Doctype extends AbstractHelper
                     if (0 !== strpos($doctype, '<!DOCTYPE')) {
                         throw new Exception\DomainException('The specified doctype is malformed');
                     }
-                    if (stristr($doctype, 'xhtml')) {
+                    if (stristr($doctype, 'xhtml') !== false) {
                         $type = self::CUSTOM_XHTML;
                     } else {
                         $type = self::CUSTOM;
@@ -223,6 +223,6 @@ class Doctype extends AbstractHelper
      */
     public function isRdfa()
     {
-        return $this->isHtml5() || stristr($this->getDoctype(), 'rdfa');
+        return $this->isHtml5() || stristr($this->getDoctype(), 'rdfa') !== false;
     }
 }

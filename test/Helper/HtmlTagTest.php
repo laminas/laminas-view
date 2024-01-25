@@ -29,7 +29,7 @@ class HtmlTagTest extends TestCase
     {
         $attributes = $this->helper->getAttributes();
         $this->assertArrayHasKey($name, $attributes);
-        if ($value) {
+        if ($value !== null) {
             $this->assertEquals($value, $attributes[$name]);
         }
     }

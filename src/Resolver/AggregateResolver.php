@@ -13,6 +13,7 @@ use ReturnTypeWillChange;
 use Traversable;
 
 use function count;
+use function is_string;
 
 /**
  * @final
@@ -110,7 +111,7 @@ class AggregateResolver implements Countable, IteratorAggregate, Resolver
              * @todo This loop should be modified to try { return resolve } catch { continue } in v3.0
              */
             $resource = $resolver->resolve($name, $renderer);
-            if ($resource) {
+            if (is_string($resource)) {
                 // Resource found; return it
                 $this->lastSuccessfulResolver = $resolver;
                 return $resource;

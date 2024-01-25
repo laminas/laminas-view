@@ -191,7 +191,7 @@ class TemplatePathStackTest extends TestCase
         $this->stack->setOptions($options);
         $this->assertFalse($this->stack->isLfiProtectionOn());
 
-        $this->assertSame($options['default_suffix'], $this->stack->getDefaultSuffix());
+        $this->assertSame('php', $this->stack->getDefaultSuffix());
 
         $this->assertEquals(array_reverse($this->paths), $this->stack->getPaths()->toArray());
     }

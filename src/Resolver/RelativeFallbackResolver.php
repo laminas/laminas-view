@@ -60,7 +60,7 @@ class RelativeFallbackResolver implements ResolverInterface
         $currentTemplate = $currentModel->getTemplate();
         $position        = strrpos($currentTemplate, self::NS_SEPARATOR);
 
-        if (! $position) {
+        if ($position === false) {
             return false;
         }
 
