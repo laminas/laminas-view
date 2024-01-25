@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.18.0@b113f3ed0259fd6e212d87c3df80eec95a6abf19">
+<files psalm-version="5.20.0@3f284e96c9d9be6fe6b15c79416e1d1903dcfef4">
   <file src="src/Helper/AbstractHtmlElement.php">
     <MissingConstructor>
       <code>$closingBracket</code>
@@ -206,7 +206,6 @@
       <code>$attributes[$itemKey]</code>
       <code>$href</code>
       <code>$index</code>
-      <code>$item</code>
       <code><![CDATA[$this->autoEscape ? $this->escapeAttribute($attributes[$itemKey]) : $attributes[$itemKey]]]></code>
       <code><![CDATA[$this->autoEscape ? $this->escapeAttribute($value) : $value]]></code>
       <code>$value</code>
@@ -404,6 +403,9 @@
     <MixedAssignment>
       <code>$options</code>
     </MixedAssignment>
+    <RiskyTruthyFalsyComparison>
+      <code>$content</code>
+    </RiskyTruthyFalsyComparison>
   </file>
   <file src="src/Helper/HtmlPage.php">
     <MixedAssignment>
@@ -1319,7 +1321,6 @@
       <code><![CDATA[$container->get('EventManager')]]></code>
       <code><![CDATA[$container->get('MvcTranslator')]]></code>
       <code><![CDATA[$container->get('Translator')]]></code>
-      <code><![CDATA[$container->get(TranslatorInterface::class)]]></code>
     </MixedArgument>
     <MixedAssignment>
       <code>$container</code>
@@ -1328,16 +1329,6 @@
     <MixedInferredReturnType>
       <code>($name is class-string ? T : HelperInterface|callable)</code>
     </MixedInferredReturnType>
-    <MixedMethodCall>
-      <code>get</code>
-      <code>get</code>
-      <code>get</code>
-      <code>get</code>
-      <code>has</code>
-      <code>has</code>
-      <code>has</code>
-      <code>has</code>
-    </MixedMethodCall>
     <MixedReturnStatement>
       <code>parent::get($name, $options)</code>
     </MixedReturnStatement>
@@ -1556,7 +1547,6 @@
       <code>$variables</code>
     </PossibleRawObjectIteration>
     <PossiblyInvalidArgument>
-      <code><![CDATA[$this->__file]]></code>
       <code>$values</code>
     </PossiblyInvalidArgument>
     <PossiblyInvalidPropertyAssignmentValue>
