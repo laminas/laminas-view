@@ -4,9 +4,15 @@ declare(strict_types=1);
 
 namespace Laminas\View\Model;
 
-use Laminas\Json\Json;
+use JsonException;
 use Laminas\Stdlib\ArrayUtils;
+use Laminas\View\Exception\DomainException;
 use Traversable;
+
+use function json_encode;
+
+use const JSON_PRETTY_PRINT;
+use const JSON_THROW_ON_ERROR;
 
 class JsonModel extends ViewModel
 {
@@ -56,13 +62,21 @@ class JsonModel extends ViewModel
             $variables = ArrayUtils::iteratorToArray($variables);
         }
 
-        $options = [
-            'prettyPrint' => $this->getOption('prettyPrint'),
-        ];
+        $options = (bool) $this->getOption('prettyPrint', false) ? JSON_PRETTY_PRINT : 0;
 
         if (null !== $this->jsonpCallback) {
-            return $this->jsonpCallback . '(' . Json::encode($variables, false, $options) . ');';
+            return $this->jsonpCallback . '(' . $this->jsonEncode($variables, $options) . ');';
         }
-        return Json::encode($variables, false, $options);
+        return $this->jsonEncode($variables, $options);
+    }
+
+    /** @param mixed $data */
+    private function jsonEncode($data, int $options): string
+    {
+        try {
+            return json_encode($data, $options | JSON_THROW_ON_ERROR);
+        } catch (JsonException $e) {
+            throw new DomainException('Failed to encode Json', $e->getCode(), $e);
+        }
     }
 }
