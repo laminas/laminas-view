@@ -463,7 +463,7 @@ class HeadScript extends AbstractStandalone
             $type = $this->autoEscape ? $this->escapeAttribute($item->type) : $item->type;
             $html = '<script type="' . $type . '"' . $attrString . '>';
         }
-        if (! empty($item->source)) {
+        if (is_string($item->source) && $item->source !== '') {
             $html .= PHP_EOL;
 
             if ($addScriptEscape) {

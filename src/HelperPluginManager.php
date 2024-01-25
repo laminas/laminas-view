@@ -431,14 +431,14 @@ class HelperPluginManager extends AbstractPluginManager
             return;
         }
 
-        if (! $container) {
+        if (! $container instanceof ContainerInterface) {
             // Under laminas-navigation v2.5, the navigation PluginManager is
             // always lazy-loaded, which means it never has a parent
             // container.
             return;
         }
 
-        if (method_exists($helper, 'hasTranslator') && $helper->hasTranslator()) {
+        if (method_exists($helper, 'hasTranslator') && $helper->hasTranslator() === true) {
             return;
         }
 
@@ -480,7 +480,7 @@ class HelperPluginManager extends AbstractPluginManager
             $helper    = $first;
         }
 
-        if (! $container) {
+        if (! $container instanceof ContainerInterface) {
             // Under laminas-navigation v2.5, the navigation PluginManager is
             // always lazy-loaded, which means it never has a parent
             // container.

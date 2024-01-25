@@ -67,7 +67,7 @@ class ServerUrl extends AbstractHelper
             $path = '';
         }
 
-        return $this->getScheme() . '://' . $this->getHost() . $path;
+        return $this->getScheme() . '://' . $this->getHost() . (string) $path;
     }
 
     /**

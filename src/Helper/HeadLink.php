@@ -182,7 +182,7 @@ class HeadLink extends AbstractStandalone
                 $item       = $this->$dataMethod($args);
             }
 
-            if ($item) {
+            if (is_object($item)) {
                 if ('offsetSet' === $action) {
                     $this->offsetSet($index, $item);
                 } else {

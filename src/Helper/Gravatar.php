@@ -6,6 +6,7 @@ namespace Laminas\View\Helper;
 
 use Laminas\View\Exception;
 
+use function is_string;
 use function md5;
 use function method_exists;
 use function preg_match;
@@ -104,7 +105,7 @@ class Gravatar extends AbstractHtmlElement
      */
     public function __invoke($email = "", $options = [], $attributes = [])
     {
-        if (! empty($email)) {
+        if (is_string($email) && $email !== '') {
             $this->setEmail($email);
         }
         if (! empty($options)) {
