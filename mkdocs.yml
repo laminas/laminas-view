@@ -15,6 +15,7 @@ nav:
           - Cycle: v2/helpers/cycle.md
           - Doctype: v2/helpers/doctype.md
           - Escape: v2/helpers/escape.md
+          - FlashMessenger: v2/helpers/flash-messenger.md
           - Gravatar: v2/helpers/gravatar.md
           - HeadLink: v2/helpers/head-link.md
           - HeadMeta: v2/helpers/head-meta.md
@@ -74,6 +75,8 @@ nav:
           - 'Stand-Alone': v3/application-integration/stand-alone.md
       - Cookbook:
           - "Setting module-specific Layouts": v3/cookbook/setting-module-specific-layouts.md
+      - Migration:
+          - "Migration from Version 2 to 3": v3/migration/v2-to-v3.md
 site_name: laminas-view
 site_description: 'Flexible view layer supporting and providing multiple view layers, helpers, and more.'
 repo_url: 'https://github.com/laminas/laminas-view'
