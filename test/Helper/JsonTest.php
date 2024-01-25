@@ -4,18 +4,16 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper;
 
-use Laminas\Http\Header\HeaderInterface;
-use Laminas\Http\Response;
 use Laminas\View\Helper\Json as JsonHelper;
 use PHPUnit\Framework\TestCase;
 
 use function json_encode;
 
+use const JSON_PRETTY_PRINT;
 use const JSON_THROW_ON_ERROR;
 
 class JsonTest extends TestCase
 {
-    private Response $response;
     private JsonHelper $helper;
 
     /**
@@ -24,24 +22,7 @@ class JsonTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->response = new Response();
-        $this->helper   = new JsonHelper();
-        $this->helper->setResponse($this->response);
-    }
-
-    private function verifyJsonHeader(): void
-    {
-        $headers = $this->response->getHeaders();
-        $this->assertTrue($headers->has('Content-Type'));
-        $header = $headers->get('Content-Type');
-        self::assertInstanceOf(HeaderInterface::class, $header);
-        $this->assertEquals('application/json', $header->getFieldValue());
-    }
-
-    public function testJsonHelperSetsResponseHeader(): void
-    {
-        $this->helper->__invoke('foobar');
-        $this->verifyJsonHeader();
+        $this->helper = new JsonHelper();
     }
 
     public function testJsonHelperReturnsJsonEncodedString(): void
@@ -51,6 +32,16 @@ class JsonTest extends TestCase
             'nemo' => 'orange',
         ];
         $expect = json_encode($input, JSON_THROW_ON_ERROR);
-        self::assertJsonStringEqualsJsonString($expect, ($this->helper)($input));
+        self::assertJsonStringEqualsJsonString($expect, ($this->helper)->__invoke($input));
+    }
+
+    public function testTheHelperWillPrettyPrintWhenRequired(): void
+    {
+        $input  = [
+            'dory' => 'blue',
+            'nemo' => 'orange',
+        ];
+        $expect = json_encode($input, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT);
+        self::assertSame($expect, ($this->helper)->__invoke($input, ['prettyPrint' => true]));
     }
 }

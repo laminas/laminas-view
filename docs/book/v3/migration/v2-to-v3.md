@@ -27,6 +27,10 @@ The method of configuring the resource map remains unchanged.
 The deprecated runtime retrieval and modification of the underlying authentication service has been removed and the service must be injected into the helper constructor.
 Specifically, the methods `Laminas\View\Helper\Identity::setAuthenticationService()` and `Laminas\View\Helper\Identity::getAuthenticationService()` have been removed.
 
+#### Json Helper
+
+The JSON view helper is now final and has no inheritance hierarchy.
+
 ## Removed Features
 
 ### Stream Wrapper Functionality
@@ -52,6 +56,9 @@ The encoding defaults to UTF-8 as it has always done but can be overridden in co
 
 In previous versions of laminas-view the [Json View Helper](helpers/json.md) made use of the [laminas-json](https://docs.laminas.dev/laminas-json/) library which enabled encoding of [JSON Expressions](https://docs.laminas.dev/laminas-json/advanced/#json-expressions).
 Support for this library and the expression finder feature has been removed.
+
+In an MVC context, it was possible, in version 2, to provide a response object to the helper.
+Invoking the helper would set the appropriate response headers for a JSON payload. This is no longer possible and the method `setResponse` has been removed.
 
 ## Removed Class and Traits
 

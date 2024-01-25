@@ -1,21 +1,16 @@
 # Json
 
-When creating views that return JSON, it's important to also set the appropriate
-response header.  The JSON view helper does exactly that. In addition, by
-default, it disables layouts (if currently enabled), as layouts generally aren't
-used with JSON responses.
-
-The JSON helper sets the following header:
-
-```http
-Content-Type: application/json
-```
-
-Most XmlHttpRequest libraries look for this header when parsing responses to
-determine how to handle the content.
+This view helper simply encodes its argument to JSON.
 
 ## Basic Usage
 
 ```php
-<?= $this->json($this->data) ?>
+<?= $this->json(['example' => 'payload']) ?>
+```
+
+The helper accepts a second argument `$jsonOptions`, an associative array with one possible key: `prettyPrint`.
+Providing the value `['prettyPrint' => true]` will pretty-print the encoded data.
+
+```php
+<?= $this->json($data, ['prettyPrint' => true]) ?>
 ```
