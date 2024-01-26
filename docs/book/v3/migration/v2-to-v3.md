@@ -27,10 +27,6 @@ The method of configuring the resource map remains unchanged.
 The deprecated runtime retrieval and modification of the underlying authentication service has been removed and the service must be injected into the helper constructor.
 Specifically, the methods `Laminas\View\Helper\Identity::setAuthenticationService()` and `Laminas\View\Helper\Identity::getAuthenticationService()` have been removed.
 
-#### Json Helper
-
-The JSON view helper is now final and has no inheritance hierarchy.
-
 ## Removed Features
 
 ### Stream Wrapper Functionality
@@ -51,14 +47,6 @@ The methods `setEncoding()`, `getEncoding()`, `setView()`, `getView()`, `setEsca
 These helpers now have constructors that expect an [Escaper](https://docs.laminas.dev/laminas-escaper/) instance that has been configured with the encoding you expect to output in your view.
 
 The encoding defaults to UTF-8 as it has always done but can be overridden in configuration by setting `view_manager.encoding` to your preferred value.
-
-#### Json View Helper
-
-In previous versions of laminas-view the [Json View Helper](helpers/json.md) made use of the [laminas-json](https://docs.laminas.dev/laminas-json/) library which enabled encoding of [JSON Expressions](https://docs.laminas.dev/laminas-json/advanced/#json-expressions).
-Support for this library and the expression finder feature has been removed.
-
-In an MVC context, it was possible, in version 2, to provide a response object to the helper.
-Invoking the helper would set the appropriate response headers for a JSON payload. This is no longer possible and the method `setResponse` has been removed.
 
 ## Removed Class and Traits
 
@@ -105,3 +93,8 @@ function gravatarImage(
     string $rating = 'g'
 );
 ```
+
+#### Json
+
+The deprecated Json view helper has been removed.
+To encode data to Json for output in a view, you can call [`json_encode`](https://www.php.net/json_encode) directly.

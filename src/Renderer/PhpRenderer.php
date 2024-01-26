@@ -69,7 +69,6 @@ use function sprintf;
  * @method string htmlPage($data, array $attribs = array(), array $params = array(), $content = null)
  * @method mixed|null identity()
  * @method \Laminas\View\Helper\InlineScript inlineScript($mode = \Laminas\View\Helper\HeadScript::FILE, $spec = null, $placement = 'APPEND', array $attrs = array(), $type = 'text/javascript')
- * @method string json(mixed $data, array $jsonOptions = [])
  * @method \Laminas\View\Helper\Layout layout($template = null)
  * @method \Laminas\View\Helper\Navigation navigation($container = null)
  * @method string paginationControl(\Laminas\Paginator\Paginator $paginator = null, $scrollingStyle = null, $partial = null, $params = null)
