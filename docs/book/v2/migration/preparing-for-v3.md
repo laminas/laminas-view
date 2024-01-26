@@ -47,10 +47,8 @@ The impact of this future removal will affect templates that use a regular short
 
 ## View Helper Changes
 
-### [Json View Helper](../helpers/json.md)
+### Deprecated View Helpers Scheduled for Removal in 3.0 
 
-In version 3, the JSON view helper will no longer set response headers _(For MVC requests)_ when used.
-If you are using this feature, you will need to refactor your controllers to return the correct mime-type rather than relying on the view helper to do it for you.
+The following view helpers are deprecated and will be removed in version 3.0 of `laminas-view`.
 
-Currently, the [Json View Helper](../helpers/json.md) makes use of the [laminas-json](https://docs.laminas.dev/laminas-json/) library enabling the encoding of [JSON Expressions](https://docs.laminas.dev/laminas-json/advanced/#json-expressions).
-Support for JSON expressions is being removed in version 3, so you will need to ensure that you are not using this feature prior to upgrading.
+- The [Json View Helper](../helpers/json.md)

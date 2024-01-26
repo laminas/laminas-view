@@ -19,6 +19,11 @@ use const E_USER_DEPRECATED;
 use const JSON_PRETTY_PRINT;
 use const JSON_THROW_ON_ERROR;
 
+/**
+ * @deprecated To be removed with the Json View Helper in v3.0
+ *
+ * @psalm-suppress DeprecatedClass
+ */
 class JsonTest extends TestCase
 {
     private Response $response;
