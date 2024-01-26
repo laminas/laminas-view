@@ -1,10 +1,8 @@
 # Json
 
-> WARNING: **Deprecated**
->
-> The JSON view helper has been deprecated and will be removed in version 3.0.
-> There is no replacement;
-> however, it is trivial to encode data by using PHP's built-in [`json_encode`](https://www.php.net/json_encode) function.  
+WARNING: **Deprecated**
+The JSON view helper has been deprecated and will be removed in version 3.0.
+There is no replacement; however, it is trivial to encode data by using PHP's built-in [`json_encode`](https://www.php.net/json_encode) function.  
 
 When creating views that return JSON, it's important to also set the appropriate
 response header.  The JSON view helper does exactly that. In addition, by
