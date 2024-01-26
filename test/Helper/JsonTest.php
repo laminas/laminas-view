@@ -11,11 +11,19 @@ use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Helper\Json as JsonHelper;
 use PHPUnit\Framework\TestCase;
 
+use function json_encode;
 use function restore_error_handler;
 use function set_error_handler;
 
 use const E_USER_DEPRECATED;
+use const JSON_PRETTY_PRINT;
+use const JSON_THROW_ON_ERROR;
 
+/**
+ * @deprecated To be removed with the Json View Helper in v3.0
+ *
+ * @psalm-suppress DeprecatedClass
+ */
 class JsonTest extends TestCase
 {
     private Response $response;
@@ -73,5 +81,15 @@ class JsonTest extends TestCase
     {
         $this->expectNotToPerformAssertions();
         $this->helper->__invoke(['foo'], ['enableJsonExprFinder' => 'anything other than true']);
+    }
+
+    public function testTheHelperWillPrettyPrintWhenRequired(): void
+    {
+        $input  = [
+            'dory' => 'blue',
+            'nemo' => 'orange',
+        ];
+        $expect = json_encode($input, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT);
+        self::assertSame($expect, ($this->helper)->__invoke($input, ['prettyPrint' => true]));
     }
 }

@@ -104,6 +104,11 @@
       <code>vars</code>
     </UndefinedInterfaceMethod>
   </file>
+  <file src="src/Helper/DeprecatedAbstractHelperHierarchyTrait.php">
+    <DeprecatedClass>
+      <code>self</code>
+    </DeprecatedClass>
+  </file>
   <file src="src/Helper/Doctype.php">
     <DocblockTypeContradiction>
       <code>null === static::$registeredDoctypes</code>

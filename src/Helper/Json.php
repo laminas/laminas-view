@@ -14,6 +14,8 @@ use const E_USER_DEPRECATED;
 /**
  * Helper for simplifying JSON responses
  *
+ * @deprecated This view helper is obsolete and will be removed in version 3.0
+ *
  * @psalm-suppress DeprecatedProperty
  * @final
  */
