@@ -100,4 +100,4 @@ The deprecated Json view helper has been removed.
 To encode data to Json for output in a view, you can call [`json_encode`](https://www.php.net/json_encode) directly.
 
 If you were relying on behaviour that was previously available via `laminas-json`, for example, calling object methods `toArray` or `toJson` prior to encoding, you should make the relevant objects implement `JsonSerializable`.
-You can find documentation on the `JsonSerializable` interface [on the PHP website](https://www.php.net/manual/en/class.jsonserializable.php).
+You can find documentation on the `JsonSerializable` interface [on the PHP website](https://www.php.net/manual/class.jsonserializable.php).
