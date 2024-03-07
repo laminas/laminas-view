@@ -48,11 +48,6 @@ These helpers now have constructors that expect an [Escaper](https://docs.lamina
 
 The encoding defaults to UTF-8 as it has always done but can be overridden in configuration by setting `view_manager.encoding` to your preferred value.
 
-#### Json View Helper
-
-In previous versions of laminas-view the [Json View Helper](helpers/json.md) made use of the [laminas-json](https://docs.laminas.dev/laminas-json/) library which enabled encoding of [JSON Expressions](https://docs.laminas.dev/laminas-json/advanced/#json-expressions).
-Support for this library and the expression finder feature has been removed.
-
 ## Removed Class and Traits
 
 ### Removed Helpers
@@ -98,3 +93,11 @@ function gravatarImage(
     string $rating = 'g'
 );
 ```
+
+#### Json
+
+The deprecated Json view helper has been removed.
+To encode data to Json for output in a view, you can call [`json_encode`](https://www.php.net/json_encode) directly.
+
+If you were relying on behaviour that was previously available via `laminas-json`, for example, calling object methods `toArray` or `toJson` prior to encoding, you should make the relevant objects implement `JsonSerializable`.
+You can find documentation on the `JsonSerializable` interface [on the PHP website](https://www.php.net/manual/class.jsonserializable.php).

@@ -30,7 +30,7 @@ try {
 }
 ```
 
-## Deprecations 
+## Deprecations
 
 ### Undocumented Behaviour
 
