@@ -53,7 +53,7 @@ class HelperPluginManagerCompatibilityTest extends TestCase
     }
 
     /**
-     * @psalm-return Generator<mixed, array{0: mixed, 1: mixed}, mixed, void>
+     * @psalm-return Generator<string, array{0: string, 1: string}, mixed, void>
      */
     public static function aliasProvider(): Generator
     {
@@ -73,6 +73,8 @@ class HelperPluginManagerCompatibilityTest extends TestCase
             if (! class_exists(ControllerPluginManager::class) && strpos($target, '\\Url') !== false) {
                 continue;
             }
+
+            self::assertIsString($alias);
 
             yield $alias => [$alias, $target];
         }
