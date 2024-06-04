@@ -35,7 +35,7 @@ class Layout extends AbstractHelper
      * Otherwise, attempts to set the template for that view model.
      *
      * @param null|string $template
-     * @return Model|null|self
+     * @return Model|self
      */
     public function __invoke($template = null)
     {

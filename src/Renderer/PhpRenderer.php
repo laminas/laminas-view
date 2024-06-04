@@ -45,7 +45,7 @@ use function sprintf;
  * mark them as part of the internal implementation, and thus prevent conflict
  * with variables injected into the renderer.
  *
- * Convenience methods for build in helpers (@see __call):
+ * Convenience methods for built-in helpers (@see __call):
  *
  * @method string asset($asset)
  * @method string|null basePath($file = null)
@@ -69,7 +69,7 @@ use function sprintf;
  * @method string htmlPage($data, array $attribs = array(), array $params = array(), $content = null)
  * @method mixed|null identity()
  * @method \Laminas\View\Helper\InlineScript inlineScript($mode = \Laminas\View\Helper\HeadScript::FILE, $spec = null, $placement = 'APPEND', array $attrs = array(), $type = 'text/javascript')
- * @method \Laminas\View\Helper\Layout layout($template = null)
+ *  @method Model|\Laminas\View\Helper\Layout layout($template = null)
  * @method \Laminas\View\Helper\Navigation navigation($container = null)
  * @method string paginationControl(\Laminas\Paginator\Paginator $paginator = null, $scrollingStyle = null, $partial = null, $params = null)
  * @method string|\Laminas\View\Helper\Partial partial($name = null, $values = null)
