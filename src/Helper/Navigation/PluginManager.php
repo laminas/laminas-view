@@ -35,18 +35,6 @@ class PluginManager extends HelperPluginManager
         'links'       => Links::class,
         'menu'        => Menu::class,
         'sitemap'     => Sitemap::class,
-
-        // Legacy Zend Framework aliases
-        'Zend\View\Helper\Navigation\Breadcrumbs' => Breadcrumbs::class,
-        'Zend\View\Helper\Navigation\Links'       => Links::class, // phpcs:ignore
-        'Zend\View\Helper\Navigation\Menu'        => Menu::class,
-        'Zend\View\Helper\Navigation\Sitemap'     => Sitemap::class,
-
-        // v2 normalized FQCNs
-        'zendviewhelpernavigationbreadcrumbs' => Breadcrumbs::class,
-        'zendviewhelpernavigationlinks'       => Links::class,
-        'zendviewhelpernavigationmenu'        => Menu::class,
-        'zendviewhelpernavigationsitemap'     => Sitemap::class,
     ];
 
     /**

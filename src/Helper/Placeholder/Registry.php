@@ -12,9 +12,6 @@ use function class_exists;
 use function class_parents;
 use function in_array;
 use function sprintf;
-use function trigger_error;
-
-use const E_USER_DEPRECATED;
 
 /**
  * Registry for placeholder containers
@@ -44,34 +41,6 @@ class Registry
      * @var array
      */
     protected $items = [];
-
-    /**
-     * Retrieve or create registry instance
-     *
-     * @return Registry
-     */
-    public static function getRegistry()
-    {
-        trigger_error('Placeholder view helpers should no longer use a singleton registry', E_USER_DEPRECATED);
-        if (null === static::$instance) {
-            static::$instance = new static();
-        }
-
-        return static::$instance;
-    }
-
-    /**
-     * Unset the singleton
-     *
-     * Primarily useful for testing purposes; sets {@link $instance} to null.
-     *
-     * @return void
-     */
-    public static function unsetRegistry()
-    {
-        trigger_error('Placeholder view helpers should no longer use a singleton registry', E_USER_DEPRECATED);
-        static::$instance = null;
-    }
 
     /**
      * Set the container for an item in the registry
