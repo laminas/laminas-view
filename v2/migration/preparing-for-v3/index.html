@@ -451,6 +451,10 @@
                         <a href="#deprecations" class="toc__link nav-link">Deprecations</a>
                     </li>
                 
+                    <li class="toc__entry">
+                        <a href="#view-helper-changes" class="toc__link nav-link">View Helper Changes</a>
+                    </li>
+                
             </ul>
         </div>
     
@@ -521,6 +525,12 @@ This method has an undocumented feature where passing <code>null</code> to the <
 <h3 id="deprecated-stream-wrappers-for-short-open-tags">Deprecated Stream Wrappers for Short Open Tags</h3>
 <p>In version 2, the <code>TemplatePathStack</code> template resolver automatically registers a stream wrapper for templates when the php.ini setting <code>short_open_tag</code> was turned off. The purpose of the stream wrapper was to convert template files using the short open tag <code>&lt;?= $variable ?&gt;</code> to <code>&lt;?php echo $variable ?&gt;</code> so that templates would continue to be processed in environments where short_open_tag was turned off. Since PHP 5.4.0, <code>&lt;?=</code> is always available, therefore the wrapper became mostly unnecessary.</p>
 <p>The impact of this future removal will affect templates that use a regular short open tag for general PHP code, i.e. <code>&lt;? $i = 1; echo $i ?&gt;</code> in environments where <code>short_open_tag</code> is <strong>off</strong>. To mitigate the impact of this removal, you should ensure that, where relevant, all of your templates use the full <code>&lt;?php</code> open tag. Use of the short echo tag <code>&lt;?=</code> is unaffected.</p>
+<h2 id="view-helper-changes">View Helper Changes</h2>
+<h3 id="deprecated-view-helpers-scheduled-for-removal-in-30">Deprecated View Helpers Scheduled for Removal in 3.0</h3>
+<p>The following view helpers are deprecated and will be removed in version 3.0 of <code>laminas-view</code>.</p>
+<ul>
+<li>The <a href="../../helpers/json/">Json View Helper</a></li>
+</ul>
 
 
 
