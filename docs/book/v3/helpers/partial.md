@@ -7,7 +7,7 @@ you do not need to worry about variable name clashes.
 A sibling to the `Partial`, the `PartialLoop` view helper allows you to pass
 iterable data, and render a partial for each item.
 
-<!-- markdownlint-disable-next-line header-increment -->
+<!-- markdownlint-disable-next-line heading-increment -->
 > ### PartialLoop Counter
 >
 > The `PartialLoop` view helper gives access to the current position of the

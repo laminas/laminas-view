@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.23.1@8471a896ccea3526b26d082f4461eeea467f10a4">
+<files psalm-version="5.26.1@d747f6500b38ac4f7dfc5edbcae6e4b637d7add0">
   <file src="src/Helper/AbstractHtmlElement.php">
     <MissingConstructor>
       <code><![CDATA[$closingBracket]]></code>
@@ -267,7 +267,6 @@
       <code><![CDATA[parent::__call($method, $args)]]></code>
     </MixedReturnStatement>
     <ParamNameMismatch>
-      <code><![CDATA[$index]]></code>
       <code><![CDATA[$index]]></code>
     </ParamNameMismatch>
     <PossiblyNullArgument>
@@ -1076,6 +1075,9 @@
       <code><![CDATA[(string) $prefix]]></code>
       <code><![CDATA[(string) $separator]]></code>
     </RedundantCastGivenDocblockType>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[empty($this[$key])]]></code>
+    </RiskyTruthyFalsyComparison>
   </file>
   <file src="src/Helper/Placeholder/Container/AbstractStandalone.php">
     <InvalidPropertyAssignmentValue>
@@ -1223,6 +1225,11 @@
     </MixedAssignment>
   </file>
   <file src="src/Helper/TranslatorAwareTrait.php">
+    <DeprecatedInterface>
+      <code><![CDATA[Translator|null]]></code>
+      <code><![CDATA[Translator|null]]></code>
+      <code><![CDATA[Translator|null]]></code>
+    </DeprecatedInterface>
     <RedundantCastGivenDocblockType>
       <code><![CDATA[(bool) $enabled]]></code>
     </RedundantCastGivenDocblockType>
@@ -1278,6 +1285,9 @@
     <MixedReturnStatement>
       <code><![CDATA[parent::get($name, $options)]]></code>
     </MixedReturnStatement>
+    <ParamNameMismatch>
+      <code><![CDATA[$name]]></code>
+    </ParamNameMismatch>
     <PossiblyUnusedMethod>
       <code><![CDATA[injectEventManager]]></code>
       <code><![CDATA[injectRenderer]]></code>
@@ -2617,9 +2627,6 @@
       <code><![CDATA[getFieldValue]]></code>
       <code><![CDATA[getFieldValue]]></code>
     </PossiblyUndefinedMethod>
-    <UnusedMethodCall>
-      <code><![CDATA[getContent]]></code>
-    </UnusedMethodCall>
   </file>
   <file src="test/Strategy/PhpRendererStrategyTest.php">
     <InvalidArgument>

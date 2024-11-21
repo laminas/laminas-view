@@ -90,14 +90,14 @@ easiest to template; the `Placeholder` view helper allows you to capture
 arbitrary content for later rendering using the following API.
 
 - `captureStart($type, $key)` begins capturing content.
-  - `$type` should be one of the `Placeholder` constants `APPEND` or `SET`. If
+    - `$type` should be one of the `Placeholder` constants `APPEND` or `SET`. If
     `APPEND`, captured content is appended to the list of current content in the
     placeholder; if `SET`, captured content is used as the sole value of the
     placeholder (potentially replacing any previous content). By default,
     `$type` is `APPEND`.
-  - `$key` can be used to specify a specific key in the placeholder container to
+    - `$key` can be used to specify a specific key in the placeholder container to
     which you want content captured.
-  - `captureStart()` locks capturing until `captureEnd()` is called; you cannot
+    - `captureStart()` locks capturing until `captureEnd()` is called; you cannot
     nest capturing with the same placeholder container. Doing so will raise an
     exception.
 - `captureEnd()` stops capturing content, and places it in the container object

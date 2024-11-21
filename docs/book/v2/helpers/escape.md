@@ -14,14 +14,14 @@ More information to the operation and the background of security can be found
 in the
 [documentation of laminas-escaper](https://docs.laminas.dev/laminas-escaper/configuration/).
 
-<!-- markdownlint-disable-next-line header-increment -->
+<!-- markdownlint-disable-next-line heading-increment -->
 > ### Installation Requirements
 >
 > The escape helpers depends on the laminas-escaper component, so be sure to have
 > it installed before getting started:
 >
 > ```bash
-> $ composer require laminas/laminas-escaper
+> composer require laminas/laminas-escaper
 > ```
 
 ## EscapeCss
@@ -231,7 +231,7 @@ $escaper = new Laminas\Escaper\Escaper('utf-8');
 $this->escapeHtml()->setEscaper($escaper);
 ```
 
-### Get Current Value
+### Get Current Value with your own instance
 
 To get the current value, use the `getEscaper()` method.
 
@@ -243,7 +243,7 @@ $this->escapeHtml()->setEscaper($escaper);
 var_dump($this->escapeHtml()->getEscaper()); // instance of Laminas\Escaper\Escaper
 ```
 
-### Default Value
+### Default Value with your own instance
 
 The default value is an instance of `Laminas\Escaper\Escaper`, created by the
 helper.

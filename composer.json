@@ -26,7 +26,7 @@
         }
     },
     "require": {
-        "php": "~8.1.0 || ~8.2.0 || ~8.3.0",
+        "php": "~8.1.0 || ~8.2.0 || ~8.3.0 || ~8.4.0",
         "ext-dom": "*",
         "ext-filter": "*",
         "ext-json": "*",
@@ -38,23 +38,23 @@
         "psr/container": "^1 || ^2"
     },
     "require-dev": {
-        "laminas/laminas-authentication": "^2.16",
+        "laminas/laminas-authentication": "^2.18",
         "laminas/laminas-coding-standard": "~2.5.0",
-        "laminas/laminas-feed": "^2.22",
-        "laminas/laminas-filter": "^2.34",
-        "laminas/laminas-http": "^2.19",
-        "laminas/laminas-i18n": "^2.26.0",
-        "laminas/laminas-modulemanager": "^2.15",
-        "laminas/laminas-mvc": "^3.7.0",
-        "laminas/laminas-mvc-i18n": "^1.8",
-        "laminas/laminas-navigation": "^2.19.1",
-        "laminas/laminas-paginator": "^2.18.1",
+        "laminas/laminas-feed": "^2.23",
+        "laminas/laminas-filter": "^2.39",
+        "laminas/laminas-http": "^2.20",
+        "laminas/laminas-i18n": "^2.29.0",
+        "laminas/laminas-modulemanager": "^2.17",
+        "laminas/laminas-mvc": "^3.8.0",
+        "laminas/laminas-mvc-i18n": "^1.9",
+        "laminas/laminas-navigation": "^2.20.0",
+        "laminas/laminas-paginator": "^2.19.0",
         "laminas/laminas-permissions-acl": "^2.16",
-        "laminas/laminas-router": "^3.13.0",
-        "laminas/laminas-uri": "^2.11",
-        "phpunit/phpunit": "^10.5.13",
+        "laminas/laminas-router": "^3.14.0",
+        "laminas/laminas-uri": "^2.12",
+        "phpunit/phpunit": "^10.5.38",
         "psalm/plugin-phpunit": "^0.19.0",
-        "vimeo/psalm": "^5.23.1"
+        "vimeo/psalm": "^5.26.1"
     },
     "conflict": {
         "container-interop/container-interop": "<1.2",

@@ -3,7 +3,7 @@
 The HTML `<style>` element is used to include CSS stylesheets inline in the HTML
 `<head>` element.
 
-<!-- markdownlint-disable-next-line header-increment -->
+<!-- markdownlint-disable-next-line heading-increment -->
 > ### Use HeadLink to link CSS files
 >
 > [HeadLink](head-link.md) should be used to create `<link>` elements for

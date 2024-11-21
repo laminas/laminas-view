@@ -47,7 +47,7 @@ The impact of this future removal will affect templates that use a regular short
 
 ## View Helper Changes
 
-### Deprecated View Helpers Scheduled for Removal in 3.0 
+### Deprecated View Helpers Scheduled for Removal in 3.0
 
 The following view helpers are deprecated and will be removed in version 3.0 of `laminas-view`.
 
