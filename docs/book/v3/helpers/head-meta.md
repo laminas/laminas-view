@@ -31,7 +31,7 @@ whether or not to autoescape values used in meta tags:
 
 - `setAutoEscape(bool $autoEscape = true)` (enabled by default)
 
-<!-- markdownlint-disable-next-line header-increment -->
+<!-- markdownlint-disable-next-line heading-increment -->
 > ### AutoEscape
 >
 > **Disable this flag at your own risk.** The one documented case where it is
