@@ -84,17 +84,6 @@
                                     </div>
                                 </div>
                             </a>
-                            <a href="https://api-tools.getlaminas.org/documentation" class="dropdown-item">
-                                <div class="row align-items-center">
-                                    <div class="col-md-4 col-sm-12">
-                                        <img src="https://docs.laminas.dev/img/laminas-api-tools-rgb.svg">
-                                    </div>
-                                    <div class="col-md-8 col-sm-12">
-                                        <strong>API Tools</strong><br>
-                                        Build RESTful APIs in Minutes
-                                    </div>
-                                </div>
-                            </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item dropdown-item--secondardy" href="https://docs.laminas.dev/migration/">
                                 <div class="row align-items-center">
@@ -573,17 +562,19 @@ echo $foo['bar'];</code></pre>
 easiest to template; the <code>Placeholder</code> view helper allows you to capture
 arbitrary content for later rendering using the following API.</p>
 <ul>
-<li><code>captureStart($type, $key)</code> begins capturing content.</li>
+<li><code>captureStart($type, $key)</code> begins capturing content.<ul>
 <li><code>$type</code> should be one of the <code>Placeholder</code> constants <code>APPEND</code> or <code>SET</code>. If
-    <code>APPEND</code>, captured content is appended to the list of current content in the
-    placeholder; if <code>SET</code>, captured content is used as the sole value of the
-    placeholder (potentially replacing any previous content). By default,
-    <code>$type</code> is <code>APPEND</code>.</li>
+<code>APPEND</code>, captured content is appended to the list of current content in the
+placeholder; if <code>SET</code>, captured content is used as the sole value of the
+placeholder (potentially replacing any previous content). By default,
+<code>$type</code> is <code>APPEND</code>.</li>
 <li><code>$key</code> can be used to specify a specific key in the placeholder container to
-    which you want content captured.</li>
+which you want content captured.</li>
 <li><code>captureStart()</code> locks capturing until <code>captureEnd()</code> is called; you cannot
-    nest capturing with the same placeholder container. Doing so will raise an
-    exception.</li>
+nest capturing with the same placeholder container. Doing so will raise an
+exception.</li>
+</ul>
+</li>
 <li><code>captureEnd()</code> stops capturing content, and places it in the container object
   according to how <code>captureStart()</code> was called.</li>
 </ul>
@@ -967,7 +958,7 @@ element itself.</p>
                     <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
                     <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
                     <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
-                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Maintenance Overview <a href="https://getlaminas.org/packages-maintenance-status/">Current maintenance status of Laminas &amp; Mezzio packages</a></li>
                 </ul>
             </div>
         </div>

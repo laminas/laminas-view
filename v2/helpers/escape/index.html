@@ -84,17 +84,6 @@
                                     </div>
                                 </div>
                             </a>
-                            <a href="https://api-tools.getlaminas.org/documentation" class="dropdown-item">
-                                <div class="row align-items-center">
-                                    <div class="col-md-4 col-sm-12">
-                                        <img src="https://docs.laminas.dev/img/laminas-api-tools-rgb.svg">
-                                    </div>
-                                    <div class="col-md-8 col-sm-12">
-                                        <strong>API Tools</strong><br>
-                                        Build RESTful APIs in Minutes
-                                    </div>
-                                </div>
-                            </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item dropdown-item--secondardy" href="https://docs.laminas.dev/migration/">
                                 <div class="row align-items-center">
@@ -535,12 +524,12 @@ laminas-view provides the following helpers:</p>
 <p>More information to the operation and the background of security can be found
 in the
 <a href="https://docs.laminas.dev/laminas-escaper/configuration/">documentation of laminas-escaper</a>.</p>
-<!-- markdownlint-disable-next-line header-increment -->
+<!-- markdownlint-disable-next-line heading-increment -->
 <blockquote>
 <h3 id="installation-requirements">Installation Requirements</h3>
 <p>The escape helpers depends on the laminas-escaper component, so be sure to have
 it installed before getting started:</p>
-<pre class="highlight"><code class="language-bash">$ composer require laminas/laminas-escaper</code></pre>
+<pre class="highlight"><code class="language-bash">composer require laminas/laminas-escaper</code></pre>
 </blockquote>
 <h2 id="escapecss">EscapeCss</h2>
 <pre class="highlight"><code class="language-php">$css = &lt;&lt;&lt;CSS
@@ -660,14 +649,14 @@ helpers:</p>
 <pre class="highlight"><code class="language-php">$escaper = new Laminas\Escaper\Escaper('utf-8');
 
 $this-&gt;escapeHtml()-&gt;setEscaper($escaper);</code></pre>
-<h3 id="get-current-value_1">Get Current Value</h3>
+<h3 id="get-current-value-with-your-own-instance">Get Current Value with your own instance</h3>
 <p>To get the current value, use the <code>getEscaper()</code> method.</p>
 <pre class="highlight"><code class="language-php">&lt;?php
 $escaper = new Laminas\Escaper\Escaper('utf-8');
 $this-&gt;escapeHtml()-&gt;setEscaper($escaper);
 
 var_dump($this-&gt;escapeHtml()-&gt;getEscaper()); // instance of Laminas\Escaper\Escaper</code></pre>
-<h3 id="default-value_1">Default Value</h3>
+<h3 id="default-value-with-your-own-instance">Default Value with your own instance</h3>
 <p>The default value is an instance of <code>Laminas\Escaper\Escaper</code>, created by the
 helper.</p>
 
@@ -1003,7 +992,7 @@ helper.</p>
                     <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
                     <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
                     <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
-                    <li>Laminas API Tools <a href="https://api-tools.getlaminas.org/">Build RESTful APIs in minutes</a></li>
+                    <li>Maintenance Overview <a href="https://getlaminas.org/packages-maintenance-status/">Current maintenance status of Laminas &amp; Mezzio packages</a></li>
                 </ul>
             </div>
         </div>
