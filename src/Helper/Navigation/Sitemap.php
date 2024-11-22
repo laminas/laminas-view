@@ -30,6 +30,8 @@ use const PHP_EOL;
 /**
  * Helper for printing sitemaps
  *
+ * @deprecated This class has been moved to the `Laminas\Navigation` component and will be removed in 3.0
+ *
  * @link http://www.sitemaps.org/protocol.php
  */
 class Sitemap extends AbstractHelper

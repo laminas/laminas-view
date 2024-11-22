@@ -8,6 +8,8 @@ use Laminas\EventManager\Event;
 
 /**
  * Default Access Control Listener
+ *
+ * @deprecated This class has been moved to the `Laminas\Navigation` component and will be removed in 3.0
  */
 class AclListener
 {
