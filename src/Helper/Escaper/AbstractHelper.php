@@ -28,7 +28,7 @@ abstract class AbstractHelper extends Helper\AbstractHelper
     /**
      * @deprecated This property should be set in the underlying Escaper which should be passed to the constructor
      *
-     * @var string
+     * @var non-empty-string
      */
     protected $encoding;
 

@@ -307,7 +307,7 @@ abstract class AbstractStandalone extends AbstractHelper implements
      *
      * Lazy-loads one if none available
      *
-     * @param  string $enc Encoding to use
+     * @param non-empty-string $enc Encoding to use
      * @return Escaper
      */
     public function getEscaper($enc = 'UTF-8')
