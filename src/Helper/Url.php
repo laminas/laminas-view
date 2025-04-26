@@ -20,6 +20,9 @@ use function sprintf;
 
 /**
  * Helper for making easy links and getting urls that depend on the routes and router.
+ *
+ * @deprecated The URL helper will be removed in 3.0 and relocated to the `laminas-mvc-view` package because it is an
+ *             MVC specific implementation.
  */
 class Url extends AbstractHelper
 {
