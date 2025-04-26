@@ -104,9 +104,6 @@ You can find documentation on the `JsonSerializable` interface [on the PHP websi
 
 #### Navigation
 
-The deprecated navigation view helpers such as `Breadcrumbs`, and `Menu` etc have been removed and can now be found in [the `laminas-navigation` component](https://docs.laminas.dev/laminas-navigation/helpers/intro/).
+The deprecated navigation view helpers such as `Breadcrumbs`, and `Menu` etc have been removed and can now be found in [the `laminas-navigation-view` component](https://docs.laminas.dev/laminas-navigation/helpers/intro/).
 
 As such, the namespace for these helpers has changed from `Laminas\View\Navigation` to `Laminas\Navigation\View\Helper`, so if you have referenced the FQCNs of these helpers in your code, you will need to update them accordingly.
-
-At the time of writing, the `laminas-navigation` 2.x series of releases is not compatible with `laminas-view` 3.x and a major release of the `laminas-navigation` component is not available.
-If you rely on the navigation helpers, you will have to wait for a compatible release of `laminas-navigation` before you can upgrade to `laminas-view` version 3.0.
