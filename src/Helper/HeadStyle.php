@@ -294,6 +294,7 @@ class HeadStyle extends AbstractStandalone
         return true;
     }
 
+    /** @return non-empty-string */
     private function viewEncoding(): string
     {
         $encoding = null;
@@ -302,7 +303,7 @@ class HeadStyle extends AbstractStandalone
             $encoding = $this->view->getEncoding();
         }
 
-        return is_string($encoding) ? $encoding : 'UTF-8';
+        return is_string($encoding) && $encoding !== '' ? $encoding : 'UTF-8';
     }
 
     /**
