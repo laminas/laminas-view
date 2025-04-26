@@ -78,7 +78,6 @@ use function sprintf;
  * @method string renderChildModel($child)
  * @method void renderToPlaceholder($script, $placeholder)
  * @method string serverUrl($requestUri = null)
- * @method string url($name = null, array $params = array(), $options = array(), $reuseMatchedParams = false)
  * @method \Laminas\View\Helper\ViewModel viewModel()
  * @method \Laminas\View\Helper\Navigation\Breadcrumbs breadCrumbs($container = null)
  * @method \Laminas\View\Helper\Navigation\Links links($container = null)

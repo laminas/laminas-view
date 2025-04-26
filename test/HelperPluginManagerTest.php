@@ -15,7 +15,7 @@ use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\HeadTitle;
 use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Helper\Identity;
-use Laminas\View\Helper\Url;
+use Laminas\View\Helper\Partial;
 use Laminas\View\HelperPluginManager;
 use Laminas\View\Renderer\PhpRenderer;
 use PHPUnit\Framework\TestCase;
@@ -134,14 +134,12 @@ class HelperPluginManagerTest extends TestCase
     {
         $translatorA = new Translator();
         $translatorB = new Translator();
-        $config      = new Config([
+        $services    = new ServiceManager([
             'services' => [
                 'Translator' => $translatorB,
             ],
         ]);
-        $services    = new ServiceManager();
-        $config->configureServiceManager($services);
-        $helpers = new HelperPluginManager($services);
+        $helpers     = new HelperPluginManager($services);
         $helpers->setFactory(
             'TestHelper',
             function () use ($translatorA) {
@@ -158,31 +156,23 @@ class HelperPluginManagerTest extends TestCase
     public function testCanOverrideAFactoryViaConfigurationPassedToConstructor(): void
     {
         $helper  = $this->createMock(HelperInterface::class);
-        $helpers = new HelperPluginManager(new ServiceManager());
-        $config  = new Config(
-            [
-                'factories' => [
-                    Url::class => static fn($container) => $helper,
-                ],
-            ]
-        );
-        $config->configureServiceManager($helpers);
-        $this->assertSame($helper, $helpers->get(Url::class));
+        $helpers = new HelperPluginManager(new ServiceManager(), [
+            'factories' => [
+                Partial::class => static fn(): HelperInterface => $helper,
+            ],
+        ]);
+        $this->assertSame($helper, $helpers->get(Partial::class));
     }
 
     public function testCanUseCallableAsHelper(): void
     {
-        $helper  = function (): void {
+        $helper  = static function (): void {
         };
-        $helpers = new HelperPluginManager(new ServiceManager());
-        $config  = new Config(
-            [
-                'factories' => [
-                    'foo' => static fn($container) => $helper,
-                ],
-            ]
-        );
-        $config->configureServiceManager($helpers);
+        $helpers = new HelperPluginManager(new ServiceManager(), [
+            'factories' => [
+                'foo' => static fn(): callable => $helper,
+            ],
+        ]);
         $this->assertSame($helper, $helpers->get('foo'));
     }
 
