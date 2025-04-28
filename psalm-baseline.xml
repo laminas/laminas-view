@@ -1297,29 +1297,6 @@
       <code><![CDATA[(bool) $enabled]]></code>
     </RedundantCastGivenDocblockType>
   </file>
-  <file src="src/Helper/Url.php">
-    <DocblockTypeContradiction>
-      <code><![CDATA[3 === func_num_args() && is_bool($options)]]></code>
-      <code><![CDATA[is_array($params)]]></code>
-      <code><![CDATA[is_bool($options)]]></code>
-    </DocblockTypeContradiction>
-    <InvalidArrayAssignment>
-      <code><![CDATA[$options['name']]]></code>
-    </InvalidArrayAssignment>
-    <MixedAssignment>
-      <code><![CDATA[$routeMatchParams['controller']]]></code>
-    </MixedAssignment>
-    <NoValue>
-      <code><![CDATA[$params]]></code>
-      <code><![CDATA[$reuseMatchedParams]]></code>
-    </NoValue>
-    <PossiblyInvalidArgument>
-      <code><![CDATA[$options]]></code>
-    </PossiblyInvalidArgument>
-    <UnusedVariable>
-      <code><![CDATA[$reuseMatchedParams]]></code>
-    </UnusedVariable>
-  </file>
   <file src="src/Helper/ViewModel.php">
     <PossiblyUnusedMethod>
       <code><![CDATA[hasRoot]]></code>
@@ -2533,83 +2510,8 @@
       <code><![CDATA[$value]]></code>
     </MixedAssignment>
   </file>
-  <file src="test/Helper/UrlIntegrationTest.php">
-    <DeprecatedClass>
-      <code><![CDATA[new Config((new RouterConfigProvider())->getDependencyConfig())]]></code>
-    </DeprecatedClass>
-    <MixedArgument>
-      <code><![CDATA[$serviceConfig]]></code>
-      <code><![CDATA[$test]]></code>
-    </MixedArgument>
-    <MixedAssignment>
-      <code><![CDATA[$router]]></code>
-      <code><![CDATA[$serviceConfig]]></code>
-      <code><![CDATA[$test]]></code>
-      <code><![CDATA[$test]]></code>
-      <code><![CDATA[$urlHelper]]></code>
-      <code><![CDATA[$urlHelper]]></code>
-      <code><![CDATA[$viewHelpers]]></code>
-      <code><![CDATA[$viewHelpers]]></code>
-    </MixedAssignment>
-    <MixedFunctionCall>
-      <code><![CDATA[$urlHelper('test')]]></code>
-      <code><![CDATA[$urlHelper('test', [], ['force_canonical' => true])]]></code>
-    </MixedFunctionCall>
-    <MixedMethodCall>
-      <code><![CDATA[bootstrap]]></code>
-      <code><![CDATA[bootstrap]]></code>
-      <code><![CDATA[get]]></code>
-      <code><![CDATA[get]]></code>
-      <code><![CDATA[setRequestUri]]></code>
-    </MixedMethodCall>
-  </file>
-  <file src="test/Helper/UrlTest.php">
-    <DeprecatedClass>
-      <code><![CDATA[UrlHelper]]></code>
-      <code><![CDATA[Wildcard::class]]></code>
-      <code><![CDATA[new UrlHelper()]]></code>
-      <code><![CDATA[new UrlHelper()]]></code>
-      <code><![CDATA[new UrlHelper()]]></code>
-      <code><![CDATA[new UrlHelper()]]></code>
-      <code><![CDATA[new UrlHelper()]]></code>
-    </DeprecatedClass>
-    <InvalidArgument>
-      <code><![CDATA[$it]]></code>
-      <code><![CDATA[$router]]></code>
-      <code><![CDATA[$router]]></code>
-      <code><![CDATA['invalid params']]></code>
-      <code><![CDATA[true]]></code>
-      <code><![CDATA[true]]></code>
-    </InvalidArgument>
-  </file>
-  <file src="test/HelperPluginManagerCompatibilityTest.php">
-    <DeprecatedClass>
-      <code><![CDATA[new Config([
-            'services'  => [
-                'config' => [],
-            ],
-            'factories' => $factories,
-        ])]]></code>
-    </DeprecatedClass>
-  </file>
   <file src="test/HelperPluginManagerTest.php">
     <DeprecatedClass>
-      <code><![CDATA[Url::class]]></code>
-      <code><![CDATA[Url::class]]></code>
-      <code><![CDATA[new Config(
-            [
-                'factories' => [
-                    'foo' => static fn($container) => $helper,
-                ],
-            ]
-        )]]></code>
-      <code><![CDATA[new Config(
-            [
-                'factories' => [
-                    Url::class => static fn($container) => $helper,
-                ],
-            ]
-        )]]></code>
       <code><![CDATA[new Config([
             'services' => [
                 'MvcTranslator' => $translator,
@@ -2622,23 +2524,10 @@
         ])]]></code>
       <code><![CDATA[new Config([
             'services' => [
-                'Translator' => $translatorB,
-            ],
-        ])]]></code>
-      <code><![CDATA[new Config([
-            'services' => [
                 TranslatorInterface::class => $translator,
             ],
         ])]]></code>
     </DeprecatedClass>
-    <MissingClosureParamType>
-      <code><![CDATA[$container]]></code>
-      <code><![CDATA[$container]]></code>
-    </MissingClosureParamType>
-    <UnusedClosureParam>
-      <code><![CDATA[$container]]></code>
-      <code><![CDATA[$container]]></code>
-    </UnusedClosureParam>
   </file>
   <file src="test/Model/TestAsset/Variable.php">
     <MissingTemplateParam>

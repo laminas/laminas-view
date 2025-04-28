@@ -133,8 +133,6 @@ class HelperPluginManager extends AbstractPluginManager
         'serverurl'           => Helper\ServerUrl::class,
         'serverUrl'           => Helper\ServerUrl::class,
         'ServerUrl'           => Helper\ServerUrl::class,
-        'url'                 => Helper\Url::class,
-        'Url'                 => Helper\Url::class,
         'view_model'          => Helper\ViewModel::class,
         'viewmodel'           => Helper\ViewModel::class,
         'viewModel'           => Helper\ViewModel::class,
@@ -187,7 +185,6 @@ class HelperPluginManager extends AbstractPluginManager
         Helper\RenderChildModel::class    => InvokableFactory::class,
         Helper\RenderToPlaceholder::class => InvokableFactory::class,
         Helper\ServerUrl::class           => InvokableFactory::class,
-        Helper\Url::class                 => InvokableFactory::class,
         Helper\ViewModel::class           => InvokableFactory::class,
 
         // v2 canonical FQCNs
@@ -222,7 +219,6 @@ class HelperPluginManager extends AbstractPluginManager
         'laminasviewhelperrenderchildmodel'    => InvokableFactory::class,
         'laminasviewhelperrendertoplaceholder' => InvokableFactory::class,
         'laminasviewhelperserverurl'           => InvokableFactory::class,
-        'laminasviewhelperurl'                 => InvokableFactory::class,
         'laminasviewhelperviewmodel'           => InvokableFactory::class,
     ];
 
