@@ -2889,7 +2889,13 @@
   </file>
   <file src="test/Helper/UrlTest.php">
     <DeprecatedClass>
+      <code><![CDATA[UrlHelper]]></code>
       <code><![CDATA[Wildcard::class]]></code>
+      <code><![CDATA[new UrlHelper()]]></code>
+      <code><![CDATA[new UrlHelper()]]></code>
+      <code><![CDATA[new UrlHelper()]]></code>
+      <code><![CDATA[new UrlHelper()]]></code>
+      <code><![CDATA[new UrlHelper()]]></code>
     </DeprecatedClass>
     <InvalidArgument>
       <code><![CDATA[$it]]></code>
@@ -2912,6 +2918,8 @@
   </file>
   <file src="test/HelperPluginManagerTest.php">
     <DeprecatedClass>
+      <code><![CDATA[Url::class]]></code>
+      <code><![CDATA[Url::class]]></code>
       <code><![CDATA[new Config(
             [
                 'factories' => [
