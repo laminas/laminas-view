@@ -12,8 +12,6 @@
       <code><![CDATA[$closingBracket]]></code>
       <code><![CDATA[$closingBracket]]></code>
       <code><![CDATA[$closingBracket]]></code>
-      <code><![CDATA[$closingBracket]]></code>
-      <code><![CDATA[$closingBracket]]></code>
     </MissingConstructor>
     <MixedArgument>
       <code><![CDATA[$val]]></code>
@@ -35,11 +33,6 @@
       <code><![CDATA[plugin]]></code>
       <code><![CDATA[plugin]]></code>
     </UndefinedInterfaceMethod>
-  </file>
-  <file src="src/Helper/Asset.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[setResourceMap]]></code>
-    </PossiblyUnusedMethod>
   </file>
   <file src="src/Helper/Cycle.php">
     <ImplementedReturnTypeMismatch>
@@ -135,43 +128,6 @@
       <code><![CDATA[$value[$k]]]></code>
     </MixedAssignment>
   </file>
-  <file src="src/Helper/FlashMessenger.php">
-    <DocblockTypeContradiction>
-      <code><![CDATA[null === $this->pluginFlashMessenger]]></code>
-    </DocblockTypeContradiction>
-    <MissingClosureParamType>
-      <code><![CDATA[$item]]></code>
-    </MissingClosureParamType>
-    <MissingConstructor>
-      <code><![CDATA[$escapeHtmlHelper]]></code>
-      <code><![CDATA[$pluginFlashMessenger]]></code>
-    </MissingConstructor>
-    <MixedArgument>
-      <code><![CDATA[$item]]></code>
-      <code><![CDATA[$item]]></code>
-    </MixedArgument>
-    <MixedArgumentTypeCoercion>
-      <code><![CDATA[$classes]]></code>
-      <code><![CDATA[$classes]]></code>
-      <code><![CDATA[$messagesToPrint]]></code>
-    </MixedArgumentTypeCoercion>
-    <MixedAssignment>
-      <code><![CDATA[$classes]]></code>
-      <code><![CDATA[$classes]]></code>
-      <code><![CDATA[$messagesToPrint[]]]></code>
-      <code><![CDATA[$messagesToPrint[]]]></code>
-      <code><![CDATA[$this->escapeHtmlHelper]]></code>
-    </MixedAssignment>
-    <RedundantCastGivenDocblockType>
-      <code><![CDATA[(bool) $autoEscape]]></code>
-      <code><![CDATA[(string) $messageCloseString]]></code>
-      <code><![CDATA[(string) $messageOpenFormat]]></code>
-      <code><![CDATA[(string) $messageSeparatorString]]></code>
-    </RedundantCastGivenDocblockType>
-    <RedundantConditionGivenDocblockType>
-      <code><![CDATA[$this->escapeHtmlHelper]]></code>
-    </RedundantConditionGivenDocblockType>
-  </file>
   <file src="src/Helper/Gravatar.php">
     <DocblockTypeContradiction>
       <code><![CDATA[$flag === null]]></code>
@@ -196,9 +152,6 @@
       <code><![CDATA[$this->options['rating']]]></code>
       <code><![CDATA[$this->options['secure']]]></code>
     </MixedReturnStatement>
-    <PossiblyUnusedReturnValue>
-      <code><![CDATA[array<string, mixed>]]></code>
-    </PossiblyUnusedReturnValue>
     <RedundantCastGivenDocblockType>
       <code><![CDATA[(bool) $flag]]></code>
       <code><![CDATA[(int) $imgSize]]></code>
@@ -421,26 +374,6 @@
       <code><![CDATA[HelperInterface]]></code>
     </PossiblyUnusedReturnValue>
   </file>
-  <file src="src/Helper/HtmlFlash.php">
-    <MixedAssignment>
-      <code><![CDATA[$htmlObject]]></code>
-    </MixedAssignment>
-    <MixedFunctionCall>
-      <code><![CDATA[$htmlObject($data, self::TYPE, $attribs, $params, $content)]]></code>
-    </MixedFunctionCall>
-    <MixedInferredReturnType>
-      <code><![CDATA[string]]></code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement>
-      <code><![CDATA[$htmlObject($data, self::TYPE, $attribs, $params, $content)]]></code>
-    </MixedReturnStatement>
-    <PossiblyNullReference>
-      <code><![CDATA[plugin]]></code>
-    </PossiblyNullReference>
-    <UndefinedInterfaceMethod>
-      <code><![CDATA[plugin]]></code>
-    </UndefinedInterfaceMethod>
-  </file>
   <file src="src/Helper/HtmlObject.php">
     <MixedArgument>
       <code><![CDATA[$options]]></code>
@@ -453,26 +386,6 @@
     </RiskyTruthyFalsyComparison>
   </file>
   <file src="src/Helper/HtmlPage.php">
-    <MixedAssignment>
-      <code><![CDATA[$htmlObject]]></code>
-    </MixedAssignment>
-    <MixedFunctionCall>
-      <code><![CDATA[$htmlObject($data, self::TYPE, $attribs, $params, $content)]]></code>
-    </MixedFunctionCall>
-    <MixedInferredReturnType>
-      <code><![CDATA[string]]></code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement>
-      <code><![CDATA[$htmlObject($data, self::TYPE, $attribs, $params, $content)]]></code>
-    </MixedReturnStatement>
-    <PossiblyNullReference>
-      <code><![CDATA[plugin]]></code>
-    </PossiblyNullReference>
-    <UndefinedInterfaceMethod>
-      <code><![CDATA[plugin]]></code>
-    </UndefinedInterfaceMethod>
-  </file>
-  <file src="src/Helper/HtmlQuicktime.php">
     <MixedAssignment>
       <code><![CDATA[$htmlObject]]></code>
     </MixedAssignment>
@@ -509,12 +422,6 @@
       <code><![CDATA[(bool) $useNamespaces]]></code>
     </RedundantCastGivenDocblockType>
   </file>
-  <file src="src/Helper/Identity.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[getAuthenticationService]]></code>
-      <code><![CDATA[setAuthenticationService]]></code>
-    </PossiblyUnusedMethod>
-  </file>
   <file src="src/Helper/Json.php">
     <MissingConstructor>
       <code><![CDATA[$response]]></code>
@@ -541,21 +448,6 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/Navigation.php">
-    <DeprecatedClass>
-      <code><![CDATA[AbstractNavigationHelper]]></code>
-      <code><![CDATA[Navigation\PluginManager]]></code>
-      <code><![CDATA[Navigation\PluginManager]]></code>
-      <code><![CDATA[Navigation\PluginManager|null]]></code>
-      <code><![CDATA[new Navigation\PluginManager($this->getServiceLocator())]]></code>
-      <code><![CDATA[parent::__call($method, $arguments)]]></code>
-      <code><![CDATA[parent::setView($view)]]></code>
-    </DeprecatedClass>
-    <DeprecatedInterface>
-      <code><![CDATA[($strict is true ? NavigationHelper : NavigationHelper|false)]]></code>
-      <code><![CDATA[Navigation]]></code>
-      <code><![CDATA[NavigationHelper]]></code>
-      <code><![CDATA[Navigation\PluginManager]]></code>
-    </DeprecatedInterface>
     <InvalidFunctionCall>
       <code><![CDATA[call_user_func_array($helper, $arguments)]]></code>
     </InvalidFunctionCall>
@@ -580,12 +472,6 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/Navigation/AbstractHelper.php">
-    <DeprecatedClass>
-      <code><![CDATA[AclListener::class]]></code>
-    </DeprecatedClass>
-    <DeprecatedInterface>
-      <code><![CDATA[AbstractHelper]]></code>
-    </DeprecatedInterface>
     <DocblockTypeContradiction>
       <code><![CDATA[! is_int($this->minDepth)]]></code>
       <code><![CDATA[! is_string($message)]]></code>
@@ -681,12 +567,6 @@
     </UnevaluatedCode>
   </file>
   <file src="src/Helper/Navigation/Breadcrumbs.php">
-    <DeprecatedClass>
-      <code><![CDATA[AbstractHelper]]></code>
-    </DeprecatedClass>
-    <DeprecatedInterface>
-      <code><![CDATA[Breadcrumbs]]></code>
-    </DeprecatedInterface>
     <DocblockTypeContradiction>
       <code><![CDATA[null === $partial]]></code>
     </DocblockTypeContradiction>
@@ -763,13 +643,6 @@
     </PossiblyUnusedReturnValue>
   </file>
   <file src="src/Helper/Navigation/Links.php">
-    <DeprecatedClass>
-      <code><![CDATA[AbstractHelper]]></code>
-      <code><![CDATA[parent::__call($method, $arguments)]]></code>
-    </DeprecatedClass>
-    <DeprecatedInterface>
-      <code><![CDATA[Links]]></code>
-    </DeprecatedInterface>
     <InvalidOperand>
       <code><![CDATA[$relFlag]]></code>
     </InvalidOperand>
@@ -860,12 +733,6 @@
     </PossiblyUnusedReturnValue>
   </file>
   <file src="src/Helper/Navigation/Menu.php">
-    <DeprecatedClass>
-      <code><![CDATA[AbstractHelper]]></code>
-    </DeprecatedClass>
-    <DeprecatedInterface>
-      <code><![CDATA[Menu]]></code>
-    </DeprecatedInterface>
     <DocblockTypeContradiction>
       <code><![CDATA[null === $partial]]></code>
     </DocblockTypeContradiction>
@@ -985,37 +852,11 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/Navigation/PluginManager.php">
-    <DeprecatedClass>
-      <code><![CDATA[AbstractHelper::class]]></code>
-      <code><![CDATA[Breadcrumbs::class]]></code>
-      <code><![CDATA[Breadcrumbs::class]]></code>
-      <code><![CDATA[Breadcrumbs::class]]></code>
-      <code><![CDATA[Breadcrumbs::class]]></code>
-      <code><![CDATA[Links::class]]></code>
-      <code><![CDATA[Links::class]]></code>
-      <code><![CDATA[Links::class]]></code>
-      <code><![CDATA[Links::class]]></code>
-      <code><![CDATA[Menu::class]]></code>
-      <code><![CDATA[Menu::class]]></code>
-      <code><![CDATA[Menu::class]]></code>
-      <code><![CDATA[Menu::class]]></code>
-      <code><![CDATA[PluginManager]]></code>
-      <code><![CDATA[Sitemap::class]]></code>
-      <code><![CDATA[Sitemap::class]]></code>
-      <code><![CDATA[Sitemap::class]]></code>
-      <code><![CDATA[Sitemap::class]]></code>
-    </DeprecatedClass>
     <NonInvariantDocblockPropertyType>
       <code><![CDATA[$aliases]]></code>
     </NonInvariantDocblockPropertyType>
   </file>
   <file src="src/Helper/Navigation/Sitemap.php">
-    <DeprecatedClass>
-      <code><![CDATA[AbstractHelper]]></code>
-    </DeprecatedClass>
-    <DeprecatedInterface>
-      <code><![CDATA[Sitemap]]></code>
-    </DeprecatedInterface>
     <MissingConstructor>
       <code><![CDATA[$serverUrl]]></code>
     </MissingConstructor>
@@ -1184,7 +1025,6 @@
       <code><![CDATA[(string) $key]]></code>
       <code><![CDATA[(string) $key]]></code>
       <code><![CDATA[(string) $key]]></code>
-      <code><![CDATA[(string) $name]]></code>
     </RedundantCastGivenDocblockType>
     <UnsafeInstantiation>
       <code><![CDATA[new $this->containerClass($value)]]></code>
@@ -1274,9 +1114,6 @@
     </UnsafeInstantiation>
   </file>
   <file src="src/Helper/Placeholder/Registry.php">
-    <DocblockTypeContradiction>
-      <code><![CDATA[null === static::$instance]]></code>
-    </DocblockTypeContradiction>
     <InvalidStringClass>
       <code><![CDATA[new $this->containerClass($value)]]></code>
     </InvalidStringClass>
@@ -1292,10 +1129,9 @@
     <MoreSpecificReturnType>
       <code><![CDATA[AbstractContainer]]></code>
     </MoreSpecificReturnType>
-    <PossiblyUnusedMethod>
-      <code><![CDATA[getRegistry]]></code>
-      <code><![CDATA[unsetRegistry]]></code>
-    </PossiblyUnusedMethod>
+    <PossiblyUnusedProperty>
+      <code><![CDATA[$instance]]></code>
+    </PossiblyUnusedProperty>
     <RedundantCastGivenDocblockType>
       <code><![CDATA[(string) $key]]></code>
       <code><![CDATA[(string) $key]]></code>
@@ -1303,9 +1139,6 @@
       <code><![CDATA[(string) $key]]></code>
       <code><![CDATA[(string) $key]]></code>
     </RedundantCastGivenDocblockType>
-    <UnsafeInstantiation>
-      <code><![CDATA[new static()]]></code>
-    </UnsafeInstantiation>
   </file>
   <file src="src/Helper/RenderChildModel.php">
     <MissingConstructor>
@@ -1379,11 +1212,6 @@
       <code><![CDATA[$_SERVER['HTTPS'] === true]]></code>
     </TypeDoesNotContainType>
   </file>
-  <file src="src/Helper/Service/AssetFactory.php">
-    <PossiblyNullArgument>
-      <code><![CDATA[$cName]]></code>
-    </PossiblyNullArgument>
-  </file>
   <file src="src/Helper/Service/DoctypeFactory.php">
     <MixedArgument>
       <code><![CDATA[$config['view_helper_config']['doctype']]]></code>
@@ -1396,53 +1224,7 @@
       <code><![CDATA[$config]]></code>
     </MixedAssignment>
   </file>
-  <file src="src/Helper/Service/FlashMessengerFactory.php">
-    <DeprecatedClass>
-      <code><![CDATA[FlashMessenger]]></code>
-      <code><![CDATA[FlashMessenger]]></code>
-      <code><![CDATA[new FlashMessenger()]]></code>
-    </DeprecatedClass>
-    <DeprecatedInterface>
-      <code><![CDATA[FlashMessengerFactory]]></code>
-    </DeprecatedInterface>
-    <MixedArgument>
-      <code><![CDATA[$configHelper['message_close_string']]]></code>
-      <code><![CDATA[$configHelper['message_open_format']]]></code>
-      <code><![CDATA[$configHelper['message_separator_string']]]></code>
-      <code><![CDATA[$flashMessenger]]></code>
-    </MixedArgument>
-    <MixedArrayAccess>
-      <code><![CDATA[$configHelper['message_close_string']]]></code>
-      <code><![CDATA[$configHelper['message_open_format']]]></code>
-      <code><![CDATA[$configHelper['message_separator_string']]]></code>
-      <code><![CDATA[$config['view_helper_config']]]></code>
-      <code><![CDATA[$config['view_helper_config']['flashmessenger']]]></code>
-    </MixedArrayAccess>
-    <MixedAssignment>
-      <code><![CDATA[$config]]></code>
-      <code><![CDATA[$configHelper]]></code>
-      <code><![CDATA[$controllerPluginManager]]></code>
-      <code><![CDATA[$flashMessenger]]></code>
-    </MixedAssignment>
-    <MixedMethodCall>
-      <code><![CDATA[get]]></code>
-    </MixedMethodCall>
-    <ParamNameMismatch>
-      <code><![CDATA[$container]]></code>
-    </ParamNameMismatch>
-    <PossiblyNullArgument>
-      <code><![CDATA[$requestedName]]></code>
-    </PossiblyNullArgument>
-  </file>
   <file src="src/Helper/TranslatorAwareTrait.php">
-    <DeprecatedClass>
-      <code><![CDATA[$this]]></code>
-      <code><![CDATA[$this]]></code>
-      <code><![CDATA[$this]]></code>
-      <code><![CDATA[$this]]></code>
-      <code><![CDATA[$this]]></code>
-      <code><![CDATA[$this]]></code>
-    </DeprecatedClass>
     <DeprecatedInterface>
       <code><![CDATA[Translator|null]]></code>
       <code><![CDATA[Translator|null]]></code>
@@ -1540,22 +1322,6 @@
       <code><![CDATA[clearVariables]]></code>
     </MissingReturnType>
   </file>
-  <file src="src/Model/ConsoleModel.php">
-    <MixedInferredReturnType>
-      <code><![CDATA[int]]></code>
-    </MixedInferredReturnType>
-    <MixedReturnStatement>
-      <code><![CDATA[$this->options['errorLevel']]]></code>
-    </MixedReturnStatement>
-    <NonInvariantDocblockPropertyType>
-      <code><![CDATA[$captureTo]]></code>
-    </NonInvariantDocblockPropertyType>
-    <PossiblyUnusedMethod>
-      <code><![CDATA[getErrorLevel]]></code>
-      <code><![CDATA[getResult]]></code>
-      <code><![CDATA[setResult]]></code>
-    </PossiblyUnusedMethod>
-  </file>
   <file src="src/Model/FeedModel.php">
     <MixedAssignment>
       <code><![CDATA[$this->type]]></code>
@@ -1626,30 +1392,6 @@
       <code><![CDATA[is_object($variables)]]></code>
     </RedundantConditionGivenDocblockType>
   </file>
-  <file src="src/Renderer/ConsoleRenderer.php">
-    <ImplementedParamTypeMismatch>
-      <code><![CDATA[$values]]></code>
-    </ImplementedParamTypeMismatch>
-    <MixedAssignment>
-      <code><![CDATA[$value]]></code>
-    </MixedAssignment>
-    <MixedOperand>
-      <code><![CDATA[$this->getFilterChain()->filter($values['result'])]]></code>
-    </MixedOperand>
-    <ParamNameMismatch>
-      <code><![CDATA[$model]]></code>
-    </ParamNameMismatch>
-    <PossiblyInvalidArgument>
-      <code><![CDATA[$values]]></code>
-    </PossiblyInvalidArgument>
-    <PossiblyUnusedMethod>
-      <code><![CDATA[__construct]]></code>
-      <code><![CDATA[setFilterChain]]></code>
-    </PossiblyUnusedMethod>
-    <PossiblyUnusedParam>
-      <code><![CDATA[$config]]></code>
-    </PossiblyUnusedParam>
-  </file>
   <file src="src/Renderer/FeedRenderer.php">
     <InvalidArgument>
       <code><![CDATA[(array) $nameOrModel]]></code>
@@ -1674,9 +1416,6 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Renderer/JsonRenderer.php">
-    <ImplementedReturnTypeMismatch>
-      <code><![CDATA[void]]></code>
-    </ImplementedReturnTypeMismatch>
     <MissingConstructor>
       <code><![CDATA[$jsonpCallback]]></code>
     </MissingConstructor>
@@ -1819,19 +1558,11 @@
       <code><![CDATA[static::FAILURE_NOT_FOUND]]></code>
       <code><![CDATA[static::FAILURE_NO_PATHS]]></code>
     </DeprecatedConstant>
-    <DeprecatedMethod>
-      <code><![CDATA[setUseStreamWrapper]]></code>
-    </DeprecatedMethod>
     <DeprecatedProperty>
       <code><![CDATA[$this->lastLookupFailure]]></code>
       <code><![CDATA[$this->lastLookupFailure]]></code>
       <code><![CDATA[$this->lastLookupFailure]]></code>
       <code><![CDATA[$this->lastLookupFailure]]></code>
-      <code><![CDATA[$this->useStreamWrapper]]></code>
-      <code><![CDATA[$this->useStreamWrapper]]></code>
-      <code><![CDATA[$this->useViewStream]]></code>
-      <code><![CDATA[$this->useViewStream]]></code>
-      <code><![CDATA[$this->useViewStream]]></code>
     </DeprecatedProperty>
     <DocblockTypeContradiction>
       <code><![CDATA[is_string($path)]]></code>
@@ -1844,13 +1575,11 @@
       <code><![CDATA[$options['default_suffix']]]></code>
       <code><![CDATA[$options['lfi_protection']]]></code>
       <code><![CDATA[$options['script_paths']]]></code>
-      <code><![CDATA[$options['use_stream_wrapper']]]></code>
     </MixedArgument>
     <PossiblyUnusedReturnValue>
       <code><![CDATA[TemplatePathStack]]></code>
     </PossiblyUnusedReturnValue>
     <RedundantCastGivenDocblockType>
-      <code><![CDATA[(bool) $flag]]></code>
       <code><![CDATA[(bool) $flag]]></code>
       <code><![CDATA[(string) $defaultSuffix]]></code>
     </RedundantCastGivenDocblockType>
@@ -1908,48 +1637,6 @@
     <UndefinedInterfaceMethod>
       <code><![CDATA[plugin]]></code>
     </UndefinedInterfaceMethod>
-  </file>
-  <file src="src/Stream.php">
-    <MissingConstructor>
-      <code><![CDATA[$data]]></code>
-      <code><![CDATA[$stat]]></code>
-    </MissingConstructor>
-    <MissingParamType>
-      <code><![CDATA[$mode]]></code>
-      <code><![CDATA[$offset]]></code>
-      <code><![CDATA[$opened_path]]></code>
-      <code><![CDATA[$options]]></code>
-      <code><![CDATA[$whence]]></code>
-    </MissingParamType>
-    <MixedAssignment>
-      <code><![CDATA[$this->pos]]></code>
-      <code><![CDATA[$this->pos]]></code>
-      <code><![CDATA[$this->pos]]></code>
-    </MixedAssignment>
-    <MixedOperand>
-      <code><![CDATA[$offset]]></code>
-      <code><![CDATA[$offset]]></code>
-      <code><![CDATA[$offset]]></code>
-    </MixedOperand>
-    <PossiblyUnusedMethod>
-      <code><![CDATA[stream_eof]]></code>
-      <code><![CDATA[stream_open]]></code>
-      <code><![CDATA[stream_read]]></code>
-      <code><![CDATA[stream_seek]]></code>
-      <code><![CDATA[stream_stat]]></code>
-      <code><![CDATA[stream_tell]]></code>
-      <code><![CDATA[url_stat]]></code>
-    </PossiblyUnusedMethod>
-    <PossiblyUnusedParam>
-      <code><![CDATA[$mode]]></code>
-      <code><![CDATA[$opened_path]]></code>
-      <code><![CDATA[$options]]></code>
-    </PossiblyUnusedParam>
-    <UnevaluatedCode>
-      <code><![CDATA[break;]]></code>
-      <code><![CDATA[break;]]></code>
-      <code><![CDATA[break;]]></code>
-    </UnevaluatedCode>
   </file>
   <file src="src/Variables.php">
     <MixedArgument>
@@ -2086,75 +1773,6 @@
       <code><![CDATA[$test]]></code>
     </MixedAssignment>
   </file>
-  <file src="test/Helper/FlashMessengerTest.php">
-    <ArgumentTypeCoercion>
-      <code><![CDATA[$plugin]]></code>
-      <code><![CDATA[$plugin]]></code>
-      <code><![CDATA[$this->mvcPluginClass]]></code>
-    </ArgumentTypeCoercion>
-    <DeprecatedClass>
-      <code><![CDATA[FlashMessenger]]></code>
-      <code><![CDATA[new Config([
-            'services'  => [
-                'config' => $config,
-            ],
-            'factories' => [
-                'ControllerPluginManager' => fn(ContainerInterface $services) => new PluginManager($services, [
-                    'invokables' => [
-                        'flashmessenger' => $this->mvcPluginClass,
-                    ],
-                ]),
-                'ViewHelperManager'       => static fn(ContainerInterface $services)
-                    => new HelperPluginManager($services),
-            ],
-        ])]]></code>
-      <code><![CDATA[new FlashMessenger()]]></code>
-      <code><![CDATA[new FlashMessenger()]]></code>
-      <code><![CDATA[new FlashMessenger()]]></code>
-      <code><![CDATA[new FlashMessenger()]]></code>
-      <code><![CDATA[new FlashMessenger()]]></code>
-      <code><![CDATA[new FlashMessenger()]]></code>
-    </DeprecatedClass>
-    <MixedAssignment>
-      <code><![CDATA[$displayInfo]]></code>
-      <code><![CDATA[$displayInfo]]></code>
-      <code><![CDATA[$displayInfo]]></code>
-      <code><![CDATA[$displayInfo]]></code>
-      <code><![CDATA[$helper]]></code>
-      <code><![CDATA[$helper]]></code>
-      <code><![CDATA[$helper]]></code>
-      <code><![CDATA[$helper]]></code>
-      <code><![CDATA[$helperPluginManager]]></code>
-      <code><![CDATA[$helperPluginManager]]></code>
-      <code><![CDATA[$helperPluginManager]]></code>
-      <code><![CDATA[$helperPluginManager]]></code>
-    </MixedAssignment>
-    <MixedMethodCall>
-      <code><![CDATA[get]]></code>
-      <code><![CDATA[get]]></code>
-      <code><![CDATA[get]]></code>
-      <code><![CDATA[get]]></code>
-      <code><![CDATA[render]]></code>
-      <code><![CDATA[render]]></code>
-      <code><![CDATA[renderCurrent]]></code>
-      <code><![CDATA[renderCurrent]]></code>
-    </MixedMethodCall>
-    <PossiblyInvalidMethodCall>
-      <code><![CDATA[hasCurrentErrorMessages]]></code>
-      <code><![CDATA[hasCurrentInfoMessages]]></code>
-      <code><![CDATA[hasCurrentMessages]]></code>
-      <code><![CDATA[hasCurrentSuccessMessages]]></code>
-      <code><![CDATA[hasErrorMessages]]></code>
-      <code><![CDATA[hasInfoMessages]]></code>
-      <code><![CDATA[hasMessages]]></code>
-      <code><![CDATA[hasSuccessMessages]]></code>
-      <code><![CDATA[hasWarningMessages]]></code>
-      <code><![CDATA[render]]></code>
-      <code><![CDATA[render]]></code>
-      <code><![CDATA[renderCurrent]]></code>
-      <code><![CDATA[renderCurrent]]></code>
-    </PossiblyInvalidMethodCall>
-  </file>
   <file src="test/Helper/GravatarTest.php">
     <PossiblyInvalidArgument>
       <code><![CDATA[$value]]></code>
@@ -2252,11 +1870,6 @@
       <code><![CDATA[offsetSetName]]></code>
     </UndefinedMagicMethod>
   </file>
-  <file src="test/Helper/HtmlFlashTest.php">
-    <DeprecatedClass>
-      <code><![CDATA[HtmlFlash]]></code>
-    </DeprecatedClass>
-  </file>
   <file src="test/Helper/HtmlListTest.php">
     <PossiblyUnusedParam>
       <code><![CDATA[$key]]></code>
@@ -2270,10 +1883,6 @@
     </MixedArgument>
   </file>
   <file src="test/Helper/Navigation/AbstractHelperTest.php">
-    <DeprecatedClass>
-      <code><![CDATA[NavigationHelper\Breadcrumbs]]></code>
-      <code><![CDATA[new NavigationHelper\Breadcrumbs()]]></code>
-    </DeprecatedClass>
     <MixedArgument>
       <code><![CDATA[$acl]]></code>
       <code><![CDATA[$acl]]></code>
@@ -2294,15 +1903,10 @@
   </file>
   <file src="test/Helper/Navigation/AbstractTestCase.php">
     <DeprecatedClass>
-      <code><![CDATA[AbstractHelper]]></code>
       <code><![CDATA[new Config((new RouterConfigProvider())->getDependencyConfig())]]></code>
     </DeprecatedClass>
   </file>
   <file src="test/Helper/Navigation/BreadcrumbsTest.php">
-    <DeprecatedClass>
-      <code><![CDATA[Breadcrumbs]]></code>
-      <code><![CDATA[new Breadcrumbs()]]></code>
-    </DeprecatedClass>
     <InvalidArgument>
       <code><![CDATA['Navigation']]></code>
       <code><![CDATA['Navigation']]></code>
@@ -2315,31 +1919,6 @@
     </NonInvariantDocblockPropertyType>
   </file>
   <file src="test/Helper/Navigation/LinksTest.php">
-    <DeprecatedClass>
-      <code><![CDATA[Navigation\Links]]></code>
-      <code><![CDATA[Navigation\Links::RENDER_ALTERNATE]]></code>
-      <code><![CDATA[Navigation\Links::RENDER_APPENDIX]]></code>
-      <code><![CDATA[Navigation\Links::RENDER_BOOKMARK]]></code>
-      <code><![CDATA[Navigation\Links::RENDER_CHAPTER]]></code>
-      <code><![CDATA[Navigation\Links::RENDER_CONTENTS]]></code>
-      <code><![CDATA[Navigation\Links::RENDER_CUSTOM]]></code>
-      <code><![CDATA[Navigation\Links::RENDER_GLOSSARY]]></code>
-      <code><![CDATA[Navigation\Links::RENDER_HELP]]></code>
-      <code><![CDATA[Navigation\Links::RENDER_INDEX]]></code>
-      <code><![CDATA[Navigation\Links::RENDER_NEXT]]></code>
-      <code><![CDATA[Navigation\Links::RENDER_NEXT]]></code>
-      <code><![CDATA[Navigation\Links::RENDER_NEXT]]></code>
-      <code><![CDATA[Navigation\Links::RENDER_NEXT]]></code>
-      <code><![CDATA[Navigation\Links::RENDER_NEXT]]></code>
-      <code><![CDATA[Navigation\Links::RENDER_PREV]]></code>
-      <code><![CDATA[Navigation\Links::RENDER_PREV]]></code>
-      <code><![CDATA[Navigation\Links::RENDER_PREV]]></code>
-      <code><![CDATA[Navigation\Links::RENDER_SECTION]]></code>
-      <code><![CDATA[Navigation\Links::RENDER_START]]></code>
-      <code><![CDATA[Navigation\Links::RENDER_STYLESHEET]]></code>
-      <code><![CDATA[Navigation\Links::RENDER_SUBSECTION]]></code>
-      <code><![CDATA[new Navigation\Links()]]></code>
-    </DeprecatedClass>
     <MixedArgument>
       <code><![CDATA[$active]]></code>
       <code><![CDATA[$active]]></code>
@@ -2481,10 +2060,6 @@
     </UnusedForeachValue>
   </file>
   <file src="test/Helper/Navigation/MenuTest.php">
-    <DeprecatedClass>
-      <code><![CDATA[Menu]]></code>
-      <code><![CDATA[new Menu()]]></code>
-    </DeprecatedClass>
     <InvalidArgument>
       <code><![CDATA['Navigation']]></code>
       <code><![CDATA['Navigation']]></code>
@@ -2510,32 +2085,6 @@
     </NonInvariantDocblockPropertyType>
   </file>
   <file src="test/Helper/Navigation/NavigationTest.php">
-    <DeprecatedClass>
-      <code><![CDATA[Navigation]]></code>
-      <code><![CDATA[Navigation\AbstractHelper::setDefaultAcl($acl)]]></code>
-      <code><![CDATA[Navigation\AbstractHelper::setDefaultAcl($acl)]]></code>
-      <code><![CDATA[Navigation\AbstractHelper::setDefaultAcl($acl)]]></code>
-      <code><![CDATA[Navigation\AbstractHelper::setDefaultAcl()]]></code>
-      <code><![CDATA[Navigation\AbstractHelper::setDefaultAcl(null)]]></code>
-      <code><![CDATA[Navigation\AbstractHelper::setDefaultAcl(null)]]></code>
-      <code><![CDATA[Navigation\AbstractHelper::setDefaultRole($expected)]]></code>
-      <code><![CDATA[Navigation\AbstractHelper::setDefaultRole($expected)]]></code>
-      <code><![CDATA[Navigation\AbstractHelper::setDefaultRole()]]></code>
-      <code><![CDATA[Navigation\AbstractHelper::setDefaultRole(1337)]]></code>
-      <code><![CDATA[Navigation\AbstractHelper::setDefaultRole(new stdClass())]]></code>
-      <code><![CDATA[Navigation\AbstractHelper::setDefaultRole(null)]]></code>
-      <code><![CDATA[Navigation\AbstractHelper::setDefaultRole(null)]]></code>
-      <code><![CDATA[Navigation\AbstractHelper::setDefaultRole(null)]]></code>
-      <code><![CDATA[Navigation\PluginManager::class]]></code>
-      <code><![CDATA[new Navigation()]]></code>
-      <code><![CDATA[new Navigation()]]></code>
-      <code><![CDATA[new Navigation()]]></code>
-      <code><![CDATA[new Navigation()]]></code>
-      <code><![CDATA[new Navigation()]]></code>
-      <code><![CDATA[new Navigation()]]></code>
-      <code><![CDATA[new Navigation()]]></code>
-      <code><![CDATA[new Navigation\PluginManager(new ServiceManager())]]></code>
-    </DeprecatedClass>
     <InvalidArgument>
       <code><![CDATA[function (int $code, string $message) {
             $this->errorHandlerMessage = $message;
@@ -2574,23 +2123,14 @@
   </file>
   <file src="test/Helper/Navigation/PluginManagerCompatibilityTest.php">
     <DeprecatedClass>
-      <code><![CDATA[AbstractHelper::class]]></code>
-      <code><![CDATA[Breadcrumbs::class]]></code>
-      <code><![CDATA[PluginManager]]></code>
       <code><![CDATA[new Config([
             'navigation' => [
                 'default' => [],
             ],
         ])]]></code>
-      <code><![CDATA[new PluginManager($services)]]></code>
-      <code><![CDATA[new PluginManager(new ServiceManager())]]></code>
     </DeprecatedClass>
   </file>
   <file src="test/Helper/Navigation/SitemapTest.php">
-    <DeprecatedClass>
-      <code><![CDATA[Sitemap]]></code>
-      <code><![CDATA[new Sitemap()]]></code>
-    </DeprecatedClass>
     <MixedArgument>
       <code><![CDATA[$acl['acl']]]></code>
       <code><![CDATA[$acl['acl']]]></code>
@@ -2889,13 +2429,7 @@
   </file>
   <file src="test/Helper/UrlTest.php">
     <DeprecatedClass>
-      <code><![CDATA[UrlHelper]]></code>
       <code><![CDATA[Wildcard::class]]></code>
-      <code><![CDATA[new UrlHelper()]]></code>
-      <code><![CDATA[new UrlHelper()]]></code>
-      <code><![CDATA[new UrlHelper()]]></code>
-      <code><![CDATA[new UrlHelper()]]></code>
-      <code><![CDATA[new UrlHelper()]]></code>
     </DeprecatedClass>
     <InvalidArgument>
       <code><![CDATA[$it]]></code>
@@ -2918,8 +2452,6 @@
   </file>
   <file src="test/HelperPluginManagerTest.php">
     <DeprecatedClass>
-      <code><![CDATA[Url::class]]></code>
-      <code><![CDATA[Url::class]]></code>
       <code><![CDATA[new Config(
             [
                 'factories' => [

@@ -21,7 +21,8 @@
             "php": "8.1.99"
         },
         "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "composer/package-versions-deprecated": true
         }
     },
     "require": {
@@ -46,7 +47,6 @@
         "laminas/laminas-modulemanager": "^2.17",
         "laminas/laminas-mvc": "^3.8.0",
         "laminas/laminas-mvc-i18n": "^1.9",
-        "laminas/laminas-mvc-plugin-flashmessenger": "^1.11.0",
         "laminas/laminas-navigation": "^2.20.0",
         "laminas/laminas-paginator": "^2.19.0",
         "laminas/laminas-permissions-acl": "^2.17",

@@ -8,15 +8,10 @@ use Laminas\View\Exception;
 use Laminas\View\Helper\Gravatar;
 use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
-use ReflectionMethod;
 
 use function method_exists;
-use function restore_error_handler;
-use function set_error_handler;
 use function strtoupper;
 use function urlencode;
-
-use const E_USER_DEPRECATED;
 
 /** @psalm-suppress DeprecatedClass */
 class GravatarTest extends TestCase
@@ -274,51 +269,5 @@ class GravatarTest extends TestCase
             'example@example.com',
             $this->helper->__invoke('Example@Example.com ')->getEmail()
         );
-    }
-
-    public function testSetAttribsIsDeprecated(): void
-    {
-        set_error_handler(function ($code, $error) {
-            throw new Exception\RuntimeException($error, $code);
-        }, E_USER_DEPRECATED);
-        try {
-            $this->helper->setAttribs([]);
-            $this->fail('An exception was not thrown');
-        } catch (Exception\RuntimeException $e) {
-            self::assertStringContainsString('setAttribs is deprecated', $e->getMessage());
-        } finally {
-            restore_error_handler();
-        }
-    }
-
-    public function testSetAttribsDocCommentHasDeprecated(): void
-    {
-        $method  = new ReflectionMethod($this->helper, 'setAttribs');
-        $comment = $method->getDocComment();
-
-        $this->assertStringContainsString('@deprecated', $comment);
-    }
-
-    public function testGetAttribsIsDeprecated(): void
-    {
-        set_error_handler(function ($code, $error) {
-            throw new Exception\RuntimeException($error, $code);
-        }, E_USER_DEPRECATED);
-        try {
-            $this->helper->getAttribs();
-            $this->fail('An exception was not thrown');
-        } catch (Exception\RuntimeException $e) {
-            self::assertStringContainsString('getAttribs is deprecated', $e->getMessage());
-        } finally {
-            restore_error_handler();
-        }
-    }
-
-    public function testGetAttribsDocCommentHasDeprecated(): void
-    {
-        $method  = new ReflectionMethod($this->helper, 'getAttribs');
-        $comment = $method->getDocComment();
-
-        $this->assertStringContainsString('@deprecated', $comment);
     }
 }
