@@ -44,6 +44,8 @@ use const E_USER_ERROR;
  * Base class for navigational helpers.
  *
  * Duck-types against Laminas\I18n\Translator\TranslatorAwareInterface.
+ *
+ * @deprecated This class has been moved to the `Laminas\Navigation` component and will be removed in 3.0
  */
 abstract class AbstractHelper extends View\Helper\AbstractHtmlElement implements
     EventManagerAwareInterface,

@@ -11,6 +11,8 @@ use Laminas\View\Helper\HelperInterface as BaseHelperInterface;
 
 /**
  * Interface for navigational helpers
+ *
+ * @deprecated This class has been moved to the `Laminas\Navigation` component and will be removed in 3.0
  */
 interface HelperInterface extends BaseHelperInterface
 {

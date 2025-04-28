@@ -541,6 +541,21 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/Navigation.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractNavigationHelper]]></code>
+      <code><![CDATA[Navigation\PluginManager]]></code>
+      <code><![CDATA[Navigation\PluginManager]]></code>
+      <code><![CDATA[Navigation\PluginManager|null]]></code>
+      <code><![CDATA[new Navigation\PluginManager($this->getServiceLocator())]]></code>
+      <code><![CDATA[parent::__call($method, $arguments)]]></code>
+      <code><![CDATA[parent::setView($view)]]></code>
+    </DeprecatedClass>
+    <DeprecatedInterface>
+      <code><![CDATA[($strict is true ? NavigationHelper : NavigationHelper|false)]]></code>
+      <code><![CDATA[Navigation]]></code>
+      <code><![CDATA[NavigationHelper]]></code>
+      <code><![CDATA[Navigation\PluginManager]]></code>
+    </DeprecatedInterface>
     <InvalidFunctionCall>
       <code><![CDATA[call_user_func_array($helper, $arguments)]]></code>
     </InvalidFunctionCall>
@@ -565,6 +580,12 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/Navigation/AbstractHelper.php">
+    <DeprecatedClass>
+      <code><![CDATA[AclListener::class]]></code>
+    </DeprecatedClass>
+    <DeprecatedInterface>
+      <code><![CDATA[AbstractHelper]]></code>
+    </DeprecatedInterface>
     <DocblockTypeContradiction>
       <code><![CDATA[! is_int($this->minDepth)]]></code>
       <code><![CDATA[! is_string($message)]]></code>
@@ -660,6 +681,12 @@
     </UnevaluatedCode>
   </file>
   <file src="src/Helper/Navigation/Breadcrumbs.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractHelper]]></code>
+    </DeprecatedClass>
+    <DeprecatedInterface>
+      <code><![CDATA[Breadcrumbs]]></code>
+    </DeprecatedInterface>
     <DocblockTypeContradiction>
       <code><![CDATA[null === $partial]]></code>
     </DocblockTypeContradiction>
@@ -736,6 +763,13 @@
     </PossiblyUnusedReturnValue>
   </file>
   <file src="src/Helper/Navigation/Links.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractHelper]]></code>
+      <code><![CDATA[parent::__call($method, $arguments)]]></code>
+    </DeprecatedClass>
+    <DeprecatedInterface>
+      <code><![CDATA[Links]]></code>
+    </DeprecatedInterface>
     <InvalidOperand>
       <code><![CDATA[$relFlag]]></code>
     </InvalidOperand>
@@ -826,6 +860,12 @@
     </PossiblyUnusedReturnValue>
   </file>
   <file src="src/Helper/Navigation/Menu.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractHelper]]></code>
+    </DeprecatedClass>
+    <DeprecatedInterface>
+      <code><![CDATA[Menu]]></code>
+    </DeprecatedInterface>
     <DocblockTypeContradiction>
       <code><![CDATA[null === $partial]]></code>
     </DocblockTypeContradiction>
@@ -945,11 +985,37 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/Navigation/PluginManager.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractHelper::class]]></code>
+      <code><![CDATA[Breadcrumbs::class]]></code>
+      <code><![CDATA[Breadcrumbs::class]]></code>
+      <code><![CDATA[Breadcrumbs::class]]></code>
+      <code><![CDATA[Breadcrumbs::class]]></code>
+      <code><![CDATA[Links::class]]></code>
+      <code><![CDATA[Links::class]]></code>
+      <code><![CDATA[Links::class]]></code>
+      <code><![CDATA[Links::class]]></code>
+      <code><![CDATA[Menu::class]]></code>
+      <code><![CDATA[Menu::class]]></code>
+      <code><![CDATA[Menu::class]]></code>
+      <code><![CDATA[Menu::class]]></code>
+      <code><![CDATA[PluginManager]]></code>
+      <code><![CDATA[Sitemap::class]]></code>
+      <code><![CDATA[Sitemap::class]]></code>
+      <code><![CDATA[Sitemap::class]]></code>
+      <code><![CDATA[Sitemap::class]]></code>
+    </DeprecatedClass>
     <NonInvariantDocblockPropertyType>
       <code><![CDATA[$aliases]]></code>
     </NonInvariantDocblockPropertyType>
   </file>
   <file src="src/Helper/Navigation/Sitemap.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractHelper]]></code>
+    </DeprecatedClass>
+    <DeprecatedInterface>
+      <code><![CDATA[Sitemap]]></code>
+    </DeprecatedInterface>
     <MissingConstructor>
       <code><![CDATA[$serverUrl]]></code>
     </MissingConstructor>
@@ -1370,6 +1436,9 @@
   </file>
   <file src="src/Helper/TranslatorAwareTrait.php">
     <DeprecatedClass>
+      <code><![CDATA[$this]]></code>
+      <code><![CDATA[$this]]></code>
+      <code><![CDATA[$this]]></code>
       <code><![CDATA[$this]]></code>
       <code><![CDATA[$this]]></code>
       <code><![CDATA[$this]]></code>
@@ -2201,6 +2270,10 @@
     </MixedArgument>
   </file>
   <file src="test/Helper/Navigation/AbstractHelperTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[NavigationHelper\Breadcrumbs]]></code>
+      <code><![CDATA[new NavigationHelper\Breadcrumbs()]]></code>
+    </DeprecatedClass>
     <MixedArgument>
       <code><![CDATA[$acl]]></code>
       <code><![CDATA[$acl]]></code>
@@ -2221,10 +2294,15 @@
   </file>
   <file src="test/Helper/Navigation/AbstractTestCase.php">
     <DeprecatedClass>
+      <code><![CDATA[AbstractHelper]]></code>
       <code><![CDATA[new Config((new RouterConfigProvider())->getDependencyConfig())]]></code>
     </DeprecatedClass>
   </file>
   <file src="test/Helper/Navigation/BreadcrumbsTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[Breadcrumbs]]></code>
+      <code><![CDATA[new Breadcrumbs()]]></code>
+    </DeprecatedClass>
     <InvalidArgument>
       <code><![CDATA['Navigation']]></code>
       <code><![CDATA['Navigation']]></code>
@@ -2237,6 +2315,31 @@
     </NonInvariantDocblockPropertyType>
   </file>
   <file src="test/Helper/Navigation/LinksTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[Navigation\Links]]></code>
+      <code><![CDATA[Navigation\Links::RENDER_ALTERNATE]]></code>
+      <code><![CDATA[Navigation\Links::RENDER_APPENDIX]]></code>
+      <code><![CDATA[Navigation\Links::RENDER_BOOKMARK]]></code>
+      <code><![CDATA[Navigation\Links::RENDER_CHAPTER]]></code>
+      <code><![CDATA[Navigation\Links::RENDER_CONTENTS]]></code>
+      <code><![CDATA[Navigation\Links::RENDER_CUSTOM]]></code>
+      <code><![CDATA[Navigation\Links::RENDER_GLOSSARY]]></code>
+      <code><![CDATA[Navigation\Links::RENDER_HELP]]></code>
+      <code><![CDATA[Navigation\Links::RENDER_INDEX]]></code>
+      <code><![CDATA[Navigation\Links::RENDER_NEXT]]></code>
+      <code><![CDATA[Navigation\Links::RENDER_NEXT]]></code>
+      <code><![CDATA[Navigation\Links::RENDER_NEXT]]></code>
+      <code><![CDATA[Navigation\Links::RENDER_NEXT]]></code>
+      <code><![CDATA[Navigation\Links::RENDER_NEXT]]></code>
+      <code><![CDATA[Navigation\Links::RENDER_PREV]]></code>
+      <code><![CDATA[Navigation\Links::RENDER_PREV]]></code>
+      <code><![CDATA[Navigation\Links::RENDER_PREV]]></code>
+      <code><![CDATA[Navigation\Links::RENDER_SECTION]]></code>
+      <code><![CDATA[Navigation\Links::RENDER_START]]></code>
+      <code><![CDATA[Navigation\Links::RENDER_STYLESHEET]]></code>
+      <code><![CDATA[Navigation\Links::RENDER_SUBSECTION]]></code>
+      <code><![CDATA[new Navigation\Links()]]></code>
+    </DeprecatedClass>
     <MixedArgument>
       <code><![CDATA[$active]]></code>
       <code><![CDATA[$active]]></code>
@@ -2378,6 +2481,10 @@
     </UnusedForeachValue>
   </file>
   <file src="test/Helper/Navigation/MenuTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[Menu]]></code>
+      <code><![CDATA[new Menu()]]></code>
+    </DeprecatedClass>
     <InvalidArgument>
       <code><![CDATA['Navigation']]></code>
       <code><![CDATA['Navigation']]></code>
@@ -2403,6 +2510,32 @@
     </NonInvariantDocblockPropertyType>
   </file>
   <file src="test/Helper/Navigation/NavigationTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[Navigation]]></code>
+      <code><![CDATA[Navigation\AbstractHelper::setDefaultAcl($acl)]]></code>
+      <code><![CDATA[Navigation\AbstractHelper::setDefaultAcl($acl)]]></code>
+      <code><![CDATA[Navigation\AbstractHelper::setDefaultAcl($acl)]]></code>
+      <code><![CDATA[Navigation\AbstractHelper::setDefaultAcl()]]></code>
+      <code><![CDATA[Navigation\AbstractHelper::setDefaultAcl(null)]]></code>
+      <code><![CDATA[Navigation\AbstractHelper::setDefaultAcl(null)]]></code>
+      <code><![CDATA[Navigation\AbstractHelper::setDefaultRole($expected)]]></code>
+      <code><![CDATA[Navigation\AbstractHelper::setDefaultRole($expected)]]></code>
+      <code><![CDATA[Navigation\AbstractHelper::setDefaultRole()]]></code>
+      <code><![CDATA[Navigation\AbstractHelper::setDefaultRole(1337)]]></code>
+      <code><![CDATA[Navigation\AbstractHelper::setDefaultRole(new stdClass())]]></code>
+      <code><![CDATA[Navigation\AbstractHelper::setDefaultRole(null)]]></code>
+      <code><![CDATA[Navigation\AbstractHelper::setDefaultRole(null)]]></code>
+      <code><![CDATA[Navigation\AbstractHelper::setDefaultRole(null)]]></code>
+      <code><![CDATA[Navigation\PluginManager::class]]></code>
+      <code><![CDATA[new Navigation()]]></code>
+      <code><![CDATA[new Navigation()]]></code>
+      <code><![CDATA[new Navigation()]]></code>
+      <code><![CDATA[new Navigation()]]></code>
+      <code><![CDATA[new Navigation()]]></code>
+      <code><![CDATA[new Navigation()]]></code>
+      <code><![CDATA[new Navigation()]]></code>
+      <code><![CDATA[new Navigation\PluginManager(new ServiceManager())]]></code>
+    </DeprecatedClass>
     <InvalidArgument>
       <code><![CDATA[function (int $code, string $message) {
             $this->errorHandlerMessage = $message;
@@ -2441,14 +2574,23 @@
   </file>
   <file src="test/Helper/Navigation/PluginManagerCompatibilityTest.php">
     <DeprecatedClass>
+      <code><![CDATA[AbstractHelper::class]]></code>
+      <code><![CDATA[Breadcrumbs::class]]></code>
+      <code><![CDATA[PluginManager]]></code>
       <code><![CDATA[new Config([
             'navigation' => [
                 'default' => [],
             ],
         ])]]></code>
+      <code><![CDATA[new PluginManager($services)]]></code>
+      <code><![CDATA[new PluginManager(new ServiceManager())]]></code>
     </DeprecatedClass>
   </file>
   <file src="test/Helper/Navigation/SitemapTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[Sitemap]]></code>
+      <code><![CDATA[new Sitemap()]]></code>
+    </DeprecatedClass>
     <MixedArgument>
       <code><![CDATA[$acl['acl']]]></code>
       <code><![CDATA[$acl['acl']]]></code>
