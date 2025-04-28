@@ -52,3 +52,4 @@ The impact of this future removal will affect templates that use a regular short
 The following view helpers are deprecated and will be removed in version 3.0 of `laminas-view`.
 
 - The [Json View Helper](../helpers/json.md)
+- The Navigation View Helper and all associated helpers, `Links`, `Menu`, `Sitemap`, `Breadcrumbs` along with its dedicated plugin manager will be removed in 3.0. These view helpers have been copied to the `laminas-navigation` component, and you can prepare for their removal by altering the namespace in your code from, for example `Laminas\View\Helper\Navigation\Menu` to `Laminas\Navigation\View\Helper\Menu`
