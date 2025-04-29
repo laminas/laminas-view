@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper;
 
-use Laminas\I18n\Translator\Translator;
+use Laminas\Translator\TranslatorInterface;
 use Laminas\View\Helper\HeadTitle;
 use PHPUnit\Framework\TestCase;
 
@@ -25,13 +25,13 @@ class HeadTitleTest extends TestCase
 
     public function testCanSetTitleViaHeadTitle(): void
     {
-        $placeholder = $this->helper->__invoke('Foo Bar', 'SET');
+        $placeholder = $this->helper->__invoke('Foo Bar');
         self::assertEquals('Foo Bar', $placeholder->renderTitle());
     }
 
     public function testToStringWrapsToTitleTag(): void
     {
-        $placeholder = $this->helper->__invoke('Foo Bar', 'SET');
+        $placeholder = $this->helper->__invoke('Foo Bar');
         self::assertEquals('<title>Foo Bar</title>', $placeholder->toString());
     }
 
@@ -44,16 +44,28 @@ class HeadTitleTest extends TestCase
 
     public function testCanPrependTitleViaHeadTitle(): void
     {
-        $this->helper->__invoke('Foo');
-        $placeholder = $this->helper->__invoke('Bar', 'PREPEND');
-        self::assertEquals('BarFoo', $placeholder->renderTitle());
+        $helper = new HeadTitle();
+        $helper->append('Foo');
+        $helper->prepend('Bar');
+
+        self::assertEquals('BarFoo', $helper->renderTitle());
     }
 
     public function testReturnedPlaceholderRenderTitleContainsFullTitleElement(): void
     {
-        $this->helper->__invoke('Foo');
-        $this->helper->__invoke('Bar', 'APPEND')->setSeparator(' :: ');
+        $this->helper->append('Foo');
+        $this->helper->append('Bar');
+        $this->helper->setSeparator(' :: ');
         self::assertEquals('Foo :: Bar', $this->helper->renderTitle());
+    }
+
+    public function testSetOverwritesExistingValues(): void
+    {
+        $helper = new HeadTitle();
+        $helper->append('Foo')
+            ->append('Bar')
+            ->set('Baz');
+        self::assertSame('Baz', $helper->renderTitle());
     }
 
     public function testRenderTitleEscapesEntries(): void
@@ -87,14 +99,13 @@ class HeadTitleTest extends TestCase
 
     public function testAutoEscapeIsHonored(): void
     {
-        $this->helper->__invoke('Some Title &copyright;');
-        $this->assertEquals('Some Title &amp;copyright;', $this->helper->renderTitle());
+        $helper = new HeadTitle();
+        $helper->append('Some Title &copyright;');
+        $this->assertEquals('Some Title &amp;copyright;', $helper->renderTitle());
 
-        $this->assertTrue($this->helper->__invoke()->getAutoEscape());
-        $this->helper->__invoke()->setAutoEscape(false);
-        $this->assertFalse($this->helper->__invoke()->getAutoEscape());
-
-        $this->assertEquals('Some Title &copyright;', $this->helper->renderTitle());
+        $helper = new HeadTitle(null, false);
+        $helper->append('Some Title &copyright;');
+        $this->assertEquals('Some Title &copyright;', $helper->renderTitle());
     }
 
     public function testThatAPrefixAndPostfixCanBeApplied(): void
@@ -108,7 +119,6 @@ class HeadTitleTest extends TestCase
 
     public function testThatPrefixAndPostfixAreEscapedProperly(): void
     {
-        $this->helper->setAutoEscape(true);
         $this->helper->__invoke('Some Title');
         $this->helper->setPrefix('Prefix & ');
         $this->helper->setPostfix(' & Postfix');
@@ -116,54 +126,54 @@ class HeadTitleTest extends TestCase
         $this->assertEquals('Prefix &amp; Some Title &amp; Postfix', $this->helper->renderTitle());
     }
 
-    public function testCanTranslateTitle(): void
+    private function getTranslator(): TranslatorInterface
     {
-        $loader               = new TestAsset\ArrayTranslator();
-        $loader->translations = [
-            'Message_1' => 'Message 1 (en)',
-        ];
-        $translator           = new Translator();
-        $translator->getPluginManager()->setService('default', $loader);
-        $translator->addTranslationFile('default', '');
+        return new class implements TranslatorInterface
+        {
+            /** @inheritDoc */
+            public function translate($message, $textDomain = 'default', $locale = null)
+            {
+                return match ($message) {
+                    'Foo' => 'Kermit',
+                    'Bar' => 'Fozzy Bear',
+                    default => 'Gonzo',
+                };
+            }
 
-        $this->helper->setTranslatorEnabled(true);
-        $this->helper->setTranslator($translator);
-        $this->helper->__invoke('Message_1');
-        $this->assertEquals('Message 1 (en)', $this->helper->renderTitle());
+            /** @inheritDoc */
+            public function translatePlural($singular, $plural, $number, $textDomain = 'default', $locale = null)
+            {
+                return 'Unused Method';
+            }
+        };
     }
 
-    public function testTranslatorMethods(): void
+    public function testCanTranslateTitle(): void
     {
-        $translatorMock = $this->createMock(Translator::class);
-        $this->helper->setTranslator($translatorMock, 'foo');
+        $translator = $this->getTranslator();
+        $helper     = new HeadTitle(
+            null,
+            true,
+            ' - ',
+            '',
+            '',
+            '',
+            $translator,
+        );
 
-        $this->assertEquals($translatorMock, $this->helper->getTranslator());
-        $this->assertEquals('foo', $this->helper->getTranslatorTextDomain());
-        $this->assertTrue($this->helper->hasTranslator());
-        $this->assertTrue($this->helper->isTranslatorEnabled());
+        $expect = '<title>Kermit - Fozzy Bear - Gonzo</title>';
 
-        $this->helper->setTranslatorEnabled(false);
-        $this->assertFalse($this->helper->isTranslatorEnabled());
+        $helper->append('Foo')
+            ->append('Bar')
+            ->append('Baz');
+
+        self::assertSame($expect, $helper->__toString());
     }
 
     public function testHeadTitleZero(): void
     {
         $this->helper->__invoke('0');
         $this->assertEquals('0', $this->helper->renderTitle());
-    }
-
-    public function testCanPrependTitlesUsingDefaultAttachOrder(): void
-    {
-        $this->helper->setDefaultAttachOrder('PREPEND');
-        $this->helper->__invoke('Foo');
-        $placeholder = $this->helper->__invoke('Bar');
-        $this->assertEquals('BarFoo', $placeholder->renderTitle());
-    }
-
-    public function testReturnTypeDefaultAttachOrder(): void
-    {
-        $this->assertInstanceOf(HeadTitle::class, $this->helper->setDefaultAttachOrder('PREPEND'));
-        $this->assertEquals('PREPEND', $this->helper->getDefaultAttachOrder());
     }
 
     public function testCommonMagicMethods(): void
@@ -174,5 +184,28 @@ class HeadTitleTest extends TestCase
         $this->helper->setSeparator(' ');
 
         self::assertSame('<title>Mary had a little lamb</title>', (string) $this->helper);
+    }
+
+    public function testExpectedBehaviourForResetState(): void
+    {
+        $helper = new HeadTitle(null, true, ' - ', "\t", 'Pre', 'Post');
+
+        self::assertSame("\t" . '<title>PrePost</title>', $helper->__toString());
+
+        $helper->append('Title');
+        $helper->append('1');
+
+        self::assertSame("\t" . '<title>PreTitle - 1Post</title>', $helper->__toString());
+
+        $helper->setIndent(' ')
+            ->setSeparator(' : ')
+            ->setPrefix('Foo')
+            ->setPostfix('Bar');
+
+        self::assertSame(' <title>FooTitle : 1Bar</title>', $helper->__toString());
+
+        $helper->resetState();
+
+        self::assertSame("\t" . '<title>PrePost</title>', $helper->__toString());
     }
 }

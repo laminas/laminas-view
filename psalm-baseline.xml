@@ -359,18 +359,6 @@
       <code><![CDATA[$indent]]></code>
     </UnusedParam>
   </file>
-  <file src="src/Helper/HeadTitle.php">
-    <DeprecatedMethod>
-      <code><![CDATA[getDefaultAttachOrder]]></code>
-    </DeprecatedMethod>
-    <DeprecatedProperty>
-      <code><![CDATA[$this->defaultAttachOrder]]></code>
-      <code><![CDATA[$this->defaultAttachOrder]]></code>
-    </DeprecatedProperty>
-    <DeprecatedTrait>
-      <code><![CDATA[TranslatorAwareTrait]]></code>
-    </DeprecatedTrait>
-  </file>
   <file src="src/Helper/HelperInterface.php">
     <PossiblyUnusedReturnValue>
       <code><![CDATA[HelperInterface]]></code>
@@ -616,6 +604,7 @@
     <PossiblyUnusedMethod>
       <code><![CDATA[__get]]></code>
       <code><![CDATA[__set]]></code>
+      <code><![CDATA[getAutoEscape]]></code>
     </PossiblyUnusedMethod>
     <RedundantCastGivenDocblockType>
       <code><![CDATA[(bool) $autoEscape]]></code>
@@ -737,22 +726,17 @@
       <code><![CDATA[$config]]></code>
     </MixedAssignment>
   </file>
-  <file src="src/Helper/TranslatorAwareTrait.php">
-    <DeprecatedInterface>
-      <code><![CDATA[Translator|null]]></code>
-      <code><![CDATA[Translator|null]]></code>
-      <code><![CDATA[Translator|null]]></code>
-    </DeprecatedInterface>
-    <RedundantCastGivenDocblockType>
-      <code><![CDATA[(bool) $enabled]]></code>
-    </RedundantCastGivenDocblockType>
-  </file>
   <file src="src/Helper/ViewModel.php">
     <PossiblyUnusedMethod>
       <code><![CDATA[hasRoot]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="src/HelperPluginManager.php">
+    <DeprecatedClass>
+      <code><![CDATA[Helper\Gravatar::class]]></code>
+      <code><![CDATA[Helper\Gravatar::class]]></code>
+      <code><![CDATA[Helper\Gravatar::class]]></code>
+    </DeprecatedClass>
     <DeprecatedInterface>
       <code><![CDATA[null|ConfigInterface|ContainerInterface]]></code>
     </DeprecatedInterface>
@@ -762,11 +746,8 @@
     </DocblockTypeContradiction>
     <MixedArgument>
       <code><![CDATA[$container->get('EventManager')]]></code>
-      <code><![CDATA[$container->get('MvcTranslator')]]></code>
-      <code><![CDATA[$container->get('Translator')]]></code>
     </MixedArgument>
     <MixedAssignment>
-      <code><![CDATA[$container]]></code>
       <code><![CDATA[$container]]></code>
     </MixedAssignment>
     <MixedInferredReturnType>
@@ -781,7 +762,6 @@
     <PossiblyUnusedMethod>
       <code><![CDATA[injectEventManager]]></code>
       <code><![CDATA[injectRenderer]]></code>
-      <code><![CDATA[injectTranslator]]></code>
       <code><![CDATA[validatePlugin]]></code>
     </PossiblyUnusedMethod>
     <PropertyTypeCoercion>
@@ -789,7 +769,6 @@
       <code><![CDATA[$this->initializers]]></code>
     </PropertyTypeCoercion>
     <UndefinedInterfaceMethod>
-      <code><![CDATA[getServiceLocator]]></code>
       <code><![CDATA[getServiceLocator]]></code>
     </UndefinedInterfaceMethod>
   </file>
@@ -1595,34 +1574,10 @@
       <code><![CDATA[new stdClass()]]></code>
     </InvalidArgument>
   </file>
-  <file src="test/Helper/TestAsset/ArrayTranslator.php">
-    <InvalidArgument>
-      <code><![CDATA[$this->translations]]></code>
-    </InvalidArgument>
-  </file>
   <file src="test/Helper/TestAsset/IteratorWithToArrayTestContainer.php">
     <MixedAssignment>
       <code><![CDATA[$value]]></code>
     </MixedAssignment>
-  </file>
-  <file src="test/HelperPluginManagerTest.php">
-    <DeprecatedClass>
-      <code><![CDATA[new Config([
-            'services' => [
-                'MvcTranslator' => $translator,
-            ],
-        ])]]></code>
-      <code><![CDATA[new Config([
-            'services' => [
-                'Translator' => $translator,
-            ],
-        ])]]></code>
-      <code><![CDATA[new Config([
-            'services' => [
-                TranslatorInterface::class => $translator,
-            ],
-        ])]]></code>
-    </DeprecatedClass>
   </file>
   <file src="test/Model/TestAsset/Variable.php">
     <MissingTemplateParam>
