@@ -136,6 +136,9 @@
     </MixedAssignment>
   </file>
   <file src="src/Helper/FlashMessenger.php">
+    <DeprecatedTrait>
+      <code><![CDATA[TranslatorAwareTrait]]></code>
+    </DeprecatedTrait>
     <DocblockTypeContradiction>
       <code><![CDATA[null === $this->pluginFlashMessenger]]></code>
     </DocblockTypeContradiction>
@@ -416,6 +419,18 @@
       <code><![CDATA[$indent]]></code>
     </UnusedParam>
   </file>
+  <file src="src/Helper/HeadTitle.php">
+    <DeprecatedMethod>
+      <code><![CDATA[getDefaultAttachOrder]]></code>
+    </DeprecatedMethod>
+    <DeprecatedProperty>
+      <code><![CDATA[$this->defaultAttachOrder]]></code>
+      <code><![CDATA[$this->defaultAttachOrder]]></code>
+    </DeprecatedProperty>
+    <DeprecatedTrait>
+      <code><![CDATA[TranslatorAwareTrait]]></code>
+    </DeprecatedTrait>
+  </file>
   <file src="src/Helper/HelperInterface.php">
     <PossiblyUnusedReturnValue>
       <code><![CDATA[HelperInterface]]></code>
@@ -586,6 +601,9 @@
     <DeprecatedInterface>
       <code><![CDATA[AbstractHelper]]></code>
     </DeprecatedInterface>
+    <DeprecatedTrait>
+      <code><![CDATA[TranslatorAwareTrait]]></code>
+    </DeprecatedTrait>
     <DocblockTypeContradiction>
       <code><![CDATA[! is_int($this->minDepth)]]></code>
       <code><![CDATA[! is_string($message)]]></code>

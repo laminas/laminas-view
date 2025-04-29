@@ -11,6 +11,10 @@ use Laminas\I18n\Translator\TranslatorInterface as Translator;
  *
  * This can be used by helpers that need to implement the interface,
  * whether via explicit implementation or duck typing.
+ *
+ * @deprecated Since 2.38.0 This trait will be removed in Version 3.0. Instead of using initializers and setter
+ *             injection, you should inject the translator into the constructor of your view helper so it cannot be
+ *             constructed in an invalid state.
  */
 trait TranslatorAwareTrait
 {
