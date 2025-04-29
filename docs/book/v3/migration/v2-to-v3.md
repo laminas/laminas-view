@@ -27,6 +27,28 @@ The method of configuring the resource map remains unchanged.
 The deprecated runtime retrieval and modification of the underlying authentication service has been removed and the service must be injected into the helper constructor.
 Specifically, the methods `Laminas\View\Helper\Identity::setAuthenticationService()` and `Laminas\View\Helper\Identity::getAuthenticationService()` have been removed.
 
+#### `HeadTitle` Helper
+
+The `HeadTitle` helper's inheritance hierarchy has changed and it no longer extends from anything.
+This means that a number of methods no longer exist, including, but not limited to:
+
+- `getContainer`
+- `setContainer`
+- `getContainerClass`
+- `setContainerClass`
+- `getEscaper`
+- `setEscaper`
+- `getIndent`
+- `getSeparator`
+- `getPrefix`
+- `getPostfix`
+- `getView`
+- `setView`
+- `offsetGet|Set|Unset|Exists`
+- `count` and more…
+
+Please consult the [updated documentation](../helpers/head-title.md) for further information.
+
 ## Removed Features
 
 ### Stream Wrapper Functionality
@@ -48,7 +70,23 @@ These helpers now have constructors that expect an [Escaper](https://docs.lamina
 
 The encoding defaults to UTF-8 as it has always done but can be overridden in configuration by setting `view_manager.encoding` to your preferred value.
 
+### Helper Plugin Manager Behaviour Changes
+
+#### Translator "Initializers"
+
+The plugin manager no longer attempts to automatically inject a translator into any plugins or helpers.
+If you previously relied on this behaviour, you will need to instead register a factory for your custom helper that injects the translator manually.
+
 ## Removed Class and Traits
+
+### `TranslatorAwareTrait`
+
+The `TranslatorAwareTrait` has been removed.
+It encouraged setter injection and runtime retrieval of a translator instance which is no longer supported.
+
+If you have a custom helper that requires a translator instance, you should instead inject the translator at construction time.
+This can be achieved by writing a custom factory for the helper.
+[Further information on writing and registering helpers](../helpers/advanced-usage.md).
 
 ### Removed Helpers
 

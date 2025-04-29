@@ -1,21 +1,9 @@
 # HeadTitle
 
 The HTML `<title>` element is used to **provide a title for an HTML document**.
-The `HeadTitle` helper allows you to programmatically create and store the title
-for later retrieval and output.
+The `HeadTitle` helper allows you to aggregate, append and prepend strings at runtime for output to the document head.
 
-The `HeadTitle` helper is a concrete implementation of the [Placeholder helper](placeholder.md).
-It overrides the `toString()` method to enforce generating a `<title>` element,
-and adds a `headTitle()` method for overwriting and aggregation of title
-elements. The signature for that method is `headTitle($title, $setType = null)`;
-by default, the value is appended to the stack (aggregating title segments) if
-left at `null`, but you may also specify either 'PREPEND' (place at top of
-stack) or 'SET' (overwrite stack).
-
-Since setting the aggregating (attach) order on each call to `headTitle` can be
-cumbersome, you can set a default attach order by calling
-`setDefaultAttachOrder()` which is applied to all `headTitle()` calls unless you
-explicitly pass a different attach order as the second parameter.
+It can be configured with strings to prefix or postfix the title site-wide, and can also be configured with a translator for internationalised website and applications.
 
 ## Basic Usage
 
@@ -41,8 +29,9 @@ Output:
 
 ### Add the Website Name
 
-A typical usage includes the website name in the title. Add the name and [set a
-separator](#using-separator) in the layout script, e.g.
+A typical usage includes the website name in the title.
+Add the name and [set a
+separator](#using-a-separator) in the layout script, e.g.
 `module/Application/view/layout/layout.phtml`
 
 ```php
@@ -68,110 +57,58 @@ echo $this->headTitle(); // <title>My albumsMusic</title>
 
 ### Append Content
 
-To explicitly append content, the second paramater `$setType` or the concrete
-method `append()` of the helper can be used:
+To explicitly append content, call the `append()` method of the helper:
 
-<!-- markdownlint-disable code-block-style -->
-=== "Invoke Usage"
-    ```php
-    $this->headTitle('My albums')
-    $this->headTitle('Music', 'APPEND');
+```php
+$this->headTitle()->setSeparator(' - ');
+$this->headTitle()->append('My albums');
+$this->headTitle()->append('Music');
 
-    echo $this->headTitle(); // <title>My albumsMusic</title>
-    ```
-
-=== "Setter Usage"
-    ```php
-    $this->headTitle('My albums')
-    $this->headTitle()->append('Music');
-
-    echo $this->headTitle(); // <title>My albumsMusic</title>
-    ```
-<!-- markdownlint-enable code-block-style -->
-
-The constant `Laminas\View\Helper\Placeholder\Container\AbstractContainer::APPEND`
-can also be used as value for the second parameter `$setType`.
+echo $this->headTitle(); // <title>My albums - Music</title>
+```
 
 ### Prepend Content
 
-To prepend content, the second paramater `$setType` or the concrete method
-`prepend()` of the helper can be used:
+To prepend content, call the `prepend()` method of the helper:
 
-<!-- markdownlint-disable code-block-style -->
-=== "Invoke Usage"
-    ```php
-    $this->headTitle('My albums')
-    $this->headTitle('Music', 'PREPEND');
+```php
+$this->headTitle()->setSeparator(' - ');
+$this->headTitle('My albums');
+$this->headTitle()->prepend('Music');
 
-    echo $this->headTitle(); // <title>MusicMy albums</title>
-    ```
-
-=== "Setter Usage"
-    ```php
-    $this->headTitle('My albums')
-    $this->headTitle()->prepend('Music');
-
-    echo $this->headTitle(); // <title>MusicMy albums</title>
-    ```
-<!-- markdownlint-enable code-block-style -->
-
-The constant `Laminas\View\Helper\Placeholder\Container\AbstractContainer::PREPEND`
-can also be used as value for the second parameter `$setType`.
+echo $this->headTitle(); // <title>Music - My albums</title>
+```
 
 ### Overwrite existing Content
 
-To overwrite the entire content of title helper, the second parameter `$setType`
-or the concrete method `set()` of the helper can be used:
-
-<!-- markdownlint-disable code-block-style -->
-=== "Invoke Usage"
-    ```php
-    $this->headTitle('My albums')
-    $this->headTitle('Music', 'SET');
-
-    echo $this->headTitle(); // <title>Music</title>
-    ```
-
-=== "Setter Usage"
-    ```php
-    $this->headTitle('My albums')
-    $this->headTitle()->set('Music');
-
-    echo $this->headTitle(); // <title>Music</title>
-    ```
-<!-- markdownlint-enable code-block-style -->
-
-The constant `Laminas\View\Helper\Placeholder\Container\AbstractContainer::SET`
-can also be used as value for the second parameter `$setType`.
-
-### Set a default Order to add Content
+To overwrite all aggregated content stored inside the helper, call the `set()` method:
 
 ```php
-$this->headTitle()->setDefaultAttachOrder('PREPEND');
 $this->headTitle('My albums');
-$this->headTitle('Music');
+$this->headTitle()->set('Music');
 
-echo $this->headTitle(); // <title>MusicMy albums</title>
+echo $this->headTitle(); // <title>Music</title>
 ```
 
-#### Get Current Value
+## Automatic Content Escaping
 
-To get the current value of this option, use the `getDefaultAttachOrder()`
-method.
+By default, all content passed to `headTitle()` is escaped during output:
 
 ```php
-$this->headTitle()->setDefaultAttachOrder('PREPEND');
-
-echo $this->headTitle()->getDefaultAttachOrder(); // PREPEND
+echo $this->headTitle('"1 & 2"'); // <title>&amp;quot;1 &amp;amp; 2&amp;quot;</title>
 ```
 
-#### Default Value
+This behaviour can turned off in [configuration](#configuring-options-outside-the-view-layer) which would require you to manually escape all input passed to the `headTitle()` helper, for example:
 
-The default value is
-`Laminas\View\Helper\Placeholder\Container\AbstractContainer::APPEND` which
-corresponds to the value `APPEND`.
+```php
+echo $this->headTitle($this->escapeHtml('"1 & 2"'));
+```
 
-## Using Separator
+… or be confident that all content provided to the helper is already correctly escaped.
+
+Failing to escape user-supplied strings for output introduces security risks in your application.
+
+## Using a Separator
 
 ```php
 $this->headTitle()->setSeparator(' | ');
@@ -179,17 +116,6 @@ $this->headTitle('My albums');
 $this->headTitle('Music');
 
 echo $this->headTitle(); // <title>My albums | Music</title>
-```
-
-### Get Current Value
-
-To get the current value of this option, use the `getSeparator()`
-method.
-
-```php
-$this->headTitle()->setSeparator(' | ');
-
-echo $this->headTitle()->getSeparator(); //  |
 ```
 
 ### Default Value
@@ -202,13 +128,15 @@ between the titles on rendering.
 The content of the helper can be formatted with a prefix and a postfix.
 
 ```php
-$this->headTitle('My albums')->setPrefix('Music: ')->setPostfix('𝄞');
+$this->headTitle('My albums')
+    ->setPrefix('Music: ')
+    ->setPostfix(' 𝄞');
 
 echo $this->headTitle(); // <title>Music: My albums 𝄞</title>
 ```
 
-More descriptions and another example of usage can be found at the
-[`Placeholder` helper](placeholder.md#aggregate-content).
+Note that no separator or any other content is added between the aggregated title and the prefix or postfix;
+You will need to add the correct whitespace yourself.
 
 ## Render without Tags
 
@@ -218,3 +146,45 @@ In case the title is needed without the `<title>` and `</title>` tags the
 ```php
 echo $this->headTitle('My albums')->renderTitle(); // My albums
 ```
+
+## Configuring Options Outside the View Layer
+
+The `HeadTitle` helper has a number of options that can be configured as defaults to negate the need to call setter methods prior to output.
+
+The following configuration snippet displays the available options with the default value for each:
+
+```php
+return [
+    'view_helper_config' => [
+        'head_title' => [
+            'indent' => '',
+            'separator' => '',
+            'prefix' => '',
+            'postfix' => '',
+            'auto_escape' => true,
+            'text_domain' => 'default',
+        ],
+        // …Other Helper Options…
+    ],
+    // …Other application configuration…
+];
+```
+
+Providing the configuration is available in your DI container under the `config` identifier, the factory registered for the `HeadTitle` helper will inject those values into the constructor during initialisation.
+
+### Option Descriptions
+
+- `indent` - A string, typically whitespace, applied prior to the opening `<title>` tag
+- `separator` - A string applied between aggregated title values
+- `prefix` - A string applied prior to the desired title value
+- `postfix` - A string applied after the desired title value
+- `auto_escape` - A boolean value to enable or disable automatic escaping of output.
+- `text_domain` - The translator text domain to use during translation of the title.
+
+## Translation
+
+By default, the registered factory will attempt to retrieve a `Laminas\Translator\TranslatorInterface` instance from the DI container and inject this translator into the `HeadTitle` helper during construction.
+
+When a translator is found, each title value will be automatically translated by your configured translator.
+
+Please consult the [`laminas-i18n` documentation](https://docs.laminas.dev/laminas-i18n/translation/) for further details.

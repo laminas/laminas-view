@@ -6,8 +6,6 @@ namespace Laminas\View;
 
 use Laminas\EventManager\EventManagerAwareInterface;
 use Laminas\EventManager\SharedEventManagerInterface;
-use Laminas\I18n\Translator\TranslatorAwareInterface;
-use Laminas\I18n\Translator\TranslatorInterface;
 use Laminas\ServiceManager\AbstractPluginManager;
 use Laminas\ServiceManager\ConfigInterface;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
@@ -20,7 +18,6 @@ use Psr\Container\ContainerInterface;
 use function gettype;
 use function is_callable;
 use function is_object;
-use function method_exists;
 use function sprintf;
 
 /**
@@ -42,7 +39,7 @@ class HelperPluginManager extends AbstractPluginManager
      * Most of these are present for legacy purposes, as v2 of the service
      * manager normalized names when fetching services.
      *
-     * @psalm-suppress DeprecatedClass, NonInvariantDocblockPropertyType
+     * @psalm-suppress NonInvariantDocblockPropertyType
      * @var non-empty-array<string, class-string>
      */
     protected $aliases = [
@@ -147,8 +144,6 @@ class HelperPluginManager extends AbstractPluginManager
      * helper works fine as an invokable. The factory for doctype simply checks for the
      * config value from the merged config.
      *
-     * @psalm-suppress DeprecatedClass
-     *
      * {@inheritDoc}
      */
     protected $factories = [
@@ -172,7 +167,7 @@ class HelperPluginManager extends AbstractPluginManager
         Helper\HeadMeta::class            => InvokableFactory::class,
         Helper\HeadScript::class          => InvokableFactory::class,
         Helper\HeadStyle::class           => InvokableFactory::class,
-        Helper\HeadTitle::class           => InvokableFactory::class,
+        Helper\HeadTitle::class           => Helper\Service\HeadTitleFactory::class,
         Helper\HtmlList::class            => InvokableFactory::class,
         Helper\HtmlObject::class          => InvokableFactory::class,
         Helper\HtmlPage::class            => InvokableFactory::class,
@@ -241,7 +236,6 @@ class HelperPluginManager extends AbstractPluginManager
     public function __construct($configOrContainerInstance = null, array $v3config = [])
     {
         $this->initializers[] = [$this, 'injectRenderer'];
-        $this->initializers[] = [$this, 'injectTranslator'];
         $this->initializers[] = [$this, 'injectEventManager'];
 
         parent::__construct($configOrContainerInstance, $v3config);
@@ -294,66 +288,6 @@ class HelperPluginManager extends AbstractPluginManager
             return;
         }
         $helper->setView($renderer);
-    }
-
-    /**
-     * Inject a helper instance with the registered translator
-     *
-     * @deprecated Since 2.38.0 This method will be removed in 3.0 without replacement. If your view helper requires a
-     *             translator, you should instead create a factory and inject the translator into the helper constructor
-     *
-     * @param ContainerInterface|HelperInterface $first helper instance
-     *     under laminas-servicemanager v2, ContainerInterface under v3.
-     * @param ContainerInterface|HelperInterface $second
-     *     ContainerInterface under laminas-servicemanager v3, helper instance
-     *     under v2. Ignored regardless.
-     * @return void
-     */
-    public function injectTranslator($first, $second)
-    {
-        if ($first instanceof ContainerInterface) {
-            // v3 usage
-            $container = $first;
-            $helper    = $second;
-        } else {
-            // v2 usage; grab the parent container
-            $container = $second->getServiceLocator();
-            $helper    = $first;
-        }
-
-        // Allow either direct implementation or duck-typing.
-        if (
-            ! $helper instanceof TranslatorAwareInterface
-            && ! method_exists($helper, 'setTranslator')
-        ) {
-            return;
-        }
-
-        if (! $container instanceof ContainerInterface) {
-            // Under laminas-navigation v2.5, the navigation PluginManager is
-            // always lazy-loaded, which means it never has a parent
-            // container.
-            return;
-        }
-
-        if (method_exists($helper, 'hasTranslator') && $helper->hasTranslator() === true) {
-            return;
-        }
-
-        if ($container->has('MvcTranslator')) {
-            $helper->setTranslator($container->get('MvcTranslator'));
-            return;
-        }
-
-        if ($container->has(TranslatorInterface::class)) {
-            $helper->setTranslator($container->get(TranslatorInterface::class));
-            return;
-        }
-
-        if ($container->has('Translator')) {
-            $helper->setTranslator($container->get('Translator'));
-            return;
-        }
     }
 
     /**
