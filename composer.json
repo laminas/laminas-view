@@ -54,7 +54,7 @@
         "laminas/laminas-uri": "^2.13",
         "phpunit/phpunit": "^10.5.45",
         "psalm/plugin-phpunit": "^0.19.0",
-        "vimeo/psalm": "^5.26.1"
+        "vimeo/psalm": "^6.0.0"
     },
     "conflict": {
         "container-interop/container-interop": "<1.2",
