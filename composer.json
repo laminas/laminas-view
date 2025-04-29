@@ -60,7 +60,9 @@
         "container-interop/container-interop": "<1.2",
         "laminas/laminas-session": "<2.12",
         "laminas/laminas-router": "<3.0.1",
-        "zendframework/zend-view": "*"
+        "zendframework/zend-view": "*",
+        "amphp/dns": "<2.1.2",
+        "amphp/socket": "<2.3.1"
     },
     "suggest": {
         "laminas/laminas-authentication": "Laminas\\Authentication component",
