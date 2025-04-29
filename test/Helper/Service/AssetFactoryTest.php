@@ -11,7 +11,7 @@ use Laminas\View\Helper\Service\AssetFactory;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-class AssetFactoryTest extends TestCase
+final class AssetFactoryTest extends TestCase
 {
     /**
      * @deprecated for removal in 3.0

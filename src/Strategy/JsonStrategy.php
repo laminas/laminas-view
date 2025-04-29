@@ -14,6 +14,7 @@ use function in_array;
 use function is_string;
 use function strtoupper;
 
+/** @final */
 class JsonStrategy extends AbstractListenerAggregate
 {
     /**

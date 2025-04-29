@@ -7,7 +7,7 @@ namespace LaminasTest\View\Helper\TestAsset;
 use Laminas\I18n\Translator\Loader\FileLoaderInterface;
 use Laminas\I18n\Translator\TextDomain;
 
-class ArrayTranslator implements FileLoaderInterface
+final class ArrayTranslator implements FileLoaderInterface
 {
     /** @var string[]|null */
     public $translations;

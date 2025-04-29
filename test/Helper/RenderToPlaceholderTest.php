@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 use function assert;
 
-class RenderToPlaceholderTest extends TestCase
+final class RenderToPlaceholderTest extends TestCase
 {
     private View $view;
     private RenderToPlaceholder $helper;

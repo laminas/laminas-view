@@ -6,6 +6,7 @@ namespace Laminas\View\Helper;
 
 use function array_merge;
 
+/** @final */
 class HtmlPage extends AbstractHtmlElement
 {
     /**

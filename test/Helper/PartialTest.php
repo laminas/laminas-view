@@ -15,7 +15,7 @@ use stdClass;
 use function get_object_vars;
 use function sprintf;
 
-class PartialTest extends TestCase
+final class PartialTest extends TestCase
 {
     /** @var Partial */
     public $helper;

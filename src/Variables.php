@@ -27,6 +27,7 @@ use const E_USER_NOTICE;
  * @todo       Move escaping into variables object
  * @todo       Move strict variables into variables object
  * @extends ArrayObject<string, mixed>
+ * @final
  */
 class Variables extends ArrayObject
 {

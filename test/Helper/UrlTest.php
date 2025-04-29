@@ -18,7 +18,7 @@ use Laminas\View\Helper\Url as UrlHelper;
 use PHPUnit\Framework\TestCase;
 use ReflectionObject;
 
-class UrlTest extends TestCase
+final class UrlTest extends TestCase
 {
     private SimpleRouteStack $router;
 

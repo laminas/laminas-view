@@ -20,7 +20,7 @@ use function trim;
 /**
  * @psalm-suppress MissingConstructor
  */
-class SitemapTest extends AbstractTestCase
+final class SitemapTest extends AbstractTestCase
 {
     /** @var array<string, string> */
     private array $oldServer = [];

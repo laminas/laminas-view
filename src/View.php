@@ -16,6 +16,7 @@ use Laminas\View\Renderer\TreeRendererInterface;
 use function array_key_exists;
 use function sprintf;
 
+/** @final */
 class View implements EventManagerAwareInterface
 {
     /** @var EventManagerInterface */

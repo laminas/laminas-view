@@ -19,7 +19,7 @@ use stdClass;
 use function realpath;
 
 #[CoversClass(RelativeFallbackResolver::class)]
-class RelativeFallbackResolverTest extends TestCase
+final class RelativeFallbackResolverTest extends TestCase
 {
     public function testReturnsResourceFromTheSameNameSpaceWithMapResolver(): void
     {

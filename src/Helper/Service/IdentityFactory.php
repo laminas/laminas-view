@@ -13,6 +13,7 @@ use Laminas\View\Helper\Identity;
 
 /**
  * @psalm-suppress DeprecatedInterface
+ * @final
  */
 class IdentityFactory implements FactoryInterface
 {

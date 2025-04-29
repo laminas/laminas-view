@@ -12,7 +12,7 @@ use function str_replace;
 
 use const DIRECTORY_SEPARATOR;
 
-class DeclareVarsTest extends TestCase
+final class DeclareVarsTest extends TestCase
 {
     private View $view;
 

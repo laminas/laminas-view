@@ -9,7 +9,7 @@ use Laminas\View\Model\JsonModel;
 use Laminas\View\Variables;
 use PHPUnit\Framework\TestCase;
 
-class JsonModelTest extends TestCase
+final class JsonModelTest extends TestCase
 {
     public function testAllowsEmptyConstructor(): void
     {

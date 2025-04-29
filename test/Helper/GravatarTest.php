@@ -19,7 +19,7 @@ use function urlencode;
 use const E_USER_DEPRECATED;
 
 /** @psalm-suppress DeprecatedClass */
-class GravatarTest extends TestCase
+final class GravatarTest extends TestCase
 {
     /** @var Gravatar */
     protected $helper;

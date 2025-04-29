@@ -71,7 +71,6 @@ class PluginManager extends HelperPluginManager
 
     /**
      * @param ContainerInterface $configOrContainerInstance
-     * @param array $v3config
      * @psalm-param ServiceManagerConfiguration $v3config
      */
     public function __construct($configOrContainerInstance = null, array $v3config = [])

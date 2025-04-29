@@ -19,7 +19,7 @@ use ReflectionProperty;
 use function class_exists;
 use function strpos;
 
-class HelperPluginManagerCompatibilityTest extends TestCase
+final class HelperPluginManagerCompatibilityTest extends TestCase
 {
     use CommonPluginManagerTrait;
 

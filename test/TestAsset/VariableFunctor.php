@@ -7,7 +7,7 @@ namespace LaminasTest\View\TestAsset;
 /**
  * @template T
  */
-class VariableFunctor
+final class VariableFunctor
 {
     /** @var T|null */
     public $value;

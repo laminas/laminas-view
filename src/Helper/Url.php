@@ -23,6 +23,8 @@ use function sprintf;
  *
  * @deprecated The URL helper will be removed in 3.0 and relocated to the `laminas-mvc-view` package because it is an
  *             MVC specific implementation.
+ *
+ * @final
  */
 class Url extends AbstractHelper
 {

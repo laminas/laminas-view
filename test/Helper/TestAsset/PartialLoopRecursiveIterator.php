@@ -12,7 +12,7 @@ use function next;
 use function reset;
 
 /** @implements Iterator<array-key, Iterator> */
-class PartialLoopRecursiveIterator implements Iterator
+final class PartialLoopRecursiveIterator implements Iterator
 {
     /** @var array<array-key, Iterator> */
     public array $items;

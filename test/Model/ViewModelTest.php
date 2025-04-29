@@ -18,7 +18,7 @@ use stdClass;
 use function count;
 use function iterator_to_array;
 
-class ViewModelTest extends TestCase
+final class ViewModelTest extends TestCase
 {
     public function testImplementsModelInterface(): void
     {

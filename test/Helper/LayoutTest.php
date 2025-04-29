@@ -11,7 +11,7 @@ use Laminas\View\Model\ViewModel;
 use Laminas\View\Renderer\PhpRenderer;
 use PHPUnit\Framework\TestCase;
 
-class LayoutTest extends TestCase
+final class LayoutTest extends TestCase
 {
     private Layout $helper;
     private ViewModel $parent;

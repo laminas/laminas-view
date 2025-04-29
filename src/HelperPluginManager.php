@@ -33,6 +33,7 @@ use function sprintf;
  * @template InstanceType of HelperInterface|callable
  * @extends AbstractPluginManager<HelperInterface|callable>
  * @psalm-import-type ServiceManagerConfiguration from ServiceManager
+ * @final
  */
 class HelperPluginManager extends AbstractPluginManager
 {

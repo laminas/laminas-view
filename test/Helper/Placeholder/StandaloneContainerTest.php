@@ -13,7 +13,7 @@ use LaminasTest\View\Helper\TestAsset\Bar;
 use LaminasTest\View\Helper\TestAsset\Foo;
 use PHPUnit\Framework\TestCase;
 
-class StandaloneContainerTest extends TestCase
+final class StandaloneContainerTest extends TestCase
 {
     private Foo $helper;
 

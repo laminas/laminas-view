@@ -8,7 +8,7 @@ use Exception;
 use Laminas\View\Resolver;
 use PHPUnit\Framework\TestCase;
 
-class AggregateResolverTest extends TestCase
+final class AggregateResolverTest extends TestCase
 {
     public function testAggregateIsEmptyByDefault(): void
     {

@@ -8,7 +8,7 @@ use Laminas\View\Helper\HtmlPage;
 use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
 
-class HtmlPageTest extends TestCase
+final class HtmlPageTest extends TestCase
 {
     /** @var HtmlPage */
     public $helper;

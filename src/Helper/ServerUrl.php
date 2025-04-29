@@ -15,6 +15,8 @@ use function trim;
 
 /**
  * Helper for returning the current server URL (optionally with request URI)
+ *
+ * @final
  */
 class ServerUrl extends AbstractHelper
 {

@@ -16,6 +16,8 @@ use function method_exists;
 
 /**
  * Helper for rendering a template fragment in its own variable scope.
+ *
+ * @final
  */
 class Partial extends AbstractHelper
 {

@@ -7,7 +7,7 @@ namespace LaminasTest\View\Helper;
 use Laminas\View\Helper;
 use PHPUnit\Framework\TestCase;
 
-class InlineScriptTest extends TestCase
+final class InlineScriptTest extends TestCase
 {
     /** @var Helper\InlineScript */
     public $helper;

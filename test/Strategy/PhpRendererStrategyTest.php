@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 use function iterator_to_array;
 
-class PhpRendererStrategyTest extends TestCase
+final class PhpRendererStrategyTest extends TestCase
 {
     use EventListenerIntrospectionTrait;
 

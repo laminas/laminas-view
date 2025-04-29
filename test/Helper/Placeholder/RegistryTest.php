@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @psalm-suppress DeprecatedClass, DeprecatedMethod
  */
-class RegistryTest extends TestCase
+final class RegistryTest extends TestCase
 {
     /** @var Registry */
     public $registry;

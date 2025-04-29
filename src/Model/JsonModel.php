@@ -8,6 +8,7 @@ use Laminas\Json\Json;
 use Laminas\Stdlib\ArrayUtils;
 use Traversable;
 
+/** @final */
 class JsonModel extends ViewModel
 {
     /**

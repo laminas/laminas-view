@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 use function realpath;
 
 #[CoversClass(PrefixPathStackResolver::class)]
-class PrefixPathStackResolverTest extends TestCase
+final class PrefixPathStackResolverTest extends TestCase
 {
     private string $basePath;
 

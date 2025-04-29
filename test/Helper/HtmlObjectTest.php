@@ -10,7 +10,7 @@ use Laminas\View\Renderer\PhpRenderer as View;
 use Laminas\View\Renderer\RendererInterface;
 use PHPUnit\Framework\TestCase;
 
-class HtmlObjectTest extends TestCase
+final class HtmlObjectTest extends TestCase
 {
     private HtmlObject $helper;
     private View $view;

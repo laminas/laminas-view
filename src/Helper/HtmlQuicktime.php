@@ -6,7 +6,11 @@ namespace Laminas\View\Helper;
 
 use function array_merge;
 
-/** @deprecated */
+/**
+ * @deprecated
+ *
+ * @final
+ */
 class HtmlQuicktime extends AbstractHtmlElement
 {
     /**

@@ -18,6 +18,8 @@ use function strtolower;
 
 /**
  * Class for Laminas\View\Strategy\FeedStrategy compatible template engine implementations
+ *
+ * @final
  */
 class FeedRenderer implements RendererInterface
 {

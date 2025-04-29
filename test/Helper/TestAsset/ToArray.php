@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper\TestAsset;
 
-class ToArray
+final class ToArray
 {
     /** @var mixed[] */
     public $array = [];

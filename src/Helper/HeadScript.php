@@ -48,6 +48,7 @@ use const PHP_EOL;
  *     source: string|null,
  * }
  * @extends AbstractStandalone<int, ObjectShape>
+ * @final
  */
 class HeadScript extends AbstractStandalone
 {

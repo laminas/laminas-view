@@ -22,7 +22,7 @@ use function json_encode;
 use function sprintf;
 use function var_export;
 
-class ViewTest extends TestCase
+final class ViewTest extends TestCase
 {
     /** @var stdClass */
     private $result;

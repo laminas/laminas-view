@@ -20,7 +20,7 @@ use function substr_count;
 
 use const PHP_EOL;
 
-class ContainerTest extends TestCase
+final class ContainerTest extends TestCase
 {
     /** @var Container<string|int, string> */
     private Container $container;

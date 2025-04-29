@@ -29,7 +29,7 @@ use const PHP_EOL;
 /**
  * @psalm-suppress MissingConstructor
  */
-class NavigationTest extends AbstractTestCase
+final class NavigationTest extends AbstractTestCase
 {
     /**
      * View helper

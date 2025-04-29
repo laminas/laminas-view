@@ -21,6 +21,8 @@ use const E_USER_DEPRECATED;
  *
  * @deprecated since >= 2.20.0. This class is currently unused and will be removed in version 3.0 of this component.
  *             There is no replacement.
+ *
+ * @final
  */
 class Registry
 {
@@ -120,7 +122,6 @@ class Registry
      * createContainer
      *
      * @param  string $key
-     * @param  array  $value
      * @return AbstractContainer
      */
     public function createContainer($key, array $value = [])

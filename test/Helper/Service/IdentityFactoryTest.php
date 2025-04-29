@@ -13,7 +13,7 @@ use LaminasTest\View\Helper\TestAsset\AuthenticationServiceStub;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-class IdentityFactoryTest extends TestCase
+final class IdentityFactoryTest extends TestCase
 {
     public function testThatAHelperCanBeCreatedWhenThereAreNoAuthenticationServicesFound(): void
     {

@@ -11,7 +11,7 @@ use Laminas\View\Renderer\PhpRenderer;
 use Laminas\View\ViewEvent;
 use PHPUnit\Framework\TestCase;
 
-class ViewEventTest extends TestCase
+final class ViewEventTest extends TestCase
 {
     /** @var ViewEvent */
     protected $event;
