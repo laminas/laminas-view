@@ -359,6 +359,18 @@
       <code><![CDATA[$indent]]></code>
     </UnusedParam>
   </file>
+  <file src="src/Helper/HeadTitle.php">
+    <DeprecatedMethod>
+      <code><![CDATA[getDefaultAttachOrder]]></code>
+    </DeprecatedMethod>
+    <DeprecatedProperty>
+      <code><![CDATA[$this->defaultAttachOrder]]></code>
+      <code><![CDATA[$this->defaultAttachOrder]]></code>
+    </DeprecatedProperty>
+    <DeprecatedTrait>
+      <code><![CDATA[TranslatorAwareTrait]]></code>
+    </DeprecatedTrait>
+  </file>
   <file src="src/Helper/HelperInterface.php">
     <PossiblyUnusedReturnValue>
       <code><![CDATA[HelperInterface]]></code>
