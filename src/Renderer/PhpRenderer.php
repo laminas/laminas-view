@@ -70,7 +70,6 @@ use function sprintf;
  * @method mixed|null identity()
  * @method \Laminas\View\Helper\InlineScript inlineScript($mode = \Laminas\View\Helper\HeadScript::FILE, $spec = null, $placement = 'APPEND', array $attrs = array(), $type = 'text/javascript')
  *  @method Model|\Laminas\View\Helper\Layout layout($template = null)
- * @method \Laminas\View\Helper\Navigation navigation($container = null)
  * @method string paginationControl(\Laminas\Paginator\Paginator $paginator = null, $scrollingStyle = null, $partial = null, $params = null)
  * @method string|\Laminas\View\Helper\Partial partial($name = null, $values = null)
  * @method string partialLoop($name = null, $values = null)
@@ -79,10 +78,6 @@ use function sprintf;
  * @method void renderToPlaceholder($script, $placeholder)
  * @method string serverUrl($requestUri = null)
  * @method \Laminas\View\Helper\ViewModel viewModel()
- * @method \Laminas\View\Helper\Navigation\Breadcrumbs breadCrumbs($container = null)
- * @method \Laminas\View\Helper\Navigation\Links links($container = null)
- * @method \Laminas\View\Helper\Navigation\Menu menu($container = null)
- * @method \Laminas\View\Helper\Navigation\Sitemap sitemap($container = null)
  * @method string gravatarImage(string $emailAddress, int $imageSize = 80, array $imageAttributes = [], string $defaultImage = 'mm', string $rating = 'g')
  */
 class PhpRenderer implements Renderer, TreeRendererInterface

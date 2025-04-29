@@ -101,3 +101,9 @@ To encode data to Json for output in a view, you can call [`json_encode`](https:
 
 If you were relying on behaviour that was previously available via `laminas-json`, for example, calling object methods `toArray` or `toJson` prior to encoding, you should make the relevant objects implement `JsonSerializable`.
 You can find documentation on the `JsonSerializable` interface [on the PHP website](https://www.php.net/manual/class.jsonserializable.php).
+
+#### Navigation
+
+The deprecated navigation view helpers such as `Breadcrumbs`, and `Menu` etc have been removed and can now be found in [the `laminas-navigation-view` component](https://docs.laminas.dev/laminas-navigation/helpers/intro/).
+
+As such, the namespace for these helpers has changed from `Laminas\View\Navigation` to `Laminas\Navigation\View\Helper`, so if you have referenced the FQCNs of these helpers in your code, you will need to update them accordingly.
