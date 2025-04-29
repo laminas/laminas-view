@@ -305,10 +305,7 @@ class JsonStrategyTest extends TestCase
         $this->assertEquals('iso-8859-1', $this->strategy->getCharset());
     }
 
-    /**
-     * @return string[][]
-     * @psalm-return array{utf-16: array{0: 'utf-16'}, utf-32: array{0: 'utf-32'}}
-     */
+    /** @return array<string, array{0: string}> */
     public static function multibyteCharsets(): array
     {
         return [
@@ -327,7 +324,6 @@ class JsonStrategyTest extends TestCase
         $this->event->setResult(json_encode(['foo' => 'bar']));
 
         $this->strategy->injectResponse($this->event);
-        $this->response->getContent();
         $headers = $this->response->getHeaders();
         $this->assertTrue($headers->has('content-transfer-encoding'));
         $this->assertEquals('binary', $headers->get('content-transfer-encoding')->getFieldValue());
