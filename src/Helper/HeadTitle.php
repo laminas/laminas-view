@@ -30,6 +30,8 @@ class HeadTitle extends AbstractStandalone
     /**
      * Default title rendering order (i.e. order in which each title attached)
      *
+     * @deprecated Since 2.38.0 This property will be removed in 3.0 without replacement
+     *
      * @var string|null
      */
     protected $defaultAttachOrder;
@@ -116,6 +118,9 @@ class HeadTitle extends AbstractStandalone
     /**
      * Set a default order to add titles
      *
+     * @deprecated Since 2.38.0 This method will be removed in 3.0. You should instead use the `append` or `prepend`
+     *             methods
+     *
      * @param  string $setType
      * @throws Exception\DomainException
      * @return $this
@@ -140,6 +145,8 @@ class HeadTitle extends AbstractStandalone
 
     /**
      * Get the default attach order, if any.
+     *
+     * @deprecated Since 2.38.0 This method will be removed in 3.0 without replacement
      *
      * @return string|null
      */

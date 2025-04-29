@@ -404,6 +404,9 @@ class HelperPluginManager extends AbstractPluginManager
     /**
      * Inject a helper instance with the registered translator
      *
+     * @deprecated Since 2.38.0 This method will be removed in 3.0 without replacement. If your view helper requires a
+     *             translator, you should instead create a factory and inject the translator into the helper constructor
+     *
      * @param ContainerInterface|HelperInterface $first helper instance
      *     under laminas-servicemanager v2, ContainerInterface under v3.
      * @param ContainerInterface|HelperInterface $second
