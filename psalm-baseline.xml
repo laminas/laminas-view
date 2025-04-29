@@ -92,11 +92,6 @@
       <code><![CDATA[vars]]></code>
     </UndefinedInterfaceMethod>
   </file>
-  <file src="src/Helper/DeprecatedAbstractHelperHierarchyTrait.php">
-    <DeprecatedClass>
-      <code><![CDATA[self]]></code>
-    </DeprecatedClass>
-  </file>
   <file src="src/Helper/Doctype.php">
     <DocblockTypeContradiction>
       <code><![CDATA[null === static::$registeredDoctypes]]></code>
@@ -416,17 +411,6 @@
     <RedundantCastGivenDocblockType>
       <code><![CDATA[(bool) $useNamespaces]]></code>
     </RedundantCastGivenDocblockType>
-  </file>
-  <file src="src/Helper/Json.php">
-    <MissingConstructor>
-      <code><![CDATA[$response]]></code>
-    </MissingConstructor>
-    <NullArgument>
-      <code><![CDATA[null]]></code>
-    </NullArgument>
-    <RedundantConditionGivenDocblockType>
-      <code><![CDATA[$this->response instanceof Response]]></code>
-    </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Helper/Layout.php">
     <PossiblyNullReference>
