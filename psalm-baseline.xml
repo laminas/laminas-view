@@ -777,7 +777,6 @@
     <PossiblyUnusedMethod>
       <code><![CDATA[injectEventManager]]></code>
       <code><![CDATA[injectRenderer]]></code>
-      <code><![CDATA[validatePlugin]]></code>
     </PossiblyUnusedMethod>
     <PropertyTypeCoercion>
       <code><![CDATA[$this->initializers]]></code>

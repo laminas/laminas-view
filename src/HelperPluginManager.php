@@ -11,7 +11,6 @@ use Laminas\ServiceManager\ConfigInterface;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\ServiceManager\ServiceManager;
-use Laminas\View\Exception\InvalidHelperException;
 use Laminas\View\Helper\HelperInterface;
 use Psr\Container\ContainerInterface;
 
@@ -351,28 +350,6 @@ class HelperPluginManager extends AbstractPluginManager
                     is_object($instance) ? $instance::class : gettype($instance)
                 )
             );
-        }
-    }
-
-    /**
-     * Validate the plugin is of the expected type (v2).
-     *
-     * Proxies to `validate()`.
-     *
-     * @deprecated Since 2.21.0 - This method will be removed in version 3.0. It provides BC with Service Manager v2
-     *             which can no longer be installed with this component.
-     *
-     * @param mixed $instance
-     * @return void
-     * @throws InvalidHelperException
-     * @psalm-assert HelperInterface|callable $instance
-     */
-    public function validatePlugin($instance)
-    {
-        try {
-            $this->validate($instance);
-        } catch (InvalidServiceException $e) {
-            throw new InvalidHelperException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
