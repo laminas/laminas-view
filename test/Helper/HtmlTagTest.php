@@ -87,7 +87,7 @@ final class HtmlTagTest extends TestCase
 
         $this->assertStringStartsWith('<html', $tag);
 
-        $escape = $this->view->plugin(EscapeHtmlAttr::class);
+        $escape = new EscapeHtmlAttr();
 
         foreach ($attribs as $name => $value) {
             $this->assertStringContainsString(sprintf('%s="%s"', $name, $escape($value)), $tag);
@@ -118,7 +118,7 @@ final class HtmlTagTest extends TestCase
 
         $tag = $this->helper->openTag();
 
-        $escape = $this->view->plugin(EscapeHtmlAttr::class);
+        $escape = new EscapeHtmlAttr();
 
         $this->assertStringContainsString(sprintf('%s="%s"', 'xmlns', $escape('http://www.w3.org/1999/xhtml')), $tag);
         foreach ($attribs as $name => $value) {

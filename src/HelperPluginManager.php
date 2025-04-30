@@ -12,6 +12,7 @@ use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Helper\HelperInterface;
+use Laminas\View\Helper\Service\EscapeHelperFactory;
 use Psr\Container\ContainerInterface;
 
 use function gettype;
@@ -153,11 +154,11 @@ class HelperPluginManager extends AbstractPluginManager
         Helper\DeclareVars::class    => InvokableFactory::class,
         // overridden in ViewHelperManagerFactory
         Helper\Doctype::class             => Helper\Service\DoctypeFactory::class,
-        Helper\EscapeHtml::class          => InvokableFactory::class,
-        Helper\EscapeHtmlAttr::class      => InvokableFactory::class,
-        Helper\EscapeJs::class            => InvokableFactory::class,
-        Helper\EscapeCss::class           => InvokableFactory::class,
-        Helper\EscapeUrl::class           => InvokableFactory::class,
+        Helper\EscapeCss::class           => EscapeHelperFactory::class,
+        Helper\EscapeHtml::class          => EscapeHelperFactory::class,
+        Helper\EscapeHtmlAttr::class      => EscapeHelperFactory::class,
+        Helper\EscapeJs::class            => EscapeHelperFactory::class,
+        Helper\EscapeUrl::class           => EscapeHelperFactory::class,
         Helper\GravatarImage::class       => InvokableFactory::class,
         Helper\HtmlTag::class             => InvokableFactory::class,
         Helper\HeadLink::class            => InvokableFactory::class,
