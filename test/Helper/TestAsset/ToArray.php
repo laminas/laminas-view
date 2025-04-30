@@ -6,14 +6,12 @@ namespace LaminasTest\View\Helper\TestAsset;
 
 final class ToArray
 {
-    /** @var mixed[] */
-    public $array = [];
-
-    public function __construct()
+    /** @param array<array-key, mixed> $array */
+    public function __construct(public array $array = [])
     {
     }
 
-    /** @return mixed[] */
+    /** @return array<array-key, mixed> */
     public function toArray(): array
     {
         return $this->array;

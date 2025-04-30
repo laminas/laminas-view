@@ -1,0 +1,54 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Laminas\View\Helper\Service;
+
+use Laminas\Escaper\Escaper;
+use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\View\Exception\InvalidArgumentException;
+use Laminas\View\Helper\EscapeCss;
+use Laminas\View\Helper\EscapeHtml;
+use Laminas\View\Helper\EscapeHtmlAttr;
+use Laminas\View\Helper\EscapeJs;
+use Laminas\View\Helper\EscapeUrl;
+use Psr\Container\ContainerInterface;
+
+use function implode;
+use function sprintf;
+
+/**
+ * @psalm-internal Laminas\View
+ * @psalm-internal LaminasTest\View
+ */
+final class EscapeHelperFactory implements FactoryInterface
+{
+    private const CAN_CREATE = [
+        EscapeCss::class      => EscapeCss::class,
+        EscapeHtml::class     => EscapeHtml::class,
+        EscapeHtmlAttr::class => EscapeHtmlAttr::class,
+        EscapeJs::class       => EscapeJs::class,
+        EscapeUrl::class      => EscapeUrl::class,
+    ];
+
+    /** @inheritDoc */
+    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null) // phpcs:ignore
+    {
+        $type = self::CAN_CREATE[$requestedName] ?? null;
+
+        if ($type === null) {
+            throw new InvalidArgumentException(sprintf(
+                'Dependencies of type "%s" cannot be created by this factory. '
+                . 'Only the following types are supported: %s',
+                $requestedName,
+                implode(', ', self::CAN_CREATE),
+            ));
+        }
+
+        $escaper = $container->has(Escaper::class)
+            ? $container->get(Escaper::class)
+            : null;
+
+        return new $type($escaper);
+    }
+}

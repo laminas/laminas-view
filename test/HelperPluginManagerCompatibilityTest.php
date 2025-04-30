@@ -7,6 +7,7 @@ namespace LaminasTest\View;
 use Generator;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\ServiceManager\Test\CommonPluginManagerTrait;
+use Laminas\View\ConfigProvider;
 use Laminas\View\Exception\InvalidHelperException;
 use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\TestCase;
@@ -18,11 +19,14 @@ final class HelperPluginManagerCompatibilityTest extends TestCase
 
     protected static function getPluginManager(): HelperPluginManager
     {
-        return new HelperPluginManager(new ServiceManager([
-            'services' => [
-                'config' => [],
-            ],
-        ]));
+        $provider = new ConfigProvider();
+        $config   = $provider->__invoke();
+        /** @psalm-suppress MixedArrayAssignment */
+        $config['dependencies']['services'] = ['config' => $config];
+
+        /** @psalm-suppress MixedArgument */
+        $serviceManager = new ServiceManager($config['dependencies']);
+        return new HelperPluginManager($serviceManager);
     }
 
     protected function getV2InvalidPluginException(): string

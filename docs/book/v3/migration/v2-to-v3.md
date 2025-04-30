@@ -22,6 +22,13 @@ Both of these methods have been removed.
 Now, the only way to configure the resource map is via constructor injection.
 The method of configuring the resource map remains unchanged.
 
+#### Escape Helpers: `escapeCss`, `escapeHtml`, `escapeHtmlAttr`, `escapeJs`, and `escapeUrl`
+
+The methods `setEncoding()`, `getEncoding()`, `setView()`, `getView()`, `setEscaper()`, and `getEscaper()` have been removed from the escape helpers.
+These helpers now have constructors that expect an [Escaper](https://docs.laminas.dev/laminas-escaper/) instance that has been configured with the encoding you expect to output in your view.
+
+The encoding defaults to UTF-8 as it has always done but can be overridden in configuration by setting `view_manager.encoding` to your preferred value.
+
 #### Identity Helper
 
 The deprecated runtime retrieval and modification of the underlying authentication service has been removed and the service must be injected into the helper constructor.
@@ -61,15 +68,6 @@ If you had not explicitly enabled this feature, this change will not affect your
 
 `Laminas\View\RendererConsoleRenderer` and `Laminas\View\Model\ConsoleModel` have been removed effectively removing all support for the deprecated `laminas-console` component.
 
-### Helpers
-
-#### Escape Helpers: `escapeCss`, `escapeHtml`, `escapeHtmlAttr`, `escapeJs`, and `escapeUrl`
-
-The methods `setEncoding()`, `getEncoding()`, `setView()`, `getView()`, `setEscaper()`, and `getEscaper()` have been removed from the escape helpers.
-These helpers now have constructors that expect an [Escaper](https://docs.laminas.dev/laminas-escaper/) instance that has been configured with the encoding you expect to output in your view.
-
-The encoding defaults to UTF-8 as it has always done but can be overridden in configuration by setting `view_manager.encoding` to your preferred value.
-
 ### Helper Plugin Manager Behaviour Changes
 
 #### Translator "Initializers"
@@ -77,7 +75,7 @@ The encoding defaults to UTF-8 as it has always done but can be overridden in co
 The plugin manager no longer attempts to automatically inject a translator into any plugins or helpers.
 If you previously relied on this behaviour, you will need to instead register a factory for your custom helper that injects the translator manually.
 
-## Removed Class and Traits
+## Removed Classes and Traits
 
 ### `TranslatorAwareTrait`
 
@@ -87,6 +85,12 @@ It encouraged setter injection and runtime retrieval of a translator instance wh
 If you have a custom helper that requires a translator instance, you should instead inject the translator at construction time.
 This can be achieved by writing a custom factory for the helper.
 [Further information on writing and registering helpers](../helpers/advanced-usage.md).
+
+### Placeholder Registry
+
+A very old and deprecated singleton registry `Laminas\View\Helper\Placeholder\Registry` has been removed.
+This registry was historically used to aggregate placeholder containers and had not been used internally for some time.
+Hopefully no one will notice that it's gone because there is no replacement for it.
 
 ### Removed Helpers
 

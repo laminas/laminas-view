@@ -1,8 +1,8 @@
 # Escape
 
-The following helpers can **escape output in view scripts and defend from XSS
-and related vulnerabilities**. To escape different contexts of a HTML document,
-laminas-view provides the following helpers:
+The following helpers can **escape output in view scripts and defend from XSS and related vulnerabilities**.
+
+To escape different contexts of a HTML document, laminas-view provides the following helpers:
 
 * [`EscapeCss`](#escapecss)
 * [`EscapeHtml`](#escapehtml)
@@ -11,18 +11,7 @@ laminas-view provides the following helpers:
 * [`EscapeUrl`](#escapeurl)
 
 More information to the operation and the background of security can be found
-in the
-[documentation of laminas-escaper](https://docs.laminas.dev/laminas-escaper/configuration/).
-
-<!-- markdownlint-disable-next-line heading-increment -->
-> ### Installation Requirements
->
-> The escape helpers depends on the laminas-escaper component, so be sure to have
-> it installed before getting started:
->
-> ```bash
-> $ composer require laminas/laminas-escaper
-> ```
+in the [documentation of laminas-escaper](https://docs.laminas.dev/laminas-escaper/configuration/).
 
 ## EscapeCss
 
@@ -102,29 +91,6 @@ Output:
 <a href="http://example.com/?name=%22%20onmouseover%3D%22alert%28%27laminas%27%29">click</a>
 ```
 
-## Using Encoding
-
-```php
-$this->escapeHtml()->setEncoding('iso-8859-15');
-```
-
-All allowed encodings can be found in the
-[documentation of laminas-escaper](https://docs.laminas.dev/laminas-escaper/configuration/).
-
-### Get Current Value
-
-To get the current value of this option, use the `getEncoding()` method.
-
-```php
-$this->escapeHtml()->setEncoding('iso-8859-15');
-
-echo $this->escapeHtml()->getEncoding(); // iso-8859-15
-```
-
-### Default Value
-
-The default value for all escape helpers is `utf-8`.
-
 ## Using Recursion
 
 All escape helpers can use recursion for the given values during the escape
@@ -200,8 +166,7 @@ array(1) {
 }
 ```
 
-If the object does not contains the methods `__toString()` or `toArray()` then
-the object is casted to an `array`:
+If the object does not contain the methods `__toString()` or `toArray()` then the object is cast to an `array`:
 
 ```php
 $object = new class {
@@ -220,30 +185,20 @@ array(1) {
 }
 ```
 
-## Using Custom Escaper
+## Using Custom Encoding
 
-Create an own instance of `Laminas\Escaper\Escaper` and set to any of the escape
-helpers:
-
-```php
-$escaper = new Laminas\Escaper\Escaper('utf-8');
-
-$this->escapeHtml()->setEscaper($escaper);
-```
-
-### Get Current Value
-
-To get the current value, use the `getEscaper()` method.
+By default, the escape helpers will expect `utf-8` input and emit `utf-8` output.
+You can change this by setting the global encoding used by the underlying escaper in your application-wide configuration.
+The factory responsible for creating an escaper instance looks for array configuration under the `config` identifier within the DI container.
+This config array should include the following values in order to set the desired encoding:
 
 ```php
-<?php
-$escaper = new Laminas\Escaper\Escaper('utf-8');
-$this->escapeHtml()->setEscaper($escaper);
-
-var_dump($this->escapeHtml()->getEscaper()); // instance of Laminas\Escaper\Escaper
+$config = [
+    'view_manager' => [
+        'encoding' => 'iso-8859-1',
+    ],
+    // …other configuration…
+];
 ```
 
-### Default Value
-
-The default value is an instance of `Laminas\Escaper\Escaper`, created by the
-helper.
+A list of accepted encodings can be found in the [documentation of laminas-escaper](https://docs.laminas.dev/laminas-escaper/configuration/).
