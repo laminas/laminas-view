@@ -69,9 +69,13 @@ test: ## Run unit tests
 	vendor/bin/phpunit
 .PHONY: test
 
+composer-validate: ## Validate composer.json and lock
+	composer validate --strict
+.PHONY: composer-validate
+
 composer-require-checker: ## Check for symbols from un-declared dependencies
 	tools/crc/vendor/bin/composer-require-checker check --config-file=tools/crc/config.json
 .PHONY: composer-require-checker
 
-qa: cs sa test composer-require-checker docs-lint ## Run all QA Checks
+qa: composer-validate cs sa test composer-require-checker docs-lint ## Run all QA Checks
 .PHONY: qa
