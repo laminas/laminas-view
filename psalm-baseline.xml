@@ -15,7 +15,6 @@
       <code><![CDATA[$closingBracket]]></code>
       <code><![CDATA[$closingBracket]]></code>
       <code><![CDATA[$closingBracket]]></code>
-      <code><![CDATA[$closingBracket]]></code>
     </MissingConstructor>
     <MixedArgument>
       <code><![CDATA[$val]]></code>
@@ -147,32 +146,6 @@
       <code><![CDATA[$v]]></code>
       <code><![CDATA[$value[$k]]]></code>
     </MixedAssignment>
-  </file>
-  <file src="src/Helper/Gravatar.php">
-    <DocblockTypeContradiction>
-      <code><![CDATA[$flag === null]]></code>
-    </DocblockTypeContradiction>
-    <MissingConstructor>
-      <code><![CDATA[$attributes]]></code>
-      <code><![CDATA[$email]]></code>
-      <code><![CDATA[$emailIsHashed]]></code>
-    </MissingConstructor>
-    <MixedAssignment>
-      <code><![CDATA[$value]]></code>
-    </MixedAssignment>
-    <MixedReturnStatement>
-      <code><![CDATA[$this->options['default_img']]]></code>
-      <code><![CDATA[$this->options['img_size']]]></code>
-      <code><![CDATA[$this->options['rating']]]></code>
-      <code><![CDATA[$this->options['secure']]]></code>
-    </MixedReturnStatement>
-    <RedundantCastGivenDocblockType>
-      <code><![CDATA[(bool) $flag]]></code>
-      <code><![CDATA[(int) $imgSize]]></code>
-    </RedundantCastGivenDocblockType>
-    <RedundantConditionGivenDocblockType>
-      <code><![CDATA[(bool) $flag]]></code>
-    </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Helper/HeadLink.php">
     <ArgumentTypeCoercion>
@@ -667,33 +640,6 @@
       <code><![CDATA[new $this->containerClass()]]></code>
     </UnsafeInstantiation>
   </file>
-  <file src="src/Helper/Placeholder/Registry.php">
-    <InvalidStringClass>
-      <code><![CDATA[new $this->containerClass($value)]]></code>
-    </InvalidStringClass>
-    <LessSpecificReturnStatement>
-      <code><![CDATA[$this->items[$key]]]></code>
-    </LessSpecificReturnStatement>
-    <MixedReturnStatement>
-      <code><![CDATA[$this->items[$key]]]></code>
-    </MixedReturnStatement>
-    <MoreSpecificReturnType>
-      <code><![CDATA[AbstractContainer]]></code>
-    </MoreSpecificReturnType>
-    <PossiblyFalseArgument>
-      <code><![CDATA[class_parents($name)]]></code>
-    </PossiblyFalseArgument>
-    <PossiblyUnusedProperty>
-      <code><![CDATA[$instance]]></code>
-    </PossiblyUnusedProperty>
-    <RedundantCastGivenDocblockType>
-      <code><![CDATA[(string) $key]]></code>
-      <code><![CDATA[(string) $key]]></code>
-      <code><![CDATA[(string) $key]]></code>
-      <code><![CDATA[(string) $key]]></code>
-      <code><![CDATA[(string) $key]]></code>
-    </RedundantCastGivenDocblockType>
-  </file>
   <file src="src/Helper/RenderChildModel.php">
     <MissingConstructor>
       <code><![CDATA[$current]]></code>
@@ -781,11 +727,6 @@
     </PossiblyUnusedMethod>
   </file>
   <file src="src/HelperPluginManager.php">
-    <DeprecatedClass>
-      <code><![CDATA[Helper\Gravatar::class]]></code>
-      <code><![CDATA[Helper\Gravatar::class]]></code>
-      <code><![CDATA[Helper\Gravatar::class]]></code>
-    </DeprecatedClass>
     <DeprecatedInterface>
       <code><![CDATA[null|ConfigInterface|ContainerInterface]]></code>
     </DeprecatedInterface>
@@ -808,7 +749,6 @@
     <PossiblyUnusedMethod>
       <code><![CDATA[injectEventManager]]></code>
       <code><![CDATA[injectRenderer]]></code>
-      <code><![CDATA[validatePlugin]]></code>
     </PossiblyUnusedMethod>
     <PropertyTypeCoercion>
       <code><![CDATA[$this->initializers]]></code>
@@ -1502,19 +1442,6 @@
       <code><![CDATA[$test]]></code>
     </MixedAssignment>
   </file>
-  <file src="test/Helper/GravatarTest.php">
-    <PossiblyInvalidArgument>
-      <code><![CDATA[$value]]></code>
-      <code><![CDATA[$value]]></code>
-      <code><![CDATA[$value]]></code>
-    </PossiblyInvalidArgument>
-    <PossiblyUnusedMethod>
-      <code><![CDATA[tesSetDefaultImg]]></code>
-    </PossiblyUnusedMethod>
-    <UndefinedMethod>
-      <code><![CDATA[gravatar]]></code>
-    </UndefinedMethod>
-  </file>
   <file src="test/Helper/HeadLinkTest.php">
     <InternalMethod>
       <code><![CDATA[new EscapeHtmlAttr()]]></code>
@@ -1869,11 +1796,6 @@
     </MixedAssignment>
     <PossiblyUnusedMethod>
       <code><![CDATA[toArray]]></code>
-    </PossiblyUnusedMethod>
-  </file>
-  <file src="test/Helper/TestAsset/MockContainer.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[__construct]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="test/Helper/TestAsset/PartialLoopIterator.php">
