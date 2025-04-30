@@ -8,7 +8,7 @@ use Laminas\View\Helper;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-class ServerUrlTest extends TestCase
+final class ServerUrlTest extends TestCase
 {
     /**
      * Back up of $_SERVER

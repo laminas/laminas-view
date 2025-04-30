@@ -8,7 +8,7 @@ use Laminas\View\Helper\HtmlFlash;
 use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
 
-class HtmlFlashTest extends TestCase
+final class HtmlFlashTest extends TestCase
 {
     /** @psalm-suppress DeprecatedClass */
     private HtmlFlash $helper;

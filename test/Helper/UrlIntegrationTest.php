@@ -14,7 +14,7 @@ use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
 use ReflectionObject;
 
-class UrlIntegrationTest extends TestCase
+final class UrlIntegrationTest extends TestCase
 {
     private ServiceManager $serviceManager;
 

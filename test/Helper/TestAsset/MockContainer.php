@@ -14,7 +14,7 @@ use LaminasTest\View\Helper\Placeholder\RegistryTest;
  *
  * @psalm-suppress MissingTemplateParam
  */
-class MockContainer extends AbstractContainer
+final class MockContainer extends AbstractContainer
 {
     /** @var array */
     public $data = [];

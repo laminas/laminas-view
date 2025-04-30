@@ -15,6 +15,8 @@ use function array_key_exists;
  * Placeholder to make its typical usage obvious, but can be used just as easily
  * for non-Placeholder things. That said, the support for this is only
  * guaranteed to effect subsequently rendered templates, and of course Layouts.
+ *
+ * @final
  */
 class Placeholder extends AbstractHelper
 {
@@ -54,7 +56,6 @@ class Placeholder extends AbstractHelper
      * createContainer
      *
      * @param  string $key
-     * @param  array $value
      * @return AbstractContainer
      */
     public function createContainer($key, array $value = [])

@@ -19,6 +19,8 @@ use function method_exists;
  * with variables injected into the renderer.
  *
  * @deprecated
+ *
+ * @final
  */
 class ConsoleRenderer implements RendererInterface, TreeRendererInterface
 {

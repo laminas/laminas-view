@@ -16,7 +16,7 @@ use function substr_count;
 
 use const PHP_EOL;
 
-class HeadStyleTest extends TestCase
+final class HeadStyleTest extends TestCase
 {
     private HeadStyle $helper;
 

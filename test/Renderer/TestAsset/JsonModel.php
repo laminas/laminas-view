@@ -7,7 +7,7 @@ namespace LaminasTest\View\Renderer\TestAsset;
 use JsonSerializable;
 use ReturnTypeWillChange; // phpcs:ignore
 
-class JsonModel implements JsonSerializable
+final class JsonModel implements JsonSerializable
 {
     /** @var mixed */
     public $value = false;

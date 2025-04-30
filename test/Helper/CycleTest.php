@@ -7,7 +7,7 @@ namespace LaminasTest\View\Helper;
 use Laminas\View\Helper;
 use PHPUnit\Framework\TestCase;
 
-class CycleTest extends TestCase
+final class CycleTest extends TestCase
 {
     /** @var Helper\Cycle */
     public $helper;

@@ -10,7 +10,7 @@ use Laminas\View\Helper\Navigation as NavigationHelper;
 /**
  * @psalm-suppress MissingConstructor
  */
-class AbstractHelperTest extends AbstractTestCase
+final class AbstractHelperTest extends AbstractTestCase
 {
     /**
      * View helper

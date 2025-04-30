@@ -16,7 +16,7 @@ use Psr\Container\ContainerInterface;
 
 use function get_class;
 
-class FlashMessengerTest extends TestCase
+final class FlashMessengerTest extends TestCase
 {
     private string $mvcPluginClass;
     private FlashMessenger $helper;

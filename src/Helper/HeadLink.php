@@ -392,7 +392,6 @@ class HeadLink extends AbstractStandalone
      *
      * @deprecated This method is unused and will be removed in version 3.0 of this component
      *
-     * @param  array $args
      * @return object|false Returns false if stylesheet is a duplicate
      */
     public function createDataStylesheet(array $args)
@@ -465,7 +464,6 @@ class HeadLink extends AbstractStandalone
      *
      * @deprecated This method is unused and will be removed in version 3.0 of this component
      *
-     * @param  array $args
      * @throws Exception\InvalidArgumentException
      * @return object
      */
@@ -508,7 +506,6 @@ class HeadLink extends AbstractStandalone
      *
      * @deprecated This method is unused and will be removed in version 3.0 of this component
      *
-     * @param  array $args
      * @return object
      */
     public function createDataPrev(array $args)
@@ -524,7 +521,6 @@ class HeadLink extends AbstractStandalone
      *
      * @deprecated This method is unused and will be removed in version 3.0 of this component
      *
-     * @param  array $args
      * @return object
      */
     public function createDataNext(array $args)

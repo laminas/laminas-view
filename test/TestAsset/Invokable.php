@@ -6,7 +6,7 @@ namespace LaminasTest\View\TestAsset;
 
 use Laminas\View\Helper\AbstractHelper as Helper;
 
-class Invokable extends Helper
+final class Invokable extends Helper
 {
     /**
      * Invokable functor

@@ -24,6 +24,7 @@ use function is_array;
  * }
  * @template TTarget of null|object|string
  * @extends Event<TTarget, EventParams>
+ * @final
  */
 class ViewEvent extends Event
 {

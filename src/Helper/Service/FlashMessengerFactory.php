@@ -9,6 +9,7 @@ use Laminas\ServiceManager\FactoryInterface;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Laminas\View\Helper\FlashMessenger;
 
+/** @final */
 class FlashMessengerFactory implements FactoryInterface
 {
     /**

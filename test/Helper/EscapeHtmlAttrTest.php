@@ -11,7 +11,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-class EscapeHtmlAttrTest extends TestCase
+final class EscapeHtmlAttrTest extends TestCase
 {
     use EscaperEncodingsTrait;
 

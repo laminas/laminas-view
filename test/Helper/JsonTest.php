@@ -24,7 +24,7 @@ use const JSON_THROW_ON_ERROR;
  *
  * @psalm-suppress DeprecatedClass
  */
-class JsonTest extends TestCase
+final class JsonTest extends TestCase
 {
     private Response $response;
     private JsonHelper $helper;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper\TestAsset;
 
-class Aggregate
+final class Aggregate
 {
     /** @var array<string, string> */
     private array $vars = [

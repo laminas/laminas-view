@@ -12,6 +12,8 @@ use function strpos;
 
 /**
  * Helper for setting and retrieving the doctype
+ *
+ * @final
  */
 class Doctype extends AbstractHelper
 {

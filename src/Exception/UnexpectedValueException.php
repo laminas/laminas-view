@@ -6,6 +6,7 @@ namespace Laminas\View\Exception;
 
 use UnexpectedValueException as UnexpectedValue;
 
+/** @final */
 class UnexpectedValueException extends UnexpectedValue implements ExceptionInterface
 {
 }

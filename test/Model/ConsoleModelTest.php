@@ -8,7 +8,7 @@ use Laminas\View\Model\ConsoleModel;
 use Laminas\View\Model\ModelInterface;
 use PHPUnit\Framework\TestCase;
 
-class ConsoleModelTest extends TestCase
+final class ConsoleModelTest extends TestCase
 {
     public function testImplementsModelInterface(): void
     {

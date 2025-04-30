@@ -22,7 +22,7 @@ use function date;
 use function iterator_to_array;
 use function time;
 
-class FeedStrategyTest extends TestCase
+final class FeedStrategyTest extends TestCase
 {
     use EventListenerIntrospectionTrait;
 

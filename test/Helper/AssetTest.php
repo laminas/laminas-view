@@ -11,7 +11,7 @@ use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-class AssetTest extends TestCase
+final class AssetTest extends TestCase
 {
     private const RESOURCE_MAP = [
         'css/style.css' => 'css/style-3a97ff4ee3.css',

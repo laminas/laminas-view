@@ -22,6 +22,8 @@ use function sprintf;
  *
  * @deprecated This helper will be removed in version 3.0 of this component.
  *     At that time, it will be available in laminas/laminas-mvc-plugin-flashmessenger.
+ *
+ * @final
  */
 class FlashMessenger extends AbstractHelper
 {
@@ -107,7 +109,6 @@ class FlashMessenger extends AbstractHelper
      * Render Messages
      *
      * @param  string    $namespace
-     * @param  array     $classes
      * @param  null|bool $autoEscape
      * @return string
      */
@@ -122,7 +123,6 @@ class FlashMessenger extends AbstractHelper
      * Render Current Messages
      *
      * @param  string    $namespace
-     * @param  array     $classes
      * @param  bool|null $autoEscape
      * @return string
      */
@@ -137,8 +137,6 @@ class FlashMessenger extends AbstractHelper
      * Render Messages
      *
      * @param string    $namespace
-     * @param array     $messages
-     * @param array     $classes
      * @param bool|null $autoEscape
      * @return string
      */

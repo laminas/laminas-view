@@ -6,7 +6,7 @@ namespace LaminasTest\View\TestAsset;
 
 use Laminas\View\Helper\AbstractHelper as Helper;
 
-class SharedInstance extends Helper
+final class SharedInstance extends Helper
 {
     private int $count = 0;
 

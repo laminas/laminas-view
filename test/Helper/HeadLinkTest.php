@@ -21,7 +21,7 @@ use function var_export;
 
 use const PHP_EOL;
 
-class HeadLinkTest extends TestCase
+final class HeadLinkTest extends TestCase
 {
     private HeadLink $helper;
     private EscapeHtmlAttr $attributeEscaper;

@@ -9,6 +9,8 @@ use Laminas\View\Exception\RuntimeException;
 
 /**
  * View helper plugin to fetch the authenticated identity.
+ *
+ * @final
  */
 class Identity extends AbstractHelper
 {

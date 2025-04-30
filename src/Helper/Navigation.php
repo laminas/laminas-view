@@ -26,6 +26,7 @@ use function sprintf;
  * @method Navigation\Links links($container = null)
  * @method Navigation\Menu menu($container = null)
  * @method Navigation\Sitemap sitemap($container = null)
+ * @final
  */
 class Navigation extends AbstractNavigationHelper
 {

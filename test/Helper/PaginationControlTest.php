@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 use function range;
 
-class PaginationControlTest extends TestCase
+final class PaginationControlTest extends TestCase
 {
     private PaginationControl $viewHelper;
 

@@ -13,7 +13,7 @@ use function strlen;
 use function substr;
 use function trim;
 
-class BreadcrumbsTest extends AbstractTestCase
+final class BreadcrumbsTest extends AbstractTestCase
 {
     /**
      * View helper.

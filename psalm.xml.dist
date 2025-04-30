@@ -19,22 +19,6 @@
     </projectFiles>
 
     <issueHandlers>
-        <InternalMethod>
-            <errorLevel type="suppress">
-                <directory name="test" />
-                <referencedMethod name="Laminas\View\Helper\Escaper\AbstractHelper::__construct"/>
-            </errorLevel>
-        </InternalMethod>
-        <DeprecatedMethod>
-            <errorLevel type="suppress">
-                <directory name="test" />
-                <referencedMethod name="Laminas\View\Helper\Escaper\AbstractHelper::setEncoding" />
-            </errorLevel>
-            <errorLevel type="suppress">
-                <directory name="test" />
-                <referencedMethod name="Laminas\View\Helper\Escaper\AbstractHelper::getEscaper" />
-            </errorLevel>
-        </DeprecatedMethod>
         <RiskyTruthyFalsyComparison>
             <!--
             The navigation view helpers rely heavily on these sorts of comparisons. Fixing them is more risky
@@ -43,18 +27,23 @@
                 <directory name="src/Helper/Navigation" />
             </errorLevel>
         </RiskyTruthyFalsyComparison>
-        <UnusedMethod>
-            <!-- PHPUnit DataProviders appear as unused when an Attribute is used -->
-            <errorLevel type="suppress">
-                <directory name="test" />
-            </errorLevel>
-        </UnusedMethod>
         <UnusedClass>
             <!-- SA Test cases are never referenced -->
             <errorLevel type="suppress">
                 <directory name="test/StaticAnalysis" />
             </errorLevel>
         </UnusedClass>
+        <MissingOverrideAttribute>
+            <errorLevel type="suppress">
+                <directory name="src" />
+                <directory name="test" />
+            </errorLevel>
+        </MissingOverrideAttribute>
+        <ClassMustBeFinal>
+            <errorLevel type="suppress">
+                <directory name="src/Helper/Navigation" />
+            </errorLevel>
+        </ClassMustBeFinal>
     </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>

@@ -9,7 +9,7 @@ use Laminas\View\Helper\BasePath;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-class BasePathTest extends TestCase
+final class BasePathTest extends TestCase
 {
     /** @return array<array-key, array{0: string, 1: string|null, 2: string}> */
     public static function basePathDataProvider(): array

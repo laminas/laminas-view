@@ -9,6 +9,8 @@ use Laminas\Feed\Writer\FeedFactory;
 
 /**
  * Marker view model for indicating feed data.
+ *
+ * @final
  */
 class FeedModel extends ViewModel
 {

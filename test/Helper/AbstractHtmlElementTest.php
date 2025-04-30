@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 use function sprintf;
 
 #[CoversClass(AbstractHtmlElement::class)]
-class AbstractHtmlElementTest extends TestCase
+final class AbstractHtmlElementTest extends TestCase
 {
     /** @var ConcreteElementHelper */
     protected $helper;

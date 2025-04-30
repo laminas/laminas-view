@@ -15,7 +15,7 @@ use function set_error_handler;
 
 use const E_USER_NOTICE;
 
-class VariablesTest extends TestCase
+final class VariablesTest extends TestCase
 {
     private ?string $error = null;
     private Variables $vars;

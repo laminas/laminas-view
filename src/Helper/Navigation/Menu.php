@@ -758,7 +758,6 @@ class Menu extends AbstractHelper
     /**
      * Render a partial with the given "model".
      *
-     * @param array                  $params
      * @param null|AbstractContainer $container
      * @param null|string|array      $partial
      * @return Partial|string

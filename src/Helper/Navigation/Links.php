@@ -137,7 +137,6 @@ class Links extends AbstractHelper
      * </code>
      *
      * @param  string $method
-     * @param  array  $arguments
      * @return mixed
      * @throws Exception\ExceptionInterface
      */

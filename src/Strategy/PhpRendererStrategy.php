@@ -9,6 +9,7 @@ use Laminas\EventManager\EventManagerInterface;
 use Laminas\View\Renderer\PhpRenderer;
 use Laminas\View\ViewEvent;
 
+/** @final */
 class PhpRendererStrategy extends AbstractListenerAggregate
 {
     /**
@@ -39,7 +40,6 @@ class PhpRendererStrategy extends AbstractListenerAggregate
     /**
      * Set list of possible content placeholders
      *
-     * @param  array $contentPlaceholders
      * @return PhpRendererStrategy
      */
     public function setContentPlaceholders(array $contentPlaceholders)

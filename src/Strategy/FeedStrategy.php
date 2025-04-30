@@ -13,6 +13,7 @@ use Laminas\View\ViewEvent;
 
 use function is_string;
 
+/** @final */
 class FeedStrategy extends AbstractListenerAggregate
 {
     /** @var FeedRenderer */

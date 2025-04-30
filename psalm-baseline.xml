@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="5.26.1@d747f6500b38ac4f7dfc5edbcae6e4b637d7add0">
+<files psalm-version="6.10.1@f9fd6bc117e9ce1e854c2ed6777e7135aaa4966b">
+  <file src="bin/templatemap_generator.php">
+    <PossiblyFalseArgument>
+      <code><![CDATA[$realPath]]></code>
+      <code><![CDATA[$realPath]]></code>
+    </PossiblyFalseArgument>
+    <PossiblyNullArgument>
+      <code><![CDATA[$template]]></code>
+    </PossiblyNullArgument>
+  </file>
   <file src="src/Helper/AbstractHtmlElement.php">
     <MissingConstructor>
       <code><![CDATA[$closingBracket]]></code>
@@ -57,10 +66,6 @@
       <code><![CDATA[$this->data[$this->name][$this->key()]]]></code>
       <code><![CDATA[$this->data[$this->name][$this->key()]]]></code>
     </MixedArrayAccess>
-    <MixedInferredReturnType>
-      <code><![CDATA[array]]></code>
-      <code><![CDATA[int]]></code>
-    </MixedInferredReturnType>
     <MixedOperand>
       <code><![CDATA[$this->pointers[$this->name]]]></code>
       <code><![CDATA[$this->pointers[$this->name]]]></code>
@@ -129,6 +134,31 @@
       <code><![CDATA[$registry]]></code>
     </PropertyNotSetInConstructor>
   </file>
+  <file src="src/Helper/EscapeCss.php">
+    <DeprecatedMethod>
+      <code><![CDATA[getEscaper]]></code>
+    </DeprecatedMethod>
+  </file>
+  <file src="src/Helper/EscapeHtml.php">
+    <DeprecatedMethod>
+      <code><![CDATA[getEscaper]]></code>
+    </DeprecatedMethod>
+  </file>
+  <file src="src/Helper/EscapeHtmlAttr.php">
+    <DeprecatedMethod>
+      <code><![CDATA[getEscaper]]></code>
+    </DeprecatedMethod>
+  </file>
+  <file src="src/Helper/EscapeJs.php">
+    <DeprecatedMethod>
+      <code><![CDATA[getEscaper]]></code>
+    </DeprecatedMethod>
+  </file>
+  <file src="src/Helper/EscapeUrl.php">
+    <DeprecatedMethod>
+      <code><![CDATA[getEscaper]]></code>
+    </DeprecatedMethod>
+  </file>
   <file src="src/Helper/Escaper/AbstractHelper.php">
     <MixedAssignment>
       <code><![CDATA[$v]]></code>
@@ -187,12 +217,6 @@
     <MixedAssignment>
       <code><![CDATA[$value]]></code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code><![CDATA[bool]]></code>
-      <code><![CDATA[int]]></code>
-      <code><![CDATA[string]]></code>
-      <code><![CDATA[string]]></code>
-    </MixedInferredReturnType>
     <MixedReturnStatement>
       <code><![CDATA[$this->options['default_img']]]></code>
       <code><![CDATA[$this->options['img_size']]]></code>
@@ -251,6 +275,7 @@
       <code><![CDATA[$value]]></code>
     </MixedAssignment>
     <PossiblyNullArgument>
+      <code><![CDATA[$href]]></code>
       <code><![CDATA[$index]]></code>
       <code><![CDATA[$this->view]]></code>
     </PossiblyNullArgument>
@@ -301,9 +326,6 @@
       <code><![CDATA[$type]]></code>
       <code><![CDATA[$value]]></code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code><![CDATA[$this]]></code>
-    </MixedInferredReturnType>
     <MixedMethodCall>
       <code><![CDATA[isHtml5]]></code>
       <code><![CDATA[isHtml5]]></code>
@@ -320,6 +342,7 @@
       <code><![CDATA[$index]]></code>
     </ParamNameMismatch>
     <PossiblyNullArgument>
+      <code><![CDATA[$index]]></code>
       <code><![CDATA[$this->view]]></code>
     </PossiblyNullArgument>
     <PossiblyNullReference>
@@ -359,9 +382,6 @@
       <code><![CDATA[$index]]></code>
       <code><![CDATA[$value]]></code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code><![CDATA[$this]]></code>
-    </MixedInferredReturnType>
     <MixedMethodCall>
       <code><![CDATA[isHtml5]]></code>
     </MixedMethodCall>
@@ -407,6 +427,17 @@
       <code><![CDATA[$content]]></code>
       <code><![CDATA[$index]]></code>
     </MixedAssignment>
+    <PossiblyFalseArgument>
+      <code><![CDATA[$content]]></code>
+      <code><![CDATA[$content]]></code>
+      <code><![CDATA[$content]]></code>
+    </PossiblyFalseArgument>
+    <PossiblyNullArgument>
+      <code><![CDATA[$index]]></code>
+    </PossiblyNullArgument>
+    <PossiblyNullOperand>
+      <code><![CDATA[preg_replace("/(\r\n?|\n)/", '$1' . $indent, $return)]]></code>
+    </PossiblyNullOperand>
     <PossiblyUnusedReturnValue>
       <code><![CDATA[AbstractContainer]]></code>
       <code><![CDATA[AbstractContainer]]></code>
@@ -443,9 +474,6 @@
     <MixedFunctionCall>
       <code><![CDATA[$htmlObject($data, self::TYPE, $attribs, $params, $content)]]></code>
     </MixedFunctionCall>
-    <MixedInferredReturnType>
-      <code><![CDATA[string]]></code>
-    </MixedInferredReturnType>
     <MixedReturnStatement>
       <code><![CDATA[$htmlObject($data, self::TYPE, $attribs, $params, $content)]]></code>
     </MixedReturnStatement>
@@ -474,9 +502,6 @@
     <MixedFunctionCall>
       <code><![CDATA[$htmlObject($data, self::TYPE, $attribs, $params, $content)]]></code>
     </MixedFunctionCall>
-    <MixedInferredReturnType>
-      <code><![CDATA[string]]></code>
-    </MixedInferredReturnType>
     <MixedReturnStatement>
       <code><![CDATA[$htmlObject($data, self::TYPE, $attribs, $params, $content)]]></code>
     </MixedReturnStatement>
@@ -494,9 +519,6 @@
     <MixedFunctionCall>
       <code><![CDATA[$htmlObject($data, self::TYPE, $attribs, $params, $content)]]></code>
     </MixedFunctionCall>
-    <MixedInferredReturnType>
-      <code><![CDATA[string]]></code>
-    </MixedInferredReturnType>
     <MixedReturnStatement>
       <code><![CDATA[$htmlObject($data, self::TYPE, $attribs, $params, $content)]]></code>
     </MixedReturnStatement>
@@ -529,6 +551,14 @@
       <code><![CDATA[getAuthenticationService]]></code>
       <code><![CDATA[setAuthenticationService]]></code>
     </PossiblyUnusedMethod>
+  </file>
+  <file src="src/Helper/InlineScript.php">
+    <InvalidExtendClass>
+      <code><![CDATA[HeadScript]]></code>
+    </InvalidExtendClass>
+    <MethodSignatureMismatch>
+      <code><![CDATA[public function __invoke(]]></code>
+    </MethodSignatureMismatch>
   </file>
   <file src="src/Helper/Json.php">
     <MissingConstructor>
@@ -648,9 +678,6 @@
       <code><![CDATA[$label]]></code>
       <code><![CDATA[$value]]></code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code><![CDATA[bool]]></code>
-    </MixedInferredReturnType>
     <MixedOperand>
       <code><![CDATA[$label]]></code>
     </MixedOperand>
@@ -772,6 +799,9 @@
       <code><![CDATA[plugin]]></code>
       <code><![CDATA[plugin]]></code>
     </UndefinedInterfaceMethod>
+    <UndefinedMagicMethod>
+      <code><![CDATA[getParent]]></code>
+    </UndefinedMagicMethod>
   </file>
   <file src="src/Helper/Navigation/HelperInterface.php">
     <PossiblyUnusedReturnValue>
@@ -821,10 +851,6 @@
       <code><![CDATA[$type]]></code>
       <code><![CDATA[$value]]></code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code><![CDATA[AbstractPage|array|null]]></code>
-      <code><![CDATA[array|null]]></code>
-    </MixedInferredReturnType>
     <MixedReturnStatement>
       <code><![CDATA[$found]]></code>
       <code><![CDATA[$found]]></code>
@@ -1023,6 +1049,15 @@
       <code><![CDATA[Sitemap::class]]></code>
       <code><![CDATA[Sitemap::class]]></code>
     </DeprecatedClass>
+    <InvalidExtendClass>
+      <code><![CDATA[HelperPluginManager]]></code>
+    </InvalidExtendClass>
+    <MethodSignatureMismatch>
+      <code><![CDATA[public function __construct($configOrContainerInstance = null, array $v3config = [])]]></code>
+    </MethodSignatureMismatch>
+    <MoreSpecificImplementedParamType>
+      <code><![CDATA[$configOrContainerInstance]]></code>
+    </MoreSpecificImplementedParamType>
     <NonInvariantDocblockPropertyType>
       <code><![CDATA[$aliases]]></code>
     </NonInvariantDocblockPropertyType>
@@ -1061,10 +1096,6 @@
       <code><![CDATA[$escaper($string)]]></code>
       <code><![CDATA[$serverUrlHelper()]]></code>
     </MixedFunctionCall>
-    <MixedInferredReturnType>
-      <code><![CDATA[string]]></code>
-      <code><![CDATA[string]]></code>
-    </MixedInferredReturnType>
     <MixedReturnStatement>
       <code><![CDATA[$escaper($string)]]></code>
       <code><![CDATA[$this->serverUrl]]></code>
@@ -1115,9 +1146,6 @@
       <code><![CDATA[$partialHelper($partial, $pages)]]></code>
       <code><![CDATA[$partialHelper($partial[0], $pages)]]></code>
     </MixedFunctionCall>
-    <MixedInferredReturnType>
-      <code><![CDATA[string]]></code>
-    </MixedInferredReturnType>
     <MixedReturnStatement>
       <code><![CDATA[$partialHelper($partial, $pages)]]></code>
       <code><![CDATA[$partialHelper($partial[0], $pages)]]></code>
@@ -1163,9 +1191,16 @@
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Helper/PartialLoop.php">
+    <InvalidExtendClass>
+      <code><![CDATA[Partial]]></code>
+    </InvalidExtendClass>
     <LessSpecificReturnStatement>
       <code><![CDATA[parent::setObjectKey($key)]]></code>
     </LessSpecificReturnStatement>
+    <MethodSignatureMismatch>
+      <code><![CDATA[public function __invoke($name = null, $values = null)]]></code>
+      <code><![CDATA[public function setObjectKey($key)]]></code>
+    </MethodSignatureMismatch>
     <MixedArgument>
       <code><![CDATA[$item]]></code>
     </MixedArgument>
@@ -1173,9 +1208,6 @@
       <code><![CDATA[$item]]></code>
       <code><![CDATA[$this->objectKey]]></code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code><![CDATA[array]]></code>
-    </MixedInferredReturnType>
     <MixedReturnStatement>
       <code><![CDATA[$values->toArray()]]></code>
     </MixedReturnStatement>
@@ -1229,6 +1261,9 @@
       <code><![CDATA[$this->nextIndex()]]></code>
       <code><![CDATA[$this[$key] .= $data]]></code>
     </InvalidArgument>
+    <InvalidNullableReturnType>
+      <code><![CDATA[string]]></code>
+    </InvalidNullableReturnType>
     <InvalidParamDefault>
       <code><![CDATA[TKey]]></code>
     </InvalidParamDefault>
@@ -1248,6 +1283,15 @@
     <NoValue>
       <code><![CDATA[$this->captureKey]]></code>
     </NoValue>
+    <NullableReturnStatement>
+      <code><![CDATA[$return]]></code>
+    </NullableReturnStatement>
+    <PossiblyNullArgument>
+      <code><![CDATA[$key]]></code>
+    </PossiblyNullArgument>
+    <PossiblyNullArrayOffset>
+      <code><![CDATA[$this]]></code>
+    </PossiblyNullArrayOffset>
     <RedundantCastGivenDocblockType>
       <code><![CDATA[(string) $postfix]]></code>
       <code><![CDATA[(string) $prefix]]></code>
@@ -1278,6 +1322,9 @@
     <MixedAssignment>
       <code><![CDATA[$return]]></code>
     </MixedAssignment>
+    <PossiblyFalseArgument>
+      <code><![CDATA[class_parents($name)]]></code>
+    </PossiblyFalseArgument>
     <PossiblyUnusedMethod>
       <code><![CDATA[__get]]></code>
       <code><![CDATA[__set]]></code>
@@ -1301,15 +1348,15 @@
     <LessSpecificReturnStatement>
       <code><![CDATA[$this->items[$key]]]></code>
     </LessSpecificReturnStatement>
-    <MixedInferredReturnType>
-      <code><![CDATA[AbstractContainer]]></code>
-    </MixedInferredReturnType>
     <MixedReturnStatement>
       <code><![CDATA[$this->items[$key]]]></code>
     </MixedReturnStatement>
     <MoreSpecificReturnType>
       <code><![CDATA[AbstractContainer]]></code>
     </MoreSpecificReturnType>
+    <PossiblyFalseArgument>
+      <code><![CDATA[class_parents($name)]]></code>
+    </PossiblyFalseArgument>
     <PossiblyUnusedMethod>
       <code><![CDATA[getRegistry]]></code>
       <code><![CDATA[unsetRegistry]]></code>
@@ -1321,9 +1368,6 @@
       <code><![CDATA[(string) $key]]></code>
       <code><![CDATA[(string) $key]]></code>
     </RedundantCastGivenDocblockType>
-    <UnsafeInstantiation>
-      <code><![CDATA[new static()]]></code>
-    </UnsafeInstantiation>
   </file>
   <file src="src/Helper/RenderChildModel.php">
     <MissingConstructor>
@@ -1333,9 +1377,6 @@
     <MixedAssignment>
       <code><![CDATA[$this->viewModelHelper]]></code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code><![CDATA[ViewModel]]></code>
-    </MixedInferredReturnType>
     <MixedReturnStatement>
       <code><![CDATA[$this->viewModelHelper]]></code>
     </MixedReturnStatement>
@@ -1515,9 +1556,6 @@
       <code><![CDATA[$container]]></code>
       <code><![CDATA[$container]]></code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code><![CDATA[($name is class-string ? T : HelperInterface|callable)]]></code>
-    </MixedInferredReturnType>
     <MixedReturnStatement>
       <code><![CDATA[parent::get($name, $options)]]></code>
     </MixedReturnStatement>
@@ -1559,9 +1597,12 @@
     </MissingReturnType>
   </file>
   <file src="src/Model/ConsoleModel.php">
-    <MixedInferredReturnType>
-      <code><![CDATA[int]]></code>
-    </MixedInferredReturnType>
+    <ClassMustBeFinal>
+      <code><![CDATA[ConsoleModel]]></code>
+    </ClassMustBeFinal>
+    <InvalidExtendClass>
+      <code><![CDATA[ViewModel]]></code>
+    </InvalidExtendClass>
     <MixedReturnStatement>
       <code><![CDATA[$this->options['errorLevel']]]></code>
     </MixedReturnStatement>
@@ -1575,13 +1616,13 @@
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Model/FeedModel.php">
+    <InvalidExtendClass>
+      <code><![CDATA[ViewModel]]></code>
+    </InvalidExtendClass>
     <MixedAssignment>
       <code><![CDATA[$this->type]]></code>
       <code><![CDATA[$this->type]]></code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code><![CDATA[false|string]]></code>
-    </MixedInferredReturnType>
     <MixedReturnStatement>
       <code><![CDATA[$this->type]]></code>
       <code><![CDATA[$this->type]]></code>
@@ -1597,6 +1638,9 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Model/JsonModel.php">
+    <InvalidExtendClass>
+      <code><![CDATA[ViewModel]]></code>
+    </InvalidExtendClass>
     <NonInvariantDocblockPropertyType>
       <code><![CDATA[$captureTo]]></code>
     </NonInvariantDocblockPropertyType>
@@ -1664,9 +1708,9 @@
       <code><![CDATA[__construct]]></code>
       <code><![CDATA[setFilterChain]]></code>
     </PossiblyUnusedMethod>
-    <PossiblyUnusedParam>
+    <UnusedParam>
       <code><![CDATA[$config]]></code>
-    </PossiblyUnusedParam>
+    </UnusedParam>
   </file>
   <file src="src/Renderer/FeedRenderer.php">
     <InvalidArgument>
@@ -1737,6 +1781,7 @@
       <code><![CDATA[gettype($helpers)]]></code>
     </DocblockTypeContradiction>
     <FalsableReturnStatement>
+      <code><![CDATA[$this->__content]]></code>
       <code><![CDATA[$this->__templateResolver->resolve($name, $this)]]></code>
     </FalsableReturnStatement>
     <ImplementedParamTypeMismatch>
@@ -1758,15 +1803,13 @@
       <code><![CDATA[$variablesAsArray[$key]]]></code>
       <code><![CDATA[$vars[$name]]]></code>
     </MixedAssignment>
-    <MixedInferredReturnType>
-      <code><![CDATA[string]]></code>
-    </MixedInferredReturnType>
     <MixedMethodCall>
       <code><![CDATA[new $helpers(new ServiceManager())]]></code>
     </MixedMethodCall>
     <MixedReturnStatement>
       <code><![CDATA[$this->__filterChain->filter($this->__content)]]></code>
       <code><![CDATA[$this->__vars[$key]]]></code>
+      <code><![CDATA[$this->getHelperPluginManager()->get($name, $options)]]></code>
     </MixedReturnStatement>
     <NullableReturnStatement>
       <code><![CDATA[$this->__templateResolver]]></code>
@@ -1774,6 +1817,9 @@
     <PossibleRawObjectIteration>
       <code><![CDATA[$variables]]></code>
     </PossibleRawObjectIteration>
+    <PossiblyFalsePropertyAssignmentValue>
+      <code><![CDATA[ob_get_clean()]]></code>
+    </PossiblyFalsePropertyAssignmentValue>
     <PossiblyInvalidArgument>
       <code><![CDATA[$values]]></code>
     </PossiblyInvalidArgument>
@@ -1787,9 +1833,9 @@
       <code><![CDATA[$this->__vars]]></code>
       <code><![CDATA[resolve]]></code>
     </PossiblyNullReference>
-    <PossiblyUnusedParam>
-      <code><![CDATA[$config]]></code>
-    </PossiblyUnusedParam>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__get]]></code>
+    </PossiblyUnusedMethod>
     <RedundantCastGivenDocblockType>
       <code><![CDATA[(bool) $renderTrees]]></code>
     </RedundantCastGivenDocblockType>
@@ -1799,6 +1845,9 @@
     <UnresolvableInclude>
       <code><![CDATA[include $this->__file]]></code>
     </UnresolvableInclude>
+    <UnusedParam>
+      <code><![CDATA[$config]]></code>
+    </UnusedParam>
   </file>
   <file src="src/Resolver/AggregateResolver.php">
     <DeprecatedProperty>
@@ -1920,14 +1969,17 @@
     <PossiblyNullReference>
       <code><![CDATA[plugin]]></code>
     </PossiblyNullReference>
-    <PossiblyUnusedParam>
-      <code><![CDATA[$e]]></code>
-    </PossiblyUnusedParam>
     <UndefinedInterfaceMethod>
       <code><![CDATA[plugin]]></code>
     </UndefinedInterfaceMethod>
+    <UnusedParam>
+      <code><![CDATA[$e]]></code>
+    </UnusedParam>
   </file>
   <file src="src/Stream.php">
+    <ClassMustBeFinal>
+      <code><![CDATA[Stream]]></code>
+    </ClassMustBeFinal>
     <MissingConstructor>
       <code><![CDATA[$data]]></code>
       <code><![CDATA[$stat]]></code>
@@ -1949,6 +2001,18 @@
       <code><![CDATA[$offset]]></code>
       <code><![CDATA[$offset]]></code>
     </MixedOperand>
+    <PossiblyFalsePropertyAssignmentValue>
+      <code><![CDATA[file_get_contents($path)]]></code>
+      <code><![CDATA[stat($path)]]></code>
+      <code><![CDATA[stat($path)]]></code>
+    </PossiblyFalsePropertyAssignmentValue>
+    <PossiblyNullArgument>
+      <code><![CDATA[$this->data]]></code>
+    </PossiblyNullArgument>
+    <PossiblyNullPropertyAssignmentValue>
+      <code><![CDATA[preg_replace('/<\?(?!xml|php)/s', '<?php ', $this->data)]]></code>
+      <code><![CDATA[preg_replace('/\<\?\=/', "<?php echo ", $this->data)]]></code>
+    </PossiblyNullPropertyAssignmentValue>
     <PossiblyUnusedMethod>
       <code><![CDATA[stream_eof]]></code>
       <code><![CDATA[stream_open]]></code>
@@ -2065,6 +2129,45 @@
     </UndefinedPropertyAssignment>
   </file>
   <file src="test/Helper/EscapeCssTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[getEncoding]]></code>
+      <code><![CDATA[getEncoding]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEscaper]]></code>
+      <code><![CDATA[setEscaper]]></code>
+    </DeprecatedMethod>
+    <InternalMethod>
+      <code><![CDATA[__invoke]]></code>
+      <code><![CDATA[__invoke]]></code>
+      <code><![CDATA[__invoke]]></code>
+      <code><![CDATA[__invoke]]></code>
+      <code><![CDATA[getEncoding]]></code>
+      <code><![CDATA[getEncoding]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[new EscapeHelper()]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEscaper]]></code>
+      <code><![CDATA[setEscaper]]></code>
+    </InternalMethod>
     <MixedAssignment>
       <code><![CDATA[$test]]></code>
       <code><![CDATA[$test]]></code>
@@ -2073,6 +2176,45 @@
     </MixedAssignment>
   </file>
   <file src="test/Helper/EscapeHtmlAttrTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[getEncoding]]></code>
+      <code><![CDATA[getEncoding]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEscaper]]></code>
+      <code><![CDATA[setEscaper]]></code>
+    </DeprecatedMethod>
+    <InternalMethod>
+      <code><![CDATA[__invoke]]></code>
+      <code><![CDATA[__invoke]]></code>
+      <code><![CDATA[__invoke]]></code>
+      <code><![CDATA[__invoke]]></code>
+      <code><![CDATA[getEncoding]]></code>
+      <code><![CDATA[getEncoding]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[new EscapeHelper()]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEscaper]]></code>
+      <code><![CDATA[setEscaper]]></code>
+    </InternalMethod>
     <MixedAssignment>
       <code><![CDATA[$test]]></code>
       <code><![CDATA[$test]]></code>
@@ -2081,6 +2223,50 @@
     </MixedAssignment>
   </file>
   <file src="test/Helper/EscapeHtmlTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[getEncoding]]></code>
+      <code><![CDATA[getEncoding]]></code>
+      <code><![CDATA[getEncoding]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEscaper]]></code>
+      <code><![CDATA[setEscaper]]></code>
+    </DeprecatedMethod>
+    <InternalMethod>
+      <code><![CDATA[__invoke]]></code>
+      <code><![CDATA[__invoke]]></code>
+      <code><![CDATA[__invoke]]></code>
+      <code><![CDATA[__invoke]]></code>
+      <code><![CDATA[getEncoding]]></code>
+      <code><![CDATA[getEncoding]]></code>
+      <code><![CDATA[getEncoding]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[new EscapeHelper($escaper, 'UTF-8')]]></code>
+      <code><![CDATA[new EscapeHelper()]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEscaper]]></code>
+      <code><![CDATA[setEscaper]]></code>
+    </InternalMethod>
     <MixedAssignment>
       <code><![CDATA[$test]]></code>
       <code><![CDATA[$test]]></code>
@@ -2089,6 +2275,45 @@
     </MixedAssignment>
   </file>
   <file src="test/Helper/EscapeJsTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[getEncoding]]></code>
+      <code><![CDATA[getEncoding]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEscaper]]></code>
+      <code><![CDATA[setEscaper]]></code>
+    </DeprecatedMethod>
+    <InternalMethod>
+      <code><![CDATA[__invoke]]></code>
+      <code><![CDATA[__invoke]]></code>
+      <code><![CDATA[__invoke]]></code>
+      <code><![CDATA[__invoke]]></code>
+      <code><![CDATA[getEncoding]]></code>
+      <code><![CDATA[getEncoding]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[new EscapeHelper()]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEscaper]]></code>
+      <code><![CDATA[setEscaper]]></code>
+    </InternalMethod>
     <MixedAssignment>
       <code><![CDATA[$test]]></code>
       <code><![CDATA[$test]]></code>
@@ -2097,6 +2322,45 @@
     </MixedAssignment>
   </file>
   <file src="test/Helper/EscapeUrlTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[getEncoding]]></code>
+      <code><![CDATA[getEncoding]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEscaper]]></code>
+      <code><![CDATA[setEscaper]]></code>
+    </DeprecatedMethod>
+    <InternalMethod>
+      <code><![CDATA[__invoke]]></code>
+      <code><![CDATA[__invoke]]></code>
+      <code><![CDATA[__invoke]]></code>
+      <code><![CDATA[__invoke]]></code>
+      <code><![CDATA[getEncoding]]></code>
+      <code><![CDATA[getEncoding]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[getEscaper]]></code>
+      <code><![CDATA[new EscapeHelper()]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEncoding]]></code>
+      <code><![CDATA[setEscaper]]></code>
+      <code><![CDATA[setEscaper]]></code>
+    </InternalMethod>
     <MixedAssignment>
       <code><![CDATA[$test]]></code>
       <code><![CDATA[$test]]></code>
@@ -2172,18 +2436,78 @@
       <code><![CDATA[renderCurrent]]></code>
       <code><![CDATA[renderCurrent]]></code>
     </PossiblyInvalidMethodCall>
+    <UndefinedMagicMethod>
+      <code><![CDATA[addErrorMessage]]></code>
+      <code><![CDATA[addErrorMessage]]></code>
+      <code><![CDATA[addInfoMessage]]></code>
+      <code><![CDATA[addInfoMessage]]></code>
+      <code><![CDATA[addInfoMessage]]></code>
+      <code><![CDATA[addMessage]]></code>
+      <code><![CDATA[addMessage]]></code>
+      <code><![CDATA[addMessage]]></code>
+      <code><![CDATA[addMessage]]></code>
+      <code><![CDATA[addMessage]]></code>
+      <code><![CDATA[addMessage]]></code>
+      <code><![CDATA[addMessage]]></code>
+      <code><![CDATA[addMessage]]></code>
+      <code><![CDATA[addMessage]]></code>
+      <code><![CDATA[addMessage]]></code>
+      <code><![CDATA[addMessage]]></code>
+      <code><![CDATA[addMessage]]></code>
+      <code><![CDATA[addMessage]]></code>
+      <code><![CDATA[addSuccessMessage]]></code>
+      <code><![CDATA[addSuccessMessage]]></code>
+      <code><![CDATA[addWarningMessage]]></code>
+      <code><![CDATA[hasCurrentErrorMessages]]></code>
+      <code><![CDATA[hasCurrentErrorMessages]]></code>
+      <code><![CDATA[hasCurrentErrorMessages]]></code>
+      <code><![CDATA[hasCurrentInfoMessages]]></code>
+      <code><![CDATA[hasCurrentInfoMessages]]></code>
+      <code><![CDATA[hasCurrentInfoMessages]]></code>
+      <code><![CDATA[hasCurrentMessages]]></code>
+      <code><![CDATA[hasCurrentMessages]]></code>
+      <code><![CDATA[hasCurrentMessages]]></code>
+      <code><![CDATA[hasCurrentSuccessMessages]]></code>
+      <code><![CDATA[hasCurrentSuccessMessages]]></code>
+      <code><![CDATA[hasCurrentSuccessMessages]]></code>
+      <code><![CDATA[hasErrorMessages]]></code>
+      <code><![CDATA[hasErrorMessages]]></code>
+      <code><![CDATA[hasErrorMessages]]></code>
+      <code><![CDATA[hasInfoMessages]]></code>
+      <code><![CDATA[hasInfoMessages]]></code>
+      <code><![CDATA[hasInfoMessages]]></code>
+      <code><![CDATA[hasMessages]]></code>
+      <code><![CDATA[hasMessages]]></code>
+      <code><![CDATA[hasMessages]]></code>
+      <code><![CDATA[hasSuccessMessages]]></code>
+      <code><![CDATA[hasSuccessMessages]]></code>
+      <code><![CDATA[hasSuccessMessages]]></code>
+      <code><![CDATA[hasWarningMessages]]></code>
+      <code><![CDATA[hasWarningMessages]]></code>
+      <code><![CDATA[hasWarningMessages]]></code>
+    </UndefinedMagicMethod>
   </file>
   <file src="test/Helper/GravatarTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[getAttribs]]></code>
+      <code><![CDATA[setAttribs]]></code>
+    </DeprecatedMethod>
     <PossiblyInvalidArgument>
       <code><![CDATA[$value]]></code>
       <code><![CDATA[$value]]></code>
       <code><![CDATA[$value]]></code>
     </PossiblyInvalidArgument>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[tesSetDefaultImg]]></code>
+    </PossiblyUnusedMethod>
     <UndefinedMethod>
       <code><![CDATA[gravatar]]></code>
     </UndefinedMethod>
   </file>
   <file src="test/Helper/HeadLinkTest.php">
+    <InternalMethod>
+      <code><![CDATA[new EscapeHtmlAttr()]]></code>
+    </InternalMethod>
     <MixedArgument>
       <code><![CDATA[$attributeEscaper('/styles.css')]]></code>
       <code><![CDATA[$attributeEscaper('/styles.css')]]></code>
@@ -2262,6 +2586,11 @@
       <code><![CDATA['foo']]></code>
       <code><![CDATA['foo']]></code>
     </InvalidArgument>
+    <PossiblyNullPropertyFetch>
+      <code><![CDATA[$item->content]]></code>
+      <code><![CDATA[$item->name]]></code>
+      <code><![CDATA[$item->type]]></code>
+    </PossiblyNullPropertyFetch>
     <UndefinedMagicMethod>
       <code><![CDATA[offsetSetHttpEquiv]]></code>
       <code><![CDATA[offsetSetHttpEquiv]]></code>
@@ -2270,15 +2599,30 @@
       <code><![CDATA[offsetSetName]]></code>
     </UndefinedMagicMethod>
   </file>
+  <file src="test/Helper/HeadScriptTest.php">
+    <PossiblyNullArgument>
+      <code><![CDATA[$item->source]]></code>
+    </PossiblyNullArgument>
+    <PossiblyNullPropertyFetch>
+      <code><![CDATA[$item->source]]></code>
+    </PossiblyNullPropertyFetch>
+  </file>
+  <file src="test/Helper/HeadTitleTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[getDefaultAttachOrder]]></code>
+      <code><![CDATA[setDefaultAttachOrder]]></code>
+      <code><![CDATA[setDefaultAttachOrder]]></code>
+    </DeprecatedMethod>
+  </file>
   <file src="test/Helper/HtmlFlashTest.php">
     <DeprecatedClass>
       <code><![CDATA[HtmlFlash]]></code>
     </DeprecatedClass>
   </file>
   <file src="test/Helper/HtmlListTest.php">
-    <PossiblyUnusedParam>
+    <UnusedParam>
       <code><![CDATA[$key]]></code>
-    </PossiblyUnusedParam>
+    </UnusedParam>
   </file>
   <file src="test/Helper/HtmlTagTest.php">
     <MixedArgument>
@@ -2286,6 +2630,11 @@
       <code><![CDATA[$escape($value)]]></code>
       <code><![CDATA[$escape('http://www.w3.org/1999/xhtml')]]></code>
     </MixedArgument>
+  </file>
+  <file src="test/Helper/JsonTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[setResponse]]></code>
+    </DeprecatedMethod>
   </file>
   <file src="test/Helper/Navigation/AbstractHelperTest.php">
     <DeprecatedClass>
@@ -2315,6 +2664,12 @@
       <code><![CDATA[AbstractHelper]]></code>
       <code><![CDATA[new Config((new RouterConfigProvider())->getDependencyConfig())]]></code>
     </DeprecatedClass>
+    <FalsableReturnStatement>
+      <code><![CDATA[file_get_contents($this->files . '/expected/' . $filename)]]></code>
+    </FalsableReturnStatement>
+    <InvalidFalsableReturnType>
+      <code><![CDATA[string]]></code>
+    </InvalidFalsableReturnType>
   </file>
   <file src="test/Helper/Navigation/BreadcrumbsTest.php">
     <DeprecatedClass>
@@ -2493,6 +2848,67 @@
       <code><![CDATA[getLabel]]></code>
       <code><![CDATA[getLabel]]></code>
     </PossiblyNullReference>
+    <UndefinedMagicMethod>
+      <code><![CDATA[findAllByActive]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[findRelAlternate]]></code>
+      <code><![CDATA[findRelAlternate]]></code>
+      <code><![CDATA[findRelChapter]]></code>
+      <code><![CDATA[findRelChapter]]></code>
+      <code><![CDATA[findRelExample]]></code>
+      <code><![CDATA[findRelExample]]></code>
+      <code><![CDATA[findRelExample]]></code>
+      <code><![CDATA[findRelNext]]></code>
+      <code><![CDATA[findRelNext]]></code>
+      <code><![CDATA[findRelNext]]></code>
+      <code><![CDATA[findRelPrev]]></code>
+      <code><![CDATA[findRelPrev]]></code>
+      <code><![CDATA[findRelPrev]]></code>
+      <code><![CDATA[findRelSection]]></code>
+      <code><![CDATA[findRelSection]]></code>
+      <code><![CDATA[findRelStart]]></code>
+      <code><![CDATA[findRelStart]]></code>
+      <code><![CDATA[findRelSubsection]]></code>
+      <code><![CDATA[findRelSubsection]]></code>
+      <code><![CDATA[findRelSubsection]]></code>
+      <code><![CDATA[findRevSection]]></code>
+      <code><![CDATA[findRevSubsection]]></code>
+    </UndefinedMagicMethod>
     <UnusedForeachValue>
       <code><![CDATA[$discard]]></code>
       <code><![CDATA[$discard]]></code>
@@ -2526,6 +2942,13 @@
     <NonInvariantDocblockPropertyType>
       <code><![CDATA[$_helper]]></code>
     </NonInvariantDocblockPropertyType>
+    <UndefinedMagicMethod>
+      <code><![CDATA[findAllByActive]]></code>
+      <code><![CDATA[findOneByLabel]]></code>
+      <code><![CDATA[setRenderParents]]></code>
+      <code><![CDATA[setRenderParents]]></code>
+      <code><![CDATA[setRenderParents]]></code>
+    </UndefinedMagicMethod>
   </file>
   <file src="test/Helper/Navigation/NavigationTest.php">
     <DeprecatedClass>
@@ -2589,6 +3012,11 @@
     <UndefinedClass>
       <code><![CDATA[PsrContainerDecorator]]></code>
     </UndefinedClass>
+    <UndefinedMagicMethod>
+      <code><![CDATA[menu]]></code>
+      <code><![CDATA[menu]]></code>
+      <code><![CDATA[menu]]></code>
+    </UndefinedMagicMethod>
   </file>
   <file src="test/Helper/Navigation/PluginManagerCompatibilityTest.php">
     <DeprecatedClass>
@@ -2865,15 +3293,86 @@
       <code><![CDATA[new stdClass()]]></code>
     </InvalidArgument>
   </file>
+  <file src="test/Helper/Service/AssetFactoryTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[createService]]></code>
+      <code><![CDATA[getResourceMap]]></code>
+    </DeprecatedMethod>
+  </file>
   <file src="test/Helper/TestAsset/ArrayTranslator.php">
     <InvalidArgument>
       <code><![CDATA[$this->translations]]></code>
     </InvalidArgument>
   </file>
+  <file src="test/Helper/TestAsset/ConcreteElementHelper.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[normalizeElementId]]></code>
+    </PossiblyUnusedMethod>
+  </file>
   <file src="test/Helper/TestAsset/IteratorWithToArrayTestContainer.php">
     <MixedAssignment>
       <code><![CDATA[$value]]></code>
     </MixedAssignment>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[toArray]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="test/Helper/TestAsset/MockContainer.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[__construct]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="test/Helper/TestAsset/PartialLoopIterator.php">
+    <FalsableReturnStatement>
+      <code><![CDATA[current($this->items)]]></code>
+    </FalsableReturnStatement>
+    <InvalidFalsableReturnType>
+      <code><![CDATA[T|null]]></code>
+    </InvalidFalsableReturnType>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[toArray]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="test/Helper/TestAsset/PartialLoopIteratorWithToArray.php">
+    <FalsableReturnStatement>
+      <code><![CDATA[current($this->items)]]></code>
+    </FalsableReturnStatement>
+    <InvalidFalsableReturnType>
+      <code><![CDATA[T]]></code>
+    </InvalidFalsableReturnType>
+    <InvalidNullableReturnType>
+      <code><![CDATA[int|string]]></code>
+    </InvalidNullableReturnType>
+    <NullableReturnStatement>
+      <code><![CDATA[key($this->items)]]></code>
+    </NullableReturnStatement>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[toArray]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="test/Helper/TestAsset/PartialLoopRecursiveIterator.php">
+    <FalsableReturnStatement>
+      <code><![CDATA[current($this->items)]]></code>
+    </FalsableReturnStatement>
+    <InvalidFalsableReturnType>
+      <code><![CDATA[Iterator]]></code>
+    </InvalidFalsableReturnType>
+    <InvalidNullableReturnType>
+      <code><![CDATA[int|string]]></code>
+    </InvalidNullableReturnType>
+    <NullableReturnStatement>
+      <code><![CDATA[key($this->items)]]></code>
+    </NullableReturnStatement>
+  </file>
+  <file src="test/Helper/TestAsset/PartialLoopToArrayImplementor.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[toArray]]></code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="test/Helper/TestAsset/ToArray.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[toArray]]></code>
+    </PossiblyUnusedMethod>
   </file>
   <file src="test/Helper/UrlIntegrationTest.php">
     <DeprecatedClass>
@@ -2973,6 +3472,9 @@
             ],
         ])]]></code>
     </DeprecatedClass>
+    <DeprecatedInterface>
+      <code><![CDATA[$this->getMockBuilder(TranslatorInterface::class)]]></code>
+    </DeprecatedInterface>
     <MissingClosureParamType>
       <code><![CDATA[$container]]></code>
       <code><![CDATA[$container]]></code>
@@ -3003,6 +3505,14 @@
     <PossiblyInvalidArrayAccess>
       <code><![CDATA[$variables['foo']]]></code>
     </PossiblyInvalidArrayAccess>
+    <RedundantCondition>
+      <code><![CDATA[assertTrue]]></code>
+      <code><![CDATA[assertTrue]]></code>
+    </RedundantCondition>
+    <UndefinedMagicPropertyAssignment>
+      <code><![CDATA[$model->bar]]></code>
+      <code><![CDATA[$model->foo]]></code>
+    </UndefinedMagicPropertyAssignment>
   </file>
   <file src="test/PhpRendererTest.php">
     <MixedArgument>
@@ -3015,6 +3525,10 @@
     <PossiblyInvalidArrayAssignment>
       <code><![CDATA[$vars['foo']]]></code>
     </PossiblyInvalidArrayAssignment>
+    <UndefinedMagicPropertyAssignment>
+      <code><![CDATA[$this->renderer->foo]]></code>
+      <code><![CDATA[$this->renderer->foo]]></code>
+    </UndefinedMagicPropertyAssignment>
     <UndefinedPropertyFetch>
       <code><![CDATA[$this->renderer->vars()->foo]]></code>
     </UndefinedPropertyFetch>
@@ -3038,17 +3552,58 @@
     <MixedArgument>
       <code><![CDATA[$model]]></code>
     </MixedArgument>
+    <PossiblyFalseOperand>
+      <code><![CDATA[json_encode($model->value)]]></code>
+      <code><![CDATA[json_encode(['foo' => 'bar'])]]></code>
+    </PossiblyFalseOperand>
   </file>
   <file src="test/Resolver/AggregateResolverTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[getLastLookupFailure]]></code>
+      <code><![CDATA[getLastLookupFailure]]></code>
+      <code><![CDATA[getLastSuccessfulResolver]]></code>
+      <code><![CDATA[getLastSuccessfulResolver]]></code>
+      <code><![CDATA[getLastSuccessfulResolver]]></code>
+      <code><![CDATA[getLastSuccessfulResolver]]></code>
+    </DeprecatedMethod>
     <DocblockTypeContradiction>
       <code><![CDATA[assertNull]]></code>
     </DocblockTypeContradiction>
+  </file>
+  <file src="test/Resolver/PrefixPathStackResolverTest.php">
+    <PossiblyFalsePropertyAssignmentValue>
+      <code><![CDATA[realpath(__DIR__ . '/../_templates/prefix-path-stack-resolver')]]></code>
+    </PossiblyFalsePropertyAssignmentValue>
   </file>
   <file src="test/Resolver/TemplatePathStackTest.php">
     <DeprecatedConstant>
       <code><![CDATA[TemplatePathStack::FAILURE_NOT_FOUND]]></code>
       <code><![CDATA[TemplatePathStack::FAILURE_NO_PATHS]]></code>
     </DeprecatedConstant>
+    <DeprecatedMethod>
+      <code><![CDATA[getLastLookupFailure]]></code>
+      <code><![CDATA[getLastLookupFailure]]></code>
+      <code><![CDATA[setUseStreamWrapper]]></code>
+      <code><![CDATA[setUseStreamWrapper]]></code>
+      <code><![CDATA[useStreamWrapper]]></code>
+      <code><![CDATA[useStreamWrapper]]></code>
+      <code><![CDATA[useStreamWrapper]]></code>
+      <code><![CDATA[useStreamWrapper]]></code>
+    </DeprecatedMethod>
+    <PossiblyFalseArgument>
+      <code><![CDATA[$this->baseDir]]></code>
+    </PossiblyFalseArgument>
+    <PossiblyFalseOperand>
+      <code><![CDATA[$this->baseDir]]></code>
+      <code><![CDATA[realpath($this->baseDir . '/_templates/test.phtml')]]></code>
+    </PossiblyFalseOperand>
+    <PossiblyFalsePropertyAssignmentValue>
+      <code><![CDATA[realpath(__DIR__ . '/..')]]></code>
+    </PossiblyFalsePropertyAssignmentValue>
+    <PossiblyInvalidArgument>
+      <code><![CDATA[testAllowsPassingOptionsToConstructor]]></code>
+      <code><![CDATA[testAllowsSettingOptions]]></code>
+    </PossiblyInvalidArgument>
   </file>
   <file src="test/Strategy/FeedStrategyTest.php">
     <MixedAssignment>

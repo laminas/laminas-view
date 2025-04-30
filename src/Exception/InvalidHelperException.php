@@ -6,6 +6,7 @@ namespace Laminas\View\Exception;
 
 use Exception;
 
+/** @final */
 class InvalidHelperException extends Exception implements ExceptionInterface
 {
 }

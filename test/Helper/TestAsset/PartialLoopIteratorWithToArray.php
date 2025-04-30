@@ -16,7 +16,7 @@ use function reset;
  * @template T
  * @implements Iterator<array-key, T>
  */
-class PartialLoopIteratorWithToArray implements Iterator
+final class PartialLoopIteratorWithToArray implements Iterator
 {
     /** @var array<array-key, T> */
     public array $items;

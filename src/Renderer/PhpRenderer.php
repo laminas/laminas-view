@@ -89,6 +89,8 @@ use function sprintf;
  * @method \Laminas\View\Helper\Navigation\Menu menu($container = null)
  * @method \Laminas\View\Helper\Navigation\Sitemap sitemap($container = null)
  * @method string gravatarImage(string $emailAddress, int $imageSize = 80, array $imageAttributes = [], string $defaultImage = 'mm', string $rating = 'g')
+ *
+ * @final
  */
 class PhpRenderer implements Renderer, TreeRendererInterface
 {

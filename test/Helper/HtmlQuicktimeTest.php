@@ -8,7 +8,7 @@ use Laminas\View\Helper\HtmlQuicktime;
 use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
 
-class HtmlQuicktimeTest extends TestCase
+final class HtmlQuicktimeTest extends TestCase
 {
     /**
      * @psalm-suppress DeprecatedClass

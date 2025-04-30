@@ -18,6 +18,8 @@ use function sprintf;
 /**
  * Helper for rendering a template fragment in its own variable scope; iterates
  * over data provided and renders for each iteration.
+ *
+ * @final
  */
 class PartialLoop extends Partial
 {
