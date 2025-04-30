@@ -422,15 +422,10 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     }
 
     /**
-     * Retrieve filter chain for post-filtering script content
-     *
-     * @return FilterChain
+     * Retrieve filter chain for post-filtering script content, if one has been configured
      */
-    public function getFilterChain()
+    public function getFilterChain(): FilterChain|null
     {
-        if (null === $this->__filterChain) {
-            $this->__filterChain = new FilterChain();
-        }
         return $this->__filterChain;
     }
 
