@@ -7,7 +7,7 @@ namespace Laminas\View\Helper;
 use function array_merge;
 
 /**
- * @deprecated
+ * @deprecated Quicktime is obsolete. This helper will be removed in 3.0
  *
  * @final
  */
