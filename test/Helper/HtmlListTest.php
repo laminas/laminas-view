@@ -12,7 +12,7 @@ use function array_walk_recursive;
 
 use const PHP_EOL;
 
-class HtmlListTest extends TestCase
+final class HtmlListTest extends TestCase
 {
     public HtmlList $helper;
 

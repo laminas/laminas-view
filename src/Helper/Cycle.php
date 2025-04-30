@@ -11,6 +11,8 @@ use function count;
 
 /**
  * Helper for alternating between set of values
+ *
+ * @final
  */
 class Cycle extends AbstractHelper implements Iterator
 {
@@ -45,7 +47,6 @@ class Cycle extends AbstractHelper implements Iterator
     /**
      * Add elements to alternate
      *
-     * @param  array $data
      * @param  string $name
      * @return Cycle
      */
@@ -82,7 +83,6 @@ class Cycle extends AbstractHelper implements Iterator
     /**
      * Add elements to alternate
      *
-     * @param  array $data
      * @param  string $name
      * @return Cycle
      */

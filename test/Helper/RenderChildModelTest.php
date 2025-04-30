@@ -12,7 +12,7 @@ use Laminas\View\Renderer\PhpRenderer;
 use Laminas\View\Resolver\TemplateMapResolver;
 use PHPUnit\Framework\TestCase;
 
-class RenderChildModelTest extends TestCase
+final class RenderChildModelTest extends TestCase
 {
     private TemplateMapResolver $resolver;
     private PhpRenderer $renderer;

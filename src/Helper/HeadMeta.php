@@ -235,7 +235,6 @@ class HeadMeta extends AbstractStandalone
      * @param  string $type
      * @param  string $typeValue
      * @param  string $content
-     * @param  array  $modifiers
      * @return object
      */
     public function createData($type, $typeValue, $content, array $modifiers)

@@ -12,6 +12,7 @@ use Laminas\View\Helper\Placeholder\Container\AbstractContainer;
  * @template TKey
  * @template TValue
  * @extends AbstractContainer<TKey, TValue>
+ * @final
  */
 class Container extends AbstractContainer
 {

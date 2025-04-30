@@ -9,7 +9,7 @@ use Laminas\View\Helper\Placeholder\Container\AbstractContainer;
 use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
 
-class PlaceholderTest extends TestCase
+final class PlaceholderTest extends TestCase
 {
     public Placeholder $placeholder;
 

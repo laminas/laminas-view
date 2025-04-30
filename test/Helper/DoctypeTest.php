@@ -8,7 +8,7 @@ use Laminas\View\Exception\DomainException;
 use Laminas\View\Helper\Doctype;
 use PHPUnit\Framework\TestCase;
 
-class DoctypeTest extends TestCase
+final class DoctypeTest extends TestCase
 {
     /** @var Doctype */
     public $helper;

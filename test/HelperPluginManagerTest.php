@@ -15,7 +15,7 @@ use Laminas\View\HelperPluginManager;
 use Laminas\View\Renderer\PhpRenderer;
 use PHPUnit\Framework\TestCase;
 
-class HelperPluginManagerTest extends TestCase
+final class HelperPluginManagerTest extends TestCase
 {
     private HelperPluginManager $helpers;
 

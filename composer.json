@@ -39,20 +39,22 @@
     },
     "require-dev": {
         "laminas/laminas-authentication": "^2.18",
-        "laminas/laminas-coding-standard": "~2.5.0",
+        "laminas/laminas-coding-standard": "~3.0.1",
         "laminas/laminas-feed": "^2.23",
         "laminas/laminas-filter": "^2.40",
         "laminas/laminas-http": "^2.21",
         "laminas/laminas-paginator": "^2.19.0",
         "phpunit/phpunit": "^10.5.45",
-        "psalm/plugin-phpunit": "^0.19.0",
-        "vimeo/psalm": "^5.26.1"
+        "psalm/plugin-phpunit": "^0.19.5",
+        "vimeo/psalm": "^6.10.1"
     },
     "conflict": {
         "container-interop/container-interop": "<1.2",
         "laminas/laminas-session": "<2.12",
         "laminas/laminas-router": "<3.0.1",
-        "zendframework/zend-view": "*"
+        "zendframework/zend-view": "*",
+        "amphp/dns": "<2.1.2",
+        "amphp/socket": "<2.3.1"
     },
     "suggest": {
         "laminas/laminas-authentication": "Laminas\\Authentication component",

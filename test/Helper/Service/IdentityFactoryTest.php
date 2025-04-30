@@ -13,7 +13,7 @@ use Laminas\View\Helper\Service\IdentityFactory;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
-class IdentityFactoryTest extends TestCase
+final class IdentityFactoryTest extends TestCase
 {
     /** @var MockObject&ContainerInterface */
     private ContainerInterface $services;

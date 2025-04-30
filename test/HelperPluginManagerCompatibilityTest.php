@@ -12,7 +12,7 @@ use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\TestCase;
 use ReflectionProperty;
 
-class HelperPluginManagerCompatibilityTest extends TestCase
+final class HelperPluginManagerCompatibilityTest extends TestCase
 {
     use CommonPluginManagerTrait;
 

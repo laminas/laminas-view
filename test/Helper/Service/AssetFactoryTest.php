@@ -11,7 +11,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
-class AssetFactoryTest extends TestCase
+final class AssetFactoryTest extends TestCase
 {
     public function testAssetFactoryInvokableCreatesAssetInstance(): void
     {

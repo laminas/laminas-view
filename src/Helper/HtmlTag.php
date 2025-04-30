@@ -11,6 +11,8 @@ use function sprintf;
 /**
  * Renders <html> tag (both opening and closing) of a web page, to which some custom
  * attributes can be added dynamically.
+ *
+ * @final
  */
 class HtmlTag extends AbstractHtmlElement
 {
@@ -34,7 +36,6 @@ class HtmlTag extends AbstractHtmlElement
     /**
      * Retrieve object instance; optionally add attributes.
      *
-     * @param array $attribs
      * @return self
      */
     public function __invoke(array $attribs = [])
@@ -62,7 +63,6 @@ class HtmlTag extends AbstractHtmlElement
     /**
      * Add new or overwrite the existing attributes.
      *
-     * @param array $attribs
      * @return self
      */
     public function setAttributes(array $attribs)

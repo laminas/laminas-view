@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 use function sprintf;
 
-class HtmlTagTest extends TestCase
+final class HtmlTagTest extends TestCase
 {
     /** @var HtmlTag */
     public $helper;

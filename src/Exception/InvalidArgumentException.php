@@ -6,6 +6,7 @@ namespace Laminas\View\Exception;
 
 use InvalidArgumentException as InvalidArgument;
 
+/** @final */
 class InvalidArgumentException extends InvalidArgument implements ExceptionInterface
 {
 }

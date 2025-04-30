@@ -18,7 +18,7 @@ use function json_encode;
 
 use const JSON_THROW_ON_ERROR;
 
-class JsonRendererTest extends TestCase
+final class JsonRendererTest extends TestCase
 {
     /** @var JsonRenderer */
     protected $renderer;

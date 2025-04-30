@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 use function array_merge;
 
-class TemplateMapResolverTest extends TestCase
+final class TemplateMapResolverTest extends TestCase
 {
     public function testMapIsEmptyByDefault(): void
     {

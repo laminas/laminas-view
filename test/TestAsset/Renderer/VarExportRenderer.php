@@ -12,7 +12,7 @@ use Laminas\View\Resolver\ResolverInterface as Resolver;
 
 use function var_export;
 
-class VarExportRenderer implements Renderer
+final class VarExportRenderer implements Renderer
 {
     public function getEngine(): string
     {

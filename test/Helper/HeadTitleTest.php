@@ -8,7 +8,7 @@ use Laminas\Translator\TranslatorInterface;
 use Laminas\View\Helper\HeadTitle;
 use PHPUnit\Framework\TestCase;
 
-class HeadTitleTest extends TestCase
+final class HeadTitleTest extends TestCase
 {
     /** @var HeadTitle */
     public $helper;

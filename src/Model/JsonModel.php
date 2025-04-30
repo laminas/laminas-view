@@ -14,6 +14,7 @@ use function json_encode;
 use const JSON_PRETTY_PRINT;
 use const JSON_THROW_ON_ERROR;
 
+/** @final */
 class JsonModel extends ViewModel
 {
     /**

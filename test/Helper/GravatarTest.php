@@ -14,7 +14,7 @@ use function strtoupper;
 use function urlencode;
 
 /** @psalm-suppress DeprecatedClass */
-class GravatarTest extends TestCase
+final class GravatarTest extends TestCase
 {
     /** @var Gravatar */
     protected $helper;

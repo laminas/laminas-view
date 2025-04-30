@@ -13,6 +13,7 @@ use function is_string;
 
 use const PHP_EOL;
 
+/** @final */
 class HtmlObject extends AbstractHtmlElement
 {
     /**

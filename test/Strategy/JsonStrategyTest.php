@@ -20,7 +20,7 @@ use PHPUnit\Framework\TestCase;
 use function iterator_to_array;
 use function json_encode;
 
-class JsonStrategyTest extends TestCase
+final class JsonStrategyTest extends TestCase
 {
     use EventListenerIntrospectionTrait;
 

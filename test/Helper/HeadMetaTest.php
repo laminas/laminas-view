@@ -24,7 +24,7 @@ use function ucwords;
 use const E_USER_WARNING;
 use const PHP_EOL;
 
-class HeadMetaTest extends TestCase
+final class HeadMetaTest extends TestCase
 {
     private HeadMeta $helper;
     private Escaper $escaper;

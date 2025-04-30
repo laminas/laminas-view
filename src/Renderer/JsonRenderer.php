@@ -25,6 +25,8 @@ use const JSON_THROW_ON_ERROR;
 
 /**
  * JSON renderer
+ *
+ * @final
  */
 class JsonRenderer implements Renderer, TreeRendererInterface
 {
@@ -232,7 +234,6 @@ class JsonRenderer implements Renderer, TreeRendererInterface
      * Inject discovered child model values into parent model
      *
      * @todo detect collisions and decide whether to append and/or aggregate?
-     * @param array $children
      */
     protected function injectChildren(Model $model, array $children): void
     {

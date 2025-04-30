@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 use function date;
 use function time;
 
-class FeedRendererTest extends TestCase
+final class FeedRendererTest extends TestCase
 {
     private FeedRenderer $renderer;
 

@@ -20,7 +20,7 @@ use const DIRECTORY_SEPARATOR;
 /**
  * @psalm-import-type Options from TemplatePathStack
  */
-class TemplatePathStackTest extends TestCase
+final class TemplatePathStackTest extends TestCase
 {
     private TemplatePathStack $stack;
 

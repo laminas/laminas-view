@@ -13,7 +13,7 @@ use stdClass;
 
 use function var_export;
 
-class PartialLoopTest extends TestCase
+final class PartialLoopTest extends TestCase
 {
     /** @var PartialLoop */
     public $helper;

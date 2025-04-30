@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 use function md5;
 use function sprintf;
 
-class GravatarImageTest extends TestCase
+final class GravatarImageTest extends TestCase
 {
     private GravatarImage $helper;
     private Escaper $escaper;

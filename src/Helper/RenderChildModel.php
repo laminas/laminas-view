@@ -15,6 +15,8 @@ use function sprintf;
  *
  * Finds children matching "capture-to" values, and renders them using the
  * composed view instance.
+ *
+ * @final
  */
 class RenderChildModel extends AbstractHelper
 {

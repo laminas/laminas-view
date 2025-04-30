@@ -23,7 +23,7 @@ use function var_export;
 
 use const PHP_EOL;
 
-class HeadScriptTest extends TestCase
+final class HeadScriptTest extends TestCase
 {
     private HeadScript $helper;
     private Escaper $escaper;

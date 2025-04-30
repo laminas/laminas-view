@@ -11,7 +11,7 @@ use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
-class BasePathFactoryTest extends TestCase
+final class BasePathFactoryTest extends TestCase
 {
     private ServiceManager $container;
 

@@ -6,6 +6,6 @@ namespace LaminasTest\View\TestAsset;
 
 use Laminas\View\Helper\AbstractHelper as Helper;
 
-class Uninvokable extends Helper
+final class Uninvokable extends Helper
 {
 }

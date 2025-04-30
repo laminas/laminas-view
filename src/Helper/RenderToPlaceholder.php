@@ -9,6 +9,8 @@ use Laminas\View\Model\ModelInterface;
 /**
  * Renders a template and stores the rendered output as a placeholder
  * variable for later use.
+ *
+ * @final
  */
 class RenderToPlaceholder extends AbstractHelper
 {

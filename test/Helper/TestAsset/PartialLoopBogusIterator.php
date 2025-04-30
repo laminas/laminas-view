@@ -4,6 +4,6 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper\TestAsset;
 
-class PartialLoopBogusIterator
+final class PartialLoopBogusIterator
 {
 }

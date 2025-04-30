@@ -15,7 +15,7 @@ use function sprintf;
 use const JSON_PRETTY_PRINT;
 use const JSON_THROW_ON_ERROR;
 
-class JsonModelTest extends TestCase
+final class JsonModelTest extends TestCase
 {
     public function testAllowsEmptyConstructor(): void
     {

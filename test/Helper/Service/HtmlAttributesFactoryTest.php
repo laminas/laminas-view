@@ -10,7 +10,7 @@ use Laminas\View\Helper\Service\HtmlAttributesFactory;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
-class HtmlAttributesFactoryTest extends TestCase
+final class HtmlAttributesFactoryTest extends TestCase
 {
     public function testThatAHelperWillBeCreatedWhenTheContainerDoesNotHaveAnEscaper(): void
     {

@@ -8,7 +8,7 @@ use Laminas\Escaper\Escaper;
 use Laminas\View\Helper\HtmlAttributes;
 use PHPUnit\Framework\TestCase;
 
-class HtmlAttributesTest extends TestCase
+final class HtmlAttributesTest extends TestCase
 {
     private HtmlAttributes $helper;
 

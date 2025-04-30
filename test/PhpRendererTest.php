@@ -36,7 +36,7 @@ use function str_replace;
 
 use const E_WARNING;
 
-class PhpRendererTest extends TestCase
+final class PhpRendererTest extends TestCase
 {
     private PhpRenderer $renderer;
 

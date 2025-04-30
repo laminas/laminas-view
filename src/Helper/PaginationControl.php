@@ -12,6 +12,7 @@ use function count;
 use function get_object_vars;
 use function is_array;
 
+/** @final */
 class PaginationControl extends AbstractHelper
 {
     /**
