@@ -2636,6 +2636,13 @@
       <code><![CDATA[setResponse]]></code>
     </DeprecatedMethod>
   </file>
+  <file src="test/Helper/LayoutTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[getLayout]]></code>
+      <code><![CDATA[setTemplate]]></code>
+      <code><![CDATA[setTemplate]]></code>
+    </DeprecatedMethod>
+  </file>
   <file src="test/Helper/Navigation/AbstractHelperTest.php">
     <DeprecatedClass>
       <code><![CDATA[NavigationHelper\Breadcrumbs]]></code>
@@ -3604,6 +3611,11 @@
       <code><![CDATA[testAllowsPassingOptionsToConstructor]]></code>
       <code><![CDATA[testAllowsSettingOptions]]></code>
     </PossiblyInvalidArgument>
+  </file>
+  <file src="test/StaticAnalysis/PluginRetrieval.php">
+    <DeprecatedMethod>
+      <code><![CDATA[getLayout]]></code>
+    </DeprecatedMethod>
   </file>
   <file src="test/Strategy/FeedStrategyTest.php">
     <MixedAssignment>
