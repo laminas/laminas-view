@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper\Service;
 
-use Interop\Container\ContainerInterface; // phpcs:ignore
 use Laminas\Authentication\AuthenticationService;
 use Laminas\Authentication\AuthenticationServiceInterface;
 use Laminas\View\Exception\RuntimeException;
@@ -12,11 +11,11 @@ use Laminas\View\Helper\Identity;
 use Laminas\View\Helper\Service\IdentityFactory;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Psr\Container\ContainerInterface;
 
 final class IdentityFactoryTest extends TestCase
 {
-    /** @var MockObject&ContainerInterface */
-    private ContainerInterface $services;
+    private MockObject&ContainerInterface $services;
 
     protected function setUp(): void
     {
