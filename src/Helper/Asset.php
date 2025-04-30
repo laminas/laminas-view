@@ -11,15 +11,11 @@ use function sprintf;
 
 /**
  * View helper plugin to fetch asset from resource map.
- *
- * @final
  */
-class Asset extends AbstractHelper
+final class Asset
 {
-    use DeprecatedAbstractHelperHierarchyTrait;
-
     /** @var array<non-empty-string, non-empty-string> */
-    protected $resourceMap = [];
+    private array $resourceMap;
 
     /**
      * @param array<non-empty-string, non-empty-string> $resourceMap
@@ -34,7 +30,7 @@ class Asset extends AbstractHelper
      * @return non-empty-string
      * @throws Exception\InvalidArgumentException
      */
-    public function __invoke($asset)
+    public function __invoke(string $asset): string
     {
         if (! array_key_exists($asset, $this->resourceMap)) {
             throw new Exception\InvalidArgumentException(sprintf(
@@ -44,30 +40,5 @@ class Asset extends AbstractHelper
         }
 
         return $this->resourceMap[$asset];
-    }
-
-    /**
-     * @deprecated since 2.20.0, this method will be removed in version 3.0.0 of this component.
-     *             The Resource map should be provided to the constructor from version 3.0
-     *
-     * @param array<non-empty-string, non-empty-string> $resourceMap
-     * @return $this
-     */
-    public function setResourceMap(array $resourceMap)
-    {
-        $this->resourceMap = $resourceMap;
-
-        return $this;
-    }
-
-    /**
-     * @deprecated since 2.20.0, this method will be removed in version 3.0.0 of this component.
-     *             Runtime retrieval of the resource map from the view will be removed without replacement.
-     *
-     * @return array<non-empty-string, non-empty-string>
-     */
-    public function getResourceMap()
-    {
-        return $this->resourceMap;
     }
 }

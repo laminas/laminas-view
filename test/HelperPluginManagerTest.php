@@ -4,18 +4,13 @@ declare(strict_types=1);
 
 namespace LaminasTest\View;
 
-use Laminas\I18n\Translator\Translator;
-use Laminas\I18n\Translator\TranslatorInterface;
-use Laminas\Mvc\I18n\Translator as MvcTranslator;
-use Laminas\ServiceManager\Config;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Helper\Doctype;
-use Laminas\View\Helper\HeadTitle;
 use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Helper\Identity;
-use Laminas\View\Helper\Url;
+use Laminas\View\Helper\Partial;
 use Laminas\View\HelperPluginManager;
 use Laminas\View\Renderer\PhpRenderer;
 use PHPUnit\Framework\TestCase;
@@ -79,110 +74,26 @@ final class HelperPluginManagerTest extends TestCase
         $this->assertTrue($this->helpers->has(Identity::class));
     }
 
-    public function testIfHelperIsTranslatorAwareAndMvcTranslatorIsAvailableItWillInjectTheMvcTranslator(): void
-    {
-        $translator = new MvcTranslator(
-            $this->getMockBuilder(TranslatorInterface::class)->getMock()
-        );
-        $config     = new Config([
-            'services' => [
-                'MvcTranslator' => $translator,
-            ],
-        ]);
-        $services   = new ServiceManager();
-        $config->configureServiceManager($services);
-        $helpers = new HelperPluginManager($services);
-        $helper  = $helpers->get(HeadTitle::class);
-        $this->assertSame($translator, $helper->getTranslator());
-    }
-
-    // @codingStandardsIgnoreStart
-    public function testIfHelperIsTranslatorAwareAndMvcTranslatorIsUnavailableAndTranslatorIsAvailableItWillInjectTheTranslator(): void
-    {
-        // @codingStandardsIgnoreEnd
-        $translator = new Translator();
-        $config     = new Config([
-            'services' => [
-                'Translator' => $translator,
-            ],
-        ]);
-        $services   = new ServiceManager();
-        $config->configureServiceManager($services);
-        $helpers = new HelperPluginManager($services);
-        $helper  = $helpers->get(HeadTitle::class);
-        $this->assertSame($translator, $helper->getTranslator());
-    }
-
-    // @codingStandardsIgnoreStart
-    public function testIfHelperIsTranslatorAwareAndBothMvcTranslatorAndTranslatorAreUnavailableAndTranslatorInterfaceIsAvailableItWillInjectTheTranslator(): void
-    {
-        // @codingStandardsIgnoreEnd
-        $translator = new Translator();
-        $config     = new Config([
-            'services' => [
-                TranslatorInterface::class => $translator,
-            ],
-        ]);
-        $services   = new ServiceManager();
-        $config->configureServiceManager($services);
-        $helpers = new HelperPluginManager($services);
-        $helper  = $helpers->get(HeadTitle::class);
-        $this->assertSame($translator, $helper->getTranslator());
-    }
-
-    public function testInjectTranslatorWillReturnEarlyIfTheHelperHasTranslatorAlready(): void
-    {
-        $translatorA = new Translator();
-        $translatorB = new Translator();
-        $config      = new Config([
-            'services' => [
-                'Translator' => $translatorB,
-            ],
-        ]);
-        $services    = new ServiceManager();
-        $config->configureServiceManager($services);
-        $helpers = new HelperPluginManager($services);
-        $helpers->setFactory(
-            'TestHelper',
-            function () use ($translatorA) {
-                $helper = new HeadTitle();
-                $helper->setTranslator($translatorA);
-                return $helper;
-            }
-        );
-        $helperB = $helpers->get('TestHelper');
-        self::assertInstanceOf(HeadTitle::class, $helperB);
-        $this->assertSame($translatorA, $helperB->getTranslator());
-    }
-
     public function testCanOverrideAFactoryViaConfigurationPassedToConstructor(): void
     {
         $helper  = $this->createMock(HelperInterface::class);
-        $helpers = new HelperPluginManager(new ServiceManager());
-        $config  = new Config(
-            [
-                'factories' => [
-                    Url::class => static fn($container) => $helper,
-                ],
-            ]
-        );
-        $config->configureServiceManager($helpers);
-        $this->assertSame($helper, $helpers->get(Url::class));
+        $helpers = new HelperPluginManager(new ServiceManager(), [
+            'factories' => [
+                Partial::class => static fn(): HelperInterface => $helper,
+            ],
+        ]);
+        $this->assertSame($helper, $helpers->get(Partial::class));
     }
 
     public function testCanUseCallableAsHelper(): void
     {
-        $helper  = function (): void {
+        $helper  = static function (): void {
         };
-        $helpers = new HelperPluginManager(new ServiceManager());
-        $config  = new Config(
-            [
-                'factories' => [
-                    'foo' => static fn($container) => $helper,
-                ],
-            ]
-        );
-        $config->configureServiceManager($helpers);
+        $helpers = new HelperPluginManager(new ServiceManager(), [
+            'factories' => [
+                'foo' => static fn(): callable => $helper,
+            ],
+        ]);
         $this->assertSame($helper, $helpers->get('foo'));
     }
 

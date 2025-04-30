@@ -12,12 +12,9 @@ use Laminas\View\Exception\RuntimeException;
  *
  * @final
  */
-class Identity extends AbstractHelper
+final class Identity
 {
-    use DeprecatedAbstractHelperHierarchyTrait;
-
-    /** @var AuthenticationServiceInterface|null */
-    protected $authenticationService;
+    private ?AuthenticationServiceInterface $authenticationService;
 
     public function __construct(?AuthenticationServiceInterface $authenticationService = null)
     {
@@ -30,6 +27,7 @@ class Identity extends AbstractHelper
      * If none available, returns null.
      *
      * @return mixed|null
+     * @throws RuntimeException If the helper was not configured with an Authentication Service.
      */
     public function __invoke()
     {
@@ -41,33 +39,5 @@ class Identity extends AbstractHelper
         return $service->hasIdentity()
             ? $service->getIdentity()
             : null;
-    }
-
-    /**
-     * Set AuthenticationService instance
-     *
-     * @deprecated since >= 2.20.0. The authentication service should be provided to the constructor. This method will
-     *             be removed in version 3.0 of this component
-     *
-     * @return $this
-     */
-    public function setAuthenticationService(AuthenticationServiceInterface $authenticationService)
-    {
-        $this->authenticationService = $authenticationService;
-
-        return $this;
-    }
-
-    /**
-     * Get AuthenticationService instance
-     *
-     * @deprecated since >= 2.20.0. The authentication service should be provided to the constructor. This method will
-     *             be removed in version 3.0 of this component
-     *
-     * @return null|object
-     */
-    public function getAuthenticationService()
-    {
-        return $this->authenticationService;
     }
 }
