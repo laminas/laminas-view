@@ -681,10 +681,10 @@
       <code><![CDATA[$config]]></code>
     </MixedAssignment>
   </file>
-  <file src="src/Helper/ViewModel.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[hasRoot]]></code>
-    </PossiblyUnusedMethod>
+  <file src="src/Helper/Service/LayoutFactory.php">
+    <PossiblyUnusedReturnValue>
+      <code><![CDATA[Layout]]></code>
+    </PossiblyUnusedReturnValue>
   </file>
   <file src="src/HelperPluginManager.php">
     <DeprecatedInterface>
