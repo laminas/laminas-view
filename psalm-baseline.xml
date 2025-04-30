@@ -15,7 +15,6 @@
       <code><![CDATA[$closingBracket]]></code>
       <code><![CDATA[$closingBracket]]></code>
       <code><![CDATA[$closingBracket]]></code>
-      <code><![CDATA[$closingBracket]]></code>
     </MissingConstructor>
     <MixedArgument>
       <code><![CDATA[$val]]></code>
@@ -640,33 +639,6 @@
     <UnsafeInstantiation>
       <code><![CDATA[new $this->containerClass()]]></code>
     </UnsafeInstantiation>
-  </file>
-  <file src="src/Helper/Placeholder/Registry.php">
-    <InvalidStringClass>
-      <code><![CDATA[new $this->containerClass($value)]]></code>
-    </InvalidStringClass>
-    <LessSpecificReturnStatement>
-      <code><![CDATA[$this->items[$key]]]></code>
-    </LessSpecificReturnStatement>
-    <MixedReturnStatement>
-      <code><![CDATA[$this->items[$key]]]></code>
-    </MixedReturnStatement>
-    <MoreSpecificReturnType>
-      <code><![CDATA[AbstractContainer]]></code>
-    </MoreSpecificReturnType>
-    <PossiblyFalseArgument>
-      <code><![CDATA[class_parents($name)]]></code>
-    </PossiblyFalseArgument>
-    <PossiblyUnusedProperty>
-      <code><![CDATA[$instance]]></code>
-    </PossiblyUnusedProperty>
-    <RedundantCastGivenDocblockType>
-      <code><![CDATA[(string) $key]]></code>
-      <code><![CDATA[(string) $key]]></code>
-      <code><![CDATA[(string) $key]]></code>
-      <code><![CDATA[(string) $key]]></code>
-      <code><![CDATA[(string) $key]]></code>
-    </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Helper/RenderChildModel.php">
     <MissingConstructor>
@@ -1824,11 +1796,6 @@
     </MixedAssignment>
     <PossiblyUnusedMethod>
       <code><![CDATA[toArray]]></code>
-    </PossiblyUnusedMethod>
-  </file>
-  <file src="test/Helper/TestAsset/MockContainer.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[__construct]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="test/Helper/TestAsset/PartialLoopIterator.php">
