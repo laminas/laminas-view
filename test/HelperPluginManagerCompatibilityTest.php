@@ -5,19 +5,22 @@ declare(strict_types=1);
 namespace LaminasTest\View;
 
 use Generator;
+use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\ServiceManager;
-use Laminas\ServiceManager\Test\CommonPluginManagerTrait;
 use Laminas\View\ConfigProvider;
-use Laminas\View\Exception\InvalidHelperException;
+use Laminas\View\Helper\HelperInterface;
 use Laminas\View\HelperPluginManager;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use ReflectionProperty;
+use ReflectionClassConstant;
+use stdClass;
+use Throwable;
+
+use function is_callable;
 
 final class HelperPluginManagerCompatibilityTest extends TestCase
 {
-    use CommonPluginManagerTrait;
-
-    protected static function getPluginManager(): HelperPluginManager
+    private static function getPluginManager(): HelperPluginManager
     {
         $provider                           = new ConfigProvider();
         $config                             = $provider->__invoke();
@@ -26,9 +29,23 @@ final class HelperPluginManagerCompatibilityTest extends TestCase
         return $serviceManager->get(HelperPluginManager::class);
     }
 
-    protected function getV2InvalidPluginException(): string
+    /**
+     * Psalm really cannot infer, or be told the shape of the reflected array constant
+     *
+     * @return array{
+     *     aliases: array<string, string>,
+     *     factories: array<string, string>,
+     * }
+     * @psalm-suppress InvalidReturnStatement,InvalidReturnType
+     */
+    private static function fetchDefaultConfig(): array
     {
-        return InvalidHelperException::class;
+        $r      = new ReflectionClassConstant(HelperPluginManager::class, 'CONFIG');
+        $config = $r->getValue();
+        self::assertNotNull($config);
+        self::assertIsArray($config);
+
+        return $config;
     }
 
     /**
@@ -36,26 +53,44 @@ final class HelperPluginManagerCompatibilityTest extends TestCase
      */
     public static function aliasProvider(): Generator
     {
-        $pluginManager = self::getPluginManager();
-        $r             = new ReflectionProperty($pluginManager, 'aliases');
-        $aliases       = $r->getValue($pluginManager);
-        self::assertIsArray($aliases);
+        $config = self::fetchDefaultConfig();
 
-        foreach ($aliases as $alias => $target) {
-            self::assertIsString($target);
-            self::assertIsString($alias);
+        foreach ($config['factories'] as $alias => $target) {
+            yield $alias => [$alias, $target];
+        }
 
+        foreach ($config['aliases'] as $alias => $target) {
             yield $alias => [$alias, $target];
         }
     }
 
-    public function getInstanceOf(): void
+    public function testRegisteringInvalidElementRaisesException(): void
     {
-        // no-op; instanceof is not used in this implementation
+        $this->expectException($this->getServiceNotFoundException());
+        self::getPluginManager()->setService('test', $this);
     }
 
-    public function testInstanceOfMatches(): void
+    public function testLoadingInvalidElementRaisesException(): void
     {
-        $this->markTestSkipped('instanceOf is not used with this implementation');
+        $manager = self::getPluginManager();
+        $manager->setInvokableClass('test', stdClass::class);
+        $this->expectException($this->getServiceNotFoundException());
+        $manager->get('test');
+    }
+
+    #[DataProvider('aliasProvider')]
+    public function testPluginAliasesResolve(string $alias): void
+    {
+        $instance = self::getPluginManager()->get($alias);
+
+        self::assertTrue(
+            is_callable($instance) || $instance instanceof HelperInterface,
+        );
+    }
+
+    /** @return class-string<Throwable> */
+    protected function getServiceNotFoundException(): string
+    {
+        return InvalidServiceException::class;
     }
 }

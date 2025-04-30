@@ -497,33 +497,29 @@
     </PossiblyUnusedReturnValue>
   </file>
   <file src="src/HelperPluginManager.php">
-    <DeprecatedInterface>
-      <code><![CDATA[null|ConfigInterface|ContainerInterface]]></code>
-    </DeprecatedInterface>
+    <DeprecatedProperty>
+      <code><![CDATA[$this->initializers]]></code>
+      <code><![CDATA[$this->initializers]]></code>
+      <code><![CDATA[$this->initializers]]></code>
+      <code><![CDATA[$this->initializers]]></code>
+    </DeprecatedProperty>
     <DocblockTypeContradiction>
       <code><![CDATA[! $events]]></code>
       <code><![CDATA[! $events]]></code>
     </DocblockTypeContradiction>
+    <MethodSignatureMismatch>
+      <code><![CDATA[HelperPluginManager]]></code>
+    </MethodSignatureMismatch>
     <MixedArgument>
       <code><![CDATA[$container->get('EventManager')]]></code>
     </MixedArgument>
     <MixedAssignment>
       <code><![CDATA[$container]]></code>
     </MixedAssignment>
-    <MixedReturnStatement>
-      <code><![CDATA[parent::get($name, $options)]]></code>
-    </MixedReturnStatement>
-    <ParamNameMismatch>
-      <code><![CDATA[$name]]></code>
-    </ParamNameMismatch>
     <PossiblyUnusedMethod>
       <code><![CDATA[injectEventManager]]></code>
       <code><![CDATA[injectRenderer]]></code>
     </PossiblyUnusedMethod>
-    <PropertyTypeCoercion>
-      <code><![CDATA[$this->initializers]]></code>
-      <code><![CDATA[$this->initializers]]></code>
-    </PropertyTypeCoercion>
     <UndefinedInterfaceMethod>
       <code><![CDATA[getServiceLocator]]></code>
     </UndefinedInterfaceMethod>
@@ -693,6 +689,7 @@
     </DocblockTypeContradiction>
     <FalsableReturnStatement>
       <code><![CDATA[$this->__content]]></code>
+      <code><![CDATA[$this->__filterChain->filter($this->__content)]]></code>
     </FalsableReturnStatement>
     <ImplementedParamTypeMismatch>
       <code><![CDATA[$values]]></code>
@@ -714,8 +711,9 @@
     </MixedMethodCall>
     <MixedReturnStatement>
       <code><![CDATA[$this->__filterChain->filter($this->__content)]]></code>
+      <code><![CDATA[$this->__filterChain->filter($this->__content)]]></code>
       <code><![CDATA[$this->__vars[$key]]]></code>
-      <code><![CDATA[$this->getHelperPluginManager()->get($name, $options)]]></code>
+      <code><![CDATA[$this->getHelperPluginManager()->get($name)]]></code>
     </MixedReturnStatement>
     <PossibleRawObjectIteration>
       <code><![CDATA[$variables]]></code>
@@ -883,6 +881,9 @@
     </RedundantCastGivenDocblockType>
   </file>
   <file src="test/Helper/HeadLinkTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[setService]]></code>
+    </DeprecatedMethod>
     <MixedArgument>
       <code><![CDATA[$attributeEscaper('/styles.css')]]></code>
       <code><![CDATA[$attributeEscaper('/styles.css')]]></code>
@@ -956,6 +957,9 @@
     </UndefinedMagicMethod>
   </file>
   <file src="test/Helper/HeadMetaTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[setService]]></code>
+    </DeprecatedMethod>
     <InvalidArgument>
       <code><![CDATA['foo']]></code>
       <code><![CDATA['foo']]></code>
@@ -975,6 +979,9 @@
     </UndefinedMagicMethod>
   </file>
   <file src="test/Helper/HeadScriptTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[setService]]></code>
+    </DeprecatedMethod>
     <PossiblyNullArgument>
       <code><![CDATA[$item->source]]></code>
     </PossiblyNullArgument>
@@ -987,7 +994,15 @@
       <code><![CDATA[$key]]></code>
     </UnusedParam>
   </file>
+  <file src="test/Helper/HtmlObjectTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[setService]]></code>
+    </DeprecatedMethod>
+  </file>
   <file src="test/Helper/HtmlTagTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[setService]]></code>
+    </DeprecatedMethod>
     <MixedArgument>
       <code><![CDATA[$escape($value)]]></code>
       <code><![CDATA[$escape($value)]]></code>
@@ -1121,6 +1136,15 @@
       <code><![CDATA[toArray]]></code>
     </PossiblyUnusedMethod>
   </file>
+  <file src="test/HelperPluginManagerCompatibilityTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[setInvokableClass]]></code>
+      <code><![CDATA[setService]]></code>
+    </DeprecatedMethod>
+    <InvalidArgument>
+      <code><![CDATA[$this]]></code>
+    </InvalidArgument>
+  </file>
   <file src="test/Model/TestAsset/Variable.php">
     <MissingTemplateParam>
       <code><![CDATA[Iterator]]></code>
@@ -1152,9 +1176,6 @@
     </UndefinedMagicPropertyAssignment>
   </file>
   <file src="test/PhpRendererTest.php">
-    <MixedArgument>
-      <code><![CDATA[$content]]></code>
-    </MixedArgument>
     <MixedAssignment>
       <code><![CDATA[$foo]]></code>
       <code><![CDATA[$return]]></code>
