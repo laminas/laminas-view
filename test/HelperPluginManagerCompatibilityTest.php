@@ -26,7 +26,7 @@ final class HelperPluginManagerCompatibilityTest extends TestCase
 
         /** @psalm-suppress MixedArgument */
         $serviceManager = new ServiceManager($config['dependencies']);
-        return new HelperPluginManager($serviceManager);
+        return $serviceManager->get(HelperPluginManager::class);
     }
 
     protected function getV2InvalidPluginException(): string
