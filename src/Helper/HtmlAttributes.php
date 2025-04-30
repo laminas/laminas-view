@@ -9,18 +9,14 @@ use Laminas\View\HtmlAttributesSet;
 
 /**
  * Helper for creating HtmlAttributesSet objects
- *
- * @final
  */
-class HtmlAttributes extends AbstractHelper
+final class HtmlAttributes
 {
-    use DeprecatedAbstractHelperHierarchyTrait;
-
-    private Escaper $escaper;
+    private readonly Escaper $escaper;
 
     public function __construct(?Escaper $escaper = null)
     {
-        $this->escaper = $escaper ?: new Escaper();
+        $this->escaper = $escaper ?? new Escaper();
     }
 
     /**
