@@ -60,14 +60,12 @@
         "laminas/laminas-authentication": "Laminas\\Authentication component",
         "laminas/laminas-feed": "Laminas\\Feed component",
         "laminas/laminas-filter": "Laminas\\Filter component",
-        "laminas/laminas-http": "Laminas\\Http component",
         "laminas/laminas-i18n": "Laminas\\I18n component",
         "laminas/laminas-mvc": "Laminas\\Mvc component",
         "laminas/laminas-mvc-plugin-flashmessenger": "laminas-mvc-plugin-flashmessenger component, if you want to use the FlashMessenger view helper with laminas-mvc versions 3 and up",
         "laminas/laminas-navigation": "Laminas\\Navigation component",
         "laminas/laminas-paginator": "Laminas\\Paginator component",
-        "laminas/laminas-permissions-acl": "Laminas\\Permissions\\Acl component",
-        "laminas/laminas-uri": "Laminas\\Uri component"
+        "laminas/laminas-permissions-acl": "Laminas\\Permissions\\Acl component"
     },
     "autoload": {
         "psr-4": {
