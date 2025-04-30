@@ -27,17 +27,25 @@ docs-lint: .markdownlint.json ## Lint documentation
 .markdownlint.json: ## Fetch the most recent settings for Markdown lint
 	curl -o .markdownlint.json ${MDLINT_FILE}
 
-install: ## Install PHP dependencies
+install: install-tools ## Install PHP dependencies
 	composer install
 .PHONY: install
+
+install-tools: ## Install standalone dev tools
+	cd tools/crc && composer install
+.PHONY: install-tools
 
 update: ## Update PHP dependencies
 	composer update
 .PHONY: update
 
-bump: ## Bump dev dependencies and update
+bump: bump-tools ## Bump dev dependencies and update
 	composer update && composer bump -D && composer update
 .PHONY: bump
+
+bump-tools: ## Bump and update standalone dev tools
+	cd tools/crc && composer update && composer bump -D && composer update
+.PHONY: bump-tools
 
 clean: ## Clear out caches and documentation assets
 	rm -rf documentation-theme
@@ -61,5 +69,9 @@ test: ## Run unit tests
 	vendor/bin/phpunit
 .PHONY: test
 
-qa: cs sa test docs-lint ## Run all QA Checks
+composer-require-checker: ## Check for symbols from un-declared dependencies
+	tools/crc/vendor/bin/composer-require-checker check --config-file=tools/crc/config.json
+.PHONY: composer-require-checker
+
+qa: cs sa test composer-require-checker docs-lint ## Run all QA Checks
 .PHONY: qa
