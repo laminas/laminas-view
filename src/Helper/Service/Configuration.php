@@ -8,6 +8,7 @@ use Laminas\View\ConfigProvider;
 use Psr\Container\ContainerInterface;
 
 use function is_array;
+use function is_string;
 
 /**
  * Provides consistent retrieval of configuration and individual values based on historic conventions
@@ -18,7 +19,8 @@ use function is_array;
  */
 final class Configuration
 {
-    private const DEFAULT_ENCODING = 'utf-8';
+    private const DEFAULT_ENCODING        = 'utf-8';
+    private const DEFAULT_TEMPLATE_SUFFIX = 'phtml';
 
     /** @return array<array-key, mixed> */
     public static function get(ContainerInterface $container): array
@@ -50,5 +52,23 @@ final class Configuration
         $encoding = $config['view_helper_config']['encoding'] ?? $encoding;
 
         return $encoding !== '' ? $encoding : $defaultEncoding;
+    }
+
+    /**
+     * Retrieve the default template suffix from conventional locations
+     *
+     * @param non-empty-string $fallbackDefault
+     * @return non-empty-string
+     */
+    public static function defaultTemplateSuffix(
+        ContainerInterface $container,
+        string $fallbackDefault = self::DEFAULT_TEMPLATE_SUFFIX,
+    ): string {
+        /** @var ViewConfigShape $config */
+        $config = self::get($container);
+        $suffix = $config['view_manager']['default_template_suffix'] ?? null;
+        $suffix = $config['templates']['extension'] ?? $suffix;
+
+        return is_string($suffix) ? $suffix : $fallbackDefault;
     }
 }
