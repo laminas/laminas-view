@@ -6,7 +6,6 @@ namespace LaminasTest\View\Resolver;
 
 use Laminas\View\Helper\ViewModel as ViewModelHelper;
 use Laminas\View\Model\ViewModel;
-use Laminas\View\Renderer\RendererInterface;
 use Laminas\View\Resolver\AggregateResolver;
 use Laminas\View\Resolver\RelativeFallbackResolver;
 use Laminas\View\Resolver\ResolverInterface;
@@ -15,7 +14,6 @@ use Laminas\View\Resolver\TemplateMapResolver;
 use Laminas\View\Resolver\TemplatePathStack;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 
 use function realpath;
 
