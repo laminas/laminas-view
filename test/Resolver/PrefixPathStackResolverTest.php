@@ -58,6 +58,15 @@ final class PrefixPathStackResolverTest extends TestCase
         $this->assertSame(realpath($this->basePath . '/baz/taz.phtml'), $resolver->resolve('base2/taz'));
     }
 
+    public function testTheDefaultSuffixIsPassedToTheUnderlyingResolver(): void
+    {
+        $resolver = new PrefixPathStackResolver([
+            'whatever' => $this->basePath,
+        ], 'php');
+
+        self::assertSame($this->basePath . '/foo.php', $resolver->resolve('whatever/foo'));
+    }
+
     public function testUnprefixedNameResolvingToEmptyStringCausesException(): void
     {
         $resolver = new PrefixPathStackResolver([

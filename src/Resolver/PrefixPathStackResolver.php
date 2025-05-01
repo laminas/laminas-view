@@ -19,8 +19,9 @@ final class PrefixPathStackResolver implements ResolverInterface
      *                  prefixes to be matched (array keys), with either a path or an array of paths
      *                  to use for matching as in the {@see TemplatePathStack},
      *                  or a {@see ResolverInterface} to use for view path starting with that prefix
+     * @param non-empty-string $defaultSuffix
      */
-    public function __construct(array $prefixes = [])
+    public function __construct(array $prefixes = [], string $defaultSuffix = 'phtml')
     {
         $resolvers = [];
         foreach ($prefixes as $prefix => $path) {
@@ -35,7 +36,8 @@ final class PrefixPathStackResolver implements ResolverInterface
             }
 
             $resolvers[$prefix] = new TemplatePathStack([
-                'script_paths' => $path,
+                'default_suffix' => $defaultSuffix,
+                'script_paths'   => $path,
             ]);
         }
 
