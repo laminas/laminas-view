@@ -49,6 +49,10 @@ class Layout extends AbstractHelper
     /**
      * Get layout template
      *
+     * @deprecated Since 2.40.0 It is infeasible to call this method from a view script context and in other contexts,
+     *             it makes more sense to compose the ViewModel helper directly to query the current layout template,
+     *             therefore this method will be removed in 3.0
+     *
      * @return string
      */
     public function getLayout()
@@ -77,6 +81,9 @@ class Layout extends AbstractHelper
 
     /**
      * Set layout template
+     *
+     * @deprecated Since 2.40.0 It is infeasible to call this method from a view script context and the template name
+     *             can be set via `__invoke`, therefore, this method will be removed in 3.0 without replacement.
      *
      * @param  string $template
      * @return Layout
