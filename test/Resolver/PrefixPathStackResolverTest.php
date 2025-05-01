@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace LaminasTest\View\Resolver;
 
 use Laminas\View\Resolver\PrefixPathStackResolver;
+use Laminas\View\Resolver\TemplateCannotBeFound;
 use Laminas\View\Resolver\TemplateMapResolver;
 use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 use function realpath;
@@ -14,37 +16,58 @@ use function realpath;
 #[CoversClass(PrefixPathStackResolver::class)]
 final class PrefixPathStackResolverTest extends TestCase
 {
+    /** @var non-empty-string */
     private string $basePath;
 
-    /**
-     * {@inheritDoc}
-     */
     protected function setUp(): void
     {
-        $this->basePath = realpath(__DIR__ . '/../_templates/prefix-path-stack-resolver');
+        $realpath = realpath(__DIR__ . '/../_templates/prefix-path-stack-resolver');
+        self::assertNotFalse($realpath);
+        self::assertNotEmpty($realpath);
+        $this->basePath = $realpath;
     }
 
-    public function testResolveWithoutPathPrefixes(): void
+    /** @return list<array{0: non-empty-string}> */
+    public static function willNotResolveByDefaultProvider(): array
+    {
+        return [
+            [__DIR__],
+            [__FILE__],
+            ['path/to/foo'],
+            ['path/to/bar'],
+        ];
+    }
+
+    /** @param non-empty-string $name */
+    #[DataProvider('willNotResolveByDefaultProvider')]
+    public function testResolveWithoutPathPrefixes(string $name): void
     {
         $resolver = new PrefixPathStackResolver();
-
-        $this->assertNull($resolver->resolve(__DIR__));
-        $this->assertNull($resolver->resolve(__FILE__));
-        $this->assertNull($resolver->resolve('path/to/foo'));
-        $this->assertNull($resolver->resolve('path/to/bar'));
+        $this->expectException(TemplateCannotBeFound::class);
+        $resolver->resolve($name);
     }
 
-    public function testResolve(): void
+    public function testSuccessfulResolve(): void
     {
         $resolver = new PrefixPathStackResolver([
             'base1' => $this->basePath,
             'base2' => $this->basePath . '/baz',
         ]);
 
-        $this->assertEmpty($resolver->resolve('base1/foo'));
         $this->assertSame(realpath($this->basePath . '/bar.phtml'), $resolver->resolve('base1/bar'));
-        $this->assertEmpty($resolver->resolve('base2/tab'));
         $this->assertSame(realpath($this->basePath . '/baz/taz.phtml'), $resolver->resolve('base2/taz'));
+    }
+
+    public function testUnprefixedNameResolvingToEmptyStringCausesException(): void
+    {
+        $resolver = new PrefixPathStackResolver([
+            'base1' => $this->basePath,
+            'base2' => $this->basePath . '/baz',
+        ]);
+
+        $this->expectException(TemplateCannotBeFound::class);
+
+        $resolver->resolve('base2');
     }
 
     public function testResolveWithCongruentPrefix(): void
@@ -69,6 +92,5 @@ final class PrefixPathStackResolverTest extends TestCase
 
         $this->assertSame('1111', $resolver->resolve('foo/bar'));
         $this->assertSame('2222', $resolver->resolve('foo/baz'));
-        $this->assertNull($resolver->resolve('foo/tab'));
     }
 }
