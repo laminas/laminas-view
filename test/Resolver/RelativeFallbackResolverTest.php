@@ -6,10 +6,11 @@ namespace LaminasTest\View\Resolver;
 
 use Laminas\View\Helper\ViewModel as ViewModelHelper;
 use Laminas\View\Model\ViewModel;
-use Laminas\View\Renderer\PhpRenderer;
+use Laminas\View\Renderer\RendererInterface;
 use Laminas\View\Resolver\AggregateResolver;
 use Laminas\View\Resolver\RelativeFallbackResolver;
 use Laminas\View\Resolver\ResolverInterface;
+use Laminas\View\Resolver\TemplateCannotBeFound;
 use Laminas\View\Resolver\TemplateMapResolver;
 use Laminas\View\Resolver\TemplatePathStack;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -23,97 +24,93 @@ final class RelativeFallbackResolverTest extends TestCase
 {
     public function testReturnsResourceFromTheSameNameSpaceWithMapResolver(): void
     {
+        $helper         = new ViewModelHelper();
         $tplMapResolver = new TemplateMapResolver([
             'foo/bar' => 'foo/baz',
         ]);
-        $resolver       = new RelativeFallbackResolver($tplMapResolver);
-        $renderer       = new PhpRenderer();
+        $resolver       = new RelativeFallbackResolver($tplMapResolver, $helper);
         $view           = new ViewModel();
         $view->setTemplate('foo/zaz');
-        $helper = $renderer->plugin(ViewModelHelper::class);
         $helper->setCurrent($view);
 
-        $test = $resolver->resolve('bar', $renderer);
+        $test = $resolver->resolve('bar');
         $this->assertEquals('foo/baz', $test);
     }
 
     public function testReturnsResourceFromTheSameNameSpaceWithPathStack(): void
     {
-        $pathStack = new TemplatePathStack();
-        $pathStack->addPath(__DIR__ . '/../_templates');
-        $resolver = new RelativeFallbackResolver($pathStack);
-        $renderer = new PhpRenderer();
-        $view     = new ViewModel();
+        $view = new ViewModel();
         $view->setTemplate('name-space/any-view');
-        $helper = $renderer->plugin(ViewModelHelper::class);
+        $helper = new ViewModelHelper();
         $helper->setCurrent($view);
 
-        $test = $resolver->resolve('bar', $renderer);
+        $pathStack = new TemplatePathStack();
+        $pathStack->addPath(__DIR__ . '/../_templates');
+        $resolver = new RelativeFallbackResolver($pathStack, $helper);
+
+        $test = $resolver->resolve('bar');
         $this->assertEquals(realpath(__DIR__ . '/../_templates/name-space/bar.phtml'), $test);
     }
 
     public function testReturnsResourceFromTopLevelIfExistsInsteadOfTheSameNameSpace(): void
     {
+        $view = new ViewModel();
+        $view->setTemplate('foo/zaz');
+        $helper = new ViewModelHelper();
+        $helper->setCurrent($view);
+
         $tplMapResolver = new TemplateMapResolver([
             'foo/bar' => 'foo/baz',
             'bar'     => 'baz',
         ]);
         $resolver       = new AggregateResolver();
         $resolver->attach($tplMapResolver);
-        $resolver->attach(new RelativeFallbackResolver($tplMapResolver));
-        $renderer = new PhpRenderer();
-        $view     = new ViewModel();
-        $view->setTemplate('foo/zaz');
-        $helper = $renderer->plugin(ViewModelHelper::class);
-        $helper->setCurrent($view);
+        $resolver->attach(new RelativeFallbackResolver($tplMapResolver, $helper));
 
-        $test = $resolver->resolve('bar', $renderer);
+        $test = $resolver->resolve('bar');
         $this->assertEquals('baz', $test);
     }
 
-    public function testSkipsResolutionOnViewRendererWithoutPlugins(): void
+    public function testResolutionFailsWhenTheHelperDoesNotKnowTheRuntimeCurrentModel(): void
     {
         $baseResolver = $this->createMock(ResolverInterface::class);
         $baseResolver->expects(self::never())
             ->method('resolve');
 
-        $fallback = new RelativeFallbackResolver($baseResolver);
+        $fallback = new RelativeFallbackResolver($baseResolver, new ViewModelHelper());
 
-        $renderer = $this->createMock(PhpRenderer::class);
-
-        $this->assertFalse($fallback->resolve('foo/bar', $renderer));
+        $this->expectException(TemplateCannotBeFound::class);
+        $fallback->resolve('foo/bar');
     }
 
-    public function testSkipsResolutionOnViewRendererWithoutCorrectCurrentPlugin(): void
+    public function testResolutionFailsWhenTheComposedResolverFails(): void
     {
-        $baseResolver = $this->createMock(ResolverInterface::class);
-        $baseResolver->expects(self::never())
-            ->method('resolve');
+        $view = new ViewModel();
+        $view->setTemplate('name-space/any-view');
+        $helper = new ViewModelHelper();
+        $helper->setCurrent($view);
 
-        $fallback = new RelativeFallbackResolver($baseResolver);
+        $pathStack = new TemplatePathStack();
+        $pathStack->addPath(__DIR__ . '/../_templates');
+        $resolver = new RelativeFallbackResolver($pathStack, $helper);
 
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::once())
-            ->method('plugin')
-            ->willReturn(new stdClass());
-
-        $this->assertFalse($fallback->resolve('foo/bar', $renderer));
+        // The foo.phtml file should not exist in ../_templates/name-space/
+        $this->expectException(TemplateCannotBeFound::class);
+        $resolver->resolve('foo');
     }
 
-    public function testSkipsResolutionOnNonExistingCurrentViewModel(): void
+    public function testResolutionFailsWhenTheCurrentTemplateHasZeroDepth(): void
     {
-        $baseResolver = $this->createMock(ResolverInterface::class);
-        $baseResolver->expects(self::never())
-            ->method('resolve');
+        $view = new ViewModel();
+        $view->setTemplate('empty'); // Known template in ../_templates/
+        $helper = new ViewModelHelper();
+        $helper->setCurrent($view);
 
-        $fallback  = new RelativeFallbackResolver($baseResolver);
-        $viewModel = new ViewModelHelper();
+        $pathStack = new TemplatePathStack();
+        $pathStack->addPath(__DIR__ . '/../_templates');
+        $resolver = new RelativeFallbackResolver($pathStack, $helper);
 
-        $renderer = $this->createMock(PhpRenderer::class);
-        $renderer->expects(self::once())
-            ->method('plugin')
-            ->willReturn($viewModel);
-
-        $this->assertFalse($fallback->resolve('foo/bar', $renderer));
+        $this->expectException(TemplateCannotBeFound::class);
+        $resolver->resolve('test'); // Can actually be found in ../_templates/test.phtml
     }
 }
