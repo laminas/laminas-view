@@ -4,32 +4,27 @@ declare(strict_types=1);
 
 namespace Laminas\View\Helper\Service;
 
-use ArrayAccess;
 use Laminas\View\Helper\BasePath;
 use Psr\Container\ContainerInterface;
 
 use function assert;
-use function is_array;
 use function is_string;
 
 final class BasePathFactory
 {
+    /** @psalm-suppress MixedAssignment */
     public function __invoke(ContainerInterface $container): BasePath
     {
-        $config = $container->has('config')
-            ? $container->get('config')
-            : [];
-
-        assert(is_array($config) || $config instanceof ArrayAccess);
+        $config = Configuration::get($container);
 
         // The expected location in config for the base path in an MVC application
         // is config.view_manager.base_path
         // @link https://docs.laminas.dev/laminas-mvc/services/#viewmanager
+        // More recently, we look in `view_helper_config.base_path`
 
-        $viewConfig = $config['view_manager'] ?? [];
-        assert(is_array($viewConfig));
+        $basePath = $config['view_manager']['base_path'] ?? null;
+        $basePath = $config['view_helper_config']['base_path'] ?? $basePath;
 
-        $basePath = $viewConfig['base_path'] ?? null;
         assert(is_string($basePath) || $basePath === null);
 
         return new BasePath($basePath);

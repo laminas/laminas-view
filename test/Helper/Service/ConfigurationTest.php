@@ -31,7 +31,7 @@ final class ConfigurationTest extends TestCase
         self::assertSame([], Configuration::get($container));
     }
 
-    public function testCustomEncodingCanBeFound(): void
+    public function testCustomEncodingCanBeFoundInLegacyLocation(): void
     {
         $container = new InMemoryContainer();
         $container->set('config', [
@@ -43,11 +43,26 @@ final class ConfigurationTest extends TestCase
         self::assertSame('utf-16', Configuration::viewEncoding($container));
     }
 
+    public function testCustomEncodingOverridesLegacyLocation(): void
+    {
+        $container = new InMemoryContainer();
+        $container->set('config', [
+            'view_manager'       => [
+                'encoding' => 'utf-16',
+            ],
+            'view_helper_config' => [
+                'encoding' => 'iso-8859-1',
+            ],
+        ]);
+
+        self::assertSame('iso-8859-1', Configuration::viewEncoding($container));
+    }
+
     public function testDefaultEncodingReturnedWhenEncodingNotSet(): void
     {
         $container = new InMemoryContainer();
         $container->set('config', [
-            'view_manager' => [
+            'view_helper_config' => [
                 'encoding' => null,
             ],
         ]);

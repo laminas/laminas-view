@@ -22,25 +22,22 @@ final class ConfigProvider
              * This option should use the `ServiceManagerConfiguration` array format
              */
             'view_helpers'       => [],
-            'view_manager'       => [
+            'view_helper_config' => [
                 /**
-                 * Encoding passed to the Escaper and possibly used in other view-related configuration
+                 * Encoding is passed to the Escaper which is consumed by a number of helpers
                  */
                 'encoding' => 'utf-8',
-
-                /**
-                 * The base path is provided to the BasePath view helper. This is the historic location for this
-                 * configuration item defined in MVC apps.
-                 */
-                'base_path' => null,
-            ],
-            'view_helper_config' => [
                 /**
                  * Maps asset names to resources for the `Asset` helper
                  */
                 'asset' => [
                     'resource_map' => [],
                 ],
+
+                /**
+                 * The base path is a string provided to the BasePath view helper
+                 */
+                'base_path' => null,
             ],
         ];
     }

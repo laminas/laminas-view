@@ -31,18 +31,22 @@ final class Configuration
     }
 
     /**
-     * Historically, view `encoding` is set in `view_manager.encoding`
+     * Fetch the encoding configuration variable
+     *
+     * Historically, view `encoding` was set in `view_manager.encoding` but now it is
+     * found in `view_helper_config.encoding`. We're still checking the old location.
      *
      * @param non-empty-string $defaultEncoding
      * @return non-empty-string
+     * @psalm-suppress MixedAssignment It is just annoying here.
      */
     public static function viewEncoding(
         ContainerInterface $container,
         string $defaultEncoding = self::DEFAULT_ENCODING,
     ): string {
-        $config = self::get($container);
-        /** @var mixed $encoding */
+        $config   = self::get($container);
         $encoding = $config['view_manager']['encoding'] ?? '';
+        $encoding = $config['view_helper_config']['encoding'] ?? $encoding;
 
         return is_string($encoding) && $encoding !== '' ? $encoding : $defaultEncoding;
     }

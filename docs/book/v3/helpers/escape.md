@@ -194,7 +194,7 @@ This config array should include the following values in order to set the desire
 
 ```php
 $config = [
-    'view_manager' => [
+    'view_helper_config' => [
         'encoding' => 'iso-8859-1',
     ],
     // …other configuration…
