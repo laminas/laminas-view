@@ -6,50 +6,31 @@ namespace Laminas\View\Resolver;
 
 use ArrayIterator;
 use IteratorAggregate;
-use Laminas\Stdlib\ArrayUtils;
-use Laminas\View\Exception;
-use Laminas\View\Renderer\RendererInterface as Renderer;
-use ReturnTypeWillChange;
+use Laminas\View\Exception\InvalidArgumentException;
 use Traversable;
 
 use function array_key_exists;
 use function array_replace_recursive;
-use function get_debug_type;
+use function is_array;
 use function is_iterable;
 use function is_string;
+use function iterator_to_array;
 use function sprintf;
-use function trigger_error;
 
-use const E_USER_DEPRECATED;
-
-/**
- * @implements IteratorAggregate<string, string>
- * @final
- */
-class TemplateMapResolver implements IteratorAggregate, ResolverInterface
+/** @implements IteratorAggregate<non-empty-string, non-empty-string> */
+final class TemplateMapResolver implements IteratorAggregate, ResolverInterface
 {
-    /** @var array<string, string> */
-    protected $map = [];
+    /** @var array<non-empty-string, non-empty-string> */
+    private array $map = [];
 
-    /**
-     * Constructor
-     *
-     * Instantiate and optionally populate template map.
-     *
-     * @param iterable<string, string> $map
-     */
-    public function __construct($map = [])
+    /** @param iterable<non-empty-string, non-empty-string> $map */
+    public function __construct(iterable $map = [])
     {
         $this->setMap($map);
     }
 
-    /**
-     * IteratorAggregate: return internal iterator
-     *
-     * @return Traversable<string, string>
-     */
-    #[ReturnTypeWillChange]
-    public function getIterator()
+    /** @return Traversable<non-empty-string, non-empty-string> */
+    public function getIterator(): Traversable
     {
         return new ArrayIterator($this->map);
     }
@@ -57,99 +38,92 @@ class TemplateMapResolver implements IteratorAggregate, ResolverInterface
     /**
      * Set (overwrite) template map
      *
-     * Maps should be arrays or Traversable objects with name => path pairs
+     * Maps should be arrays with name => path pairs
      *
      * @param iterable<string, string> $map
-     * @throws Exception\InvalidArgumentException
-     * @return $this
+     * @throws InvalidArgumentException
      */
-    public function setMap($map)
+    public function setMap(iterable $map): void
     {
-        if (! is_iterable($map)) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                '%s: expects an array or Traversable, received "%s"',
-                __METHOD__,
-                get_debug_type($map),
+        foreach ($map as $name => $value) {
+            $this->assertMap($name, $value);
+        }
+
+        /** @psalm-var iterable<non-empty-string, non-empty-string> $map */
+
+        $this->map = is_array($map) ? $map : iterator_to_array($map);
+    }
+
+    /**
+     * @psalm-assert non-empty-string $name
+     * @psalm-assert non-empty-string $value
+     * @throws InvalidArgumentException
+     */
+    private function assertMap(int|string $name, mixed $value): void
+    {
+        if (! is_string($name) || ! is_string($value) || $name === '' || $value === '') {
+            throw new InvalidArgumentException(sprintf(
+                'Template names and values should be non-empty strings. Received `%s => %s`',
+                $name,
+                (string) $value,
             ));
         }
-
-        if ($map instanceof Traversable) {
-            $map = ArrayUtils::iteratorToArray($map);
-        }
-
-        $this->map = $map;
-        return $this;
     }
 
     /**
      * Add an entry to the map
      *
+     * A hash map can be passed as the first argument to perform a merge
+     *
      * @param string|iterable<string, string> $nameOrMap
-     * @param null|string $path
-     * @throws Exception\InvalidArgumentException
-     * @return $this
+     * @throws InvalidArgumentException
      */
-    public function add($nameOrMap, $path = null)
+    public function add(string|iterable $nameOrMap, string|null $path = null): void
     {
-        if (is_string($nameOrMap) && ($path === null || $path === '')) {
-            trigger_error(
-                'Using add() to remove individual templates is deprecated and will be removed in version 3.0',
-                E_USER_DEPRECATED,
-            );
-            unset($this->map[$nameOrMap]);
+        if (is_string($nameOrMap) && is_string($path)) {
+            $this->assertMap($nameOrMap, $path);
+            $this->merge([$nameOrMap => $path]);
 
-            return $this;
+            return;
         }
 
-        $map = is_string($nameOrMap) && is_string($path)
-            ? [$nameOrMap => $path]
-            : $nameOrMap;
+        if (is_iterable($nameOrMap)) {
+            $this->merge($nameOrMap);
 
-        if (! is_iterable($map)) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                '%s: expects a string, array, or Traversable for the first argument; received "%s"',
-                __METHOD__,
-                get_debug_type($map),
-            ));
+            return;
         }
 
-        $this->merge($map);
-
-        return $this;
+        throw new InvalidArgumentException(
+            'Either specify both $nameOrMap and $path as strings, or, $nameOrMap as an iterable'
+        );
     }
 
     /**
      * Merge internal map with provided map
      *
-     * @param  iterable<string, string> $map
-     * @throws Exception\InvalidArgumentException
-     * @return $this
+     * @param iterable<string, string> $map
+     * @throws InvalidArgumentException
      */
-    public function merge($map)
+    public function merge(iterable $map): void
     {
-        if (! is_iterable($map)) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                '%s: expects an array or Traversable, received "%s"',
-                __METHOD__,
-                get_debug_type($map),
-            ));
+        foreach ($map as $name => $value) {
+            $this->assertMap($name, $value);
         }
 
-        if ($map instanceof Traversable) {
-            $map = ArrayUtils::iteratorToArray($map);
-        }
+        $map = is_array($map) ? $map : iterator_to_array($map);
 
-        $this->map = array_replace_recursive($this->map, $map);
-        return $this;
+        /** @psalm-var array<non-empty-string, non-empty-string> $result */
+        $result = array_replace_recursive($this->map, $map);
+
+        $this->map = $result;
     }
 
     /**
      * Does the resolver contain an entry for the given name?
      *
-     * @param  string $name
-     * @return bool
+     * @param non-empty-string $name
      */
-    public function has($name)
+    public function has(string $name): bool
     {
         return array_key_exists($name, $this->map);
     }
@@ -157,15 +131,14 @@ class TemplateMapResolver implements IteratorAggregate, ResolverInterface
     /**
      * Retrieve a template path by name
      *
-     * @param  string $name
-     * @return false|string
-     * @throws Exception\DomainException If no entry exists.
+     * @param non-empty-string $name
+     * @return non-empty-string
+     * @throws TemplateCannotBeFound If no entry exists.
      */
-    public function get($name)
+    public function get(string $name): string
     {
         if (! $this->has($name)) {
-            // @TODO This should be exceptional
-            return false;
+            throw TemplateCannotBeFound::byName($name);
         }
 
         return $this->map[$name];
@@ -174,20 +147,14 @@ class TemplateMapResolver implements IteratorAggregate, ResolverInterface
     /**
      * Retrieve the template map
      *
-     * @return array<string, string>
+     * @return array<non-empty-string, non-empty-string>
      */
-    public function getMap()
+    public function getMap(): array
     {
         return $this->map;
     }
 
-    /**
-     * Resolve a template/pattern name to a resource the renderer can consume
-     *
-     * @param string $name
-     * @return false|string
-     */
-    public function resolve($name, ?Renderer $renderer = null)
+    public function resolve(string $name): string
     {
         return $this->get($name);
     }
