@@ -14,6 +14,7 @@ use Laminas\View\HelperPluginManager;
 use Laminas\View\Model\ModelInterface as Model;
 use Laminas\View\Renderer\RendererInterface as Renderer;
 use Laminas\View\Resolver\ResolverInterface as Resolver;
+use Laminas\View\Resolver\TemplateCannotBeFound;
 use Laminas\View\Resolver\TemplatePathStack;
 use Laminas\View\Variables;
 use Throwable;
@@ -192,17 +193,18 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     /**
      * Retrieve template name or template resolver
      *
-     * @param  null|string $name
-     * @return string|Resolver
+     * @param non-empty-string|null $name
+     * @return ($name is null ? Resolver : non-empty-string)
+     * @throws TemplateCannotBeFound
      */
-    public function resolver($name = null)
+    public function resolver(string|null $name = null): string|Resolver
     {
-        if (null === $this->__templateResolver) {
-            $this->setResolver(new TemplatePathStack());
+        if ($this->__templateResolver === null) {
+            $this->__templateResolver = new TemplatePathStack();
         }
 
-        if (null !== $name) {
-            return $this->__templateResolver->resolve($name, $this);
+        if ($name !== null) {
+            return $this->__templateResolver->resolve($name);
         }
 
         return $this->__templateResolver;
