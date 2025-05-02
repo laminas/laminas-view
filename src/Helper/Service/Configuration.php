@@ -57,18 +57,16 @@ final class Configuration
     /**
      * Retrieve the default template suffix from conventional locations
      *
-     * @param non-empty-string $fallbackDefault
      * @return non-empty-string
      */
     public static function defaultTemplateSuffix(
-        ContainerInterface $container,
-        string $fallbackDefault = self::DEFAULT_TEMPLATE_SUFFIX,
+        ContainerInterface $container
     ): string {
         /** @var ViewConfigShape $config */
         $config = self::get($container);
         $suffix = $config['view_manager']['default_template_suffix'] ?? null;
         $suffix = $config['templates']['extension'] ?? $suffix;
 
-        return is_string($suffix) ? $suffix : $fallbackDefault;
+        return is_string($suffix) ? $suffix : self::DEFAULT_TEMPLATE_SUFFIX;
     }
 }
