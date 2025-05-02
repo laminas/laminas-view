@@ -68,20 +68,20 @@ final class ConfigProvider
                  * This is conventional for an MVC app
                  */
                 'template_map' => [
-                    // 'template-name' => 'path/to/template.phtml',
+                    // 'template-name' => __DIR__ . '/path/to/template.phtml',
                 ],
                 /**
                  * Templates configured here will be provided to the TemplatePathStack resolver.
                  * This is conventional for an MVC app
                  */
                 'template_path_stack' => [
-                    // 'path/to/a/directory/of/templates',
+                    // __DIR__ . '/path/to/a/directory/of/templates',
                 ],
                 /**
                  * Templates configured here will be provided to the PrefixPathStackResolver
                  */
                 'prefix_template_path_stack' => [
-                    // 'prefix' => 'path/to/a/directory/of/templates',
+                    // 'prefix' => __DIR__ . '/path/to/a/directory/of/templates',
                 ],
                 /**
                  * The default template suffix is configured here in MVC applications
@@ -94,7 +94,7 @@ final class ConfigProvider
                  * This is conventional for a Mezzio app
                  */
                 'map' => [
-                    // 'template-name' => 'path/to/template.phtml',
+                    // 'template-name' => __DIR__ . '/path/to/template.phtml',
                 ],
                 /**
                  * The default template filename extension is configured here. The default is 'phtml'
