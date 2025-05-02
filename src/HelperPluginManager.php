@@ -149,7 +149,7 @@ class HelperPluginManager extends AbstractPluginManager
         Helper\Asset::class               => Helper\Service\AssetFactory::class,
         Helper\BasePath::class            => Helper\Service\BasePathFactory::class,
         Helper\Cycle::class               => InvokableFactory::class,
-        Helper\DeclareVars::class         => InvokableFactory::class,
+        Helper\DeclareVars::class         => Helper\Service\DeclareVarsFactory::class,
         Helper\Doctype::class             => Helper\Service\DoctypeFactory::class,
         Helper\EscapeCss::class           => EscapeHelperFactory::class,
         Helper\EscapeHtml::class          => EscapeHelperFactory::class,

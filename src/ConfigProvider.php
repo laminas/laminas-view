@@ -62,8 +62,12 @@ final class ConfigProvider
     {
         return [
             'factories' => [
-                HelperPluginManager::class => HelperPluginManagerFactory::class,
-                Escaper::class             => EscaperFactory::class,
+                HelperPluginManager::class  => HelperPluginManagerFactory::class,
+                Escaper::class              => EscaperFactory::class,
+                Renderer\PhpRenderer::class => Renderer\PhpRendererFactory::class,
+            ],
+            'aliases'   => [
+                Renderer\RendererInterface::class => Renderer\PhpRenderer::class,
             ],
         ];
     }
