@@ -4,29 +4,26 @@ declare(strict_types=1);
 
 namespace Laminas\View\Helper;
 
-use Laminas\View\View;
+use Laminas\View\Renderer\PhpRenderer;
 
-use function func_get_args;
 use function is_array;
+use function is_string;
 
 /**
  * Helper for declaring default values of template variables
  *
- * @final
+ * This helper is specific to the PhpRenderer
  */
-class DeclareVars extends AbstractHelper
+final class DeclareVars
 {
-    /**
-     * The view object that created this helper object.
-     *
-     * @var View
-     */
-    public $view;
+    public function __construct(private readonly PhpRenderer $renderer)
+    {
+    }
 
     /**
      * Declare template vars to set default values and avoid notices when using strictVars
      *
-     * Primarily for use when using {@link Laminas\View\Variables::setStrictVars()},
+     * Primarily for use when using {@link \Laminas\View\Variables::setStrictVars()},
      * this helper can be used to declare template variables that may or may
      * not already be set in the view object, as well as to set default values.
      * Arrays passed as arguments to the method will be used to set default
@@ -45,39 +42,39 @@ class DeclareVars extends AbstractHelper
      * </code>
      *
      * phpcs:ignore
-     * @param string|array variable number of arguments, all string names of variables to test
-     * @return void
+     * @param string|array ...$arguments variable number of arguments, all string names of variables to test
      */
-    public function __invoke()
+    public function __invoke(string|array ...$arguments): void
     {
-        $view = $this->getView();
-        $args = func_get_args();
-        foreach ($args as $key) {
+        foreach ($arguments as $key) {
             if (is_array($key)) {
+                /** @psalm-var mixed $value */
                 foreach ($key as $name => $value) {
+                    if (! is_string($name)) {
+                        continue;
+                    }
+
                     $this->declareVar($name, $value);
                 }
-            } elseif (! isset($view->vars()->$key)) {
-                $this->declareVar($key);
+
+                return;
             }
+
+            $this->declareVar($key);
         }
     }
 
     /**
      * Set a view variable
      *
-     * Checks to see if a $key is set in the view object; if not, sets it to $value.
-     *
-     * @param  string $key
-     * @param  string $value Defaults to an empty string
-     * @return void
+     * Checks to see if a $key is set in the view object; if not, sets it to $value with a default of an empty string.
      */
-    protected function declareVar($key, $value = '')
+    private function declareVar(string $name, mixed $value = ''): void
     {
-        $view = $this->getView();
-        $vars = $view->vars();
-        if (! isset($vars->$key)) {
-            $vars->$key = $value;
+        $variables = $this->renderer->vars();
+
+        if (! isset($variables->$name)) {
+            $variables->$name = $value;
         }
     }
 }

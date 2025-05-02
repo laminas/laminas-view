@@ -5,71 +5,58 @@ declare(strict_types=1);
 namespace LaminasTest\View\Helper;
 
 use Laminas\View\Helper\DeclareVars;
-use Laminas\View\Renderer\PhpRenderer as View;
+use Laminas\View\Renderer\PhpRenderer;
 use PHPUnit\Framework\TestCase;
-
-use function str_replace;
-
-use const DIRECTORY_SEPARATOR;
 
 final class DeclareVarsTest extends TestCase
 {
-    private View $view;
+    private PhpRenderer $view;
+    private DeclareVars $helper;
 
     protected function setUp(): void
     {
-        $view = new View();
-        $base = str_replace('/', DIRECTORY_SEPARATOR, '/../_templates');
-        $view->resolver()->addPath(__DIR__ . $base);
-        $view->vars()->setStrictVars(true);
-        $this->view = $view;
+        $this->view   = new PhpRenderer();
+        $this->helper = new DeclareVars($this->view);
     }
 
-    private function declareVars(): void
+    public function testUndeclaredVariablesAreSetOrInitialised(): void
     {
-        $helper = $this->view->plugin(DeclareVars::class);
-
-        $helper->__invoke(
-            'varName1',
-            'varName2',
-            [
-                'varName3' => 'defaultValue',
-                'varName4' => [],
-            ]
-        );
-    }
-
-    public function testDeclareUndeclaredVars(): void
-    {
-        $this->declareVars();
-
         $vars = $this->view->vars();
-        $this->assertTrue(isset($vars->varName1));
-        $this->assertTrue(isset($vars->varName2));
-        $this->assertTrue(isset($vars->varName3));
-        $this->assertTrue(isset($vars->varName4));
+        self::assertFalse(isset($vars->varName1));
+        self::assertFalse(isset($vars->varName2));
+        self::assertFalse(isset($vars->varName3));
+        self::assertFalse(isset($vars->varName4));
 
-        $this->assertEquals('defaultValue', $vars->varName3);
-        $this->assertEquals([], $vars->varName4);
+        $this->helper->__invoke('varName1', 'varName2', [
+            'varName3' => 'defaultValue',
+            'varName4' => [],
+        ]);
+
+        self::assertSame('', $vars->varName1);
+        self::assertSame('', $vars->varName2);
+        self::assertSame('defaultValue', $vars->varName3);
+        self::assertSame([], $vars->varName4);
     }
 
-    public function testDeclareDeclaredVars(): void
+    public function testAlreadyDeclaredVariablesAreNotModified(): void
     {
-        $vars           = $this->view->vars();
-        $vars->varName2 = 'alreadySet';
-        $vars->varName3 = 'myValue';
-        $vars->varName5 = 'additionalValue';
+        $vars = $this->view->vars();
+        $vars->assign([
+            'varName1' => 'alreadySet',
+            'varName2' => 'myValue',
+            'varName3' => 'additionalValue',
+        ]);
 
-        $this->declareVars();
+        $this->helper->__invoke('varName1', 'varName2', [
+            'varName3' => 'Foo Bar',
+        ]);
 
-        $this->assertTrue(isset($vars->varName1));
-        $this->assertTrue(isset($vars->varName2));
-        $this->assertTrue(isset($vars->varName3));
-        $this->assertTrue(isset($vars->varName4));
-        $this->assertTrue(isset($vars->varName5));
+        self::assertTrue(isset($vars->varName1));
+        self::assertTrue(isset($vars->varName2));
+        self::assertTrue(isset($vars->varName3));
 
-        $this->assertEquals('alreadySet', $vars->varName2);
-        $this->assertEquals('myValue', $vars->varName3);
-        $this->assertEquals('additionalValue', $vars->varName5);
+        self::assertSame('alreadySet', $vars->varName1);
+        self::assertSame('myValue', $vars->varName2);
+        self::assertSame('additionalValue', $vars->varName3);
     }
 }

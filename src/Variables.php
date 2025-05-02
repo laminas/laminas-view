@@ -28,6 +28,7 @@ use const E_USER_NOTICE;
  * @todo       Move strict variables into variables object
  * @extends ArrayObject<string, mixed>
  * @final
+ * @no-seal-properties This class is a mixed property bag
  */
 class Variables extends ArrayObject
 {
