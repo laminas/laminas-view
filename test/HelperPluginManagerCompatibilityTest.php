@@ -19,13 +19,10 @@ final class HelperPluginManagerCompatibilityTest extends TestCase
 
     protected static function getPluginManager(): HelperPluginManager
     {
-        $provider = new ConfigProvider();
-        $config   = $provider->__invoke();
-        /** @psalm-suppress MixedArrayAssignment */
+        $provider                           = new ConfigProvider();
+        $config                             = $provider->__invoke();
         $config['dependencies']['services'] = ['config' => $config];
-
-        /** @psalm-suppress MixedArgument */
-        $serviceManager = new ServiceManager($config['dependencies']);
+        $serviceManager                     = new ServiceManager($config['dependencies']);
         return $serviceManager->get(HelperPluginManager::class);
     }
 

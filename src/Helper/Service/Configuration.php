@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace Laminas\View\Helper\Service;
 
+use Laminas\View\ConfigProvider;
 use Psr\Container\ContainerInterface;
 
 use function is_array;
-use function is_string;
 
 /**
  * Provides consistent retrieval of configuration and individual values based on historic conventions
  *
  * @psalm-internal Laminas\View
  * @psalm-internal LaminasTest\View
+ * @psalm-import-type ViewConfigShape from ConfigProvider
  */
 final class Configuration
 {
@@ -38,16 +39,16 @@ final class Configuration
      *
      * @param non-empty-string $defaultEncoding
      * @return non-empty-string
-     * @psalm-suppress MixedAssignment It is just annoying here.
      */
     public static function viewEncoding(
         ContainerInterface $container,
         string $defaultEncoding = self::DEFAULT_ENCODING,
     ): string {
+        /** @var ViewConfigShape $config */
         $config   = self::get($container);
         $encoding = $config['view_manager']['encoding'] ?? '';
         $encoding = $config['view_helper_config']['encoding'] ?? $encoding;
 
-        return is_string($encoding) && $encoding !== '' ? $encoding : $defaultEncoding;
+        return $encoding !== '' ? $encoding : $defaultEncoding;
     }
 }

@@ -8,10 +8,25 @@ use Laminas\Escaper\Escaper;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Helper\Service\EscaperFactory;
 
-/** @psalm-import-type ServiceManagerConfiguration from ServiceManager */
+/**
+ * @psalm-import-type ServiceManagerConfiguration from ServiceManager
+ * @psalm-type ViewConfigShape = array{
+ *     dependencies: ServiceManagerConfiguration,
+ *     view_helpers: ServiceManagerConfiguration,
+ *     view_helper_config?: array{
+ *         asset?: array{resource_map: array<non-empty-string, non-empty-string>},
+ *         base_path?: non-empty-string|null,
+ *         encoding?: string,
+ *     },
+ *     view_manager?: array{
+ *         base_path?: non-empty-string|null,
+ *         encoding?: non-empty-string,
+ *     }
+ * }
+ */
 final class ConfigProvider
 {
-    /** @return array{dependencies: ServiceManagerConfiguration, ...} */
+    /** @return ViewConfigShape */
     public function __invoke(): array
     {
         return [
