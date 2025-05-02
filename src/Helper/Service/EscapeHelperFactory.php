@@ -13,6 +13,7 @@ use Laminas\View\Helper\EscapeHtmlAttr;
 use Laminas\View\Helper\EscapeJs;
 use Laminas\View\Helper\EscapeUrl;
 use Laminas\View\Helper\GravatarImage;
+use Laminas\View\Helper\HtmlAttributes;
 use Laminas\View\Helper\HtmlList;
 use Psr\Container\ContainerInterface;
 
@@ -33,6 +34,7 @@ final class EscapeHelperFactory implements FactoryInterface
         EscapeHtmlAttr::class => EscapeHtmlAttr::class,
         EscapeJs::class       => EscapeJs::class,
         EscapeUrl::class      => EscapeUrl::class,
+        HtmlAttributes::class => HtmlAttributes::class,
         HtmlList::class       => HtmlList::class,
         GravatarImage::class  => GravatarImage::class,
     ];
