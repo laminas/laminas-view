@@ -22,8 +22,8 @@ use Laminas\View\Helper\Service\EscaperFactory;
  *         base_path?: non-empty-string|null,
  *         encoding?: non-empty-string,
  *         template_map?: array<string, string>,
- *         template_path_stack?: list<string>,
- *         prefix_template_path_stack?: array<string, string>,
+ *         template_path_stack?: list<non-empty-string>,
+ *         prefix_template_path_stack?: array<non-empty-string, non-empty-string>,
  *         default_template_suffix?: non-empty-string,
  *     },
  *     templates?: array{

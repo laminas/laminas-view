@@ -13,6 +13,10 @@ use Laminas\View\Resolver\TemplateMapResolver;
 use Laminas\View\Resolver\TemplatePathStack;
 use Psr\Container\ContainerInterface;
 
+/**
+ * @psalm-internal Laminas\View
+ * @psalm-internal LaminasTest\View
+ */
 final class AggregateResolverFactory
 {
     public function __invoke(ContainerInterface $container): AggregateResolver

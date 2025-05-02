@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Resolver\Factory;
+namespace LaminasTest\View\Resolver\Factory;
 
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\ConfigProvider;

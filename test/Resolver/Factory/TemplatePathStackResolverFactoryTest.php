@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Resolver\Factory;
+namespace LaminasTest\View\Resolver\Factory;
 
 use Laminas\View\Resolver\Factory\TemplatePathStackResolverFactory;
 use Laminas\View\Resolver\TemplateCannotBeFound;
