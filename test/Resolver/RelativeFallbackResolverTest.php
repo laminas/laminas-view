@@ -31,6 +31,7 @@ final class RelativeFallbackResolverTest extends TestCase
         $view->setTemplate('foo/zaz');
         $helper->setCurrent($view);
 
+        self::assertTrue($resolver->has('bar'));
         $test = $resolver->resolve('bar');
         $this->assertEquals('foo/baz', $test);
     }
@@ -46,6 +47,7 @@ final class RelativeFallbackResolverTest extends TestCase
         $pathStack->addPath(__DIR__ . '/../_templates');
         $resolver = new RelativeFallbackResolver($pathStack, $helper);
 
+        self::assertTrue($resolver->has('bar'));
         $test = $resolver->resolve('bar');
         $this->assertEquals(realpath(__DIR__ . '/../_templates/name-space/bar.phtml'), $test);
     }
@@ -65,6 +67,7 @@ final class RelativeFallbackResolverTest extends TestCase
         $resolver->attach($tplMapResolver);
         $resolver->attach(new RelativeFallbackResolver($tplMapResolver, $helper));
 
+        self::assertTrue($resolver->has('bar'));
         $test = $resolver->resolve('bar');
         $this->assertEquals('baz', $test);
     }
@@ -74,6 +77,8 @@ final class RelativeFallbackResolverTest extends TestCase
         $baseResolver = $this->createMock(ResolverInterface::class);
         $baseResolver->expects(self::never())
             ->method('resolve');
+        $baseResolver->expects(self::never())
+            ->method('has');
 
         $fallback = new RelativeFallbackResolver($baseResolver, new ViewModelHelper());
 
@@ -92,6 +97,8 @@ final class RelativeFallbackResolverTest extends TestCase
         $pathStack->addPath(__DIR__ . '/../_templates');
         $resolver = new RelativeFallbackResolver($pathStack, $helper);
 
+        self::assertFalse($resolver->has('foo'));
+
         // The foo.phtml file should not exist in ../_templates/name-space/
         $this->expectException(TemplateCannotBeFound::class);
         $resolver->resolve('foo');
@@ -107,6 +114,7 @@ final class RelativeFallbackResolverTest extends TestCase
         $pathStack = new TemplatePathStack();
         $pathStack->addPath(__DIR__ . '/../_templates');
         $resolver = new RelativeFallbackResolver($pathStack, $helper);
+        self::assertFalse($resolver->has('test'));
 
         $this->expectException(TemplateCannotBeFound::class);
         $resolver->resolve('test'); // Can actually be found in ../_templates/test.phtml

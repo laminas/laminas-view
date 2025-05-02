@@ -14,21 +14,21 @@ final class AggregateResolverTest extends TestCase
     public function testAggregateIsEmptyByDefault(): void
     {
         $resolver = new AggregateResolver();
-        $this->assertCount(0, $resolver);
+        self::assertCount(0, $resolver);
     }
 
     public function testCanAttachResolvers(): void
     {
         $resolver = new AggregateResolver();
         $resolver->attach(new TemplateMapResolver());
-        $this->assertCount(1, $resolver);
+        self::assertCount(1, $resolver);
         $resolver->attach(new TemplateMapResolver());
-        $this->assertCount(2, $resolver);
+        self::assertCount(2, $resolver);
 
         self::assertContainsOnlyInstancesOf(TemplateMapResolver::class, $resolver);
     }
 
-    public function testReturnsNonFalseValueWhenAtLeastOneResolverSucceeds(): void
+    public function testSuccessfulResolution(): void
     {
         $resolver = new AggregateResolver();
         $resolver->attach(new TemplateMapResolver([
@@ -37,8 +37,9 @@ final class AggregateResolverTest extends TestCase
         $resolver->attach(new TemplateMapResolver([
             'bar' => 'baz',
         ]));
-        $test = $resolver->resolve('bar');
-        $this->assertEquals('baz', $test);
+        self::assertTrue($resolver->has('bar'));
+        self::assertTrue($resolver->has('foo'));
+        self::assertEquals('baz', $resolver->resolve('bar'));
     }
 
     public function testExceptionThrownWhenNoResolverSucceeds(): void
@@ -47,6 +48,7 @@ final class AggregateResolverTest extends TestCase
         $resolver->attach(new TemplateMapResolver([
             'foo' => 'bar',
         ]));
+        self::assertFalse($resolver->has('bar'));
         $this->expectException(TemplateCannotBeFound::class);
         $resolver->resolve('bar');
     }
@@ -67,8 +69,8 @@ final class AggregateResolverTest extends TestCase
                  ->attach($barResolver, 100)
                  ->attach($bazResolver);
 
-        $test = $resolver->resolve('bar');
-        $this->assertEquals('bar', $test);
+        self::assertTrue($resolver->has('bar'));
+        self::assertSame('bar', $resolver->resolve('bar'));
     }
 
     public function testExceptionThrownWhenAttemptingToResolveWhenNoResolversAreAttached(): void

@@ -14,4 +14,11 @@ interface ResolverInterface
      * @throws TemplateCannotBeFound If the given template cannot be found/resolved.
      */
     public function resolve(string $name): string;
+
+    /**
+     * Whether this resolver can resolve the template specified by $name
+     *
+     * @param non-empty-string $name
+     */
+    public function has(string $name): bool;
 }

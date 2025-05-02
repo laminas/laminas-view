@@ -54,16 +54,34 @@ final class PrefixPathStackResolver implements ResolverInterface
 
             $template = substr($name, strlen($prefix));
             if ($template === '') {
-                break;
+                continue;
             }
 
-            try {
+            if ($resolver->has($template)) {
                 return $resolver->resolve($template);
-            } catch (TemplateCannotBeFound) {
-                continue;
             }
         }
 
         throw TemplateCannotBeFound::byName($name);
+    }
+
+    public function has(string $name): bool
+    {
+        foreach ($this->resolvers as $prefix => $resolver) {
+            if (! str_starts_with($name, $prefix)) {
+                continue;
+            }
+
+            $template = substr($name, strlen($prefix));
+            if ($template === '') {
+                continue;
+            }
+
+            if ($resolver->has($template)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

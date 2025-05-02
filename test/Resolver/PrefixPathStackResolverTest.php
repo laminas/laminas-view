@@ -43,6 +43,7 @@ final class PrefixPathStackResolverTest extends TestCase
     public function testResolveWithoutPathPrefixes(string $name): void
     {
         $resolver = new PrefixPathStackResolver();
+        self::assertFalse($resolver->has($name));
         $this->expectException(TemplateCannotBeFound::class);
         $resolver->resolve($name);
     }
@@ -54,6 +55,9 @@ final class PrefixPathStackResolverTest extends TestCase
             'base2' => $this->basePath . '/baz',
         ]);
 
+        self::assertTrue($resolver->has('base1/bar'));
+        self::assertTrue($resolver->has('base2/taz'));
+
         $this->assertSame(realpath($this->basePath . '/bar.phtml'), $resolver->resolve('base1/bar'));
         $this->assertSame(realpath($this->basePath . '/baz/taz.phtml'), $resolver->resolve('base2/taz'));
     }
@@ -64,6 +68,7 @@ final class PrefixPathStackResolverTest extends TestCase
             'whatever' => $this->basePath,
         ], 'php');
 
+        self::assertTrue($resolver->has('whatever/foo'));
         self::assertSame($this->basePath . '/foo.php', $resolver->resolve('whatever/foo'));
     }
 
@@ -74,6 +79,7 @@ final class PrefixPathStackResolverTest extends TestCase
             'base2' => $this->basePath . '/baz',
         ]);
 
+        self::assertFalse($resolver->has('base2'));
         $this->expectException(TemplateCannotBeFound::class);
 
         $resolver->resolve('base2');
@@ -98,6 +104,9 @@ final class PrefixPathStackResolverTest extends TestCase
                 '/baz' => '2222',
             ]),
         ]);
+
+        self::assertTrue($resolver->has('foo/bar'));
+        self::assertTrue($resolver->has('foo/baz'));
 
         $this->assertSame('1111', $resolver->resolve('foo/bar'));
         $this->assertSame('2222', $resolver->resolve('foo/baz'));

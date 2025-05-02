@@ -32,21 +32,43 @@ final class RelativeFallbackResolver implements ResolverInterface
     /** @inheritDoc */
     public function resolve(string $name): string
     {
+        $template = $this->resolveTemplateName($name);
+        if ($template === false) {
+            throw TemplateCannotBeFound::byName($name);
+        }
+
+        return $this->resolver->resolve($template);
+    }
+
+    public function has(string $name): bool
+    {
+        $template = $this->resolveTemplateName($name);
+        if ($template === false) {
+            return false;
+        }
+
+        return $this->resolver->has($template);
+    }
+
+    /**
+     * @param non-empty-string $name
+     * @return non-empty-string|false
+     */
+    private function resolveTemplateName(string $name): string|false
+    {
         $currentModel = $this->viewModelHelper->getCurrent();
 
         if (! $currentModel instanceof ModelInterface) {
-            throw TemplateCannotBeFound::byName($name);
+            return false;
         }
 
         $currentTemplate = $currentModel->getTemplate();
         $position        = strrpos($currentTemplate, self::NS_SEPARATOR);
 
         if ($position === false) {
-            throw TemplateCannotBeFound::byName($name);
+            return false;
         }
 
-        $template = substr($currentTemplate, 0, $position) . self::NS_SEPARATOR . $name;
-
-        return $this->resolver->resolve($template);
+        return substr($currentTemplate, 0, $position) . self::NS_SEPARATOR . $name;
     }
 }

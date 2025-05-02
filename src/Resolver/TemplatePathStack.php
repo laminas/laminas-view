@@ -145,6 +145,19 @@ final class TemplatePathStack implements ResolverInterface
     }
 
     /**
+     * Turn a template name into a possible filename based on configuration
+     */
+    private function normalizeTemplateName(string $name): string
+    {
+        // Ensure we have the expected file extension
+        if (pathinfo($name, PATHINFO_EXTENSION) === '') {
+            $name .= '.' . $this->defaultSuffix;
+        }
+
+        return $name;
+    }
+
+    /**
      * Retrieve the filesystem path to a view script
      *
      * @throws DomainException If the template requested includes directory traversal and LFI protection is on.
@@ -154,7 +167,7 @@ final class TemplatePathStack implements ResolverInterface
     {
         if ($this->lfiProtectionOn && preg_match('#\.\.[\\\/]#', $name)) {
             throw new DomainException(
-                'Requested scripts may not include parent directory traversal ("../", "..\\" notation)'
+                'Requested scripts may not include parent directory traversal ("../", "..\\" notation)',
             );
         }
 
@@ -162,11 +175,23 @@ final class TemplatePathStack implements ResolverInterface
             throw TemplateCannotBeFound::byName($name);
         }
 
-        // Ensure we have the expected file extension
-        if (pathinfo($name, PATHINFO_EXTENSION) === '') {
-            $name .= '.' . $this->defaultSuffix;
+        $name = $this->normalizeTemplateName($name);
+        $path = $this->resolveToPath($name);
+        if ($path !== false) {
+            return $path;
         }
 
+        throw TemplateCannotBeFound::byName($name);
+    }
+
+    public function has(string $name): bool
+    {
+        return $this->resolveToPath($this->normalizeTemplateName($name)) !== false;
+    }
+
+    /** @return non-empty-string|false */
+    private function resolveToPath(string $name): string|false
+    {
         foreach ($this->paths as $path) {
             $file = new SplFileInfo($path . $name);
             if ($file->isReadable()) {
@@ -184,6 +209,6 @@ final class TemplatePathStack implements ResolverInterface
             }
         }
 
-        throw TemplateCannotBeFound::byName($name);
+        return false;
     }
 }
