@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper;
 
+use Laminas\Escaper\Escaper;
 use Laminas\View\Helper\Escaper\AbstractHelper;
 use Laminas\View\Helper\EscapeUrl;
 use PHPUnit\Framework\TestCase;
@@ -11,10 +12,16 @@ use stdClass;
 
 final class EscapeUrlTest extends TestCase
 {
+    private EscapeUrl $helper;
+
+    protected function setUp(): void
+    {
+        $this->helper = new EscapeUrl(new Escaper());
+    }
+
     public function testUrlsAreCorrectlyEscaped(): void
     {
-        $helper = new EscapeUrl();
-        self::assertSame('%20', $helper->__invoke(' '));
+        self::assertSame('%20', $this->helper->__invoke(' '));
     }
 
     public function testAllowsRecursiveEscapingOfArrays(): void
@@ -37,15 +44,13 @@ final class EscapeUrlTest extends TestCase
                 ],
             ],
         ];
-        $helper   = new EscapeUrl();
-        self::assertEquals($expected, $helper->__invoke($original, AbstractHelper::RECURSE_ARRAY));
+        self::assertEquals($expected, $this->helper->__invoke($original, AbstractHelper::RECURSE_ARRAY));
     }
 
     public function testWillCastObjectsToStringsBeforeEscaping(): void
     {
         $object = new TestAsset\StringableObject('<i>');
-        $helper = new EscapeUrl();
-        self::assertSame('%3Ci%3E', $helper($object));
+        self::assertSame('%3Ci%3E', $this->helper->__invoke($object));
     }
 
     public function testCanRecurseObjectImplementingToArray(): void
@@ -69,8 +74,7 @@ final class EscapeUrlTest extends TestCase
                 ],
             ],
         ];
-        $helper   = new EscapeUrl();
-        self::assertEquals($expected, $helper($object, AbstractHelper::RECURSE_OBJECT));
+        self::assertEquals($expected, $this->helper->__invoke($object, AbstractHelper::RECURSE_OBJECT));
     }
 
     public function testCanRecurseObjectProperties(): void
@@ -99,7 +103,6 @@ final class EscapeUrlTest extends TestCase
             ],
         ];
 
-        $helper = new EscapeUrl();
-        self::assertEquals($expected, $helper($object, AbstractHelper::RECURSE_OBJECT));
+        self::assertEquals($expected, $this->helper->__invoke($object, AbstractHelper::RECURSE_OBJECT));
     }
 }

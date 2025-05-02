@@ -53,7 +53,7 @@ final class EscapeHelperFactory implements FactoryInterface
 
         $escaper = $container->has(Escaper::class)
             ? $container->get(Escaper::class)
-            : null;
+            : new Escaper();
 
         return new $type($escaper);
     }

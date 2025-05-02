@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper;
 
+use Laminas\Escaper\Escaper;
 use Laminas\View\Helper\EscapeHtmlAttr;
 use Laminas\View\Helper\Escaper\AbstractHelper;
 use PHPUnit\Framework\TestCase;
@@ -14,7 +15,7 @@ final class EscapeHtmlAttrTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->helper = new EscapeHtmlAttr();
+        $this->helper = new EscapeHtmlAttr(new Escaper());
     }
 
     public function testAllowsRecursiveEscapingOfArrays(): void

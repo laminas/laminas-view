@@ -18,7 +18,6 @@ final class BasePathFactoryTest extends TestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
         $this->container = new ServiceManager();
     }
 
@@ -57,7 +56,6 @@ final class BasePathFactoryTest extends TestCase
     {
         self::assertFalse($this->container->has('config'));
         (new BasePathFactory())($this->container);
-        $this->expectNotToPerformAssertions();
     }
 
     public function testThatTheBasePathFactoryIsWiredUpByDefault(): void

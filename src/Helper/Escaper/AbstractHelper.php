@@ -22,11 +22,8 @@ abstract class AbstractHelper
     public const RECURSE_ARRAY  = 0x01;
     public const RECURSE_OBJECT = 0x02;
 
-    protected Escaper $escaper;
-
-    public function __construct(Escaper|null $escaper = null)
+    public function __construct(protected readonly Escaper $escaper)
     {
-        $this->escaper = $escaper ?? new Escaper();
     }
 
     /**

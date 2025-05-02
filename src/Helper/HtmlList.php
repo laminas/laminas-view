@@ -22,11 +22,8 @@ use const PHP_EOL;
  */
 final class HtmlList
 {
-    private readonly Escaper $escaper;
-
-    public function __construct(?Escaper $escaper = null)
+    public function __construct(private readonly Escaper $escaper)
     {
-        $this->escaper = $escaper ?: new Escaper();
     }
 
     /**

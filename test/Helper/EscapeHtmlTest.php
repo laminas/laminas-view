@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper;
 
+use Laminas\Escaper\Escaper;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Helper\Escaper\AbstractHelper;
 use PHPUnit\Framework\TestCase;
@@ -14,7 +15,7 @@ final class EscapeHtmlTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->helper = new EscapeHtml();
+        $this->helper = new EscapeHtml(new Escaper());
     }
 
     public function testHtmlIsEscaped(): void
