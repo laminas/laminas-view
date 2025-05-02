@@ -4,6 +4,19 @@ Version 3 is the first major release of `laminas-view` and includes a number of 
 
 ## New Features
 
+### Config Provider
+
+A config provider is now shipped with the library that wires up the following services to factories:
+
+- `HelperPluginManager`
+- `Laminas\Escaper\Escaper`
+
+The `ConfigProvider` also supports documentation on configuration options.
+
+### Native Parameter & Return Types Throughout
+
+The entire codebase has been updated with native parameter and return types, improving type safety and type inference.
+
 ## New Dependencies
 
 ## Signature Changes and Behaviour Changes
@@ -15,7 +28,7 @@ Similarly, factories that previously searched for services in the container such
 
 ### Helpers
 
-#### Asset Helper
+#### `Asset`
 
 Previous versions of the asset helper permitted run-time modification and retrieval of the resource map with `Laminas\View\Helper\Asset::setResourceMap()` and `Laminas\View\Helper\Asset::getResourceMap()`.
 Both of these methods have been removed.
@@ -29,12 +42,12 @@ These helpers now have constructors that expect an [Escaper](https://docs.lamina
 
 The encoding defaults to UTF-8 as it has always done but can be overridden in configuration by setting `view_manager.encoding` to your preferred value.
 
-#### Identity Helper
+#### `Identity`
 
 The deprecated runtime retrieval and modification of the underlying authentication service has been removed and the service must be injected into the helper constructor.
 Specifically, the methods `Laminas\View\Helper\Identity::setAuthenticationService()` and `Laminas\View\Helper\Identity::getAuthenticationService()` have been removed.
 
-#### `HeadTitle` Helper
+#### `HeadTitle`
 
 The `HeadTitle` helper's inheritance hierarchy has changed and it no longer extends from anything.
 This means that a number of methods no longer exist, including, but not limited to:
@@ -55,6 +68,41 @@ This means that a number of methods no longer exist, including, but not limited 
 - `count` and more…
 
 Please consult the [updated documentation](../helpers/head-title.md) for further information.
+
+#### `HtmlAttributes`
+
+This helper no longer inherits from a base class, therefore the following methods have been removed
+
+- `getView`
+- `setView`
+
+#### `HtmlList`
+
+This helper no longer inherits from a base class, therefore the following methods have been removed
+
+- `getView`
+- `setView`
+- `getClosingBracket`
+
+#### `Layout`
+
+The inheritance hierarchy has been removed from this helper and the following methods have been removed:
+
+- `getView`
+- `setView`
+- `getLayout`
+- `setTemplate`
+
+The layout model accessor and layout template setter were infeasible to use because retrieving the instance from a view template context, required setting the layout template with `$this->layout('some-template')`, therefore, the `getLayout` and `setTemplate` methods were inaccessible in normal usage.
+
+#### `ViewModel`
+
+This helper no longer inherits from `AbstractHelper` so the following methods have been removed:
+
+- `getView`
+- `setView`
+
+It can now be invoked, and as such it can be used in view scripts directly with `$this->viewModel()->getCurrent()` for example.
 
 ## Removed Features
 

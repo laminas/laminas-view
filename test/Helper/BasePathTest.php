@@ -54,4 +54,22 @@ final class BasePathTest extends TestCase
         $helper->setBasePath('something');
         self::assertEquals('something/else', $helper->__invoke('else'));
     }
+
+    public function testThatTheBasePathIsNullifiedWhenUnconfiguredAndReset(): void
+    {
+        $helper = new BasePath();
+        $helper->resetState();
+
+        $this->expectException(RuntimeException::class);
+        $helper->__invoke();
+    }
+
+    public function testThatTheBasePathIsResetToTheConfiguredValue(): void
+    {
+        $helper = new BasePath('/foo');
+        $helper->setBasePath('/bar');
+        self::assertSame('/bar', $helper->__invoke());
+        $helper->resetState();
+        self::assertSame('/foo', $helper->__invoke());
+    }
 }

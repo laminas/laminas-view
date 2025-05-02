@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper\Escaper;
 
+use Laminas\Escaper\Escaper;
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\EscapeHtml;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -14,7 +15,7 @@ final class AbstractHelperTest extends TestCase
 {
     public function testExceptionThrownEscapingAnObjectWithRecursionOff(): void
     {
-        $helper = new EscapeHtml();
+        $helper = new EscapeHtml(new Escaper());
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Object provided to Escape helper, but flags do not allow recursion');
@@ -24,7 +25,7 @@ final class AbstractHelperTest extends TestCase
 
     public function testExceptionThrownEscapingAnArrayWithRecursionOff(): void
     {
-        $helper = new EscapeHtml();
+        $helper = new EscapeHtml(new Escaper());
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Array provided to Escape helper, but flags do not allow recursion');
@@ -46,7 +47,7 @@ final class AbstractHelperTest extends TestCase
     #[DataProvider('unEscaped')]
     public function testNonStringScalarsAreReturnedAsIs(mixed $value): void
     {
-        $helper = new EscapeHtml();
+        $helper = new EscapeHtml(new Escaper());
 
         self::assertSame($value, $helper->__invoke($value));
     }

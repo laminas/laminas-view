@@ -395,20 +395,6 @@
       <code><![CDATA[public function __invoke(]]></code>
     </MethodSignatureMismatch>
   </file>
-  <file src="src/Helper/Layout.php">
-    <PossiblyNullReference>
-      <code><![CDATA[plugin]]></code>
-    </PossiblyNullReference>
-    <PossiblyUnusedMethod>
-      <code><![CDATA[__construct]]></code>
-    </PossiblyUnusedMethod>
-    <RedundantCastGivenDocblockType>
-      <code><![CDATA[(string) $template]]></code>
-    </RedundantCastGivenDocblockType>
-    <UndefinedInterfaceMethod>
-      <code><![CDATA[plugin]]></code>
-    </UndefinedInterfaceMethod>
-  </file>
   <file src="src/Helper/PaginationControl.php">
     <DocblockTypeContradiction>
       <code><![CDATA[static::$defaultViewPartial === null]]></code>
@@ -695,10 +681,10 @@
       <code><![CDATA[$config]]></code>
     </MixedAssignment>
   </file>
-  <file src="src/Helper/ViewModel.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[hasRoot]]></code>
-    </PossiblyUnusedMethod>
+  <file src="src/Helper/Service/LayoutFactory.php">
+    <PossiblyUnusedReturnValue>
+      <code><![CDATA[Layout]]></code>
+    </PossiblyUnusedReturnValue>
   </file>
   <file src="src/HelperPluginManager.php">
     <DeprecatedInterface>

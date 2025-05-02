@@ -12,12 +12,17 @@ use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\Helper\EscapeHtmlAttr;
 use Laminas\View\Helper\EscapeJs;
 use Laminas\View\Helper\EscapeUrl;
+use Laminas\View\Helper\GravatarImage;
+use Laminas\View\Helper\HtmlAttributes;
+use Laminas\View\Helper\HtmlList;
 use Psr\Container\ContainerInterface;
 
 use function implode;
 use function sprintf;
 
 /**
+ * This factory is used to generate helpers that have a single constructor argument on an Escaper instance
+ *
  * @psalm-internal Laminas\View
  * @psalm-internal LaminasTest\View
  */
@@ -29,6 +34,9 @@ final class EscapeHelperFactory implements FactoryInterface
         EscapeHtmlAttr::class => EscapeHtmlAttr::class,
         EscapeJs::class       => EscapeJs::class,
         EscapeUrl::class      => EscapeUrl::class,
+        HtmlAttributes::class => HtmlAttributes::class,
+        HtmlList::class       => HtmlList::class,
+        GravatarImage::class  => GravatarImage::class,
     ];
 
     /** @inheritDoc */
@@ -47,7 +55,7 @@ final class EscapeHelperFactory implements FactoryInterface
 
         $escaper = $container->has(Escaper::class)
             ? $container->get(Escaper::class)
-            : null;
+            : new Escaper();
 
         return new $type($escaper);
     }

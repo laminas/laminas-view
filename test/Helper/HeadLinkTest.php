@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper;
 
+use Laminas\Escaper\Escaper;
 use Laminas\View\Exception;
 use Laminas\View\Helper;
 use Laminas\View\Helper\Doctype;
@@ -37,7 +38,7 @@ final class HeadLinkTest extends TestCase
         $this->view   = new View();
         $this->helper = new HeadLink();
         $this->helper->setView($this->view);
-        $this->attributeEscaper = new EscapeHtmlAttr();
+        $this->attributeEscaper = new EscapeHtmlAttr(new Escaper());
     }
 
     public function testHeadLinkReturnsObjectInstance(): void

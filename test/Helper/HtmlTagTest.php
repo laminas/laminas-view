@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper;
 
+use Laminas\Escaper\Escaper;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\EscapeHtmlAttr;
 use Laminas\View\Helper\HtmlTag;
@@ -87,7 +88,7 @@ final class HtmlTagTest extends TestCase
 
         $this->assertStringStartsWith('<html', $tag);
 
-        $escape = new EscapeHtmlAttr();
+        $escape = new EscapeHtmlAttr(new Escaper());
 
         foreach ($attribs as $name => $value) {
             $this->assertStringContainsString(sprintf('%s="%s"', $name, $escape($value)), $tag);
@@ -118,7 +119,7 @@ final class HtmlTagTest extends TestCase
 
         $tag = $this->helper->openTag();
 
-        $escape = new EscapeHtmlAttr();
+        $escape = new EscapeHtmlAttr(new Escaper());
 
         $this->assertStringContainsString(sprintf('%s="%s"', 'xmlns', $escape('http://www.w3.org/1999/xhtml')), $tag);
         foreach ($attribs as $name => $value) {

@@ -61,11 +61,8 @@ final class GravatarImage
         self::DEFAULT_BLANK,
     ];
 
-    private Escaper $escaper;
-
-    public function __construct(?Escaper $escaper = null)
+    public function __construct(private readonly Escaper $escaper)
     {
-        $this->escaper = $escaper ?: new Escaper();
     }
 
     /**

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper;
 
+use Laminas\Escaper\Escaper;
 use Laminas\View\Exception;
 use Laminas\View\Helper\HtmlList;
 use PHPUnit\Framework\TestCase;
@@ -18,7 +19,7 @@ final class HtmlListTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->helper = new HtmlList();
+        $this->helper = new HtmlList(new Escaper());
     }
 
     public function testMakeUnorderedList(): void
