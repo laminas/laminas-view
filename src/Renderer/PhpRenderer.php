@@ -50,7 +50,6 @@ use function sprintf;
  * @method string asset($asset)
  * @method string|null basePath($file = null)
  * @method \Laminas\View\Helper\Cycle cycle(array $data = array(), $name = \Laminas\View\Helper\Cycle::DEFAULT_NAME)
- * @method \Laminas\View\Helper\DeclareVars declareVars()
  * @method \Laminas\View\Helper\Doctype doctype($doctype = null)
  * @method mixed escapeCss($value, $recurse = \Laminas\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
  * @method mixed escapeHtml($value, $recurse = \Laminas\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
