@@ -30,24 +30,14 @@ final class RelativeFallbackResolver implements ResolverInterface
     }
 
     /** @inheritDoc */
-    public function resolve(string $name): string
-    {
-        $template = $this->resolveTemplateName($name);
-        if ($template === false) {
-            throw TemplateCannotBeFound::byName($name);
-        }
-
-        return $this->resolver->resolve($template);
-    }
-
-    public function has(string $name): bool
+    public function resolve(string $name): string|false
     {
         $template = $this->resolveTemplateName($name);
         if ($template === false) {
             return false;
         }
 
-        return $this->resolver->has($template);
+        return $this->resolver->resolve($template);
     }
 
     /**

@@ -188,12 +188,11 @@ final class TemplateMapResolverTest extends TestCase
         $this->assertEquals($map['foo/bar'], $resolver->resolve('foo/bar'));
     }
 
-    public function testResolveThrowsExceptionWhenNameHasNoMatch(): void
+    public function testResolveReturnsFalseWhenNameHasNoMatch(): void
     {
         $map      = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
-        $this->expectException(TemplateCannotBeFound::class);
-        $resolver->resolve('bar/baz');
+        self::assertFalse($resolver->resolve('bar/baz'));
     }
 
     public function testExceptionThrownAddingStringNameWithoutPath(): void

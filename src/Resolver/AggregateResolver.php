@@ -50,25 +50,15 @@ final class AggregateResolver implements Countable, IteratorAggregate, ResolverI
         return $this;
     }
 
-    public function resolve(string $name): string
+    public function resolve(string $name): string|false
     {
         foreach ($this->queue as $resolver) {
-            if (! $resolver->has($name)) {
+            $path = $resolver->resolve($name);
+            if ($path === false) {
                 continue;
             }
 
-            return $resolver->resolve($name);
-        }
-
-        throw TemplateCannotBeFound::byName($name);
-    }
-
-    public function has(string $name): bool
-    {
-        foreach ($this->queue as $resolver) {
-            if ($resolver->has($name)) {
-                return true;
-            }
+            return $path;
         }
 
         return false;

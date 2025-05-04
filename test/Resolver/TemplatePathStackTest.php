@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace LaminasTest\View\Resolver;
 
 use Laminas\View\Exception\DomainException;
-use Laminas\View\Resolver\TemplateCannotBeFound;
 use Laminas\View\Resolver\TemplatePathStack;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -110,20 +109,19 @@ final class TemplatePathStackTest extends TestCase
         ]);
 
         $test = $stack->resolve('../_stubs/scripts/LfiProtectionCheck.phtml');
+        self::assertIsString($test);
         self::assertStringContainsString('LfiProtectionCheck.phtml', $test);
     }
 
     public function testReturnsFalseWhenRetrievingScriptIfNoPathsRegistered(): void
     {
-        $this->expectException(TemplateCannotBeFound::class);
-        $this->stack->resolve('test.phtml');
+        self::assertFalse($this->stack->resolve('test.phtml'));
     }
 
     public function testReturnsFalseWhenUnableToResolveScriptToPath(): void
     {
         $this->stack->addPath($this->baseDir . '_templates/');
-        $this->expectException(TemplateCannotBeFound::class);
-        $this->stack->resolve('bogus-script.txt');
+        self::assertFalse($this->stack->resolve('bogus-script.txt'));
     }
 
     public function testReturnsFullPathNameWhenAbleToResolveScriptPath(): void
@@ -181,6 +179,7 @@ final class TemplatePathStackTest extends TestCase
         ]);
 
         $result = $stack->resolve('test');
+        self::assertNotFalse($result);
         self::assertStringEndsWith('test.phtml', $result);
     }
 }

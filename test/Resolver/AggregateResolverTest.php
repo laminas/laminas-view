@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace LaminasTest\View\Resolver;
 
 use Laminas\View\Resolver\AggregateResolver;
-use Laminas\View\Resolver\TemplateCannotBeFound;
 use Laminas\View\Resolver\TemplateMapResolver;
 use PHPUnit\Framework\TestCase;
 
@@ -37,8 +36,7 @@ final class AggregateResolverTest extends TestCase
         $resolver->attach(new TemplateMapResolver([
             'bar' => 'baz',
         ]));
-        self::assertTrue($resolver->has('bar'));
-        self::assertTrue($resolver->has('foo'));
+
         self::assertEquals('baz', $resolver->resolve('bar'));
     }
 
@@ -48,9 +46,7 @@ final class AggregateResolverTest extends TestCase
         $resolver->attach(new TemplateMapResolver([
             'foo' => 'bar',
         ]));
-        self::assertFalse($resolver->has('bar'));
-        $this->expectException(TemplateCannotBeFound::class);
-        $resolver->resolve('bar');
+        self::assertFalse($resolver->resolve('bar'));
     }
 
     public function testResolvesInOrderOfPriorityProvided(): void
@@ -69,15 +65,13 @@ final class AggregateResolverTest extends TestCase
                  ->attach($barResolver, 100)
                  ->attach($bazResolver);
 
-        self::assertTrue($resolver->has('bar'));
         self::assertSame('bar', $resolver->resolve('bar'));
     }
 
     public function testExceptionThrownWhenAttemptingToResolveWhenNoResolversAreAttached(): void
     {
         $resolver = new AggregateResolver();
-        $this->expectException(TemplateCannotBeFound::class);
-        $resolver->resolve('foo');
+        self::assertFalse($resolver->resolve('foo'));
     }
 
     public function testResolversCanBeSuppliedInTheConstructor(): void

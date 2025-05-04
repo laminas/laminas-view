@@ -65,37 +65,6 @@
       <code><![CDATA[getName]]></code>
     </PossiblyUnusedMethod>
   </file>
-  <file src="src/Helper/DeclareVars.php">
-    <MissingConstructor>
-      <code><![CDATA[$view]]></code>
-    </MissingConstructor>
-    <MixedArgument>
-      <code><![CDATA[$key]]></code>
-      <code><![CDATA[$value]]></code>
-    </MixedArgument>
-    <MixedArgumentTypeCoercion>
-      <code><![CDATA[$name]]></code>
-    </MixedArgumentTypeCoercion>
-    <MixedAssignment>
-      <code><![CDATA[$key]]></code>
-      <code><![CDATA[$value]]></code>
-      <code><![CDATA[$vars]]></code>
-    </MixedAssignment>
-    <MixedPropertyFetch>
-      <code><![CDATA[$vars->$key]]></code>
-    </MixedPropertyFetch>
-    <NonInvariantDocblockPropertyType>
-      <code><![CDATA[$view]]></code>
-    </NonInvariantDocblockPropertyType>
-    <PossiblyNullReference>
-      <code><![CDATA[vars]]></code>
-      <code><![CDATA[vars]]></code>
-    </PossiblyNullReference>
-    <UndefinedInterfaceMethod>
-      <code><![CDATA[vars]]></code>
-      <code><![CDATA[vars]]></code>
-    </UndefinedInterfaceMethod>
-  </file>
   <file src="src/Helper/Doctype.php">
     <DocblockTypeContradiction>
       <code><![CDATA[null === static::$registeredDoctypes]]></code>
@@ -1071,21 +1040,6 @@
     <RedundantCastGivenDocblockType>
       <code><![CDATA[(string) $this->helper->toString()]]></code>
     </RedundantCastGivenDocblockType>
-  </file>
-  <file src="test/Helper/DeclareVarsTest.php">
-    <RedundantCondition>
-      <code><![CDATA[assertTrue]]></code>
-      <code><![CDATA[assertTrue]]></code>
-      <code><![CDATA[assertTrue]]></code>
-    </RedundantCondition>
-    <UndefinedInterfaceMethod>
-      <code><![CDATA[addPath]]></code>
-    </UndefinedInterfaceMethod>
-    <UndefinedPropertyAssignment>
-      <code><![CDATA[$vars->varName2]]></code>
-      <code><![CDATA[$vars->varName3]]></code>
-      <code><![CDATA[$vars->varName5]]></code>
-    </UndefinedPropertyAssignment>
   </file>
   <file src="test/Helper/HeadLinkTest.php">
     <MixedArgument>

@@ -161,9 +161,8 @@ final class TemplatePathStack implements ResolverInterface
      * Retrieve the filesystem path to a view script
      *
      * @throws DomainException If the template requested includes directory traversal and LFI protection is on.
-     * @throws TemplateCannotBeFound
      */
-    public function resolve(string $name): string
+    public function resolve(string $name): string|false
     {
         if ($this->lfiProtectionOn && preg_match('#\.\.[\\\/]#', $name)) {
             throw new DomainException(
@@ -172,21 +171,12 @@ final class TemplatePathStack implements ResolverInterface
         }
 
         if (! count($this->paths)) {
-            throw TemplateCannotBeFound::byName($name);
+            return false;
         }
 
         $name = $this->normalizeTemplateName($name);
-        $path = $this->resolveToPath($name);
-        if ($path !== false) {
-            return $path;
-        }
 
-        throw TemplateCannotBeFound::byName($name);
-    }
-
-    public function has(string $name): bool
-    {
-        return $this->resolveToPath($this->normalizeTemplateName($name)) !== false;
+        return $this->resolveToPath($name);
     }
 
     /** @return non-empty-string|false */

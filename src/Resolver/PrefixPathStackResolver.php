@@ -45,7 +45,7 @@ final class PrefixPathStackResolver implements ResolverInterface
     }
 
     /** @inheritDoc */
-    public function resolve(string $name): string
+    public function resolve(string $name): string|false
     {
         foreach ($this->resolvers as $prefix => $resolver) {
             if (! str_starts_with($name, $prefix)) {
@@ -57,29 +57,12 @@ final class PrefixPathStackResolver implements ResolverInterface
                 continue;
             }
 
-            if ($resolver->has($template)) {
-                return $resolver->resolve($template);
-            }
-        }
-
-        throw TemplateCannotBeFound::byName($name);
-    }
-
-    public function has(string $name): bool
-    {
-        foreach ($this->resolvers as $prefix => $resolver) {
-            if (! str_starts_with($name, $prefix)) {
+            $path = $resolver->resolve($template);
+            if ($path === false) {
                 continue;
             }
 
-            $template = substr($name, strlen($prefix));
-            if ($template === '') {
-                continue;
-            }
-
-            if ($resolver->has($template)) {
-                return true;
-            }
+            return $path;
         }
 
         return false;

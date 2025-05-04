@@ -154,8 +154,8 @@ final class TemplateMapResolver implements IteratorAggregate, ResolverInterface
         return $this->map;
     }
 
-    public function resolve(string $name): string
+    public function resolve(string $name): string|false
     {
-        return $this->get($name);
+        return $this->map[$name] ?? false;
     }
 }

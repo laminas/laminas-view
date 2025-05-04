@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace LaminasTest\View\Resolver\Factory;
 
 use Laminas\View\Resolver\Factory\TemplateMapResolverFactory;
-use Laminas\View\Resolver\TemplateCannotBeFound;
 use LaminasTest\View\TestAsset\InMemoryContainer;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -80,7 +79,6 @@ final class TemplateMapResolverFactoryTest extends TestCase
             return;
         }
 
-        $this->expectException(TemplateCannotBeFound::class);
-        $resolver->resolve($input);
+        self::assertFalse($resolver->resolve($input));
     }
 }
