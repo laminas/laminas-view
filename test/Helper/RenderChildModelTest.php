@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper;
 
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\ConfigProvider;
 use Laminas\View\Exception;
 use Laminas\View\Helper\RenderChildModel;
 use Laminas\View\Helper\ViewModel as ViewModelHelper;
+use Laminas\View\HelperPluginManager;
 use Laminas\View\Model\ViewModel;
 use Laminas\View\Renderer\PhpRenderer;
 use Laminas\View\Resolver\TemplateMapResolver;
@@ -22,21 +25,25 @@ final class RenderChildModelTest extends TestCase
 
     protected function setUp(): void
     {
+        $config                             = (new ConfigProvider())->__invoke();
+        $config['dependencies']['services'] = ['config' => $config];
+        $serviceManager                     = new ServiceManager($config['dependencies']);
+
         $this->resolver = new TemplateMapResolver([
             'layout'  => __DIR__ . '/../_templates/nested-view-model-layout.phtml',
             'child1'  => __DIR__ . '/../_templates/nested-view-model-content.phtml',
             'child2'  => __DIR__ . '/../_templates/nested-view-model-child2.phtml',
             'complex' => __DIR__ . '/../_templates/nested-view-model-complexlayout.phtml',
         ]);
-        $this->renderer = $renderer = new PhpRenderer();
-        $renderer->setCanRenderTrees(true);
-        $renderer->setResolver($this->resolver);
 
-        $helper                = $renderer->plugin(ViewModelHelper::class);
-        $this->viewModelHelper = $helper;
+        $this->renderer = $serviceManager->get(PhpRenderer::class);
+        $this->renderer->setCanRenderTrees(true);
+        $this->renderer->setResolver($this->resolver);
+        $plugins = $serviceManager->get(HelperPluginManager::class);
 
-        $helper       = $renderer->plugin(RenderChildModel::class);
-        $this->helper = $helper;
+        $this->viewModelHelper = $plugins->get(ViewModelHelper::class);
+
+        $this->helper = $plugins->get(RenderChildModel::class);
 
         $this->parent = new ViewModel();
         $this->parent->setTemplate('layout');
@@ -46,7 +53,7 @@ final class RenderChildModelTest extends TestCase
 
     public function testRendersEmptyStringWhenUnableToResolveChildModel(): void
     {
-        $result = $this->helper->render('child1');
+        $result = $this->helper->__invoke('child1');
         $this->assertSame('', $result);
     }
 
@@ -62,7 +69,7 @@ final class RenderChildModelTest extends TestCase
     public function testRendersChildTemplateWhenAbleToResolveChildModelByCaptureToValue(): void
     {
         $this->setupFirstChild();
-        $result = $this->helper->render('child1');
+        $result = $this->helper->__invoke('child1');
         $this->assertStringContainsString('Content for layout', $result, $result);
     }
 
@@ -79,9 +86,9 @@ final class RenderChildModelTest extends TestCase
     {
         $this->setupFirstChild();
         $this->setupSecondChild();
-        $result = $this->helper->render('child1');
+        $result = $this->helper->__invoke('child1');
         $this->assertStringContainsString('Content for layout', $result, $result);
-        $result = $this->helper->render('child2');
+        $result = $this->helper->__invoke('child2');
         $this->assertStringContainsString('Second child', $result, $result);
     }
 
@@ -94,7 +101,7 @@ final class RenderChildModelTest extends TestCase
         $child2->setCaptureTo('content');
         $child1->addChild($child2);
 
-        $result = $this->helper->render('child1');
+        $result = $this->helper->__invoke('child1');
         $this->assertStringContainsString('Layout start', $result, $result);
         $this->assertStringContainsString('Content for layout', $result, $result);
         $this->assertStringContainsString('Layout end', $result, $result);
@@ -125,10 +132,9 @@ final class RenderChildModelTest extends TestCase
 
     public function testAttemptingToRenderWithNoCurrentModelRaisesException(): void
     {
-        $renderer = new PhpRenderer();
-        $renderer->setResolver($this->resolver);
         $this->expectException(Exception\RuntimeException::class);
         $this->expectExceptionMessage('no view model');
-        $renderer->render('layout');
+        $this->viewModelHelper->resetState();
+        $this->renderer->render('layout');
     }
 }

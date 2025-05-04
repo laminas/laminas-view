@@ -569,32 +569,6 @@
       <code><![CDATA[new $this->containerClass()]]></code>
     </UnsafeInstantiation>
   </file>
-  <file src="src/Helper/RenderChildModel.php">
-    <MissingConstructor>
-      <code><![CDATA[$current]]></code>
-      <code><![CDATA[$viewModelHelper]]></code>
-    </MissingConstructor>
-    <MixedAssignment>
-      <code><![CDATA[$this->viewModelHelper]]></code>
-    </MixedAssignment>
-    <MixedReturnStatement>
-      <code><![CDATA[$this->viewModelHelper]]></code>
-    </MixedReturnStatement>
-    <PossiblyNullArgument>
-      <code><![CDATA[$this->getView()]]></code>
-    </PossiblyNullArgument>
-    <PossiblyNullPropertyAssignmentValue>
-      <code><![CDATA[$model = $this->getCurrent()]]></code>
-    </PossiblyNullPropertyAssignmentValue>
-    <PossiblyNullReference>
-      <code><![CDATA[getChildren]]></code>
-      <code><![CDATA[plugin]]></code>
-      <code><![CDATA[render]]></code>
-    </PossiblyNullReference>
-    <RedundantConditionGivenDocblockType>
-      <code><![CDATA[$this->viewModelHelper]]></code>
-    </RedundantConditionGivenDocblockType>
-  </file>
   <file src="src/Helper/RenderToPlaceholder.php">
     <MixedAssignment>
       <code><![CDATA[$placeholderHelper]]></code>
