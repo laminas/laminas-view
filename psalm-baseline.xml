@@ -1370,6 +1370,21 @@
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Helper/RenderChildModel.php">
+    <DeprecatedMethod>
+      <code><![CDATA[findChild]]></code>
+      <code><![CDATA[getCurrent]]></code>
+      <code><![CDATA[getViewModelHelper]]></code>
+      <code><![CDATA[getViewModelHelper]]></code>
+      <code><![CDATA[render]]></code>
+    </DeprecatedMethod>
+    <DeprecatedProperty>
+      <code><![CDATA[$this->current]]></code>
+      <code><![CDATA[$this->current]]></code>
+      <code><![CDATA[$this->viewModelHelper]]></code>
+      <code><![CDATA[$this->viewModelHelper]]></code>
+      <code><![CDATA[$this->viewModelHelper]]></code>
+      <code><![CDATA[$this->viewModelHelper]]></code>
+    </DeprecatedProperty>
     <MissingConstructor>
       <code><![CDATA[$current]]></code>
       <code><![CDATA[$viewModelHelper]]></code>
@@ -3296,6 +3311,15 @@
     <UndefinedPropertyAssignment>
       <code><![CDATA[$view->vars()->message]]></code>
     </UndefinedPropertyAssignment>
+  </file>
+  <file src="test/Helper/RenderChildModelTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[render]]></code>
+      <code><![CDATA[render]]></code>
+      <code><![CDATA[render]]></code>
+      <code><![CDATA[render]]></code>
+      <code><![CDATA[render]]></code>
+    </DeprecatedMethod>
   </file>
   <file src="test/Helper/ServerUrlTest.php">
     <InvalidArgument>
