@@ -142,6 +142,10 @@ Hopefully no one will notice that it's gone because there is no replacement for 
 
 ### Removed Helpers
 
+#### `DeclareVars`
+
+The "DeclareVars" helper has been removed without replacement. This helper was un-documented and allowed mutation/initialisation of view variables from the view layer, which is an ill-advised strategy.
+
 #### Flash Messenger
 
 The flash messenger view helper is no longer present in version 3 and has been migrated to a separate package: [laminas-mvc-plugin-flashmessenger](https://docs.laminas.dev/laminas-mvc-plugin-flashmessenger/).
