@@ -23,12 +23,16 @@ class RenderChildModel extends AbstractHelper
     /**
      * Current view model
      *
+     * @deprecated This class will become final in 3.0 so this property will become inaccessible
+     *
      * @var Model
      */
     protected $current;
 
     /**
      * View model helper instance
+     *
+     * @deprecated This class will become final in 3.0 so this property will become inaccessible
      *
      * @var ViewModel
      */
@@ -52,6 +56,8 @@ class RenderChildModel extends AbstractHelper
      *
      * If a matching child model is found, it is rendered. If not, an empty
      * string is returned.
+     *
+     * @deprecated Since 2.40.0 This method will be removed in 3.0 in favour of calling __invoke directly
      *
      * @param  string $child
      * @return string
@@ -79,7 +85,9 @@ class RenderChildModel extends AbstractHelper
      * has a captureTo value matching the requested $child. If found, that child
      * model is returned; otherwise, a boolean false is returned.
      *
-     * @param  string $child
+     * @deprecated This class will become final in 3.0 so this method will become inaccessible
+     *
+     * @param string $child
      * @return false|Model
      */
     protected function findChild($child)
@@ -97,8 +105,10 @@ class RenderChildModel extends AbstractHelper
     /**
      * Get the current view model
      *
-     * @throws Exception\RuntimeException
+     * @deprecated This class will become final in 3.0 so this method will become inaccessible
+     *
      * @return null|Model
+     * @throws Exception\RuntimeException
      */
     protected function getCurrent()
     {
@@ -115,6 +125,8 @@ class RenderChildModel extends AbstractHelper
 
     /**
      * Retrieve the view model helper
+     *
+     * @deprecated This class will become final in 3.0 so this method will become inaccessible
      *
      * @return ViewModel
      */
