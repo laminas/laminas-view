@@ -51,9 +51,6 @@ class HelperPluginManager extends AbstractPluginManager
         'basepath'            => Helper\BasePath::class,
         'Cycle'               => Helper\Cycle::class,
         'cycle'               => Helper\Cycle::class,
-        'declareVars'         => Helper\DeclareVars::class,
-        'DeclareVars'         => Helper\DeclareVars::class,
-        'declarevars'         => Helper\DeclareVars::class,
         'Doctype'             => Helper\Doctype::class,
         'doctype'             => Helper\Doctype::class, // overridden by a factory in ViewHelperManagerFactory
         'escapeCss'           => Helper\EscapeCss::class,
@@ -149,7 +146,6 @@ class HelperPluginManager extends AbstractPluginManager
         Helper\Asset::class               => Helper\Service\AssetFactory::class,
         Helper\BasePath::class            => Helper\Service\BasePathFactory::class,
         Helper\Cycle::class               => InvokableFactory::class,
-        Helper\DeclareVars::class         => InvokableFactory::class,
         Helper\Doctype::class             => Helper\Service\DoctypeFactory::class,
         Helper\EscapeCss::class           => EscapeHelperFactory::class,
         Helper\EscapeHtml::class          => EscapeHelperFactory::class,
