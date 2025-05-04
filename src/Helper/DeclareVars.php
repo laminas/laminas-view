@@ -12,6 +12,10 @@ use function is_array;
 /**
  * Helper for declaring default values of template variables
  *
+ * @deprecated Since 2.40.0 This un-documented helper should not be used to initialise view variables. This should
+ *             be the responsibility of a controller or middleware and as such this helper will be removed in 3.0
+ *             without replacement.
+ *
  * @final
  */
 class DeclareVars extends AbstractHelper

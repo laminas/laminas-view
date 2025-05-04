@@ -2111,6 +2111,9 @@
     </RedundantCastGivenDocblockType>
   </file>
   <file src="test/Helper/DeclareVarsTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[DeclareVars::class]]></code>
+    </DeprecatedClass>
     <PossiblyInvalidMethodCall>
       <code><![CDATA[addPath]]></code>
     </PossiblyInvalidMethodCall>
