@@ -12,7 +12,13 @@ use function count;
 use function get_object_vars;
 use function is_array;
 
-/** @final */
+/**
+ * @deprecated Since 2.40.0 The pagination view helper is to be decoupled from `laminas-view` to prevent cyclic
+ *             dependencies from causing maintenance and compatibility issues. It will be replaced either in its own
+ *             library, or as a direct component of `laminas-paginator`
+ *
+ * @final
+ */
 class PaginationControl extends AbstractHelper
 {
     /**
