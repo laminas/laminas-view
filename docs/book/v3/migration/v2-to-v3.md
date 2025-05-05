@@ -35,6 +35,27 @@ Both of these methods have been removed.
 Now, the only way to configure the resource map is via constructor injection.
 The method of configuring the resource map remains unchanged.
 
+#### `Doctype`
+
+The `Doctype` view helper no longer extends from `AbstractHelper` therefore the `getView` and `setView` methods no longer exist on the class.
+
+Additionally, runtime mutation of the configured doctype has been removed, i.e. it is no longer possible to call `setDoctype` on the helper and change the doctype declaration emitted.
+
+The only supported method of operation is to configure the doctype once in application configuration and use the helper to emit the doctype declaration in a template.
+
+The following methods have been removed:
+
+- `getView`
+- `setView`
+- `unsetDoctypeRegistry`
+- `setDoctype`
+- `getDoctype`
+- `getDoctypes`
+
+A new method `doctypeDeclaration` has been added that can be used to either retrieve the configured declaration, or by passing one of the doctype constants as an argument, it will return the corresponding declaration.
+
+The default doctype has now been changed to HTML 5.
+
 #### Escape Helpers: `escapeCss`, `escapeHtml`, `escapeHtmlAttr`, `escapeJs`, and `escapeUrl`
 
 The methods `setEncoding()`, `getEncoding()`, `setView()`, `getView()`, `setEscaper()`, and `getEscaper()` have been removed from the escape helpers.
