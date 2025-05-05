@@ -116,6 +116,13 @@ The inheritance hierarchy has been removed from this helper and the following me
 
 The layout model accessor and layout template setter were infeasible to use because retrieving the instance from a view template context, required setting the layout template with `$this->layout('some-template')`, therefore, the `getLayout` and `setTemplate` methods were inaccessible in normal usage.
 
+#### `RenderToPlaceholder`
+
+The inheritance hierarchy has been removed from this helper and the following methods have been removed:
+
+- `getView`
+- `setView`
+
 #### `ViewModel`
 
 This helper no longer inherits from `AbstractHelper` so the following methods have been removed:

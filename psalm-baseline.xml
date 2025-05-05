@@ -497,26 +497,6 @@
       <code><![CDATA[new $this->containerClass()]]></code>
     </UnsafeInstantiation>
   </file>
-  <file src="src/Helper/RenderToPlaceholder.php">
-    <MixedAssignment>
-      <code><![CDATA[$placeholderHelper]]></code>
-    </MixedAssignment>
-    <MixedFunctionCall>
-      <code><![CDATA[$placeholderHelper($placeholder)]]></code>
-      <code><![CDATA[$placeholderHelper($placeholder)]]></code>
-    </MixedFunctionCall>
-    <MixedMethodCall>
-      <code><![CDATA[captureEnd]]></code>
-      <code><![CDATA[captureStart]]></code>
-    </MixedMethodCall>
-    <PossiblyNullReference>
-      <code><![CDATA[plugin]]></code>
-      <code><![CDATA[render]]></code>
-    </PossiblyNullReference>
-    <UndefinedInterfaceMethod>
-      <code><![CDATA[plugin]]></code>
-    </UndefinedInterfaceMethod>
-  </file>
   <file src="src/Helper/ServerUrl.php">
     <ArgumentTypeCoercion>
       <code><![CDATA[$_SERVER['SERVER_PORT']]]></code>

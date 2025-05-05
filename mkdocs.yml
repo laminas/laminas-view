@@ -68,6 +68,7 @@ nav:
           - Layout: v3/helpers/layout.md
           - Partial: v3/helpers/partial.md
           - Placeholder: v3/helpers/placeholder.md
+          - RenderToPlaceholder: v3/helpers/render-to-placeholder.md
           - "Advanced usage of helpers": v3/helpers/advanced-usage.md
       - 'Application Integration':
           - 'Stand-Alone': v3/application-integration/stand-alone.md

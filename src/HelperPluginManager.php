@@ -171,7 +171,7 @@ class HelperPluginManager extends AbstractPluginManager
         Helper\Partial::class             => Helper\Service\PartialFactory::class,
         Helper\Placeholder::class         => InvokableFactory::class,
         Helper\RenderChildModel::class    => Helper\Service\RenderChildModelFactory::class,
-        Helper\RenderToPlaceholder::class => InvokableFactory::class,
+        Helper\RenderToPlaceholder::class => Helper\Service\RenderToPlaceholderFactory::class,
         Helper\ServerUrl::class           => InvokableFactory::class,
         Helper\ViewModel::class           => InvokableFactory::class,
     ];
