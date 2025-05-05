@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="6.10.1@f9fd6bc117e9ce1e854c2ed6777e7135aaa4966b">
+<files psalm-version="6.10.2@a6c7e2358bbd62d81fca6c149f5c5823ecfcdd2a">
   <file src="bin/templatemap_generator.php">
     <PossiblyFalseArgument>
       <code><![CDATA[$realPath]]></code>
@@ -1865,6 +1865,10 @@
     </UnusedParam>
   </file>
   <file src="src/Resolver/AggregateResolver.php">
+    <DeprecatedConstant>
+      <code><![CDATA[static::FAILURE_NOT_FOUND]]></code>
+      <code><![CDATA[static::FAILURE_NO_RESOLVERS]]></code>
+    </DeprecatedConstant>
     <DeprecatedProperty>
       <code><![CDATA[$this->lastLookupFailure]]></code>
       <code><![CDATA[$this->lastLookupFailure]]></code>
@@ -1902,7 +1906,13 @@
       <code><![CDATA[static::FAILURE_NO_PATHS]]></code>
     </DeprecatedConstant>
     <DeprecatedMethod>
+      <code><![CDATA[getDefaultSuffix]]></code>
+      <code><![CDATA[isLfiProtectionOn]]></code>
+      <code><![CDATA[setDefaultSuffix]]></code>
+      <code><![CDATA[setLfiProtection]]></code>
+      <code><![CDATA[setOptions]]></code>
       <code><![CDATA[setUseStreamWrapper]]></code>
+      <code><![CDATA[static::normalizePath($path)]]></code>
     </DeprecatedMethod>
     <DeprecatedProperty>
       <code><![CDATA[$this->lastLookupFailure]]></code>
@@ -3592,6 +3602,10 @@
     </PossiblyFalseOperand>
   </file>
   <file src="test/Resolver/AggregateResolverTest.php">
+    <DeprecatedConstant>
+      <code><![CDATA[Resolver\AggregateResolver::FAILURE_NOT_FOUND]]></code>
+      <code><![CDATA[Resolver\AggregateResolver::FAILURE_NO_RESOLVERS]]></code>
+    </DeprecatedConstant>
     <DeprecatedMethod>
       <code><![CDATA[getLastLookupFailure]]></code>
       <code><![CDATA[getLastLookupFailure]]></code>
@@ -3615,8 +3629,32 @@
       <code><![CDATA[TemplatePathStack::FAILURE_NO_PATHS]]></code>
     </DeprecatedConstant>
     <DeprecatedMethod>
+      <code><![CDATA[TemplatePathStack::normalizePath($this->baseDir . '/Helper')]]></code>
+      <code><![CDATA[TemplatePathStack::normalizePath($this->baseDir . '/_files')]]></code>
+      <code><![CDATA[TemplatePathStack::normalizePath($this->baseDir . '/_files')]]></code>
+      <code><![CDATA[TemplatePathStack::normalizePath($this->baseDir . '/_files')]]></code>
+      <code><![CDATA[TemplatePathStack::normalizePath($this->baseDir . '/_templates')]]></code>
+      <code><![CDATA[TemplatePathStack::normalizePath($this->baseDir)]]></code>
+      <code><![CDATA[TemplatePathStack::normalizePath($this->baseDir)]]></code>
+      <code><![CDATA[TemplatePathStack::normalizePath($this->baseDir)]]></code>
+      <code><![CDATA[TemplatePathStack::normalizePath($this->baseDir)]]></code>
+      <code><![CDATA[TemplatePathStack::normalizePath($this->baseDir)]]></code>
+      <code><![CDATA[getDefaultSuffix]]></code>
+      <code><![CDATA[getDefaultSuffix]]></code>
+      <code><![CDATA[getDefaultSuffix]]></code>
+      <code><![CDATA[getDefaultSuffix]]></code>
       <code><![CDATA[getLastLookupFailure]]></code>
       <code><![CDATA[getLastLookupFailure]]></code>
+      <code><![CDATA[isLfiProtectionOn]]></code>
+      <code><![CDATA[isLfiProtectionOn]]></code>
+      <code><![CDATA[isLfiProtectionOn]]></code>
+      <code><![CDATA[isLfiProtectionOn]]></code>
+      <code><![CDATA[setDefaultSuffix]]></code>
+      <code><![CDATA[setDefaultSuffix]]></code>
+      <code><![CDATA[setLfiProtection]]></code>
+      <code><![CDATA[setLfiProtection]]></code>
+      <code><![CDATA[setOptions]]></code>
+      <code><![CDATA[setOptions]]></code>
       <code><![CDATA[setUseStreamWrapper]]></code>
       <code><![CDATA[setUseStreamWrapper]]></code>
       <code><![CDATA[useStreamWrapper]]></code>

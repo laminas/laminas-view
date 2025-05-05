@@ -21,8 +21,10 @@ use function is_string;
  */
 class AggregateResolver implements Countable, IteratorAggregate, Resolver
 {
+    /** @deprecated since 2.40.0 In 3.0 of View, the resolver will not track failure sources */
     public const FAILURE_NO_RESOLVERS = 'AggregateResolver_Failure_No_Resolvers';
-    public const FAILURE_NOT_FOUND    = 'AggregateResolver_Failure_Not_Found';
+    /** @deprecated since 2.40.0 In 3.0 of View, the resolver will not track failure sources */
+    public const FAILURE_NOT_FOUND = 'AggregateResolver_Failure_Not_Found';
 
     /**
      * Last lookup failure
