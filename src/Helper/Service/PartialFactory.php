@@ -1,0 +1,21 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Laminas\View\Helper\Service;
+
+use Laminas\View\Helper\Partial;
+use Laminas\View\Renderer\PhpRenderer;
+use Psr\Container\ContainerInterface;
+
+/**
+ * @psalm-internal Laminas\View
+ * @psalm-internal LaminasTest\View
+ */
+final class PartialFactory
+{
+    public function __invoke(ContainerInterface $container): Partial
+    {
+        return new Partial($container->get(PhpRenderer::class));
+    }
+}

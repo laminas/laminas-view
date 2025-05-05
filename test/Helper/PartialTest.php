@@ -7,8 +7,11 @@ namespace LaminasTest\View\Helper;
 use ArrayObject;
 use Laminas\View\Helper\Partial;
 use Laminas\View\Model\ViewModel;
-use Laminas\View\Renderer\PhpRenderer as View;
+use Laminas\View\Renderer\PhpRenderer;
+use Laminas\View\Resolver\TemplatePathStack;
+use Laminas\View\Variables;
 use LaminasTest\View\Helper\TestAsset\Aggregate;
+use LaminasTest\View\TestHelpers;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -17,47 +20,36 @@ use function sprintf;
 
 final class PartialTest extends TestCase
 {
-    /** @var Partial */
-    public $helper;
+    private Partial $helper;
+    private PhpRenderer $renderer;
 
-    /** @var string */
-    public $basePath;
-
-    /**
-     * Sets up the fixture, for example, open a network connection.
-     * This method is called before a test is executed.
-     */
     protected function setUp(): void
     {
-        $this->basePath = __DIR__ . '/_files/modules';
-        $this->helper   = new Partial();
+        $this->renderer = new PhpRenderer();
+        $resolver       = new TemplatePathStack([
+            'script_paths' => [
+                __DIR__ . '/_files/modules/application/views/scripts',
+            ],
+        ]);
+        $this->renderer->setResolver($resolver);
+        $this->helper = new Partial($this->renderer);
     }
 
     public function testPartialRendersScript(): void
     {
-        $view = new View();
-        $view->resolver()->addPath($this->basePath . '/application/views/scripts');
-        $this->helper->setView($view);
         $return = $this->helper->__invoke('partialOne.phtml');
-        $this->assertStringContainsString('This is the first test partial', $return);
+        self::assertStringContainsString('This is the first test partial', $return);
     }
 
     public function testPartialRendersScriptWithVars(): void
     {
-        $view = new View();
-        $view->resolver()->addPath($this->basePath . '/application/views/scripts');
-        $view->vars()->message = 'This should never be read';
-        $this->helper->setView($view);
-        $return = $this->helper->__invoke('partialThree.phtml', ['message' => 'This message should be read']);
-        $this->assertStringNotContainsString('This should never be read', $return);
-        $this->assertStringContainsString('This message should be read', $return, $return);
-    }
+        $vars = $this->renderer->vars();
+        self::assertInstanceOf(Variables::class, $vars);
+        $vars->assign(['message' => 'This should never be read']);
 
-    public function testSetViewSetsViewProperty(): void
-    {
-        $view = new View();
-        $this->helper->setView($view);
-        $this->assertSame($view, $this->helper->getView());
+        $return = $this->helper->__invoke('partialThree.phtml', ['message' => 'This message should be read']);
+        self::assertStringNotContainsString('This should never be read', $return);
+        self::assertStringContainsString('This message should be read', $return, $return);
     }
 
     public function testObjectModelWithPublicPropertiesSetsViewVariables(): void
@@ -66,14 +58,12 @@ final class PartialTest extends TestCase
         $model->foo = 'bar';
         $model->bar = 'baz';
 
-        $view = new View();
-        $view->resolver()->addPath($this->basePath . '/application/views/scripts');
-        $this->helper->setView($view);
         $return = $this->helper->__invoke('partialVars.phtml', $model);
 
         foreach (get_object_vars($model) as $key => $value) {
+            self::assertIsString($value);
             $string = sprintf('%s: %s', $key, $value);
-            $this->assertStringContainsString($string, $return);
+            self::assertStringContainsString($string, $return);
         }
     }
 
@@ -81,21 +71,21 @@ final class PartialTest extends TestCase
     {
         $model = new Aggregate();
 
-        $view = new View();
-        $view->resolver()->addPath($this->basePath . '/application/views/scripts');
-        $this->helper->setView($view);
-        $return = $this->helper->__invoke('partialVars.phtml', $model);
+        $return = TestHelpers::expectDeprecationWithMessage(
+            'Non-iterable objects implementing a `toArray`',
+            fn (): string => $this->helper->__invoke('partialVars.phtml', $model),
+        );
 
         foreach ($model->toArray() as $key => $value) {
             $string = sprintf('%s: %s', $key, $value);
-            $this->assertStringContainsString($string, $return);
+            self::assertStringContainsString($string, $return);
         }
     }
 
     public function testPassingNoArgsReturnsHelperInstance(): void
     {
         $test = $this->helper->__invoke();
-        $this->assertSame($this->helper, $test);
+        self::assertSame($this->helper, $test);
     }
 
     public function testCanPassViewModelAsSecondArgument(): void
@@ -105,14 +95,11 @@ final class PartialTest extends TestCase
             'bar' => 'baz',
         ]);
 
-        $view = new View();
-        $view->resolver()->addPath($this->basePath . '/application/views/scripts');
-        $this->helper->setView($view);
         $return = $this->helper->__invoke('partialVars.phtml', $model);
 
         foreach ($model->getVariables() as $key => $value) {
             $string = sprintf('%s: %s', $key, $value);
-            $this->assertStringContainsString($string, $return);
+            self::assertStringContainsString($string, $return);
         }
     }
 
@@ -123,14 +110,11 @@ final class PartialTest extends TestCase
             'bar' => 'baz',
         ]);
 
-        $view = new View();
-        $view->resolver()->addPath($this->basePath . '/application/views/scripts');
-        $this->helper->setView($view);
         $return = $this->helper->__invoke('partialVars.phtml', $model);
 
         foreach ($model as $key => $value) {
             $string = sprintf('%s: %s', $key, $value);
-            $this->assertStringContainsString($string, $return);
+            self::assertStringContainsString($string, $return);
         }
     }
 
@@ -142,14 +126,19 @@ final class PartialTest extends TestCase
         ]);
         $model->setTemplate('partialVars.phtml');
 
-        $view = new View();
-        $view->resolver()->addPath($this->basePath . '/application/views/scripts');
-        $this->helper->setView($view);
         $return = $this->helper->__invoke($model);
 
         foreach ($model->getVariables() as $key => $value) {
+            self::assertIsString($value);
             $string = sprintf('%s: %s', $key, $value);
-            $this->assertStringContainsString($string, $return);
+            self::assertStringContainsString($string, $return);
         }
+    }
+
+    public function testObservableStateIsResetWhenRequired(): void
+    {
+        $this->helper->setObjectKey('foo');
+        $this->helper->resetState();
+        self::assertNull($this->helper->getObjectKey());
     }
 }

@@ -5,22 +5,24 @@ declare(strict_types=1);
 namespace LaminasTest\View\Helper;
 
 use Laminas\Paginator;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\ConfigProvider;
 use Laminas\View\Exception;
 use Laminas\View\Helper;
 use Laminas\View\Helper\PaginationControl;
-use Laminas\View\Renderer\PhpRenderer as View;
+use Laminas\View\Renderer\PhpRenderer;
 use Laminas\View\Renderer\RendererInterface;
 use Laminas\View\Resolver;
 use PHPUnit\Framework\TestCase;
 
+use function array_merge_recursive;
 use function range;
 
 final class PaginationControlTest extends TestCase
 {
     private PaginationControl $viewHelper;
-
     private Paginator\Paginator $paginator;
-    private View $view;
+    private PhpRenderer $view;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -28,12 +30,21 @@ final class PaginationControlTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->view = new View();
-        $this->view->setResolver(new Resolver\TemplatePathStack([
+        $config = array_merge_recursive(
+            (new ConfigProvider())->__invoke(),
+            [
+                // No config required yet
+            ],
+        );
+        $config['dependencies']['services'] = ['config' => $config];
+        $serviceManager                     = new ServiceManager($config['dependencies']);
+        $this->view                         = $serviceManager->get(PhpRenderer::class);
+        $resolver                           = new Resolver\TemplatePathStack([
             'script_paths' => [
                 __DIR__ . '/_files/scripts',
             ],
-        ]));
+        ]);
+        $this->view->setResolver($resolver);
 
         Helper\PaginationControl::setDefaultViewPartial(null);
         $this->viewHelper = new Helper\PaginationControl();
@@ -44,7 +55,7 @@ final class PaginationControlTest extends TestCase
 
     public function testGetsAndSetsView(): void
     {
-        $view   = new View();
+        $view   = new PhpRenderer();
         $helper = new Helper\PaginationControl();
         $this->assertNull($helper->getView());
         $helper->setView($view);
