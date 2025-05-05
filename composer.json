@@ -48,10 +48,9 @@
         "laminas/laminas-feed": "^2.23",
         "laminas/laminas-filter": "^2.40",
         "laminas/laminas-http": "^2.21",
-        "laminas/laminas-paginator": "^2.19.0",
-        "phpunit/phpunit": "^10.5.45",
+        "phpunit/phpunit": "^10.5.46",
         "psalm/plugin-phpunit": "^0.19.5",
-        "vimeo/psalm": "^6.10.1"
+        "vimeo/psalm": "^6.10.3"
     },
     "conflict": {
         "container-interop/container-interop": "<1.2",
