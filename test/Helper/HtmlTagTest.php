@@ -108,8 +108,9 @@ final class HtmlTagTest extends TestCase
 
     public function testAppropriateNamespaceAttributesAreSetIfFlagIsOn(): void
     {
-        $doctype = $this->view->plugin(Doctype::class);
-        $doctype->setDoctype('xhtml');
+        $doctype = new Doctype(Doctype::XHTML11);
+        $helpers = $this->view->getHelperPluginManager();
+        $helpers->setService(Doctype::class, $doctype);
 
         $attribs = [
             'prefix' => 'og: http://ogp.me/ns#',

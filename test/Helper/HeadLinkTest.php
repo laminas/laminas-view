@@ -6,11 +6,10 @@ namespace LaminasTest\View\Helper;
 
 use Laminas\Escaper\Escaper;
 use Laminas\View\Exception;
-use Laminas\View\Helper;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\EscapeHtmlAttr;
 use Laminas\View\Helper\HeadLink;
-use Laminas\View\Renderer\PhpRenderer as View;
+use Laminas\View\Renderer\PhpRenderer;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -22,11 +21,12 @@ use function var_export;
 
 use const PHP_EOL;
 
+/** @psalm-import-type DoctypeID from Doctype */
 final class HeadLinkTest extends TestCase
 {
     private HeadLink $helper;
     private EscapeHtmlAttr $attributeEscaper;
-    private View $view;
+    private PhpRenderer $view;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -34,11 +34,19 @@ final class HeadLinkTest extends TestCase
      */
     protected function setUp(): void
     {
-        Helper\Doctype::unsetDoctypeRegistry();
-        $this->view   = new View();
+        $this->view   = new PhpRenderer();
         $this->helper = new HeadLink();
         $this->helper->setView($this->view);
         $this->attributeEscaper = new EscapeHtmlAttr(new Escaper());
+    }
+
+    /** @param DoctypeID $doctype */
+    private function setDoctype(string $doctype): void
+    {
+        $helpers = $this->view->getHelperPluginManager();
+        $helpers->setAllowOverride(true);
+        $doctype = new Doctype($doctype);
+        $helpers->setService(Doctype::class, $doctype);
     }
 
     public function testHeadLinkReturnsObjectInstance(): void
@@ -335,7 +343,7 @@ final class HeadLinkTest extends TestCase
 
     public function testLinkRendersAsPlainHtmlIfDoctypeNotXhtml(): void
     {
-        $this->view->plugin(Doctype::class)->__invoke('HTML4_STRICT');
+        $this->setDoctype(Doctype::HTML4_STRICT);
         $this->helper->__invoke(['rel' => 'icon', 'src' => '/foo/bar'])
                      ->__invoke(['rel' => 'foo', 'href' => '/bar/baz']);
         $test = $this->helper->toString();

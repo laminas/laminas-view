@@ -65,26 +65,6 @@
       <code><![CDATA[getName]]></code>
     </PossiblyUnusedMethod>
   </file>
-  <file src="src/Helper/Doctype.php">
-    <DocblockTypeContradiction>
-      <code><![CDATA[null === static::$registeredDoctypes]]></code>
-    </DocblockTypeContradiction>
-    <MixedArrayAssignment>
-      <code><![CDATA[$this->registry['doctypes'][$type]]]></code>
-    </MixedArrayAssignment>
-    <MixedReturnStatement>
-      <code><![CDATA[$doctypes[$this->getDoctype()]]]></code>
-    </MixedReturnStatement>
-    <MixedReturnTypeCoercion>
-      <code><![CDATA[$this->registry['doctype']]]></code>
-      <code><![CDATA[$this->registry['doctypes']]]></code>
-      <code><![CDATA[array]]></code>
-      <code><![CDATA[string]]></code>
-    </MixedReturnTypeCoercion>
-    <PropertyNotSetInConstructor>
-      <code><![CDATA[$registry]]></code>
-    </PropertyNotSetInConstructor>
-  </file>
   <file src="src/Helper/Escaper/AbstractHelper.php">
     <MixedAssignment>
       <code><![CDATA[$value[$k]]]></code>
@@ -611,18 +591,6 @@
     <TypeDoesNotContainType>
       <code><![CDATA[$_SERVER['HTTPS'] === true]]></code>
     </TypeDoesNotContainType>
-  </file>
-  <file src="src/Helper/Service/DoctypeFactory.php">
-    <MixedArgument>
-      <code><![CDATA[$config['view_helper_config']['doctype']]]></code>
-    </MixedArgument>
-    <MixedArrayAccess>
-      <code><![CDATA[$config['view_helper_config']]]></code>
-      <code><![CDATA[$config['view_helper_config']['doctype']]]></code>
-    </MixedArrayAccess>
-    <MixedAssignment>
-      <code><![CDATA[$config]]></code>
-    </MixedAssignment>
   </file>
   <file src="src/Helper/Service/LayoutFactory.php">
     <PossiblyUnusedReturnValue>
