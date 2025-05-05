@@ -60,23 +60,22 @@ for, and rendering, the various HTML `<head>` tags, such as `HeadTitle`,
 - [BasePath](base-path.md)
 - [Cycle](cycle.md)
 - [Doctype](doctype.md)
-- [Gravatar](gravatar.md) *(Deprecated)*
+- [Escape](escape.md)
 - [GravatarImage](gravatar-image.md)
 - [HeadLink](head-link.md)
 - [HeadMeta](head-meta.md)
 - [HeadScript](head-script.md)
 - [HeadStyle](head-style.md)
 - [HeadTitle](head-title.md)
+- [HtmlAttributes](html-attributes.md)
 - [HtmlList](html-list.md)
 - [HTML Object Plugins](html-object.md)
 - [HtmlTag](html-tag.md)
 - [Identity](identity.md)
 - [InlineScript](inline-script.md)
-- [JSON](json.md)
 - [Layout](layout.md)
 - [Partial](partial.md)
 - [Placeholder](placeholder.md)
-- [Url](url.md)
 
 > ### Help Us Document the Helpers
 >
