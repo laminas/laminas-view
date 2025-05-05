@@ -192,17 +192,17 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     /**
      * Retrieve template name or template resolver
      *
-     * @param  null|string $name
-     * @return string|Resolver
+     * @param non-empty-string|null $name
+     * @return ($name is null ? Resolver : non-empty-string|false)
      */
-    public function resolver($name = null)
+    public function resolver(string|null $name = null): string|Resolver|false
     {
-        if (null === $this->__templateResolver) {
-            $this->setResolver(new TemplatePathStack());
+        if ($this->__templateResolver === null) {
+            $this->__templateResolver = new TemplatePathStack();
         }
 
-        if (null !== $name) {
-            return $this->__templateResolver->resolve($name, $this);
+        if ($name !== null) {
+            return $this->__templateResolver->resolve($name);
         }
 
         return $this->__templateResolver;

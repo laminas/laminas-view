@@ -826,16 +826,11 @@
     </DocblockTypeContradiction>
     <FalsableReturnStatement>
       <code><![CDATA[$this->__content]]></code>
-      <code><![CDATA[$this->__templateResolver->resolve($name, $this)]]></code>
     </FalsableReturnStatement>
     <ImplementedParamTypeMismatch>
       <code><![CDATA[$values]]></code>
     </ImplementedParamTypeMismatch>
-    <InvalidNullableReturnType>
-      <code><![CDATA[string|Resolver]]></code>
-    </InvalidNullableReturnType>
     <MixedArgument>
-      <code><![CDATA[$this->__template]]></code>
       <code><![CDATA[$this->__template]]></code>
       <code><![CDATA[array_pop($this->__varsCache)]]></code>
     </MixedArgument>
@@ -855,9 +850,6 @@
       <code><![CDATA[$this->__vars[$key]]]></code>
       <code><![CDATA[$this->getHelperPluginManager()->get($name, $options)]]></code>
     </MixedReturnStatement>
-    <NullableReturnStatement>
-      <code><![CDATA[$this->__templateResolver]]></code>
-    </NullableReturnStatement>
     <PossibleRawObjectIteration>
       <code><![CDATA[$variables]]></code>
     </PossibleRawObjectIteration>
@@ -875,7 +867,6 @@
     </PossiblyNullArrayAccess>
     <PossiblyNullReference>
       <code><![CDATA[$this->__vars]]></code>
-      <code><![CDATA[resolve]]></code>
     </PossiblyNullReference>
     <PossiblyUnusedMethod>
       <code><![CDATA[__get]]></code>
@@ -892,69 +883,6 @@
     <UnusedParam>
       <code><![CDATA[$config]]></code>
     </UnusedParam>
-  </file>
-  <file src="src/Resolver/AggregateResolver.php">
-    <DeprecatedProperty>
-      <code><![CDATA[$this->lastLookupFailure]]></code>
-      <code><![CDATA[$this->lastLookupFailure]]></code>
-      <code><![CDATA[$this->lastLookupFailure]]></code>
-      <code><![CDATA[$this->lastLookupFailure]]></code>
-      <code><![CDATA[$this->lastSuccessfulResolver]]></code>
-      <code><![CDATA[$this->lastSuccessfulResolver]]></code>
-      <code><![CDATA[$this->lastSuccessfulResolver]]></code>
-    </DeprecatedProperty>
-  </file>
-  <file src="src/Resolver/PrefixPathStackResolver.php">
-    <InvalidNullableReturnType>
-      <code><![CDATA[resolve]]></code>
-    </InvalidNullableReturnType>
-    <RedundantCastGivenDocblockType>
-      <code><![CDATA[(string) $prefix]]></code>
-    </RedundantCastGivenDocblockType>
-  </file>
-  <file src="src/Resolver/TemplateMapResolver.php">
-    <DocblockTypeContradiction>
-      <code><![CDATA[is_iterable($map)]]></code>
-      <code><![CDATA[is_iterable($map)]]></code>
-    </DocblockTypeContradiction>
-    <MixedPropertyTypeCoercion>
-      <code><![CDATA[array_replace_recursive($this->map, $map)]]></code>
-    </MixedPropertyTypeCoercion>
-    <RedundantConditionGivenDocblockType>
-      <code><![CDATA[is_string($nameOrMap) && is_string($path)]]></code>
-      <code><![CDATA[is_string($path)]]></code>
-    </RedundantConditionGivenDocblockType>
-  </file>
-  <file src="src/Resolver/TemplatePathStack.php">
-    <DeprecatedConstant>
-      <code><![CDATA[static::FAILURE_NOT_FOUND]]></code>
-      <code><![CDATA[static::FAILURE_NO_PATHS]]></code>
-    </DeprecatedConstant>
-    <DeprecatedProperty>
-      <code><![CDATA[$this->lastLookupFailure]]></code>
-      <code><![CDATA[$this->lastLookupFailure]]></code>
-      <code><![CDATA[$this->lastLookupFailure]]></code>
-      <code><![CDATA[$this->lastLookupFailure]]></code>
-    </DeprecatedProperty>
-    <DocblockTypeContradiction>
-      <code><![CDATA[is_string($path)]]></code>
-    </DocblockTypeContradiction>
-    <FalsableReturnStatement>
-      <code><![CDATA[false]]></code>
-      <code><![CDATA[false]]></code>
-    </FalsableReturnStatement>
-    <MixedArgument>
-      <code><![CDATA[$options['default_suffix']]]></code>
-      <code><![CDATA[$options['lfi_protection']]]></code>
-      <code><![CDATA[$options['script_paths']]]></code>
-    </MixedArgument>
-    <PossiblyUnusedReturnValue>
-      <code><![CDATA[TemplatePathStack]]></code>
-    </PossiblyUnusedReturnValue>
-    <RedundantCastGivenDocblockType>
-      <code><![CDATA[(bool) $flag]]></code>
-      <code><![CDATA[(string) $defaultSuffix]]></code>
-    </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Strategy/FeedStrategy.php">
     <MixedAssignment>
@@ -1283,36 +1211,6 @@
       <code><![CDATA[$result]]></code>
       <code><![CDATA[$result]]></code>
     </PossiblyInvalidCast>
-    <PossiblyInvalidMethodCall>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-    </PossiblyInvalidMethodCall>
     <UndefinedInterfaceMethod>
       <code><![CDATA[addPath]]></code>
       <code><![CDATA[addPath]]></code>
@@ -1394,15 +1292,6 @@
       <code><![CDATA[$return]]></code>
       <code><![CDATA[$return]]></code>
     </PossiblyInvalidCast>
-    <PossiblyInvalidMethodCall>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-    </PossiblyInvalidMethodCall>
     <UndefinedInterfaceMethod>
       <code><![CDATA[addPath]]></code>
       <code><![CDATA[addPath]]></code>
@@ -1564,47 +1453,6 @@
       <code><![CDATA[json_encode($model->value)]]></code>
       <code><![CDATA[json_encode(['foo' => 'bar'])]]></code>
     </PossiblyFalseOperand>
-  </file>
-  <file src="test/Resolver/AggregateResolverTest.php">
-    <DeprecatedMethod>
-      <code><![CDATA[getLastLookupFailure]]></code>
-      <code><![CDATA[getLastLookupFailure]]></code>
-      <code><![CDATA[getLastSuccessfulResolver]]></code>
-      <code><![CDATA[getLastSuccessfulResolver]]></code>
-      <code><![CDATA[getLastSuccessfulResolver]]></code>
-      <code><![CDATA[getLastSuccessfulResolver]]></code>
-    </DeprecatedMethod>
-    <DocblockTypeContradiction>
-      <code><![CDATA[assertNull]]></code>
-    </DocblockTypeContradiction>
-  </file>
-  <file src="test/Resolver/PrefixPathStackResolverTest.php">
-    <PossiblyFalsePropertyAssignmentValue>
-      <code><![CDATA[realpath(__DIR__ . '/../_templates/prefix-path-stack-resolver')]]></code>
-    </PossiblyFalsePropertyAssignmentValue>
-  </file>
-  <file src="test/Resolver/TemplatePathStackTest.php">
-    <DeprecatedConstant>
-      <code><![CDATA[TemplatePathStack::FAILURE_NOT_FOUND]]></code>
-      <code><![CDATA[TemplatePathStack::FAILURE_NO_PATHS]]></code>
-    </DeprecatedConstant>
-    <DeprecatedMethod>
-      <code><![CDATA[getLastLookupFailure]]></code>
-      <code><![CDATA[getLastLookupFailure]]></code>
-    </DeprecatedMethod>
-    <PossiblyFalseArgument>
-      <code><![CDATA[$this->baseDir]]></code>
-    </PossiblyFalseArgument>
-    <PossiblyFalseOperand>
-      <code><![CDATA[$this->baseDir]]></code>
-    </PossiblyFalseOperand>
-    <PossiblyFalsePropertyAssignmentValue>
-      <code><![CDATA[realpath(__DIR__ . '/..')]]></code>
-    </PossiblyFalsePropertyAssignmentValue>
-    <PossiblyInvalidArgument>
-      <code><![CDATA[testAllowsPassingOptionsToConstructor]]></code>
-      <code><![CDATA[testAllowsSettingOptions]]></code>
-    </PossiblyInvalidArgument>
   </file>
   <file src="test/Strategy/FeedStrategyTest.php">
     <MixedAssignment>

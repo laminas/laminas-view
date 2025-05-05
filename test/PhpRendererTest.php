@@ -348,13 +348,12 @@ final class PhpRendererTest extends TestCase
     {
         $this->renderer->vars()->assign(['foo' => '10 > 9']);
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('could not resolve');
+        $this->expectExceptionMessage('"should-not-find-this"');
         $this->renderer->render('should-not-find-this');
     }
 
     /**
-     * @return string[][]
-     * @psalm-return array{0: array{0: '/does/not/exists'}, 1: array{0: '.'}}
+     * @return list<array{0: non-empty-string}>
      */
     public static function invalidTemplateFiles(): array
     {
@@ -364,6 +363,7 @@ final class PhpRendererTest extends TestCase
         ];
     }
 
+    /** @param non-empty-string $template */
     #[DataProvider('invalidTemplateFiles')]
     public function testRendererRaisesExceptionIfResolvedTemplateIsInvalid(string $template): void
     {
