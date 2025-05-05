@@ -6,9 +6,11 @@ namespace Laminas\View;
 
 use Laminas\Escaper\Escaper;
 use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\Service\EscaperFactory;
 
 /**
+ * @psalm-import-type DoctypeID from Doctype
  * @psalm-import-type ServiceManagerConfiguration from ServiceManager
  * @psalm-type ViewConfigShape = array{
  *     dependencies: ServiceManagerConfiguration,
@@ -16,6 +18,7 @@ use Laminas\View\Helper\Service\EscaperFactory;
  *     view_helper_config?: array{
  *         asset?: array{resource_map: array<non-empty-string, non-empty-string>},
  *         base_path?: non-empty-string|null,
+ *         doctype?: DoctypeID,
  *         encoding?: string,
  *     },
  *     view_manager?: array{
@@ -46,6 +49,13 @@ final class ConfigProvider
              */
             'view_helpers'       => [],
             'view_helper_config' => [
+                /**
+                 * The expected doctype of your HTML output.
+                 *
+                 * The doctype is used by a number of helpers to determine the correct output style of generated markup
+                 */
+                'doctype' => Doctype::HTML5,
+
                 /**
                  * Encoding is passed to the Escaper which is consumed by a number of helpers
                  */
