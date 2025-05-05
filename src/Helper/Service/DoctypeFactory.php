@@ -19,7 +19,8 @@ final class DoctypeFactory
     {
         /** @var ViewConfigShape $config */
         $config  = Configuration::get($container);
-        $doctype = $config['view_helper_config']['doctype'] ?? Doctype::HTML5;
+        $doctype = $config['view_manager']['doctype'] ?? Doctype::DEFAULT_DOCTYPE;
+        $doctype = $config['view_helper_config']['doctype'] ?? $doctype;
 
         return new Doctype($doctype);
     }

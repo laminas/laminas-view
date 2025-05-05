@@ -23,6 +23,7 @@ use Laminas\View\Helper\Service\EscaperFactory;
  *     },
  *     view_manager?: array{
  *         base_path?: non-empty-string|null,
+ *         doctype?: DoctypeID,
  *         encoding?: non-empty-string,
  *         template_map?: array<string, string>,
  *         template_path_stack?: list<non-empty-string>,

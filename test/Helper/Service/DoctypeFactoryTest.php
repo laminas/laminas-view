@@ -32,4 +32,32 @@ final class DoctypeFactoryTest extends TestCase
 
         self::assertTrue($service->isXhtml());
     }
+
+    public function testFactorySetsDoctypeBasedOnMvcConfig(): void
+    {
+        $config    = ['view_manager' => ['doctype' => Doctype::XHTML1_STRICT]];
+        $container = new InMemoryContainer();
+        $container->set('config', $config);
+
+        $factory = new DoctypeFactory();
+        $service = $factory($container);
+
+        self::assertTrue($service->isXhtml());
+    }
+
+    public function testMezzioConfigOverridesMvcConfig(): void
+    {
+        $config = [
+            'view_manager'       => ['doctype' => Doctype::XHTML1_STRICT],
+            'view_helper_config' => ['doctype' => Doctype::HTML5],
+        ];
+
+        $container = new InMemoryContainer();
+        $container->set('config', $config);
+
+        $factory = new DoctypeFactory();
+        $service = $factory($container);
+
+        self::assertFalse($service->isXhtml());
+    }
 }
