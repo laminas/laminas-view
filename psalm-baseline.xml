@@ -394,70 +394,18 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/Partial.php">
-    <DocblockTypeContradiction>
-      <code><![CDATA[is_scalar($values)]]></code>
-    </DocblockTypeContradiction>
-    <MissingConstructor>
-      <code><![CDATA[$objectKey]]></code>
-      <code><![CDATA[$objectKey]]></code>
-    </MissingConstructor>
-    <MixedArgument>
-      <code><![CDATA[$values]]></code>
-    </MixedArgument>
-    <MixedAssignment>
-      <code><![CDATA[$values]]></code>
-    </MixedAssignment>
-    <PossiblyNullArgument>
-      <code><![CDATA[$name]]></code>
-    </PossiblyNullArgument>
-    <PossiblyNullPropertyAssignmentValue>
-      <code><![CDATA[null]]></code>
-    </PossiblyNullPropertyAssignmentValue>
-    <PossiblyNullReference>
-      <code><![CDATA[render]]></code>
-      <code><![CDATA[render]]></code>
-    </PossiblyNullReference>
-    <RedundantCastGivenDocblockType>
-      <code><![CDATA[(string) $key]]></code>
-    </RedundantCastGivenDocblockType>
+    <InvalidReturnStatement>
+      <code><![CDATA[$values->getVariables()]]></code>
+      <code><![CDATA[$variables]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[iterable<string, mixed>]]></code>
+    </InvalidReturnType>
   </file>
   <file src="src/Helper/PartialLoop.php">
-    <InvalidExtendClass>
-      <code><![CDATA[Partial]]></code>
-    </InvalidExtendClass>
-    <LessSpecificReturnStatement>
-      <code><![CDATA[parent::setObjectKey($key)]]></code>
-    </LessSpecificReturnStatement>
-    <MethodSignatureMismatch>
-      <code><![CDATA[public function __invoke($name = null, $values = null)]]></code>
-      <code><![CDATA[public function setObjectKey($key)]]></code>
-    </MethodSignatureMismatch>
     <MixedArgument>
       <code><![CDATA[$item]]></code>
     </MixedArgument>
-    <MixedAssignment>
-      <code><![CDATA[$item]]></code>
-      <code><![CDATA[$this->objectKey]]></code>
-    </MixedAssignment>
-    <MixedReturnStatement>
-      <code><![CDATA[$values->toArray()]]></code>
-    </MixedReturnStatement>
-    <MoreSpecificImplementedParamType>
-      <code><![CDATA[$name]]></code>
-      <code><![CDATA[$values]]></code>
-    </MoreSpecificImplementedParamType>
-    <MoreSpecificReturnType>
-      <code><![CDATA[self]]></code>
-    </MoreSpecificReturnType>
-    <PossiblyInvalidOperand>
-      <code><![CDATA[parent::__invoke($name, $item)]]></code>
-    </PossiblyInvalidOperand>
-    <PossiblyUnusedReturnValue>
-      <code><![CDATA[self]]></code>
-    </PossiblyUnusedReturnValue>
-    <RedundantCastGivenDocblockType>
-      <code><![CDATA[(string) $key]]></code>
-    </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Helper/Placeholder.php">
     <RedundantCastGivenDocblockType>
@@ -1139,29 +1087,13 @@
   </file>
   <file src="test/Helper/PartialLoopTest.php">
     <InvalidArgument>
-      <code><![CDATA[$o]]></code>
-      <code><![CDATA[$o]]></code>
-      <code><![CDATA[$o]]></code>
-      <code><![CDATA[$o]]></code>
-      <code><![CDATA[$o]]></code>
-      <code><![CDATA[$o]]></code>
-      <code><![CDATA[$o]]></code>
-      <code><![CDATA[$o]]></code>
-      <code><![CDATA[$rIterator]]></code>
-      <code><![CDATA[$rIterator]]></code>
-      <code><![CDATA[$rIterator]]></code>
-      <code><![CDATA[$rIterator]]></code>
       <code><![CDATA['foo']]></code>
-      <code><![CDATA['foo']]></code>
-      <code><![CDATA[new stdClass()]]></code>
-      <code><![CDATA[new stdClass()]]></code>
     </InvalidArgument>
     <MixedArgument>
       <code><![CDATA[$value]]></code>
       <code><![CDATA[$value]]></code>
     </MixedArgument>
     <MixedAssignment>
-      <code><![CDATA[$key]]></code>
       <code><![CDATA[$key]]></code>
       <code><![CDATA[$key]]></code>
       <code><![CDATA[$value]]></code>
@@ -1177,76 +1109,11 @@
       <code><![CDATA[$value]]></code>
       <code><![CDATA[$value]]></code>
     </MixedOperand>
-    <PossiblyInvalidArgument>
-      <code><![CDATA[$result]]></code>
-      <code><![CDATA[$result]]></code>
-      <code><![CDATA[$result]]></code>
-      <code><![CDATA[$result]]></code>
-      <code><![CDATA[$result]]></code>
-      <code><![CDATA[$result]]></code>
-      <code><![CDATA[$result]]></code>
-      <code><![CDATA[$result]]></code>
-      <code><![CDATA[$result]]></code>
-      <code><![CDATA[$result]]></code>
-      <code><![CDATA[$result]]></code>
-      <code><![CDATA[$result]]></code>
-      <code><![CDATA[$result]]></code>
-      <code><![CDATA[$result]]></code>
-      <code><![CDATA[$result]]></code>
-    </PossiblyInvalidArgument>
-    <PossiblyInvalidCast>
-      <code><![CDATA[$result]]></code>
-      <code><![CDATA[$result]]></code>
-      <code><![CDATA[$result]]></code>
-      <code><![CDATA[$result]]></code>
-      <code><![CDATA[$result]]></code>
-      <code><![CDATA[$result]]></code>
-      <code><![CDATA[$result]]></code>
-      <code><![CDATA[$result]]></code>
-      <code><![CDATA[$result]]></code>
-      <code><![CDATA[$result]]></code>
-      <code><![CDATA[$result]]></code>
-      <code><![CDATA[$result]]></code>
-      <code><![CDATA[$result]]></code>
-      <code><![CDATA[$result]]></code>
-      <code><![CDATA[$result]]></code>
-    </PossiblyInvalidCast>
-    <UndefinedInterfaceMethod>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-    </UndefinedInterfaceMethod>
     <UndefinedPropertyFetch>
       <code><![CDATA[$item->message]]></code>
       <code><![CDATA[$item->message]]></code>
     </UndefinedPropertyFetch>
     <UnusedVariable>
-      <code><![CDATA[$key]]></code>
       <code><![CDATA[$key]]></code>
       <code><![CDATA[$key]]></code>
     </UnusedVariable>
@@ -1257,12 +1124,10 @@
       <code><![CDATA[$key]]></code>
       <code><![CDATA[$value]]></code>
       <code><![CDATA[$value]]></code>
-      <code><![CDATA[$value]]></code>
     </MixedArgument>
     <MixedAssignment>
       <code><![CDATA[$key]]></code>
       <code><![CDATA[$key]]></code>
-      <code><![CDATA[$value]]></code>
       <code><![CDATA[$value]]></code>
       <code><![CDATA[$value]]></code>
     </MixedAssignment>
@@ -1270,40 +1135,6 @@
       <code><![CDATA[$model->getVariables()]]></code>
       <code><![CDATA[$model->getVariables()]]></code>
     </PossibleRawObjectIteration>
-    <PossiblyInvalidArgument>
-      <code><![CDATA[$return]]></code>
-      <code><![CDATA[$return]]></code>
-      <code><![CDATA[$return]]></code>
-      <code><![CDATA[$return]]></code>
-      <code><![CDATA[$return]]></code>
-      <code><![CDATA[$return]]></code>
-      <code><![CDATA[$return]]></code>
-      <code><![CDATA[$return]]></code>
-      <code><![CDATA[$return]]></code>
-    </PossiblyInvalidArgument>
-    <PossiblyInvalidCast>
-      <code><![CDATA[$return]]></code>
-      <code><![CDATA[$return]]></code>
-      <code><![CDATA[$return]]></code>
-      <code><![CDATA[$return]]></code>
-      <code><![CDATA[$return]]></code>
-      <code><![CDATA[$return]]></code>
-      <code><![CDATA[$return]]></code>
-      <code><![CDATA[$return]]></code>
-      <code><![CDATA[$return]]></code>
-    </PossiblyInvalidCast>
-    <UndefinedInterfaceMethod>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-      <code><![CDATA[addPath]]></code>
-    </UndefinedInterfaceMethod>
-    <UndefinedPropertyAssignment>
-      <code><![CDATA[$view->vars()->message]]></code>
-    </UndefinedPropertyAssignment>
   </file>
   <file src="test/Helper/ServerUrlTest.php">
     <InvalidArgument>
