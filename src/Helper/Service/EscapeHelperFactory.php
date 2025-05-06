@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Laminas\View\Helper\Service;
 
 use Laminas\Escaper\Escaper;
+use Laminas\Escaper\EscaperInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\EscapeCss;
@@ -53,8 +54,8 @@ final class EscapeHelperFactory implements FactoryInterface
             ));
         }
 
-        $escaper = $container->has(Escaper::class)
-            ? $container->get(Escaper::class)
+        $escaper = $container->has(EscaperInterface::class)
+            ? $container->get(EscaperInterface::class)
             : new Escaper();
 
         return new $type($escaper);

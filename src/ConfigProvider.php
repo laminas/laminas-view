@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Laminas\View;
 
 use Laminas\Escaper\Escaper;
+use Laminas\Escaper\EscaperInterface;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\Service\EscaperFactory;
@@ -129,6 +130,7 @@ final class ConfigProvider
                 Resolver\TemplatePathStack::class       => Resolver\Factory\TemplatePathStackResolverFactory::class,
             ],
             'aliases'   => [
+                EscaperInterface::class           => Escaper::class,
                 Renderer\RendererInterface::class => Renderer\PhpRenderer::class,
                 Resolver\ResolverInterface::class => Resolver\AggregateResolver::class,
             ],

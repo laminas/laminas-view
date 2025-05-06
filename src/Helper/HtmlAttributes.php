@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Laminas\View\Helper;
 
-use Laminas\Escaper\Escaper;
+use Laminas\Escaper\EscaperInterface;
 use Laminas\View\HtmlAttributesSet;
 
 /**
@@ -12,7 +12,7 @@ use Laminas\View\HtmlAttributesSet;
  */
 final class HtmlAttributes
 {
-    public function __construct(private readonly Escaper $escaper)
+    public function __construct(private readonly EscaperInterface $escaper)
     {
     }
 

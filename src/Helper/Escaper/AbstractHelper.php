@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Laminas\View\Helper\Escaper;
 
-use Laminas\Escaper\Escaper;
+use Laminas\Escaper\EscaperInterface;
 use Laminas\View\Exception;
 
 use function is_array;
@@ -22,7 +22,7 @@ abstract class AbstractHelper
     public const RECURSE_ARRAY  = 0x01;
     public const RECURSE_OBJECT = 0x02;
 
-    public function __construct(protected readonly Escaper $escaper)
+    public function __construct(protected readonly EscaperInterface $escaper)
     {
     }
 
