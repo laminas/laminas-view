@@ -3106,6 +3106,24 @@
     </UnevaluatedCode>
   </file>
   <file src="test/Helper/PaginationControlTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[Helper\PaginationControl::getDefaultViewPartial()]]></code>
+      <code><![CDATA[Helper\PaginationControl::getDefaultViewPartial()]]></code>
+      <code><![CDATA[Helper\PaginationControl::setDefaultViewPartial('partial')]]></code>
+      <code><![CDATA[Helper\PaginationControl::setDefaultViewPartial('testPagination.phtml')]]></code>
+      <code><![CDATA[Helper\PaginationControl::setDefaultViewPartial('testPagination.phtml')]]></code>
+      <code><![CDATA[Helper\PaginationControl::setDefaultViewPartial('testPagination.phtml')]]></code>
+      <code><![CDATA[Helper\PaginationControl::setDefaultViewPartial('testPagination.phtml')]]></code>
+      <code><![CDATA[Helper\PaginationControl::setDefaultViewPartial('testPagination.phtml')]]></code>
+      <code><![CDATA[Helper\PaginationControl::setDefaultViewPartial(null)]]></code>
+      <code><![CDATA[PaginationControl]]></code>
+      <code><![CDATA[PaginationControl::getDefaultScrollingStyle()]]></code>
+      <code><![CDATA[PaginationControl::getDefaultScrollingStyle()]]></code>
+      <code><![CDATA[PaginationControl::setDefaultScrollingStyle($default)]]></code>
+      <code><![CDATA[PaginationControl::setDefaultScrollingStyle('muppets')]]></code>
+      <code><![CDATA[new Helper\PaginationControl()]]></code>
+      <code><![CDATA[new Helper\PaginationControl()]]></code>
+    </DeprecatedClass>
     <InvalidArgument>
       <code><![CDATA[$all]]></code>
       <code><![CDATA[$paginator]]></code>
