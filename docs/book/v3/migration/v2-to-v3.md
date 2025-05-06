@@ -175,7 +175,7 @@ In order to continue to use the flash messenger in your projects, you will need 
 #### Flash and Quicktime
 
 The deprecated helpers `htmlFlash` and `htmlQuicktime` have been removed.
-If your project requires these helpers, you can make use of the [HtmlObject](helpers/html-object.md) view helper to achieve the same output.
+If your project requires these helpers, you can make use of the [HtmlObject](../helpers/html-object.md) view helper to achieve the same output.
 
 ```php
 echo $this->htmlObject(
@@ -197,7 +197,7 @@ echo $this->htmlObject(
 #### Gravatar
 
 The deprecated Gravatar view helper has been removed and replaced with a simplified version that doesn't store any state.
-The replacement helper is called [GravatarImage](helpers/gravatar-image.md) and has the following signature when accessed via view scripts:
+The replacement helper is called [GravatarImage](../helpers/gravatar-image.md) and has the following signature when accessed via view scripts:
 
 ```php
 function gravatarImage(

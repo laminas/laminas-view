@@ -68,7 +68,6 @@ nav:
           - Layout: v3/helpers/layout.md
           - Partial: v3/helpers/partial.md
           - Placeholder: v3/helpers/placeholder.md
-          - Url: v3/helpers/url.md
           - "Advanced usage of helpers": v3/helpers/advanced-usage.md
       - 'Application Integration':
           - 'Stand-Alone': v3/application-integration/stand-alone.md
@@ -92,6 +91,8 @@ plugins:
         # Old helpers no longer present in v3
         helpers/flash-messenger.md: v2/helpers/flash-messenger.md
         helpers/gravatar.md: v2/helpers/gravatar.md
+        helpers/url.md: v2/helpers/url.md
+        helpers/json.md: v2/helpers/json.md
         # Existing content with an equivalent target in the v3 docs tree
         quick-start.md: v3/quick-start.md
         php-renderer.md: v3/php-renderer.md
@@ -117,7 +118,6 @@ plugins:
         helpers/layout.md: v3/helpers/layout.md
         helpers/partial.md: v3/helpers/partial.md
         helpers/placeholder.md: v3/helpers/placeholder.md
-        helpers/url.md: v3/helpers/url.md
         helpers/advanced-usage.md: v3/helpers/advanced-usage.md
         application-integration/stand-alone.md: v3/application-integration/stand-alone.md
         cookbook/setting-module-specific-layouts.md: v3/cookbook/setting-module-specific-layouts.md
