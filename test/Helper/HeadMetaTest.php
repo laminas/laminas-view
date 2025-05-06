@@ -24,6 +24,7 @@ use function ucwords;
 use const E_USER_WARNING;
 use const PHP_EOL;
 
+/** @psalm-import-type DoctypeID from Doctype */
 final class HeadMetaTest extends TestCase
 {
     private HeadMeta $helper;
@@ -36,13 +37,20 @@ final class HeadMetaTest extends TestCase
      */
     protected function setUp(): void
     {
-        Doctype::unsetDoctypeRegistry();
         $this->view = new View();
-        $doctype    = $this->view->plugin(Doctype::class);
-        $doctype->__invoke('XHTML1_STRICT');
+        $this->setDoctype(Doctype::XHTML1_STRICT);
         $this->helper = new HeadMeta();
         $this->helper->setView($this->view);
         $this->escaper = new Escaper();
+    }
+
+    /** @param DoctypeID $doctype */
+    private function setDoctype(string $doctype): void
+    {
+        $helpers = $this->view->getHelperPluginManager();
+        $helpers->setAllowOverride(true);
+        $doctype = new Doctype($doctype);
+        $helpers->setService(Doctype::class, $doctype);
     }
 
     public function testHeadMetaReturnsObjectInstance(): void
@@ -294,7 +302,7 @@ final class HeadMetaTest extends TestCase
 
     public function testStringRepresentationReflectsDoctype(): void
     {
-        $this->view->plugin(Doctype::class)->__invoke('HTML4_STRICT');
+        $this->setDoctype(Doctype::HTML4_STRICT);
         $this->helper->__invoke('some content', 'foo');
 
         $test = $this->helper->toString();
@@ -314,7 +322,7 @@ final class HeadMetaTest extends TestCase
         $this->assertEquals(
             '<meta http-equiv="pragma" content="bar" />' . PHP_EOL . '<meta http-equiv="Cache-control" content="baz" />'
             . PHP_EOL . '<meta name="keywords" content="bat" />',
-            $this->helper->toString()
+            $this->helper->toString(),
         );
     }
 
@@ -331,7 +339,7 @@ final class HeadMetaTest extends TestCase
             . '<meta http-equiv="pragma" content="baz" />%1$s'
             . '<meta http-equiv="Cache-control" content="baz" />%1$s'
             . '<meta name="keywords" content="bar" />',
-            PHP_EOL
+            PHP_EOL,
         );
 
         $this->assertEquals($expected, $this->helper->toString());
@@ -345,14 +353,14 @@ final class HeadMetaTest extends TestCase
             'bar',
             'name',
             [],
-            Helper\Placeholder\Container\AbstractContainer::PREPEND
+            Helper\Placeholder\Container\AbstractContainer::PREPEND,
         );
 
         $expected = sprintf(
             '<meta name="bar" content="%s" />%s'
             . '<meta name="keywords" content="foo" />',
             $this->escaper->escapeHtmlAttr('some content'),
-            PHP_EOL
+            PHP_EOL,
         );
         $this->assertEquals($expected, $this->helper->toString());
     }
@@ -371,7 +379,7 @@ final class HeadMetaTest extends TestCase
             . '<meta http-equiv="Cache-control" content="baz" />%1$s'
             . '<meta name="description" content="foo" />%1$s'
             . '<meta http-equiv="pragma" content="baz" />',
-            PHP_EOL
+            PHP_EOL,
         );
 
         $this->assertEquals($expected, $test);
@@ -379,36 +387,31 @@ final class HeadMetaTest extends TestCase
 
     public function testCharsetValidateFail(): void
     {
-        $view = new View();
-        $view->plugin(Doctype::class)->__invoke('HTML4_STRICT');
-
+        $this->setDoctype(Doctype::HTML4_STRICT);
         $this->expectException(Exception\ExceptionInterface::class);
         $this->helper->setCharset('utf-8');
     }
 
     public function testCharset(): void
     {
-        $view = new View();
-        $view->plugin(Doctype::class)->__invoke('HTML5');
-
+        $this->setDoctype(Doctype::HTML5);
         $this->helper->setCharset('utf-8');
         $this->assertEquals(
             '<meta charset="utf-8">',
-            $this->helper->toString()
+            $this->helper->toString(),
         );
 
-        $view->plugin(Doctype::class)->__invoke('XHTML5');
+        $this->setDoctype(Doctype::XHTML5);
 
         $this->assertEquals(
-            '<meta charset="utf-8"/>',
-            $this->helper->toString()
+            '<meta charset="utf-8">',
+            $this->helper->toString(),
         );
     }
 
     public function testCharsetPosition(): void
     {
-        $view = new View();
-        $view->plugin(Doctype::class)->__invoke('HTML5');
+        $this->setDoctype(Doctype::HTML5);
 
         $this->helper
             ->setProperty('description', 'foobar')
@@ -417,7 +420,7 @@ final class HeadMetaTest extends TestCase
         $this->assertEquals(
             '<meta charset="utf-8">' . PHP_EOL
             . '<meta property="description" content="foobar">',
-            $this->helper->toString()
+            $this->helper->toString(),
         );
     }
 
@@ -426,16 +429,14 @@ final class HeadMetaTest extends TestCase
         $this->expectException(Exception\InvalidArgumentException::class);
         $this->expectExceptionMessage('XHTML* doctype has no attribute charset; please use appendHttpEquiv()');
 
-        $view = new View();
-        $view->plugin(Doctype::class)->__invoke('XHTML1_RDFA');
-
+        $this->setDoctype(Doctype::XHTML1_RDFA);
         $this->helper
              ->setCharset('utf-8');
     }
 
     public function testPropertyIsSupportedWithRdfaDoctype(): void
     {
-        $this->view->doctype('XHTML1_RDFA');
+        $this->setDoctype(Doctype::XHTML1_RDFA);
         $this->helper->__invoke('foo', 'og:title', 'property');
 
         $expected = sprintf('<meta property="%s" content="foo" />', $this->escaper->escapeHtmlAttr('og:title'));
@@ -457,7 +458,7 @@ final class HeadMetaTest extends TestCase
      */
     public function testOverloadingAppendPropertyAppendsMetaTagToStack(): void
     {
-        $this->view->doctype('XHTML1_RDFA');
+        $this->setDoctype(Doctype::XHTML1_RDFA);
         $this->executeOverloadAppend('property');
     }
 
@@ -466,7 +467,7 @@ final class HeadMetaTest extends TestCase
      */
     public function testOverloadingPrependPropertyPrependsMetaTagToStack(): void
     {
-        $this->view->doctype('XHTML1_RDFA');
+        $this->setDoctype(Doctype::XHTML1_RDFA);
         $this->executeOverloadPrepend('property');
     }
 
@@ -475,13 +476,13 @@ final class HeadMetaTest extends TestCase
      */
     public function testOverloadingSetPropertyOverwritesMetaTagStack(): void
     {
-        $this->view->doctype('XHTML1_RDFA');
+        $this->setDoctype(Doctype::XHTML1_RDFA);
         $this->executeOverloadSet('property');
     }
 
     public function testItempropIsSupportedWithHtml5Doctype(): void
     {
-        $this->view->doctype('HTML5');
+        $this->setDoctype(Doctype::HTML5);
         $this->helper->__invoke('HeadMeta with Microdata', 'description', 'itemprop');
 
         $expected = sprintf(
@@ -506,7 +507,7 @@ final class HeadMetaTest extends TestCase
      */
     public function testOverloadingAppendItempropAppendsMetaTagToStack(): void
     {
-        $this->view->doctype('HTML5');
+        $this->setDoctype(Doctype::HTML5);
         $this->executeOverloadAppend('itemprop');
     }
 
@@ -515,7 +516,7 @@ final class HeadMetaTest extends TestCase
      */
     public function testOverloadingPrependItempropPrependsMetaTagToStack(): void
     {
-        $this->view->doctype('HTML5');
+        $this->setDoctype(Doctype::HTML5);
         $this->executeOverloadPrepend('itemprop');
     }
 
@@ -524,7 +525,7 @@ final class HeadMetaTest extends TestCase
      */
     public function testOverloadingSetItempropOverwritesMetaTagStack(): void
     {
-        $this->view->doctype('HTML5');
+        $this->setDoctype(Doctype::HTML5);
         $this->executeOverloadSet('itemprop');
     }
 

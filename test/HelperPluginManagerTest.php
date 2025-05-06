@@ -8,6 +8,7 @@ use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Helper\Doctype;
+use Laminas\View\Helper\HeadStyle;
 use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Helper\Identity;
 use Laminas\View\Helper\Partial;
@@ -40,13 +41,13 @@ final class HelperPluginManagerTest extends TestCase
     {
         $renderer = new PhpRenderer();
         $this->helpers->setRenderer($renderer);
-        $helper = $this->helpers->get(Doctype::class);
+        $helper = $this->helpers->get(HeadStyle::class);
         $this->assertSame($renderer, $helper->getView());
     }
 
     public function testNoRendererInjectedInHelperWhenRendererIsNotPresent(): void
     {
-        $helper = $this->helpers->get(Doctype::class);
+        $helper = $this->helpers->get(HeadStyle::class);
         $this->assertNull($helper->getView());
     }
 

@@ -6,14 +6,15 @@ namespace LaminasTest\View\Helper;
 
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\HtmlObject;
-use Laminas\View\Renderer\PhpRenderer as View;
+use Laminas\View\Renderer\PhpRenderer;
 use Laminas\View\Renderer\RendererInterface;
 use PHPUnit\Framework\TestCase;
 
+/** @psalm-import-type DoctypeID from Doctype */
 final class HtmlObjectTest extends TestCase
 {
     private HtmlObject $helper;
-    private View $view;
+    private PhpRenderer $view;
 
     /**
      * Sets up the fixture, for example, open a network connection.
@@ -23,9 +24,18 @@ final class HtmlObjectTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->view   = new View();
+        $this->view   = new PhpRenderer();
         $this->helper = new HtmlObject();
         $this->helper->setView($this->view);
+    }
+
+    /** @param DoctypeID $doctype */
+    private function setDoctype(string $doctype): void
+    {
+        $helpers = $this->view->getHelperPluginManager();
+        $helpers->setAllowOverride(true);
+        $doctype = new Doctype($doctype);
+        $helpers->setService(Doctype::class, $doctype);
     }
 
     public function testViewObjectIsSet(): void
@@ -52,14 +62,14 @@ final class HtmlObjectTest extends TestCase
 
         $this->assertStringContainsString(
             '<object data="datastring" type="typestring" attribkey1="attribvalue1" attribkey2="attribvalue2">',
-            $htmlObject
+            $htmlObject,
         );
         $this->assertStringContainsString('</object>', $htmlObject);
     }
 
     public function testMakeHtmlObjectWithoutAttribsWithParamsHtml(): void
     {
-        $this->view->plugin(Doctype::class)->__invoke(Doctype::HTML4_STRICT);
+        $this->setDoctype(Doctype::HTML4_STRICT);
 
         $params = [
             'paramname1' => 'paramvalue1',
@@ -80,7 +90,7 @@ final class HtmlObjectTest extends TestCase
 
     public function testMakeHtmlObjectWithoutAttribsWithParamsXhtml(): void
     {
-        $this->view->plugin(Doctype::class)->__invoke(Doctype::XHTML1_STRICT);
+        $this->setDoctype(Doctype::XHTML1_STRICT);
 
         $params = [
             'paramname1' => 'paramvalue1',

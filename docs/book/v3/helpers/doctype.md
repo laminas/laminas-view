@@ -1,8 +1,7 @@
 # Doctype
 
-Valid HTML and XHTML documents should include a `DOCTYPE` declaration. Besides being difficult
-to remember, these can also affect how certain elements in your document should be rendered (for
-instance, `CDATA` escaping in `<script>` and `<style>` elements.
+Valid HTML and XHTML documents should include a `DOCTYPE` declaration.
+Besides being difficult to remember, these can also affect how certain elements in your document should be rendered (for instance, `CDATA` escaping in `<script>` and `<style>` elements.
 
 The `Doctype` helper allows you to specify one of the following types:
 
@@ -18,38 +17,41 @@ The `Doctype` helper allows you to specify one of the following types:
 - `HTML4_LOOSE`
 - `HTML4_FRAMESET`
 - `HTML5`
-- `CUSTOM_XHTML`
-- `CUSTOM`
-
-You can also specify a custom doctype as long as it is well-formed.
-
-The `Doctype` helper is a concrete implementation of the
-[Placeholder helper](placeholder.md).
 
 ## Basic Usage
 
-You may specify the doctype at any time. However, helpers that depend on the
-doctype for their output will recognize it only after you have set it, so the
-easiest approach is to specify it in your bootstrap:
+The `Doctype` helper requires a constant indicating the desired doctype to its constructor.
+Given no arguments, the default doctype of HTML 5 is used.
+It can then be cast to a string in order to emit the doctype declaration:
 
 ```php
 use Laminas\View\Helper\Doctype;
 
-$doctypeHelper = new Doctype();
-$doctypeHelper->doctype('XHTML1_STRICT');
+$helper = new Doctype();
+echo (string) $helper; // <!DOCTYPE html>
 ```
 
-And then print it out on top of your layout script:
+An example of configuring the helper with a specific doctype:
+
+```php
+use Laminas\View\Helper\Doctype;
+
+$helper = new Doctype(Doctype::HTML4_FRAMESET);
+echo (string) $helper; // <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset…
+```
+
+In templates, you will typically use the helper in a layout template, for example:
 
 ```php
 <?php echo $this->doctype() ?>
 ```
 
+In normal usage, the desired doctype is _configured_, and other helpers query the configured doctype to customise their output.
+For example, in a XHTML document, meta tags have a self-closing tag `<meta />` whereas in HTML 5, tags omit the closing slash, i.e. `<meta>`
+
 ## Usage in a Mezzio Application
 
-The factory `Laminas\View\Helper\Service\DoctypeFactory` checks the application configuration, making it possible to
-define the doctype through your configuration, e.g. `config/autoload/mezzio.global.php`
-or a `ConfigProvider.php` in a module.
+The factory `Laminas\View\Helper\Service\DoctypeFactory` checks the application configuration, making it possible to define the doctype through your configuration, e.g. `config/autoload/mezzio.global.php` or a `ConfigProvider.php` in a module.
 
 For example, add the following lines to your `config/autoload/mezzio.global.php` file to set the `Doctype` to HTML5:
 
@@ -79,13 +81,14 @@ return [
 ];
 ```
 
+NOTE: The default doctype is HTML 5 when no configuration is specified.
+
 ## Retrieving the Doctype
 
-If you need to know the doctype, you can do so by calling `getDoctype()` on the
-helper, which is returned by invoking the helper from the view.
+Inside templates, you can retrieve the doctype declaration by either casting the doctype helper to a string, or calling `doctypeDeclaration()`
 
 ```php
-$doctype = $this->doctype()->getDoctype();
+$doctype = $this->doctype()->doctypeDeclaration();
 ```
 
 Typically, you'll want to know if the doctype is XHTML or not; for this, the
@@ -108,15 +111,21 @@ if ($this->doctype()->isHtml5()) {
 ## Choosing a Doctype to Use with the Open Graph Protocol
 
 To implement the [Open Graph Protocol](http://opengraphprotocol.org/), you may
-specify the `XHTML1_RDFA` doctype. This doctype allows a developer to use the
+specify a doctype compatible with RDFa. These doctypes allows a developer to use the
 [Resource Description Framework](http://www.w3.org/TR/xhtml-rdfa-primer/) within
-an XHTML document.
+an HTML document.
+
+The constants to use to indicate RDFa support are:
 
 ```php
 use Laminas\View\Helper\Doctype;
 
-$doctypeHelper = new Doctype();
-$doctypeHelper->doctype('XHTML1_RDFA');
+$supportsRdfa = [
+    Doctype::HTML5,
+    Doctype::XHTML1_RDFA,
+    Doctype::XHTML1_RDFA11,
+    Doctype::XHTML5,
+];
 ```
 
 The RDFa doctype allows XHTML to validate when the 'property' meta tag attribute
@@ -142,7 +151,7 @@ Here is how you check if the doctype is set to `XHTML1_RDFA`:
 ```php
 <?= $this->doctype() ?>
 <html xmlns="http://www.w3.org/1999/xhtml"
-    <?php if ($view->doctype()->isRdfa()): ?>
+    <?php if ($this->doctype()->isRdfa()): ?>
       xmlns:og="http://opengraphprotocol.org/schema/"
       xmlns:fb="http://www.facebook.com/2008/fbml"
     <?php endif; ?>

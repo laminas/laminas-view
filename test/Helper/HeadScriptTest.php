@@ -10,6 +10,7 @@ use Laminas\Escaper\Escaper;
 use Laminas\View;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\HeadScript;
+use Laminas\View\Renderer\PhpRenderer;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
@@ -23,15 +24,29 @@ use function var_export;
 
 use const PHP_EOL;
 
+/** @psalm-import-type DoctypeID from Doctype */
 final class HeadScriptTest extends TestCase
 {
     private HeadScript $helper;
     private Escaper $escaper;
+    private PhpRenderer $view;
 
     protected function setUp(): void
     {
-        $this->helper  = new HeadScript();
+        $this->view   = new PhpRenderer();
+        $this->helper = new HeadScript();
+        $this->helper->setView($this->view);
         $this->escaper = new Escaper();
+        $this->setDoctype(Doctype::XHTML1_STRICT);
+    }
+
+    /** @param DoctypeID $doctype */
+    private function setDoctype(string $doctype): void
+    {
+        $helpers = $this->view->getHelperPluginManager();
+        $helpers->setAllowOverride(true);
+        $doctype = new Doctype($doctype);
+        $helpers->setService(Doctype::class, $doctype);
     }
 
     public function testHeadScriptReturnsObjectInstance(): void
@@ -446,6 +461,7 @@ document.write(bar.strlen());');
 
     public function testNoEscapeDefaultsToFalse(): void
     {
+        $this->setDoctype(Doctype::HTML5);
         $this->helper->__invoke()->appendScript('// some script' . PHP_EOL, 'text/javascript', []);
         $test = $this->helper->__invoke()->toString();
 
@@ -476,9 +492,7 @@ document.write(bar.strlen());');
 
     public function testOmitsTypeAttributeIfEmptyValueAndHtml5Doctype(): void
     {
-        $view = new View\Renderer\PhpRenderer();
-        $view->plugin(Doctype::class)->setDoctype(View\Helper\Doctype::HTML5);
-        $this->helper->setView($view);
+        $this->setDoctype(Doctype::HTML5);
 
         $this->helper->__invoke()->appendScript('// some script' . PHP_EOL, '');
         $test = $this->helper->__invoke()->toString();
@@ -498,9 +512,7 @@ document.write(bar.strlen());');
 
     public function testOmitsTypeAttributeIfNoneGivenAndHtml5Doctype(): void
     {
-        $view = new View\Renderer\PhpRenderer();
-        $view->plugin(Doctype::class)->setDoctype(View\Helper\Doctype::HTML5);
-        $this->helper->setView($view);
+        $this->setDoctype(Doctype::HTML5);
 
         $this->helper->__invoke()->appendScript('// some script' . PHP_EOL);
         $test = $this->helper->__invoke()->toString();
