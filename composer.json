@@ -32,7 +32,7 @@
         "laminas/laminas-escaper": "^2.5",
         "laminas/laminas-eventmanager": "^3.4",
         "laminas/laminas-json": "^3.3",
-        "laminas/laminas-servicemanager": "^3.21.0",
+        "laminas/laminas-servicemanager": "^3.21.0 || ^4.0.0",
         "laminas/laminas-stdlib": "^3.10.1",
         "psr/container": "^1 || ^2"
     },
@@ -40,7 +40,7 @@
         "laminas/laminas-authentication": "^2.18",
         "laminas/laminas-coding-standard": "~3.0.1",
         "laminas/laminas-feed": "^2.23",
-        "laminas/laminas-filter": "^2.40",
+        "laminas/laminas-filter": "^3.0",
         "laminas/laminas-http": "^2.21",
         "laminas/laminas-i18n": "^2.30.0",
         "laminas/laminas-modulemanager": "^2.17",
