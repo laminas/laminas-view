@@ -4,34 +4,61 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper;
 
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\ConfigProvider;
 use Laminas\View\Helper\Placeholder;
 use Laminas\View\Helper\RenderToPlaceholder;
-use Laminas\View\Renderer\PhpRenderer as View;
+use Laminas\View\HelperPluginManager;
+use Laminas\View\Renderer\PhpRenderer;
 use Laminas\View\Resolver\TemplatePathStack;
 use PHPUnit\Framework\TestCase;
 
-use function assert;
+use function array_merge_recursive;
 
 final class RenderToPlaceholderTest extends TestCase
 {
-    private View $view;
     private RenderToPlaceholder $helper;
+    private Placeholder $placeholder;
 
     protected function setUp(): void
     {
-        $this->view = new View();
-        $resolver   = $this->view->resolver();
-        assert($resolver instanceof TemplatePathStack);
-        $resolver->addPath(__DIR__ . '/_files/scripts/');
+        $config                             = array_merge_recursive(
+            (new ConfigProvider())->__invoke(),
+            [
+                'view_manager' => [
+                    'template_path_stack' => [
+                        __DIR__ . '/_files/scripts/',
+                    ],
+                ],
+            ],
+        );
+        $config['dependencies']['services'] = ['config' => $config];
+        $serviceManager                     = new ServiceManager($config['dependencies']);
 
-        $helper       = $this->view->plugin(RenderToPlaceholder::class);
-        $this->helper = $helper;
+        $view = $serviceManager->get(PhpRenderer::class);
+        $view->setResolver($serviceManager->get(TemplatePathStack::class));
+
+        $helpers = $serviceManager->get(HelperPluginManager::class);
+
+        $this->helper      = $helpers->get(RenderToPlaceholder::class);
+        $this->placeholder = $helpers->get(Placeholder::class);
     }
 
-    public function testDefaultEmpty(): void
+    public function testPlaceholderIsInitiallyEmpty(): void
     {
-        $this->helper->__invoke('rendertoplaceholderscript.phtml', 'fooPlaceholder');
-        $placeholder = $this->view->plugin(Placeholder::class);
-        $this->assertEquals("Foo Bar\n", $placeholder->__invoke('fooPlaceholder')->getValue());
+        self::assertSame('', $this->placeholder->__invoke('foo')->toString());
+    }
+
+    public function testPlaceholderWillContainTheContentsOfTheTemplateFile(): void
+    {
+        $this->helper->__invoke('rendertoplaceholderscript.phtml', 'foo');
+        $this->assertSame("Foo Bar\n", $this->placeholder->__invoke('foo')->toString());
+    }
+
+    public function testContentIsAggregatedWithAppend(): void
+    {
+        $this->helper->__invoke('rendertoplaceholderscript.phtml', 'foo');
+        $this->helper->__invoke('rendertoplaceholderscript.phtml', 'foo');
+        $this->assertSame("Foo Bar\nFoo Bar\n", $this->placeholder->__invoke('foo')->toString());
     }
 }

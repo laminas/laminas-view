@@ -76,6 +76,7 @@ for, and rendering, the various HTML `<head>` tags, such as `HeadTitle`,
 - [Layout](layout.md)
 - [Partial](partial.md)
 - [Placeholder](placeholder.md)
+- [RenderToPlaceholder](render-to-placeholder.md)
 
 > ### Help Us Document the Helpers
 >
