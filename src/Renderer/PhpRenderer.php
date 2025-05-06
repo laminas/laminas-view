@@ -378,12 +378,11 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      *
      * @template T
      * @param  string|class-string<T> $name Name of plugin to return
-     * @param  null|array $options Options to pass to plugin constructor (if not already instantiated)
      * @return ($name is class-string ? T : HelperInterface|callable)
      */
-    public function plugin($name, ?array $options = null)
+    public function plugin($name)
     {
-        return $this->getHelperPluginManager()->get($name, $options);
+        return $this->getHelperPluginManager()->get($name);
     }
 
     /**
@@ -423,15 +422,10 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     }
 
     /**
-     * Retrieve filter chain for post-filtering script content
-     *
-     * @return FilterChain
+     * Retrieve filter chain for post-filtering script content, if one has been configured
      */
-    public function getFilterChain()
+    public function getFilterChain(): FilterChain|null
     {
-        if (null === $this->__filterChain) {
-            $this->__filterChain = new FilterChain();
-        }
         return $this->__filterChain;
     }
 

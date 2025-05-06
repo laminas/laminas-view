@@ -40,7 +40,7 @@ final class EscapeHelperFactory implements FactoryInterface
     ];
 
     /** @inheritDoc */
-    public function __invoke(ContainerInterface $container, $requestedName, ?array $options = null) // phpcs:ignore
+    public function __invoke(ContainerInterface $container, string $requestedName, ?array $options = null): mixed
     {
         $type = self::CAN_CREATE[$requestedName] ?? null;
 

@@ -6,6 +6,7 @@ namespace LaminasTest\View;
 
 use ArrayObject;
 use Laminas\Filter\FilterChain;
+use Laminas\Filter\FilterPluginManager;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Exception\DomainException;
 use Laminas\View\Exception\ExceptionInterface;
@@ -19,6 +20,7 @@ use Laminas\View\Renderer\PhpRenderer;
 use Laminas\View\Resolver\TemplateMapResolver;
 use Laminas\View\Resolver\TemplatePathStack;
 use Laminas\View\Variables;
+use LaminasTest\View\TestAsset\InMemoryContainer;
 use LaminasTest\View\TestAsset\Invokable;
 use LaminasTest\View\TestAsset\SharedInstance;
 use LaminasTest\View\TestAsset\Uninvokable;
@@ -155,14 +157,14 @@ final class PhpRendererTest extends TestCase
         $this->assertSame($this->renderer, $plugins->getRenderer());
     }
 
-    public function testUsesFilterChainByDefault(): void
+    public function testFilterChainIsNullByDefault(): void
     {
-        $this->assertInstanceOf(FilterChain::class, $this->renderer->getFilterChain());
+        $this->assertNull($this->renderer->getFilterChain());
     }
 
     public function testMaySetExplicitFilterChainInstance(): void
     {
-        $filterChain = new FilterChain();
+        $filterChain = new FilterChain(new FilterPluginManager(new InMemoryContainer()));
         $this->renderer->setFilterChain($filterChain);
         $this->assertSame($filterChain, $this->renderer->getFilterChain());
     }
@@ -178,8 +180,12 @@ final class PhpRendererTest extends TestCase
 
     public function testRenderingFiltersContentWithFilterChain(): void
     {
+        $filterChain = new FilterChain(new FilterPluginManager(new InMemoryContainer()));
+        $filterChain->attach(static fn(string $content): string => str_replace('INJECT', 'bar', $content));
+
+        $this->renderer->setFilterChain($filterChain);
+
         $expected = 'foo bar baz';
-        $this->renderer->getFilterChain()->attach(static fn($content) => str_replace('INJECT', 'bar', $content));
         $this->renderer->vars()->assign(['bar' => 'INJECT']);
         $this->resolver()->addPath(__DIR__ . '/_templates');
         $test = $this->renderer->render('test.phtml');

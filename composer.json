@@ -37,7 +37,7 @@
         "ext-json": "*",
         "laminas/laminas-escaper": "^2.5",
         "laminas/laminas-eventmanager": "^3.4",
-        "laminas/laminas-servicemanager": "^3.21.0",
+        "laminas/laminas-servicemanager": "^4.4.0",
         "laminas/laminas-stdlib": "^3.10.1",
         "laminas/laminas-translator": "^1.1",
         "psr/container": "^1 || ^2"
@@ -46,8 +46,8 @@
         "laminas/laminas-authentication": "^2.18",
         "laminas/laminas-coding-standard": "~3.0.1",
         "laminas/laminas-feed": "^2.23",
-        "laminas/laminas-filter": "^2.40",
-        "laminas/laminas-http": "^2.21",
+        "laminas/laminas-filter": "^3.0",
+        "laminas/laminas-http": "^2.22",
         "phpunit/phpunit": "^10.5.46",
         "psalm/plugin-phpunit": "^0.19.5",
         "vimeo/psalm": "^6.10.3"
