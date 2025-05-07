@@ -41,7 +41,7 @@ final class HelperPluginManager extends AbstractPluginManager
             Helper\EscapeJs::class            => EscapeHelperFactory::class,
             Helper\EscapeUrl::class           => EscapeHelperFactory::class,
             Helper\GravatarImage::class       => EscapeHelperFactory::class,
-            Helper\HeadLink::class            => InvokableFactory::class,
+            Helper\HeadLink::class            => Helper\Service\HeadLinkFactory::class,
             Helper\HeadMeta::class            => InvokableFactory::class,
             Helper\HeadScript::class          => InvokableFactory::class,
             Helper\HeadStyle::class           => InvokableFactory::class,
