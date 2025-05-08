@@ -35,6 +35,7 @@ use function realpath;
 use function restore_error_handler;
 use function set_error_handler;
 use function str_replace;
+use function trim;
 
 use const E_WARNING;
 
@@ -493,5 +494,39 @@ final class PhpRendererTest extends TestCase
         $actual = $this->renderer->render(false);
 
         $this->assertNotSame($previousOutput, $actual);
+    }
+
+    /**
+     * @see VariablesTest::testAllowsSpecifyingClosureValuesAndReturningTheValue()
+     * @see VariablesTest::testAllowsSpecifyingFunctorValuesAndReturningTheValue()
+     */
+    public function testInvokableViewVariablesAreNotAutomaticallyInvoked(): void
+    {
+        $renderer = new PhpRenderer();
+        $resolver = new TemplateMapResolver([
+            'template' => __DIR__ . '/_templates/invokable-view-variable.phtml',
+        ]);
+
+        $invokable = new class {
+            public function __invoke()
+            {
+                throw new RuntimeException('Not expected to be invoked');
+            }
+
+            public function doSomething(): string
+            {
+                return 'Something';
+            }
+        };
+
+        $model = new ViewModel([
+            'object' => $invokable,
+        ]);
+        $model->setTemplate('template');
+
+        $renderer->setResolver($resolver);
+        $output = $renderer->render($model);
+
+        self::assertSame('Something', trim($output));
     }
 }

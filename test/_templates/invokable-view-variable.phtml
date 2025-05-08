@@ -1,0 +1,7 @@
+<?php
+
+assert(isset($this->object));
+assert(is_object($this->object));
+assert(method_exists($this->object, 'doSomething'));
+
+echo $this->object->doSomething();
