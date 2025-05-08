@@ -1,6 +1,6 @@
 # HeadLink
 
-The [HTML `<link>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/link) is used for linking a variety of resources for your site: stylesheets, preloads, feeds, favicons, trackbacks, and more.
+The [HTML `<link>` element](https://developer.mozilla.org/docs/Web/HTML/Reference/Elements/link) is used for linking a variety of resources for your site: stylesheets, preloads, feeds, favicons, trackbacks, and more.
 
 The `HeadLink` helper provides a straight forward interface for creating and aggregating these elements for later retrieval and output in your layout script.
 
