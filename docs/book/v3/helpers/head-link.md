@@ -113,5 +113,5 @@ When you have configured the doctype to `XHTML 1.1` for example, the closing tag
 
 ## Further Reading
 
-- [Mozilla's MDN Web Docs on the `<link>` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/link)
-- [MDN Docs on the `rel` attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Attributes/rel)
+- [Mozilla's MDN Web Docs on the `<link>` element](https://developer.mozilla.org/docs/Web/HTML/Reference/Elements/link)
+- [MDN Docs on the `rel` attribute](https://developer.mozilla.org/docs/Web/HTML/Reference/Attributes/rel)
