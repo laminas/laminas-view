@@ -6,6 +6,7 @@ namespace Laminas\View\Helper;
 
 use Closure;
 use Laminas\Escaper\Escaper;
+use Laminas\Escaper\EscaperInterface;
 use Laminas\Translator\TranslatorInterface;
 use Stringable;
 
@@ -23,7 +24,7 @@ final class HeadTitle implements Stringable, StatefulHelperInterface
 {
     /** @var list<string> $items */
     private array $items = [];
-    private readonly Escaper $escaper;
+    private readonly EscaperInterface $escaper;
     private string|null $separator;
     private string|null $indent;
     private string|null $prefix;
@@ -33,7 +34,7 @@ final class HeadTitle implements Stringable, StatefulHelperInterface
      * @param non-empty-string $translatorTextDomain
      */
     public function __construct(
-        Escaper|null $escaper = null,
+        EscaperInterface|null $escaper = null,
         private readonly bool $autoEscape = true,
         private readonly string $defaultSeparator = '',
         private readonly string $defaultIndent = '',

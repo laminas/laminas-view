@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Laminas\View\Helper;
 
-use Laminas\Escaper\Escaper;
+use Laminas\Escaper\EscaperInterface;
 use Laminas\View\HtmlAttributesSet;
 
 use function md5;
@@ -61,7 +61,7 @@ final class GravatarImage
         self::DEFAULT_BLANK,
     ];
 
-    public function __construct(private readonly Escaper $escaper)
+    public function __construct(private readonly EscaperInterface $escaper)
     {
     }
 

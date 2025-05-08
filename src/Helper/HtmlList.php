@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Laminas\View\Helper;
 
-use Laminas\Escaper\Escaper;
+use Laminas\Escaper\EscaperInterface;
 use Laminas\View\Exception;
 use Laminas\View\HtmlAttributesSet;
 
@@ -22,7 +22,7 @@ use const PHP_EOL;
  */
 final class HtmlList
 {
-    public function __construct(private readonly Escaper $escaper)
+    public function __construct(private readonly EscaperInterface $escaper)
     {
     }
 

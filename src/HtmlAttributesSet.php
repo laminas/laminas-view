@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Laminas\View;
 
 use ArrayObject;
-use Laminas\Escaper\Escaper;
+use Laminas\Escaper\EscaperInterface;
 use Traversable;
 
 use function array_merge;
@@ -28,18 +28,16 @@ use const JSON_THROW_ON_ERROR;
  * Class for storing and processing HTML tag attributes.
  *
  * @psalm-type AttributeSet = array<string, scalar|array|null>
+ * @extends ArrayObject<string, scalar|array|null>
  */
 final class HtmlAttributesSet extends ArrayObject
 {
-    /**
-     * HTML escaper
-     */
-    private Escaper $escaper;
-
-    public function __construct(Escaper $escaper, iterable $attributes = [])
+    /** @param iterable<string, scalar|array|null> $attributes */
+    public function __construct(private readonly EscaperInterface $escaper, iterable $attributes = [])
     {
-        $attributes    = $attributes instanceof Traversable ? iterator_to_array($attributes, true) : $attributes;
-        $this->escaper = $escaper;
+        $attributes = $attributes instanceof Traversable
+            ? iterator_to_array($attributes, true)
+            : $attributes;
         parent::__construct($attributes);
     }
 

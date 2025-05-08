@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Laminas\View\Helper\Service;
 
 use Laminas\Escaper\Escaper;
+use Laminas\Escaper\EscaperInterface;
 use Laminas\View\Helper\HeadTitle;
 use Psr\Container\ContainerInterface;
 
@@ -25,8 +26,8 @@ final class HeadTitleFactory
 
         $options = $this->resolveOptions($config);
 
-        $escaper = $container->has(Escaper::class)
-            ? $container->get(Escaper::class)
+        $escaper = $container->has(EscaperInterface::class)
+            ? $container->get(EscaperInterface::class)
             : new Escaper();
 
         return new HeadTitle(
