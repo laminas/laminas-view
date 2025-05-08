@@ -50,7 +50,7 @@ bump-tools: ## Bump and update standalone dev tools
 clean: ## Clear out caches and documentation assets
 	rm -rf documentation-theme
 	rm -rf docs/html
-	docker image rm laminas/mkdocs
+	$(if ${MKDOCS_IMAGE_ID}, docker image rm laminas/mkdocs, echo "Skip image removal" )
 	rm -rf .phpunit.cache
 	rm -f .phpcs-cache
 	vendor/bin/psalm --clear-cache
