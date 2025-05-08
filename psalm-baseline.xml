@@ -238,6 +238,9 @@
     <ArgumentTypeCoercion>
       <code><![CDATA[$item]]></code>
     </ArgumentTypeCoercion>
+    <DeprecatedMethod>
+      <code><![CDATA[offsetSet]]></code>
+    </DeprecatedMethod>
     <MethodSignatureMustProvideReturnType>
       <code><![CDATA[offsetSet]]></code>
     </MethodSignatureMustProvideReturnType>
@@ -2533,6 +2536,13 @@
     </UndefinedMethod>
   </file>
   <file src="test/Helper/HeadLinkTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[headLink]]></code>
+      <code><![CDATA[headLink]]></code>
+      <code><![CDATA[headLink]]></code>
+      <code><![CDATA[headLink]]></code>
+      <code><![CDATA[offsetSet]]></code>
+    </DeprecatedMethod>
     <InternalMethod>
       <code><![CDATA[new EscapeHtmlAttr()]]></code>
     </InternalMethod>

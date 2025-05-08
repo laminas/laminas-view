@@ -82,6 +82,9 @@ class HeadLink extends AbstractStandalone
      * Allows calling $helper->headLink(), but, more importantly, chaining calls
      * like ->appendStylesheet()->headLink().
      *
+     * @deprecated Since 2.40.0 This method will be removed in 3.0 - it is no longer necessary as
+     *             `__invoke` is called directly
+     *
      * @param  array<string, mixed>|null $attributes
      * @param  string     $placement
      * @return HeadLink
@@ -142,6 +145,10 @@ class HeadLink extends AbstractStandalone
      *   - public function appendChapter()
      *   - public function appendSection()
      *   - public function appendSubsection()
+     *
+     * @deprecated Since 2.40.0 All magic methods will no longer be accessible in 3.0. Some of the supported methods
+     *             will be re-implemented as concrete methods such as `appendStylesheet` and `prependStylesheet`
+     *             but there will also be signature changes and further simplifications.
      *
      * @param  string $method
      * @param  mixed $args
@@ -240,6 +247,8 @@ class HeadLink extends AbstractStandalone
 
     /**
      * offsetSet()
+     *
+     * @deprecated Since 2.40.0 It will not be possible to get or set link entries at specific indexes in version 3.0
      *
      * @param int $offset
      * @param object $value
