@@ -60,7 +60,7 @@ final class HeadLinkTest extends TestCase
     {
         $this->helper->appendStylesheet('foo.css');
         self::assertSame(
-            '<link rel="stylesheet" href="foo.css" type="text&#x2F;css">',
+            '<link href="foo.css" rel="stylesheet" type="text&#x2F;css">',
             $this->helper->toString(),
         );
     }
@@ -69,7 +69,7 @@ final class HeadLinkTest extends TestCase
     {
         $this->helper->appendStylesheet('foo.css', ['data-baz' => 'bing']);
         self::assertSame(
-            '<link data-baz="bing" rel="stylesheet" href="foo.css" type="text&#x2F;css">',
+            '<link data-baz="bing" href="foo.css" rel="stylesheet" type="text&#x2F;css">',
             $this->helper->toString(),
         );
     }
@@ -81,9 +81,9 @@ final class HeadLinkTest extends TestCase
         $this->helper->appendStylesheet('c.css');
 
         $expect = <<<'HTML'
-            <link rel="stylesheet" href="b.css" type="text&#x2F;css">
-            <link rel="stylesheet" href="a.css" type="text&#x2F;css">
-            <link rel="stylesheet" href="c.css" type="text&#x2F;css">
+            <link href="b.css" rel="stylesheet" type="text&#x2F;css">
+            <link href="a.css" rel="stylesheet" type="text&#x2F;css">
+            <link href="c.css" rel="stylesheet" type="text&#x2F;css">
             HTML;
 
         self::assertSame($expect, $this->helper->toString());
@@ -96,7 +96,7 @@ final class HeadLinkTest extends TestCase
         $this->helper->setStylesheet('c.css');
 
         $expect = <<<'HTML'
-            <link rel="stylesheet" href="c.css" type="text&#x2F;css">
+            <link href="c.css" rel="stylesheet" type="text&#x2F;css">
             HTML;
 
         self::assertSame($expect, $this->helper->toString());
@@ -108,7 +108,7 @@ final class HeadLinkTest extends TestCase
         $this->helper->append(['rel' => 'preload', 'as' => 'font', 'href' => 'a.woff']);
 
         self::assertSame(
-            '<link rel="preload" as="font" href="a.woff" />',
+            '<link as="font" href="a.woff" rel="preload" />',
             $this->helper->toString(),
         );
     }
@@ -118,7 +118,7 @@ final class HeadLinkTest extends TestCase
         $this->helper->appendStylesheet('foo');
         $this->helper->appendStylesheet('foo');
         self::assertSame(
-            '<link rel="stylesheet" href="foo" type="text&#x2F;css">',
+            '<link href="foo" rel="stylesheet" type="text&#x2F;css">',
             $this->helper->toString(),
         );
     }
@@ -129,8 +129,8 @@ final class HeadLinkTest extends TestCase
         $this->helper->append(['rel' => 'b', 'href' => 'foo']);
 
         $expect = <<<'HTML'
-            <link rel="a" href="foo">
-            <link rel="b" href="foo">
+            <link href="foo" rel="a">
+            <link href="foo" rel="b">
             HTML;
 
         self::assertSame($expect, $this->helper->toString());
@@ -143,7 +143,7 @@ final class HeadLinkTest extends TestCase
         $this->helper->setSeparator('Kermit');
 
         $expect = <<<'HTML'
-            <link rel="a" href="foo">Kermit<link rel="b" href="foo">
+            <link href="foo" rel="a">Kermit<link href="foo" rel="b">
             HTML;
         self::assertSame($expect, $this->helper->toString());
     }
