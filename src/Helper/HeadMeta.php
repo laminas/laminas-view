@@ -71,6 +71,8 @@ class HeadMeta extends AbstractStandalone
     /**
      * Allowed key types
      *
+     * @deprecated Since 2.40.0 This property will be inaccessible in v3.0 when the final keyword is added
+     *
      * @var list<string>
      */
     protected $typeKeys = ['name', 'http-equiv', 'charset', 'property', 'itemprop'];
@@ -86,6 +88,8 @@ class HeadMeta extends AbstractStandalone
 
     /**
      * Allowed modifier keys
+     *
+     * @deprecated Since 2.40.0 This property will be inaccessible in v3.0 when the final keyword is added
      *
      * @var list<string>
      */
@@ -136,10 +140,13 @@ class HeadMeta extends AbstractStandalone
     /**
      * Overload method access
      *
-     * @param  string $method
-     * @param  array  $args
-     * @throws Exception\BadMethodCallException
+     * @deprecated Since 2.40.0 Some, but not all magic setters and getters will be replaced with
+     *             concrete methods in 3.0
+     *
+     * @param string $method
+     * @param array $args
      * @return $this
+     * @throws Exception\BadMethodCallException
      */
     public function __call($method, $args)
     {
@@ -426,8 +433,10 @@ class HeadMeta extends AbstractStandalone
     /**
      * OffsetSet
      *
-     * @param  int $index
-     * @param  mixed $value
+     * @deprecated Since 2.40.0 This class will not implement ArrayAccess any more in version 3.0
+     *
+     * @param int $index
+     * @param mixed $value
      * @return void
      * @throws Exception\InvalidArgumentException
      */
@@ -445,7 +454,9 @@ class HeadMeta extends AbstractStandalone
     /**
      * OffsetUnset
      *
-     * @param  int $offset
+     * @deprecated Since 2.40.0 This class will not implement ArrayAccess any more in version 3.0
+     *
+     * @param int $offset
      * @return void
      * @throws Exception\InvalidArgumentException
      */
@@ -479,9 +490,11 @@ class HeadMeta extends AbstractStandalone
     /**
      * Set
      *
+     * @deprecated Since 2.40.0 This method will be removed in 3.0 without a direct replacement
+     *
      * @param object $value
-     * @throws Exception\InvalidArgumentException
      * @return AbstractContainer
+     * @throws Exception\InvalidArgumentException
      */
     public function set($value)
     {
