@@ -70,73 +70,6 @@
       <code><![CDATA[$value[$k]]]></code>
     </MixedAssignment>
   </file>
-  <file src="src/Helper/HeadMeta.php">
-    <ArgumentTypeCoercion>
-      <code><![CDATA[$item]]></code>
-      <code><![CDATA[$value]]></code>
-      <code><![CDATA[$value]]></code>
-    </ArgumentTypeCoercion>
-    <MethodSignatureMustProvideReturnType>
-      <code><![CDATA[offsetSet]]></code>
-      <code><![CDATA[offsetUnset]]></code>
-    </MethodSignatureMustProvideReturnType>
-    <MixedArgument>
-      <code><![CDATA[$args[0]]]></code>
-      <code><![CDATA[$args[1]]]></code>
-      <code><![CDATA[$args[2]]]></code>
-      <code><![CDATA[$index]]></code>
-      <code><![CDATA[$item->$type]]></code>
-      <code><![CDATA[$item->content]]></code>
-      <code><![CDATA[$item->type]]></code>
-      <code><![CDATA[$key]]></code>
-      <code><![CDATA[$this->autoEscape ? $this->escapeAttribute($item->$type) : $item->$type]]></code>
-      <code><![CDATA[$this->autoEscape ? $this->escapeAttribute($item->content) : $item->content]]></code>
-      <code><![CDATA[$this->autoEscape ? $this->escapeAttribute($value) : $value]]></code>
-      <code><![CDATA[$type]]></code>
-      <code><![CDATA[$value]]></code>
-      <code><![CDATA[$value]]></code>
-    </MixedArgument>
-    <MixedAssignment>
-      <code><![CDATA[$doctype]]></code>
-      <code><![CDATA[$index]]></code>
-      <code><![CDATA[$key]]></code>
-      <code><![CDATA[$type]]></code>
-      <code><![CDATA[$value]]></code>
-    </MixedAssignment>
-    <MixedMethodCall>
-      <code><![CDATA[isHtml5]]></code>
-      <code><![CDATA[isHtml5]]></code>
-      <code><![CDATA[isHtml5]]></code>
-      <code><![CDATA[isHtml5]]></code>
-      <code><![CDATA[isRdfa]]></code>
-      <code><![CDATA[isXhtml]]></code>
-    </MixedMethodCall>
-    <MixedReturnStatement>
-      <code><![CDATA[parent::__call($method, $args)]]></code>
-      <code><![CDATA[parent::__call($method, $args)]]></code>
-    </MixedReturnStatement>
-    <ParamNameMismatch>
-      <code><![CDATA[$index]]></code>
-    </ParamNameMismatch>
-    <PossiblyNullArgument>
-      <code><![CDATA[$index]]></code>
-      <code><![CDATA[$this->view]]></code>
-    </PossiblyNullArgument>
-    <PossiblyNullReference>
-      <code><![CDATA[plugin]]></code>
-      <code><![CDATA[plugin]]></code>
-      <code><![CDATA[plugin]]></code>
-    </PossiblyNullReference>
-    <PossiblyUnusedReturnValue>
-      <code><![CDATA[AbstractContainer]]></code>
-      <code><![CDATA[AbstractContainer]]></code>
-    </PossiblyUnusedReturnValue>
-    <UndefinedInterfaceMethod>
-      <code><![CDATA[plugin]]></code>
-      <code><![CDATA[plugin]]></code>
-      <code><![CDATA[plugin]]></code>
-    </UndefinedInterfaceMethod>
-  </file>
   <file src="src/Helper/HeadScript.php">
     <MethodSignatureMustProvideReturnType>
       <code><![CDATA[offsetSet]]></code>
@@ -401,6 +334,7 @@
     <PossiblyUnusedMethod>
       <code><![CDATA[__get]]></code>
       <code><![CDATA[__set]]></code>
+      <code><![CDATA[escape]]></code>
       <code><![CDATA[getAutoEscape]]></code>
     </PossiblyUnusedMethod>
     <RedundantCastGivenDocblockType>
@@ -822,28 +756,6 @@
     <RedundantCastGivenDocblockType>
       <code><![CDATA[(string) $this->helper->toString()]]></code>
     </RedundantCastGivenDocblockType>
-  </file>
-  <file src="test/Helper/HeadMetaTest.php">
-    <DeprecatedMethod>
-      <code><![CDATA[setService]]></code>
-    </DeprecatedMethod>
-    <InvalidArgument>
-      <code><![CDATA['foo']]></code>
-      <code><![CDATA['foo']]></code>
-      <code><![CDATA['foo']]></code>
-    </InvalidArgument>
-    <PossiblyNullPropertyFetch>
-      <code><![CDATA[$item->content]]></code>
-      <code><![CDATA[$item->name]]></code>
-      <code><![CDATA[$item->type]]></code>
-    </PossiblyNullPropertyFetch>
-    <UndefinedMagicMethod>
-      <code><![CDATA[offsetSetHttpEquiv]]></code>
-      <code><![CDATA[offsetSetHttpEquiv]]></code>
-      <code><![CDATA[offsetSetName]]></code>
-      <code><![CDATA[offsetSetName]]></code>
-      <code><![CDATA[offsetSetName]]></code>
-    </UndefinedMagicMethod>
   </file>
   <file src="test/Helper/HeadScriptTest.php">
     <DeprecatedMethod>
