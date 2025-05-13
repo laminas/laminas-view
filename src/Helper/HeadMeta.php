@@ -443,7 +443,7 @@ class HeadMeta extends AbstractStandalone
     public function offsetSet($index, $value)
     {
         if (! $this->isValid($value)) {
-            throw  new Exception\InvalidArgumentException(
+            throw new Exception\InvalidArgumentException(
                 'Invalid value passed to offsetSet; please use offsetSetName() or offsetSetHttpEquiv()'
             );
         }
