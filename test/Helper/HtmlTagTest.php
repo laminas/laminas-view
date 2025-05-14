@@ -6,125 +6,94 @@ namespace LaminasTest\View\Helper;
 
 use Laminas\Escaper\Escaper;
 use Laminas\View\Helper\Doctype;
-use Laminas\View\Helper\EscapeHtmlAttr;
 use Laminas\View\Helper\HtmlTag;
-use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
 
-use function sprintf;
-
+/** @psalm-import-type DoctypeID from Doctype */
 final class HtmlTagTest extends TestCase
 {
-    /** @var HtmlTag */
-    public $helper;
-    private View $view;
+    private HtmlTag $helper;
 
     protected function setUp(): void
     {
-        $this->view   = new View();
-        $this->helper = new HtmlTag();
-        $this->helper->setView($this->view);
+        $this->helper = new HtmlTag(
+            new Escaper(),
+            new Doctype(),
+        );
     }
 
-    protected function assertAttribute(string $name, ?string $value = null): void
+    /** @param DoctypeID $doctype */
+    private function setDoctype(string $doctype): void
     {
-        $attributes = $this->helper->getAttributes();
-        $this->assertArrayHasKey($name, $attributes);
-        if ($value !== null) {
-            $this->assertEquals($value, $attributes[$name]);
-        }
+        $this->helper = new HtmlTag(
+            new Escaper(),
+            new Doctype($doctype),
+        );
     }
 
-    public function testSettingSingleAttribute(): void
+    public function testBareHtmlTagByDefault(): void
     {
-        $this->helper->setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
-        $this->assertAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
+        self::assertSame('<html>', $this->helper->openTag());
+        self::assertSame('</html>', $this->helper->closeTag());
     }
 
-    public function testAddingMultipleAttributes(): void
+    public function testArbitraryAttributeViaInvoke(): void
     {
-        $attribs = [
-            'xmlns'  => 'http://www.w3.org/1999/xhtml',
-            'prefix' => 'og: http://ogp.me/ns#',
-        ];
-        $this->helper->setAttributes($attribs);
+        $this->helper->__invoke(['foo' => 'bar']);
 
-        foreach ($attribs as $name => $value) {
-            $this->assertAttribute($name, $value);
-        }
+        self::assertStringContainsString('foo="bar"', $this->helper->openTag());
     }
 
-    public function testSettingMultipleAttributesOverwritesExisting(): void
+    public function testArbitraryAttributesViaSetter(): void
     {
-        $this->helper->setAttribute('prefix', 'foobar');
+        $this->helper->setAttributes(['foo' => 'bar']);
 
-        $attribs = [
-            'xmlns'  => 'http://www.w3.org/1999/xhtml',
-            'prefix' => 'og: http://ogp.me/ns#',
-        ];
-        $this->helper->setAttributes($attribs);
-
-        $this->assertCount(2, $this->helper->getAttributes());
-        foreach ($attribs as $name => $value) {
-            $this->assertAttribute($name, $value);
-        }
+        self::assertStringContainsString('foo="bar"', $this->helper->openTag());
     }
 
-    public function testRenderingOpenTagWithNoAttributes(): void
+    public function testAddingSingleAttributeViaSetter(): void
     {
-        $this->assertEquals('<html>', $this->helper->openTag());
+        $this->helper->setAttribute('baz', 'bat');
+        self::assertStringContainsString('baz="bat"', $this->helper->openTag());
     }
 
-    public function testRenderingOpenTagWithAttributes(): void
+    public function testSetAttributesDestroysExisting(): void
     {
-        $attribs = [
-            'xmlns'    => 'http://www.w3.org/1999/xhtml',
-            'xmlns:og' => 'http://ogp.me/ns#',
-        ];
+        $this->helper->setAttributes(['bing' => 'bong']);
+        $this->helper->setAttributes(['thing' => 'thang']);
 
-        $this->helper->setAttributes($attribs);
-
-        $tag = $this->helper->openTag();
-
-        $this->assertStringStartsWith('<html', $tag);
-
-        $escape = new EscapeHtmlAttr(new Escaper());
-
-        foreach ($attribs as $name => $value) {
-            $this->assertStringContainsString(sprintf('%s="%s"', $name, $escape($value)), $tag);
-        }
+        self::assertStringContainsString('thing="thang"', $this->helper->openTag());
+        self::assertStringNotContainsString('bing="bong"', $this->helper->openTag());
     }
 
-    public function testRenderingCloseTag(): void
+    public function testAttributesAreEscaped(): void
     {
-        $this->assertEquals('</html>', $this->helper->closeTag());
+        self::assertStringContainsString(
+            'foo="a&#x20;b"',
+            $this->helper->setAttribute('foo', 'a b')->openTag(),
+        );
     }
 
-    public function testUseNamespacesSetter(): void
+    public function testNamespaceIsAddedToXhtmlDoc(): void
     {
-        $this->helper->setUseNamespaces(true);
-        $this->assertTrue($this->helper->getUseNamespaces());
+        $this->setDoctype(Doctype::XHTML1_STRICT);
+        $this->helper->addXhtmlNamespace(true);
+        self::assertStringContainsString('xmlns="https', $this->helper->openTag());
     }
 
-    public function testAppropriateNamespaceAttributesAreSetIfFlagIsOn(): void
+    public function testNamespaceIsNotAddedToXhtmlDocWhenNotExplicitlyActivated(): void
     {
-        $doctype = new Doctype(Doctype::XHTML11);
-        $helpers = $this->view->getHelperPluginManager();
-        $helpers->setService(Doctype::class, $doctype);
+        $this->setDoctype(Doctype::XHTML1_STRICT);
+        self::assertStringNotContainsString('xmlns="https', $this->helper->openTag());
+    }
 
-        $attribs = [
-            'prefix' => 'og: http://ogp.me/ns#',
-        ];
+    public function testStateReset(): void
+    {
+        $this->setDoctype(Doctype::XHTML1_STRICT);
+        $this->helper->setAttributes(['foo' => 'bar'])
+            ->addXhtmlNamespace(true)
+            ->resetState();
 
-        $this->helper->setUseNamespaces(true)->setAttributes($attribs);
-
-        $tag = $this->helper->openTag();
-
-        $escape = new EscapeHtmlAttr(new Escaper());
-
-        $this->assertStringContainsString(sprintf('%s="%s"', 'xmlns', $escape('http://www.w3.org/1999/xhtml')), $tag);
-        foreach ($attribs as $name => $value) {
-            $this->assertStringContainsString(sprintf('%s="%s"', $name, $escape($value)), $tag);
-        }
+        self::assertSame('<html>', $this->helper->openTag());
     }
 }

@@ -21,86 +21,33 @@ Output:
 
 ## Using Attributes
 
-### Set a single Attribute
-
-<!-- markdownlint-disable code-block-style -->
-=== "Invoke Usage"
-    ```php
-    $this->htmlTag(['lang' => 'en']);
-
-    echo $this->htmlTag()->openTag(); // <html lang="en">
-    ```
-
-=== "Setter Usage"
-    ```php
-    $this->htmlTag()->setAttribute('lang', 'en');
-
-    echo $this->htmlTag()->openTag(); // <html lang="en">
-    ```
-<!-- markdownlint-enable code-block-style -->
-
-### Set multiple Attributes
-
-<!-- markdownlint-disable code-block-style -->
-=== "Invoke Usage"
-    ```php
-    $this->htmlTag(['lang' => 'en', 'id' => 'example']);
-
-    echo $this->htmlTag()->openTag(); // <html lang="en" id="example">
-    ```
-
-=== "Setter Usage"
-    ```php
-    $this->htmlTag()->setAttributes(['lang' => 'en', 'id' => 'example']);
-
-    echo $this->htmlTag()->openTag(); // <html lang="en" id="example">
-    ```
-<!-- markdownlint-enable code-block-style -->
-
-### Get current Value
-
-To get the current value, use the `getAttributes()` method.
+It is possible to set any attributes you require on the tag, either during the initial invocation, or via the `setAttributes` method:
 
 ```php
-$this->htmlTag(['lang' => 'en', 'id' => 'example']);
+echo $this->htmlTag()->setAttributes([
+    'class' => 'no-js',
+    'lang' => 'de',
+])->openTag();
 
-var_dump($this->htmlTag()->getAttributes()); // ['lang' => 'en', 'id' => 'example']
+// <html class="no-js" lang="de">
 ```
 
-### Default Value
-
-The default value is an empty `array` that means no attributes are set.
-
-## Using Namespace
-
-The `HtmlTag` helper can automatically add the [XHTML namespace](http://www.w3.org/1999/xhtml/)
-for XHTML documents. To use this functionality, the [`Doctype` helper](doctype.md)
-is used.
-
-The namespace is added only if the document type is set to an XHTML type and use
-is enabled:
+You can also add further individual attributes with `setAttribute` like so:
 
 ```php
-// Set doctype to XHTML
-$this->doctype(Laminas\View\Helper\Doctype::XHTML1_STRICT);
+echo $this->htmlTag()->setAttribute('frog', 'kermit')->openTag();
 
-// Add namespace to open tag
-$this->htmlTag()->setUseNamespaces(true);
-
-// Output
-echo $this->htmlTag()->openTag(); // <html xmlns="http://www.w3.org/1999/xhtml">
+// <html frog="kermit">
 ```
 
-### Get current Value
+## Adding the XML Namespace for XHTML Documents
 
-To get the current value, use the `getUseNamespaces()` method.
+If you have configured the [doctype view helper](doctype.md) with an XHTML doctype, you can enable the relevant XML namespace on the HTML tag with `addXhtmlNamespace`:
 
 ```php
-$this->htmlTag()->setUseNamespaces(true);
+echo $this->htmlTag()->addXhtmlNamespace(true)->openTag();
 
-var_dump($this->htmlTag()->getUseNamespaces()); // true
+// <html xmlns="http://www.w3.org/1999/xhtml">
 ```
 
-### Default Value
-
-The default value is `false` that means no namespace is added as attribute.
+By default, the namespace will not be added, even if the current doctype is an XHTML doctype. You must explicitly enable it with `addXhtmlNamespace(true)`.

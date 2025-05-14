@@ -12,7 +12,6 @@
   <file src="src/Helper/AbstractHtmlElement.php">
     <MissingConstructor>
       <code><![CDATA[$closingBracket]]></code>
-      <code><![CDATA[$closingBracket]]></code>
     </MissingConstructor>
     <MixedArgument>
       <code><![CDATA[$val]]></code>
@@ -168,23 +167,6 @@
     <PossiblyUnusedReturnValue>
       <code><![CDATA[HelperInterface]]></code>
     </PossiblyUnusedReturnValue>
-  </file>
-  <file src="src/Helper/HtmlTag.php">
-    <MixedArgument>
-      <code><![CDATA[$value]]></code>
-    </MixedArgument>
-    <MixedArgumentTypeCoercion>
-      <code><![CDATA[$name]]></code>
-    </MixedArgumentTypeCoercion>
-    <MixedAssignment>
-      <code><![CDATA[$value]]></code>
-    </MixedAssignment>
-    <PossiblyNullArgument>
-      <code><![CDATA[$this->view]]></code>
-    </PossiblyNullArgument>
-    <RedundantCastGivenDocblockType>
-      <code><![CDATA[(bool) $useNamespaces]]></code>
-    </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Helper/InlineScript.php">
     <InvalidExtendClass>
@@ -715,16 +697,6 @@
     <UnusedParam>
       <code><![CDATA[$key]]></code>
     </UnusedParam>
-  </file>
-  <file src="test/Helper/HtmlTagTest.php">
-    <DeprecatedMethod>
-      <code><![CDATA[setService]]></code>
-    </DeprecatedMethod>
-    <MixedArgument>
-      <code><![CDATA[$escape($value)]]></code>
-      <code><![CDATA[$escape($value)]]></code>
-      <code><![CDATA[$escape('http://www.w3.org/1999/xhtml')]]></code>
-    </MixedArgument>
   </file>
   <file src="test/Helper/PartialLoopTest.php">
     <InvalidArgument>
