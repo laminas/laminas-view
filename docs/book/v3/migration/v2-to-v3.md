@@ -157,6 +157,21 @@ This helper no longer inherits from a base class, therefore the following method
 - `setView`
 - `getClosingBracket`
 
+#### `HtmlTag`
+
+This helper no longer inherits from a base class, therefore the following methods have been removed
+
+- `getView`
+- `setView`
+- `getClosingBracket`
+
+Additionally, methods to introspect the internal attributes and flags have been removed:
+
+- `getAttributes`
+- `getUseNamespaces`
+
+The method to enable the addition of the `xmlns` attribute for XHTML doctypes has been renamed from `setUseNamespaces` to `addXhtmlNamespace` to better describe its behaviour.
+
 #### `Layout`
 
 The inheritance hierarchy has been removed from this helper and the following methods have been removed:
