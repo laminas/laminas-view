@@ -14,6 +14,9 @@ documentation will only contain examples of two of these helpers.
 
 ## HtmlPage helper
 
+WARNING: **Deprecated**
+The `HtmlPage` view helper has been deprecated and will be removed in version 3.0.
+
 Embedding an external HTML page in your page using the helper only requires the resource URI.
 
 ```php
