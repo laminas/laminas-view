@@ -9,34 +9,6 @@
       <code><![CDATA[$template]]></code>
     </PossiblyNullArgument>
   </file>
-  <file src="src/Helper/AbstractHtmlElement.php">
-    <MissingConstructor>
-      <code><![CDATA[$closingBracket]]></code>
-    </MissingConstructor>
-    <MixedArgument>
-      <code><![CDATA[$val]]></code>
-    </MixedArgument>
-    <MixedAssignment>
-      <code><![CDATA[$val]]></code>
-    </MixedAssignment>
-    <PossiblyInvalidArgument>
-      <code><![CDATA[$attribs]]></code>
-    </PossiblyInvalidArgument>
-    <PossiblyNullReference>
-      <code><![CDATA[plugin]]></code>
-      <code><![CDATA[plugin]]></code>
-    </PossiblyNullReference>
-    <PossiblyUnusedMethod>
-      <code><![CDATA[getClosingBracket]]></code>
-    </PossiblyUnusedMethod>
-    <RedundantCastGivenDocblockType>
-      <code><![CDATA[(array) $attribs]]></code>
-    </RedundantCastGivenDocblockType>
-    <UndefinedInterfaceMethod>
-      <code><![CDATA[plugin]]></code>
-      <code><![CDATA[plugin]]></code>
-    </UndefinedInterfaceMethod>
-  </file>
   <file src="src/Helper/Cycle.php">
     <ImplementedReturnTypeMismatch>
       <code><![CDATA[Cycle]]></code>
@@ -759,11 +731,6 @@
     <MixedReturnStatement>
       <code><![CDATA[iterable]]></code>
     </MixedReturnStatement>
-  </file>
-  <file src="test/Helper/TestAsset/ConcreteElementHelper.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[normalizeElementId]]></code>
-    </PossiblyUnusedMethod>
   </file>
   <file src="test/Helper/TestAsset/IteratorWithToArrayTestContainer.php">
     <MixedAssignment>
