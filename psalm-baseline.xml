@@ -179,23 +179,6 @@
       <code><![CDATA[$content]]></code>
     </RiskyTruthyFalsyComparison>
   </file>
-  <file src="src/Helper/HtmlPage.php">
-    <MixedAssignment>
-      <code><![CDATA[$htmlObject]]></code>
-    </MixedAssignment>
-    <MixedFunctionCall>
-      <code><![CDATA[$htmlObject($data, self::TYPE, $attribs, $params, $content)]]></code>
-    </MixedFunctionCall>
-    <MixedReturnStatement>
-      <code><![CDATA[$htmlObject($data, self::TYPE, $attribs, $params, $content)]]></code>
-    </MixedReturnStatement>
-    <PossiblyNullReference>
-      <code><![CDATA[plugin]]></code>
-    </PossiblyNullReference>
-    <UndefinedInterfaceMethod>
-      <code><![CDATA[plugin]]></code>
-    </UndefinedInterfaceMethod>
-  </file>
   <file src="src/Helper/HtmlTag.php">
     <MixedArgument>
       <code><![CDATA[$value]]></code>
