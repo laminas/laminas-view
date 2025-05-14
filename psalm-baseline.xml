@@ -13,7 +13,6 @@
     <MissingConstructor>
       <code><![CDATA[$closingBracket]]></code>
       <code><![CDATA[$closingBracket]]></code>
-      <code><![CDATA[$closingBracket]]></code>
     </MissingConstructor>
     <MixedArgument>
       <code><![CDATA[$val]]></code>
@@ -28,6 +27,9 @@
       <code><![CDATA[plugin]]></code>
       <code><![CDATA[plugin]]></code>
     </PossiblyNullReference>
+    <PossiblyUnusedMethod>
+      <code><![CDATA[getClosingBracket]]></code>
+    </PossiblyUnusedMethod>
     <RedundantCastGivenDocblockType>
       <code><![CDATA[(array) $attribs]]></code>
     </RedundantCastGivenDocblockType>
@@ -166,17 +168,6 @@
     <PossiblyUnusedReturnValue>
       <code><![CDATA[HelperInterface]]></code>
     </PossiblyUnusedReturnValue>
-  </file>
-  <file src="src/Helper/HtmlObject.php">
-    <MixedArgument>
-      <code><![CDATA[$options]]></code>
-    </MixedArgument>
-    <MixedAssignment>
-      <code><![CDATA[$options]]></code>
-    </MixedAssignment>
-    <RiskyTruthyFalsyComparison>
-      <code><![CDATA[$content]]></code>
-    </RiskyTruthyFalsyComparison>
   </file>
   <file src="src/Helper/HtmlTag.php">
     <MixedArgument>
@@ -724,11 +715,6 @@
     <UnusedParam>
       <code><![CDATA[$key]]></code>
     </UnusedParam>
-  </file>
-  <file src="test/Helper/HtmlObjectTest.php">
-    <DeprecatedMethod>
-      <code><![CDATA[setService]]></code>
-    </DeprecatedMethod>
   </file>
   <file src="test/Helper/HtmlTagTest.php">
     <DeprecatedMethod>

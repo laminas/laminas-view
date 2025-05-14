@@ -46,7 +46,7 @@ final class HelperPluginManager extends AbstractPluginManager
             Helper\HeadTitle::class           => Helper\Service\HeadTitleFactory::class,
             Helper\HtmlAttributes::class      => EscapeHelperFactory::class,
             Helper\HtmlList::class            => EscapeHelperFactory::class,
-            Helper\HtmlObject::class          => InvokableFactory::class,
+            Helper\HtmlObject::class          => Helper\Service\HtmlObjectFactory::class,
             Helper\HtmlTag::class             => InvokableFactory::class,
             Helper\Identity::class            => Helper\Service\IdentityFactory::class,
             Helper\InlineScript::class        => InvokableFactory::class,
