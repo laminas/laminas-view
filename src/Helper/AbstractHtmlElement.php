@@ -13,6 +13,10 @@ use function trim;
 
 use const PHP_EOL;
 
+/**
+ * @deprecated Since 2.40.0. This abstract base class is unnecessary once helpers are refactored to use dependency
+ *             injection.
+ */
 abstract class AbstractHtmlElement extends AbstractHelper
 {
     /**
