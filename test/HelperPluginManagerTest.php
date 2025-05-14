@@ -13,7 +13,6 @@ use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Helper\Identity;
 use Laminas\View\Helper\Partial;
 use Laminas\View\HelperPluginManager;
-use Laminas\View\Renderer\PhpRenderer;
 use PHPUnit\Framework\TestCase;
 
 final class HelperPluginManagerTest extends TestCase
@@ -23,26 +22,6 @@ final class HelperPluginManagerTest extends TestCase
     protected function setUp(): void
     {
         $this->helpers = new HelperPluginManager(new ServiceManager());
-    }
-
-    public function testViewIsNullByDefault(): void
-    {
-        $this->assertNull($this->helpers->getRenderer());
-    }
-
-    public function testAllowsInjectingRenderer(): void
-    {
-        $renderer = new PhpRenderer();
-        $this->helpers->setRenderer($renderer);
-        $this->assertSame($renderer, $this->helpers->getRenderer());
-    }
-
-    public function testInjectsRendererToHelperWhenRendererIsPresent(): void
-    {
-        $renderer = new PhpRenderer();
-        $this->helpers->setRenderer($renderer);
-        $helper = $this->helpers->get(HeadStyle::class);
-        $this->assertSame($renderer, $helper->getView());
     }
 
     public function testNoRendererInjectedInHelperWhenRendererIsNotPresent(): void

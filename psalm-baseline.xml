@@ -357,32 +357,9 @@
     </PossiblyUnusedReturnValue>
   </file>
   <file src="src/HelperPluginManager.php">
-    <DeprecatedProperty>
-      <code><![CDATA[$this->initializers]]></code>
-      <code><![CDATA[$this->initializers]]></code>
-      <code><![CDATA[$this->initializers]]></code>
-      <code><![CDATA[$this->initializers]]></code>
-    </DeprecatedProperty>
-    <DocblockTypeContradiction>
-      <code><![CDATA[! $events]]></code>
-      <code><![CDATA[! $events]]></code>
-    </DocblockTypeContradiction>
     <MethodSignatureMismatch>
       <code><![CDATA[HelperPluginManager]]></code>
     </MethodSignatureMismatch>
-    <MixedArgument>
-      <code><![CDATA[$container->get('EventManager')]]></code>
-    </MixedArgument>
-    <MixedAssignment>
-      <code><![CDATA[$container]]></code>
-    </MixedAssignment>
-    <PossiblyUnusedMethod>
-      <code><![CDATA[injectEventManager]]></code>
-      <code><![CDATA[injectRenderer]]></code>
-    </PossiblyUnusedMethod>
-    <UndefinedInterfaceMethod>
-      <code><![CDATA[getServiceLocator]]></code>
-    </UndefinedInterfaceMethod>
   </file>
   <file src="src/HtmlAttributesSet.php">
     <MixedArgumentTypeCoercion>
@@ -544,7 +521,6 @@
   <file src="src/Renderer/PhpRenderer.php">
     <DocblockTypeContradiction>
       <code><![CDATA[! is_array($variables) && ! $variables instanceof ArrayAccess]]></code>
-      <code><![CDATA[gettype($helpers)]]></code>
     </DocblockTypeContradiction>
     <FalsableReturnStatement>
       <code><![CDATA[$this->__content]]></code>
@@ -565,9 +541,6 @@
       <code><![CDATA[$variablesAsArray[$key]]]></code>
       <code><![CDATA[$vars[$name]]]></code>
     </MixedAssignment>
-    <MixedMethodCall>
-      <code><![CDATA[new $helpers(new ServiceManager())]]></code>
-    </MixedMethodCall>
     <MixedReturnStatement>
       <code><![CDATA[$this->__filterChain->filter($this->__content)]]></code>
       <code><![CDATA[$this->__filterChain->filter($this->__content)]]></code>
@@ -598,9 +571,6 @@
     <RedundantCastGivenDocblockType>
       <code><![CDATA[(bool) $renderTrees]]></code>
     </RedundantCastGivenDocblockType>
-    <RedundantConditionGivenDocblockType>
-      <code><![CDATA[is_object($helpers)]]></code>
-    </RedundantConditionGivenDocblockType>
     <UnresolvableInclude>
       <code><![CDATA[include $this->__file]]></code>
     </UnresolvableInclude>

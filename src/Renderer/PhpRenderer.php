@@ -23,13 +23,10 @@ use function array_key_exists;
 use function array_pop;
 use function assert;
 use function call_user_func_array;
-use function class_exists;
 use function extract;
 use function get_debug_type;
-use function gettype;
 use function is_array;
 use function is_callable;
-use function is_object;
 use function is_string;
 use function method_exists;
 use function ob_end_clean;
@@ -121,10 +118,8 @@ class PhpRenderer implements Renderer, TreeRendererInterface
 
     /**
      * Helper plugin manager
-     *
-     * @var HelperPluginManager|null
      */
-    private $__helpers;
+    private HelperPluginManager|null $__helpers = null;
 
     /**
      * @var FilterChain|null
@@ -326,31 +321,8 @@ class PhpRenderer implements Renderer, TreeRendererInterface
         unset($vars[$name]);
     }
 
-    /**
-     * Set helper plugin manager instance
-     *
-     * @param  string|HelperPluginManager $helpers
-     * @return PhpRenderer
-     * @throws Exception\InvalidArgumentException
-     */
-    public function setHelperPluginManager($helpers)
+    public function setHelperPluginManager(HelperPluginManager $helpers): self
     {
-        if (is_string($helpers)) {
-            if (! class_exists($helpers)) {
-                throw new Exception\InvalidArgumentException(sprintf(
-                    'Invalid helper helpers class provided (%s)',
-                    $helpers
-                ));
-            }
-            $helpers = new $helpers(new ServiceManager());
-        }
-        if (! $helpers instanceof HelperPluginManager) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                'Helper helpers must extend Laminas\View\HelperPluginManager; got type "%s" instead',
-                is_object($helpers) ? $helpers::class : gettype($helpers)
-            ));
-        }
-        $helpers->setRenderer($this);
         $this->__helpers = $helpers;
 
         return $this;
@@ -358,19 +330,14 @@ class PhpRenderer implements Renderer, TreeRendererInterface
 
     /**
      * Get helper plugin manager instance
-     *
-     * @return HelperPluginManager
      */
-    public function getHelperPluginManager()
+    public function getHelperPluginManager(): HelperPluginManager
     {
-        $pluginManager = $this->__helpers;
-
-        if (! $pluginManager instanceof HelperPluginManager) {
-            $pluginManager = new HelperPluginManager(new ServiceManager());
-            $this->setHelperPluginManager($pluginManager);
+        if (! $this->__helpers instanceof HelperPluginManager) {
+            $this->__helpers = new HelperPluginManager(new ServiceManager());
         }
 
-        return $pluginManager;
+        return $this->__helpers;
     }
 
     /**
@@ -380,7 +347,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      * @param  string|class-string<T> $name Name of plugin to return
      * @return ($name is class-string ? T : HelperInterface|callable)
      */
-    public function plugin($name)
+    public function plugin(string $name): mixed
     {
         return $this->getHelperPluginManager()->get($name);
     }

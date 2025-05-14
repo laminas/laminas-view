@@ -9,7 +9,6 @@ use Laminas\Filter\FilterChain;
 use Laminas\Filter\FilterPluginManager;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Exception\DomainException;
-use Laminas\View\Exception\ExceptionInterface;
 use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Exception\UnexpectedValueException;
 use Laminas\View\Helper\Doctype;
@@ -27,7 +26,6 @@ use LaminasTest\View\TestAsset\Uninvokable;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use ReflectionObject;
-use stdClass;
 use Throwable;
 
 use function assert;
@@ -113,48 +111,6 @@ final class PhpRendererTest extends TestCase
     {
         $helper = $this->renderer->plugin('doctype');
         $this->assertInstanceOf(Doctype::class, $helper);
-    }
-
-    public function testPassingStringOfUndefinedClassToSetHelperPluginManagerRaisesException(): void
-    {
-        $this->expectException(ExceptionInterface::class);
-        $this->expectExceptionMessage('Invalid');
-        $this->renderer->setHelperPluginManager('__foo__');
-    }
-
-    public function testPassingValidStringClassToSetHelperPluginManagerCreatesIt(): void
-    {
-        $this->renderer->setHelperPluginManager(HelperPluginManager::class);
-        $this->assertInstanceOf(HelperPluginManager::class, $this->renderer->getHelperPluginManager());
-    }
-
-    /**
-     * @psalm-return array<array-key, array{0: mixed}>
-     */
-    public static function invalidPluginManagers(): array
-    {
-        return [
-            [true],
-            [1],
-            [1.0],
-            [['foo']],
-            [new stdClass()],
-        ];
-    }
-
-    #[DataProvider('invalidPluginManagers')]
-    public function testPassingInvalidArgumentToSetHelperPluginManagerRaisesException(mixed $plugins): void
-    {
-        $this->expectException(ExceptionInterface::class);
-        $this->expectExceptionMessage('must extend');
-        /** @psalm-suppress MixedArgument */
-        $this->renderer->setHelperPluginManager($plugins);
-    }
-
-    public function testInjectsSelfIntoHelperPluginManager(): void
-    {
-        $plugins = $this->renderer->getHelperPluginManager();
-        $this->assertSame($this->renderer, $plugins->getRenderer());
     }
 
     public function testFilterChainIsNullByDefault(): void
