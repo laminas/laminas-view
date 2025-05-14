@@ -2675,6 +2675,12 @@
       <code><![CDATA[$key]]></code>
     </UnusedParam>
   </file>
+  <file src="test/Helper/HtmlPageTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[HtmlPage]]></code>
+      <code><![CDATA[new HtmlPage()]]></code>
+    </DeprecatedClass>
+  </file>
   <file src="test/Helper/HtmlTagTest.php">
     <MixedArgument>
       <code><![CDATA[$escape($value)]]></code>
