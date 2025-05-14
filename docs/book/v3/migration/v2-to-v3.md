@@ -149,6 +149,14 @@ This helper no longer inherits from a base class, therefore the following method
 - `setView`
 - `getClosingBracket`
 
+#### `HtmlObject`
+
+This helper no longer inherits from a base class, therefore the following methods have been removed
+
+- `getView`
+- `setView`
+- `getClosingBracket`
+
 #### `Layout`
 
 The inheritance hierarchy has been removed from this helper and the following methods have been removed:
