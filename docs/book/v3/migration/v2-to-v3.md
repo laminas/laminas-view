@@ -260,6 +260,11 @@ function gravatarImage(
 );
 ```
 
+#### `HtmlPage`
+
+This helper was a simple shortcut for adding HTML documents to the output as HTML `<object>` elements.
+Most of the features this helper assisted with are deprecated or obsolete.
+
 #### Json
 
 The deprecated Json view helper has been removed.
