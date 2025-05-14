@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Laminas\View;
 
-use Laminas\EventManager\EventManagerAwareInterface;
-use Laminas\EventManager\SharedEventManagerInterface;
 use Laminas\ServiceManager\AbstractPluginManager;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Factory\InvokableFactory;
@@ -145,16 +143,10 @@ final class HelperPluginManager extends AbstractPluginManager
         ],
     ];
 
-    /** @var Renderer\RendererInterface|null */
-    protected $renderer;
-
     /**
      * Constructor
      *
      * Merges provided configuration with default configuration.
-     *
-     * Adds initializers to inject the attached renderer and event manager, if
-     * any, to the currently requested helper.
      *
      * @inheritDoc
      */
@@ -164,103 +156,7 @@ final class HelperPluginManager extends AbstractPluginManager
     ) {
         $config = array_replace_recursive(self::CONFIG, $config);
 
-        $this->initializers[] = [$this, 'injectRenderer'];
-        $this->initializers[] = [$this, 'injectEventManager'];
-
         parent::__construct($creationContext, $config);
-    }
-
-    /**
-     * Set renderer
-     *
-     * @return HelperPluginManager
-     */
-    public function setRenderer(Renderer\RendererInterface $renderer)
-    {
-        $this->renderer = $renderer;
-
-        return $this;
-    }
-
-    /**
-     * Retrieve renderer instance
-     *
-     * @return null|Renderer\RendererInterface
-     */
-    public function getRenderer()
-    {
-        return $this->renderer;
-    }
-
-    /**
-     * Inject a helper instance with the registered renderer
-     *
-     * @param ContainerInterface|HelperInterface $first helper instance
-     *     under laminas-servicemanager v2, ContainerInterface under v3.
-     * @param ContainerInterface|HelperInterface $second
-     *     ContainerInterface under laminas-servicemanager v3, helper instance
-     *     under v2. Ignored regardless.
-     * @return void
-     */
-    public function injectRenderer($first, $second)
-    {
-        $helper = $first instanceof ContainerInterface
-            ? $second
-            : $first;
-
-        if (! $helper instanceof Helper\HelperInterface) {
-            return;
-        }
-
-        $renderer = $this->getRenderer();
-        if (null === $renderer) {
-            return;
-        }
-        $helper->setView($renderer);
-    }
-
-    /**
-     * Inject a helper instance with the registered event manager
-     *
-     * @param ContainerInterface|HelperInterface $first helper instance
-     *     under laminas-servicemanager v2, ContainerInterface under v3.
-     * @param ContainerInterface|HelperInterface $second
-     *     ContainerInterface under laminas-servicemanager v3, helper instance
-     *     under v2. Ignored regardless.
-     * @return void
-     */
-    public function injectEventManager($first, $second)
-    {
-        if ($first instanceof ContainerInterface) {
-            // v3 usage
-            $container = $first;
-            $helper    = $second;
-        } else {
-            // v2 usage; grab the parent container
-            $container = $second->getServiceLocator();
-            $helper    = $first;
-        }
-
-        if (! $container instanceof ContainerInterface) {
-            // Under laminas-navigation v2.5, the navigation PluginManager is
-            // always lazy-loaded, which means it never has a parent
-            // container.
-            return;
-        }
-
-        if (! $helper instanceof EventManagerAwareInterface) {
-            return;
-        }
-
-        if (! $container->has('EventManager')) {
-            // If the container doesn't have an EM service, do nothing.
-            return;
-        }
-
-        $events = $helper->getEventManager();
-        if (! $events || ! $events->getSharedManager() instanceof SharedEventManagerInterface) {
-            $helper->setEventManager($container->get('EventManager'));
-        }
     }
 
     /**
