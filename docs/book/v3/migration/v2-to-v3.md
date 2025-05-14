@@ -112,6 +112,28 @@ This means that a number of methods no longer exist, including, but not limited 
 
 Please consult the [updated documentation](../helpers/head-link.md) for further information.
 
+#### `HeadMeta`
+
+The `HeadMeta` helper's inheritance hierarchy has changed and it no longer extends from anything.
+This means that a number of methods no longer exist, including, but not limited to:
+
+- `getContainer`
+- `setContainer`
+- `getContainerClass`
+- `setContainerClass`
+- `getEscaper`
+- `setEscaper`
+- `getIndent`
+- `getSeparator`
+- `getPrefix`
+- `getPostfix`
+- `getView`
+- `setView`
+- `offsetGet|Set|Unset|Exists`
+- `count` and many more…
+
+Please consult the [updated documentation](../helpers/head-meta.md) for further information.
+
 #### `HtmlAttributes`
 
 This helper no longer inherits from a base class, therefore the following methods have been removed
