@@ -220,6 +220,12 @@ If you previously relied on this behaviour, you will need to instead register a 
 
 ## Removed Classes and Traits
 
+### `AbstractHtmlElement`
+
+This abstract base class is no longer used internally.
+
+If you have written custom view helpers that extend from this now removed class, you will need to refactor your helpers to use composition and/or dependency injection.
+
 ### `TranslatorAwareTrait`
 
 The `TranslatorAwareTrait` has been removed.
