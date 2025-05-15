@@ -324,28 +324,6 @@
       <code><![CDATA[clearVariables]]></code>
     </MissingReturnType>
   </file>
-  <file src="src/Model/FeedModel.php">
-    <InvalidExtendClass>
-      <code><![CDATA[ViewModel]]></code>
-    </InvalidExtendClass>
-    <MixedAssignment>
-      <code><![CDATA[$this->type]]></code>
-      <code><![CDATA[$this->type]]></code>
-    </MixedAssignment>
-    <MixedReturnStatement>
-      <code><![CDATA[$this->type]]></code>
-      <code><![CDATA[$this->type]]></code>
-    </MixedReturnStatement>
-    <PossiblyInvalidArgument>
-      <code><![CDATA[$variables]]></code>
-    </PossiblyInvalidArgument>
-    <PropertyNotSetInConstructor>
-      <code><![CDATA[$feed]]></code>
-    </PropertyNotSetInConstructor>
-    <RedundantConditionGivenDocblockType>
-      <code><![CDATA[$this->feed instanceof Feed]]></code>
-    </RedundantConditionGivenDocblockType>
-  </file>
   <file src="src/Model/JsonModel.php">
     <FalsableReturnStatement>
       <code><![CDATA[json_encode($data, $options | JSON_THROW_ON_ERROR)]]></code>
@@ -401,29 +379,6 @@
     </RedundantCastGivenDocblockType>
     <RedundantConditionGivenDocblockType>
       <code><![CDATA[is_object($variables)]]></code>
-    </RedundantConditionGivenDocblockType>
-  </file>
-  <file src="src/Renderer/FeedRenderer.php">
-    <InvalidArgument>
-      <code><![CDATA[(array) $nameOrModel]]></code>
-    </InvalidArgument>
-    <InvalidArrayAccess>
-      <code><![CDATA[$options['feed_type']]]></code>
-    </InvalidArrayAccess>
-    <MissingConstructor>
-      <code><![CDATA[$resolver]]></code>
-    </MissingConstructor>
-    <MixedAssignment>
-      <code><![CDATA[$type]]></code>
-    </MixedAssignment>
-    <MoreSpecificImplementedParamType>
-      <code><![CDATA[$values]]></code>
-    </MoreSpecificImplementedParamType>
-    <PossiblyUnusedProperty>
-      <code><![CDATA[$resolver]]></code>
-    </PossiblyUnusedProperty>
-    <RedundantConditionGivenDocblockType>
-      <code><![CDATA[is_string($nameOrModel)]]></code>
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Renderer/JsonRenderer.php">
@@ -523,19 +478,10 @@
       <code><![CDATA[$config]]></code>
     </UnusedParam>
   </file>
-  <file src="src/Strategy/FeedStrategy.php">
-    <MixedAssignment>
-      <code><![CDATA[$headers]]></code>
-    </MixedAssignment>
-    <MixedMethodCall>
-      <code><![CDATA[addHeaderLine]]></code>
-    </MixedMethodCall>
-    <PossiblyNullReference>
-      <code><![CDATA[setContent]]></code>
-    </PossiblyNullReference>
-    <UndefinedInterfaceMethod>
-      <code><![CDATA[getHeaders]]></code>
-    </UndefinedInterfaceMethod>
+  <file src="src/Renderer/RendererInterface.php">
+    <PossiblyUnusedReturnValue>
+      <code><![CDATA[RendererInterface]]></code>
+    </PossiblyUnusedReturnValue>
   </file>
   <file src="src/Strategy/JsonStrategy.php">
     <MixedAssignment>
@@ -870,24 +816,6 @@
       <code><![CDATA[json_encode($model->value)]]></code>
       <code><![CDATA[json_encode(['foo' => 'bar'])]]></code>
     </PossiblyFalseOperand>
-  </file>
-  <file src="test/Strategy/FeedStrategyTest.php">
-    <MixedAssignment>
-      <code><![CDATA[$listener]]></code>
-      <code><![CDATA[$listener]]></code>
-      <code><![CDATA[$priority]]></code>
-      <code><![CDATA[$priority]]></code>
-    </MixedAssignment>
-    <PossiblyInvalidMethodCall>
-      <code><![CDATA[addHeaderLine]]></code>
-      <code><![CDATA[addHeaderLine]]></code>
-      <code><![CDATA[addHeaderLine]]></code>
-    </PossiblyInvalidMethodCall>
-    <PossiblyUndefinedMethod>
-      <code><![CDATA[addHeaderLine]]></code>
-      <code><![CDATA[addHeaderLine]]></code>
-      <code><![CDATA[addHeaderLine]]></code>
-    </PossiblyUndefinedMethod>
   </file>
   <file src="test/Strategy/JsonStrategyTest.php">
     <MixedArgument>
