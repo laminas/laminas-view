@@ -17,8 +17,6 @@ The `ConfigProvider` also supports documentation on configuration options.
 
 The entire codebase has been updated with native parameter and return types, improving type safety and type inference.
 
-## New Dependencies
-
 ## Signature Changes and Behaviour Changes
 
 ### Legacy Zend-Related Service and Helper Names
@@ -210,6 +208,12 @@ If you had not explicitly enabled this feature, this change will not affect your
 ### Laminas Console Integration
 
 `Laminas\View\RendererConsoleRenderer` and `Laminas\View\Model\ConsoleModel` have been removed effectively removing all support for the deprecated `laminas-console` component.
+
+### Laminas Feed Integration
+
+`Laminas\View\Strategy\FeedStrategy`, `Laminas\View\Renderer\FeedRenderer` and `Laminas\View\Model\FeedModel` have been removed to be integrated into a separate library for integration between `laminas-feed` and `laminas-view`.
+
+If you depend on the removed `laminas-feed` related classes, you will not be able to upgrade to version 3.0 until a replacement library has been published.
 
 ### Helper Plugin Manager Behaviour Changes
 
