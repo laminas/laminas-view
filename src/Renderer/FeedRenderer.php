@@ -19,6 +19,8 @@ use function strtolower;
 /**
  * Class for Laminas\View\Strategy\FeedStrategy compatible template engine implementations
  *
+ * @deprecated Since 2.40.0 - Laminas\Feed related code will be removed in 3.0 and replaced by a standalone library
+ *
  * @final
  */
 class FeedRenderer implements RendererInterface

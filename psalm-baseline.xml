@@ -1765,6 +1765,10 @@
     </UnusedParam>
   </file>
   <file src="src/Renderer/FeedRenderer.php">
+    <DeprecatedClass>
+      <code><![CDATA[new FeedModel($values, (array) $nameOrModel)]]></code>
+      <code><![CDATA[new FeedModel($vars, ['feed_type' => $type])]]></code>
+    </DeprecatedClass>
     <InvalidArgument>
       <code><![CDATA[(array) $nameOrModel]]></code>
     </InvalidArgument>
@@ -1985,6 +1989,12 @@
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Strategy/FeedStrategy.php">
+    <DeprecatedClass>
+      <code><![CDATA[$renderer]]></code>
+      <code><![CDATA[FeedRenderer]]></code>
+      <code><![CDATA[FeedRenderer]]></code>
+      <code><![CDATA[null|FeedRenderer]]></code>
+    </DeprecatedClass>
     <MixedAssignment>
       <code><![CDATA[$headers]]></code>
     </MixedAssignment>
@@ -3661,6 +3671,14 @@
       <code><![CDATA[$errstr]]></code>
     </UnusedClosureParam>
   </file>
+  <file src="test/Renderer/FeedRendererTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[FeedRenderer]]></code>
+      <code><![CDATA[new FeedModel($this->getFeedData('atom'))]]></code>
+      <code><![CDATA[new FeedModel($this->getFeedData('atom'))]]></code>
+      <code><![CDATA[new FeedRenderer()]]></code>
+    </DeprecatedClass>
+  </file>
   <file src="test/Renderer/JsonRendererTest.php">
     <InvalidArgument>
       <code><![CDATA[$model]]></code>
@@ -3763,6 +3781,15 @@
     </DeprecatedMethod>
   </file>
   <file src="test/Strategy/FeedStrategyTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[FeedRenderer]]></code>
+      <code><![CDATA[FeedStrategy]]></code>
+      <code><![CDATA[new FeedModel()]]></code>
+      <code><![CDATA[new FeedModel()]]></code>
+      <code><![CDATA[new FeedRenderer()]]></code>
+      <code><![CDATA[new FeedRenderer()]]></code>
+      <code><![CDATA[new FeedStrategy($this->renderer)]]></code>
+    </DeprecatedClass>
     <MixedAssignment>
       <code><![CDATA[$listener]]></code>
       <code><![CDATA[$listener]]></code>

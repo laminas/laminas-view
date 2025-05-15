@@ -10,6 +10,8 @@ use Laminas\Feed\Writer\FeedFactory;
 /**
  * Marker view model for indicating feed data.
  *
+ * @deprecated Since 2.40.0 - Laminas\Feed related code will be removed in 3.0 and replaced by a standalone library
+ *
  * @final
  */
 class FeedModel extends ViewModel
