@@ -28,8 +28,8 @@ final class HeadMeta implements StatefulHelperInterface, Stringable
     private string $separator;
 
     public function __construct(
-        private readonly Doctype $doctype,
         private readonly EscaperInterface $escaper,
+        private readonly Doctype $doctype,
         private readonly string $defaultSeparator = PHP_EOL,
         private readonly string $defaultIndent = '',
     ) {
