@@ -9,6 +9,7 @@ use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Helper\Service\EscapeHelperFactory;
+use Laminas\View\Helper\Service\GenericFactory;
 use Psr\Container\ContainerInterface;
 
 use function array_replace_recursive;
@@ -39,17 +40,17 @@ final class HelperPluginManager extends AbstractPluginManager
             Helper\EscapeJs::class            => EscapeHelperFactory::class,
             Helper\EscapeUrl::class           => EscapeHelperFactory::class,
             Helper\GravatarImage::class       => EscapeHelperFactory::class,
-            Helper\HeadLink::class            => Helper\Service\HeadLinkFactory::class,
-            Helper\HeadMeta::class            => Helper\Service\HeadMetaFactory::class,
-            Helper\HeadScript::class          => InvokableFactory::class,
-            Helper\HeadStyle::class           => InvokableFactory::class,
+            Helper\HeadLink::class            => GenericFactory::class,
+            Helper\HeadMeta::class            => GenericFactory::class,
+            Helper\HeadScript::class          => GenericFactory::class,
+            Helper\HeadStyle::class           => GenericFactory::class,
             Helper\HeadTitle::class           => Helper\Service\HeadTitleFactory::class,
             Helper\HtmlAttributes::class      => EscapeHelperFactory::class,
             Helper\HtmlList::class            => EscapeHelperFactory::class,
-            Helper\HtmlObject::class          => Helper\Service\HtmlObjectFactory::class,
-            Helper\HtmlTag::class             => Helper\Service\HtmlTagFactory::class,
+            Helper\HtmlObject::class          => GenericFactory::class,
+            Helper\HtmlTag::class             => GenericFactory::class,
             Helper\Identity::class            => Helper\Service\IdentityFactory::class,
-            Helper\InlineScript::class        => InvokableFactory::class,
+            Helper\InlineScript::class        => GenericFactory::class,
             Helper\Layout::class              => Helper\Service\LayoutFactory::class,
             Helper\PartialLoop::class         => Helper\Service\PartialLoopFactory::class,
             Helper\Partial::class             => Helper\Service\PartialFactory::class,
