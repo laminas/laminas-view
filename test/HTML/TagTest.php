@@ -44,4 +44,18 @@ final class TagTest extends TestCase
             ),
         );
     }
+
+    public function testEqualityWithContent(): void
+    {
+        self::assertFalse(
+            (new Tag('foo', [], 'bar'))->equals(
+                new Tag('foo', [], 'baz'),
+            ),
+        );
+        self::assertTrue(
+            (new Tag('foo', [], 'bar'))->equals(
+                new Tag('foo', [], 'bar'),
+            ),
+        );
+    }
 }
