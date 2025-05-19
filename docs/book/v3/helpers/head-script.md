@@ -19,10 +19,9 @@ For the `*Script()` methods, `$content` is the client-side scripting directives 
 
 `HeadScript` and `InlineScript` also allow [capturing scripts](#capturing-scripts) from the [PHP output buffer](https://www.php.net/manual/outcontrol.output-buffering.php); this can be useful if you want to create the client-side script programmatically, and then place it elsewhere.
 
-> ### Not limited to Javascript
->
-> You are not limited to only emitting Javascript with these helpers.
-> Any type of content that browsers are able to interpret can be added, it is up to you however to add the correct `type` attribute so that browsers know what the content represents, for example `$this->headScript()->appendFile('/some.json', ['type' => 'application/ld+json'])`
+NOTE: **Not limited to Javascript**
+You are not limited to only emitting Javascript with these helpers.
+Any type of content that browsers are able to interpret can be added, it is up to you however to add the correct `type` attribute so that browsers know what the content represents, for example `$this->headScript()->appendFile('/some.json', ['type' => 'application/ld+json'])`
 
 ## Basic Usage
 
