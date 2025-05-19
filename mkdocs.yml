@@ -64,7 +64,7 @@ nav:
           - HtmlObject: v3/helpers/html-object.md
           - HtmlTag: v3/helpers/html-tag.md
           - Identity: v3/helpers/identity.md
-          - InlineScript: v3/helpers/inline-script.md
+          - InlineScript: v3/helpers/head-script.md
           - Layout: v3/helpers/layout.md
           - Partial: v3/helpers/partial.md
           - Placeholder: v3/helpers/placeholder.md
@@ -115,7 +115,7 @@ plugins:
         helpers/html-object.md: v3/helpers/html-object.md
         helpers/html-tag.md: v3/helpers/html-tag.md
         helpers/identity.md: v3/helpers/identity.md
-        helpers/inline-script.md: v3/helpers/inline-script.md
+        helpers/inline-script.md: v3/helpers/head-script.md
         helpers/layout.md: v3/helpers/layout.md
         helpers/partial.md: v3/helpers/partial.md
         helpers/placeholder.md: v3/helpers/placeholder.md

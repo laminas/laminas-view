@@ -72,7 +72,7 @@ for, and rendering, the various HTML `<head>` tags, such as `HeadTitle`,
 - [HTML Object Plugins](html-object.md)
 - [HtmlTag](html-tag.md)
 - [Identity](identity.md)
-- [InlineScript](inline-script.md)
+- [InlineScript](head-script.md)
 - [Layout](layout.md)
 - [Partial](partial.md)
 - [Placeholder](placeholder.md)
