@@ -56,7 +56,7 @@ nav:
           - Gravatar: v3/helpers/gravatar-image.md
           - HeadLink: v3/helpers/head-link.md
           - HeadMeta: v3/helpers/head-meta.md
-          - HeadScript: v3/helpers/head-script.md
+          - HeadScript & InlineScript: v3/helpers/head-script.md
           - HeadStyle: v3/helpers/head-style.md
           - HeadTitle: v3/helpers/head-title.md
           - HtmlAttributes: v3/helpers/html-attributes.md
@@ -64,7 +64,6 @@ nav:
           - HtmlObject: v3/helpers/html-object.md
           - HtmlTag: v3/helpers/html-tag.md
           - Identity: v3/helpers/identity.md
-          - InlineScript: v3/helpers/head-script.md
           - Layout: v3/helpers/layout.md
           - Partial: v3/helpers/partial.md
           - Placeholder: v3/helpers/placeholder.md
