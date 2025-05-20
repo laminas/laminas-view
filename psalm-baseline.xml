@@ -10,6 +10,9 @@
     </PossiblyNullArgument>
   </file>
   <file src="src/Helper/AbstractHtmlElement.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractHelper]]></code>
+    </DeprecatedClass>
     <MissingConstructor>
       <code><![CDATA[$closingBracket]]></code>
       <code><![CDATA[$closingBracket]]></code>
@@ -46,11 +49,22 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/Asset.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractHelper]]></code>
+    </DeprecatedClass>
     <PossiblyUnusedMethod>
       <code><![CDATA[setResourceMap]]></code>
     </PossiblyUnusedMethod>
   </file>
+  <file src="src/Helper/BasePath.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractHelper]]></code>
+    </DeprecatedClass>
+  </file>
   <file src="src/Helper/Cycle.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractHelper]]></code>
+    </DeprecatedClass>
     <ImplementedReturnTypeMismatch>
       <code><![CDATA[Cycle]]></code>
       <code><![CDATA[Cycle]]></code>
@@ -79,6 +93,9 @@
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Helper/DeclareVars.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractHelper]]></code>
+    </DeprecatedClass>
     <MissingConstructor>
       <code><![CDATA[$view]]></code>
     </MissingConstructor>
@@ -115,6 +132,9 @@
     </DeprecatedClass>
   </file>
   <file src="src/Helper/Doctype.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractHelper]]></code>
+    </DeprecatedClass>
     <DocblockTypeContradiction>
       <code><![CDATA[null === static::$registeredDoctypes]]></code>
     </DocblockTypeContradiction>
@@ -160,12 +180,18 @@
     </DeprecatedMethod>
   </file>
   <file src="src/Helper/Escaper/AbstractHelper.php">
+    <DeprecatedClass>
+      <code><![CDATA[Helper\AbstractHelper]]></code>
+    </DeprecatedClass>
     <MixedAssignment>
       <code><![CDATA[$v]]></code>
       <code><![CDATA[$value[$k]]]></code>
     </MixedAssignment>
   </file>
   <file src="src/Helper/FlashMessenger.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractHelper]]></code>
+    </DeprecatedClass>
     <DeprecatedTrait>
       <code><![CDATA[TranslatorAwareTrait]]></code>
     </DeprecatedTrait>
@@ -241,6 +267,18 @@
     <ArgumentTypeCoercion>
       <code><![CDATA[$item]]></code>
     </ArgumentTypeCoercion>
+    <DeprecatedClass>
+      <code><![CDATA[AbstractContainer]]></code>
+      <code><![CDATA[AbstractContainer]]></code>
+      <code><![CDATA[AbstractContainer::APPEND]]></code>
+      <code><![CDATA[AbstractContainer::APPEND]]></code>
+      <code><![CDATA[AbstractContainer::APPEND]]></code>
+      <code><![CDATA[AbstractContainer::PREPEND]]></code>
+      <code><![CDATA[AbstractContainer::SET]]></code>
+      <code><![CDATA[AbstractStandalone]]></code>
+      <code><![CDATA[parent::__call($method, $args)]]></code>
+      <code><![CDATA[parent::__construct()]]></code>
+    </DeprecatedClass>
     <DeprecatedMethod>
       <code><![CDATA[offsetSet]]></code>
     </DeprecatedMethod>
@@ -305,6 +343,15 @@
       <code><![CDATA[$value]]></code>
       <code><![CDATA[$value]]></code>
     </ArgumentTypeCoercion>
+    <DeprecatedClass>
+      <code><![CDATA[AbstractContainer]]></code>
+      <code><![CDATA[AbstractContainer]]></code>
+      <code><![CDATA[AbstractContainer::APPEND]]></code>
+      <code><![CDATA[AbstractStandalone]]></code>
+      <code><![CDATA[View\Helper\Placeholder\Container\AbstractContainer]]></code>
+      <code><![CDATA[parent::__call($method, $args)]]></code>
+      <code><![CDATA[parent::__construct()]]></code>
+    </DeprecatedClass>
     <DeprecatedMethod>
       <code><![CDATA[offsetSet]]></code>
       <code><![CDATA[offsetUnset]]></code>
@@ -376,6 +423,32 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/HeadScript.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractContainer]]></code>
+      <code><![CDATA[AbstractContainer]]></code>
+      <code><![CDATA[AbstractContainer::APPEND]]></code>
+      <code><![CDATA[AbstractContainer::APPEND]]></code>
+      <code><![CDATA[AbstractContainer::PREPEND]]></code>
+      <code><![CDATA[AbstractContainer::SET]]></code>
+      <code><![CDATA[AbstractStandalone]]></code>
+      <code><![CDATA[parent::__call($method, $args)]]></code>
+      <code><![CDATA[parent::__construct()]]></code>
+    </DeprecatedClass>
+    <DeprecatedConstant>
+      <code><![CDATA[self::DEFAULT_SCRIPT_TYPE]]></code>
+      <code><![CDATA[self::DEFAULT_SCRIPT_TYPE]]></code>
+      <code><![CDATA[self::DEFAULT_SCRIPT_TYPE]]></code>
+      <code><![CDATA[self::DEFAULT_SCRIPT_TYPE]]></code>
+      <code><![CDATA[self::FILE]]></code>
+    </DeprecatedConstant>
+    <DeprecatedMethod>
+      <code><![CDATA[arbitraryAttributesAllowed]]></code>
+      <code><![CDATA[createData]]></code>
+      <code><![CDATA[createData]]></code>
+      <code><![CDATA[itemToString]]></code>
+      <code><![CDATA[offsetSet]]></code>
+      <code><![CDATA[offsetSet]]></code>
+    </DeprecatedMethod>
     <MethodSignatureMustProvideReturnType>
       <code><![CDATA[offsetSet]]></code>
     </MethodSignatureMustProvideReturnType>
@@ -420,6 +493,25 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/HeadStyle.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractContainer]]></code>
+      <code><![CDATA[AbstractContainer]]></code>
+      <code><![CDATA[AbstractContainer::APPEND]]></code>
+      <code><![CDATA[AbstractContainer::APPEND]]></code>
+      <code><![CDATA[AbstractContainer::APPEND]]></code>
+      <code><![CDATA[AbstractContainer::APPEND]]></code>
+      <code><![CDATA[AbstractContainer::PREPEND]]></code>
+      <code><![CDATA[AbstractContainer::PREPEND]]></code>
+      <code><![CDATA[AbstractContainer::SET]]></code>
+      <code><![CDATA[AbstractContainer::SET]]></code>
+      <code><![CDATA[AbstractStandalone]]></code>
+      <code><![CDATA[parent::__call($method, $args)]]></code>
+      <code><![CDATA[parent::__construct()]]></code>
+    </DeprecatedClass>
+    <DeprecatedMethod>
+      <code><![CDATA[createData]]></code>
+      <code><![CDATA[offsetSet]]></code>
+    </DeprecatedMethod>
     <DocblockTypeContradiction>
       <code><![CDATA[! is_string($item->content)]]></code>
       <code><![CDATA[! isset($item->content)]]></code>
@@ -466,6 +558,15 @@
     </UnusedParam>
   </file>
   <file src="src/Helper/HeadTitle.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractContainer::APPEND]]></code>
+      <code><![CDATA[AbstractContainer::APPEND]]></code>
+      <code><![CDATA[AbstractContainer::PREPEND]]></code>
+      <code><![CDATA[AbstractContainer::PREPEND]]></code>
+      <code><![CDATA[AbstractContainer::SET]]></code>
+      <code><![CDATA[AbstractContainer::SET]]></code>
+      <code><![CDATA[AbstractStandalone]]></code>
+    </DeprecatedClass>
     <DeprecatedMethod>
       <code><![CDATA[getDefaultAttachOrder]]></code>
     </DeprecatedMethod>
@@ -481,6 +582,11 @@
     <PossiblyUnusedReturnValue>
       <code><![CDATA[HelperInterface]]></code>
     </PossiblyUnusedReturnValue>
+  </file>
+  <file src="src/Helper/HtmlAttributes.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractHelper]]></code>
+    </DeprecatedClass>
   </file>
   <file src="src/Helper/HtmlFlash.php">
     <DeprecatedClass>
@@ -582,12 +688,19 @@
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Helper/Identity.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractHelper]]></code>
+    </DeprecatedClass>
     <PossiblyUnusedMethod>
       <code><![CDATA[getAuthenticationService]]></code>
       <code><![CDATA[setAuthenticationService]]></code>
     </PossiblyUnusedMethod>
   </file>
   <file src="src/Helper/InlineScript.php">
+    <DeprecatedConstant>
+      <code><![CDATA[self::DEFAULT_SCRIPT_TYPE]]></code>
+      <code><![CDATA[self::FILE]]></code>
+    </DeprecatedConstant>
     <InvalidExtendClass>
       <code><![CDATA[HeadScript]]></code>
     </InvalidExtendClass>
@@ -596,6 +709,9 @@
     </MethodSignatureMismatch>
   </file>
   <file src="src/Helper/Json.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractHelper]]></code>
+    </DeprecatedClass>
     <MissingConstructor>
       <code><![CDATA[$response]]></code>
     </MissingConstructor>
@@ -607,6 +723,9 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Helper/Layout.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractHelper]]></code>
+    </DeprecatedClass>
     <PossiblyNullReference>
       <code><![CDATA[plugin]]></code>
     </PossiblyNullReference>
@@ -1171,6 +1290,9 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/PaginationControl.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractHelper]]></code>
+    </DeprecatedClass>
     <DocblockTypeContradiction>
       <code><![CDATA[static::$defaultViewPartial === null]]></code>
     </DocblockTypeContradiction>
@@ -1200,6 +1322,9 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Helper/Partial.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractHelper]]></code>
+    </DeprecatedClass>
     <DocblockTypeContradiction>
       <code><![CDATA[is_scalar($values)]]></code>
     </DocblockTypeContradiction>
@@ -1266,6 +1391,21 @@
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Helper/Placeholder.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractContainer]]></code>
+      <code><![CDATA[AbstractContainer]]></code>
+      <code><![CDATA[AbstractContainer]]></code>
+      <code><![CDATA[AbstractHelper]]></code>
+      <code><![CDATA[Container::class]]></code>
+      <code><![CDATA[array<string, AbstractContainer>]]></code>
+      <code><![CDATA[class-string<AbstractContainer>]]></code>
+      <code><![CDATA[protected $containerClass = Container::class;]]></code>
+      <code><![CDATA[protected $items = [];]]></code>
+    </DeprecatedClass>
+    <DeprecatedMethod>
+      <code><![CDATA[createContainer]]></code>
+      <code><![CDATA[getContainer]]></code>
+    </DeprecatedMethod>
     <RedundantCastGivenDocblockType>
       <code><![CDATA[(string) $key]]></code>
       <code><![CDATA[(string) $key]]></code>
@@ -1278,6 +1418,9 @@
     </UnsafeInstantiation>
   </file>
   <file src="src/Helper/Placeholder/Container.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractContainer]]></code>
+    </DeprecatedClass>
     <InvalidTemplateParam>
       <code><![CDATA[Container]]></code>
     </InvalidTemplateParam>
@@ -1339,6 +1482,18 @@
     </RiskyTruthyFalsyComparison>
   </file>
   <file src="src/Helper/Placeholder/Container/AbstractStandalone.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractContainer]]></code>
+      <code><![CDATA[AbstractContainer::class]]></code>
+      <code><![CDATA[AbstractContainer<TKey, TValue>]]></code>
+      <code><![CDATA[AbstractContainer<TKey, TValue>|null]]></code>
+      <code><![CDATA[AbstractHelper]]></code>
+      <code><![CDATA[Container::class]]></code>
+      <code><![CDATA[class-string<AbstractContainer>]]></code>
+      <code><![CDATA[class-string<AbstractContainer>]]></code>
+      <code><![CDATA[class-string<AbstractContainer>]]></code>
+      <code><![CDATA[protected $containerClass = Container::class;]]></code>
+    </DeprecatedClass>
     <InvalidPropertyAssignmentValue>
       <code><![CDATA[$container]]></code>
       <code><![CDATA[new $this->containerClass()]]></code>
@@ -1376,6 +1531,13 @@
     </UnsafeInstantiation>
   </file>
   <file src="src/Helper/Placeholder/Registry.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractContainer]]></code>
+      <code><![CDATA[AbstractContainer]]></code>
+      <code><![CDATA[AbstractContainer]]></code>
+      <code><![CDATA[AbstractContainer::class]]></code>
+      <code><![CDATA[Container::class]]></code>
+    </DeprecatedClass>
     <DocblockTypeContradiction>
       <code><![CDATA[null === static::$instance]]></code>
     </DocblockTypeContradiction>
@@ -1407,6 +1569,9 @@
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Helper/RenderChildModel.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractHelper]]></code>
+    </DeprecatedClass>
     <DeprecatedMethod>
       <code><![CDATA[findChild]]></code>
       <code><![CDATA[getCurrent]]></code>
@@ -1448,6 +1613,9 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Helper/RenderToPlaceholder.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractHelper]]></code>
+    </DeprecatedClass>
     <MixedAssignment>
       <code><![CDATA[$placeholderHelper]]></code>
     </MixedAssignment>
@@ -1472,6 +1640,9 @@
       <code><![CDATA[$_SERVER['SERVER_PORT']]]></code>
       <code><![CDATA[$port]]></code>
     </ArgumentTypeCoercion>
+    <DeprecatedClass>
+      <code><![CDATA[AbstractHelper]]></code>
+    </DeprecatedClass>
     <InvalidNullableReturnType>
       <code><![CDATA[string]]></code>
       <code><![CDATA[string]]></code>
@@ -1564,6 +1735,9 @@
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Helper/Url.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractHelper]]></code>
+    </DeprecatedClass>
     <DocblockTypeContradiction>
       <code><![CDATA[3 === func_num_args() && is_bool($options)]]></code>
       <code><![CDATA[is_array($params)]]></code>
@@ -1587,6 +1761,9 @@
     </UnusedVariable>
   </file>
   <file src="src/Helper/ViewModel.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractHelper]]></code>
+    </DeprecatedClass>
     <PossiblyUnusedMethod>
       <code><![CDATA[hasRoot]]></code>
     </PossiblyUnusedMethod>
@@ -2668,6 +2845,9 @@
     </UndefinedMagicMethod>
   </file>
   <file src="test/Helper/HeadMetaTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[Helper\Placeholder\Container\AbstractContainer::PREPEND]]></code>
+    </DeprecatedClass>
     <DeprecatedMethod>
       <code><![CDATA[offsetSet]]></code>
       <code><![CDATA[set]]></code>
@@ -2691,12 +2871,31 @@
     </UndefinedMagicMethod>
   </file>
   <file src="test/Helper/HeadScriptTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[append]]></code>
+      <code><![CDATA[offsetSet]]></code>
+      <code><![CDATA[prepend]]></code>
+      <code><![CDATA[set]]></code>
+      <code><![CDATA[setAllowArbitraryAttributes]]></code>
+      <code><![CDATA[setAllowArbitraryAttributes]]></code>
+      <code><![CDATA[setAllowArbitraryAttributes]]></code>
+      <code><![CDATA[setAllowArbitraryAttributes]]></code>
+      <code><![CDATA[setAllowArbitraryAttributes]]></code>
+    </DeprecatedMethod>
     <PossiblyNullArgument>
       <code><![CDATA[$item->source]]></code>
     </PossiblyNullArgument>
     <PossiblyNullPropertyFetch>
       <code><![CDATA[$item->source]]></code>
     </PossiblyNullPropertyFetch>
+  </file>
+  <file src="test/Helper/HeadStyleTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[append]]></code>
+      <code><![CDATA[offsetSet]]></code>
+      <code><![CDATA[prepend]]></code>
+      <code><![CDATA[set]]></code>
+    </DeprecatedMethod>
   </file>
   <file src="test/Helper/HeadTitleTest.php">
     <DeprecatedMethod>
@@ -3409,6 +3608,37 @@
       <code><![CDATA[$view->vars()->message]]></code>
     </UndefinedPropertyAssignment>
   </file>
+  <file src="test/Helper/Placeholder/ContainerTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[$container]]></code>
+      <code><![CDATA[Container]]></code>
+      <code><![CDATA[new Container()]]></code>
+      <code><![CDATA[new Container()]]></code>
+    </DeprecatedClass>
+  </file>
+  <file src="test/Helper/Placeholder/StandaloneContainerTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[$container]]></code>
+      <code><![CDATA[AbstractContainer::class]]></code>
+      <code><![CDATA[AbstractContainer::class]]></code>
+      <code><![CDATA[new Container()]]></code>
+    </DeprecatedClass>
+  </file>
+  <file src="test/Helper/PlaceholderTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractContainer::class]]></code>
+    </DeprecatedClass>
+    <DeprecatedMethod>
+      <code><![CDATA[clearContainers]]></code>
+      <code><![CDATA[containerExists]]></code>
+      <code><![CDATA[containerExists]]></code>
+      <code><![CDATA[containerExists]]></code>
+      <code><![CDATA[containerExists]]></code>
+      <code><![CDATA[containerExists]]></code>
+      <code><![CDATA[containerExists]]></code>
+      <code><![CDATA[deleteContainer]]></code>
+    </DeprecatedMethod>
+  </file>
   <file src="test/Helper/RenderChildModelTest.php">
     <DeprecatedMethod>
       <code><![CDATA[render]]></code>
@@ -3435,6 +3665,11 @@
       <code><![CDATA[$this->translations]]></code>
     </InvalidArgument>
   </file>
+  <file src="test/Helper/TestAsset/Bar.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractContainer]]></code>
+    </DeprecatedClass>
+  </file>
   <file src="test/Helper/TestAsset/ConcreteElementHelper.php">
     <DeprecatedClass>
       <code><![CDATA[AbstractHtmlElement]]></code>
@@ -3442,6 +3677,16 @@
     <PossiblyUnusedMethod>
       <code><![CDATA[normalizeElementId]]></code>
     </PossiblyUnusedMethod>
+  </file>
+  <file src="test/Helper/TestAsset/ConcreteHelper.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractHelper]]></code>
+    </DeprecatedClass>
+  </file>
+  <file src="test/Helper/TestAsset/Foo.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractStandalone]]></code>
+    </DeprecatedClass>
   </file>
   <file src="test/Helper/TestAsset/IteratorWithToArrayTestContainer.php">
     <MixedAssignment>
@@ -3452,6 +3697,10 @@
     </PossiblyUnusedMethod>
   </file>
   <file src="test/Helper/TestAsset/MockContainer.php">
+    <DeprecatedClass>
+      <code><![CDATA[AbstractContainer]]></code>
+      <code><![CDATA[parent::__construct()]]></code>
+    </DeprecatedClass>
     <PossiblyUnusedMethod>
       <code><![CDATA[__construct]]></code>
     </PossiblyUnusedMethod>
@@ -3869,6 +4118,21 @@
       <code><![CDATA[$priority]]></code>
       <code><![CDATA[$priority]]></code>
     </MixedAssignment>
+  </file>
+  <file src="test/TestAsset/Invokable.php">
+    <DeprecatedClass>
+      <code><![CDATA[Helper]]></code>
+    </DeprecatedClass>
+  </file>
+  <file src="test/TestAsset/SharedInstance.php">
+    <DeprecatedClass>
+      <code><![CDATA[Helper]]></code>
+    </DeprecatedClass>
+  </file>
+  <file src="test/TestAsset/Uninvokable.php">
+    <DeprecatedClass>
+      <code><![CDATA[Helper]]></code>
+    </DeprecatedClass>
   </file>
   <file src="test/ViewTest.php">
     <MixedArgument>

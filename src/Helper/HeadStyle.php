@@ -138,6 +138,9 @@ class HeadStyle extends AbstractStandalone
     /**
      * Overload method calls
      *
+     * @deprecated Since 2.40.0 All magic methods will be removed in 3.0 and will be replaced with concrete methods
+     *             where appropriate.
+     *
      * @param  string $method
      * @param  array  $args
      * @throws Exception\BadMethodCallException When no $content provided or invalid method.
@@ -261,6 +264,7 @@ class HeadStyle extends AbstractStandalone
      * Create data item for use in stack
      *
      * @internal This method is internal and will be made private in version 3.0
+     * @deprecated Since 2.40.0 This method is internal and will be made private in version 3.0
      *
      * @param  string $content
      * @param  array<string, mixed> $attributes
@@ -403,6 +407,8 @@ class HeadStyle extends AbstractStandalone
     /**
      * Override append to enforce style creation
      *
+     * @deprecated Since 2.40.0 This method will be removed in 3.0. Use `appendStyle()` instead
+     *
      * @param ObjectShape $value
      * @throws Exception\InvalidArgumentException
      * @return AbstractContainer
@@ -420,6 +426,8 @@ class HeadStyle extends AbstractStandalone
 
     /**
      * Override offsetSet to enforce style creation
+     *
+     * @deprecated Since 2.40.0. It will no longer be possible to insert at specific offsets in version 3.0
      *
      * @param int $offset
      * @param ObjectShape $value
@@ -440,9 +448,11 @@ class HeadStyle extends AbstractStandalone
     /**
      * Override prepend to enforce style creation
      *
+     * @deprecated Since 2.40.0 This method will be removed in 3.0. Use `prependStyle()` instead
+     *
      * @param ObjectShape $value
-     * @throws Exception\InvalidArgumentException
      * @return AbstractContainer
+     * @throws Exception\InvalidArgumentException
      */
     public function prepend($value)
     {
@@ -458,9 +468,11 @@ class HeadStyle extends AbstractStandalone
     /**
      * Override set to enforce style creation
      *
+     * @deprecated Since 2.40.0 This method will be removed in 3.0. Use `setStyle()` instead
+     *
      * @param ObjectShape $value
-     * @throws Exception\InvalidArgumentException
      * @return void
+     * @throws Exception\InvalidArgumentException
      */
     public function set($value)
     {

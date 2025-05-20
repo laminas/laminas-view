@@ -26,6 +26,9 @@ use function strtolower;
 /**
  * Base class for targeted placeholder helpers
  *
+ * @deprecated Since 2.40.0 This class will be removed in version 3.0 without replacement. All helpers will be
+ *             refactored without inheritance.
+ *
  * @template TKey
  * @template TValue
  * @implements IteratorAggregate<TKey, TValue>

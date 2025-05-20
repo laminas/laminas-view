@@ -6,6 +6,10 @@ namespace Laminas\View\Helper;
 
 use Laminas\View\Renderer\RendererInterface as Renderer;
 
+/**
+ * @deprecated Since 2.40.0. This class will be remove in 3.0 without replacement. View helpers should be constructed
+ *             with their dependencies, therefore the setters and getters here become irrelevant.
+ */
 abstract class AbstractHelper implements HelperInterface
 {
     /**
