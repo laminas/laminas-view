@@ -8,7 +8,9 @@ use ArrayAccess;
 use Laminas\Filter\FilterChain;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Exception;
+use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\HelperInterface;
+use Laminas\View\Helper\Placeholder\Position;
 use Laminas\View\Helper\ViewModel;
 use Laminas\View\HelperPluginManager;
 use Laminas\View\Model\ModelInterface as Model;
@@ -45,32 +47,30 @@ use function sprintf;
  * Convenience methods for built-in helpers (@see __call):
  *
  * @method string asset($asset)
- * @method string|null basePath($file = null)
+ * @method string|null basePath(string|null $file = null)
  * @method \Laminas\View\Helper\Cycle cycle(array $data = array(), $name = \Laminas\View\Helper\Cycle::DEFAULT_NAME)
- * @method \Laminas\View\Helper\Doctype doctype($doctype = null)
- * @method mixed escapeCss($value, $recurse = \Laminas\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
- * @method mixed escapeHtml($value, $recurse = \Laminas\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
- * @method mixed escapeHtmlAttr($value, $recurse = \Laminas\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
- * @method mixed escapeJs($value, $recurse = \Laminas\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
- * @method mixed escapeUrl($value, $recurse = \Laminas\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
+ * @method Doctype doctype()
+ * @method mixed escapeCss(mixed $value, int $recurse = \Laminas\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
+ * @method mixed escapeHtml(mixed $value, int $recurse = \Laminas\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
+ * @method mixed escapeHtmlAttr(mixed $value, int $recurse = \Laminas\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
+ * @method mixed escapeJs(mixed $value, int $recurse = \Laminas\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
+ * @method mixed escapeUrl(mixed $value, int $recurse = \Laminas\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
  * @method \Laminas\View\Helper\HeadLink headLink(array|null $attributes = null)
- * @method \Laminas\View\Helper\HeadMeta headMeta($content = null, $keyValue = null, $keyType = 'name', $modifiers = array(), $placement = \Laminas\View\Helper\Placeholder\Container\AbstractContainer::APPEND)
- * @method \Laminas\View\Helper\HeadScript headScript($mode = \Laminas\View\Helper\HeadScript::FILE, $spec = null, $placement = 'APPEND', array $attrs = array(), $type = 'text/javascript')
- * @method \Laminas\View\Helper\HeadStyle headStyle($content = null, $placement = 'APPEND', $attributes = array())
- * @method \Laminas\View\Helper\HeadTitle headTitle($title = null, $setType = null)
+ * @method \Laminas\View\Helper\HeadMeta headMeta(string|null $name = null, string|null $content = null, array $attributes = [])
+ * @method \Laminas\View\Helper\HeadScript headScript()
+ * @method \Laminas\View\Helper\HeadStyle headStyle(string|null $content = null, array $attributes = [], Position $position = Position::Append)
+ * @method \Laminas\View\Helper\HeadTitle headTitle(string|null $title = null)
  * @method \Laminas\View\HtmlAttributesSet htmlAttributes(iterable $attributes = [])
- * @method string htmlList(array $items, $ordered = false, $attribs = false, $escape = true)
- * @method string htmlObject($data = null, $type = null, array $attribs = array(), array $params = array(), $content = null)
- * @method string htmlPage($data, array $attribs = array(), array $params = array(), $content = null)
+ * @method string htmlList(array $items, bool $ordered = false, array|null $attribs = null, bool $escape = true)
+ * @method string htmlObject(string $data, string $type, array $attributes = [], array $params = [], string|null $content = null)
  * @method mixed|null identity()
- * @method \Laminas\View\Helper\InlineScript inlineScript($mode = \Laminas\View\Helper\HeadScript::FILE, $spec = null, $placement = 'APPEND', array $attrs = array(), $type = 'text/javascript')
- *  @method Model|\Laminas\View\Helper\Layout layout($template = null)
- * @method string paginationControl(\Laminas\Paginator\Paginator $paginator = null, $scrollingStyle = null, $partial = null, $params = null)
- * @method string|\Laminas\View\Helper\Partial partial($name = null, $values = null)
- * @method string partialLoop($name = null, $values = null)
- * @method \Laminas\View\Helper\Placeholder\Container\AbstractContainer placeholder($name = null)
- * @method string renderChildModel($child)
- * @method void renderToPlaceholder($script, $placeholder)
+ * @method \Laminas\View\Helper\InlineScript inlineScript()
+ * @method Model|\Laminas\View\Helper\Layout layout(string|null $template = null)
+ * @method string|\Laminas\View\Helper\Partial partial(string|Model|null $name = null, iterable|object|null $values = null)
+ * @method string|\Laminas\View\Helper\PartialLoop partialLoop(string|null $name = null, iterable|object $values = [])
+ * @method \Laminas\View\Helper\Placeholder placeholder(string|null $placeholder = null)
+ * @method string renderChildModel(string $child)
+ * @method void renderToPlaceholder(string|Model $script, string $placeholder)
  * @method string serverUrl($requestUri = null)
  * @method \Laminas\View\Helper\ViewModel viewModel()
  * @method string gravatarImage(string $emailAddress, int $imageSize = 80, array $imageAttributes = [], string $defaultImage = 'mm', string $rating = 'g')

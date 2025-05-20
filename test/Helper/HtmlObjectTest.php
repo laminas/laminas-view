@@ -49,7 +49,7 @@ final class HtmlObjectTest extends TestCase
         $htmlObject = $this->helper->__invoke('datastring', 'typestring', $attribs);
 
         $this->assertStringContainsString(
-            '<object data="datastring" type="typestring" key1="value1" key2="value2">',
+            '<object data="datastring" key1="value1" key2="value2" type="typestring">',
             $htmlObject,
         );
         $this->assertStringContainsString('</object>', $htmlObject);

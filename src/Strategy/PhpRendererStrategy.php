@@ -6,6 +6,7 @@ namespace Laminas\View\Strategy;
 
 use Laminas\EventManager\AbstractListenerAggregate;
 use Laminas\EventManager\EventManagerInterface;
+use Laminas\View\Helper\Placeholder;
 use Laminas\View\Renderer\PhpRenderer;
 use Laminas\View\ViewEvent;
 
@@ -88,9 +89,8 @@ class PhpRendererStrategy extends AbstractListenerAggregate
      */
     public function injectResponse(ViewEvent $e)
     {
-        $renderer = $e->getRenderer();
         $response = $e->getResponse();
-        if ($renderer !== $this->renderer || $response === null) {
+        if ($e->getRenderer() !== $this->renderer || $response === null) {
             return;
         }
 
@@ -100,10 +100,10 @@ class PhpRendererStrategy extends AbstractListenerAggregate
         // If content is empty, check common placeholders to determine if they are
         // populated, and set the content from them.
         if (empty($result)) {
-            $placeholders = $renderer->plugin('placeholder');
+            $placeholders = $this->renderer->plugin(Placeholder::class);
             foreach ($this->contentPlaceholders as $placeholder) {
                 if ($placeholders->containerExists($placeholder)) {
-                    $result = (string) $placeholders->getContainer($placeholder);
+                    $result = $placeholders->toString($placeholder);
                     break;
                 }
             }

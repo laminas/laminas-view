@@ -4,17 +4,12 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper;
 
-use DOMDocument;
-use Laminas\View;
-use Laminas\View\Exception\InvalidArgumentException;
+use Laminas\Escaper\Escaper;
+use Laminas\View\Exception\RuntimeException;
+use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\HeadStyle;
+use Laminas\View\Helper\Placeholder\Position;
 use PHPUnit\Framework\TestCase;
-use stdClass;
-
-use function array_shift;
-use function substr_count;
-
-use const PHP_EOL;
 
 final class HeadStyleTest extends TestCase
 {
@@ -22,7 +17,18 @@ final class HeadStyleTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->helper = new HeadStyle();
+        $this->helper = new HeadStyle(
+            new Escaper(),
+            new Doctype(),
+        );
+    }
+
+    private function setDoctypeToXhtml(): void
+    {
+        $this->helper = new HeadStyle(
+            new Escaper(),
+            new Doctype(Doctype::XHTML1_STRICT),
+        );
     }
 
     public function testInvokeWithoutArgumentsReturnsSelf(): void
@@ -30,140 +36,83 @@ final class HeadStyleTest extends TestCase
         self::assertSame($this->helper, $this->helper->__invoke());
     }
 
-    public function testAppendThrowsExceptionGivenNonStyleArgument(): void
+    public function testAppendStyleAppendsStyleToStack(): void
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid value passed to append');
-        /** @psalm-suppress InvalidArgument */
-        $this->helper->append('foo');
+        $this->helper->appendStyle('* { display: none; }', ['media' => 'screen']);
+        $this->helper->appendStyle('* { display: block; }', ['media' => 'print']);
+
+        $expect = <<<'HTML'
+            <style media="screen">
+            * { display: none; }
+            </style>
+            <style media="print">
+            * { display: block; }
+            </style>
+            HTML;
+
+        self::assertSame($expect, $this->helper->__toString());
     }
 
-    public function testPrependThrowsExceptionGivenNonStyleArgument(): void
+    public function testPrependStylePrependsStyleToStack(): void
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid value passed to prepend');
-        /** @psalm-suppress InvalidArgument */
-        $this->helper->prepend('foo');
+        $this->helper->prependStyle('* { display: none; }', ['media' => 'screen']);
+        $this->helper->prependStyle('* { display: block; }', ['media' => 'print']);
+
+        $expect = <<<'HTML'
+            <style media="print">
+            * { display: block; }
+            </style>
+            <style media="screen">
+            * { display: none; }
+            </style>
+            HTML;
+
+        self::assertSame($expect, $this->helper->__toString());
     }
 
-    public function testSetThrowsExceptionGivenNonStyleArgument(): void
+    public function testSetOverwritesStack(): void
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid value passed to set');
-        /** @psalm-suppress InvalidArgument */
-        $this->helper->set('foo');
+        $this->helper->setStyle('* { display: none; }', ['media' => 'screen']);
+        $this->helper->setStyle('* { display: block; }', ['media' => 'print']);
+
+        $expect = <<<'HTML'
+            <style media="print">
+            * { display: block; }
+            </style>
+            HTML;
+
+        self::assertSame($expect, $this->helper->__toString());
     }
 
-    public function testOffsetSetThrowsExceptionGivenNonStyleArgument(): void
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid value passed to offsetSet');
-        /** @psalm-suppress InvalidArgument */
-        $this->helper->offsetSet(1, 'foo');
-    }
-
-    public function testOverloadAppendStyleAppendsStyleToStack(): void
-    {
-        $string = 'a {}';
-        for ($i = 0; $i < 3; ++$i) {
-            $string .= PHP_EOL . 'a {}';
-            $this->helper->appendStyle($string);
-            $values = $this->helper->getContainer()->getArrayCopy();
-            self::assertCount($i + 1, $values);
-            $item = $values[$i];
-
-            self::assertInstanceOf(stdClass::class, $item);
-            self::assertObjectHasProperty('content', $item);
-            self::assertObjectHasProperty('attributes', $item);
-            self::assertEquals($string, $item->content);
-        }
-    }
-
-    public function testOverloadPrependStylePrependsStyleToStack(): void
-    {
-        $string = 'a {}';
-        for ($i = 0; $i < 3; ++$i) {
-            $string .= PHP_EOL . 'a {}';
-            $this->helper->prependStyle($string);
-            $values = $this->helper->getContainer()->getArrayCopy();
-            self::assertCount($i + 1, $values);
-            $item = array_shift($values);
-
-            self::assertInstanceOf(stdClass::class, $item);
-            self::assertObjectHasProperty('content', $item);
-            self::assertObjectHasProperty('attributes', $item);
-            self::assertEquals($string, $item->content);
-        }
-    }
-
-    public function testOverloadSetOverwritesStack(): void
-    {
-        $string = 'a {}';
-        for ($i = 0; $i < 3; ++$i) {
-            $this->helper->appendStyle($string);
-            $string .= PHP_EOL . 'a {}';
-        }
-
-        $this->helper->setStyle($string);
-        $values = $this->helper->getContainer()->getArrayCopy();
-        self::assertCount(1, $values);
-        $item = array_shift($values);
-
-        self::assertInstanceOf(stdClass::class, $item);
-        self::assertObjectHasProperty('content', $item);
-        self::assertObjectHasProperty('attributes', $item);
-        self::assertEquals($string, $item->content);
-    }
-
-    public function testCanBuildStyleTagsWithAttributes(): void
+    public function testAttributesAreEmitted(): void
     {
         $this->helper->setStyle('a {}', [
-            'lang'  => 'us_en',
-            'title' => 'foo',
-            'media' => 'projection',
-            'dir'   => 'rtl',
-            'bogus' => 'unused',
-        ]);
-        $value = $this->helper->getContainer()->getValue();
-        self::assertIsObject($value);
-        self::assertObjectHasProperty('attributes', $value);
-        $attributes = $value->attributes;
-
-        self::assertTrue(isset($attributes['lang']));
-        self::assertTrue(isset($attributes['title']));
-        self::assertTrue(isset($attributes['media']));
-        self::assertTrue(isset($attributes['dir']));
-        self::assertTrue(isset($attributes['bogus']));
-        self::assertEquals('us_en', $attributes['lang']);
-        self::assertEquals('foo', $attributes['title']);
-        self::assertEquals('projection', $attributes['media']);
-        self::assertEquals('rtl', $attributes['dir']);
-        self::assertEquals('unused', $attributes['bogus']);
-    }
-
-    public function testRenderedStyleMarkupHasExpectedOutput(): void
-    {
-        $this->helper->setStyle('a {}', [
-            'lang'  => 'en_us',
-            'title' => 'foo',
-            'media' => 'screen',
-            'dir'   => 'rtl',
-            'bogus' => 'unused',
+            'fizz' => 'buzz',
+            'bing' => 'bong',
         ]);
 
-        $expect = <<<HTML
-            <style type="text/css" lang="en_us" title="foo" media="screen" dir="rtl">
+        $expect = <<<'HTML'
+            <style bing="bong" fizz="buzz">
             a {}
             </style>
             HTML;
-        self::assertSame($expect, $this->helper->toString());
+
+        self::assertSame($expect, $this->helper->__toString());
     }
 
-    public function testRenderedStyleTagsContainsDefaultMedia(): void
+    public function testTheTypeAttributeIsAddedForNonHtml5Doctypes(): void
     {
-        $this->helper->setStyle('a {}', []);
-        $value = $this->helper->toString();
-        self::assertMatchesRegularExpression('#<style [^>]*?media="screen"#', $value, $value);
+        $this->setDoctypeToXhtml();
+
+        $this->helper->appendStyle('a {}');
+
+        $expect = <<<'HTML'
+            <style type="text&#x2F;css">
+            a {}
+            </style>
+            HTML;
+
+        self::assertSame($expect, $this->helper->__toString());
     }
 
     public function testMediaAttributeCanHaveSpaceInCommaSeparatedString(): void
@@ -186,81 +135,41 @@ final class HeadStyleTest extends TestCase
     public function testHeadStyleProxiesProperly(): void
     {
         $style1 = 'a {}';
-        $style2 = 'a {}' . PHP_EOL . 'h1 {}';
-        $style3 = 'a {}' . PHP_EOL . 'h2 {}';
+        $style2 = 'h1 {}';
+        $style3 = 'h2 {}';
 
-        $this->helper->__invoke($style1, 'SET')
-                     ->__invoke($style2, 'PREPEND')
-                     ->__invoke($style3, 'APPEND');
-        self::assertCount(3, $this->helper);
-        $values = $this->helper->getContainer()->getArrayCopy();
-        self::assertStringContainsString($values[0]->content, $style2);
-        self::assertStringContainsString($values[1]->content, $style1);
-        self::assertStringContainsString($values[2]->content, $style3);
+        $this->helper->__invoke($style1, [], Position::Set)
+                     ->__invoke($style2, [], Position::Append)
+                     ->__invoke($style3, [], Position::Prepend);
+
+        $expect = <<<'HTML'
+            <style>
+            h2 {}
+            </style>
+            <style>
+            a {}
+            </style>
+            <style>
+            h1 {}
+            </style>
+            HTML;
+
+        self::assertSame($expect, $this->helper->__toString());
     }
 
-    public function testToStyleGeneratesValidHtml(): void
-    {
-        $style1 = 'a {}';
-        $style2 = 'body {}' . PHP_EOL . 'h1 {}';
-        $style3 = 'div {}' . PHP_EOL . 'li {}';
-
-        $this->helper->__invoke($style1, 'SET')
-                     ->__invoke($style2, 'PREPEND')
-                     ->__invoke($style3, 'APPEND');
-        $html = $this->helper->toString();
-        self::assertNotEmpty($html);
-        $doc = new DOMDocument();
-        $dom = $doc->loadHtml($html);
-        self::assertTrue($dom);
-
-        $styles = substr_count($html, '<style type="text/css"');
-        self::assertEquals(3, $styles);
-        $styles = substr_count($html, '</style>');
-        self::assertEquals(3, $styles);
-        self::assertStringContainsString($style3, $html);
-        self::assertStringContainsString($style2, $html);
-        self::assertStringContainsString($style1, $html);
-    }
-
-    public function testCapturingCapturesToObject(): void
+    public function testCapturing(): void
     {
         $this->helper->captureStart();
-        echo 'foobar';
+        echo '* { display: none; }';
         $this->helper->captureEnd();
-        $values = $this->helper->getContainer()->getArrayCopy();
-        self::assertCount(1, $values);
-        $item = array_shift($values);
-        self::assertIsObject($item);
-        self::assertObjectHasProperty('content', $item);
-        self::assertStringContainsString('foobar', $item->content);
-    }
 
-    public function testOverloadingOffsetSetWritesToSpecifiedIndex(): void
-    {
-        $this->helper->offsetSetStyle(100, 'foobar');
-        $values = $this->helper->getContainer()->getArrayCopy();
-        self::assertCount(1, $values);
-        self::assertTrue(isset($values[100]));
-        $item = $values[100];
-        self::assertObjectHasProperty('content', $item);
-        self::assertStringContainsString('foobar', $item->content);
-    }
+        $expect = <<<'HTML'
+            <style>
+            * { display: none; }
+            </style>
+            HTML;
 
-    public function testInvalidMethodRaisesException(): void
-    {
-        $this->expectException(View\Exception\BadMethodCallException::class);
-        $this->expectExceptionMessage('Method "bogusMethod" does not exist');
-        /** @psalm-suppress UndefinedMagicMethod */
-        $this->helper->bogusMethod();
-    }
-
-    public function testTooFewArgumentsRaisesException(): void
-    {
-        $this->expectException(View\Exception\BadMethodCallException::class);
-        $this->expectExceptionMessage('Method "appendStyle" requires minimally content for the stylesheet');
-        /** @psalm-suppress TooFewArguments */
-        $this->helper->appendStyle();
+        self::assertSame($expect, $this->helper->__toString());
     }
 
     public function testThatEmptyStylesWillYieldAnEmptyValue(): void
@@ -271,29 +180,16 @@ final class HeadStyleTest extends TestCase
 
     public function testIndentationIsHonored(): void
     {
-        $returnValue = $this->helper->setIndent(4);
-        self::assertSame($this->helper, $returnValue);
-        $this->helper->appendStyle(<<<CSS
-            a {
-                display: none;
-            }
-            CSS);
-        $this->helper->appendStyle(<<<CSS
-            h1 {
-                font-weight: bold
-            }
-            CSS);
+        $this->helper->setIndent(4);
+        $this->helper->appendStyle('a { display: none; }');
+        $this->helper->appendStyle('h1 { font-weight: bold }');
 
         $expect = <<<HTML
-                <style type="text/css" media="screen">
-                a {
-                    display: none;
-                }
+                <style>
+                a { display: none; }
                 </style>
-                <style type="text/css" media="screen">
-                h1 {
-                    font-weight: bold
-                }
+                <style>
+                h1 { font-weight: bold }
                 </style>
             HTML;
 
@@ -314,136 +210,108 @@ final class HeadStyleTest extends TestCase
         self::assertStringContainsString('second capture', (string) $this->helper);
     }
 
-    public function testNestedCapturingFails(): void
+    public function testCaptureWithPrepend(): void
     {
-        $this->helper->__invoke()->captureStart();
-        echo "Captured text";
+        $this->helper->appendStyle('* { display: none; }');
+        $this->helper->captureStart(Position::Prepend, ['muppet' => 'kermit']);
+        echo '* { display: flex; }';
+        $this->helper->captureEnd();
+
+        $expect = <<<'HTML'
+            <style muppet="kermit">
+            * { display: flex; }
+            </style>
+            <style>
+            * { display: none; }
+            </style>
+            HTML;
+
+        self::assertSame($expect, $this->helper->toString());
+    }
+
+    public function testCaptureWithSet(): void
+    {
+        $this->helper->appendStyle('* { display: none; }');
+        $this->helper->captureStart(Position::Set, ['muppet' => 'kermit']);
+        echo '* { display: flex; }';
+        $this->helper->captureEnd();
+
+        $expect = <<<'HTML'
+            <style muppet="kermit">
+            * { display: flex; }
+            </style>
+            HTML;
+
+        self::assertSame($expect, $this->helper->toString());
+    }
+
+    public function testSeparatorCanBeOdd(): void
+    {
+        $this->helper->appendStyle('* { display: none; }')
+            ->appendStyle('* { display: none; }')
+            ->setSeparator('foo')
+            ->setIndent('!!');
+
+        $expect = <<<'HTML'
+            !!<style>
+            !!* { display: none; }
+            !!</style>foo<style>
+            !!* { display: none; }
+            !!</style>
+            HTML;
+
+        self::assertSame($expect, $this->helper->toString());
+    }
+
+    public function testResetStateClearsAllProperties(): void
+    {
+        $this->helper->appendStyle('* { display: none; }')
+            ->appendStyle('* { display: none; }')
+            ->setSeparator('foo')
+            ->setIndent('!!')
+            ->resetState();
+
+        self::assertSame('', $this->helper->toString());
+    }
+
+    public function testResetStateWillDiscardCapture(): void
+    {
+        $this->helper->captureStart();
+        echo 'Foo';
+        $this->helper->resetState();
+
+        self::assertSame('', $this->helper->toString());
+
         try {
-            $this->helper->__invoke()->captureStart();
-            $this->helper->__invoke()->captureEnd();
-            $this->fail('Nested capturing should fail');
-        } catch (View\Exception\ExceptionInterface $e) {
-            $this->helper->__invoke()->captureEnd();
-            self::assertStringContainsString('Cannot nest', $e->getMessage());
+            $this->helper->captureStart();
+            $this->helper->captureEnd();
+        } catch (RuntimeException) {
+            self::fail('An exception should not have been thrown');
         }
     }
 
-    public function testMediaAttributeAsArray(): void
+    public function testEmptyContentIsIgnored(): void
     {
-        $this->helper->setIndent(4);
-        $this->helper->appendStyle(
-            <<<CSS
-            a {
-                display: none;
-            }
-            CSS,
-            ['media' => ['screen', 'projection']],
-        );
-        $string = $this->helper->toString();
+        $this->helper->appendStyle('')
+            ->prependStyle('');
 
-        $scripts = substr_count($string, '    <style');
-        self::assertEquals(1, $scripts);
-        self::assertStringContainsString('    a {', $string);
-        self::assertStringContainsString(' media="screen,&#x20;projection"', $string);
+        self::assertSame('', $this->helper->toString());
+
+        $this->helper->setStyle('');
+
+        self::assertSame('', $this->helper->toString());
     }
 
-    public function testThatAnExceptionIsThrownIfMediaAttributeArrayContainsNonStringValues(): void
+    public function testIndentCanBeAppliedInToString(): void
     {
-        $this->helper->appendStyle(
-            'a {display: none;}',
-            ['media' => [0.2, []]],
-        );
+        $this->helper->appendStyle('foo');
 
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('When the media attribute is an array, the array can only contain string values');
+        $expect = <<<'HTML'
+            foo<style>
+            foofoo
+            foo</style>
+            HTML;
 
-        $this->helper->toString();
-    }
-
-    public function testMediaAttributeAsCommaSeparatedString(): void
-    {
-        $this->helper->setIndent(4);
-        $this->helper->appendStyle(
-            <<<CSS
-            a {
-                display: none;
-            }
-            CSS,
-            ['media' => 'screen,projection'],
-        );
-        $string = $this->helper->toString();
-
-        $scripts = substr_count($string, '    <style');
-        self::assertEquals(1, $scripts);
-        self::assertStringContainsString('    a {', $string);
-        self::assertStringContainsString(' media="screen,projection"', $string);
-    }
-
-    public function testConditionalScript(): void
-    {
-        $this->helper->appendStyle('
-a {
-    display: none;
-}', ['media' => 'screen,projection', 'conditional' => 'lt IE 7']);
-        $test = $this->helper->toString();
-        self::assertStringContainsString('<!--[if lt IE 7]>', $test);
-    }
-
-    public function testConditionalScriptNoIE(): void
-    {
-        $this->helper->appendStyle('
-a {
-    display: none;
-}', ['media' => 'screen,projection', 'conditional' => '!IE']);
-        $test = $this->helper->toString();
-        self::assertStringContainsString('<!--[if !IE]><!--><', $test);
-        self::assertStringContainsString('<!--<![endif]-->', $test);
-    }
-
-    public function testConditionalScriptNoIEWidthSpace(): void
-    {
-        $this->helper->appendStyle('
-a {
-    display: none;
-}', ['media' => 'screen,projection', 'conditional' => '! IE']);
-        $test = $this->helper->toString();
-        self::assertStringContainsString('<!--[if ! IE]><!--><', $test);
-        self::assertStringContainsString('<!--<![endif]-->', $test);
-    }
-
-    public function testContainerMaintainsCorrectOrderOfItems(): void
-    {
-        $style1 = 'a {display: none;}';
-        $this->helper->offsetSetStyle(10, $style1);
-
-        $style2 = 'h1 {font-weight: bold}';
-        $this->helper->offsetSetStyle(5, $style2);
-
-        $test     = $this->helper->toString();
-        $expected = '<style type="text/css" media="screen">'
-            . PHP_EOL
-            . $style2
-            . PHP_EOL
-            . '</style>'
-            . PHP_EOL
-            . '<style type="text/css" media="screen">'
-            . PHP_EOL
-            . $style1
-            . PHP_EOL
-            . '</style>';
-
-        self::assertEquals($expected, $test);
-    }
-
-    public function testRenderConditionalCommentsShouldNotContainHtmlEscaping(): void
-    {
-        $style = 'a{display:none;}';
-        $this->helper->appendStyle($style, [
-            'conditional' => 'IE 8',
-        ]);
-        $value = $this->helper->toString();
-
-        self::assertStringNotContainsString('<!--' . PHP_EOL, $value);
-        self::assertStringNotContainsString(PHP_EOL . '-->', $value);
+        self::assertSame($expect, $this->helper->toString('foo'));
     }
 }

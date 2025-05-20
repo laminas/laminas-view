@@ -8,7 +8,6 @@ use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\ConfigProvider;
 use Laminas\View\Helper\Placeholder;
 use Laminas\View\Helper\RenderToPlaceholder;
-use Laminas\View\HelperPluginManager;
 use Laminas\View\Renderer\PhpRenderer;
 use Laminas\View\Resolver\TemplatePathStack;
 use PHPUnit\Framework\TestCase;
@@ -38,10 +37,8 @@ final class RenderToPlaceholderTest extends TestCase
         $view = $serviceManager->get(PhpRenderer::class);
         $view->setResolver($serviceManager->get(TemplatePathStack::class));
 
-        $helpers = $serviceManager->get(HelperPluginManager::class);
-
-        $this->helper      = $helpers->get(RenderToPlaceholder::class);
-        $this->placeholder = $helpers->get(Placeholder::class);
+        $this->placeholder = new Placeholder();
+        $this->helper      = new RenderToPlaceholder($view, $this->placeholder);
     }
 
     public function testPlaceholderIsInitiallyEmpty(): void

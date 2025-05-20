@@ -24,12 +24,13 @@ final class RenderToPlaceholder
      * variable for later use.
      *
      * @param non-empty-string|ModelInterface $script The template script to render
-     * @param non-empty-string $placeholder The placeholder variable name in which to s
+     * @param non-empty-string $placeholder The placeholder variable name in which to store the output
      */
     public function __invoke(string|ModelInterface $script, string $placeholder): void
     {
-        $this->placeholder->__invoke($placeholder)->append(
+        $this->placeholder->__invoke()->append(
             $this->renderer->render($script),
+            $placeholder,
         );
     }
 }

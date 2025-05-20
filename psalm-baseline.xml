@@ -42,111 +42,10 @@
       <code><![CDATA[$value[$k]]]></code>
     </MixedAssignment>
   </file>
-  <file src="src/Helper/HeadScript.php">
-    <MethodSignatureMustProvideReturnType>
-      <code><![CDATA[offsetSet]]></code>
-    </MethodSignatureMustProvideReturnType>
-    <MixedArgument>
-      <code><![CDATA[$content]]></code>
-      <code><![CDATA[$content]]></code>
-      <code><![CDATA[$index]]></code>
-      <code><![CDATA[$index]]></code>
-      <code><![CDATA[$this->autoEscape ? $this->escapeAttribute($value) : $value]]></code>
-      <code><![CDATA[$value]]></code>
-    </MixedArgument>
-    <MixedArgumentTypeCoercion>
-      <code><![CDATA[$attrs]]></code>
-      <code><![CDATA[$attrs]]></code>
-    </MixedArgumentTypeCoercion>
-    <MixedAssignment>
-      <code><![CDATA[$attrs['src']]]></code>
-      <code><![CDATA[$content]]></code>
-      <code><![CDATA[$index]]></code>
-      <code><![CDATA[$value]]></code>
-    </MixedAssignment>
-    <MixedMethodCall>
-      <code><![CDATA[isHtml5]]></code>
-    </MixedMethodCall>
-    <MixedReturnStatement>
-      <code><![CDATA[parent::__call($method, $args)]]></code>
-      <code><![CDATA[parent::__call($method, $args)]]></code>
-    </MixedReturnStatement>
-    <PossiblyUnusedReturnValue>
-      <code><![CDATA[AbstractContainer]]></code>
-      <code><![CDATA[AbstractContainer]]></code>
-    </PossiblyUnusedReturnValue>
-    <RedundantCastGivenDocblockType>
-      <code><![CDATA[(bool) $flag]]></code>
-    </RedundantCastGivenDocblockType>
-    <RedundantConditionGivenDocblockType>
-      <code><![CDATA[(null !== $spec) && is_string($spec)]]></code>
-      <code><![CDATA[is_string($spec)]]></code>
-    </RedundantConditionGivenDocblockType>
-    <UndefinedInterfaceMethod>
-      <code><![CDATA[plugin]]></code>
-    </UndefinedInterfaceMethod>
-  </file>
-  <file src="src/Helper/HeadStyle.php">
-    <DocblockTypeContradiction>
-      <code><![CDATA[! is_string($item->content)]]></code>
-      <code><![CDATA[! isset($item->content)]]></code>
-      <code><![CDATA[! isset($item->content) || ! is_string($item->content)]]></code>
-    </DocblockTypeContradiction>
-    <MethodSignatureMustProvideReturnType>
-      <code><![CDATA[offsetSet]]></code>
-    </MethodSignatureMustProvideReturnType>
-    <MismatchingDocblockParamType>
-      <code><![CDATA[ObjectShape]]></code>
-    </MismatchingDocblockParamType>
-    <MixedArgument>
-      <code><![CDATA[$content]]></code>
-      <code><![CDATA[$index]]></code>
-    </MixedArgument>
-    <MixedArgumentTypeCoercion>
-      <code><![CDATA[$attrs]]></code>
-    </MixedArgumentTypeCoercion>
-    <MixedAssignment>
-      <code><![CDATA[$content]]></code>
-      <code><![CDATA[$index]]></code>
-    </MixedAssignment>
-    <PossiblyFalseArgument>
-      <code><![CDATA[$content]]></code>
-      <code><![CDATA[$content]]></code>
-      <code><![CDATA[$content]]></code>
-    </PossiblyFalseArgument>
-    <PossiblyInvalidArgument>
-      <code><![CDATA[$attributes]]></code>
-    </PossiblyInvalidArgument>
-    <PossiblyNullArgument>
-      <code><![CDATA[$index]]></code>
-    </PossiblyNullArgument>
-    <PossiblyNullOperand>
-      <code><![CDATA[preg_replace("/(\r\n?|\n)/", '$1' . $indent, $return)]]></code>
-    </PossiblyNullOperand>
-    <PossiblyUnusedReturnValue>
-      <code><![CDATA[AbstractContainer]]></code>
-      <code><![CDATA[AbstractContainer]]></code>
-    </PossiblyUnusedReturnValue>
-    <RedundantConditionGivenDocblockType>
-      <code><![CDATA[(null !== $content) && is_string($content)]]></code>
-      <code><![CDATA[is_string($content)]]></code>
-    </RedundantConditionGivenDocblockType>
-    <UnusedParam>
-      <code><![CDATA[$indent]]></code>
-    </UnusedParam>
-  </file>
   <file src="src/Helper/HelperInterface.php">
     <PossiblyUnusedReturnValue>
       <code><![CDATA[HelperInterface]]></code>
     </PossiblyUnusedReturnValue>
-  </file>
-  <file src="src/Helper/InlineScript.php">
-    <InvalidExtendClass>
-      <code><![CDATA[HeadScript]]></code>
-    </InvalidExtendClass>
-    <MethodSignatureMismatch>
-      <code><![CDATA[public function __invoke(]]></code>
-    </MethodSignatureMismatch>
   </file>
   <file src="src/Helper/Partial.php">
     <InvalidReturnStatement>
@@ -161,117 +60,6 @@
     <MixedArgument>
       <code><![CDATA[$item]]></code>
     </MixedArgument>
-  </file>
-  <file src="src/Helper/Placeholder.php">
-    <RedundantCastGivenDocblockType>
-      <code><![CDATA[(string) $key]]></code>
-      <code><![CDATA[(string) $key]]></code>
-      <code><![CDATA[(string) $key]]></code>
-      <code><![CDATA[(string) $key]]></code>
-    </RedundantCastGivenDocblockType>
-    <UnsafeInstantiation>
-      <code><![CDATA[new $this->containerClass($value)]]></code>
-    </UnsafeInstantiation>
-  </file>
-  <file src="src/Helper/Placeholder/Container.php">
-    <InvalidTemplateParam>
-      <code><![CDATA[Container]]></code>
-    </InvalidTemplateParam>
-  </file>
-  <file src="src/Helper/Placeholder/Container/AbstractContainer.php">
-    <DocblockTypeContradiction>
-      <code><![CDATA[is_scalar($key)]]></code>
-    </DocblockTypeContradiction>
-    <ImplementedReturnTypeMismatch>
-      <code><![CDATA[$this]]></code>
-    </ImplementedReturnTypeMismatch>
-    <InvalidArgument>
-      <code><![CDATA[$data]]></code>
-      <code><![CDATA[$data]]></code>
-      <code><![CDATA[$data]]></code>
-      <code><![CDATA[$data]]></code>
-      <code><![CDATA[$this->nextIndex()]]></code>
-      <code><![CDATA[$this->nextIndex()]]></code>
-      <code><![CDATA[$this[$key] .= $data]]></code>
-    </InvalidArgument>
-    <InvalidNullableReturnType>
-      <code><![CDATA[string]]></code>
-    </InvalidNullableReturnType>
-    <InvalidParamDefault>
-      <code><![CDATA[TKey]]></code>
-    </InvalidParamDefault>
-    <InvalidReturnStatement>
-      <code><![CDATA[max($keys) + 1]]></code>
-    </InvalidReturnStatement>
-    <InvalidReturnType>
-      <code><![CDATA[int]]></code>
-    </InvalidReturnType>
-    <MixedArgumentTypeCoercion>
-      <code><![CDATA[$items]]></code>
-    </MixedArgumentTypeCoercion>
-    <MixedOperand>
-      <code><![CDATA[$this[$key]]]></code>
-      <code><![CDATA[max($keys)]]></code>
-    </MixedOperand>
-    <NoValue>
-      <code><![CDATA[$this->captureKey]]></code>
-    </NoValue>
-    <NullableReturnStatement>
-      <code><![CDATA[$return]]></code>
-    </NullableReturnStatement>
-    <PossiblyNullArgument>
-      <code><![CDATA[$key]]></code>
-    </PossiblyNullArgument>
-    <PossiblyNullArrayOffset>
-      <code><![CDATA[$this]]></code>
-    </PossiblyNullArrayOffset>
-    <RedundantCastGivenDocblockType>
-      <code><![CDATA[(string) $postfix]]></code>
-      <code><![CDATA[(string) $prefix]]></code>
-      <code><![CDATA[(string) $separator]]></code>
-    </RedundantCastGivenDocblockType>
-    <RiskyTruthyFalsyComparison>
-      <code><![CDATA[empty($this[$key])]]></code>
-    </RiskyTruthyFalsyComparison>
-  </file>
-  <file src="src/Helper/Placeholder/Container/AbstractStandalone.php">
-    <InvalidPropertyAssignmentValue>
-      <code><![CDATA[$container]]></code>
-      <code><![CDATA[new $this->containerClass()]]></code>
-    </InvalidPropertyAssignmentValue>
-    <InvalidReturnStatement>
-      <code><![CDATA[$this->container]]></code>
-    </InvalidReturnStatement>
-    <InvalidReturnType>
-      <code><![CDATA[AbstractContainer<TKey, TValue>]]></code>
-    </InvalidReturnType>
-    <InvalidTemplateParam>
-      <code><![CDATA[AbstractContainer<TKey, TValue>]]></code>
-      <code><![CDATA[AbstractContainer<TKey, TValue>|null]]></code>
-    </InvalidTemplateParam>
-    <MixedArgumentTypeCoercion>
-      <code><![CDATA[$this->getContainer()]]></code>
-    </MixedArgumentTypeCoercion>
-    <MixedAssignment>
-      <code><![CDATA[$return]]></code>
-    </MixedAssignment>
-    <PossiblyFalseArgument>
-      <code><![CDATA[class_parents($name)]]></code>
-    </PossiblyFalseArgument>
-    <PossiblyUnusedMethod>
-      <code><![CDATA[__get]]></code>
-      <code><![CDATA[__set]]></code>
-      <code><![CDATA[escape]]></code>
-      <code><![CDATA[getAutoEscape]]></code>
-    </PossiblyUnusedMethod>
-    <RedundantCastGivenDocblockType>
-      <code><![CDATA[(bool) $autoEscape]]></code>
-      <code><![CDATA[(string) $string]]></code>
-      <code><![CDATA[(string) $string]]></code>
-    </RedundantCastGivenDocblockType>
-    <UnsafeInstantiation>
-      <code><![CDATA[new $this->containerClass()]]></code>
-    </UnsafeInstantiation>
   </file>
   <file src="src/Helper/ServerUrl.php">
     <ArgumentTypeCoercion>
@@ -305,17 +93,6 @@
     <MethodSignatureMismatch>
       <code><![CDATA[HelperPluginManager]]></code>
     </MethodSignatureMismatch>
-  </file>
-  <file src="src/HtmlAttributesSet.php">
-    <MixedArgumentTypeCoercion>
-      <code><![CDATA[$value]]></code>
-    </MixedArgumentTypeCoercion>
-    <PossiblyInvalidCast>
-      <code><![CDATA[$value]]></code>
-    </PossiblyInvalidCast>
-    <RedundantCastGivenDocblockType>
-      <code><![CDATA[(string) $key]]></code>
-    </RedundantCastGivenDocblockType>
   </file>
   <file src="src/Model/ClearableModelInterface.php">
     <MissingReturnType>
@@ -503,22 +280,11 @@
   </file>
   <file src="src/Strategy/PhpRendererStrategy.php">
     <MixedAssignment>
-      <code><![CDATA[$placeholders]]></code>
       <code><![CDATA[$result]]></code>
     </MixedAssignment>
-    <MixedMethodCall>
-      <code><![CDATA[containerExists]]></code>
-      <code><![CDATA[getContainer]]></code>
-    </MixedMethodCall>
     <MixedPropertyTypeCoercion>
       <code><![CDATA[$contentPlaceholders]]></code>
     </MixedPropertyTypeCoercion>
-    <PossiblyNullReference>
-      <code><![CDATA[plugin]]></code>
-    </PossiblyNullReference>
-    <UndefinedInterfaceMethod>
-      <code><![CDATA[plugin]]></code>
-    </UndefinedInterfaceMethod>
     <UnusedParam>
       <code><![CDATA[$e]]></code>
     </UnusedParam>
@@ -599,17 +365,6 @@
     <RedundantCastGivenDocblockType>
       <code><![CDATA[(string) $this->helper->toString()]]></code>
     </RedundantCastGivenDocblockType>
-  </file>
-  <file src="test/Helper/HeadScriptTest.php">
-    <DeprecatedMethod>
-      <code><![CDATA[setService]]></code>
-    </DeprecatedMethod>
-    <PossiblyNullArgument>
-      <code><![CDATA[$item->source]]></code>
-    </PossiblyNullArgument>
-    <PossiblyNullPropertyFetch>
-      <code><![CDATA[$item->source]]></code>
-    </PossiblyNullPropertyFetch>
   </file>
   <file src="test/Helper/HtmlListTest.php">
     <UnusedParam>

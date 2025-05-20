@@ -29,6 +29,7 @@ final class Tag
     public function __construct(
         public readonly string $tag,
         array $attributes = [],
+        public readonly string|null $content = null,
     ) {
         $attributes = array_change_key_case($attributes, CASE_LOWER);
         ksort($attributes);
@@ -39,7 +40,8 @@ final class Tag
     public function equals(self $other): bool
     {
         return $this->tag === $other->tag
-            && $this->attributes === $other->attributes;
+            && $this->attributes === $other->attributes
+            && $this->content === $other->content;
     }
 
     public function hasAttribute(string $name): bool

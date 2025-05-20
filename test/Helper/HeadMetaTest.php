@@ -23,19 +23,17 @@ final class HeadMetaTest extends TestCase
     {
         $this->escaper = new Escaper();
         $this->helper  = new HeadMeta(
-            new Doctype(),
             $this->escaper,
+            new Doctype(),
         );
     }
 
     /** @param DoctypeID $doctype */
     private function setDoctype(string $doctype): void
     {
-        $doctype = new Doctype($doctype);
-
         $this->helper = new HeadMeta(
-            $doctype,
             $this->escaper,
+            new Doctype($doctype),
         );
     }
 

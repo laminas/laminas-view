@@ -24,6 +24,13 @@ The entire codebase has been updated with native parameter and return types, imp
 All helper aliases that referred to the `Zend` equivalent of a helper or service have been removed.
 Similarly, factories that previously searched for services in the container such as a Translator or Authentication Service for example, no longer check for the presence of the Zend equivalent.
 
+### Placeholder "Container"
+
+The [Placeholder](#placeholder) view helper has been refactored to hide its container implementation, and the [inheritance hierarchy of the container has been removed](#other-placeholder-related-classes).
+
+Because of this, `laminas-view` no longer ships a 'Container' implementation for end users and the `Laminas\View\Helper\Placeholder\Container` class is no longer suitable for public use.
+It has been made final, and, marked as `@internal` and should not be used in consumer code.
+
 ### Helpers
 
 #### `Asset`
@@ -132,6 +139,43 @@ This means that a number of methods no longer exist, including, but not limited 
 
 Please consult the [updated documentation](../helpers/head-meta.md) for further information.
 
+#### `HeadScript` and `InlineScript`
+
+`HeadScript` and `InlineScript` no longer inherit from another class, they have become final, and the following methods have been removed:
+
+- `offsetSetScript`
+- `offsetSetFile`
+- `offsetSet`
+- `createData`
+- `itemToString`
+- `append`
+- `prepend`
+- `set`
+- `setView`
+- `getView`
+- `setAllowArbitraryAttributes`
+- `arbitraryAttributesAllowed`
+- Any previously inherited methods from `Placeholder\AbstractStandalone`, `IteratorAggregate`, `Countable` and `ArrayAccess`.
+
+The helpers have been vastly simplified, allowing users to simply append, prepend or overwrite scripts via concrete methods and capture output as per the previous implementation.
+
+#### `HeadStyle`
+
+`HeadStyle` no longer inherit from another class, it has become final, and the following methods have been removed:
+
+- `offsetSetStyle`
+- `offsetSet`
+- `createData`
+- `itemToString`
+- `append`
+- `prepend`
+- `set`
+- `setView`
+- `getView`
+- Any previously inherited methods from `Placeholder\AbstractStandalone`, `IteratorAggregate`, `Countable` and `ArrayAccess`.
+
+The helper has been vastly simplified, allowing users to simply append, prepend or overwrite styles via concrete methods and capture output as per the previous implementation.
+
 #### `HtmlAttributes`
 
 This helper no longer inherits from a base class, therefore the following methods have been removed
@@ -181,6 +225,21 @@ The inheritance hierarchy has been removed from this helper and the following me
 
 The layout model accessor and layout template setter were infeasible to use because retrieving the instance from a view template context, required setting the layout template with `$this->layout('some-template')`, therefore, the `getLayout` and `setTemplate` methods were inaccessible in normal usage.
 
+#### `Placeholder`
+
+The inheritance hierarchy has been removed from this helper and the following methods have been removed:
+
+- `createContainer`
+- `getContainer`
+- `containerExists`
+- `deleteContainer`
+- `clearContainers`
+- `getView`
+- `setView`
+- Any previously inherited methods from `Placeholder\AbstractStandalone`, `IteratorAggregate`, `Countable` and `ArrayAccess`.
+
+You can now only interact with the view helper rather than the underlying 'Container' implementation.
+
 #### `RenderToPlaceholder`
 
 The inheritance hierarchy has been removed from this helper and the following methods have been removed:
@@ -222,6 +281,16 @@ If you depend on the removed `laminas-feed` related classes, you will not be abl
 The plugin manager no longer attempts to automatically inject a translator into any plugins or helpers.
 If you previously relied on this behaviour, you will need to instead register a factory for your custom helper that injects the translator manually.
 
+#### Event Manager "Initializers"
+
+The plugin manager no longer attempts to retrieve a `Laminas\EventManager` instance from the container, nor inject an event manager, shared or otherwise into helper instances.
+If you have custom helpers that require access to an event manager, you should inject one by creating a custom factory for your helper.
+
+#### View Renderer "Initializers"
+
+The plugin manager no longer attempts to inject a `Laminas\View\Renderer\PhpRenderer` into helper instances.
+If you have custom helpers that require access to the view renderer, you should inject one by creating a custom factory for your helper.
+
 ## Removed Classes and Traits
 
 ### `AbstractHtmlElement`
@@ -244,6 +313,14 @@ This can be achieved by writing a custom factory for the helper.
 A very old and deprecated singleton registry `Laminas\View\Helper\Placeholder\Registry` has been removed.
 This registry was historically used to aggregate placeholder containers and had not been used internally for some time.
 Hopefully no one will notice that it's gone because there is no replacement for it.
+
+### Other Placeholder-Related Classes
+
+The following classes represented 'containers' used for aggregating data and had a deep inheritance hierarchy yielding a huge api surface.
+Containers, where used, are no longer exposed by the helper apis so the following classes have been removed:
+
+- `Laminas\View\Helper\Placeholder\Container\AbstractContainer`
+- `Laminas\View\Helper\Placeholder\Container\AbstractStandalone`
 
 ### Removed Helpers
 

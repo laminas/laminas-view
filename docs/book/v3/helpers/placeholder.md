@@ -1,102 +1,65 @@
 # Placeholder
 
-The `Placeholder` view helper is used to persist content between view scripts
-and view instances. It also offers some useful features such as aggregating
-content, capturing view script content for later use, and adding pre- and
-post-text to content (and custom separators for aggregated content).
+The `Placeholder` view helper is used to persist content between view scripts and offers useful methods for aggregating multiple string values for combined output elsewhere.
 
 ## Basic Usage
 
-Basic usage of placeholders is to persist view data. Each invocation of the
-`Placeholder` helper expects a placeholder name; the helper then returns a
-placeholder container object that you can either manipulate or echo.
+```php
+// some-view-partial.phtml
+if ($someCondition) {
+    $this->placeholder('links')->append('<a href="#something">Something</a>');
+}
+$this->placeholder()->append('<a href="#always">Always</a>', 'links');
+```
 
 ```php
-<?php $this->placeholder('foo')->set("Some text for later") ?>
-
-<?= $this->placeholder('foo'); ?>
+// layout.phtml
+?>
+<nav>
+    <a href="#otherthing">Other thing</a>
+    <?= $this->placeholder('links') ?>
+</nav>
 ```
 
 Results in:
 
 ```html
-Some text for later
+<nav>
+    <a href="#otherthing">Other thing</a>
+    <a href="#something">Something</a>
+    <a href="#always">Always</a>
+</nav>
 ```
 
-## Aggregate Content
+## Aggregating and Ordering Content
 
-Aggregating content via placeholders can be useful at times as well. For
-instance, your view script may have a variable array from which you wish to
-retrieve messages to display later; a later view script can then determine how
-those will be rendered.
+The placeholder view helper can aggregate content in several ways:
 
-The `Placeholder` view helper uses containers that extend `ArrayObject`,
-providing a rich feature set for manipulating arrays. In addition, it offers a
-variety of methods for formatting the content stored in the container:
+- `append(string $content, string|null $placeholder = null)` Adds content to the end of the list
+- `prepend(string $content, string|null $placeholder = null)` Adds content at the beginning of the list
+- `set(string $content, string|null $placeholder = null)` Replaces existing content with the value given
+- `captureStart()` and `captureEnd` provide a way of adding content using [PHPs output buffer](https://www.php.net/manual/outcontrol.output-buffering.php). See more in [Capturing Content](#capture-content)
 
-- `setPrefix($prefix)` sets text with which to prefix the content. Use
-  `getPrefix()` at any time to determine what the current setting is.
-- `setPostfix($prefix)` sets text with which to append the content. Use
-  `getPostfix()` at any time to determine what the current setting is.
-- `setSeparator($prefix)` sets text with which to separate aggregated content.
-  Use `getSeparator()` at any time to determine what the current setting is.
-- `setIndent($prefix)` can be used to set an indentation value for content. If
-  an integer is passed, that number of spaces will be used; if a string is
-  passed, the string will be used. Use `getIndent()` at any time to determine
-  what the current setting is.
+By default, when content is emitted, by casting the helper to a string with `<?php echo $this->placeholder('some-placeholder') ?>`, each item will be separated with a new line, or more accurately, [`PHP_EOL`](https://www.php.net/manual/reserved.constants.php#constant.php-eol).
 
-Set the data in one view script:
+The `setSeparator()` method can be used to modify the separator value:
 
 ```php
-<!-- first view script -->
-<?php $this->placeholder('foo')->exchangeArray($this->data) ?>
-```
+echo $this->placeholder('foo')
+    ->append('One')
+    ->prepend('Two')
+    ->setSeparator('<br>');
 
-And retrieve the data and output it in another view script:
-
-```php
-<!-- later view script -->
-<?php
-$this->placeholder('foo')
-    ->setPrefix("<ul>\n    <li>")
-    ->setSeparator("</li><li>\n")
-    ->setIndent(4)
-    ->setPostfix("</li></ul>\n");
-?>
-
-<?= $this->placeholder('foo') ?>
-```
-
-The above results in an unordered list with pretty indentation.
-
-Because the `Placeholder` container objects extend `ArrayObject`, you can also
-assign content to a specific key in the container easily, instead of simply
-pushing it into the container. Keys may be accessed either as object properties
-or as array keys.
-
-```php
-<?php $this->placeholder('foo')->bar = $this->data ?>
-<?= $this->placeholder('foo')->bar ?>
-
-<?php
-$foo = $this->placeholder('foo');
-echo $foo['bar'];
+// Two<br>One
 ```
 
 ## Capture Content
 
-Occasionally you may have content for a placeholder in a view script that is
-easiest to template; the `Placeholder` view helper allows you to capture
-arbitrary content for later rendering using the following API.
+Occasionally you may have content for a placeholder in a view script that is easier to template; the `Placeholder` view helper allows you to capture arbitrary content for later rendering using the following API.
 
-- `captureStart($type, $key)` begins capturing content.
-    - `$type` should be one of the `Placeholder` constants `APPEND` or `SET`. If
-      `APPEND`, captured content is appended to the list of current content in the
-      placeholder; if `SET`, captured content is used as the sole value of the
-      placeholder (potentially replacing any previous content). By default,
-      `$type` is `APPEND`.
-    - `$key` can be used to specify a specific key in the placeholder container to
-      which you want content captured.
+- `captureStart(string $name, $position)` begins capturing content.
+    - `$name` is the name of the placeholder you wish to capture to. It can be omitted if you have already called the helper with the placeholder name.
+    - `$position` should be an enum case of `Laminas\View\Helper\Placeholder\Position`. This value can be omitted and defaults to append.
     - `captureStart()` locks capturing until `captureEnd()` is called; you cannot
       nest capturing with the same placeholder container. Doing so will raise an
       exception.
@@ -106,8 +69,8 @@ arbitrary content for later rendering using the following API.
 As an example:
 
 ```php
-<!-- Default capture: append -->
-<?php $this->placeholder('foo')->captureStart();
+/** Default capture: append */
+$this->placeholder('foo')->captureStart();
 foreach ($this->data as $datum): ?>
 <div class="foo">
     <h2><?= $datum->title ?></h2>
@@ -119,53 +82,28 @@ foreach ($this->data as $datum): ?>
 <?= $this->placeholder('foo') ?>
 ```
 
-Alternately, capture to a key:
+## Stateful Tracking of the In-Use Placeholder
+
+The placeholder tracks the name of the most recently used placeholder name.
+
+In this example, the calls to `append` and `prepend` do not specify the name of the placeholder because the helper is first invoked with the placeholder name:
 
 ```php
-<!-- Capture to key -->
-<?php $this->placeholder('foo')->captureStart('SET', 'data');
-foreach ($this->data as $datum): ?>
-<div class="foo">
-    <h2><?= $datum->title ?></h2>
-    <p><?= $datum->content ?></p>
-</div>
- <?php endforeach; ?>
-<?php $this->placeholder('foo')->captureEnd() ?>
-
-<?= $this->placeholder('foo')->data ?>
+echo $this->placeholder('myName')
+    ->append('Foo')
+    ->prepend('Bar');
 ```
 
-## Clearing Content
-
-In certain situations it is desirable to remove or clear containers and
-aggregated content. The placeholder view helper provides two methods to either
-delete a specific container or clear all containers at once:
-
-### Delete a single container
+In most situations, it is better to be explicit about the placeholder you wish to modify, particularly if you are using several:
 
 ```php
-$this->plugin('placeholder')->deleteContainer('myNamedContainer');
+$this->placeholder()->append('Foo', 'ph1')
+    ->append('Bar', 'ph1');
+    
+$this->placeholder()->append('Baz', 'other');
+
+echo $this->placeholder('ph1'); // Foo\nBar
+echo $this->placeholder('other'); // Baz
 ```
 
-### Clear all containers
-
-```php
-$this->plugin('placeholder')->clearContainers();
-```
-
-## Concrete Implementations
-
-laminas-view ships with a number of "concrete" placeholder implementations. These
-are for commonly used placeholders: doctype, page title, and various `<head>`
-elements. In all cases, calling the placeholder with no arguments returns the
-element itself.
-
-Documentation for each element is covered separately, as linked below:
-
-- [Doctype](doctype.md)
-- [HeadLink](head-link.md)
-- [HeadMeta](head-meta.md)
-- [HeadScript](head-script.md)
-- [HeadStyle](head-style.md)
-- [HeadTitle](head-title.md)
-- [InlineScript](inline-script.md)
+If at any point, the placeholder name cannot be determined, an exception will be thrown, so using the second argument to explicitly state the placeholder you wish to update or emit is a good habit to get into.
