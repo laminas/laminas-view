@@ -40,6 +40,20 @@ Both of these methods have been removed.
 Now, the only way to configure the resource map is via constructor injection.
 The method of configuring the resource map remains unchanged.
 
+#### `Cycle`
+
+The `Cycle` helper no longer inherits from `AbstractHelper` meaning that the `getView` and `setView` methods no longer exist.
+
+This helper no longer implements `Iterator` which is unlikely to cause any issues because it was never intended to be iterated over, rather the methods it exposed have similarities to those in `Iterator`.
+
+The following additional methods have been removed:
+
+- `getName`
+- `valid`
+
+Along with adding native parameter and return types, the return type of `rewind` has changed from `self` to `void`.
+The helper is now also `final`.
+
 #### `Doctype`
 
 The `Doctype` view helper no longer extends from `AbstractHelper` therefore the `getView` and `setView` methods no longer exist on the class.
