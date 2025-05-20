@@ -4,7 +4,7 @@ The `Cycle` helper is used to alternate a set of values.
 
 ## Basic Usage
 
-To add elements to cycle, specify them in constructor:
+To add elements to cycle, specify them during invocation:
 
 ```php
 <table>
@@ -83,7 +83,7 @@ You can also provide a `$name` argument to `assign()`:
 <?php $this->cycle()->assign([1, 2, 3], 'number'); ?>
 ```
 
-Or use the `setName()` method priort to invoking either of `next()` or `prev()`.
+Or use the `setName()` method prior to invoking either of `next()` or `prev()`.
 
 As a combined example:
 
@@ -101,3 +101,6 @@ $this->cycle()->assign([1, 2, 3], 'numbers');
     <?php endforeach ?>
 </table>
 ```
+
+NOTE:
+The data given to the cycle helper to cycle between must be "stringable", i.e. a string, a number, or an object implementing `Stringable`.

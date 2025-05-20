@@ -9,34 +9,6 @@
       <code><![CDATA[$template]]></code>
     </PossiblyNullArgument>
   </file>
-  <file src="src/Helper/Cycle.php">
-    <ImplementedReturnTypeMismatch>
-      <code><![CDATA[Cycle]]></code>
-      <code><![CDATA[Cycle]]></code>
-    </ImplementedReturnTypeMismatch>
-    <MissingTemplateParam>
-      <code><![CDATA[Iterator]]></code>
-    </MissingTemplateParam>
-    <MixedArgument>
-      <code><![CDATA[$this->data[$this->name]]]></code>
-      <code><![CDATA[$this->data[$this->name]]]></code>
-    </MixedArgument>
-    <MixedArrayAccess>
-      <code><![CDATA[$this->data[$this->name][$this->key()]]]></code>
-      <code><![CDATA[$this->data[$this->name][$this->key()]]]></code>
-    </MixedArrayAccess>
-    <MixedOperand>
-      <code><![CDATA[$this->pointers[$this->name]]]></code>
-      <code><![CDATA[$this->pointers[$this->name]]]></code>
-    </MixedOperand>
-    <MixedReturnStatement>
-      <code><![CDATA[$this->data[$this->name]]]></code>
-      <code><![CDATA[$this->pointers[$this->name]]]></code>
-    </MixedReturnStatement>
-    <PossiblyUnusedMethod>
-      <code><![CDATA[getName]]></code>
-    </PossiblyUnusedMethod>
-  </file>
   <file src="src/Helper/Escaper/AbstractHelper.php">
     <MixedAssignment>
       <code><![CDATA[$value[$k]]]></code>
@@ -360,11 +332,6 @@
     <PossiblyUndefinedArrayOffset>
       <code><![CDATA[$params[$param]]]></code>
     </PossiblyUndefinedArrayOffset>
-  </file>
-  <file src="test/Helper/CycleTest.php">
-    <RedundantCastGivenDocblockType>
-      <code><![CDATA[(string) $this->helper->toString()]]></code>
-    </RedundantCastGivenDocblockType>
   </file>
   <file src="test/Helper/HtmlListTest.php">
     <UnusedParam>
