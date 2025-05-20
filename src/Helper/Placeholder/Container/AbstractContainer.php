@@ -24,6 +24,9 @@ use function str_repeat;
 /**
  * Abstract class representing container for placeholder values
  *
+ * @deprecated Since 2.40.0 This class will be removed in version 3.0 without replacement. The container is an
+ *             implementation detail that should not be part of the public API
+ *
  * @template TKey of array-key
  * @template TValue
  * @extends ArrayObject<TKey, TValue>
