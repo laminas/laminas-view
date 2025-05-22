@@ -48,7 +48,7 @@ use function sprintf;
  *
  * @method string asset($asset)
  * @method string|null basePath(string|null $file = null)
- * @method \Laminas\View\Helper\Cycle cycle(array $data = array(), $name = \Laminas\View\Helper\Cycle::DEFAULT_NAME)
+ * @method \Laminas\View\Helper\Cycle cycle(array $data = [], string $name = 'default')
  * @method Doctype doctype()
  * @method mixed escapeCss(mixed $value, int $recurse = \Laminas\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
  * @method mixed escapeHtml(mixed $value, int $recurse = \Laminas\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
