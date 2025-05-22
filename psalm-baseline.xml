@@ -129,6 +129,7 @@
   <file src="src/Helper/DeprecatedAbstractHelperHierarchyTrait.php">
     <DeprecatedClass>
       <code><![CDATA[self]]></code>
+      <code><![CDATA[self]]></code>
     </DeprecatedClass>
   </file>
   <file src="src/Helper/Doctype.php">
@@ -1716,6 +1717,13 @@
       <code><![CDATA[$requestedName]]></code>
     </PossiblyNullArgument>
   </file>
+  <file src="src/Helper/Service/IdentityFactory.php">
+    <DeprecatedClass>
+      <code><![CDATA[Identity]]></code>
+      <code><![CDATA[Identity]]></code>
+      <code><![CDATA[new Identity($this->discoverAuthenticationService($container))]]></code>
+    </DeprecatedClass>
+  </file>
   <file src="src/Helper/TranslatorAwareTrait.php">
     <DeprecatedClass>
       <code><![CDATA[$this]]></code>
@@ -2927,6 +2935,13 @@
       <code><![CDATA[$escape('http://www.w3.org/1999/xhtml')]]></code>
     </MixedArgument>
   </file>
+  <file src="test/Helper/IdentityTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[new IdentityHelper($this->authService('goat-man'))]]></code>
+      <code><![CDATA[new IdentityHelper($this->authService(null))]]></code>
+      <code><![CDATA[new IdentityHelper()]]></code>
+    </DeprecatedClass>
+  </file>
   <file src="test/Helper/JsonTest.php">
     <DeprecatedMethod>
       <code><![CDATA[setResponse]]></code>
@@ -3660,6 +3675,11 @@
       <code><![CDATA[getResourceMap]]></code>
     </DeprecatedMethod>
   </file>
+  <file src="test/Helper/Service/IdentityFactoryTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[Identity::class]]></code>
+    </DeprecatedClass>
+  </file>
   <file src="test/Helper/TestAsset/ArrayTranslator.php">
     <InvalidArgument>
       <code><![CDATA[$this->translations]]></code>
@@ -3818,6 +3838,7 @@
   </file>
   <file src="test/HelperPluginManagerTest.php">
     <DeprecatedClass>
+      <code><![CDATA[Identity::class]]></code>
       <code><![CDATA[Url::class]]></code>
       <code><![CDATA[Url::class]]></code>
       <code><![CDATA[new Config(
