@@ -78,13 +78,6 @@ for, and rendering, the various HTML `<head>` tags, such as `HeadTitle`,
 - [Placeholder](placeholder.md)
 - [RenderToPlaceholder](render-to-placeholder.md)
 
-> ### Help Us Document the Helpers
->
-> Not all helpers are documented! Some that could use documentation include the
-> various escaper helpers, the layout helper, and the `serverUrl` helper. Click
-> the "GitHub" octocat link in the top navbar to go to the repository and start
-> writing documentation!
-
 > ### i18n Helpers
 >
 > View helpers related to **Internationalization** are documented in the

@@ -11,7 +11,6 @@ use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Helper\Identity;
 use Laminas\View\Helper\Partial;
-use Laminas\View\Helper\ServerUrl;
 use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\TestCase;
 
@@ -22,12 +21,6 @@ final class HelperPluginManagerTest extends TestCase
     protected function setUp(): void
     {
         $this->helpers = new HelperPluginManager(new ServiceManager());
-    }
-
-    public function testNoRendererInjectedInHelperWhenRendererIsNotPresent(): void
-    {
-        $helper = $this->helpers->get(ServerUrl::class);
-        $this->assertNull($helper->getView());
     }
 
     public function testRegisteringInvalidHelperRaisesInvalidServiceException(): void

@@ -48,7 +48,7 @@ use function sprintf;
  *
  * @method string asset($asset)
  * @method string|null basePath(string|null $file = null)
- * @method \Laminas\View\Helper\Cycle cycle(array $data = array(), $name = \Laminas\View\Helper\Cycle::DEFAULT_NAME)
+ * @method \Laminas\View\Helper\Cycle cycle(array $data = [], string $name = 'default')
  * @method Doctype doctype()
  * @method mixed escapeCss(mixed $value, int $recurse = \Laminas\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
  * @method mixed escapeHtml(mixed $value, int $recurse = \Laminas\View\Helper\Escaper\AbstractHelper::RECURSE_NONE)
@@ -71,7 +71,6 @@ use function sprintf;
  * @method \Laminas\View\Helper\Placeholder placeholder(string|null $placeholder = null)
  * @method string renderChildModel(string $child)
  * @method void renderToPlaceholder(string|Model $script, string $placeholder)
- * @method string serverUrl($requestUri = null)
  * @method \Laminas\View\Helper\ViewModel viewModel()
  * @method string gravatarImage(string $emailAddress, int $imageSize = 80, array $imageAttributes = [], string $defaultImage = 'mm', string $rating = 'g')
  *

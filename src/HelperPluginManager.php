@@ -57,7 +57,6 @@ final class HelperPluginManager extends AbstractPluginManager
             Helper\Placeholder::class         => InvokableFactory::class,
             Helper\RenderChildModel::class    => Helper\Service\RenderChildModelFactory::class,
             Helper\RenderToPlaceholder::class => Helper\Service\RenderToPlaceholderFactory::class,
-            Helper\ServerUrl::class           => InvokableFactory::class,
             Helper\ViewModel::class           => InvokableFactory::class,
         ],
         'aliases'   => [
@@ -134,9 +133,6 @@ final class HelperPluginManager extends AbstractPluginManager
             'rendertoplaceholder' => Helper\RenderToPlaceholder::class,
             'renderToPlaceholder' => Helper\RenderToPlaceholder::class,
             'RenderToPlaceholder' => Helper\RenderToPlaceholder::class,
-            'serverurl'           => Helper\ServerUrl::class,
-            'serverUrl'           => Helper\ServerUrl::class,
-            'ServerUrl'           => Helper\ServerUrl::class,
             'view_model'          => Helper\ViewModel::class,
             'viewmodel'           => Helper\ViewModel::class,
             'viewModel'           => Helper\ViewModel::class,

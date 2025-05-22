@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\TestAsset;
 
-use Laminas\View\Helper\AbstractHelper as Helper;
-
-final class Invokable extends Helper
+final class Invokable
 {
     /**
      * Invokable functor

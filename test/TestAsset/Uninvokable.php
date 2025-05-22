@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\TestAsset;
 
-use Laminas\View\Helper\AbstractHelper as Helper;
+use Laminas\View\Helper\HelperInterface;
 
-final class Uninvokable extends Helper
+final class Uninvokable implements HelperInterface
 {
 }
