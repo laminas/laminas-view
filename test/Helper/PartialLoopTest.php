@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace LaminasTest\View\Helper;
 
 use ArrayObject;
+use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Helper\Partial;
 use Laminas\View\Helper\PartialLoop;
+use Laminas\View\HelperPluginManager;
 use Laminas\View\Renderer\PhpRenderer;
 use Laminas\View\Resolver\TemplatePathStack;
 use LaminasTest\View\TestHelpers;
@@ -27,7 +29,7 @@ final class PartialLoopTest extends TestCase
      */
     protected function setUp(): void
     {
-        $renderer = new PhpRenderer();
+        $renderer = new PhpRenderer(new HelperPluginManager(new ServiceManager()));
         $resolver = new TemplatePathStack([
             'script_paths' => [
                 __DIR__ . '/_files/modules/application/views/scripts',

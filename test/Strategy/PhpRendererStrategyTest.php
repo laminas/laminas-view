@@ -7,6 +7,8 @@ namespace LaminasTest\View\Strategy;
 use Laminas\EventManager\EventManager;
 use Laminas\EventManager\Test\EventListenerIntrospectionTrait;
 use Laminas\Http\Response as HttpResponse;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\HelperPluginManager;
 use Laminas\View\Renderer\PhpRenderer;
 use Laminas\View\Strategy\PhpRendererStrategy;
 use Laminas\View\ViewEvent;
@@ -25,7 +27,7 @@ final class PhpRendererStrategyTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->renderer = new PhpRenderer();
+        $this->renderer = new PhpRenderer(new HelperPluginManager(new ServiceManager()));
         $this->strategy = new PhpRendererStrategy($this->renderer);
         $this->event    = new ViewEvent();
         $this->response = new HttpResponse();
@@ -54,7 +56,7 @@ final class PhpRendererStrategyTest extends TestCase
         $this->assertResponseNotInjected();
 
         // test non-matching renderer
-        $renderer = new PhpRenderer();
+        $renderer = new PhpRenderer(new HelperPluginManager(new ServiceManager()));
         $this->event->setRenderer($renderer);
         $this->strategy->injectResponse($this->event);
         $this->assertResponseNotInjected();

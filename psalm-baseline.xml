@@ -166,7 +166,7 @@
     </MixedAssignment>
     <MixedReturnStatement>
       <code><![CDATA[$this->__vars[$key]]]></code>
-      <code><![CDATA[$this->getHelperPluginManager()->get($name)]]></code>
+      <code><![CDATA[$this->pluginManager->get($name)]]></code>
     </MixedReturnStatement>
     <PossibleRawObjectIteration>
       <code><![CDATA[$variables]]></code>
@@ -198,9 +198,6 @@
     <UnresolvableInclude>
       <code><![CDATA[include $this->__file]]></code>
     </UnresolvableInclude>
-    <UnusedParam>
-      <code><![CDATA[$config]]></code>
-    </UnusedParam>
   </file>
   <file src="src/Renderer/RendererInterface.php">
     <PossiblyUnusedReturnValue>

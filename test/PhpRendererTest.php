@@ -38,7 +38,20 @@ final class PhpRendererTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->renderer = new PhpRenderer();
+        $this->renderer = new PhpRenderer(new HelperPluginManager(new ServiceManager(), [
+            'services'  => [
+                'uninvokable' => new Uninvokable(),
+                'invokable'   => new Invokable(),
+            ],
+            'factories' => [
+                'sharedInstance'    => fn () => new SharedInstance(),
+                'nonSharedInstance' => fn () => new SharedInstance(),
+            ],
+            'shared'    => [
+                'sharedInstance'    => true,
+                'nonSharedInstance' => false,
+            ],
+        ]));
     }
 
     public function testEngineIsIdenticalToRenderer(): void
@@ -96,11 +109,6 @@ final class PhpRendererTest extends TestCase
     {
         $this->renderer->vars()->assign(['foo' => 'bar']);
         $this->assertEquals('bar', $this->renderer->vars('foo'));
-    }
-
-    public function testUsesHelperPluginManagerByDefault(): void
-    {
-        $this->assertInstanceOf(HelperPluginManager::class, $this->renderer->getHelperPluginManager());
     }
 
     public function testPassingArgumentToPluginReturnsHelperByThatName(): void
@@ -179,12 +187,6 @@ final class PhpRendererTest extends TestCase
 
     public function testMethodOverloadingShouldReturnHelperInstanceIfNotInvokable(): void
     {
-        $helpers = new HelperPluginManager(new ServiceManager(), [
-            'invokables' => [
-                'uninvokable' => Uninvokable::class,
-            ],
-        ]);
-        $this->renderer->setHelperPluginManager($helpers);
         /** @psalm-suppress UndefinedMagicMethod */
         $helper = $this->renderer->uninvokable();
         $this->assertInstanceOf(Uninvokable::class, $helper);
@@ -192,12 +194,6 @@ final class PhpRendererTest extends TestCase
 
     public function testMethodOverloadingShouldInvokeHelperIfInvokable(): void
     {
-        $helpers = new HelperPluginManager(new ServiceManager(), [
-            'invokables' => [
-                'invokable' => Invokable::class,
-            ],
-        ]);
-        $this->renderer->setHelperPluginManager($helpers);
         /** @psalm-suppress UndefinedMagicMethod */
         $return = $this->renderer->invokable('it works!');
         $this->assertEquals('LaminasTest\View\TestAsset\Invokable::__invoke: it works!', $return);
@@ -376,34 +372,15 @@ final class PhpRendererTest extends TestCase
      */
     public function testSharedInstanceHelper(): void
     {
-        $helpers = new HelperPluginManager(new ServiceManager(), [
-            'invokables' => [
-                'sharedinstance' => SharedInstance::class,
-            ],
-            'shared'     => [
-                'sharedinstance' => false,
-            ],
-        ]);
-        $this->renderer->setHelperPluginManager($helpers);
-
         // new instance always created when shared = false
-        $this->assertEquals(1, $this->renderer->sharedinstance());
-        $this->assertEquals(1, $this->renderer->sharedinstance());
-        $this->assertEquals(1, $this->renderer->sharedinstance());
+        $this->assertEquals(1, $this->renderer->nonSharedInstance());
+        $this->assertEquals(1, $this->renderer->nonSharedInstance());
+        $this->assertEquals(1, $this->renderer->nonSharedInstance());
 
-        $helpers = new HelperPluginManager(new ServiceManager(), [
-            'invokables' => [
-                'sharedinstance' => SharedInstance::class,
-            ],
-            'shared'     => [
-                'sharedinstance' => true,
-            ],
-        ]);
-        $this->renderer->setHelperPluginManager($helpers);
         // use shared instance when shared = true
-        $this->assertEquals(1, $this->renderer->sharedinstance());
-        $this->assertEquals(2, $this->renderer->sharedinstance());
-        $this->assertEquals(3, $this->renderer->sharedinstance());
+        $this->assertEquals(1, $this->renderer->sharedInstance());
+        $this->assertEquals(2, $this->renderer->sharedInstance());
+        $this->assertEquals(3, $this->renderer->sharedInstance());
     }
 
     public function testContentIsNotMutatedWhenNoFilterHasBeenSet(): void

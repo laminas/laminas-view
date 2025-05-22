@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Laminas\View\Renderer;
 
 use ArrayAccess;
-use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Exception;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\HelperInterface;
@@ -115,11 +114,6 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     private $__file;
 
     /**
-     * Helper plugin manager
-     */
-    private HelperPluginManager|null $__helpers = null;
-
-    /**
      * @var (callable(string): string)|null
      */
     private $__filter;
@@ -133,18 +127,15 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      * @var array Temporary variable stack; used when variables passed to render()
      */
     private $__varsCache = [];
-    // @codingStandardsIgnoreEnd
+    /** @codingStandardsIgnoreEnd */
 
     /**
-     * @todo handle passing helper plugin manager, options
-     * @todo handle passing filter chain, options
      * @todo handle passing variables object, options
      * @todo handle passing resolver object, options
-     * @param array $config Configuration key-value pairs.
      */
-    public function __construct($config = [])
-    {
-        $this->init();
+    public function __construct(
+        private readonly HelperPluginManager $pluginManager,
+    ) {
     }
 
     /**
@@ -157,17 +148,6 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     public function getEngine()
     {
         return $this;
-    }
-
-    /**
-     * Allow custom object initialization when extending PhpRenderer
-     *
-     * Triggered by {@link __construct() the constructor} as its final action.
-     *
-     * @return void
-     */
-    public function init()
-    {
     }
 
     /**
@@ -319,35 +299,16 @@ class PhpRenderer implements Renderer, TreeRendererInterface
         unset($vars[$name]);
     }
 
-    public function setHelperPluginManager(HelperPluginManager $helpers): self
-    {
-        $this->__helpers = $helpers;
-
-        return $this;
-    }
-
-    /**
-     * Get helper plugin manager instance
-     */
-    public function getHelperPluginManager(): HelperPluginManager
-    {
-        if (! $this->__helpers instanceof HelperPluginManager) {
-            $this->__helpers = new HelperPluginManager(new ServiceManager());
-        }
-
-        return $this->__helpers;
-    }
-
     /**
      * Get plugin instance
      *
      * @template T
-     * @param  string|class-string<T> $name Name of plugin to return
+     * @param string|class-string<T> $name Name of plugin to return
      * @return ($name is class-string ? T : HelperInterface|callable)
      */
     public function plugin(string $name): mixed
     {
-        return $this->getHelperPluginManager()->get($name);
+        return $this->pluginManager->get($name);
     }
 
     /**
