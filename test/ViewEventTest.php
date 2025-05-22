@@ -6,6 +6,8 @@ namespace LaminasTest\View;
 
 use Laminas\Http\Request;
 use Laminas\Http\Response;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\HelperPluginManager;
 use Laminas\View\Model\ViewModel;
 use Laminas\View\Renderer\PhpRenderer;
 use Laminas\View\ViewEvent;
@@ -13,12 +15,13 @@ use PHPUnit\Framework\TestCase;
 
 final class ViewEventTest extends TestCase
 {
-    /** @var ViewEvent */
-    protected $event;
+    private ViewEvent $event;
+    private PhpRenderer $renderer;
 
     protected function setUp(): void
     {
-        $this->event = new ViewEvent();
+        $this->event    = new ViewEvent();
+        $this->renderer = new PhpRenderer(new HelperPluginManager(new ServiceManager()));
     }
 
     public function testModelIsNullByDefault(): void
@@ -55,9 +58,8 @@ final class ViewEventTest extends TestCase
 
     public function testRendererIsMutable(): void
     {
-        $renderer = new PhpRenderer();
-        $this->event->setRenderer($renderer);
-        $this->assertSame($renderer, $this->event->getRenderer());
+        $this->event->setRenderer($this->renderer);
+        $this->assertSame($this->renderer, $this->event->getRenderer());
     }
 
     public function testRequestIsMutable(): void
@@ -91,10 +93,9 @@ final class ViewEventTest extends TestCase
 
     public function testRendererIsMutableViaSetParam(): void
     {
-        $renderer = new PhpRenderer();
-        $this->event->setParam('renderer', $renderer);
-        $this->assertSame($renderer, $this->event->getRenderer());
-        $this->assertSame($renderer, $this->event->getParam('renderer'));
+        $this->event->setParam('renderer', $this->renderer);
+        $this->assertSame($this->renderer, $this->event->getRenderer());
+        $this->assertSame($this->renderer, $this->event->getParam('renderer'));
     }
 
     public function testRequestIsMutableViaSetParam(): void
@@ -124,14 +125,13 @@ final class ViewEventTest extends TestCase
     public function testSpecializedParametersMayBeSetViaSetParams(): void
     {
         $model    = new ViewModel();
-        $renderer = new PhpRenderer();
         $request  = new Request();
         $response = new Response();
         $result   = 'some result';
 
         $params = [
             'model'    => $model,
-            'renderer' => $renderer,
+            'renderer' => $this->renderer,
             'request'  => $request,
             'response' => $response,
             'result'   => $result,

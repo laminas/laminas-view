@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace LaminasTest\View\Helper;
 
 use ArrayObject;
+use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Helper\Partial;
+use Laminas\View\HelperPluginManager;
 use Laminas\View\Model\ViewModel;
 use Laminas\View\Renderer\PhpRenderer;
 use Laminas\View\Resolver\TemplatePathStack;
@@ -25,7 +27,7 @@ final class PartialTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->renderer = new PhpRenderer();
+        $this->renderer = new PhpRenderer(new HelperPluginManager(new ServiceManager()));
         $resolver       = new TemplatePathStack([
             'script_paths' => [
                 __DIR__ . '/_files/modules/application/views/scripts',
