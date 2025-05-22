@@ -402,6 +402,12 @@ function gravatarImage(
 This helper was a simple shortcut for adding HTML documents to the output as HTML `<object>` elements.
 Most of the features this helper assisted with are deprecated or obsolete.
 
+#### `Identity`
+
+The `Identity` view helper has been removed to ensure that Laminas\View can be used standalone with minimal un-related dependencies.
+
+Displaying the user identity in the view is specific to the authentication framework you are using, and we can't assume that `Laminas\Authentication` is in use everywhere `Laminas\View` is used.
+
 #### Json
 
 The deprecated Json view helper has been removed.
