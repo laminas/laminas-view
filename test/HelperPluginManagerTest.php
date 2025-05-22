@@ -9,7 +9,6 @@ use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\HelperInterface;
-use Laminas\View\Helper\Identity;
 use Laminas\View\Helper\Partial;
 use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\TestCase;
@@ -39,12 +38,6 @@ final class HelperPluginManagerTest extends TestCase
         $helpers = new HelperPluginManager(new ServiceManager(), []);
         $this->expectException(ServiceNotFoundException::class);
         $helpers->get('test');
-    }
-
-    public function testDefinesFactoryForIdentityPlugin(): void
-    {
-        $this->assertTrue($this->helpers->has('identity'));
-        $this->assertTrue($this->helpers->has(Identity::class));
     }
 
     public function testCanOverrideAFactoryViaConfigurationPassedToConstructor(): void
