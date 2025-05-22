@@ -1,10 +1,5 @@
 {
     "symbol-whitelist" : [
-        "Laminas\\Authentication\\AuthenticationService",
-        "Laminas\\Authentication\\AuthenticationServiceInterface",
-        "Laminas\\Feed\\Writer\\Feed",
-        "Laminas\\Feed\\Writer\\FeedFactory",
-        "Laminas\\Filter\\FilterChain",
-        "Laminas\\Paginator\\Paginator"
+        "Laminas\\Filter\\FilterChain"
     ]
 }

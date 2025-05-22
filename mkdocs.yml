@@ -63,7 +63,6 @@ nav:
           - HtmlList: v3/helpers/html-list.md
           - HtmlObject: v3/helpers/html-object.md
           - HtmlTag: v3/helpers/html-tag.md
-          - Identity: v3/helpers/identity.md
           - Layout: v3/helpers/layout.md
           - Partial: v3/helpers/partial.md
           - Placeholder: v3/helpers/placeholder.md
@@ -93,6 +92,7 @@ plugins:
         helpers/gravatar.md: v2/helpers/gravatar.md
         helpers/url.md: v2/helpers/url.md
         helpers/json.md: v2/helpers/json.md
+        helpers/identity.md: v2/helpers/identity.md
         # Existing content with an equivalent target in the v3 docs tree
         quick-start.md: v3/quick-start.md
         php-renderer.md: v3/php-renderer.md
@@ -113,7 +113,6 @@ plugins:
         helpers/html-list.md: v3/helpers/html-list.md
         helpers/html-object.md: v3/helpers/html-object.md
         helpers/html-tag.md: v3/helpers/html-tag.md
-        helpers/identity.md: v3/helpers/identity.md
         helpers/inline-script.md: v3/helpers/head-and-inline-script.md
         helpers/layout.md: v3/helpers/layout.md
         helpers/partial.md: v3/helpers/partial.md

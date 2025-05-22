@@ -71,7 +71,6 @@ for, and rendering, the various HTML `<head>` tags, such as `HeadTitle`,
 - [HtmlList](html-list.md)
 - [HTML Object Plugins](html-object.md)
 - [HtmlTag](html-tag.md)
-- [Identity](identity.md)
 - [InlineScript](head-and-inline-script.md)
 - [Layout](layout.md)
 - [Partial](partial.md)
