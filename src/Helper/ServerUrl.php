@@ -16,6 +16,10 @@ use function trim;
 /**
  * Helper for returning the current server URL (optionally with request URI)
  *
+ * @deprecated Since 2.40.0 This helper will be removed in 3.0 because it is closely coupled to the environment and
+ *             framework it is used with. MVC for example should ship its own ServerUrl helper seeded with information
+ *             from its HTTP environment.
+ *
  * @final
  */
 class ServerUrl extends AbstractHelper
