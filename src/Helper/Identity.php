@@ -10,6 +10,9 @@ use Laminas\View\Exception\RuntimeException;
 /**
  * View helper plugin to fetch the authenticated identity.
  *
+ * @deprecated Since 2.40.0 This helper will be removed in 3.0 and a yet-to-be-created integration between
+ *             laminas-authentication and laminas-view will replace the functionality here if there is a need.
+ *
  * @final
  */
 class Identity extends AbstractHelper
