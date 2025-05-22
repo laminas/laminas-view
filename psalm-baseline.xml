@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="6.10.3@90b5b9f5e7c8e441b191d3c82c58214753d7c7c1">
+<files psalm-version="6.11.0@4ed53b7ccebc09ef60ec4c9e464bf8a01bfd35b0">
   <file src="bin/templatemap_generator.php">
     <PossiblyFalseArgument>
       <code><![CDATA[$realPath]]></code>
@@ -145,11 +145,13 @@
     </DocblockTypeContradiction>
     <FalsableReturnStatement>
       <code><![CDATA[$this->__content]]></code>
-      <code><![CDATA[$this->__filterChain->filter($this->__content)]]></code>
     </FalsableReturnStatement>
     <ImplementedParamTypeMismatch>
       <code><![CDATA[$values]]></code>
     </ImplementedParamTypeMismatch>
+    <InvalidFalsableReturnType>
+      <code><![CDATA[string]]></code>
+    </InvalidFalsableReturnType>
     <MixedArgument>
       <code><![CDATA[$this->__template]]></code>
       <code><![CDATA[array_pop($this->__varsCache)]]></code>
@@ -163,14 +165,15 @@
       <code><![CDATA[$vars[$name]]]></code>
     </MixedAssignment>
     <MixedReturnStatement>
-      <code><![CDATA[$this->__filterChain->filter($this->__content)]]></code>
-      <code><![CDATA[$this->__filterChain->filter($this->__content)]]></code>
       <code><![CDATA[$this->__vars[$key]]]></code>
       <code><![CDATA[$this->getHelperPluginManager()->get($name)]]></code>
     </MixedReturnStatement>
     <PossibleRawObjectIteration>
       <code><![CDATA[$variables]]></code>
     </PossibleRawObjectIteration>
+    <PossiblyFalseArgument>
+      <code><![CDATA[$this->__content]]></code>
+    </PossiblyFalseArgument>
     <PossiblyFalsePropertyAssignmentValue>
       <code><![CDATA[ob_get_clean()]]></code>
     </PossiblyFalsePropertyAssignmentValue>
