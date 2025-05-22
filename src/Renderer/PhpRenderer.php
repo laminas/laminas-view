@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Laminas\View\Renderer;
 
 use ArrayAccess;
-use Laminas\Filter\FilterChain;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Exception;
 use Laminas\View\Helper\Doctype;
@@ -81,7 +80,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     /**
      * @var string Rendered content
      */
-    private $__content = '';
+    private string $__content = '';
 
     /**
      * @var bool Whether to render trees of view models
@@ -121,9 +120,9 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     private HelperPluginManager|null $__helpers = null;
 
     /**
-     * @var FilterChain|null
+     * @var (callable(string): string)|null
      */
-    private $__filterChain;
+    private $__filter;
 
     /**
      * @var Variables|null
@@ -377,22 +376,15 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     }
 
     /**
-     * Set filter chain
+     * Set a post-rendering filter to apply to the rendered output
      *
-     * @return PhpRenderer
+     * @param callable(string): string $filter
      */
-    public function setFilterChain(FilterChain $filters)
+    public function setFilter(callable $filter): self
     {
-        $this->__filterChain = $filters;
-        return $this;
-    }
+        $this->__filter = $filter;
 
-    /**
-     * Retrieve filter chain for post-filtering script content, if one has been configured
-     */
-    public function getFilterChain(): FilterChain|null
-    {
-        return $this->__filterChain;
+        return $this;
     }
 
     /**
@@ -495,8 +487,8 @@ class PhpRenderer implements Renderer, TreeRendererInterface
 
         $this->setVars(array_pop($this->__varsCache));
 
-        if ($this->__filterChain instanceof FilterChain) {
-            return $this->__filterChain->filter($this->__content); // filter output
+        if ($this->__filter !== null) {
+            return ($this->__filter)($this->__content);
         }
 
         return $this->__content;

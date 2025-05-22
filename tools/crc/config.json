@@ -1,5 +1,3 @@
 {
-    "symbol-whitelist" : [
-        "Laminas\\Filter\\FilterChain"
-    ]
+    "symbol-whitelist" : []
 }

@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace LaminasTest\View;
 
 use ArrayObject;
-use Laminas\Filter\FilterChain;
-use Laminas\Filter\FilterPluginManager;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Exception\DomainException;
 use Laminas\View\Exception\RuntimeException;
@@ -19,22 +17,20 @@ use Laminas\View\Renderer\PhpRenderer;
 use Laminas\View\Resolver\TemplateMapResolver;
 use Laminas\View\Resolver\TemplatePathStack;
 use Laminas\View\Variables;
-use LaminasTest\View\TestAsset\InMemoryContainer;
 use LaminasTest\View\TestAsset\Invokable;
 use LaminasTest\View\TestAsset\SharedInstance;
 use LaminasTest\View\TestAsset\Uninvokable;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use ReflectionObject;
 use Throwable;
 
 use function assert;
 use function realpath;
 use function restore_error_handler;
 use function set_error_handler;
-use function str_replace;
 
 use const E_WARNING;
+use const PHP_EOL;
 
 final class PhpRendererTest extends TestCase
 {
@@ -113,16 +109,16 @@ final class PhpRendererTest extends TestCase
         $this->assertInstanceOf(Doctype::class, $helper);
     }
 
-    public function testFilterChainIsNullByDefault(): void
+    public function testFilterCanBeAddedToMutateOutput(): void
     {
-        $this->assertNull($this->renderer->getFilterChain());
-    }
+        $this->resolver()->addPath(__DIR__ . '/_templates');
+        $output = $this->renderer->render('empty.phtml');
+        self::assertSame('Empty view' . PHP_EOL, $output);
 
-    public function testMaySetExplicitFilterChainInstance(): void
-    {
-        $filterChain = new FilterChain(new FilterPluginManager(new InMemoryContainer()));
-        $this->renderer->setFilterChain($filterChain);
-        $this->assertSame($filterChain, $this->renderer->getFilterChain());
+        $filter = static fn (string $content): string => $content . 'foo';
+        $this->renderer->setFilter($filter);
+        $output = $this->renderer->render('empty.phtml');
+        self::assertSame('Empty view' . PHP_EOL . 'foo', $output);
     }
 
     public function testRenderingAllowsVariableSubstitutions(): void
@@ -136,16 +132,12 @@ final class PhpRendererTest extends TestCase
 
     public function testRenderingFiltersContentWithFilterChain(): void
     {
-        $filterChain = new FilterChain(new FilterPluginManager(new InMemoryContainer()));
-        $filterChain->attach(static fn(string $content): string => str_replace('INJECT', 'bar', $content));
-
-        $this->renderer->setFilterChain($filterChain);
-
-        $expected = 'foo bar baz';
-        $this->renderer->vars()->assign(['bar' => 'INJECT']);
+        $filter   = static fn (string $content): string => $content . 'Miss Piggy';
+        $this->renderer->setFilter($filter);
+        $expected = 'Empty view' . PHP_EOL . 'Miss Piggy';
         $this->resolver()->addPath(__DIR__ . '/_templates');
-        $test = $this->renderer->render('test.phtml');
-        $this->assertStringContainsString($expected, $test);
+        $renderResult = $this->renderer->render('empty.phtml');
+        $this->assertSame($expected, $renderResult);
     }
 
     public function testCanAccessHelpersInTemplates(): void
@@ -414,18 +406,11 @@ final class PhpRendererTest extends TestCase
         $this->assertEquals(3, $this->renderer->sharedinstance());
     }
 
-    public function testDoesNotCallFilterChainIfNoFilterChainWasSet(): void
+    public function testContentIsNotMutatedWhenNoFilterHasBeenSet(): void
     {
         $this->resolver()->addPath(__DIR__ . '/_templates');
-
         $result = $this->renderer->render('empty.phtml');
-
-        $this->assertStringContainsString('Empty view', $result);
-        $rendererReflection = new ReflectionObject($this->renderer);
-        $method             = $rendererReflection->getProperty('__filterChain');
-        $filterChain        = $method->getValue($this->renderer);
-
-        $this->assertEmpty($filterChain);
+        self::assertSame('Empty view' . PHP_EOL, $result);
     }
 
     public function testRendererDoesntUsePreviousRenderedOutputWhenInvokedWithEmptyString(): void
