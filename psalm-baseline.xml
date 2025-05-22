@@ -14,11 +14,6 @@
       <code><![CDATA[$value[$k]]]></code>
     </MixedAssignment>
   </file>
-  <file src="src/Helper/HelperInterface.php">
-    <PossiblyUnusedReturnValue>
-      <code><![CDATA[HelperInterface]]></code>
-    </PossiblyUnusedReturnValue>
-  </file>
   <file src="src/Helper/Partial.php">
     <InvalidReturnStatement>
       <code><![CDATA[$values->getVariables()]]></code>
@@ -32,29 +27,6 @@
     <MixedArgument>
       <code><![CDATA[$item]]></code>
     </MixedArgument>
-  </file>
-  <file src="src/Helper/ServerUrl.php">
-    <ArgumentTypeCoercion>
-      <code><![CDATA[$_SERVER['SERVER_PORT']]]></code>
-      <code><![CDATA[$port]]></code>
-    </ArgumentTypeCoercion>
-    <InvalidNullableReturnType>
-      <code><![CDATA[string]]></code>
-      <code><![CDATA[string]]></code>
-    </InvalidNullableReturnType>
-    <NullableReturnStatement>
-      <code><![CDATA[$this->host]]></code>
-      <code><![CDATA[$this->scheme]]></code>
-    </NullableReturnStatement>
-    <PossiblyUndefinedArrayOffset>
-      <code><![CDATA[$_SERVER['REQUEST_URI']]]></code>
-    </PossiblyUndefinedArrayOffset>
-    <RedundantCastGivenDocblockType>
-      <code><![CDATA[(bool) $useProxy]]></code>
-    </RedundantCastGivenDocblockType>
-    <TypeDoesNotContainType>
-      <code><![CDATA[$_SERVER['HTTPS'] === true]]></code>
-    </TypeDoesNotContainType>
   </file>
   <file src="src/Helper/Service/LayoutFactory.php">
     <PossiblyUnusedReturnValue>
@@ -388,12 +360,6 @@
       <code><![CDATA[$model->getVariables()]]></code>
       <code><![CDATA[$model->getVariables()]]></code>
     </PossibleRawObjectIteration>
-  </file>
-  <file src="test/Helper/ServerUrlTest.php">
-    <InvalidArgument>
-      <code><![CDATA[1337]]></code>
-      <code><![CDATA[new stdClass()]]></code>
-    </InvalidArgument>
   </file>
   <file src="test/Helper/Service/HeadTitleFactoryTest.php">
     <MixedReturnStatement>

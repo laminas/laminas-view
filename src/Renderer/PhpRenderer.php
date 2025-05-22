@@ -71,7 +71,6 @@ use function sprintf;
  * @method \Laminas\View\Helper\Placeholder placeholder(string|null $placeholder = null)
  * @method string renderChildModel(string $child)
  * @method void renderToPlaceholder(string|Model $script, string $placeholder)
- * @method string serverUrl($requestUri = null)
  * @method \Laminas\View\Helper\ViewModel viewModel()
  * @method string gravatarImage(string $emailAddress, int $imageSize = 80, array $imageAttributes = [], string $defaultImage = 'mm', string $rating = 'g')
  *
