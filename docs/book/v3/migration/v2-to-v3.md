@@ -19,6 +19,11 @@ The entire codebase has been updated with native parameter and return types, imp
 
 ## Signature Changes and Behaviour Changes
 
+### HelperInterface no Longer Specifies any Methods
+
+Both `getView` and `setView` have been removed from `Laminas\View\Helper\HelperInterface` leaving it with no interface methods at all.
+It is only necessary to implement this interface in a custom view helper, if your view helper lacks an `__invoke` method.
+
 ### Legacy Zend-Related Service and Helper Names
 
 All helper aliases that referred to the `Zend` equivalent of a helper or service have been removed.
@@ -307,6 +312,14 @@ If you have custom helpers that require access to the view renderer, you should 
 
 ## Removed Classes and Traits
 
+### `AbstractHelper`
+
+The removal of `AbstractHelper` will affect anyone who has created custom view helpers by extending from this class.
+
+It's removal means that the `getView` and `setView` methods are gone, in line with the [removal of initializers](#view-renderer-initializers) from the helper plugin manager.
+
+If your custom view helper needs an instance of the `PhpRenderer`, you should refactor your helper to use dependency injection and inject the `PhpRenderer` into the constructor of your class, and, remove the inheritance from `AbstractHelper`.
+
 ### `AbstractHtmlElement`
 
 This abstract base class is no longer used internally.
@@ -402,3 +415,7 @@ You can find documentation on the `JsonSerializable` interface [on the PHP websi
 The deprecated navigation view helpers such as `Breadcrumbs`, and `Menu` etc have been removed and can now be found in [the `laminas-navigation-view` component](https://docs.laminas.dev/laminas-navigation/helpers/intro/).
 
 As such, the namespace for these helpers has changed from `Laminas\View\Navigation` to `Laminas\Navigation\View\Helper`, so if you have referenced the FQCNs of these helpers in your code, you will need to update them accordingly.
+
+#### ServerUrl
+
+The `ServerUrl` helper has been removed. Because this helper needs to be seeded with the current HTTP environment, its functionality is coupled to the framework you are using `Laminas\View` with, therefore, expect re-implementations of this helper in bridging libraries such as `mezzio-laminasviewrenderer`
