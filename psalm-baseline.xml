@@ -1772,6 +1772,9 @@
     <DeprecatedInterface>
       <code><![CDATA[null|ConfigInterface|ContainerInterface]]></code>
     </DeprecatedInterface>
+    <DeprecatedMethod>
+      <code><![CDATA[setView]]></code>
+    </DeprecatedMethod>
     <DocblockTypeContradiction>
       <code><![CDATA[! $events]]></code>
       <code><![CDATA[! $events]]></code>
@@ -3649,6 +3652,27 @@
     </DeprecatedMethod>
   </file>
   <file src="test/Helper/ServerUrlTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[new Helper\ServerUrl()]]></code>
+      <code><![CDATA[new Helper\ServerUrl()]]></code>
+      <code><![CDATA[new Helper\ServerUrl()]]></code>
+      <code><![CDATA[new Helper\ServerUrl()]]></code>
+      <code><![CDATA[new Helper\ServerUrl()]]></code>
+      <code><![CDATA[new Helper\ServerUrl()]]></code>
+      <code><![CDATA[new Helper\ServerUrl()]]></code>
+      <code><![CDATA[new Helper\ServerUrl()]]></code>
+      <code><![CDATA[new Helper\ServerUrl()]]></code>
+      <code><![CDATA[new Helper\ServerUrl()]]></code>
+      <code><![CDATA[new Helper\ServerUrl()]]></code>
+      <code><![CDATA[new Helper\ServerUrl()]]></code>
+      <code><![CDATA[new Helper\ServerUrl()]]></code>
+      <code><![CDATA[new Helper\ServerUrl()]]></code>
+      <code><![CDATA[new Helper\ServerUrl()]]></code>
+      <code><![CDATA[new Helper\ServerUrl()]]></code>
+      <code><![CDATA[new Helper\ServerUrl()]]></code>
+      <code><![CDATA[new Helper\ServerUrl()]]></code>
+      <code><![CDATA[new Helper\ServerUrl()]]></code>
+    </DeprecatedClass>
     <InvalidArgument>
       <code><![CDATA[1337]]></code>
       <code><![CDATA[new stdClass()]]></code>
