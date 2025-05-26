@@ -10,6 +10,7 @@ use Laminas\Http\Response as HttpResponse;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\HelperPluginManager;
 use Laminas\View\Renderer\PhpRenderer;
+use Laminas\View\Resolver\TemplateMapResolver;
 use Laminas\View\Strategy\PhpRendererStrategy;
 use Laminas\View\ViewEvent;
 use PHPUnit\Framework\TestCase;
@@ -27,7 +28,7 @@ final class PhpRendererStrategyTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->renderer = new PhpRenderer(new HelperPluginManager(new ServiceManager()));
+        $this->renderer = new PhpRenderer(new HelperPluginManager(new ServiceManager()), new TemplateMapResolver());
         $this->strategy = new PhpRendererStrategy($this->renderer);
         $this->event    = new ViewEvent();
         $this->response = new HttpResponse();
@@ -56,7 +57,7 @@ final class PhpRendererStrategyTest extends TestCase
         $this->assertResponseNotInjected();
 
         // test non-matching renderer
-        $renderer = new PhpRenderer(new HelperPluginManager(new ServiceManager()));
+        $renderer = new PhpRenderer(new HelperPluginManager(new ServiceManager()), new TemplateMapResolver());
         $this->event->setRenderer($renderer);
         $this->strategy->injectResponse($this->event);
         $this->assertResponseNotInjected();

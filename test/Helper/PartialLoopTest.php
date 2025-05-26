@@ -23,19 +23,14 @@ final class PartialLoopTest extends TestCase
 {
     private PartialLoop $helper;
 
-    /**
-     * Sets up the fixture, for example, open a network connection.
-     * This method is called before a test is executed.
-     */
     protected function setUp(): void
     {
-        $renderer = new PhpRenderer(new HelperPluginManager(new ServiceManager()));
-        $resolver = new TemplatePathStack([
+        $resolver     = new TemplatePathStack([
             'script_paths' => [
                 __DIR__ . '/_files/modules/application/views/scripts',
             ],
         ]);
-        $renderer->setResolver($resolver);
+        $renderer     = new PhpRenderer(new HelperPluginManager(new ServiceManager()), $resolver);
         $partial      = new Partial($renderer);
         $this->helper = new PartialLoop($partial);
     }

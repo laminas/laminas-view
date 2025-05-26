@@ -6,14 +6,11 @@ namespace LaminasTest\View;
 
 use Laminas\Http\Request;
 use Laminas\Http\Response;
-use Laminas\ServiceManager\ServiceManager;
-use Laminas\View\ConfigProvider;
 use Laminas\View\Exception;
 use Laminas\View\Model\JsonModel;
 use Laminas\View\Model\ViewModel;
 use Laminas\View\Renderer;
 use Laminas\View\Renderer\PhpRenderer;
-use Laminas\View\Resolver;
 use Laminas\View\Variables as ViewVariables;
 use Laminas\View\View;
 use Laminas\View\ViewEvent;
@@ -237,17 +234,17 @@ final class ViewTest extends TestCase
 
     public function testUsesTreeRendererInterfaceToDetermineWhetherOrNotToPassOnlyRootViewModelToPhpRenderer(): void
     {
-        $config                             = (new ConfigProvider())->__invoke();
-        $config['dependencies']['services'] = ['config' => $config];
-        $serviceManager                     = new ServiceManager($config['dependencies']);
-
-        $resolver    = new Resolver\TemplateMapResolver([
-            'layout'  => __DIR__ . '/_templates/nested-view-model-layout.phtml',
-            'content' => __DIR__ . '/_templates/nested-view-model-content.phtml',
+        $serviceManager = GenerateServiceManager::withConfig([
+            'templates' => [
+                'map' => [
+                    'layout'  => __DIR__ . '/_templates/nested-view-model-layout.phtml',
+                    'content' => __DIR__ . '/_templates/nested-view-model-content.phtml',
+                ],
+            ],
         ]);
+
         $phpRenderer = $serviceManager->get(PhpRenderer::class);
         $phpRenderer->setCanRenderTrees(true);
-        $phpRenderer->setResolver($resolver);
 
         $this->view->addRenderingStrategy(static fn() => $phpRenderer);
 

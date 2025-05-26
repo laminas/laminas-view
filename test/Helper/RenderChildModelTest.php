@@ -4,20 +4,17 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper;
 
-use Laminas\ServiceManager\ServiceManager;
-use Laminas\View\ConfigProvider;
 use Laminas\View\Exception;
 use Laminas\View\Helper\RenderChildModel;
 use Laminas\View\Helper\ViewModel as ViewModelHelper;
 use Laminas\View\HelperPluginManager;
 use Laminas\View\Model\ViewModel;
 use Laminas\View\Renderer\PhpRenderer;
-use Laminas\View\Resolver\TemplateMapResolver;
+use LaminasTest\View\GenerateServiceManager;
 use PHPUnit\Framework\TestCase;
 
 final class RenderChildModelTest extends TestCase
 {
-    private TemplateMapResolver $resolver;
     private PhpRenderer $renderer;
     private ViewModelHelper $viewModelHelper;
     private RenderChildModel $helper;
@@ -25,21 +22,21 @@ final class RenderChildModelTest extends TestCase
 
     protected function setUp(): void
     {
-        $config                             = (new ConfigProvider())->__invoke();
-        $config['dependencies']['services'] = ['config' => $config];
-        $serviceManager                     = new ServiceManager($config['dependencies']);
-
-        $this->resolver = new TemplateMapResolver([
-            'layout'  => __DIR__ . '/../_templates/nested-view-model-layout.phtml',
-            'child1'  => __DIR__ . '/../_templates/nested-view-model-content.phtml',
-            'child2'  => __DIR__ . '/../_templates/nested-view-model-child2.phtml',
-            'complex' => __DIR__ . '/../_templates/nested-view-model-complexlayout.phtml',
+        $container = GenerateServiceManager::withConfig([
+            'templates' => [
+                'map' => [
+                    'layout'  => __DIR__ . '/../_templates/nested-view-model-layout.phtml',
+                    'child1'  => __DIR__ . '/../_templates/nested-view-model-content.phtml',
+                    'child2'  => __DIR__ . '/../_templates/nested-view-model-child2.phtml',
+                    'complex' => __DIR__ . '/../_templates/nested-view-model-complexlayout.phtml',
+                ],
+            ],
         ]);
 
-        $this->renderer = $serviceManager->get(PhpRenderer::class);
+        $this->renderer = $container->get(PhpRenderer::class);
         $this->renderer->setCanRenderTrees(true);
-        $this->renderer->setResolver($this->resolver);
-        $plugins = $serviceManager->get(HelperPluginManager::class);
+
+        $plugins = $container->get(HelperPluginManager::class);
 
         $this->viewModelHelper = $plugins->get(ViewModelHelper::class);
 

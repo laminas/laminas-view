@@ -11,9 +11,9 @@ use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Exception\UnexpectedValueException;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\ViewModel as ViewModelHelper;
-use Laminas\View\HelperPluginManager;
 use Laminas\View\Model\ViewModel;
 use Laminas\View\Renderer\PhpRenderer;
+use Laminas\View\Resolver\AggregateResolver;
 use Laminas\View\Resolver\TemplateMapResolver;
 use Laminas\View\Resolver\TemplatePathStack;
 use Laminas\View\Variables;
@@ -24,7 +24,6 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Throwable;
 
-use function assert;
 use function realpath;
 use function restore_error_handler;
 use function set_error_handler;
@@ -35,23 +34,28 @@ use const PHP_EOL;
 final class PhpRendererTest extends TestCase
 {
     private PhpRenderer $renderer;
+    private ServiceManager $container;
 
     protected function setUp(): void
     {
-        $this->renderer = new PhpRenderer(new HelperPluginManager(new ServiceManager(), [
-            'services'  => [
-                'uninvokable' => new Uninvokable(),
-                'invokable'   => new Invokable(),
+        $this->container = GenerateServiceManager::withConfig([
+            'view_helpers' => [
+                'services'  => [
+                    'uninvokable' => new Uninvokable(),
+                    'invokable'   => new Invokable(),
+                ],
+                'factories' => [
+                    'sharedInstance'    => fn () => new SharedInstance(),
+                    'nonSharedInstance' => fn () => new SharedInstance(),
+                ],
+                'shared'    => [
+                    'sharedInstance'    => true,
+                    'nonSharedInstance' => false,
+                ],
             ],
-            'factories' => [
-                'sharedInstance'    => fn () => new SharedInstance(),
-                'nonSharedInstance' => fn () => new SharedInstance(),
-            ],
-            'shared'    => [
-                'sharedInstance'    => true,
-                'nonSharedInstance' => false,
-            ],
-        ]));
+        ]);
+
+        $this->renderer = $this->container->get(PhpRenderer::class);
     }
 
     public function testEngineIsIdenticalToRenderer(): void
@@ -59,24 +63,14 @@ final class PhpRendererTest extends TestCase
         $this->assertSame($this->renderer, $this->renderer->getEngine());
     }
 
-    public function testUsesTemplatePathStackAsDefaultResolver(): void
+    public function testUsesAggregateResolverAsDefaultResolver(): void
     {
-        $this->assertInstanceOf(TemplatePathStack::class, $this->renderer->resolver());
-    }
-
-    public function testCanSetResolverInstance(): void
-    {
-        $resolver = new TemplatePathStack();
-        $this->renderer->setResolver($resolver);
-        $this->assertSame($resolver, $this->renderer->resolver());
+        $this->assertInstanceOf(AggregateResolver::class, $this->renderer->resolver());
     }
 
     private function resolver(): TemplatePathStack
     {
-        $resolver = $this->renderer->resolver();
-        assert($resolver instanceof TemplatePathStack);
-
-        return $resolver;
+        return $this->container->get(TemplatePathStack::class);
     }
 
     public function testPassingNameToResolverReturnsScriptName(): void
@@ -217,11 +211,11 @@ final class PhpRendererTest extends TestCase
 
     public function testRendersTemplatesInAStack(): void
     {
-        $resolver = new TemplateMapResolver([
+        $resolver = $this->container->get(TemplateMapResolver::class);
+        $resolver->setMap([
             'layout' => __DIR__ . '/_templates/layout.phtml',
             'block'  => __DIR__ . '/_templates/block.phtml',
         ]);
-        $this->renderer->setResolver($resolver);
 
         $content = $this->renderer->render('block');
         $this->assertMatchesRegularExpression('#<body>\s*Block content\s*</body>#', $content);
@@ -229,10 +223,10 @@ final class PhpRendererTest extends TestCase
 
     public function testCanRenderViewModel(): void
     {
-        $resolver = new TemplateMapResolver([
+        $resolver = $this->container->get(TemplateMapResolver::class);
+        $resolver->setMap([
             'empty' => __DIR__ . '/_templates/empty.phtml',
         ]);
-        $this->renderer->setResolver($resolver);
 
         $model = new ViewModel();
         $model->setTemplate('empty');
@@ -250,10 +244,10 @@ final class PhpRendererTest extends TestCase
 
     public function testRendersViewModelWithVariablesSpecified(): void
     {
-        $resolver = new TemplateMapResolver([
+        $resolver = $this->container->get(TemplateMapResolver::class);
+        $resolver->setMap([
             'test' => __DIR__ . '/_templates/test.phtml',
         ]);
-        $this->renderer->setResolver($resolver);
 
         $model = new ViewModel();
         $model->setTemplate('test');
@@ -265,10 +259,10 @@ final class PhpRendererTest extends TestCase
 
     public function testRenderedViewModelIsRegisteredAsCurrentViewModel(): void
     {
-        $resolver = new TemplateMapResolver([
+        $resolver = $this->container->get(TemplateMapResolver::class);
+        $resolver->setMap([
             'empty' => __DIR__ . '/_templates/empty.phtml',
         ]);
-        $this->renderer->setResolver($resolver);
 
         $model = new ViewModel();
         $model->setTemplate('empty');
@@ -281,10 +275,10 @@ final class PhpRendererTest extends TestCase
 
     public function testRendererRaisesExceptionInCaseOfExceptionInView(): void
     {
-        $resolver = new TemplateMapResolver([
+        $resolver = $this->container->get(TemplateMapResolver::class);
+        $resolver->setMap([
             'exception' => __DIR__ . '/_templates/exception.phtml',
         ]);
-        $this->renderer->setResolver($resolver);
 
         $model = new ViewModel();
         $model->setTemplate('exception');
@@ -317,15 +311,14 @@ final class PhpRendererTest extends TestCase
     #[DataProvider('invalidTemplateFiles')]
     public function testRendererRaisesExceptionIfResolvedTemplateIsInvalid(string $template): void
     {
-        $resolver = new TemplateMapResolver([
+        $resolver = $this->container->get(TemplateMapResolver::class);
+        $resolver->setMap([
             'invalid' => $template,
         ]);
 
         // @codingStandardsIgnoreStart
         set_error_handler(static fn(int $errno, string $errstr) => true, E_WARNING);
         // @codingStandardsIgnoreEnd
-
-        $this->renderer->setResolver($resolver);
 
         try {
             $this->renderer->render('invalid');
@@ -354,16 +347,16 @@ final class PhpRendererTest extends TestCase
 
     public function testIfViewModelComposesVariablesInstanceThenRendererUsesIt(): void
     {
+        $resolver = $this->container->get(TemplateMapResolver::class);
+        $resolver->setMap([
+            'view-model-variables' => __DIR__ . '/_templates/view-model-variables.phtml',
+        ]);
+
         $model = new ViewModel();
-        $model->setTemplate('template');
+        $model->setTemplate('view-model-variables');
         $vars        = $model->getVariables();
         $vars['foo'] = 'BAR-BAZ-BAT';
-
-        $resolver = new TemplateMapResolver([
-            'template' => __DIR__ . '/_templates/view-model-variables.phtml',
-        ]);
-        $this->renderer->setResolver($resolver);
-        $test = $this->renderer->render($model);
+        $test        = $this->renderer->render($model);
         $this->assertStringContainsString('BAR-BAZ-BAT', $test);
     }
 

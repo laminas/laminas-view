@@ -36,6 +36,19 @@ The [Placeholder](#placeholder) view helper has been refactored to hide its cont
 Because of this, `laminas-view` no longer ships a 'Container' implementation for end users and the `Laminas\View\Helper\Placeholder\Container` class is no longer suitable for public use.
 It has been made final, and, marked as `@internal` and should not be used in consumer code.
 
+### `RendererInterface`
+
+The method `setResolver` has been removed from `Laminas\View\Renderer\RendererInterface`.
+It was irrelevant to all but the `PhpRenderer` implementation which now requires a template resolver in its constructor instead.
+
+### `PhpRenderer`
+
+The PhpRenderer has been refactored and a number of methods have been removed:
+
+- `init` - Because `PhpRenderer` is now final, the `init` method has no use-case
+- `setHelperPluginManager` and `getHelperPluginManager` - Now that the helper plugin manager is a required constructor dependency, the setter and getter are unnecessary
+- `setResolver` - The template resolver is a constructor dependency and can no longer be changed at runtime.
+
 ### Helpers
 
 #### `Asset`

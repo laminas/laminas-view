@@ -199,11 +199,6 @@
       <code><![CDATA[include $this->__file]]></code>
     </UnresolvableInclude>
   </file>
-  <file src="src/Renderer/RendererInterface.php">
-    <PossiblyUnusedReturnValue>
-      <code><![CDATA[RendererInterface]]></code>
-    </PossiblyUnusedReturnValue>
-  </file>
   <file src="src/Strategy/JsonStrategy.php">
     <MixedAssignment>
       <code><![CDATA[$headers]]></code>

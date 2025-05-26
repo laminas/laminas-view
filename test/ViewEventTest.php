@@ -6,8 +6,6 @@ namespace LaminasTest\View;
 
 use Laminas\Http\Request;
 use Laminas\Http\Response;
-use Laminas\ServiceManager\ServiceManager;
-use Laminas\View\HelperPluginManager;
 use Laminas\View\Model\ViewModel;
 use Laminas\View\Renderer\PhpRenderer;
 use Laminas\View\ViewEvent;
@@ -20,8 +18,9 @@ final class ViewEventTest extends TestCase
 
     protected function setUp(): void
     {
+        $serviceManager = GenerateServiceManager::withConfig();
         $this->event    = new ViewEvent();
-        $this->renderer = new PhpRenderer(new HelperPluginManager(new ServiceManager()));
+        $this->renderer = $serviceManager->get(PhpRenderer::class);
     }
 
     public function testModelIsNullByDefault(): void
