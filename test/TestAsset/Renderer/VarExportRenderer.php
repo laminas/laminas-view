@@ -8,7 +8,6 @@ use ArrayAccess;
 use Laminas\View\Model\ModelInterface;
 use Laminas\View\Model\ModelInterface as Model;
 use Laminas\View\Renderer\RendererInterface as Renderer;
-use Laminas\View\Resolver\ResolverInterface as Resolver;
 
 use function var_export;
 
@@ -17,11 +16,6 @@ final class VarExportRenderer implements Renderer
     public function getEngine(): string
     {
         return 'var_export';
-    }
-
-    public function setResolver(Resolver $resolver): void
-    {
-        // Deliberately empty
     }
 
     /**

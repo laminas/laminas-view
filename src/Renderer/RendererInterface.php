@@ -6,7 +6,6 @@ namespace Laminas\View\Renderer;
 
 use ArrayAccess;
 use Laminas\View\Model\ModelInterface;
-use Laminas\View\Resolver\ResolverInterface;
 
 /**
  * Interface class for Laminas\View\Renderer\* compatible template engine implementations
@@ -23,13 +22,6 @@ interface RendererInterface
      * @return mixed
      */
     public function getEngine();
-
-    /**
-     * Set the resolver used to map a template name to a resource the renderer may consume.
-     *
-     * @return RendererInterface
-     */
-    public function setResolver(ResolverInterface $resolver);
 
     /**
      * Processes a view script and returns the output.

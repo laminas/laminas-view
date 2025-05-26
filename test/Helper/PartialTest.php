@@ -27,14 +27,13 @@ final class PartialTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->renderer = new PhpRenderer(new HelperPluginManager(new ServiceManager()));
         $resolver       = new TemplatePathStack([
             'script_paths' => [
                 __DIR__ . '/_files/modules/application/views/scripts',
             ],
         ]);
-        $this->renderer->setResolver($resolver);
-        $this->helper = new Partial($this->renderer);
+        $this->renderer = new PhpRenderer(new HelperPluginManager(new ServiceManager()), $resolver);
+        $this->helper   = new Partial($this->renderer);
     }
 
     public function testPartialRendersScript(): void

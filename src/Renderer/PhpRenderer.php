@@ -13,8 +13,8 @@ use Laminas\View\Helper\ViewModel;
 use Laminas\View\HelperPluginManager;
 use Laminas\View\Model\ModelInterface as Model;
 use Laminas\View\Renderer\RendererInterface as Renderer;
+use Laminas\View\Resolver\ResolverInterface;
 use Laminas\View\Resolver\ResolverInterface as Resolver;
-use Laminas\View\Resolver\TemplatePathStack;
 use Laminas\View\Variables;
 use Throwable;
 use Traversable;
@@ -100,13 +100,6 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     private $__templates = [];
 
     /**
-     * Template resolver
-     *
-     * @var Resolver|null
-     */
-    private $__templateResolver;
-
-    /**
      * Script file name to execute
      *
      * @var string|null
@@ -135,6 +128,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      */
     public function __construct(
         private readonly HelperPluginManager $pluginManager,
+        private readonly ResolverInterface $templateResolver,
     ) {
     }
 
@@ -151,18 +145,6 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     }
 
     /**
-     * Set script resolver
-     *
-     * @return PhpRenderer
-     * @throws Exception\InvalidArgumentException
-     */
-    public function setResolver(Resolver $resolver)
-    {
-        $this->__templateResolver = $resolver;
-        return $this;
-    }
-
-    /**
      * Retrieve template name or template resolver
      *
      * @param non-empty-string|null $name
@@ -170,15 +152,11 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      */
     public function resolver(string|null $name = null): string|Resolver|false
     {
-        if ($this->__templateResolver === null) {
-            $this->__templateResolver = new TemplatePathStack();
-        }
-
         if ($name !== null) {
-            return $this->__templateResolver->resolve($name);
+            return $this->templateResolver->resolve($name);
         }
 
-        return $this->__templateResolver;
+        return $this->templateResolver;
     }
 
     /**

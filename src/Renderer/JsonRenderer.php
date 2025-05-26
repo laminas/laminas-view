@@ -62,19 +62,6 @@ class JsonRenderer implements Renderer, TreeRendererInterface
     }
 
     /**
-     * Set the resolver used to map a template name to a resource the renderer may consume.
-     *
-     * @todo Determine use case for resolvers when rendering JSON
-     * @return self
-     */
-    public function setResolver(Resolver $resolver)
-    {
-        $this->resolver = $resolver;
-
-        return $this;
-    }
-
-    /**
      * Set flag indicating whether to merge unnamed children
      *
      * @param  bool $mergeUnnamedChildren
