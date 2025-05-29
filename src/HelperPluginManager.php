@@ -10,23 +10,25 @@ use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Helper\Service\EscapeHelperFactory;
 use Laminas\View\Helper\Service\GenericFactory;
+use Laminas\View\Helper\StatefulHelperInterface;
 use Psr\Container\ContainerInterface;
 
 use function array_replace_recursive;
 use function get_debug_type;
 use function is_callable;
+use function spl_object_hash;
 use function sprintf;
 
 /**
  * Plugin manager implementation for view helpers
  *
- * Enforces that helpers retrieved are instances of
- * Helper\HelperInterface. Additionally, it registers a number of default
- * helpers.
+ * Enforces that helpers retrieved are instances of HelperInterface, or callable.
+ * Additionally, it registers a number of default helpers and tracks stateful helpers so that state can be reset.
  *
- * @extends AbstractPluginManager<HelperInterface|callable>
+ * @psalm-type InstanceType = HelperInterface|callable
+ * @extends AbstractPluginManager<InstanceType>
  */
-final class HelperPluginManager extends AbstractPluginManager
+final class HelperPluginManager extends AbstractPluginManager implements HelperPluginManagerInterface
 {
     private const CONFIG = [
         'factories' => [
@@ -138,6 +140,13 @@ final class HelperPluginManager extends AbstractPluginManager
     ];
 
     /**
+     * A hash map of `spl_object_hash` to Helper instance
+     *
+     * @var array<string, StatefulHelperInterface>
+     */
+    private array $statefulHelpers = [];
+
+    /**
      * Constructor
      *
      * Merges provided configuration with default configuration.
@@ -173,5 +182,30 @@ final class HelperPluginManager extends AbstractPluginManager
                 ),
             );
         }
+    }
+
+    /**
+     * @template InstanceParam of HelperInterface
+     * @param class-string<InstanceParam>|string $id Service name of plugin to retrieve.
+     * @return ($id is class-string<InstanceParam> ? InstanceParam : InstanceType)
+     */
+    public function get(string $id): mixed
+    {
+        /** @psalm-var InstanceType $plugin Unfortunately this type needs forcing */
+        $plugin = parent::get($id);
+        if ($plugin instanceof StatefulHelperInterface) {
+            $this->statefulHelpers[spl_object_hash($plugin)] = $plugin;
+        }
+
+        return $plugin;
+    }
+
+    public function resetState(): void
+    {
+        foreach ($this->statefulHelpers as $helper) {
+            $helper->resetState();
+        }
+
+        $this->statefulHelpers = [];
     }
 }

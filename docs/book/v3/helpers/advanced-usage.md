@@ -1,276 +1,212 @@
-# Advanced usage of helpers
+# Advanced Usage of Helpers
 
-## Registering Helpers
+## Writing & Registering Custom Helpers
 
-`Laminas\View\Renderer\PhpRenderer` composes a *plugin manager* for managing
-helpers, specifically an instance of `Laminas\View\HelperPluginManager`, which
-extends `Laminas\ServiceManager\AbstractPluginManager`, which is itself an
-extension of `Laminas\ServiceManager\ServiceManager`.  `HelperPluginManager` is a
-specialized service manager, so you can register a helper/plugin like any other
-service (see the [Service Manager documentation](https://docs.laminas.dev/laminas-servicemanager/configuring-the-service-manager/)
-for more information).
+`laminas-view` provides a "Plugin Manager" implementation that provides access to what we call "View Helpers", typically, from within a template.
 
-Programmatically, this is done as follows:
+"View Helpers", or "View Plugins" must be invokable objects or closures.
+
+To begin with, here is a trivial example of a view helper that reverses any string input it receives:
 
 ```php
-use MyModule\View\Helper\LowerCase;
+<?php
 
-// $view is an instance of PhpRenderer
-$pluginManager = $view->getHelperPluginManager();
+namespace MyApp\ViewHelpers;
 
-// Register an alias:
-$pluginManager->setAlias('lowercase', LowerCase::class);
+use function strrev;
 
-// Register a factory:
-$pluginManager->setFactory(LowerCase::class, function () {
-   $lowercaseHelper = new LowerCase();
-
-   // ...do some configuration or dependency injection...
-
-   return $lowercaseHelper;
-});
+final class StrRev
+{
+    public function __invoke(string $value): string
+    {
+        return strrev($value);
+    }
+}
 ```
 
-Within an MVC application, you will typically pass a map of plugins to the class
-via your configuration.
+In order to use this helper from within a template, it must be _registered_ with the plugin manger.
+This is achieved by altering your configuration to include the following:
 
 ```php
-use MyModule\View\Helper;
+<?php
+// config/autoload/view-helpers.global.php
+
 use Laminas\ServiceManager\Factory\InvokableFactory;
 
-// From within a configuration file
 return [
-   'view_helpers' => [
-        'aliases' => [
-            'lowercase' => Helper\LowerCase::class,
-            'uppercase' => Helper\UpperCase::class,
-        ],
+    'view_helpers' => [
         'factories' => [
-            LowerCase::class => InvokableFactory::class,
-            UpperCase::class => InvokableFactory::class,
+            MyApp\ViewHelpers\StrRev::class => InvokableFactory::class,
+        ],
+        'aliases' => [
+            'reverse' => MyApp\ViewHelpers\StrRev::class,
         ],
     ],
 ];
 ```
 
-If your module class implements `Laminas\ModuleManager\Feature\ViewHelperProviderInterface`,
-or just the method `getViewHelperConfig()`, you could also do the following
-(it's the same as the previous example).
+The top-level `view_helpers` configuration key follows the same format as any other [service manager configuration set](https://docs.laminas.dev/laminas-servicemanager/v4/configuring-the-service-manager/).
+
+Notice that we added an alias of "reverse" - this is the effective method name you will call from within your template files:
 
 ```php
-namespace MyModule;
+<?php
+// templates/example.phtml
 
-class Module
-{
-    public function getViewHelperConfig()
+?>
+
+<h1>This is an <?= $this->reverse('Example') ?></h1>
+```
+
+## Helpers with Service Dependencies
+
+The trivial `strrev` example is not much use.
+Typically, you will need to use other services to perform more complex formatting or data retrieval.
+Using dependency injection, your view helpers can consume any service from within your application:
+
+Here is a fictional helper that retrieves a user from a user repository service in order to personalise certain data types to their imaginary preferences.
+
+Notice how `__invoke` just returns `$this` which enables you to chain method calls on the helper for greater utility from within templates.
+
+```php
+namespace MyApp\ViewHelpers;
+
+use DateTimeInterface;
+use MyApp\UserRepository;
+use MyApp\User;
+
+final class UserInformation {
+
+    public function __construct(
+        private readonly UserRepository $repository,
+    ) {
+    }
+    
+    public function __invoke(): self
     {
-        return [
-            'aliases' => [
-                'lowercase' => Helper\LowerCase::class,
-                'uppercase' => Helper\UpperCase::class,
-            ],
-            'factories' => [
-                LowerCase::class => InvokableFactory::class,
-                UpperCase::class => InvokableFactory::class,
-            ],
-        ];
+        return $this;
+    }
+    
+    public function preferredName(string $username): string
+    {
+        $user = $this->repository->findByUsername($username);
+        
+        if ($user instanceof User) {
+            return $user->preferredName();
+        }
+        
+        return '';
+    }
+    
+    public function formatDateFor(string $username, DateTimeInterface $date): string
+    {
+        $user = $this->repository->findByUsername($username);
+        $format = DateTimeInterface::W3C;
+        
+        if ($user instanceof User) {
+            $format = $user->preferredDateFormat();
+        }
+        
+        return sprintf(
+            '<time datetime="%s">%s</time>',
+            $date->format(DateTimeInterface::ATOM),
+            $format,
+        );
     }
 }
 ```
 
-The two latter examples can be done in each module that needs to register
-helpers with the `PhpRenderer`; however, be aware that another module can
-register helpers with the same name, so order of modules can impact which helper
-class will actually be registered!
-
-## Writing Custom Helpers
-
-Writing custom helpers is easy. We recommend extending
-`Laminas\View\Helper\AbstractHelper`, but at the minimum, you need only implement
-the `Laminas\View\Helper\HelperInterface` interface:
+You would write a factory for this helper along the lines of
 
 ```php
-namespace Laminas\View\Helper;
+namespace MyApp\ViewHelpers;
 
-use Laminas\View\Renderer\RendererInterface as Renderer;
+use Psr\Container\ContainerInterface;
+use MyApp\UserRepository;
 
-interface HelperInterface
+final class UserInformationFactory
 {
-    /**
-     * Set the View object
-     *
-     * @param  Renderer $view
-     * @return HelperInterface
-     */
-    public function setView(Renderer $view);
-
-    /**
-     * Get the View object
-     *
-     * @return Renderer
-     */
-    public function getView();
+    public function __invoke(ContainerInterface $container): UserInformation
+    {
+        return new UserInformation($container->get(UserRepository::class));
+    }
 }
 ```
 
-If you want your helper to be capable of being invoked as if it were a method call of the
-`PhpRenderer`, you should also implement an `__invoke()` method within your helper.
-
-As previously noted, we recommend extending `Laminas\View\Helper\AbstractHelper`, as it implements the
-methods defined in `HelperInterface`, giving you a headstart in your development.
-
-> ### Invokable helpers
->
-> Starting with version 2.7.0, helpers no longer need to be instances of
-> `HelperInterface`, but can be *any* PHP callable. We recommend writing helpers
-> as invokable classes (classes implementing `__invoke()`.
-
-Once you have defined your helper class, make sure you can autoload it, and then
-register it with the [plugin manager](#registering-helpers).
-
-Here is an example helper, which we're titling "SpecialPurpose"
+and register the helper with configuration such as:
 
 ```php
-namespace MyModule\View\Helper;
+return [
+    'view_helpers' => [
+        'factories' => [
+            MyApp\ViewHelpers\UserInformation::class => MyApp\ViewHelpers\UserInformationFactory::class,
+        ],
+        'aliases' => [
+            'userInfo' => MyApp\ViewHelpers\UserInformation::class,
+        ],
+    ],
+];
+```
 
-use Laminas\View\Helper\AbstractHelper;
+Finally, inside your template, and assuming there are certain variables available to you in that template:
 
-class SpecialPurpose extends AbstractHelper
+```php
+<?php // some-template.phtml ?>
+<h1>Good Morning, <?= $this->userInfo()->preferredName($this->username) ?></h1>
+
+<p>The current date is <?= $this->userInfo()->formatDateFor($this->username, $this->currentTime) ?></p>
+```
+
+## Dealing with State Buildup
+
+Sometimes it is necessary to aggregate state inside view helpers to achieve certain functionality.
+The shipped [`Placeholder` view helper](../helpers/placeholder.md) is a good example of this: Aggregating values in templates for output in a parent template, or layout for example.
+
+This state can become problematic when your app is running on long-lived processes such as [RoadRunner](https://roadrunner.dev/), [Swoole](https://www.php.net/manual/book.swoole.php), or [FrankenPHP](https://frankenphp.dev/) amongst others, because the helper stays in memory for multiple requests rather than being destroyed after each successful request.
+
+In the case of the placeholder view helper, if this state was not reset for each request, the data stored inside that helper would keep growing and growing affecting the data output on consecutive renders for different users of your website or application.
+
+`laminas-view` ships an interface for view helpers to implement so that state can be automatically reset at the end of each rendering cycle: `Laminas\View\Helper\StatefulHelperInterface`.
+
+Here's a trivial example implementation:
+
+```php
+namespace MyApp;
+
+use Laminas\View\Helper\StatefulHelperInterface;
+
+final class TrivialHelper implements StatefulHelperInterface
 {
-    protected $count = 0;
-
-    public function __invoke()
+    private int $count = 0;
+    
+    public function __invoke(): string
     {
         $this->count++;
-        $output = sprintf("I have seen 'The Jerk' %d time(s).", $this->count);
-        return htmlspecialchars($output, ENT_QUOTES, 'UTF-8');
+        
+        return '<p>Some HTML</p>';
+    }
+    
+    public function resetState() : void{
+        $this->count = 0;
     }
 }
 ```
 
-Then assume that we [register it with the plugin manager](#registering-helpers)
-by the name "specialPurpose".
+## Using Closures as View Helpers
 
-Within a view script, you can call the `SpecialPurpose` helper as many times as
-you like; it will be instantiated once, and then it persists for the life of
-that `PhpRenderer` instance.
+It is perfectly possible to use closures as view helpers for trivial tasks.
+In order to register these, you'd need to either return them from a factory, or register them as services in configuration.
 
 ```php
-// remember, in a view script, $this refers to the Laminas\View\Renderer\PhpRenderer instance.
-echo $this->specialPurpose();
-echo $this->specialPurpose();
-echo $this->specialPurpose();
+// config/autoload/helpers.global.php
+
+return [
+    'view_helpers' => [
+        'services' => [
+            'someHelper' => static fn(string $value): string => strrev($value),
+        ],
+    ],
+];
 ```
 
-The output would look something like this:
-
-```php
-I have seen 'The Jerk' 1 time(s).
-I have seen 'The Jerk' 2 time(s).
-I have seen 'The Jerk' 3 time(s).
-```
-
-Sometimes you will need access to the calling `PhpRenderer` object; for
-instance, if you need to use the registered encoding, or want to render another
-view script as part of your helper. This is why we define the `setView()` and
-`getView()` methods. As an example, we could rewrite the `SpecialPurpose` helper
-as follows to take advantage of the `EscapeHtml` helper:
-
-```php
-namespace MyModule\View\Helper;
-
-use Laminas\View\Helper\AbstractHelper;
-
-class SpecialPurpose extends AbstractHelper
-{
-    protected $count = 0;
-
-    public function __invoke()
-    {
-        $this->count++;
-        $output  = sprintf("I have seen 'The Jerk' %d time(s).", $this->count);
-        $escaper = $this->getView()->plugin('escapehtml');
-        return $escaper($output);
-    }
-}
-```
-
-> ### Accessing the view or other helpers in callables
->
-> As noted earlier, starting in version 2.7.0, you may use any PHP callable as a
-> helper. If you do, however, how can you access the renderer or other plugins?
->
-> The answer is: dependency injection.
->
-> If you write your helper as a class, you can accept dependencies via the
-> constructor or other setter methods. Create a factory that pulls those
-> dependencies and injects them.
->
-> As an example, if we need the `escapeHtml()` helper, we could write our helper
-> as follows:
->
-> ```php
-> namespace MyModule\View\Helper;
->
-> use Laminas\View\Helper\EscapeHtml;
->
-> class SpecialPurpose
-> {
->     private $count = 0;
->
->     private $escaper;
->
->     public function __construct(EscapeHtml $escaper)
->     {
->         $this->escaper = $escaper;
->     }
->
->     public function __invoke()
->     {
->         $this->count++;
->         $output  = sprintf("I have seen 'The Jerk' %d time(s).", $this->count);
->         $escaper = $this->escaper;
->         return $escaper($output);
->     }
-> }
-> ```
->
-> Then we would write a factory like the following:
->
-> ```php
-> use Laminas\ServiceManager\AbstractPluginManager;
->
-> class SpecialPurposeFactory
-> {
->     public function __invoke($container)
->     {
->         if (! $container instanceof AbstractPluginManager) {
->             // laminas-servicemanager v3. v2 passes the helper manager directly.
->             $container = $container->get('ViewHelperManager');
->         }
->
->         return new SpecialPurpose($container->get('escapeHtml'));
->     }
-> }
-> ```
->
-> If access to the view were required, we'd pass the `PhpRenderer` service
-> instead.
-
-## Registering Concrete Helpers
-
-Sometimes it is convenient to instantiate a view helper, and then register it
-with the renderer.  This can be done by injecting it directly into the plugin
-manager.
-
-```php
-// $view is a PhpRenderer instance
-
-$helper = new MyModule\View\Helper\LowerCase;
-// ...do some configuration or dependency injection...
-
-$view->getHelperPluginManager()->setService('lowercase', $helper);
-```
-
-The plugin manager will validate the helper/plugin, and if the validation
-passes, the helper/plugin will be registered.
+The main drawback to registering closures via configuration in this way is that configuration caching (serialisation) is unlikely to work leading to slower startup times for your application.

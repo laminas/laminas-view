@@ -35,7 +35,7 @@
   </file>
   <file src="src/HelperPluginManager.php">
     <MethodSignatureMismatch>
-      <code><![CDATA[HelperPluginManager]]></code>
+      <code><![CDATA[$id]]></code>
     </MethodSignatureMismatch>
   </file>
   <file src="src/Model/ClearableModelInterface.php">
@@ -166,7 +166,6 @@
     </MixedAssignment>
     <MixedReturnStatement>
       <code><![CDATA[$this->__vars[$key]]]></code>
-      <code><![CDATA[$this->pluginManager->get($name)]]></code>
     </MixedReturnStatement>
     <PossibleRawObjectIteration>
       <code><![CDATA[$variables]]></code>
