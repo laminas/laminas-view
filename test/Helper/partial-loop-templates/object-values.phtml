@@ -1,0 +1,11 @@
+<?php
+
+declare(strict_types=1);
+
+$object = $this->object ?? null;
+
+assert(is_object($object));
+assert(property_exists($object, 'message'));
+assert(is_string($object->message));
+
+echo $object->message;
