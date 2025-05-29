@@ -1,0 +1,17 @@
+<?php
+
+declare(strict_types=1);
+
+$object = $this->object ?? null;
+
+assert(is_object($object));
+assert(isset($object->message) && is_string($object->message));
+
+echo $object->message;
+
+assert(isset($object->data) && is_array($object->data));
+assert(isset($object->objectKey) && is_string($object->objectKey));
+
+$this->partialLoop()->setObjectKey($object->objectKey);
+
+echo $this->partialLoop('inner-loop.phtml', $object->data);
