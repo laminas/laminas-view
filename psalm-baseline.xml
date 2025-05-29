@@ -306,37 +306,9 @@
     </UnusedParam>
   </file>
   <file src="test/Helper/PartialLoopTest.php">
-    <InvalidArgument>
-      <code><![CDATA['foo']]></code>
-    </InvalidArgument>
-    <MixedArgument>
-      <code><![CDATA[$value]]></code>
-      <code><![CDATA[$value]]></code>
-    </MixedArgument>
     <MixedAssignment>
-      <code><![CDATA[$key]]></code>
-      <code><![CDATA[$key]]></code>
-      <code><![CDATA[$value]]></code>
-      <code><![CDATA[$value]]></code>
-      <code><![CDATA[$value]]></code>
       <code><![CDATA[$value]]></code>
     </MixedAssignment>
-    <MixedOperand>
-      <code><![CDATA[$item->message]]></code>
-      <code><![CDATA[$item->message]]></code>
-      <code><![CDATA[$item->objectKey]]></code>
-      <code><![CDATA[$item->objectKey]]></code>
-      <code><![CDATA[$value]]></code>
-      <code><![CDATA[$value]]></code>
-    </MixedOperand>
-    <UndefinedPropertyFetch>
-      <code><![CDATA[$item->message]]></code>
-      <code><![CDATA[$item->message]]></code>
-    </UndefinedPropertyFetch>
-    <UnusedVariable>
-      <code><![CDATA[$key]]></code>
-      <code><![CDATA[$key]]></code>
-    </UnusedVariable>
   </file>
   <file src="test/Helper/PartialTest.php">
     <MixedArgument>
