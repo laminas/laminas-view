@@ -166,7 +166,20 @@ This state can become problematic when your app is running on long-lived process
 
 In the case of the placeholder view helper, if this state was not reset for each request, the data stored inside that helper would keep growing and growing affecting the data output on consecutive renders for different users of your website or application.
 
-`laminas-view` ships an interface for view helpers to implement so that state can be automatically reset at the end of each rendering cycle: `Laminas\View\Helper\StatefulHelperInterface`.
+`laminas-view` ships an interface for view helpers to implement so that state can be automatically reset at the end of each rendering cycle: `Laminas\View\Helper\StatefulHelperInterface`:
+
+```php
+namespace Laminas\View\Helper;
+
+/**
+ * This interface defines a view helper that maintains state and provides a way to reset that state
+ */
+interface StatefulHelperInterface
+{
+    public function resetState(): void;
+}
+
+```
 
 Here's a trivial example implementation:
 
@@ -204,7 +217,7 @@ In order to register these, you'd need to either return them from a factory, or 
 return [
     'view_helpers' => [
         'services' => [
-            'someHelper' => static fn(string $value): string => strrev($value),
+            'reverse' => static fn(string $value): string => strrev($value),
         ],
     ],
 ];
