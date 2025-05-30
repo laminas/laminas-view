@@ -301,4 +301,7 @@ interface TemplateInterface
 
     /** @see ViewModel */
     public function viewModel(): ViewModel;
+
+    /** This method is here so that the custom template analyzer works */
+    public function __internalPseudoRenderForPsalm(): void;
 }
