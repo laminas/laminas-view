@@ -2,7 +2,7 @@
 
 ## Writing & Registering Custom Helpers
 
-`laminas-view` provides a "Plugin Manager" implementation that provides access to what we call "View Helpers", typically, from within a template.
+`laminas-view` provides a "Plugin Manager" implementation that provides access to what we call "View Helpers" from within a template.
 
 "View Helpers", or "View Plugins" must be invokable objects or closures.
 
@@ -186,7 +186,8 @@ final class TrivialHelper implements StatefulHelperInterface
         return '<p>Some HTML</p>';
     }
     
-    public function resetState() : void{
+    public function resetState() : void
+    {
         $this->count = 0;
     }
 }
