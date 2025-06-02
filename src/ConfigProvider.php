@@ -130,9 +130,10 @@ final class ConfigProvider
                 Resolver\TemplatePathStack::class       => Resolver\Factory\TemplatePathStackResolverFactory::class,
             ],
             'aliases'   => [
-                EscaperInterface::class           => Escaper::class,
-                Renderer\RendererInterface::class => Renderer\PhpRenderer::class,
-                Resolver\ResolverInterface::class => Resolver\AggregateResolver::class,
+                EscaperInterface::class             => Escaper::class,
+                HelperPluginManagerInterface::class => HelperPluginManager::class,
+                Renderer\RendererInterface::class   => Renderer\PhpRenderer::class,
+                Resolver\ResolverInterface::class   => Resolver\AggregateResolver::class,
             ],
         ];
     }

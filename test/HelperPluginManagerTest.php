@@ -8,6 +8,8 @@ use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Helper\Doctype;
+use Laminas\View\Helper\HeadStyle;
+use Laminas\View\Helper\HeadTitle;
 use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Helper\Partial;
 use Laminas\View\HelperPluginManager;
@@ -19,7 +21,8 @@ final class HelperPluginManagerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->helpers = new HelperPluginManager(new ServiceManager());
+        $container     = GenerateServiceManager::withConfig([]);
+        $this->helpers = $container->get(HelperPluginManager::class);
     }
 
     public function testRegisteringInvalidHelperRaisesInvalidServiceException(): void
@@ -66,5 +69,22 @@ final class HelperPluginManagerTest extends TestCase
     public function testDoctypeFactoryExists(): void
     {
         self::assertTrue($this->helpers->has(Doctype::class));
+    }
+
+    public function testThatStatefulHelpersCanBeResetEnMasse(): void
+    {
+        $headTitle = $this->helpers->get(HeadTitle::class);
+        $headTitle->set('Something');
+
+        $headStyle = $this->helpers->get(HeadStyle::class);
+        $headStyle->appendStyle('.foo { color: pink; }');
+
+        self::assertNotEmpty($headTitle->renderTitle());
+        self::assertNotEmpty($headStyle->toString());
+
+        $this->helpers->resetState();
+
+        self::assertSame('', $headTitle->renderTitle());
+        self::assertSame('', $headStyle->toString());
     }
 }
