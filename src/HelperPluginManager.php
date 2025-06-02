@@ -16,7 +16,7 @@ use Psr\Container\ContainerInterface;
 use function array_replace_recursive;
 use function get_debug_type;
 use function is_callable;
-use function spl_object_hash;
+use function spl_object_id;
 use function sprintf;
 
 /**
@@ -140,9 +140,9 @@ final class HelperPluginManager extends AbstractPluginManager implements HelperP
     ];
 
     /**
-     * A hash map of `spl_object_hash` to Helper instance
+     * A hash map of `spl_object_id` to Helper instance
      *
-     * @var array<string, StatefulHelperInterface>
+     * @var array<int, StatefulHelperInterface>
      */
     private array $statefulHelpers = [];
 
@@ -194,7 +194,7 @@ final class HelperPluginManager extends AbstractPluginManager implements HelperP
         /** @psalm-var InstanceType $plugin Unfortunately this type needs forcing */
         $plugin = parent::get($id);
         if ($plugin instanceof StatefulHelperInterface) {
-            $this->statefulHelpers[spl_object_hash($plugin)] = $plugin;
+            $this->statefulHelpers[spl_object_id($plugin)] = $plugin;
         }
 
         return $plugin;
