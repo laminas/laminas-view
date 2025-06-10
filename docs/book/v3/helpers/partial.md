@@ -7,12 +7,9 @@ you do not need to worry about variable name clashes.
 A sibling to the `Partial`, the `PartialLoop` view helper allows you to pass
 iterable data, and render a partial for each item.
 
-<!-- markdownlint-disable-next-line heading-increment -->
-> ### PartialLoop Counter
->
-> The `PartialLoop` view helper gives access to the current position of the
-> array within the view script via `$this->partialLoop()->getPartialCounter()`.
-> This provides a way to have alternating colors on table rows, for example.
+NOTE: **PartialLoop Counter**
+The `PartialLoop` view helper gives access to the current position of the array within the view script via `$this->partialLoop()->getPartialCounter()`.
+This provides a way to have alternating colors on table rows, for example.
 
 ## Basic Usage
 
@@ -45,7 +42,7 @@ Which would then render:
 </ul>
 ```
 
-> ### What is a model?
+> NOTE: **What Is a Model?**
 >
 > A model used with the `Partial` view helper can be one of the following:
 >

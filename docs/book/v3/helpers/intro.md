@@ -11,13 +11,6 @@ used to retrieve that instance.  `Laminas\View\Renderer\PhpRenderer` composes a
 *plugin manager*, allowing you to retrieve helpers, and also provides some
 method overloading capabilities that allow proxying method calls to helpers.
 
-<!-- markdownlint-disable-next-line heading-increment -->
-> ### Callable Helpers
->
-> Starting in version 2.7.0, if your helper does not need access to the view,
-> you can also use any PHP callable as a helper, including arbitrary objects
-> that implement `__invoke()`.
-
 As an example, let's say we have a helper class named
 `MyModule\View\Helper\LowerCase`, which we register in our plugin manager with
 the name `lowercase`. We can retrieve it in one of the following ways:
@@ -77,37 +70,20 @@ for, and rendering, the various HTML `<head>` tags, such as `HeadTitle`,
 - [Placeholder](placeholder.md)
 - [RenderToPlaceholder](render-to-placeholder.md)
 
-> ### i18n Helpers
->
-> View helpers related to **Internationalization** are documented in the
-> [I18n View Helpers](https://docs.laminas.dev/laminas-i18n/view-helpers/)
-> documentation.
+NOTE: **i18n Helpers**
+View helpers related to **Internationalization** are documented in the [I18n View Helpers](https://docs.laminas.dev/laminas-i18n/view-helpers/) documentation.
 
-> ### Form Helpers
->
-> View helpers related to **form** are documented in the
-> [Form View Helpers](https://docs.laminas.dev/laminas-form/helper/intro/)
-> documentation.
+NOTE: **Form Helpers**
+View helpers related to **form** are documented in the [Form View Helpers](https://docs.laminas.dev/laminas-form/helper/intro/) documentation.
 
-> ### Navigation Helpers
->
-> View helpers related to **navigation** are documented in the
-> [Navigation View Helpers](https://docs.laminas.dev/laminas-navigation/helpers/intro/)
-> documentation.
+NOTE: **Navigation Helpers**
+View helpers related to **navigation** are documented in the [Navigation View Helpers](https://docs.laminas.dev/laminas-navigation/helpers/intro/) documentation.
 
-> ### Pagination Helpers
->
-> View helpers related to **paginator** are documented in the
-> [Paginator Usage](https://docs.laminas.dev/laminas-paginator/usage/#rendering-pages-with-view-scripts)
-> documentation.
+NOTE: **Pagination Helpers**
+View helpers related to **paginator** are documented in the [Paginator Usage](https://docs.laminas.dev/laminas-paginator/usage/#rendering-pages-with-view-scripts) documentation.
 
-> ### FlashMessenger helper
->
-> View helper related to **Flash Messenger** is documented in the
-> [FLash Messenger View Helper](https://docs.laminas.dev/laminas-mvc-plugin-flashmessenger/view-helper/)
-> documentation.
+NOTE: **FlashMessenger Helper**
+View helper related to **Flash Messenger** is documented in the [FLash Messenger View Helper](https://docs.laminas.dev/laminas-mvc-plugin-flashmessenger/view-helper/) documentation.
 
-> ### Custom Helpers
->
-> For documentation on writing **custom view helpers** see the
-> [Advanced usage](advanced-usage.md) chapter.
+NOTE: **Custom Helpers**
+For documentation on writing **custom view helpers** see the [Advanced usage](advanced-usage.md) chapter.

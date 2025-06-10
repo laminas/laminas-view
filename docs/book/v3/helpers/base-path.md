@@ -29,9 +29,7 @@ If you're running a laminas-mvc application, `basePath()` will point to the
      href="<?= $this->basePath('css/base.css') ?>" />
 ```
 
-> ### index.php script
->
-> For simplicity's sake, we strip out the entry PHP file (e.g., `index.php`)
-> from the base URL. However, in some situations this may cause a problem. If
-> one occurs, use `$this->plugin('basePath')->setBasePath()` to manually set the
-> base path.
+NOTE: **`index.php` Script**
+For simplicity's sake, we strip out the entry PHP file (e.g., `index.php`) from the base URL.
+However, in some situations this may cause a problem.
+If one occurs, use `$this->plugin('basePath')->setBasePath()` to manually set the base path.

@@ -42,8 +42,7 @@ The first argument of the `asset` helper is the regular asset name, which will
 be replaced by the associated value defined in the `resource_map` of the
 configuration.
 
-> ### Exceptions
->
+> NOTE: **Exceptions**
 > When an `asset` key is specified but the `resource_map` is not provided or is not
 > an array, the helper will raise a `Laminas\View\Exception\RuntimeException`.
 >
