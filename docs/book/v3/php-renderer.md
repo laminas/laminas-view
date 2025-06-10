@@ -231,24 +231,16 @@ could look like this:
 <?php endif;?>
 ```
 
-> ### Escape Output
->
-> The security mantra is "Filter input, escape output." If you are unsure of the
-> source of a given variable &mdash; which is likely most of the time &mdash;
-> you should escape it based on which HTML context it is being injected into.
-> The primary contexts to be aware of are HTML Body, HTML Attribute, Javascript,
-> CSS and URI. Each context has a dedicated helper available to apply the
-> escaping strategy most appropriate to each context. You should be aware that
-> escaping does vary significantly between contexts; there is no one single
-> escaping strategy that can be globally applied.  In the example above, there
-> are calls to an `escapeHtml()` method. The method is actually
-> [a helper](helpers/intro.md), a plugin available via method overloading.
-> Additional escape helpers provide the `escapeHtmlAttr()`, `escapeJs()`,
-> `escapeCss()`, and `escapeUrl()` methods for each of the HTML contexts you are
-> most likely to encounter. By using the provided helpers and being aware of
-> your variables' contexts, you will prevent your templates from running afoul
-> of [Cross-Site Scripting (XSS)](http://en.wikipedia.org/wiki/Cross-site_scripting)
-> vulnerabilities.
+NOTE: **Escape Output**
+The security mantra is "Filter input, escape output."
+If you are unsure of the source of a given variable &mdash; which is likely most of the time &mdash; you should escape it based on which HTML context it is being injected into.
+The primary contexts to be aware of are HTML Body, HTML Attribute, Javascript, CSS and URI.
+Each context has a dedicated helper available to apply the escaping strategy most appropriate to each context.
+You should be aware that escaping does vary significantly between contexts; there is no one single escaping strategy that can be globally applied.
+In the example above, there are calls to an `escapeHtml()` method.
+The method is actually [a helper](helpers/intro.md), a plugin available via method overloading.
+Additional escape helpers provide the `escapeHtmlAttr()`, `escapeJs()`, `escapeCss()`, and `escapeUrl()` methods for each of the HTML contexts you are most likely to encounter.
+By using the provided helpers and being aware of your variables' contexts, you will prevent your templates from running afoul of [Cross-Site Scripting (XSS)](http://en.wikipedia.org/wiki/Cross-site_scripting) vulnerabilities.
 
 We've now toured the basic usage of the `PhpRenderer`. By now you should know
 how to instantiate the renderer, provide it with a resolver, assign variables
