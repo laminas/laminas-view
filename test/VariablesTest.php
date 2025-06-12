@@ -4,134 +4,131 @@ declare(strict_types=1);
 
 namespace LaminasTest\View;
 
-use ArrayObject;
+use Laminas\View\Exception\UndefinedVariableException;
 use Laminas\View\Variables;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 
-use function assert;
-use function restore_error_handler;
-use function set_error_handler;
-
-use const E_USER_NOTICE;
+use function iterator_to_array;
 
 final class VariablesTest extends TestCase
 {
-    private ?string $error = null;
-    private Variables $vars;
-
-    protected function setUp(): void
+    public function testStrictVarsAreEnabledByDefault(): void
     {
-        $this->vars = new Variables();
+        $vars = new Variables([], true);
+        $this->expectException(UndefinedVariableException::class);
+        $vars->foo;
     }
 
-    public function testStrictVarsAreDisabledByDefault(): void
+    public function testStrictVariablesCanBeDisabled(): void
     {
-        $this->assertFalse($this->vars->isStrict());
+        $vars = new Variables([], false);
+
+        self::assertNull($vars->foo);
     }
 
-    public function testCanSetStrictFlag(): void
+    public function testVariablesProvidedToTheConstructorAreAvailable(): Variables
     {
-        $this->vars->setStrictVars(true);
-        $this->assertTrue($this->vars->isStrict());
-    }
-
-    public function testAssignMergesValuesWithObject(): void
-    {
-        $this->vars['foo'] = 'bar';
-        $this->vars->assign([
-            'bar' => 'baz',
-            'baz' => 'foo',
-        ]);
-        $this->assertEquals('bar', $this->vars['foo']);
-        $this->assertEquals('baz', $this->vars['bar']);
-        $this->assertEquals('foo', $this->vars['baz']);
-    }
-
-    public function testAssignCastsPlainObjectToArrayBeforeMerging(): void
-    {
-        $vars      = new stdClass();
-        $vars->foo = 'bar';
-        $vars->bar = 'baz';
-
-        $this->vars->assign($vars);
-        $this->assertEquals('bar', $this->vars['foo']);
-        $this->assertEquals('baz', $this->vars['bar']);
-    }
-
-    public function testAssignCastsArrayObjectToArrayWhenPresentBeforeMerging(): void
-    {
-        $vars   = [
+        $vars = new Variables([
             'foo' => 'bar',
-            'bar' => 'baz',
-        ];
-        $config = new ArrayObject($vars);
-        $this->vars->assign($config);
-        $this->assertEquals('bar', $this->vars['foo']);
-        $this->assertEquals('baz', $this->vars['bar']);
+        ], false);
+
+        self::assertSame('bar', $vars->foo);
+        self::assertNull($vars->bar);
+
+        return $vars;
     }
 
-    public function testAssignCallsToArrayOnObjectsWithTheMethodBeforeMerging(): void
+    #[Depends('testVariablesProvidedToTheConstructorAreAvailable')]
+    public function testValuesCanBeAddedViaAssign(Variables $variables): Variables
     {
-        $object = new class {
-            /** @return array<string, string> */
-            public function toArray(): array
-            {
-                return [
-                    'foo' => 'bar',
-                    'bar' => 'baz',
-                ];
-            }
-        };
-
-        $this->vars->assign($object);
-        $this->assertEquals('bar', $this->vars['foo']);
-        $this->assertEquals('baz', $this->vars['bar']);
-    }
-
-    public function testNullIsReturnedForUndefinedVariables(): void
-    {
-        $this->assertNull($this->vars['foo']);
-    }
-
-    public function testRetrievingUndefinedVariableRaisesErrorWhenStrictVarsIsRequested(): void
-    {
-        $this->vars->setStrictVars(true);
-        $handler = function (int $code, string $message): void {
-            assert($code > -1);
-            $this->error = $message;
-        };
-        /** @psalm-suppress InvalidArgument */
-        set_error_handler($handler, E_USER_NOTICE);
-        $this->assertNull($this->vars['foo']);
-        restore_error_handler();
-        $this->assertIsString($this->error);
-        $this->assertStringContainsString('does not exist', $this->error);
-    }
-
-    public function testCallingClearEmptiesObject(): void
-    {
-        $this->vars->assign([
-            'bar' => 'baz',
-            'baz' => 'foo',
+        $variables->assign([
+            'bar' => 'foo',
         ]);
-        $this->assertCount(2, $this->vars);
-        $this->vars->clear();
-        $this->assertCount(0, $this->vars);
+
+        self::assertSame('bar', $variables->foo);
+        self::assertSame('foo', $variables->bar);
+
+        return $variables;
     }
 
-    public function testAllowsSpecifyingClosureValuesAndReturningTheValue(): void
+    #[Depends('testValuesCanBeAddedViaAssign')]
+    public function testVariablesGivenToAssignOverwriteExistingVariables(Variables $variables): void
     {
-        /** @psalm-suppress UndefinedPropertyAssignment */
-        $this->vars->foo = static fn(): string => 'bar';
+        $variables->assign([
+            'foo' => 1,
+            'bar' => 2,
+        ]);
 
-        $this->assertEquals('bar', $this->vars->foo);
+        self::assertSame(1, $variables->foo);
+        self::assertSame(2, $variables->bar);
     }
 
-    public function testAllowsSpecifyingFunctorValuesAndReturningTheValue(): void
+    public function testVariablesCanBeSetAndReadWithMagicSettersAndGetters(): void
     {
-        /** @psalm-suppress UndefinedPropertyAssignment */
-        $this->vars->foo = new TestAsset\VariableFunctor('bar');
-        $this->assertEquals('bar', $this->vars->foo);
+        $variables      = new Variables();
+        $variables->baz = 'bat';
+
+        self::assertSame('bat', $variables->baz);
+    }
+
+    public function testVariablesCanBeSetAndReadViaArrayAccess(): void
+    {
+        $variables = new Variables();
+        self::assertFalse(isset($variables['foo']));
+        $variables['foo'] = 'bar';
+        self::assertSame('bar', $variables['foo']);
+    }
+
+    public function testVariablesIsAnIterator(): void
+    {
+        $data      = [
+            'muppet' => 'Kermit',
+        ];
+        $variables = new Variables($data);
+
+        self::assertSame($data, iterator_to_array($variables));
+    }
+
+    public function testPropertiesCanBeUnsetViaArrayAccess(): void
+    {
+        $variables = new Variables(['foo' => 'bar'], false);
+        unset($variables['foo']);
+
+        self::assertNull($variables->foo);
+    }
+
+    public function testPropertiesCanBeUnsetViaPropertyOverloading(): void
+    {
+        $variables = new Variables(['foo' => 'bar'], false);
+        unset($variables->foo);
+
+        self::assertNull($variables->foo);
+    }
+
+    public function testGetArrayCopyReturnsExpectedData(): void
+    {
+        $data      = [
+            'muppet' => 'Kermit',
+        ];
+        $variables = new Variables($data);
+
+        self::assertSame($data, $variables->getArrayCopy());
+    }
+
+    public function testVariablesAreCountable(): void
+    {
+        $data = [
+            'a' => 1,
+            'b' => 1,
+            'c' => 1,
+            'd' => 1,
+        ];
+
+        $variables = new Variables($data);
+        self::assertCount(4, $variables);
+
+        unset($variables['a']);
+        self::assertCount(3, $variables);
     }
 }
