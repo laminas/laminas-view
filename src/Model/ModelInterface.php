@@ -7,7 +7,6 @@ namespace Laminas\View\Model;
 use ArrayAccess;
 use Countable;
 use IteratorAggregate;
-use Traversable;
 
 /**
  * Interface describing a view model.
@@ -21,30 +20,6 @@ use Traversable;
  */
 interface ModelInterface extends Countable, IteratorAggregate
 {
-    /**
-     * Set renderer option/hint
-     *
-     * @param  string $name
-     * @param  mixed $value
-     * @return ModelInterface
-     */
-    public function setOption($name, $value);
-
-    /**
-     * Set renderer options/hints en masse
-     *
-     * @param  array<string, mixed>|Traversable<string, mixed> $options
-     * @return ModelInterface
-     */
-    public function setOptions($options);
-
-    /**
-     * Get renderer options/hints
-     *
-     * @return array<string, mixed>|Traversable<string, mixed>
-     */
-    public function getOptions();
-
     /**
      * Get a single view variable
      *

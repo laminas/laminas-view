@@ -9,17 +9,18 @@ use ArrayIterator;
 use Laminas\Stdlib\ArrayUtils;
 use Laminas\View\Exception;
 use Laminas\View\Variables as ViewVariables;
-use ReturnTypeWillChange; // phpcs:ignore
+use ReturnTypeWillChange;
 use Traversable;
 
 use function array_key_exists;
 use function array_merge;
 use function count;
-use function get_debug_type;
 use function gettype;
 use function is_array;
 use function is_object;
 use function sprintf;
+
+// phpcs:ignore
 
 /** @final */
 class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableChildrenInterface
@@ -37,13 +38,6 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
      * @var list<ModelInterface>
      */
     protected $children = [];
-
-    /**
-     * Renderer options
-     *
-     * @var array<string, mixed>
-     */
-    protected $options = [];
 
     /**
      * Template to use when rendering this model
@@ -78,9 +72,8 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
      * Constructor
      *
      * @param  null|array<string, mixed>|Traversable<string, mixed>|ArrayAccess<string, mixed> $variables
-     * @param  null|array<string, mixed>|Traversable<string, mixed> $options
      */
-    public function __construct($variables = null, $options = null)
+    public function __construct($variables = null)
     {
         if (null === $variables) {
             $variables = new ViewVariables();
@@ -88,10 +81,6 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
 
         // Initializing the variables container
         $this->setVariables($variables, true);
-
-        if (null !== $options) {
-            $this->setOptions($options);
-        }
     }
 
     /**
@@ -162,80 +151,6 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
         if (is_object($this->variables)) {
             $this->variables = clone $this->variables;
         }
-    }
-
-    /**
-     * Set a single option
-     *
-     * @param  string $name
-     * @param  mixed $value
-     * @return ViewModel
-     */
-    public function setOption($name, $value)
-    {
-        $this->options[(string) $name] = $value;
-        return $this;
-    }
-
-    /**
-     * Get a single option
-     *
-     * @param  string       $name           The option to get.
-     * @param  mixed|null   $default        (optional) A default value if the option is not yet set.
-     * @return mixed
-     */
-    public function getOption($name, $default = null)
-    {
-        $name = (string) $name;
-        return array_key_exists($name, $this->options) ? $this->options[$name] : $default;
-    }
-
-    /**
-     * Set renderer options/hints en masse
-     *
-     * @param array<string, mixed>|Traversable<string, mixed> $options
-     * @throws Exception\InvalidArgumentException
-     * @return ViewModel
-     */
-    public function setOptions($options)
-    {
-        // Assumption is that lowest common denominator for renderer configuration
-        // is an array
-        if ($options instanceof Traversable) {
-            $options = ArrayUtils::iteratorToArray($options);
-        }
-
-        if (! is_array($options)) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                '%s: expects an array, or Traversable argument; received "%s"',
-                __METHOD__,
-                get_debug_type($options),
-            ));
-        }
-
-        $this->options = $options;
-        return $this;
-    }
-
-    /**
-     * Get renderer options/hints
-     *
-     * @return array<string, mixed>
-     */
-    public function getOptions()
-    {
-        return $this->options;
-    }
-
-    /**
-     * Clear any existing renderer options/hints
-     *
-     * @return $this
-     */
-    public function clearOptions()
-    {
-        $this->options = [];
-        return $this;
     }
 
     /**

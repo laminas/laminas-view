@@ -28,7 +28,6 @@ use function get_debug_type;
 use function is_array;
 use function is_callable;
 use function is_string;
-use function method_exists;
 use function ob_end_clean;
 use function ob_get_clean;
 use function ob_start;
@@ -354,15 +353,6 @@ class PhpRenderer implements Renderer, TreeRendererInterface
                     __METHOD__
                 ));
             }
-            $options = $model->getOptions();
-            foreach ($options as $setting => $value) {
-                $method = 'set' . $setting;
-                if (method_exists($this, $method)) {
-                    $this->$method($value);
-                }
-                unset($method, $setting, $value);
-            }
-            unset($options);
 
             // Give view model awareness via ViewModel helper
             $helper = $this->plugin(ViewModel::class);
