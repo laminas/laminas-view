@@ -41,7 +41,6 @@
   <file src="src/Model/ClearableModelInterface.php">
     <MissingReturnType>
       <code><![CDATA[clearChildren]]></code>
-      <code><![CDATA[clearOptions]]></code>
       <code><![CDATA[clearVariables]]></code>
     </MissingReturnType>
   </file>
@@ -57,14 +56,11 @@
       <code><![CDATA[ModelInterface]]></code>
       <code><![CDATA[ModelInterface]]></code>
       <code><![CDATA[ModelInterface]]></code>
-      <code><![CDATA[ModelInterface]]></code>
-      <code><![CDATA[ModelInterface]]></code>
     </PossiblyUnusedReturnValue>
   </file>
   <file src="src/Model/ViewModel.php">
     <DocblockTypeContradiction>
       <code><![CDATA[gettype($variables)]]></code>
-      <code><![CDATA[is_array($options)]]></code>
     </DocblockTypeContradiction>
     <ImplementedReturnTypeMismatch>
       <code><![CDATA[array|ArrayAccess|Traversable]]></code>
@@ -78,15 +74,10 @@
     <PossiblyInvalidArrayAccess>
       <code><![CDATA[$variables[$name]]]></code>
     </PossiblyInvalidArrayAccess>
-    <PossiblyUnusedMethod>
-      <code><![CDATA[getOption]]></code>
-    </PossiblyUnusedMethod>
     <RedundantCastGivenDocblockType>
       <code><![CDATA[(bool) $append]]></code>
       <code><![CDATA[(bool) $terminate]]></code>
       <code><![CDATA[(string) $capture]]></code>
-      <code><![CDATA[(string) $name]]></code>
-      <code><![CDATA[(string) $name]]></code>
       <code><![CDATA[(string) $name]]></code>
       <code><![CDATA[(string) $name]]></code>
       <code><![CDATA[(string) $template]]></code>
@@ -115,7 +106,6 @@
     <MixedAssignment>
       <code><![CDATA[$includeReturn]]></code>
       <code><![CDATA[$this->__template]]></code>
-      <code><![CDATA[$value]]></code>
       <code><![CDATA[$value]]></code>
       <code><![CDATA[$variablesAsArray[$key]]]></code>
       <code><![CDATA[$vars[$name]]]></code>
@@ -287,10 +277,8 @@
     <InvalidArgument>
       <code><![CDATA[$vars]]></code>
       <code><![CDATA[new stdClass()]]></code>
-      <code><![CDATA[new stdClass()]]></code>
     </InvalidArgument>
     <MixedArgumentTypeCoercion>
-      <code><![CDATA[$options]]></code>
       <code><![CDATA[$vars]]></code>
     </MixedArgumentTypeCoercion>
     <PossiblyInvalidArgument>

@@ -16,7 +16,6 @@ use PHPUnit\Framework\TestCase;
 use stdClass;
 
 use function count;
-use function iterator_to_array;
 
 final class ViewModelTest extends TestCase
 {
@@ -36,30 +35,19 @@ final class ViewModelTest extends TestCase
     {
         $model = new ViewModel();
         $this->assertInstanceOf(ViewVariables::class, $model->getVariables());
-        $this->assertEquals([], $model->getOptions());
     }
 
-    public function testAllowsEmptyOptionsArgumentToConstructor(): void
+    public function testAllowsPassingVariablesToConstructor(): void
     {
         $model = new ViewModel(['foo' => 'bar']);
         $this->assertEquals(['foo' => 'bar'], $model->getVariables());
-        $this->assertEquals([], $model->getOptions());
     }
 
-    public function testAllowsPassingBothVariablesAndOptionsArgumentsToConstructor(): void
+    public function testAllowsPassingTraversableArgumentsToConstructor(): void
     {
-        $model = new ViewModel(['foo' => 'bar'], ['template' => 'foo/bar']);
-        $this->assertEquals(['foo' => 'bar'], $model->getVariables());
-        $this->assertEquals(['template' => 'foo/bar'], $model->getOptions());
-    }
-
-    public function testAllowsPassingTraversableArgumentsToVariablesAndOptionsInConstructor(): void
-    {
-        $vars    = new ArrayObject();
-        $options = new ArrayObject();
-        $model   = new ViewModel($vars, $options);
+        $vars  = new ArrayObject();
+        $model = new ViewModel($vars);
         $this->assertSame($vars, $model->getVariables());
-        $this->assertSame(iterator_to_array($options), $model->getOptions());
     }
 
     public function testAllowsPassingNonArrayAccessObjectsAsArrayInConstructor(): void
@@ -108,59 +96,12 @@ final class ViewModelTest extends TestCase
         $this->assertEquals(0, count($vars));
     }
 
-    public function testCanSetOptionsSingly(): void
-    {
-        $model = new ViewModel([], ['foo' => 'bar']);
-        $model->setOption('bar', 'baz');
-        $this->assertEquals(['foo' => 'bar', 'bar' => 'baz'], $model->getOptions());
-    }
-
-    public function testCanOverwriteOptionsSingly(): void
-    {
-        $model = new ViewModel([], ['foo' => 'bar']);
-        $model->setOption('foo', 'baz');
-        $this->assertEquals(['foo' => 'baz'], $model->getOptions());
-    }
-
-    public function testSetOptionsOverwritesAllPreviouslyStored(): ViewModel
-    {
-        $model = new ViewModel([], ['foo' => 'bar', 'bar' => 'baz']);
-        $model->setOptions(['bar' => 'BAZBAT']);
-        $this->assertEquals(['bar' => 'BAZBAT'], $model->getOptions());
-        return $model;
-    }
-
-    public function testOptionsAreInternallyConvertedToAnArrayFromTraversables(): void
-    {
-        $options = new ArrayObject(['foo' => 'bar']);
-        $model   = new ViewModel();
-        $model->setOptions($options);
-        $this->assertEquals($options->getArrayCopy(), $model->getOptions());
-    }
-
-    /**
-     * @depends testSetOptionsOverwritesAllPreviouslyStored
-     */
-    public function testCanClearOptions(ViewModel $model): void
-    {
-        $model->clearOptions();
-        $this->assertEquals([], $model->getOptions());
-    }
-
     public function testPassingAnInvalidArgumentToSetVariablesRaisesAnException(): void
     {
         $model = new ViewModel();
         $this->expectException(Exception\InvalidArgumentException::class);
         $this->expectExceptionMessage('expects an array');
         $model->setVariables(new stdClass());
-    }
-
-    public function testPassingAnInvalidArgumentToSetOptionsRaisesAnException(): void
-    {
-        $model = new ViewModel();
-        $this->expectException(Exception\InvalidArgumentException::class);
-        $this->expectExceptionMessage('expects an array');
-        $model->setOptions(new stdClass());
     }
 
     public function testCaptureToDefaultsToContent(): void
