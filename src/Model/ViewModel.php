@@ -167,8 +167,10 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
     /**
      * Set a single option
      *
-     * @param  string $name
-     * @param  mixed $value
+     * @deprecated Since 2.40.0 Options never had a use-case for view models and will be removed in 3.0
+     *
+     * @param string $name
+     * @param mixed $value
      * @return ViewModel
      */
     public function setOption($name, $value)
@@ -180,8 +182,10 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
     /**
      * Get a single option
      *
-     * @param  string       $name           The option to get.
-     * @param  mixed|null   $default        (optional) A default value if the option is not yet set.
+     * @deprecated Since 2.40.0 Options never had a use-case for view models and will be removed in 3.0
+     *
+     * @param string $name        The option to get.
+     * @param mixed|null $default (optional) A default value if the option is not yet set.
      * @return mixed
      */
     public function getOption($name, $default = null)
@@ -193,9 +197,11 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
     /**
      * Set renderer options/hints en masse
      *
+     * @deprecated Since 2.40.0 Options never had a use-case for view models and will be removed in 3.0
+     *
      * @param array<string, mixed>|Traversable<string, mixed> $options
-     * @throws Exception\InvalidArgumentException
      * @return ViewModel
+     * @throws Exception\InvalidArgumentException
      */
     public function setOptions($options)
     {
@@ -220,6 +226,8 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
     /**
      * Get renderer options/hints
      *
+     * @deprecated Since 2.40.0 Options never had a use-case for view models and will be removed in 3.0
+     *
      * @return array<string, mixed>
      */
     public function getOptions()
@@ -229,6 +237,8 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
 
     /**
      * Clear any existing renderer options/hints
+     *
+     * @deprecated Since 2.40.0 Options never had a use-case for view models and will be removed in 3.0
      *
      * @return $this
      */
