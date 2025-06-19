@@ -24,6 +24,8 @@ interface ModelInterface extends Countable, IteratorAggregate
     /**
      * Set renderer option/hint
      *
+     * @deprecated Since 2.40.0 Options never had a use-case for view models and will be removed in 3.0
+     *
      * @param  string $name
      * @param  mixed $value
      * @return ModelInterface
@@ -33,13 +35,17 @@ interface ModelInterface extends Countable, IteratorAggregate
     /**
      * Set renderer options/hints en masse
      *
-     * @param  array<string, mixed>|Traversable<string, mixed> $options
+     * @deprecated Since 2.40.0 Options never had a use-case for view models and will be removed in 3.0
+     *
+     * @param array<string, mixed>|Traversable<string, mixed> $options
      * @return ModelInterface
      */
     public function setOptions($options);
 
     /**
      * Get renderer options/hints
+     *
+     * @deprecated Since 2.40.0 Options never had a use-case for view models and will be removed in 3.0
      *
      * @return array<string, mixed>|Traversable<string, mixed>
      */
