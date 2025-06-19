@@ -49,6 +49,22 @@ The PhpRenderer has been refactored and a number of methods have been removed:
 - `setHelperPluginManager` and `getHelperPluginManager` - Now that the helper plugin manager is a required constructor dependency, the setter and getter are unnecessary
 - `setResolver` - The template resolver is a constructor dependency and can no longer be changed at runtime.
 
+### `ViewModel` and `ViewModelInterface`
+
+#### Removal of Options
+
+Conceptually, "options" have been removed from the view model interface and its concrete implementation meaning removal of the following methods:
+
+- `Laminas\View\Model\ViewModel::setOption()`
+- `Laminas\View\Model\ViewModel::getOption()`
+- `Laminas\View\Model\ViewModel::setOptions()`
+- `Laminas\View\Model\ViewModel::getOptions()`
+- `Laminas\View\Model\ViewModel::clearOptions()`
+- `Laminas\View\Model\ModelInterface::setOption()`
+- `Laminas\View\Model\ModelInterface::setOptions()`
+- `Laminas\View\Model\ModelInterface::getOptions()`
+- `Laminas\View\Model\ClearableModelInterface::clearOptions()`
+
 ### Helpers
 
 #### `Asset`
