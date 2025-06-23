@@ -11,7 +11,7 @@ use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Helper\Placeholder\Position;
 use Laminas\View\Helper\ViewModel;
 use Laminas\View\HelperPluginManager;
-use Laminas\View\Model\ModelInterface as Model;
+use Laminas\View\Model\ModelInterface;
 use Laminas\View\Renderer\RendererInterface as Renderer;
 use Laminas\View\Resolver\ResolverInterface;
 use Laminas\View\Resolver\ResolverInterface as Resolver;
@@ -61,12 +61,12 @@ use function sprintf;
  * @method string htmlObject(string $data, string $type, array $attributes = [], array $params = [], string|null $content = null)
  * @method mixed|null identity()
  * @method \Laminas\View\Helper\InlineScript inlineScript()
- * @method Model|\Laminas\View\Helper\Layout layout(string|null $template = null)
- * @method string|\Laminas\View\Helper\Partial partial(string|Model|null $name = null, iterable|object|null $values = null)
+ * @method ModelInterface|\Laminas\View\Helper\Layout layout(string|null $template = null)
+ * @method string|\Laminas\View\Helper\Partial partial(string|ModelInterface|null $name = null, iterable|object|null $values = null)
  * @method string|\Laminas\View\Helper\PartialLoop partialLoop(string|null $name = null, iterable|object $values = [])
  * @method \Laminas\View\Helper\Placeholder placeholder(string|null $placeholder = null)
  * @method string renderChildModel(string $child)
- * @method void renderToPlaceholder(string|Model $script, string $placeholder)
+ * @method void renderToPlaceholder(string|ModelInterface $script, string $placeholder)
  * @method \Laminas\View\Helper\ViewModel viewModel()
  * @method string gravatarImage(string $emailAddress, int $imageSize = 80, array $imageAttributes = [], string $defaultImage = 'mm', string $rating = 'g')
  *
@@ -128,18 +128,6 @@ class PhpRenderer implements Renderer, TreeRendererInterface
         private readonly HelperPluginManager $pluginManager,
         private readonly ResolverInterface $templateResolver,
     ) {
-    }
-
-    /**
-     * Return the template engine object
-     *
-     * Returns the object instance, as it is its own template engine
-     *
-     * @return PhpRenderer
-     */
-    public function getEngine()
-    {
-        return $this;
     }
 
     /**
@@ -325,28 +313,20 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     }
 
     /**
-     * Processes a view script and returns the output.
-     *
-     * @param  string|Model $nameOrModel Either the template to use, or a
-     *                                   ViewModel. The ViewModel must have the
-     *                                   template as an option in order to be
-     *                                   valid.
-     * @param  null|iterable<string, mixed> $values Values to use when rendering. If none
-     *                                provided, uses those in the composed
-     *                                variables container.
-     * @return string The script output.
      * @throws Exception\DomainException If a ViewModel is passed, but does not
      *                                   contain a template option.
      * @throws Exception\InvalidArgumentException If the values passed are not
      *                                            an array or ArrayAccess object.
      * @throws Exception\RuntimeException If the template cannot be rendered.
      */
-    public function render($nameOrModel, $values = null)
-    {
-        if ($nameOrModel instanceof Model) {
-            $model       = $nameOrModel;
-            $nameOrModel = $model->getTemplate();
-            if (empty($nameOrModel)) {
+    public function render(
+        string|ModelInterface $templateNameOrModel,
+        iterable|null $variables = null,
+    ): string {
+        if ($templateNameOrModel instanceof ModelInterface) {
+            $model               = $templateNameOrModel;
+            $templateNameOrModel = $model->getTemplate();
+            if (empty($templateNameOrModel)) {
                 throw new Exception\DomainException(sprintf(
                     '%s: received View Model argument, but template is empty',
                     __METHOD__
@@ -357,20 +337,20 @@ class PhpRenderer implements Renderer, TreeRendererInterface
             $helper = $this->plugin(ViewModel::class);
             $helper->setCurrent($model);
 
-            $values = $model->getVariables();
+            $variables = $model->getVariables();
             unset($model);
         }
 
         // find the script file name using the parent private method
-        $this->addTemplate($nameOrModel);
-        unset($nameOrModel); // remove $name from local scope
+        $this->addTemplate($templateNameOrModel);
+        unset($templateNameOrModel); // remove $name from local scope
 
         $this->__varsCache[] = $this->vars();
 
-        if (null !== $values) {
-            $this->setVars($values);
+        if ($variables !== null) {
+            $this->setVars($variables);
         }
-        unset($values);
+        unset($variables);
 
         // @codingStandardsIgnoreStart
         /**

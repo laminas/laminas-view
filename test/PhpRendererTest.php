@@ -58,11 +58,6 @@ final class PhpRendererTest extends TestCase
         $this->renderer = $this->container->get(PhpRenderer::class);
     }
 
-    public function testEngineIsIdenticalToRenderer(): void
-    {
-        $this->assertSame($this->renderer, $this->renderer->getEngine());
-    }
-
     public function testUsesAggregateResolverAsDefaultResolver(): void
     {
         $this->assertInstanceOf(AggregateResolver::class, $this->renderer->resolver());
@@ -387,19 +382,8 @@ final class PhpRendererTest extends TestCase
 
         $previousOutput = $this->renderer->render('empty.phtml');
 
-        $actual = $this->renderer->render('');
-
-        $this->assertNotSame($previousOutput, $actual);
-    }
-
-    public function testRendererDoesntUsePreviousRenderedOutputWhenInvokedWithFalse(): void
-    {
-        $this->resolver()->addPath(__DIR__ . '/_templates');
-
-        $previousOutput = $this->renderer->render('empty.phtml');
-
         /** @psalm-suppress InvalidArgument */
-        $actual = $this->renderer->render(false);
+        $actual = $this->renderer->render('');
 
         $this->assertNotSame($previousOutput, $actual);
     }

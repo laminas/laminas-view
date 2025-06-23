@@ -66,9 +66,6 @@
     <FalsableReturnStatement>
       <code><![CDATA[$this->__content]]></code>
     </FalsableReturnStatement>
-    <ImplementedParamTypeMismatch>
-      <code><![CDATA[$values]]></code>
-    </ImplementedParamTypeMismatch>
     <InvalidFalsableReturnType>
       <code><![CDATA[string]]></code>
     </InvalidFalsableReturnType>

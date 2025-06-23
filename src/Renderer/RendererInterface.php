@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Laminas\View\Renderer;
 
-use ArrayAccess;
+use Laminas\View\Exception\ExceptionInterface;
 use Laminas\View\Model\ModelInterface;
 
 /**
@@ -13,22 +13,17 @@ use Laminas\View\Model\ModelInterface;
 interface RendererInterface
 {
     /**
-     * Return the template engine object, if any
-     *
-     * If using a third-party template engine, such as Smarty, patTemplate,
-     * phplib, etc, return the template engine object. Useful for calling
-     * methods on these objects, such as for setting filters, modifiers, etc.
-     *
-     * @return mixed
-     */
-    public function getEngine();
-
-    /**
      * Processes a view script and returns the output.
      *
-     * @param  string|ModelInterface   $nameOrModel The script/resource process, or a view model
-     * @param  null|array|ArrayAccess $values      Values to use during rendering
-     * @return string The script output.
+     * @param non-empty-string|ModelInterface $templateNameOrModel Either the name of a template to render (Not a path)
+     *                                                             or a view model (Referencing a template name)
+     * @param iterable<string, mixed>|null $variables Variables to use during rendering, if a model is not passed as the
+     *                                                first argument.
+     * @return string The rendered output
+     * @throws ExceptionInterface When any issue occurs during rendering.
      */
-    public function render($nameOrModel, $values = null);
+    public function render(
+        string|ModelInterface $templateNameOrModel,
+        iterable|null $variables = null,
+    ): string;
 }
