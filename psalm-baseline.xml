@@ -137,9 +137,6 @@
     <PossiblyUnusedMethod>
       <code><![CDATA[__get]]></code>
     </PossiblyUnusedMethod>
-    <RedundantCastGivenDocblockType>
-      <code><![CDATA[(bool) $renderTrees]]></code>
-    </RedundantCastGivenDocblockType>
     <UnresolvableInclude>
       <code><![CDATA[include $this->__file]]></code>
     </UnresolvableInclude>

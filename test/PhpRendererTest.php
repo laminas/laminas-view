@@ -332,19 +332,6 @@ final class PhpRendererTest extends TestCase
         $this->assertStringContainsString('file include failed', $caught->getMessage());
     }
 
-    public function testDoesNotRenderTreesOfViewModelsByDefault(): void
-    {
-        $this->assertFalse($this->renderer->canRenderTrees());
-    }
-
-    public function testRenderTreesOfViewModelsCapabilityIsMutable(): void
-    {
-        $this->renderer->setCanRenderTrees(true);
-        $this->assertTrue($this->renderer->canRenderTrees());
-        $this->renderer->setCanRenderTrees(false);
-        $this->assertFalse($this->renderer->canRenderTrees());
-    }
-
     public function testIfViewModelComposesVariablesInstanceThenRendererUsesIt(): void
     {
         $resolver = $this->container->get(TemplateMapResolver::class);

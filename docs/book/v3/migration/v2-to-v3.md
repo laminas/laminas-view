@@ -48,6 +48,7 @@ The PhpRenderer has been refactored and a number of methods have been removed:
 - `init` - Because `PhpRenderer` is now final, the `init` method has no use-case
 - `setHelperPluginManager` and `getHelperPluginManager` - Now that the helper plugin manager is a required constructor dependency, the setter and getter are unnecessary
 - `setResolver` - The template resolver is a constructor dependency and can no longer be changed at runtime.
+- `setCanRenderTrees(bool $flag)` and `canRenderTrees(): bool` - The `PhpRenderer` never rendered trees of view models directly so these methods were superfluous. This also means that `PhpRenderer` no longer implements [the now removed `TreeRendererInterface`](#treerendererinterface).
 
 ### Helpers
 
@@ -347,6 +348,12 @@ It encouraged setter injection and runtime retrieval of a translator instance wh
 If you have a custom helper that requires a translator instance, you should instead inject the translator at construction time.
 This can be achieved by writing a custom factory for the helper.
 [Further information on writing and registering helpers](../helpers/advanced-usage.md).
+
+### `TreeRendererInterface`
+
+`Laminas\View\Renderer\TreeRendererInterface` has been removed.
+The only implementor of this interface, `PhpRenderer`, has never rendered "trees" directly and as such this interface was superfluous.
+Requirements for rendering nested view models can be extracted from the models themselves.
 
 ### Placeholder Registry
 
