@@ -14,5 +14,5 @@ interface ClearableModelInterface
 {
     public function clearChildren();
 
-    public function clearVariables();
+    public function clearVariables(): static;
 }

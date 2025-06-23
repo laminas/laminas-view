@@ -17,7 +17,6 @@ use Laminas\View\Resolver\ResolverInterface;
 use Laminas\View\Resolver\ResolverInterface as Resolver;
 use Laminas\View\Variables;
 use Throwable;
-use Traversable;
 
 use function array_key_exists;
 use function array_pop;
@@ -163,7 +162,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      *
      * Expects either an array, or an object implementing ArrayAccess.
      *
-     * @param  array<string, mixed>|ArrayAccess<string, mixed> $variables
+     * @param  iterable<string, mixed> $variables
      * @return PhpRenderer
      * @throws Exception\InvalidArgumentException
      */
@@ -332,7 +331,7 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      *                                   ViewModel. The ViewModel must have the
      *                                   template as an option in order to be
      *                                   valid.
-     * @param  null|array|Traversable $values Values to use when rendering. If none
+     * @param  null|iterable<string, mixed> $values Values to use when rendering. If none
      *                                provided, uses those in the composed
      *                                variables container.
      * @return string The script output.

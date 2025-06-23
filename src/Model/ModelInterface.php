@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Laminas\View\Model;
 
-use ArrayAccess;
 use Countable;
 use IteratorAggregate;
 
@@ -22,36 +21,27 @@ interface ModelInterface extends Countable, IteratorAggregate
 {
     /**
      * Get a single view variable
-     *
-     * @param  string       $name
-     * @param  mixed|null   $default (optional) default value if the variable is not present.
-     * @return mixed
      */
-    public function getVariable($name, $default = null);
+    public function getVariable(string $name, mixed $default = null): mixed;
 
     /**
      * Set view variable
-     *
-     * @param  string $name
-     * @param  mixed $value
-     * @return ModelInterface
      */
-    public function setVariable($name, $value);
+    public function setVariable(string $name, mixed $value): static;
 
     /**
      * Set view variables en masse
      *
-     * @param  array<string, mixed>|ArrayAccess<string, mixed> $variables
-     * @return ModelInterface
+     * @param iterable<string, mixed> $variables
      */
-    public function setVariables($variables);
+    public function setVariables(iterable $variables, bool $overwrite = false): static;
 
     /**
      * Get view variables
      *
-     * @return array<string, mixed>|ArrayAccess<string, mixed>
+     * @return array<string, mixed>
      */
-    public function getVariables();
+    public function getVariables(): array;
 
     /**
      * Set the template to be used by this model

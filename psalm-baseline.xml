@@ -16,7 +16,6 @@
   </file>
   <file src="src/Helper/Partial.php">
     <InvalidReturnStatement>
-      <code><![CDATA[$values->getVariables()]]></code>
       <code><![CDATA[$variables]]></code>
     </InvalidReturnStatement>
     <InvalidReturnType>
@@ -41,7 +40,6 @@
   <file src="src/Model/ClearableModelInterface.php">
     <MissingReturnType>
       <code><![CDATA[clearChildren]]></code>
-      <code><![CDATA[clearVariables]]></code>
     </MissingReturnType>
   </file>
   <file src="src/Model/ModelInterface.php">
@@ -54,42 +52,17 @@
       <code><![CDATA[ModelInterface]]></code>
       <code><![CDATA[ModelInterface]]></code>
       <code><![CDATA[ModelInterface]]></code>
-      <code><![CDATA[ModelInterface]]></code>
-      <code><![CDATA[ModelInterface]]></code>
     </PossiblyUnusedReturnValue>
   </file>
   <file src="src/Model/ViewModel.php">
-    <DocblockTypeContradiction>
-      <code><![CDATA[gettype($variables)]]></code>
-    </DocblockTypeContradiction>
-    <ImplementedReturnTypeMismatch>
-      <code><![CDATA[array|ArrayAccess|Traversable]]></code>
-    </ImplementedReturnTypeMismatch>
-    <MixedArgumentTypeCoercion>
-      <code><![CDATA[$key]]></code>
-    </MixedArgumentTypeCoercion>
-    <MixedAssignment>
-      <code><![CDATA[$value]]></code>
-    </MixedAssignment>
-    <PossiblyInvalidArrayAccess>
-      <code><![CDATA[$variables[$name]]]></code>
-    </PossiblyInvalidArrayAccess>
     <RedundantCastGivenDocblockType>
       <code><![CDATA[(bool) $append]]></code>
       <code><![CDATA[(bool) $terminate]]></code>
       <code><![CDATA[(string) $capture]]></code>
-      <code><![CDATA[(string) $name]]></code>
-      <code><![CDATA[(string) $name]]></code>
       <code><![CDATA[(string) $template]]></code>
     </RedundantCastGivenDocblockType>
-    <RedundantConditionGivenDocblockType>
-      <code><![CDATA[is_object($variables)]]></code>
-    </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Renderer/PhpRenderer.php">
-    <DocblockTypeContradiction>
-      <code><![CDATA[! is_array($variables) && ! $variables instanceof ArrayAccess]]></code>
-    </DocblockTypeContradiction>
     <FalsableReturnStatement>
       <code><![CDATA[$this->__content]]></code>
     </FalsableReturnStatement>
@@ -122,9 +95,6 @@
     <PossiblyFalsePropertyAssignmentValue>
       <code><![CDATA[ob_get_clean()]]></code>
     </PossiblyFalsePropertyAssignmentValue>
-    <PossiblyInvalidArgument>
-      <code><![CDATA[$values]]></code>
-    </PossiblyInvalidArgument>
     <PossiblyInvalidPropertyAssignmentValue>
       <code><![CDATA[$this->resolver($this->__template)]]></code>
     </PossiblyInvalidPropertyAssignmentValue>
@@ -144,28 +114,6 @@
       <code><![CDATA[include $this->__file]]></code>
     </UnresolvableInclude>
   </file>
-  <file src="src/Variables.php">
-    <MixedArgument>
-      <code><![CDATA[$value]]></code>
-    </MixedArgument>
-    <MixedArgumentTypeCoercion>
-      <code><![CDATA[$key]]></code>
-      <code><![CDATA[$key]]></code>
-      <code><![CDATA[ArrayIterator::class]]></code>
-    </MixedArgumentTypeCoercion>
-    <MixedAssignment>
-      <code><![CDATA[$return]]></code>
-      <code><![CDATA[$return]]></code>
-      <code><![CDATA[$spec]]></code>
-      <code><![CDATA[$this[$key]]]></code>
-      <code><![CDATA[$this[$key]]]></code>
-      <code><![CDATA[$value]]></code>
-      <code><![CDATA[$value]]></code>
-    </MixedAssignment>
-    <RedundantCastGivenDocblockType>
-      <code><![CDATA[(bool) $flag]]></code>
-    </RedundantCastGivenDocblockType>
-  </file>
   <file src="test/Helper/HtmlListTest.php">
     <UnusedParam>
       <code><![CDATA[$key]]></code>
@@ -178,21 +126,13 @@
   </file>
   <file src="test/Helper/PartialTest.php">
     <MixedArgument>
-      <code><![CDATA[$key]]></code>
-      <code><![CDATA[$key]]></code>
       <code><![CDATA[$value]]></code>
       <code><![CDATA[$value]]></code>
     </MixedArgument>
     <MixedAssignment>
-      <code><![CDATA[$key]]></code>
-      <code><![CDATA[$key]]></code>
       <code><![CDATA[$value]]></code>
       <code><![CDATA[$value]]></code>
     </MixedAssignment>
-    <PossibleRawObjectIteration>
-      <code><![CDATA[$model->getVariables()]]></code>
-      <code><![CDATA[$model->getVariables()]]></code>
-    </PossibleRawObjectIteration>
   </file>
   <file src="test/Helper/Service/HeadTitleFactoryTest.php">
     <MixedReturnStatement>
@@ -273,44 +213,15 @@
       <code><![CDATA[Iterator]]></code>
     </MissingTemplateParam>
   </file>
-  <file src="test/Model/ViewModelTest.php">
-    <InvalidArgument>
-      <code><![CDATA[$vars]]></code>
-      <code><![CDATA[new stdClass()]]></code>
-    </InvalidArgument>
-    <MixedArgumentTypeCoercion>
-      <code><![CDATA[$vars]]></code>
-    </MixedArgumentTypeCoercion>
-    <PossiblyInvalidArgument>
-      <code><![CDATA[$variables]]></code>
-    </PossiblyInvalidArgument>
-    <PossiblyInvalidArrayAccess>
-      <code><![CDATA[$variables['foo']]]></code>
-    </PossiblyInvalidArrayAccess>
-    <RedundantCondition>
-      <code><![CDATA[assertTrue]]></code>
-      <code><![CDATA[assertTrue]]></code>
-    </RedundantCondition>
-    <UndefinedMagicPropertyAssignment>
-      <code><![CDATA[$model->bar]]></code>
-      <code><![CDATA[$model->foo]]></code>
-    </UndefinedMagicPropertyAssignment>
-  </file>
   <file src="test/PhpRendererTest.php">
     <MixedAssignment>
       <code><![CDATA[$foo]]></code>
       <code><![CDATA[$return]]></code>
     </MixedAssignment>
-    <PossiblyInvalidArrayAssignment>
-      <code><![CDATA[$vars['foo']]]></code>
-    </PossiblyInvalidArrayAssignment>
     <UndefinedMagicPropertyAssignment>
       <code><![CDATA[$this->renderer->foo]]></code>
       <code><![CDATA[$this->renderer->foo]]></code>
     </UndefinedMagicPropertyAssignment>
-    <UndefinedPropertyFetch>
-      <code><![CDATA[$this->renderer->vars()->foo]]></code>
-    </UndefinedPropertyFetch>
     <UnusedClosureParam>
       <code><![CDATA[$errno]]></code>
       <code><![CDATA[$errstr]]></code>

@@ -352,11 +352,9 @@ final class PhpRendererTest extends TestCase
             'view-model-variables' => __DIR__ . '/_templates/view-model-variables.phtml',
         ]);
 
-        $model = new ViewModel();
+        $model = new ViewModel(['foo' => 'BAR-BAZ-BAT']);
         $model->setTemplate('view-model-variables');
-        $vars        = $model->getVariables();
-        $vars['foo'] = 'BAR-BAZ-BAT';
-        $test        = $this->renderer->render($model);
+        $test = $this->renderer->render($model);
         $this->assertStringContainsString('BAR-BAZ-BAT', $test);
     }
 
