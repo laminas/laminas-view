@@ -6,28 +6,25 @@ namespace LaminasTest\View\Renderer;
 
 use ArrayObject;
 use Laminas\ServiceManager\ServiceManager;
-use Laminas\View\Exception\DomainException;
-use Laminas\View\Exception\RuntimeException;
-use Laminas\View\Exception\UnexpectedValueException;
-use Laminas\View\Helper\Doctype;
+use Laminas\View\Exception\RenderingFailedException;
 use Laminas\View\Helper\ViewModel as ViewModelHelper;
+use Laminas\View\HelperPluginManager;
 use Laminas\View\Model\ViewModel;
 use Laminas\View\Renderer\PhpRenderer;
+use Laminas\View\Resolver\ResolverInterface;
 use Laminas\View\Resolver\TemplateMapResolver;
-use Laminas\View\Resolver\TemplatePathStack;
-use Laminas\View\Variables;
 use LaminasTest\View\GenerateServiceManager;
 use LaminasTest\View\TestAsset\Invokable;
 use LaminasTest\View\TestAsset\SharedInstance;
 use LaminasTest\View\TestAsset\Uninvokable;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 use Throwable;
 
 use function restore_error_handler;
-use function set_error_handler;
+use function sprintf;
 
-use const E_WARNING;
 use const PHP_EOL;
 
 final class PhpRendererTest extends TestCase
@@ -40,8 +37,11 @@ final class PhpRendererTest extends TestCase
         $this->container = GenerateServiceManager::withConfig([
             'view_helpers' => [
                 'services'  => [
-                    'uninvokable' => new Uninvokable(),
-                    'invokable'   => new Invokable(),
+                    'uninvokable'       => new Uninvokable(),
+                    'invokable'         => new Invokable(),
+                    'exceptionalHelper' => static function (): never {
+                        throw new RuntimeException('A helper exception');
+                    },
                 ],
                 'factories' => [
                     'sharedInstance'    => fn () => new SharedInstance(),
@@ -52,223 +52,186 @@ final class PhpRendererTest extends TestCase
                     'nonSharedInstance' => false,
                 ],
             ],
+            'view_manager' => [
+                'template_path_stack' => [
+                    __DIR__ . '/templates',
+                ],
+            ],
         ]);
 
         $this->renderer = $this->container->get(PhpRenderer::class);
     }
 
-    private function resolver(): TemplatePathStack
+    public function testBasicRenderOfStaticContent(): void
     {
-        return $this->container->get(TemplatePathStack::class);
+        self::assertStringContainsString(
+            '<p>Static Content</p>',
+            $this->renderer->render('static-content'),
+        );
     }
 
-    public function testCanSpecifyArrayAccessForVars(): void
+    public function testVariablesCanBeAccessedAsInstanceProperties(): void
     {
-        $a = new ArrayObject(['baz' => 'bat']);
-        $this->renderer->setVars($a);
-        $this->assertSame($a->getArrayCopy(), $this->renderer->vars()->getArrayCopy());
+        self::assertStringContainsString(
+            '<p>Kermit</p>',
+            $this->renderer->render('variable-as-property', ['message' => 'Kermit']),
+        );
     }
 
-    public function testCanSpecifyArrayForVars(): void
+    public function testVariablesCanBeAccessedInLocalScope(): void
     {
-        $vars = ['foo' => 'bar'];
-        $this->renderer->setVars($vars);
-        $this->assertEquals($vars, $this->renderer->vars()->getArrayCopy());
+        self::assertStringContainsString(
+            '<p>Miss Piggy</p>',
+            $this->renderer->render('variable-in-local-scope', ['message' => 'Miss Piggy']),
+        );
     }
 
-    public function testPassingArgumentToVarsReturnsValueFromThatKey(): void
+    public function testViewHelpersExecuteAsExpected(): void
     {
-        $this->renderer->vars()->assign(['foo' => 'bar']);
-        $this->assertEquals('bar', $this->renderer->vars('foo'));
+        self::assertStringContainsString(
+            '<p>Miss Piggy &amp; Kermit</p>',
+            $this->renderer->render('escaped-variable', ['message' => 'Miss Piggy & Kermit']),
+        );
     }
 
-    public function testPassingArgumentToPluginReturnsHelperByThatName(): void
+    public function testAccessToUndefinedVariablesIsExceptional(): void
     {
-        $helper = $this->renderer->plugin('doctype');
-        $this->assertInstanceOf(Doctype::class, $helper);
+        $this->expectException(RenderingFailedException::class);
+        $this->expectExceptionMessage('Access to an undeclared variable "message" in the template');
+        $this->renderer->render('variable-as-property');
+    }
+
+    public function testAccessToUndefinedVariablesIsNotExceptionalWhenStrictVariablesIsOff(): void
+    {
+        $renderer = new PhpRenderer(
+            $this->container->get(HelperPluginManager::class),
+            $this->container->get(ResolverInterface::class),
+            false,
+        );
+
+        self::assertStringContainsString(
+            '<p></p>',
+            $renderer->render('variable-as-property')
+        );
+    }
+
+    public function testCallsToUnknownHelpersAreExceptional(): void
+    {
+        $this->expectException(RenderingFailedException::class);
+        $this->expectExceptionMessage(
+            'Access to an unknown view helper alias "notAKnownHelperAlias" from the template',
+        );
+        $this->renderer->render('undefined-helper');
+    }
+
+    public function testExceptionsThrownInViewHelpersAreWrapped(): void
+    {
+        $this->expectException(RenderingFailedException::class);
+        $this->expectExceptionMessage(
+            'An exception occurred during execution of the plugin "exceptionalHelper". Message: A helper exception',
+        );
+        $this->renderer->render('exceptional-helper');
+    }
+
+    /** @return iterable<string, array{0: iterable<string, mixed>}> */
+    public static function possibleViewVariableTypes(): iterable
+    {
+        yield 'Basic Array' => [['message' => 'Example Message']];
+
+        yield 'Array Object' => [new ArrayObject(['message' => 'Example Message'])];
+    }
+
+    /** @param iterable<string, mixed> $type */
+    #[DataProvider('possibleViewVariableTypes')]
+    public function testViewVariablesArgumentWithPossibleTypes(iterable $type): void
+    {
+        $content = $this->renderer->render('variable-as-property', $type);
+
+        self::assertStringContainsString('<p>Example Message</p>', $content);
     }
 
     public function testFilterCanBeAddedToMutateOutput(): void
     {
-        $this->resolver()->addPath(__DIR__ . '/../_templates');
-        $output = $this->renderer->render('empty.phtml');
-        self::assertSame('Empty view' . PHP_EOL, $output);
-
         $filter = static fn (string $content): string => $content . 'foo';
         $this->renderer->setFilter($filter);
-        $output = $this->renderer->render('empty.phtml');
-        self::assertSame('Empty view' . PHP_EOL . 'foo', $output);
-    }
-
-    public function testRenderingAllowsVariableSubstitutions(): void
-    {
-        $expected = 'foo INJECT baz';
-        $this->resolver()->addPath(__DIR__ . '/../_templates');
-        $test = $this->renderer->render('test.phtml', ['bar' => 'INJECT']);
-        $this->assertStringContainsString($expected, $test);
-    }
-
-    public function testRenderingFiltersContentWithFilterChain(): void
-    {
-        $filter   = static fn (string $content): string => $content . 'Miss Piggy';
-        $this->renderer->setFilter($filter);
-        $expected = 'Empty view' . PHP_EOL . 'Miss Piggy';
-        $this->resolver()->addPath(__DIR__ . '/../_templates');
-        $renderResult = $this->renderer->render('empty.phtml');
-        $this->assertSame($expected, $renderResult);
-    }
-
-    public function testCanAccessHelpersInTemplates(): void
-    {
-        $this->resolver()->addPath(__DIR__ . '/../_templates');
-        $content = $this->renderer->render('test-with-helpers.phtml');
-        foreach (['foo', 'bar', 'baz'] as $value) {
-            $this->assertStringContainsString("<li>$value</li>", $content);
-        }
-    }
-
-    public function testCanSpecifyArrayForVarsAndGetAlwaysArrayObject(): void
-    {
-        $vars = ['foo' => 'bar'];
-        $this->renderer->setVars($vars);
-        $this->assertInstanceOf(Variables::class, $this->renderer->vars());
-    }
-
-    public function testPassingVariablesObjectToSetVarsShouldUseItDirectory(): void
-    {
-        $vars = new Variables(['foo' => '<p>Bar</p>']);
-        $this->renderer->setVars($vars);
-        $this->assertSame($vars, $this->renderer->vars());
-    }
-
-    public function testNestedRenderingRestoresVariablesCorrectly(): void
-    {
-        $expected = "inner\n<p>content</p>";
-        $this->resolver()->addPath(__DIR__ . '/../_templates');
-        $test = $this->renderer->render('testNestedOuter.phtml', ['content' => '<p>content</p>']);
-        $this->assertEquals($expected, $test);
-    }
-
-    public function testPropertyOverloadingShouldProxyToVariablesContainer(): void
-    {
-        $this->renderer->foo = '<p>Bar</p>';
-        $this->assertEquals($this->renderer->vars('foo'), $this->renderer->foo);
+        $output = $this->renderer->render('static-content');
+        self::assertSame('<p>Static Content</p>' . PHP_EOL . 'foo', $output);
     }
 
     public function testMethodOverloadingShouldReturnHelperInstanceIfNotInvokable(): void
     {
-        /** @psalm-suppress UndefinedMagicMethod */
-        $helper = $this->renderer->uninvokable();
-        $this->assertInstanceOf(Uninvokable::class, $helper);
+        self::assertStringContainsString(
+            '<p>' . (new Uninvokable())->value . '</p>',
+            $this->renderer->render('call-uninvokable-helper'),
+        );
     }
 
     public function testMethodOverloadingShouldInvokeHelperIfInvokable(): void
     {
-        /** @psalm-suppress UndefinedMagicMethod */
-        $return = $this->renderer->invokable('it works!');
-        $this->assertEquals('LaminasTest\View\TestAsset\Invokable::__invoke: it works!', $return);
-    }
-
-    public function testGetMethodShouldRetrieveVariableFromVariableContainer(): void
-    {
-        $this->renderer->foo = '<p>Bar</p>';
-        $foo                 = $this->renderer->get('foo');
-        $this->assertSame($this->renderer->vars()->foo, $foo);
-    }
-
-    public function testRenderingLocalVariables(): void
-    {
-        $expected = '10 > 9';
-        $this->renderer->vars()->assign(['foo' => '10 > 9']);
-        $this->resolver()->addPath(__DIR__ . '/../_templates');
-        $test = $this->renderer->render('testLocalVars.phtml');
-        $this->assertStringContainsString($expected, $test);
-    }
-
-    public function testRendersTemplatesInAStack(): void
-    {
-        $resolver = $this->container->get(TemplateMapResolver::class);
-        $resolver->setMap([
-            'layout' => __DIR__ . '/../_templates/layout.phtml',
-            'block'  => __DIR__ . '/../_templates/block.phtml',
-        ]);
-
-        $content = $this->renderer->render('block');
-        $this->assertMatchesRegularExpression('#<body>\s*Block content\s*</body>#', $content);
+        self::assertStringContainsString(
+            '<p>LaminasTest\View\TestAsset\Invokable::__invoke: Muppets</p>',
+            $this->renderer->render('call-invokable-helper', ['message' => 'Muppets']),
+        );
     }
 
     public function testCanRenderViewModel(): void
     {
-        $resolver = $this->container->get(TemplateMapResolver::class);
-        $resolver->setMap([
-            'empty' => __DIR__ . '/../_templates/empty.phtml',
-        ]);
-
         $model = new ViewModel();
-        $model->setTemplate('empty');
-
+        $model->setTemplate('static-content');
         $content = $this->renderer->render($model);
-        $this->assertMatchesRegularExpression('/\s*Empty view\s*/s', $content);
+
+        self::assertStringContainsString('<p>Static Content</p>', $content);
     }
 
     public function testViewModelWithoutTemplateRaisesException(): void
     {
         $model = new ViewModel();
-        $this->expectException(DomainException::class);
+        $this->expectException(RenderingFailedException::class);
+        $this->expectExceptionMessage(
+            'A template must be specified during rendering, either as an argument or as a property of the view model',
+        );
         $this->renderer->render($model);
     }
 
     public function testRendersViewModelWithVariablesSpecified(): void
     {
-        $resolver = $this->container->get(TemplateMapResolver::class);
-        $resolver->setMap([
-            'test' => __DIR__ . '/../_templates/test.phtml',
-        ]);
-
         $model = new ViewModel();
-        $model->setTemplate('test');
-        $model->setVariable('bar', 'bar');
+        $model->setTemplate('variable-as-property');
+        $model->setVariable('message', 'Whatever');
 
         $content = $this->renderer->render($model);
-        $this->assertMatchesRegularExpression('/\s*foo bar baz\s*/s', $content);
+        self::assertStringContainsString('<p>Whatever</p>', $content);
     }
 
-    public function testRenderedViewModelIsRegisteredAsCurrentViewModel(): void
+    public function testRenderedViewModelIsRegisteredAsTheCurrentViewModel(): void
     {
-        $resolver = $this->container->get(TemplateMapResolver::class);
-        $resolver->setMap([
-            'empty' => __DIR__ . '/../_templates/empty.phtml',
-        ]);
-
         $model = new ViewModel();
-        $model->setTemplate('empty');
-
+        $model->setTemplate('static-content');
         $this->renderer->render($model);
-        $helper = $this->renderer->plugin(ViewModelHelper::class);
+
+        $plugins = $this->container->get(HelperPluginManager::class);
+        $helper  = $plugins->get(ViewModelHelper::class);
+
         $this->assertTrue($helper->hasCurrent());
         $this->assertSame($model, $helper->getCurrent());
     }
 
     public function testRendererRaisesExceptionInCaseOfExceptionInView(): void
     {
-        $resolver = $this->container->get(TemplateMapResolver::class);
-        $resolver->setMap([
-            'exception' => __DIR__ . '/../_templates/exception.phtml',
-        ]);
-
         $model = new ViewModel();
-        $model->setTemplate('exception');
+        $model->setTemplate('local-exception');
 
-        $this->expectException(DomainException::class);
-        $this->expectExceptionMessage('I was thrown in the view');
+        $this->expectException(RenderingFailedException::class);
+        $this->expectExceptionMessage('local-exception.phtml" with the message: I was thrown in the view');
         $this->renderer->render($model);
     }
 
     public function testRendererRaisesExceptionIfResolverCannotResolveTemplate(): void
     {
-        $this->renderer->vars()->assign(['foo' => '10 > 9']);
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('"should-not-find-this"');
+        $this->expectException(RenderingFailedException::class);
+        $this->expectExceptionMessage(
+            'Unable to render template "should-not-find-this"; resolver could not resolve to a file',
+        );
         $this->renderer->render('should-not-find-this');
     }
 
@@ -293,6 +256,7 @@ final class PhpRendererTest extends TestCase
         ]);
 
         // @codingStandardsIgnoreStart
+        /** @psalm-suppress UnusedClosureParam */
         set_error_handler(static fn(int $errno, string $errstr) => true, E_WARNING);
         // @codingStandardsIgnoreEnd
 
@@ -304,55 +268,73 @@ final class PhpRendererTest extends TestCase
         }
 
         restore_error_handler();
-        $this->assertInstanceOf(UnexpectedValueException::class, $caught);
-        $this->assertStringContainsString('file include failed', $caught->getMessage());
+        $this->assertInstanceOf(RenderingFailedException::class, $caught);
+        $this->assertStringContainsString(sprintf(
+            'Failed to render template because the template file could not be included: "%s"',
+            $template,
+        ), $caught->getMessage());
     }
 
-    public function testIfViewModelComposesVariablesInstanceThenRendererUsesIt(): void
+    public function testVariablesArgumentIsIgnoredWhenAViewModelIsGiven(): void
     {
-        $resolver = $this->container->get(TemplateMapResolver::class);
-        $resolver->setMap([
-            'view-model-variables' => __DIR__ . '/../_templates/view-model-variables.phtml',
-        ]);
+        $model = new ViewModel(['message' => 'View Model Variable']);
+        $model->setTemplate('variable-as-property');
 
-        $model = new ViewModel(['foo' => 'BAR-BAZ-BAT']);
-        $model->setTemplate('view-model-variables');
-        $test = $this->renderer->render($model);
-        $this->assertStringContainsString('BAR-BAZ-BAT', $test);
+        self::assertStringContainsString(
+            '<p>View Model Variable</p>',
+            $this->renderer->render($model, ['message' => 'Variable from arguments']),
+        );
     }
 
-    /**
-     * @psalm-suppress UndefinedMagicMethod
-     */
     public function testSharedInstanceHelper(): void
     {
-        // new instance always created when shared = false
-        $this->assertEquals(1, $this->renderer->nonSharedInstance());
-        $this->assertEquals(1, $this->renderer->nonSharedInstance());
-        $this->assertEquals(1, $this->renderer->nonSharedInstance());
-
-        // use shared instance when shared = true
-        $this->assertEquals(1, $this->renderer->sharedInstance());
-        $this->assertEquals(2, $this->renderer->sharedInstance());
-        $this->assertEquals(3, $this->renderer->sharedInstance());
+        $content = $this->renderer->render('shared-helper');
+        self::assertStringContainsString(
+            '<p>Shared: 1 2 3</p>',
+            $content,
+        );
+        self::assertStringContainsString(
+            '<p>Un-shared: 1 1 1</p>',
+            $content,
+        );
     }
 
-    public function testContentIsNotMutatedWhenNoFilterHasBeenSet(): void
+    public function testAnEmptyTemplateNameIsExceptional(): void
     {
-        $this->resolver()->addPath(__DIR__ . '/../_templates');
-        $result = $this->renderer->render('empty.phtml');
-        self::assertSame('Empty view' . PHP_EOL, $result);
-    }
-
-    public function testRendererDoesntUsePreviousRenderedOutputWhenInvokedWithEmptyString(): void
-    {
-        $this->resolver()->addPath(__DIR__ . '/../_templates');
-
-        $previousOutput = $this->renderer->render('empty.phtml');
+        $this->expectException(RenderingFailedException::class);
+        $this->expectExceptionMessage(
+            'A template must be specified during rendering, either as an argument or as a property of the view model',
+        );
 
         /** @psalm-suppress InvalidArgument */
-        $actual = $this->renderer->render('');
+        $this->renderer->render('');
+    }
 
-        $this->assertNotSame($previousOutput, $actual);
+    public function testThatInfiniteRenderLoopIsStoppedViaException(): void
+    {
+        $this->expectException(RenderingFailedException::class);
+        $this->expectExceptionMessage('A cyclic rendering dependency has been detected during render of the template');
+
+        $this->renderer->render('infinite-render-loop.phtml');
+    }
+
+    public function testViewVariablePropertiesCannotBeMutatedInTheTemplate(): void
+    {
+        $this->expectException(RenderingFailedException::class);
+        $this->expectExceptionMessage('Attempt to mutate the variable "message" in the template');
+        $this->renderer->render('variable-mutation', ['message' => 'Some Message']);
+    }
+
+    public function testUndefinedVariablesCanBeTestedAndCoalescedFromWithinTemplates(): void
+    {
+        self::assertStringContainsString(
+            '<p>Default Message</p>',
+            $this->renderer->render('undefined-variable-condition'),
+        );
+
+        self::assertStringContainsString(
+            '<p>Custom Message</p>',
+            $this->renderer->render('undefined-variable-condition', ['message' => 'Custom Message']),
+        );
     }
 }

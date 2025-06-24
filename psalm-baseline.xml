@@ -62,51 +62,10 @@
       <code><![CDATA[(string) $template]]></code>
     </RedundantCastGivenDocblockType>
   </file>
-  <file src="src/Renderer/PhpRenderer.php">
-    <FalsableReturnStatement>
-      <code><![CDATA[$this->__content]]></code>
-    </FalsableReturnStatement>
-    <InvalidFalsableReturnType>
-      <code><![CDATA[string]]></code>
-    </InvalidFalsableReturnType>
-    <MixedArgument>
-      <code><![CDATA[$this->__template]]></code>
-      <code><![CDATA[array_pop($this->__varsCache)]]></code>
-    </MixedArgument>
-    <MixedAssignment>
-      <code><![CDATA[$includeReturn]]></code>
-      <code><![CDATA[$this->__template]]></code>
+  <file src="src/Renderer/Template.php">
+    <UnusedParam>
       <code><![CDATA[$value]]></code>
-      <code><![CDATA[$variablesAsArray[$key]]]></code>
-      <code><![CDATA[$vars[$name]]]></code>
-    </MixedAssignment>
-    <MixedReturnStatement>
-      <code><![CDATA[$this->__vars[$key]]]></code>
-    </MixedReturnStatement>
-    <PossibleRawObjectIteration>
-      <code><![CDATA[$variables]]></code>
-    </PossibleRawObjectIteration>
-    <PossiblyFalseArgument>
-      <code><![CDATA[$this->__content]]></code>
-    </PossiblyFalseArgument>
-    <PossiblyFalsePropertyAssignmentValue>
-      <code><![CDATA[ob_get_clean()]]></code>
-    </PossiblyFalsePropertyAssignmentValue>
-    <PossiblyInvalidPropertyAssignmentValue>
-      <code><![CDATA[$this->resolver($this->__template)]]></code>
-    </PossiblyInvalidPropertyAssignmentValue>
-    <PossiblyNullArrayAccess>
-      <code><![CDATA[$this->__vars[$key]]]></code>
-    </PossiblyNullArrayAccess>
-    <PossiblyNullReference>
-      <code><![CDATA[$this->__vars]]></code>
-    </PossiblyNullReference>
-    <PossiblyUnusedMethod>
-      <code><![CDATA[__get]]></code>
-    </PossiblyUnusedMethod>
-    <UnresolvableInclude>
-      <code><![CDATA[include $this->__file]]></code>
-    </UnresolvableInclude>
+    </UnusedParam>
   </file>
   <file src="test/Helper/HtmlListTest.php">
     <UnusedParam>
@@ -118,20 +77,15 @@
       <code><![CDATA[$value]]></code>
     </MixedAssignment>
   </file>
-  <file src="test/Helper/PartialTest.php">
-    <MixedArgument>
-      <code><![CDATA[$value]]></code>
-      <code><![CDATA[$value]]></code>
-    </MixedArgument>
-    <MixedAssignment>
-      <code><![CDATA[$value]]></code>
-      <code><![CDATA[$value]]></code>
-    </MixedAssignment>
-  </file>
   <file src="test/Helper/Service/HeadTitleFactoryTest.php">
     <MixedReturnStatement>
       <code><![CDATA[iterable]]></code>
     </MixedReturnStatement>
+  </file>
+  <file src="test/Helper/TestAsset/Aggregate.php">
+    <PossiblyUnusedMethod>
+      <code><![CDATA[toArray]]></code>
+    </PossiblyUnusedMethod>
   </file>
   <file src="test/Helper/TestAsset/IteratorWithToArrayTestContainer.php">
     <MixedAssignment>
@@ -206,19 +160,5 @@
     <MissingTemplateParam>
       <code><![CDATA[Iterator]]></code>
     </MissingTemplateParam>
-  </file>
-  <file src="test/PhpRendererTest.php">
-    <MixedAssignment>
-      <code><![CDATA[$foo]]></code>
-      <code><![CDATA[$return]]></code>
-    </MixedAssignment>
-    <UndefinedMagicPropertyAssignment>
-      <code><![CDATA[$this->renderer->foo]]></code>
-      <code><![CDATA[$this->renderer->foo]]></code>
-    </UndefinedMagicPropertyAssignment>
-    <UnusedClosureParam>
-      <code><![CDATA[$errno]]></code>
-      <code><![CDATA[$errstr]]></code>
-    </UnusedClosureParam>
   </file>
 </files>
