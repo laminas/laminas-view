@@ -24,6 +24,7 @@ use Laminas\View\Helper\Service\EscaperFactory;
  *     },
  *     view_manager?: array{
  *         base_path?: non-empty-string|null,
+ *         strict_variables: bool,
  *         doctype?: DoctypeID,
  *         encoding?: non-empty-string,
  *         template_map?: array<string, string>,
@@ -75,6 +76,12 @@ final class ConfigProvider
                 'base_path' => null,
             ],
             'view_manager'       => [
+                /**
+                 * Strict variables controls whether an exception is thrown when a view template attempts to use a
+                 * variable that has not been defined.
+                 */
+                'strict_variables' => true,
+
                 /**
                  * Templates configured here will be provided to the TemplateMapResolver.
                  * This is conventional for an MVC app
