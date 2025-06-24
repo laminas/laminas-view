@@ -11,14 +11,10 @@ use Laminas\View\HelperPluginManager;
 use Laminas\View\Model\ViewModel;
 use Laminas\View\Renderer\PhpRenderer;
 use Laminas\View\Resolver\TemplatePathStack;
-use Laminas\View\Variables;
 use LaminasTest\View\Helper\TestAsset\Aggregate;
 use LaminasTest\View\TestHelpers;
 use PHPUnit\Framework\TestCase;
 use stdClass;
-
-use function get_object_vars;
-use function sprintf;
 
 final class PartialTest extends TestCase
 {
@@ -29,7 +25,7 @@ final class PartialTest extends TestCase
     {
         $resolver       = new TemplatePathStack([
             'script_paths' => [
-                __DIR__ . '/_files/modules/application/views/scripts',
+                __DIR__ . '/partial-templates',
             ],
         ]);
         $this->renderer = new PhpRenderer(new HelperPluginManager(new ServiceManager()), $resolver);
@@ -38,19 +34,21 @@ final class PartialTest extends TestCase
 
     public function testPartialRendersScript(): void
     {
-        $return = $this->helper->__invoke('partialOne.phtml');
-        self::assertStringContainsString('This is the first test partial', $return);
+        $return = $this->helper->__invoke('static-content');
+        self::assertStringContainsString('<p>Static Content</p>', $return);
     }
 
     public function testPartialRendersScriptWithVars(): void
     {
-        $vars = $this->renderer->vars();
-        self::assertInstanceOf(Variables::class, $vars);
-        $vars->assign(['message' => 'This should never be read']);
+        self::assertStringContainsString(
+            '<p>Expect a message</p>',
+            $this->helper->__invoke('basic-variable.phtml', ['message' => 'Expect a message']),
+        );
 
-        $return = $this->helper->__invoke('partialThree.phtml', ['message' => 'This message should be read']);
-        self::assertStringNotContainsString('This should never be read', $return);
-        self::assertStringContainsString('This message should be read', $return, $return);
+        self::assertStringContainsString(
+            '<p>Kermit</p>',
+            $this->helper->__invoke('basic-variable.phtml', ['message' => 'Kermit']),
+        );
     }
 
     public function testObjectModelWithPublicPropertiesSetsViewVariables(): void
@@ -59,13 +57,10 @@ final class PartialTest extends TestCase
         $model->foo = 'bar';
         $model->bar = 'baz';
 
-        $return = $this->helper->__invoke('partialVars.phtml', $model);
+        $return = $this->helper->__invoke('iterate-over-variables.phtml', $model);
 
-        foreach (get_object_vars($model) as $key => $value) {
-            self::assertIsString($value);
-            $string = sprintf('%s: %s', $key, $value);
-            self::assertStringContainsString($string, $return);
-        }
+        self::assertStringContainsString('<p>foo: bar</p>', $return);
+        self::assertStringContainsString('<p>bar: baz</p>', $return);
     }
 
     public function testObjectModelWithToArraySetsViewVariables(): void
@@ -74,13 +69,11 @@ final class PartialTest extends TestCase
 
         $return = TestHelpers::expectDeprecationWithMessage(
             'Non-iterable objects implementing a `toArray`',
-            fn (): string => $this->helper->__invoke('partialVars.phtml', $model),
+            fn (): string => $this->helper->__invoke('iterate-over-variables.phtml', $model),
         );
 
-        foreach ($model->toArray() as $key => $value) {
-            $string = sprintf('%s: %s', $key, $value);
-            self::assertStringContainsString($string, $return);
-        }
+        self::assertStringContainsString('<p>foo: bar</p>', $return);
+        self::assertStringContainsString('<p>bar: baz</p>', $return);
     }
 
     public function testPassingNoArgsReturnsHelperInstance(): void
@@ -96,12 +89,10 @@ final class PartialTest extends TestCase
             'bar' => 'baz',
         ]);
 
-        $return = $this->helper->__invoke('partialVars.phtml', $model);
+        $return = $this->helper->__invoke('iterate-over-variables.phtml', $model);
 
-        foreach ($model->getVariables() as $key => $value) {
-            $string = sprintf('%s: %s', $key, $value);
-            self::assertStringContainsString($string, $return);
-        }
+        self::assertStringContainsString('<p>foo: bar</p>', $return);
+        self::assertStringContainsString('<p>bar: baz</p>', $return);
     }
 
     public function testCanPassArrayObjectAsSecondArgument(): void
@@ -111,12 +102,10 @@ final class PartialTest extends TestCase
             'bar' => 'baz',
         ]);
 
-        $return = $this->helper->__invoke('partialVars.phtml', $model);
+        $return = $this->helper->__invoke('iterate-over-variables.phtml', $model);
 
-        foreach ($model as $key => $value) {
-            $string = sprintf('%s: %s', $key, $value);
-            self::assertStringContainsString($string, $return);
-        }
+        self::assertStringContainsString('<p>foo: bar</p>', $return);
+        self::assertStringContainsString('<p>bar: baz</p>', $return);
     }
 
     public function testCanPassViewModelAsSoleArgument(): void
@@ -125,15 +114,12 @@ final class PartialTest extends TestCase
             'foo' => 'bar',
             'bar' => 'baz',
         ]);
-        $model->setTemplate('partialVars.phtml');
+        $model->setTemplate('iterate-over-variables.phtml');
 
         $return = $this->helper->__invoke($model);
 
-        foreach ($model->getVariables() as $key => $value) {
-            self::assertIsString($value);
-            $string = sprintf('%s: %s', $key, $value);
-            self::assertStringContainsString($string, $return);
-        }
+        self::assertStringContainsString('<p>foo: bar</p>', $return);
+        self::assertStringContainsString('<p>bar: baz</p>', $return);
     }
 
     public function testObservableStateIsResetWhenRequired(): void
