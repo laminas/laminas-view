@@ -23,6 +23,9 @@ use function sprintf;
 /**
  * JSON renderer
  *
+ * @deprecated The JSON renderer will be removed in 3.0 without replacement. Laminas\View will no longer support
+ *             rendering strategies.
+ *
  * @final
  */
 class JsonRenderer implements Renderer, TreeRendererInterface

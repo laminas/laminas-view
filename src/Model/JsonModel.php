@@ -8,7 +8,12 @@ use Laminas\Json\Json;
 use Laminas\Stdlib\ArrayUtils;
 use Traversable;
 
-/** @final */
+/**
+ * @deprecated Since 2.40.0. This class will be removed in 3.0 without replacement. Laminas\View will no longer support
+ *             rendering strategies in 3.0
+ *
+ * @final
+ */
 class JsonModel extends ViewModel
 {
     /**

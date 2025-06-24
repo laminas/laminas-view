@@ -20,12 +20,18 @@ interface RendererInterface
      * phplib, etc, return the template engine object. Useful for calling
      * methods on these objects, such as for setting filters, modifiers, etc.
      *
+     * @deprecated Since 2.40.0. This method will be removed in 3.0 without replacement. There is no clear use-case for
+     *             this method
+     *
      * @return mixed
      */
     public function getEngine();
 
     /**
      * Set the resolver used to map a template name to a resource the renderer may consume.
+     *
+     * @deprecated Since 2.40.0. This method will be removed in 3.0 without replacement. Renderer implementations
+     *             should use dependency injection.
      *
      * @return RendererInterface
      */

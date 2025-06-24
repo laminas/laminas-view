@@ -171,6 +171,8 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      *
      * Returns the object instance, as it is its own template engine
      *
+     * @deprecated Since 2.40.0. See {@link RendererInterface} for further information.
+     *
      * @return PhpRenderer
      */
     public function getEngine()
@@ -183,6 +185,9 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      *
      * Triggered by {@link __construct() the constructor} as its final action.
      *
+     * @deprecated Since 2.40.0. This method will be removed in 3.0 without replacement. PhpRender will become final
+     *             therefore this method is redundant.
+     *
      * @return void
      */
     public function init()
@@ -191,6 +196,8 @@ class PhpRenderer implements Renderer, TreeRendererInterface
 
     /**
      * Set script resolver
+     *
+     * @deprecated Since 2.40.0. See {@link RendererInterface} for further information.
      *
      * @return PhpRenderer
      * @throws Exception\InvalidArgumentException
@@ -341,7 +348,10 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     /**
      * Set helper plugin manager instance
      *
-     * @param  string|HelperPluginManager $helpers
+     * @deprecated Since 2.40.0. This method will be removed in 3.0 without replacement. Dependency injection via the
+     *             constructor will be used instead of setter injection.
+     *
+     * @param string|HelperPluginManager $helpers
      * @return PhpRenderer
      * @throws Exception\InvalidArgumentException
      */
@@ -370,6 +380,9 @@ class PhpRenderer implements Renderer, TreeRendererInterface
 
     /**
      * Get helper plugin manager instance
+     *
+     * @deprecated Since 2.40.0. This method will be removed in 3.0 without replacement. If you need the plugin
+     *             manager instance, you should retrieve it from the DI container.
      *
      * @return HelperPluginManager
      */
@@ -562,6 +575,9 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      * It is then up to the developer to render the children from within the
      * view script.
      *
+     * @deprecated Since 2.40.0. This method will be removed in 3.0 without replacement.
+     *             Look at {@link TreeRendererInterface} for further information.
+     *
      * @param  bool $renderTrees
      * @return PhpRenderer
      */
@@ -573,6 +589,9 @@ class PhpRenderer implements Renderer, TreeRendererInterface
 
     /**
      * Can we render trees, or are we configured to do so?
+     *
+     * @deprecated  Since 2.40.0. This method will be removed in 3.0 without replacement.
+     *              Look at {@link TreeRendererInterface} for further information.
      *
      * @return bool
      */
