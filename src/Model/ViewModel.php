@@ -4,26 +4,22 @@ declare(strict_types=1);
 
 namespace Laminas\View\Model;
 
-use ArrayAccess;
 use ArrayIterator;
-use Laminas\Stdlib\ArrayUtils;
-use Laminas\View\Exception;
-use Laminas\View\Variables as ViewVariables;
+use Laminas\View\Exception\UndefinedVariableException;
 use ReturnTypeWillChange;
 use Traversable;
 
 use function array_key_exists;
+use function array_map;
 use function array_merge;
 use function count;
-use function gettype;
 use function is_array;
-use function is_object;
-use function sprintf;
+use function iterator_to_array;
 
-// phpcs:ignore
-
-/** @final */
-class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableChildrenInterface
+/**
+ * @psalm-no-seal-properties This object is a mixed property bag
+ */
+final class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableChildrenInterface
 {
     /**
      * What variable a parent model should capture this model to
@@ -56,10 +52,9 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
     /**
      * View variables
      *
-     * @var array|ArrayAccess|Traversable
-     * @psalm-var array|ArrayAccess&Traversable
+     * @var array<string, mixed>
      */
-    protected $variables = [];
+    private array $variables;
 
     /**
      * Is this append to child  with the same capture?
@@ -69,122 +64,73 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
     protected $append = false;
 
     /**
-     * Constructor
-     *
-     * @param  null|array<string, mixed>|Traversable<string, mixed>|ArrayAccess<string, mixed> $variables
+     * @param iterable<string, mixed> $variables
      */
-    public function __construct($variables = null)
-    {
-        if (null === $variables) {
-            $variables = new ViewVariables();
-        }
-
-        // Initializing the variables container
-        $this->setVariables($variables, true);
+    public function __construct(
+        iterable $variables = [],
+        private readonly bool $strictVariables = true,
+    ) {
+        $this->variables = array_map(
+            static fn (mixed $value): mixed => $value,
+            is_array($variables) ? $variables : iterator_to_array($variables)
+        );
     }
 
     /**
      * Property overloading: set variable value
-     *
-     * @param  string $name
-     * @param  mixed $value
-     * @return void
      */
-    public function __set($name, $value)
+    public function __set(string $name, mixed $value): void
     {
-        $this->setVariable($name, $value);
+        $this->variables[$name] = $value;
     }
 
     /**
      * Property overloading: get variable value
      *
-     * @param  string $name
-     * @return mixed
+     * @throws UndefinedVariableException
      */
-    public function __get($name)
+    public function __get(string $name): mixed
     {
-        if (! $this->__isset($name)) {
-            return;
+        if (! isset($this->variables[$name]) && $this->strictVariables) {
+            throw UndefinedVariableException::forVariableName($name);
         }
 
-        $variables = $this->getVariables();
-        return $variables[$name];
+        return $this->variables[$name] ?? null;
     }
 
     /**
      * Property overloading: do we have the requested variable value?
-     *
-     * @param  string $name
-     * @return bool
      */
-    public function __isset($name)
+    public function __isset(string $name): bool
     {
-        $variables = $this->getVariables();
-        return isset($variables[$name]);
+        return isset($this->variables[$name]);
     }
 
     /**
      * Property overloading: unset the requested variable
-     *
-     * @param  string $name
-     * @return void
      */
-    public function __unset($name)
+    public function __unset(string $name): void
     {
-        if (! $this->__isset($name)) {
-            return;
-        }
-
         unset($this->variables[$name]);
     }
 
     /**
-     * Called after this view model is cloned.
-     *
-     * Clones $variables property so changes done to variables in the new
-     * instance don't change the current one.
-     *
-     * @return void
-     */
-    public function __clone()
-    {
-        if (is_object($this->variables)) {
-            $this->variables = clone $this->variables;
-        }
-    }
-
-    /**
      * Get a single view variable
-     *
-     * @param  string       $name
-     * @param  mixed|null   $default (optional) default value if the variable is not present.
-     * @return mixed
      */
-    public function getVariable($name, $default = null)
+    public function getVariable(string $name, mixed $default = null): mixed
     {
-        $name = (string) $name;
-
-        if (is_array($this->variables)) {
-            if (array_key_exists($name, $this->variables)) {
-                return $this->variables[$name];
-            }
-        } elseif ($this->variables->offsetExists($name)) {
-            return $this->variables->offsetGet($name);
-        }
-
-        return $default;
+        return array_key_exists($name, $this->variables)
+            ? $this->variables[$name]
+            : $default;
     }
 
     /**
      * Set view variable
-     *
-     * @param  string $name
-     * @param  mixed $value
-     * @return ViewModel
      */
-    public function setVariable($name, $value)
+    public function setVariable(string $name, mixed $value): static
     {
-        $this->variables[(string) $name] = $value;
+        $this->{$name} = $value;
+
         return $this;
     }
 
@@ -193,57 +139,32 @@ class ViewModel implements ModelInterface, ClearableModelInterface, RetrievableC
      *
      * Can be an array or a Traversable + ArrayAccess object.
      *
-     * @param  array|ArrayAccess|Traversable $variables
-     * @param  bool $overwrite Whether or not to overwrite the internal container with $variables
-     * @throws Exception\InvalidArgumentException
-     * @return ViewModel
+     * @param iterable<string, mixed> $variables
+     * @param bool $overwrite Whether to overwrite existing variables
      */
-    public function setVariables($variables, $overwrite = false)
+    public function setVariables(iterable $variables, bool $overwrite = false): static
     {
-        if (! is_array($variables) && ! $variables instanceof Traversable) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                '%s: expects an array, or Traversable argument; received "%s"',
-                __METHOD__,
-                is_object($variables) ? $variables::class : gettype($variables)
-            ));
-        }
-
         if ($overwrite) {
-            if (is_object($variables) && ! $variables instanceof ArrayAccess) {
-                $variables = ArrayUtils::iteratorToArray($variables);
-            }
-
-            $this->variables = $variables;
-            return $this;
+            $this->variables = [];
         }
 
-        foreach ($variables as $key => $value) {
-            $this->setVariable($key, $value);
-        }
+        $this->variables = array_merge($this->variables, array_map(
+            static fn (mixed $value): mixed => $value,
+            is_array($variables) ? $variables : iterator_to_array($variables)
+        ));
 
         return $this;
     }
 
-    /**
-     * Get view variables
-     *
-     * @return array|ArrayAccess|Traversable
-     */
-    public function getVariables()
+    public function getVariables(): array
     {
         return $this->variables;
     }
 
-    /**
-     * Clear all variables
-     *
-     * Resets the internal variable container to an empty container.
-     *
-     * @return ViewModel
-     */
-    public function clearVariables()
+    public function clearVariables(): static
     {
-        $this->variables = new ViewVariables();
+        $this->variables = [];
+
         return $this;
     }
 

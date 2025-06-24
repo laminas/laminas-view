@@ -4,173 +4,134 @@ declare(strict_types=1);
 
 namespace Laminas\View;
 
+use ArrayAccess;
 use ArrayIterator;
-use ArrayObject;
-use ReturnTypeWillChange; // phpcs:ignore
+use Countable;
+use IteratorAggregate;
+use Laminas\View\Exception\UndefinedVariableException;
+use Traversable;
 
-use function call_user_func;
-use function gettype;
-use function is_array;
-use function is_callable;
-use function is_object;
-use function method_exists;
-use function sprintf;
-use function strtolower;
-use function trigger_error;
-
-use const E_USER_NOTICE;
+use function array_key_exists;
+use function count;
 
 /**
- * Class for Laminas\View\Renderer\PhpRenderer to help enforce private constructs.
+ * Represents the variables assigned to the view model to be rendered
  *
- * @todo       Allow specifying string names for manager, filter chain, variables
- * @todo       Move escaping into variables object
- * @todo       Move strict variables into variables object
- * @extends ArrayObject<string, mixed>
- * @final
  * @no-seal-properties This class is a mixed property bag
+ * @implements IteratorAggregate<string, mixed>
+ * @implements ArrayAccess<string, mixed>
  */
-class Variables extends ArrayObject
+final class Variables implements IteratorAggregate, ArrayAccess, Countable
 {
     /**
-     * Strict variables flag; when on, undefined variables accessed in the view
-     * scripts will trigger notices
-     *
-     * @var bool
-     */
-    protected $strictVars = false;
-
-    /**
-     * Constructor
-     *
      * @param array<string, mixed> $variables
-     * @param array<string, mixed> $options
+     * @param bool $strictVariables When true, undefined variables accessed in the view scripts will trigger exceptions
      */
-    public function __construct(array $variables = [], array $options = [])
-    {
-        parent::__construct(
-            $variables,
-            ArrayObject::ARRAY_AS_PROPS,
-            ArrayIterator::class
-        );
-
-        $this->setOptions($options);
-    }
-
-    /**
-     * Configure object
-     *
-     * @param  array<string, mixed> $options
-     * @return Variables
-     */
-    public function setOptions(array $options)
-    {
-        foreach ($options as $key => $value) {
-            switch (strtolower($key)) {
-                case 'strict_vars':
-                    $this->setStrictVars($value);
-                    break;
-                default:
-                    // Unknown options are considered variables
-                    $this[$key] = $value;
-                    break;
-            }
-        }
-        return $this;
-    }
-
-    /**
-     * Set status of "strict vars" flag
-     *
-     * @param  bool $flag
-     * @return Variables
-     */
-    public function setStrictVars($flag)
-    {
-        $this->strictVars = (bool) $flag;
-        return $this;
-    }
-
-    /**
-     * Are we operating with strict variables?
-     *
-     * @return bool
-     */
-    public function isStrict()
-    {
-        return $this->strictVars;
+    public function __construct(
+        private array $variables = [],
+        private readonly bool $strictVariables = true,
+    ) {
     }
 
     /**
      * Assign many values at once
      *
-     * @param  array<string, mixed>|object $spec
-     * @return Variables
-     * @throws Exception\InvalidArgumentException
+     * @param array<string, mixed> $variables
      */
-    public function assign($spec)
+    public function assign(array $variables): self
     {
-        if (is_object($spec)) {
-            if (method_exists($spec, 'toArray')) {
-                $spec = $spec->toArray();
-            } else {
-                $spec = (array) $spec;
-            }
-        }
-        if (! is_array($spec)) {
-            throw new Exception\InvalidArgumentException(sprintf(
-                'assign() expects either an array or an object as an argument; received "%s"',
-                gettype($spec)
-            ));
-        }
-        foreach ($spec as $key => $value) {
-            $this[$key] = $value;
+        /** @psalm-var mixed $value */
+        foreach ($variables as $name => $value) {
+            $this->variables[$name] = $value;
         }
 
         return $this;
     }
 
     /**
-     * Get the variable value
+     * Get a variable value
      *
-     * If the value has not been defined, a null value will be returned; if
-     * strict vars on in place, a notice will also be raised.
+     * If the value has not been defined, a null value will be returned unless
+     * strict variables is active, in which case, an exception will be thrown.
      *
-     * Otherwise, returns _escaped_ version of the value.
-     *
-     * @param string $offset
-     * @return mixed
+     * @throws UndefinedVariableException
      */
-    #[ReturnTypeWillChange]
-    public function offsetGet($offset)
+    public function __get(string $offset): mixed
     {
-        if (! $this->offsetExists($offset)) {
-            if ($this->isStrict()) {
-                trigger_error(sprintf(
-                    'View variable "%s" does not exist',
-                    $offset
-                ), E_USER_NOTICE);
+        if (! array_key_exists($offset, $this->variables)) {
+            if ($this->strictVariables) {
+                throw UndefinedVariableException::forVariableName($offset);
             }
-            return;
+
+            return null;
         }
 
-        $return = parent::offsetGet($offset);
+        return $this->variables[$offset];
+    }
 
-        // If we have a closure/functor, invoke it, and return its return value
-        if (is_object($return) && is_callable($return)) {
-            $return = call_user_func($return);
-        }
+    public function __set(string $offset, mixed $value): void
+    {
+        $this->variables[$offset] = $value;
+    }
 
-        return $return;
+    public function __isset(string $offset): bool
+    {
+        return isset($this->variables[$offset]);
+    }
+
+    public function __unset(string $offset): void
+    {
+        unset($this->variables[$offset]);
+    }
+
+    /** @return Traversable<string, mixed> */
+    public function getIterator(): Traversable
+    {
+        return new ArrayIterator($this->variables);
     }
 
     /**
-     * Clear all variables
-     *
-     * @return void
+     * @param string $offset
      */
-    public function clear()
+    public function offsetExists($offset): bool
     {
-        $this->exchangeArray([]);
+        return $this->__isset($offset);
+    }
+
+    /**
+     * @param string $offset
+     * @throws UndefinedVariableException
+     */
+    public function offsetGet($offset): mixed
+    {
+        return $this->__get($offset);
+    }
+
+    /**
+     * @param string $offset
+     * @param mixed $value
+     */
+    public function offsetSet($offset, $value): void
+    {
+        $this->__set($offset, $value);
+    }
+
+    /**
+     * @param string $offset
+     */
+    public function offsetUnset($offset): void
+    {
+        $this->__unset($offset);
+    }
+
+    /** @return array<string, mixed> */
+    public function getArrayCopy(): array
+    {
+        return $this->variables;
+    }
+
+    public function count(): int
+    {
+        return count($this->variables);
     }
 }

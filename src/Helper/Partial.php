@@ -40,7 +40,7 @@ final class Partial implements StatefulHelperInterface
      * Renders a template fragment within a variable scope distinct from the
      * calling View object. It proxies to view's render function
      *
-     * @param  string|ModelInterface|null $name Name of view script, or a view model
+     * @param  non-empty-string|ModelInterface|null $name Name of view script, or a view model
      * @param  iterable<string, mixed>|object|null $values Variables to populate in the view
      * @return ($name is null ? self : string)
      * @throws RuntimeException

@@ -61,7 +61,7 @@ final class PartialLoop implements StatefulHelperInterface
      *
      * If no arguments are provided, returns object instance.
      *
-     * @param string|null $name Name of view script
+     * @param non-empty-string|null $name Name of view script
      * @param iterable|object $values Variables to populate in the view
      * @return ($name is string ? string : self)
      * @throws Exception\InvalidArgumentException
@@ -79,7 +79,7 @@ final class PartialLoop implements StatefulHelperInterface
      * Renders a template fragment within a variable scope distinct from the
      * calling View object.
      *
-     * @param string $name Name of view script
+     * @param non-empty-string $name Name of view script
      * @param iterable|object $values Variables to populate in the view
      * @throws Exception\InvalidArgumentException
      */
