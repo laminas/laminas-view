@@ -9,7 +9,12 @@ use Laminas\EventManager\EventManagerInterface;
 use Laminas\View\Renderer\PhpRenderer;
 use Laminas\View\ViewEvent;
 
-/** @final */
+/**
+ * @deprecated Since 2.40.0. This class will be removed in 3.0 without replacement when laminas-view removes support
+ *             for rendering strategies.
+ *
+ * @final
+ */
 class PhpRendererStrategy extends AbstractListenerAggregate
 {
     /**

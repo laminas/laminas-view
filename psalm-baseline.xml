@@ -95,6 +95,7 @@
   <file src="src/Helper/DeclareVars.php">
     <DeprecatedClass>
       <code><![CDATA[AbstractHelper]]></code>
+      <code><![CDATA[View]]></code>
     </DeprecatedClass>
     <MissingConstructor>
       <code><![CDATA[$view]]></code>
@@ -756,6 +757,10 @@
       <code><![CDATA[NavigationHelper]]></code>
       <code><![CDATA[Navigation\PluginManager]]></code>
     </DeprecatedInterface>
+    <DeprecatedMethod>
+      <code><![CDATA[setRenderer]]></code>
+      <code><![CDATA[setRenderer]]></code>
+    </DeprecatedMethod>
     <InvalidFunctionCall>
       <code><![CDATA[call_user_func_array($helper, $arguments)]]></code>
     </InvalidFunctionCall>
@@ -1781,8 +1786,13 @@
       <code><![CDATA[null|ConfigInterface|ContainerInterface]]></code>
     </DeprecatedInterface>
     <DeprecatedMethod>
+      <code><![CDATA[getRenderer]]></code>
       <code><![CDATA[setView]]></code>
     </DeprecatedMethod>
+    <DeprecatedProperty>
+      <code><![CDATA[$this->renderer]]></code>
+      <code><![CDATA[$this->renderer]]></code>
+    </DeprecatedProperty>
     <DocblockTypeContradiction>
       <code><![CDATA[! $events]]></code>
       <code><![CDATA[! $events]]></code>
@@ -1939,6 +1949,9 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Renderer/ConsoleRenderer.php">
+    <DeprecatedInterface>
+      <code><![CDATA[ConsoleRenderer]]></code>
+    </DeprecatedInterface>
     <DeprecatedMethod>
       <code><![CDATA[getOptions]]></code>
     </DeprecatedMethod>
@@ -1996,6 +2009,9 @@
     </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Renderer/JsonRenderer.php">
+    <DeprecatedInterface>
+      <code><![CDATA[JsonRenderer]]></code>
+    </DeprecatedInterface>
     <ImplementedReturnTypeMismatch>
       <code><![CDATA[void]]></code>
     </ImplementedReturnTypeMismatch>
@@ -2036,8 +2052,16 @@
     </TypeDoesNotContainType>
   </file>
   <file src="src/Renderer/PhpRenderer.php">
+    <DeprecatedInterface>
+      <code><![CDATA[PhpRenderer]]></code>
+    </DeprecatedInterface>
     <DeprecatedMethod>
+      <code><![CDATA[getHelperPluginManager]]></code>
       <code><![CDATA[getOptions]]></code>
+      <code><![CDATA[init]]></code>
+      <code><![CDATA[setHelperPluginManager]]></code>
+      <code><![CDATA[setRenderer]]></code>
+      <code><![CDATA[setResolver]]></code>
     </DeprecatedMethod>
     <DocblockTypeContradiction>
       <code><![CDATA[! is_array($variables) && ! $variables instanceof ArrayAccess]]></code>
@@ -2200,6 +2224,10 @@
       <code><![CDATA[$renderer]]></code>
       <code><![CDATA[FeedRenderer]]></code>
       <code><![CDATA[FeedRenderer]]></code>
+      <code><![CDATA[ViewEvent]]></code>
+      <code><![CDATA[ViewEvent]]></code>
+      <code><![CDATA[ViewEvent::EVENT_RENDERER]]></code>
+      <code><![CDATA[ViewEvent::EVENT_RESPONSE]]></code>
       <code><![CDATA[null|FeedRenderer]]></code>
     </DeprecatedClass>
     <MixedAssignment>
@@ -2216,6 +2244,15 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Strategy/JsonStrategy.php">
+    <DeprecatedClass>
+      <code><![CDATA[JsonRenderer]]></code>
+      <code><![CDATA[JsonRenderer]]></code>
+      <code><![CDATA[ViewEvent]]></code>
+      <code><![CDATA[ViewEvent]]></code>
+      <code><![CDATA[ViewEvent::EVENT_RENDERER]]></code>
+      <code><![CDATA[ViewEvent::EVENT_RESPONSE]]></code>
+      <code><![CDATA[null|JsonRenderer]]></code>
+    </DeprecatedClass>
     <MixedAssignment>
       <code><![CDATA[$headers]]></code>
     </MixedAssignment>
@@ -2234,6 +2271,12 @@
     </UndefinedInterfaceMethod>
   </file>
   <file src="src/Strategy/PhpRendererStrategy.php">
+    <DeprecatedClass>
+      <code><![CDATA[ViewEvent]]></code>
+      <code><![CDATA[ViewEvent]]></code>
+      <code><![CDATA[ViewEvent::EVENT_RENDERER]]></code>
+      <code><![CDATA[ViewEvent::EVENT_RESPONSE]]></code>
+    </DeprecatedClass>
     <MixedAssignment>
       <code><![CDATA[$placeholders]]></code>
       <code><![CDATA[$result]]></code>
@@ -2335,6 +2378,15 @@
     </RedundantCastGivenDocblockType>
   </file>
   <file src="src/View.php">
+    <DeprecatedClass>
+      <code><![CDATA[ViewEvent]]></code>
+      <code><![CDATA[ViewEvent::EVENT_RENDERER]]></code>
+      <code><![CDATA[ViewEvent::EVENT_RENDERER]]></code>
+      <code><![CDATA[ViewEvent::EVENT_RENDERER_POST]]></code>
+      <code><![CDATA[ViewEvent::EVENT_RESPONSE]]></code>
+      <code><![CDATA[ViewEvent::EVENT_RESPONSE]]></code>
+      <code><![CDATA[new ViewEvent()]]></code>
+    </DeprecatedClass>
     <DeprecatedMethod>
       <code><![CDATA[getOptions]]></code>
       <code><![CDATA[setOption]]></code>
@@ -3322,6 +3374,9 @@
       <code><![CDATA[new Navigation()]]></code>
       <code><![CDATA[new Navigation\PluginManager(new ServiceManager())]]></code>
     </DeprecatedClass>
+    <DeprecatedMethod>
+      <code><![CDATA[getRenderer]]></code>
+    </DeprecatedMethod>
     <InvalidArgument>
       <code><![CDATA[function (int $code, string $message) {
             $this->errorHandlerMessage = $message;
@@ -3434,6 +3489,9 @@
       <code><![CDATA[new Helper\PaginationControl()]]></code>
       <code><![CDATA[new Helper\PaginationControl()]]></code>
     </DeprecatedClass>
+    <DeprecatedMethod>
+      <code><![CDATA[setResolver]]></code>
+    </DeprecatedMethod>
     <InvalidArgument>
       <code><![CDATA[$all]]></code>
       <code><![CDATA[$paginator]]></code>
@@ -3688,6 +3746,9 @@
       <code><![CDATA[render]]></code>
       <code><![CDATA[render]]></code>
       <code><![CDATA[render]]></code>
+      <code><![CDATA[setCanRenderTrees]]></code>
+      <code><![CDATA[setResolver]]></code>
+      <code><![CDATA[setResolver]]></code>
     </DeprecatedMethod>
   </file>
   <file src="test/Helper/ServerUrlTest.php">
@@ -3927,6 +3988,12 @@
     <DeprecatedInterface>
       <code><![CDATA[$this->getMockBuilder(TranslatorInterface::class)]]></code>
     </DeprecatedInterface>
+    <DeprecatedMethod>
+      <code><![CDATA[getRenderer]]></code>
+      <code><![CDATA[getRenderer]]></code>
+      <code><![CDATA[setRenderer]]></code>
+      <code><![CDATA[setRenderer]]></code>
+    </DeprecatedMethod>
     <MissingClosureParamType>
       <code><![CDATA[$container]]></code>
       <code><![CDATA[$container]]></code>
@@ -3937,6 +4004,12 @@
     </UnusedClosureParam>
   </file>
   <file src="test/Model/JsonModelTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[new JsonModel($array)]]></code>
+      <code><![CDATA[new JsonModel($array)]]></code>
+      <code><![CDATA[new JsonModel($array, ['prettyPrint' => true])]]></code>
+      <code><![CDATA[new JsonModel()]]></code>
+    </DeprecatedClass>
     <DeprecatedMethod>
       <code><![CDATA[getOptions]]></code>
     </DeprecatedMethod>
@@ -3989,6 +4062,33 @@
     </UndefinedMagicPropertyAssignment>
   </file>
   <file src="test/PhpRendererTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[canRenderTrees]]></code>
+      <code><![CDATA[canRenderTrees]]></code>
+      <code><![CDATA[canRenderTrees]]></code>
+      <code><![CDATA[getEngine]]></code>
+      <code><![CDATA[getHelperPluginManager]]></code>
+      <code><![CDATA[getHelperPluginManager]]></code>
+      <code><![CDATA[getHelperPluginManager]]></code>
+      <code><![CDATA[getRenderer]]></code>
+      <code><![CDATA[setCanRenderTrees]]></code>
+      <code><![CDATA[setCanRenderTrees]]></code>
+      <code><![CDATA[setHelperPluginManager]]></code>
+      <code><![CDATA[setHelperPluginManager]]></code>
+      <code><![CDATA[setHelperPluginManager]]></code>
+      <code><![CDATA[setHelperPluginManager]]></code>
+      <code><![CDATA[setHelperPluginManager]]></code>
+      <code><![CDATA[setHelperPluginManager]]></code>
+      <code><![CDATA[setHelperPluginManager]]></code>
+      <code><![CDATA[setResolver]]></code>
+      <code><![CDATA[setResolver]]></code>
+      <code><![CDATA[setResolver]]></code>
+      <code><![CDATA[setResolver]]></code>
+      <code><![CDATA[setResolver]]></code>
+      <code><![CDATA[setResolver]]></code>
+      <code><![CDATA[setResolver]]></code>
+      <code><![CDATA[setResolver]]></code>
+    </DeprecatedMethod>
     <MixedArgument>
       <code><![CDATA[$content]]></code>
     </MixedArgument>
@@ -4024,6 +4124,13 @@
     </DeprecatedMethod>
   </file>
   <file src="test/Renderer/JsonRendererTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[JsonRenderer]]></code>
+      <code><![CDATA[new JsonModel(['foo' => 'bar'])]]></code>
+      <code><![CDATA[new JsonModel(['foo' => 'bar'])]]></code>
+      <code><![CDATA[new JsonModel(['foo' => 'bar'])]]></code>
+      <code><![CDATA[new JsonRenderer()]]></code>
+    </DeprecatedClass>
     <InvalidArgument>
       <code><![CDATA[$model]]></code>
       <code><![CDATA[$model]]></code>
@@ -4128,11 +4235,13 @@
     <DeprecatedClass>
       <code><![CDATA[FeedRenderer]]></code>
       <code><![CDATA[FeedStrategy]]></code>
+      <code><![CDATA[ViewEvent]]></code>
       <code><![CDATA[new FeedModel()]]></code>
       <code><![CDATA[new FeedModel()]]></code>
       <code><![CDATA[new FeedRenderer()]]></code>
       <code><![CDATA[new FeedRenderer()]]></code>
       <code><![CDATA[new FeedStrategy($this->renderer)]]></code>
+      <code><![CDATA[new ViewEvent()]]></code>
     </DeprecatedClass>
     <MixedAssignment>
       <code><![CDATA[$listener]]></code>
@@ -4152,6 +4261,17 @@
     </PossiblyUndefinedMethod>
   </file>
   <file src="test/Strategy/JsonStrategyTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[JsonRenderer]]></code>
+      <code><![CDATA[JsonStrategy]]></code>
+      <code><![CDATA[ViewEvent]]></code>
+      <code><![CDATA[new JsonModel()]]></code>
+      <code><![CDATA[new JsonModel()]]></code>
+      <code><![CDATA[new JsonRenderer()]]></code>
+      <code><![CDATA[new JsonRenderer()]]></code>
+      <code><![CDATA[new JsonStrategy($this->renderer)]]></code>
+      <code><![CDATA[new ViewEvent()]]></code>
+    </DeprecatedClass>
     <MixedArgument>
       <code><![CDATA[$headers->get('content-type')->getFieldValue()]]></code>
       <code><![CDATA[$headers->get('content-type')->getFieldValue()]]></code>
@@ -4198,6 +4318,16 @@
     </PossiblyUndefinedMethod>
   </file>
   <file src="test/Strategy/PhpRendererStrategyTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[PhpRendererStrategy]]></code>
+      <code><![CDATA[ViewEvent]]></code>
+      <code><![CDATA[new PhpRendererStrategy($this->renderer)]]></code>
+      <code><![CDATA[new ViewEvent()]]></code>
+      <code><![CDATA[new ViewEvent()]]></code>
+      <code><![CDATA[new ViewEvent()]]></code>
+      <code><![CDATA[new ViewEvent()]]></code>
+      <code><![CDATA[new ViewEvent()]]></code>
+    </DeprecatedClass>
     <InvalidArgument>
       <code><![CDATA[$e]]></code>
       <code><![CDATA[$event]]></code>
@@ -4229,7 +4359,33 @@
       <code><![CDATA[Helper]]></code>
     </DeprecatedClass>
   </file>
+  <file src="test/ViewEventTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[ViewEvent]]></code>
+      <code><![CDATA[new ViewEvent()]]></code>
+    </DeprecatedClass>
+  </file>
   <file src="test/ViewTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[View]]></code>
+      <code><![CDATA[ViewEvent]]></code>
+      <code><![CDATA[ViewEvent]]></code>
+      <code><![CDATA[ViewEvent]]></code>
+      <code><![CDATA[ViewEvent]]></code>
+      <code><![CDATA[ViewEvent]]></code>
+      <code><![CDATA[ViewEvent]]></code>
+      <code><![CDATA[ViewEvent]]></code>
+      <code><![CDATA[ViewEvent::EVENT_RENDERER_POST]]></code>
+      <code><![CDATA[new JsonModel(['bar' => 'baz'])]]></code>
+      <code><![CDATA[new Renderer\JsonRenderer()]]></code>
+      <code><![CDATA[new Renderer\JsonRenderer()]]></code>
+      <code><![CDATA[new Renderer\JsonRenderer()]]></code>
+      <code><![CDATA[new View()]]></code>
+    </DeprecatedClass>
+    <DeprecatedMethod>
+      <code><![CDATA[setCanRenderTrees]]></code>
+      <code><![CDATA[setResolver]]></code>
+    </DeprecatedMethod>
     <MixedArgument>
       <code><![CDATA[$result->content]]></code>
       <code><![CDATA[$this->result->content]]></code>

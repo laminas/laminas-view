@@ -16,7 +16,14 @@ use Laminas\View\Renderer\TreeRendererInterface;
 use function array_key_exists;
 use function sprintf;
 
-/** @final */
+/**
+ * @deprecated Since 2.40.0. This class will be removed in 3.0 when laminas-view removes support for rendering
+ *             strategies. It is possible that Laminas\View\View will be re-introduced as a class with the sole
+ *             purpose of implementing the 2-step view via a `render` method, however all other functionality will be
+ *             removed entirely.
+ *
+ * @final
+ */
 class View implements EventManagerAwareInterface
 {
     /** @var EventManagerInterface */

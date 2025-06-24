@@ -14,7 +14,12 @@ use function in_array;
 use function is_string;
 use function strtoupper;
 
-/** @final */
+/**
+ * @deprecated Since 2.40.0. This class will be removed in 3.0 without replacement when laminas-view removes support
+ *             for rendering strategies
+ *
+ * @final
+ */
 class JsonStrategy extends AbstractListenerAggregate
 {
     /**
