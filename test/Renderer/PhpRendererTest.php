@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace LaminasTest\View;
+namespace LaminasTest\View\Renderer;
 
 use ArrayObject;
 use Laminas\ServiceManager\ServiceManager;
@@ -13,10 +13,10 @@ use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\ViewModel as ViewModelHelper;
 use Laminas\View\Model\ViewModel;
 use Laminas\View\Renderer\PhpRenderer;
-use Laminas\View\Resolver\AggregateResolver;
 use Laminas\View\Resolver\TemplateMapResolver;
 use Laminas\View\Resolver\TemplatePathStack;
 use Laminas\View\Variables;
+use LaminasTest\View\GenerateServiceManager;
 use LaminasTest\View\TestAsset\Invokable;
 use LaminasTest\View\TestAsset\SharedInstance;
 use LaminasTest\View\TestAsset\Uninvokable;
@@ -24,7 +24,6 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Throwable;
 
-use function realpath;
 use function restore_error_handler;
 use function set_error_handler;
 
@@ -58,26 +57,9 @@ final class PhpRendererTest extends TestCase
         $this->renderer = $this->container->get(PhpRenderer::class);
     }
 
-    public function testUsesAggregateResolverAsDefaultResolver(): void
-    {
-        $this->assertInstanceOf(AggregateResolver::class, $this->renderer->resolver());
-    }
-
     private function resolver(): TemplatePathStack
     {
         return $this->container->get(TemplatePathStack::class);
-    }
-
-    public function testPassingNameToResolverReturnsScriptName(): void
-    {
-        $this->resolver()->addPath(__DIR__ . '/_templates');
-        $filename = $this->renderer->resolver('test.phtml');
-        $this->assertEquals(realpath(__DIR__ . '/_templates/test.phtml'), $filename);
-    }
-
-    public function testUsesVariablesObjectForVarsByDefault(): void
-    {
-        $this->assertInstanceOf(Variables::class, $this->renderer->vars());
     }
 
     public function testCanSpecifyArrayAccessForVars(): void
@@ -108,7 +90,7 @@ final class PhpRendererTest extends TestCase
 
     public function testFilterCanBeAddedToMutateOutput(): void
     {
-        $this->resolver()->addPath(__DIR__ . '/_templates');
+        $this->resolver()->addPath(__DIR__ . '/../_templates');
         $output = $this->renderer->render('empty.phtml');
         self::assertSame('Empty view' . PHP_EOL, $output);
 
@@ -121,9 +103,8 @@ final class PhpRendererTest extends TestCase
     public function testRenderingAllowsVariableSubstitutions(): void
     {
         $expected = 'foo INJECT baz';
-        $this->renderer->vars()->assign(['bar' => 'INJECT']);
-        $this->resolver()->addPath(__DIR__ . '/_templates');
-        $test = $this->renderer->render('test.phtml');
+        $this->resolver()->addPath(__DIR__ . '/../_templates');
+        $test = $this->renderer->render('test.phtml', ['bar' => 'INJECT']);
         $this->assertStringContainsString($expected, $test);
     }
 
@@ -132,14 +113,14 @@ final class PhpRendererTest extends TestCase
         $filter   = static fn (string $content): string => $content . 'Miss Piggy';
         $this->renderer->setFilter($filter);
         $expected = 'Empty view' . PHP_EOL . 'Miss Piggy';
-        $this->resolver()->addPath(__DIR__ . '/_templates');
+        $this->resolver()->addPath(__DIR__ . '/../_templates');
         $renderResult = $this->renderer->render('empty.phtml');
         $this->assertSame($expected, $renderResult);
     }
 
     public function testCanAccessHelpersInTemplates(): void
     {
-        $this->resolver()->addPath(__DIR__ . '/_templates');
+        $this->resolver()->addPath(__DIR__ . '/../_templates');
         $content = $this->renderer->render('test-with-helpers.phtml');
         foreach (['foo', 'bar', 'baz'] as $value) {
             $this->assertStringContainsString("<li>$value</li>", $content);
@@ -163,7 +144,7 @@ final class PhpRendererTest extends TestCase
     public function testNestedRenderingRestoresVariablesCorrectly(): void
     {
         $expected = "inner\n<p>content</p>";
-        $this->resolver()->addPath(__DIR__ . '/_templates');
+        $this->resolver()->addPath(__DIR__ . '/../_templates');
         $test = $this->renderer->render('testNestedOuter.phtml', ['content' => '<p>content</p>']);
         $this->assertEquals($expected, $test);
     }
@@ -199,7 +180,7 @@ final class PhpRendererTest extends TestCase
     {
         $expected = '10 > 9';
         $this->renderer->vars()->assign(['foo' => '10 > 9']);
-        $this->resolver()->addPath(__DIR__ . '/_templates');
+        $this->resolver()->addPath(__DIR__ . '/../_templates');
         $test = $this->renderer->render('testLocalVars.phtml');
         $this->assertStringContainsString($expected, $test);
     }
@@ -208,8 +189,8 @@ final class PhpRendererTest extends TestCase
     {
         $resolver = $this->container->get(TemplateMapResolver::class);
         $resolver->setMap([
-            'layout' => __DIR__ . '/_templates/layout.phtml',
-            'block'  => __DIR__ . '/_templates/block.phtml',
+            'layout' => __DIR__ . '/../_templates/layout.phtml',
+            'block'  => __DIR__ . '/../_templates/block.phtml',
         ]);
 
         $content = $this->renderer->render('block');
@@ -220,7 +201,7 @@ final class PhpRendererTest extends TestCase
     {
         $resolver = $this->container->get(TemplateMapResolver::class);
         $resolver->setMap([
-            'empty' => __DIR__ . '/_templates/empty.phtml',
+            'empty' => __DIR__ . '/../_templates/empty.phtml',
         ]);
 
         $model = new ViewModel();
@@ -241,7 +222,7 @@ final class PhpRendererTest extends TestCase
     {
         $resolver = $this->container->get(TemplateMapResolver::class);
         $resolver->setMap([
-            'test' => __DIR__ . '/_templates/test.phtml',
+            'test' => __DIR__ . '/../_templates/test.phtml',
         ]);
 
         $model = new ViewModel();
@@ -256,7 +237,7 @@ final class PhpRendererTest extends TestCase
     {
         $resolver = $this->container->get(TemplateMapResolver::class);
         $resolver->setMap([
-            'empty' => __DIR__ . '/_templates/empty.phtml',
+            'empty' => __DIR__ . '/../_templates/empty.phtml',
         ]);
 
         $model = new ViewModel();
@@ -272,7 +253,7 @@ final class PhpRendererTest extends TestCase
     {
         $resolver = $this->container->get(TemplateMapResolver::class);
         $resolver->setMap([
-            'exception' => __DIR__ . '/_templates/exception.phtml',
+            'exception' => __DIR__ . '/../_templates/exception.phtml',
         ]);
 
         $model = new ViewModel();
@@ -331,7 +312,7 @@ final class PhpRendererTest extends TestCase
     {
         $resolver = $this->container->get(TemplateMapResolver::class);
         $resolver->setMap([
-            'view-model-variables' => __DIR__ . '/_templates/view-model-variables.phtml',
+            'view-model-variables' => __DIR__ . '/../_templates/view-model-variables.phtml',
         ]);
 
         $model = new ViewModel(['foo' => 'BAR-BAZ-BAT']);
@@ -358,14 +339,14 @@ final class PhpRendererTest extends TestCase
 
     public function testContentIsNotMutatedWhenNoFilterHasBeenSet(): void
     {
-        $this->resolver()->addPath(__DIR__ . '/_templates');
+        $this->resolver()->addPath(__DIR__ . '/../_templates');
         $result = $this->renderer->render('empty.phtml');
         self::assertSame('Empty view' . PHP_EOL, $result);
     }
 
     public function testRendererDoesntUsePreviousRenderedOutputWhenInvokedWithEmptyString(): void
     {
-        $this->resolver()->addPath(__DIR__ . '/_templates');
+        $this->resolver()->addPath(__DIR__ . '/../_templates');
 
         $previousOutput = $this->renderer->render('empty.phtml');
 
