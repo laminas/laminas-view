@@ -73,17 +73,12 @@ use function sprintf;
  *
  * @final
  */
-class PhpRenderer implements Renderer, TreeRendererInterface
+class PhpRenderer implements Renderer
 {
     /**
      * @var string Rendered content
      */
     private string $__content = '';
-
-    /**
-     * @var bool Whether to render trees of view models
-     */
-    private $__renderTrees = false;
 
     /**
      * Template being rendered
@@ -421,33 +416,6 @@ class PhpRenderer implements Renderer, TreeRendererInterface
         }
 
         return $this->__content;
-    }
-
-    /**
-     * Set flag indicating whether or not we should render trees of view models
-     *
-     * If set to true, the View instance will not attempt to render children
-     * separately, but instead pass the root view model directly to the PhpRenderer.
-     * It is then up to the developer to render the children from within the
-     * view script.
-     *
-     * @param  bool $renderTrees
-     * @return PhpRenderer
-     */
-    public function setCanRenderTrees($renderTrees)
-    {
-        $this->__renderTrees = (bool) $renderTrees;
-        return $this;
-    }
-
-    /**
-     * Can we render trees, or are we configured to do so?
-     *
-     * @return bool
-     */
-    public function canRenderTrees()
-    {
-        return $this->__renderTrees;
     }
 
     /**

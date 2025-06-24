@@ -34,7 +34,6 @@ final class RenderChildModelTest extends TestCase
         ]);
 
         $this->renderer = $container->get(PhpRenderer::class);
-        $this->renderer->setCanRenderTrees(true);
 
         $plugins = $container->get(HelperPluginManager::class);
 
