@@ -450,6 +450,7 @@
       <code><![CDATA[itemToString]]></code>
       <code><![CDATA[offsetSet]]></code>
       <code><![CDATA[offsetSet]]></code>
+      <code><![CDATA[plugin]]></code>
     </DeprecatedMethod>
     <MethodSignatureMustProvideReturnType>
       <code><![CDATA[offsetSet]]></code>
@@ -2052,16 +2053,38 @@
     </TypeDoesNotContainType>
   </file>
   <file src="src/Renderer/PhpRenderer.php">
+    <DeprecatedClass>
+      <code><![CDATA[new Exception\UnexpectedValueException(sprintf(
+                    '%s: Unable to render template "%s"; file include failed',
+                    __METHOD__,
+                    $this->__file
+                ))]]></code>
+    </DeprecatedClass>
     <DeprecatedInterface>
       <code><![CDATA[PhpRenderer]]></code>
     </DeprecatedInterface>
     <DeprecatedMethod>
+      <code><![CDATA[addTemplate]]></code>
       <code><![CDATA[getHelperPluginManager]]></code>
       <code><![CDATA[getOptions]]></code>
       <code><![CDATA[init]]></code>
+      <code><![CDATA[plugin]]></code>
+      <code><![CDATA[plugin]]></code>
+      <code><![CDATA[resolver]]></code>
       <code><![CDATA[setHelperPluginManager]]></code>
       <code><![CDATA[setRenderer]]></code>
       <code><![CDATA[setResolver]]></code>
+      <code><![CDATA[setVars]]></code>
+      <code><![CDATA[setVars]]></code>
+      <code><![CDATA[setVars]]></code>
+      <code><![CDATA[setVars]]></code>
+      <code><![CDATA[vars]]></code>
+      <code><![CDATA[vars]]></code>
+      <code><![CDATA[vars]]></code>
+      <code><![CDATA[vars]]></code>
+      <code><![CDATA[vars]]></code>
+      <code><![CDATA[vars]]></code>
+      <code><![CDATA[vars]]></code>
     </DeprecatedMethod>
     <DocblockTypeContradiction>
       <code><![CDATA[! is_array($variables) && ! $variables instanceof ArrayAccess]]></code>
@@ -2455,6 +2478,13 @@
     <DeprecatedClass>
       <code><![CDATA[DeclareVars::class]]></code>
     </DeprecatedClass>
+    <DeprecatedMethod>
+      <code><![CDATA[plugin]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[vars]]></code>
+      <code><![CDATA[vars]]></code>
+      <code><![CDATA[vars]]></code>
+    </DeprecatedMethod>
     <PossiblyInvalidMethodCall>
       <code><![CDATA[addPath]]></code>
     </PossiblyInvalidMethodCall>
@@ -2855,6 +2885,7 @@
       <code><![CDATA[headLink]]></code>
       <code><![CDATA[headLink]]></code>
       <code><![CDATA[offsetSet]]></code>
+      <code><![CDATA[plugin]]></code>
     </DeprecatedMethod>
     <InternalMethod>
       <code><![CDATA[new EscapeHtmlAttr()]]></code>
@@ -2937,6 +2968,13 @@
     </DeprecatedClass>
     <DeprecatedMethod>
       <code><![CDATA[offsetSet]]></code>
+      <code><![CDATA[plugin]]></code>
+      <code><![CDATA[plugin]]></code>
+      <code><![CDATA[plugin]]></code>
+      <code><![CDATA[plugin]]></code>
+      <code><![CDATA[plugin]]></code>
+      <code><![CDATA[plugin]]></code>
+      <code><![CDATA[plugin]]></code>
       <code><![CDATA[set]]></code>
     </DeprecatedMethod>
     <InvalidArgument>
@@ -2961,6 +2999,8 @@
     <DeprecatedMethod>
       <code><![CDATA[append]]></code>
       <code><![CDATA[offsetSet]]></code>
+      <code><![CDATA[plugin]]></code>
+      <code><![CDATA[plugin]]></code>
       <code><![CDATA[prepend]]></code>
       <code><![CDATA[set]]></code>
       <code><![CDATA[setAllowArbitraryAttributes]]></code>
@@ -3001,6 +3041,12 @@
       <code><![CDATA[$key]]></code>
     </UnusedParam>
   </file>
+  <file src="test/Helper/HtmlObjectTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[plugin]]></code>
+      <code><![CDATA[plugin]]></code>
+    </DeprecatedMethod>
+  </file>
   <file src="test/Helper/HtmlPageTest.php">
     <DeprecatedClass>
       <code><![CDATA[HtmlPage]]></code>
@@ -3008,6 +3054,11 @@
     </DeprecatedClass>
   </file>
   <file src="test/Helper/HtmlTagTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[plugin]]></code>
+      <code><![CDATA[plugin]]></code>
+      <code><![CDATA[plugin]]></code>
+    </DeprecatedMethod>
     <MixedArgument>
       <code><![CDATA[$escape($value)]]></code>
       <code><![CDATA[$escape($value)]]></code>
@@ -3029,6 +3080,10 @@
   <file src="test/Helper/LayoutTest.php">
     <DeprecatedMethod>
       <code><![CDATA[getLayout]]></code>
+      <code><![CDATA[plugin]]></code>
+      <code><![CDATA[plugin]]></code>
+      <code><![CDATA[plugin]]></code>
+      <code><![CDATA[plugin]]></code>
       <code><![CDATA[setTemplate]]></code>
       <code><![CDATA[setTemplate]]></code>
     </DeprecatedMethod>
@@ -3061,6 +3116,9 @@
       <code><![CDATA[AbstractHelper]]></code>
       <code><![CDATA[new Config((new RouterConfigProvider())->getDependencyConfig())]]></code>
     </DeprecatedClass>
+    <DeprecatedMethod>
+      <code><![CDATA[resolver]]></code>
+    </DeprecatedMethod>
     <FalsableReturnStatement>
       <code><![CDATA[file_get_contents($this->files . '/expected/' . $filename)]]></code>
     </FalsableReturnStatement>
@@ -3110,6 +3168,9 @@
       <code><![CDATA[Navigation\Links::RENDER_SUBSECTION]]></code>
       <code><![CDATA[new Navigation\Links()]]></code>
     </DeprecatedClass>
+    <DeprecatedMethod>
+      <code><![CDATA[plugin]]></code>
+    </DeprecatedMethod>
     <MixedArgument>
       <code><![CDATA[$active]]></code>
       <code><![CDATA[$active]]></code>
@@ -3491,6 +3552,8 @@
     </DeprecatedClass>
     <DeprecatedMethod>
       <code><![CDATA[setResolver]]></code>
+      <code><![CDATA[setVars]]></code>
+      <code><![CDATA[setVars]]></code>
     </DeprecatedMethod>
     <InvalidArgument>
       <code><![CDATA[$all]]></code>
@@ -3502,6 +3565,36 @@
     </NullArgument>
   </file>
   <file src="test/Helper/PartialLoopTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+    </DeprecatedMethod>
     <InvalidArgument>
       <code><![CDATA[$o]]></code>
       <code><![CDATA[$o]]></code>
@@ -3646,6 +3739,16 @@
     </UnusedVariable>
   </file>
   <file src="test/Helper/PartialTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[vars]]></code>
+    </DeprecatedMethod>
     <MixedArgument>
       <code><![CDATA[$key]]></code>
       <code><![CDATA[$key]]></code>
@@ -3741,6 +3844,8 @@
   </file>
   <file src="test/Helper/RenderChildModelTest.php">
     <DeprecatedMethod>
+      <code><![CDATA[plugin]]></code>
+      <code><![CDATA[plugin]]></code>
       <code><![CDATA[render]]></code>
       <code><![CDATA[render]]></code>
       <code><![CDATA[render]]></code>
@@ -3749,6 +3854,13 @@
       <code><![CDATA[setCanRenderTrees]]></code>
       <code><![CDATA[setResolver]]></code>
       <code><![CDATA[setResolver]]></code>
+    </DeprecatedMethod>
+  </file>
+  <file src="test/Helper/RenderToPlaceholderTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[plugin]]></code>
+      <code><![CDATA[plugin]]></code>
+      <code><![CDATA[resolver]]></code>
     </DeprecatedMethod>
   </file>
   <file src="test/Helper/ServerUrlTest.php">
@@ -4062,17 +4174,33 @@
     </UndefinedMagicPropertyAssignment>
   </file>
   <file src="test/PhpRendererTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[UnexpectedValueException::class]]></code>
+    </DeprecatedClass>
     <DeprecatedMethod>
       <code><![CDATA[canRenderTrees]]></code>
       <code><![CDATA[canRenderTrees]]></code>
       <code><![CDATA[canRenderTrees]]></code>
+      <code><![CDATA[foo]]></code>
+      <code><![CDATA[foo]]></code>
+      <code><![CDATA[get]]></code>
       <code><![CDATA[getEngine]]></code>
+      <code><![CDATA[getFilterChain]]></code>
+      <code><![CDATA[getFilterChain]]></code>
+      <code><![CDATA[getFilterChain]]></code>
       <code><![CDATA[getHelperPluginManager]]></code>
       <code><![CDATA[getHelperPluginManager]]></code>
       <code><![CDATA[getHelperPluginManager]]></code>
       <code><![CDATA[getRenderer]]></code>
+      <code><![CDATA[plugin]]></code>
+      <code><![CDATA[plugin]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
+      <code><![CDATA[resolver]]></code>
       <code><![CDATA[setCanRenderTrees]]></code>
       <code><![CDATA[setCanRenderTrees]]></code>
+      <code><![CDATA[setFilterChain]]></code>
       <code><![CDATA[setHelperPluginManager]]></code>
       <code><![CDATA[setHelperPluginManager]]></code>
       <code><![CDATA[setHelperPluginManager]]></code>
@@ -4088,6 +4216,23 @@
       <code><![CDATA[setResolver]]></code>
       <code><![CDATA[setResolver]]></code>
       <code><![CDATA[setResolver]]></code>
+      <code><![CDATA[setVars]]></code>
+      <code><![CDATA[setVars]]></code>
+      <code><![CDATA[setVars]]></code>
+      <code><![CDATA[setVars]]></code>
+      <code><![CDATA[vars]]></code>
+      <code><![CDATA[vars]]></code>
+      <code><![CDATA[vars]]></code>
+      <code><![CDATA[vars]]></code>
+      <code><![CDATA[vars]]></code>
+      <code><![CDATA[vars]]></code>
+      <code><![CDATA[vars]]></code>
+      <code><![CDATA[vars]]></code>
+      <code><![CDATA[vars]]></code>
+      <code><![CDATA[vars]]></code>
+      <code><![CDATA[vars]]></code>
+      <code><![CDATA[vars]]></code>
+      <code><![CDATA[vars]]></code>
     </DeprecatedMethod>
     <MixedArgument>
       <code><![CDATA[$content]]></code>
@@ -4171,6 +4316,13 @@
     <PossiblyFalsePropertyAssignmentValue>
       <code><![CDATA[realpath(__DIR__ . '/../_templates/prefix-path-stack-resolver')]]></code>
     </PossiblyFalsePropertyAssignmentValue>
+  </file>
+  <file src="test/Resolver/RelativeFallbackResolverTest.php">
+    <DeprecatedMethod>
+      <code><![CDATA[plugin]]></code>
+      <code><![CDATA[plugin]]></code>
+      <code><![CDATA[plugin]]></code>
+    </DeprecatedMethod>
   </file>
   <file src="test/Resolver/TemplatePathStackTest.php">
     <DeprecatedConstant>
