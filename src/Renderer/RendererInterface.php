@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Laminas\View\Renderer;
 
-use Laminas\View\Exception\ExceptionInterface;
+use Laminas\View\Exception\RenderingFailedException;
 use Laminas\View\Model\ModelInterface;
 
 /**
@@ -20,7 +20,7 @@ interface RendererInterface
      * @param iterable<string, mixed>|null $variables Variables to use during rendering, if a model is not passed as the
      *                                                first argument.
      * @return string The rendered output
-     * @throws ExceptionInterface When any issue occurs during rendering.
+     * @throws RenderingFailedException When any issue occurs during rendering.
      */
     public function render(
         string|ModelInterface $templateNameOrModel,
