@@ -5,9 +5,6 @@ declare(strict_types=1);
 namespace LaminasTest\View\Model;
 
 use ArrayObject;
-use Laminas\View\Exception\UndefinedVariableException;
-use Laminas\View\Model\ClearableModelInterface;
-use Laminas\View\Model\ModelInterface;
 use Laminas\View\Model\ViewModel;
 use Laminas\View\Variables as ViewVariables;
 use LaminasTest\View\Model\TestAsset\Variable;
@@ -19,18 +16,6 @@ use function count;
 
 final class ViewModelTest extends TestCase
 {
-    public function testImplementsModelInterface(): void
-    {
-        $model = new ViewModel();
-        self::assertInstanceOf(ModelInterface::class, $model);
-    }
-
-    public function testImplementsClearableModelInterface(): void
-    {
-        $model = new ViewModel();
-        self::assertInstanceOf(ClearableModelInterface::class, $model);
-    }
-
     public function testAllowsPassingVariablesToConstructor(): void
     {
         $model = new ViewModel(['foo' => 'bar']);
@@ -170,7 +155,7 @@ final class ViewModelTest extends TestCase
     public function testCanClearChildren(ViewModel $model): void
     {
         $model->clearChildren();
-        self::assertEquals(0, count($model));
+        self::assertCount(0, $model);
     }
 
     public function testTemplateIsEmptyByDefault(): void
@@ -359,17 +344,39 @@ final class ViewModelTest extends TestCase
         self::assertSame($expected, $model->getVariable('foo', $default));
     }
 
-    public function testStrictVariableCauseExceptionsDuringRetrievalOfUnknownVariable(): void
-    {
-        $view = new ViewModel();
-        $this->expectException(UndefinedVariableException::class);
-        $this->expectExceptionMessage('The variable "foo" has not been defined');
-        $view->foo;
-    }
-
     public function testNullIsReturnedForUnknownVariablesWhenStrictVariablesIsOff(): void
     {
-        $view = new ViewModel([], false);
+        $view = new ViewModel();
         self::assertNull($view->foo);
+    }
+
+    public function testSetTerminalHasFluentInterface(): void
+    {
+        $model = new ViewModel();
+        self::assertSame($model, $model->setTerminal(true));
+    }
+
+    public function testSetAppendHasFluentInterface(): void
+    {
+        $model = new ViewModel();
+        self::assertSame($model, $model->setAppend(true));
+    }
+
+    public function testSetCaptureToHasFluentInterface(): void
+    {
+        $model = new ViewModel();
+        self::assertSame($model, $model->setCaptureTo('foot'));
+    }
+
+    public function testSetTemplateHasFluentInterface(): void
+    {
+        $model = new ViewModel();
+        self::assertSame($model, $model->setTemplate('kermit'));
+    }
+
+    public function testAddChildHasFluentInterface(): void
+    {
+        $model = new ViewModel();
+        self::assertSame($model, $model->addChild(new ViewModel()));
     }
 }

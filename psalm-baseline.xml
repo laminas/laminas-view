@@ -34,23 +34,6 @@
     </MissingReturnType>
   </file>
   <file src="src/Model/ModelInterface.php">
-    <PossiblyUnusedMethod>
-      <code><![CDATA[isAppend]]></code>
-    </PossiblyUnusedMethod>
-    <PossiblyUnusedReturnValue>
-      <code><![CDATA[ModelInterface]]></code>
-      <code><![CDATA[ModelInterface]]></code>
-      <code><![CDATA[ModelInterface]]></code>
-      <code><![CDATA[ModelInterface]]></code>
-      <code><![CDATA[ModelInterface]]></code>
-    </PossiblyUnusedReturnValue>
-  </file>
-  <file src="src/Model/ViewModel.php">
-    <RedundantCastGivenDocblockType>
-      <code><![CDATA[(bool) $append]]></code>
-      <code><![CDATA[(bool) $terminate]]></code>
-      <code><![CDATA[(string) $capture]]></code>
-      <code><![CDATA[(string) $template]]></code>
-    </RedundantCastGivenDocblockType>
+    <PossiblyUnusedReturnValue/>
   </file>
 </files>

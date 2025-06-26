@@ -2,11 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Laminas\View\Helper\Service;
+namespace Laminas\View\Factory;
 
 use Laminas\Escaper\Escaper;
 use Psr\Container\ContainerInterface;
 
+/**
+ * @psalm-internal Laminas\View
+ * @psalm-internal LaminasTest\View
+ */
 final class EscaperFactory
 {
     public function __invoke(ContainerInterface $container): Escaper

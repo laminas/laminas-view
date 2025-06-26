@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Laminas\View\Resolver\Factory;
 
 use Laminas\View\ConfigProvider;
-use Laminas\View\Helper\Service\Configuration;
+use Laminas\View\Factory\Configuration;
 use Laminas\View\Resolver\TemplatePathStack;
 use Psr\Container\ContainerInterface;
 

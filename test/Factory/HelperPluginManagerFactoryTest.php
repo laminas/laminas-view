@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace LaminasTest\View;
+namespace Factory;
 
-use Laminas\View\HelperPluginManagerFactory;
+use Laminas\View\Factory\HelperPluginManagerFactory;
 use LaminasTest\View\TestAsset\InMemoryContainer;
 use PHPUnit\Framework\TestCase;
 

@@ -24,7 +24,7 @@ final class Layout
      * If no arguments are given, grabs the "root" or "layout" view model.
      * Otherwise, attempts to set the template for that view model.
      *
-     * @param null|string $template Providing a template name will set that template as the current layout template
+     * @param null|non-empty-string $template Provide a template name to set that template as the current layout
      * @return ($template is null ? ModelInterface : self)
      */
     public function __invoke(string|null $template = null): ModelInterface|self
