@@ -1,10 +1,13 @@
 {
     "name": "laminas/laminas-view",
-    "description": "Flexible view layer supporting and providing multiple view layers, helpers, and more",
+    "description": "Fast and type safe HTML templating library with a flexible plugin system supporting multistep template composition",
     "license": "BSD-3-Clause",
     "keywords": [
         "laminas",
-        "view"
+        "view",
+        "templating",
+        "templates",
+        "html"
     ],
     "homepage": "https://laminas.dev",
     "support": {
@@ -21,8 +24,7 @@
             "php": "8.1.99"
         },
         "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true,
-            "composer/package-versions-deprecated": true
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     },
     "extra": {
@@ -44,7 +46,7 @@
     },
     "require-dev": {
         "laminas/laminas-coding-standard": "~3.1.0",
-        "phpunit/phpunit": "^10.5.46",
+        "phpunit/phpunit": "^10.5.47",
         "psalm/plugin-phpunit": "^0.19.5",
         "vimeo/psalm": "^6.12.0"
     },
@@ -57,8 +59,6 @@
         "laminas/laminas-feed": "Laminas\\Feed component",
         "laminas/laminas-filter": "Laminas\\Filter component",
         "laminas/laminas-i18n": "Laminas\\I18n component",
-        "laminas/laminas-mvc": "Laminas\\Mvc component",
-        "laminas/laminas-mvc-plugin-flashmessenger": "laminas-mvc-plugin-flashmessenger component, if you want to use the FlashMessenger view helper with laminas-mvc versions 3 and up",
         "laminas/laminas-navigation": "Laminas\\Navigation component",
         "laminas/laminas-paginator": "Laminas\\Paginator component",
         "laminas/laminas-permissions-acl": "Laminas\\Permissions\\Acl component"
