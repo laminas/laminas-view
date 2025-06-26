@@ -27,12 +27,12 @@ final class PartialLoopRecursiveIterator implements Iterator
         $this->items[] = $iterator;
     }
 
-    public function current(): Iterator
+    public function current(): Iterator|false
     {
         return current($this->items);
     }
 
-    public function key(): int|string
+    public function key(): int|string|null
     {
         return key($this->items);
     }

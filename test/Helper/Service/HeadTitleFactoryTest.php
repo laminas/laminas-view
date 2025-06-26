@@ -11,6 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 final class HeadTitleFactoryTest extends TestCase
 {
+    /** @return iterable<string, array{0: array|null, 1: list<string>, 2: string}> */
     public static function configScenarios(): iterable
     {
         yield 'Reasonable valid config' => [

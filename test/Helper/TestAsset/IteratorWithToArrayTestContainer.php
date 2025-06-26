@@ -15,6 +15,7 @@ final class IteratorWithToArrayTestContainer
     /** @param array<array-key, mixed> $info */
     public function __construct(array $info)
     {
+        /** @psalm-var mixed $value */
         foreach ($info as $key => $value) {
             $this->$key = $value;
         }
@@ -22,7 +23,12 @@ final class IteratorWithToArrayTestContainer
         $this->info = $info;
     }
 
-    /** @return array<array-key, mixed> */
+    /**
+     * @deprecated To remove in 4.0
+     *
+     * @return array<array-key, mixed>
+     * @psalm-api Used in duck typing
+     */
     public function toArray(): array
     {
         return $this->info;
