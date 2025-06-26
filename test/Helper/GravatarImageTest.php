@@ -35,6 +35,16 @@ final class GravatarImageTest extends TestCase
         return $image;
     }
 
+    public function testThatTheGivenEmailAddressIsNormalisedPriorToHashing(): void
+    {
+        $image = ($this->helper)(' ME@EXample.COM ');
+
+        self::assertStringContainsString(
+            md5('me@example.com'),
+            $image
+        );
+    }
+
     /** @depends testThatTheGivenEmailAddressWillBeHashed  */
     public function testTheRatingWillDefaultToG(string $markup): void
     {
