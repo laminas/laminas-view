@@ -199,9 +199,7 @@ final class HeadStyle implements StatefulHelperInterface, Stringable
 
     private function itemToString(Tag $item): string
     {
-        if ($item->content === null) {
-            return '';
-        }
+        assert($item->content !== null);
 
         $attributes = $item->attributes;
         if (! $this->doctype->isHtml5()) {
