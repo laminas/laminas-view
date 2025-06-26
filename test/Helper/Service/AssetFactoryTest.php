@@ -36,7 +36,7 @@ final class AssetFactoryTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage(
             'Invalid resource map configuration. Expected the key '
-            . '"resource_map" to contain an array value but received "string"'
+            . '"resource_map" to contain an array value but received "string"',
         );
         (new AssetFactory())($container);
     }
@@ -105,5 +105,24 @@ final class AssetFactoryTest extends TestCase
             ->willReturn($config);
 
         return $services;
+    }
+
+    public function testAllConfiguredAssetsCanBeRetrieved(): void
+    {
+        $container = $this->getServices([
+            'view_helper_config' => [
+                'asset' => [
+                    'resource_map' => [
+                        'foo.css' => 'assets/foo.1.css',
+                        'bar.css' => 'assets/bar.1.css',
+                    ],
+                ],
+            ],
+        ]);
+
+        $helper = (new AssetFactory())($container);
+
+        self::assertSame('assets/foo.1.css', $helper->__invoke('foo.css'));
+        self::assertSame('assets/bar.1.css', $helper->__invoke('bar.css'));
     }
 }
