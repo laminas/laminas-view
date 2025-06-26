@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Laminas\View\Renderer;
 
-use Laminas\View\HelperPluginManager;
 use Laminas\View\HelperPluginManagerInterface;
 use Laminas\View\Resolver\ResolverInterface;
 use Psr\Container\ContainerInterface;
