@@ -110,7 +110,7 @@ final class Template implements IteratorAggregate
      *
      * @param non-empty-string $name
      */
-    public function __set(string $name, mixed $value): never
+    public function __set(string $name, mixed $_value): never
     {
         throw RenderingFailedException::becauseMemberVariablesCannotBeMutated($name, $this->__template);
     }

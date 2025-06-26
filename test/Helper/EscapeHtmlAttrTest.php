@@ -7,6 +7,8 @@ namespace LaminasTest\View\Helper;
 use Laminas\Escaper\Escaper;
 use Laminas\View\Helper\EscapeHtmlAttr;
 use Laminas\View\Helper\Escaper\AbstractHelper;
+use LaminasTest\View\Helper\TestAsset\ToArray;
+use LaminasTest\View\TestHelpers;
 use PHPUnit\Framework\TestCase;
 
 final class EscapeHtmlAttrTest extends TestCase
@@ -51,7 +53,8 @@ final class EscapeHtmlAttrTest extends TestCase
         );
     }
 
-    public function testCanRecurseObjectImplementingToArray(): void
+    /** @link ToArray::toArray() */
+    public function testCanRecurseObjectImplementingToArrayWithDeprecation(): void
     {
         $original = [
             'foo' => '<b>bar</b>',
@@ -73,8 +76,16 @@ final class EscapeHtmlAttrTest extends TestCase
             ],
         ];
 
-        $object = new TestAsset\ToArray($original);
-        self::assertEquals($expected, $this->helper->__invoke($object, AbstractHelper::RECURSE_OBJECT));
+        $object = new ToArray($original);
+
+        /** @var mixed $result */
+        $result = TestHelpers::expectDeprecationWithMessage(
+            'Non-iterable objects implementing a `toArray`',
+            fn (): mixed => $this->helper->__invoke($object, AbstractHelper::RECURSE_OBJECT),
+        );
+
+        self::assertIsArray($result);
+        self::assertEquals($expected, $result);
     }
 
     public function testCanRecurseObjectProperties(): void

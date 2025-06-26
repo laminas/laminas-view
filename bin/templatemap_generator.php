@@ -98,6 +98,7 @@ if (empty($files)) {
 }
 
 $realPath = realpath($basePath);
+assert($realPath !== false);
 
 $entries = array_map(function (string $file) use ($basePath, $realPath) {
     $file = str_replace('\\', '/', $file);
@@ -115,6 +116,7 @@ $entries = array_map(function (string $file) use ($basePath, $realPath) {
         : $template;
 
     $template = preg_replace('#^\.*/#', '', $template);
+    assert(is_string($template));
 
     return sprintf("    '%s' => __DIR__ . '/%s',", $template, $file);
 }, $files);

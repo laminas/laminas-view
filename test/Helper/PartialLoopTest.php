@@ -75,6 +75,8 @@ final class PartialLoopTest extends TestCase
 
         $result = $this->helper->__invoke('basic-loop.phtml', $rIterator);
         foreach ($rIterator as $item) {
+            self::assertNotFalse($item);
+            /** @var mixed $value */
             foreach ($item as $value) {
                 self::assertIsString($value);
                 self::assertStringContainsString($value, $result, var_export($value, true));

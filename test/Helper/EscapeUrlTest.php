@@ -7,6 +7,8 @@ namespace LaminasTest\View\Helper;
 use Laminas\Escaper\Escaper;
 use Laminas\View\Helper\Escaper\AbstractHelper;
 use Laminas\View\Helper\EscapeUrl;
+use LaminasTest\View\Helper\TestAsset\ToArray;
+use LaminasTest\View\TestHelpers;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -53,7 +55,8 @@ final class EscapeUrlTest extends TestCase
         self::assertSame('%3Ci%3E', $this->helper->__invoke($object));
     }
 
-    public function testCanRecurseObjectImplementingToArray(): void
+    /** @link ToArray::toArray() */
+    public function testCanRecurseObjectImplementingToArrayWithDeprecation(): void
     {
         $original = [
             'foo' => '<b>bar</b>',
@@ -64,7 +67,7 @@ final class EscapeUrlTest extends TestCase
                 ],
             ],
         ];
-        $object   = new TestAsset\ToArray($original);
+
         $expected = [
             'foo' => '%3Cb%3Ebar%3C%2Fb%3E',
             'baz' => [
@@ -74,7 +77,17 @@ final class EscapeUrlTest extends TestCase
                 ],
             ],
         ];
-        self::assertEquals($expected, $this->helper->__invoke($object, AbstractHelper::RECURSE_OBJECT));
+
+        $object = new ToArray($original);
+
+        /** @var mixed $result */
+        $result = TestHelpers::expectDeprecationWithMessage(
+            'Non-iterable objects implementing a `toArray`',
+            fn (): mixed => $this->helper->__invoke($object, AbstractHelper::RECURSE_OBJECT),
+        );
+
+        self::assertIsArray($result);
+        self::assertEquals($expected, $result);
     }
 
     public function testCanRecurseObjectProperties(): void

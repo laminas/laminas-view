@@ -46,9 +46,8 @@ final class ViewModelTest extends TestCase
 
     public function testAllowsPassingNonArrayAccessObjectsAsArrayInConstructor(): void
     {
-        $vars  = ['foo' => new Variable()];
-        $model = new ViewModel($vars);
-        self::assertSame($vars, $model->getVariables());
+        $model = new ViewModel(new Variable(['foo' => 'bar']));
+        self::assertSame(['foo' => 'bar'], $model->getVariables());
     }
 
     public function testCanSetVariablesSingly(): void

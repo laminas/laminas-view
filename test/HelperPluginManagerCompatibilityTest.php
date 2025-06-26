@@ -67,13 +67,21 @@ final class HelperPluginManagerCompatibilityTest extends TestCase
     public function testRegisteringInvalidElementRaisesException(): void
     {
         $this->expectException($this->getServiceNotFoundException());
-        self::getPluginManager()->setService('test', $this);
+        self::getPluginManager()->configure([
+            'services' => [
+                'test' => $this,
+            ],
+        ]);
     }
 
     public function testLoadingInvalidElementRaisesException(): void
     {
         $manager = self::getPluginManager();
-        $manager->setInvokableClass('test', stdClass::class);
+        $manager->configure([
+            'invokables' => [
+                'test' => stdClass::class,
+            ],
+        ]);
         $this->expectException($this->getServiceNotFoundException());
         $manager->get('test');
     }
