@@ -7,3 +7,5 @@
 .phpunit.cache
 .phpcs-cache
 .markdownlint.json
+infection.json5
+infection.log

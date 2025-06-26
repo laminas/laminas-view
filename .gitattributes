@@ -15,3 +15,4 @@
 /renovate.json export-ignore
 /.psr-container.php.stub export-ignore
 /tools/ export-ignore
+/.infection.json5.dist export-ignore

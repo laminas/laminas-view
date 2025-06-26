@@ -33,6 +33,7 @@ install: install-tools ## Install PHP dependencies
 
 install-tools: ## Install standalone dev tools
 	cd tools/crc && composer install
+	cd tools/infection && composer install
 .PHONY: install-tools
 
 update: ## Update PHP dependencies
@@ -45,6 +46,7 @@ bump: bump-tools ## Bump dev dependencies and update
 
 bump-tools: ## Bump and update standalone dev tools
 	cd tools/crc && composer update && composer bump -D && composer update
+	cd tools/infection && composer update && composer bump && composer update
 .PHONY: bump-tools
 
 clean: ## Clear out caches and documentation assets
@@ -68,6 +70,12 @@ cs: ## Run coding standards checks
 test: ## Run unit tests
 	vendor/bin/phpunit
 .PHONY: test
+
+mutants: ## Run mutation tests
+	tools/infection/vendor/bin/roave-infection-static-analysis-plugin \
+ 		--configuration=.infection.json5.dist \
+ 		--psalm-config=psalm.xml.dist
+.PHONY: mutants
 
 composer-validate: ## Validate composer.json and lock
 	composer validate --strict
