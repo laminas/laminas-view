@@ -1,6 +1,7 @@
 # laminas-view
 
 [![Build Status](https://github.com/laminas/laminas-view/workflows/Continuous%20Integration/badge.svg)](https://github.com/laminas/laminas-view/actions?query=workflow%3A"Continuous+Integration")
+[![Type Coverage](https://shepherd.dev/github/laminas/laminas-view/coverage.svg)](https://shepherd.dev/github/laminas/laminas-view)
 
 > ## 🇷🇺 Русским гражданам
 >
@@ -18,9 +19,7 @@
 >
 > You trust us enough to use our software. We ask that you trust us to say the truth on this. We need your help. Go out and protest this unnecessary war. Stop the bloodshed. Say "stop the war!"
 
-laminas-view provides the “View” layer of the Laminas MVC system. It is a
-multi-tiered system allowing a variety of mechanisms for extension,
-substitution, and more.
+laminas-view is a fast and type safe HTML templating library with a flexible plugin system supporting multistep template composition.
 
 ## Installation
 
