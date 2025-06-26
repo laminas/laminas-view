@@ -11,6 +11,9 @@ use function is_array;
 use function is_object;
 use function is_string;
 use function method_exists;
+use function trigger_error;
+
+use const E_USER_DEPRECATED;
 
 /**
  * @psalm-internal Laminas\View
@@ -72,6 +75,11 @@ abstract class AbstractHelper
             }
 
             if (method_exists($value, 'toArray')) {
+                trigger_error(
+                    'Non-iterable objects implementing a `toArray` method will be rejected in version 4.0 '
+                    . 'of laminas-view ',
+                    E_USER_DEPRECATED,
+                );
                 return $this->__invoke($value->toArray(), $recurse | self::RECURSE_ARRAY);
             }
 
