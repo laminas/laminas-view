@@ -211,6 +211,10 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     /**
      * Retrieve template name or template resolver
      *
+     * @deprecated Since 2.40.0. In version 3.0 you will be able to retrieve template resolvers from the DI container
+     *             in use and use resolvers directly where necessary, therefore this method will be removed without
+     *             replacement
+     *
      * @param  null|string $name
      * @return string|Resolver
      */
@@ -231,6 +235,10 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      * Set variable storage
      *
      * Expects either an array, or an object implementing ArrayAccess.
+     *
+     * @deprecated Since 2.40.0. In version 3.0, the PHP Renderer will no longer store or aggregate any view variables.
+     *             Variables should only be passed to the {@link render} method, either as the second argument, or as
+     *             part of a view model.
      *
      * @param  array<string, mixed>|ArrayAccess<string, mixed> $variables
      * @return PhpRenderer
@@ -261,6 +269,9 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     /**
      * Get a single variable, or all variables
      *
+     * @deprecated Since 2.40.0. In version 3.0, the PHP Renderer will no longer store or aggregate any view variables,
+     *             therefore this method will be redundant.
+     *
      * @param string|null $key
      * @return ($key is null ? Variables : mixed)
      */
@@ -281,6 +292,9 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     /**
      * Get a single variable
      *
+     * @deprecated Since 2.40.0. In version 3.0, the PHP Renderer will no longer store or aggregate any view variables,
+     *             therefore this method will be redundant.
+     *
      * @param string $key
      * @return mixed
      */
@@ -296,7 +310,10 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     /**
      * Overloading: proxy to Variables container
      *
-     * @param  string $name
+     * @deprecated Since 2.40.0. In version 3.0, the PHP Renderer will no longer store or aggregate any view variables,
+     *             therefore this method will be redundant.
+     *
+     * @param string $name
      * @return mixed
      */
     public function __get($name)
@@ -308,8 +325,12 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     /**
      * Overloading: proxy to Variables container
      *
-     * @param  string $name
-     * @param  mixed $value
+     * @deprecated Since 2.40.0. In version 3.0, the PHP Renderer will no longer store or aggregate any view variables.
+     *             Variables should only be passed to the {@link render} method, either as the second argument, or as
+     *             part of a view model.
+     *
+     * @param string $name
+     * @param mixed $value
      * @return void
      */
     public function __set($name, $value)
@@ -321,7 +342,10 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     /**
      * Overloading: proxy to Variables container
      *
-     * @param  string $name
+     * @deprecated Since 2.40.0. In version 3.0, the PHP Renderer will no longer store or aggregate any view variables,
+     *             therefore this method will be redundant.
+     *
+     * @param string $name
      * @return bool
      */
     public function __isset($name)
@@ -333,7 +357,10 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     /**
      * Overloading: proxy to Variables container
      *
-     * @param  string $name
+     * @deprecated Since 2.40.0. In version 3.0, the PHP Renderer will no longer store or aggregate any view variables,
+     *             therefore this method will be redundant.
+     *
+     * @param string $name
      * @return void
      */
     public function __unset($name)
@@ -401,6 +428,10 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     /**
      * Get plugin instance
      *
+     * @deprecated Since 2.40.0. This method will be removed in 3.0 without replacement. If you need to retrieve view
+     *             helpers, use your dependency injection container to retrieve the plugin manager in order to fetch
+     *             helpers.
+     *
      * @template T
      * @param  string|class-string<T> $name Name of plugin to return
      * @param  null|array $options Options to pass to plugin constructor (if not already instantiated)
@@ -419,6 +450,9 @@ class PhpRenderer implements Renderer, TreeRendererInterface
      *
      * * If the helper does not define __invoke, it will be returned
      * * If the helper does define __invoke, it will be called as a functor
+     *
+     * @deprecated Since 2.40.0. In version 3.0, all magic will be removed from the PhpRenderer. Removing call here
+     *             will not affect view helper usage inside template files.
      *
      * @param  string $method
      * @param  array $argv
@@ -439,6 +473,10 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     /**
      * Set filter chain
      *
+     * @deprecated Since 2.40.0. In version 3.0 this method will be replaced with a `setFilter` method that accepts
+     *             a callable instead of a Laminas Filter instance. Laminas Filters will continue to work, but you
+     *             will need to update the sites where you call this method to use `setFilter()` instead.
+     *
      * @return PhpRenderer
      */
     public function setFilterChain(FilterChain $filters)
@@ -449,6 +487,8 @@ class PhpRenderer implements Renderer, TreeRendererInterface
 
     /**
      * Retrieve filter chain for post-filtering script content
+     *
+     * @deprecated Since 2.40.0. This method will be removed in 3.0 without replacement.
      *
      * @return FilterChain
      */
@@ -603,7 +643,11 @@ class PhpRenderer implements Renderer, TreeRendererInterface
     /**
      * Add a template to the stack
      *
-     * @param  string $template
+     * @deprecated Since 2.40.0. In version 3.0, the PHP Renderer will only be capable of rendering a single template at
+     *             a time, and the renderer instance will not be exposed to the view template, therefore this method
+     *             will be removed without replacement.
+     *
+     * @param string $template
      * @return PhpRenderer
      */
     public function addTemplate($template)
