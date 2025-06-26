@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Laminas\View\Renderer;
 
 use Laminas\View\HelperPluginManager;
+use Laminas\View\HelperPluginManagerInterface;
 use Laminas\View\Resolver\ResolverInterface;
 use Psr\Container\ContainerInterface;
 
@@ -21,7 +22,7 @@ final class PhpRendererFactory
         assert(is_bool($strict));
 
         return new PhpRenderer(
-            $container->get(HelperPluginManager::class),
+            $container->get(HelperPluginManagerInterface::class),
             $container->get(ResolverInterface::class),
             $strict,
         );

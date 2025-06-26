@@ -6,7 +6,7 @@ namespace Laminas\View\Renderer;
 
 use Laminas\View\Exception\RenderingFailedException;
 use Laminas\View\Helper\ViewModel;
-use Laminas\View\HelperPluginManager;
+use Laminas\View\HelperPluginManagerInterface;
 use Laminas\View\Model\ModelInterface;
 use Laminas\View\Resolver\ResolverInterface;
 
@@ -19,7 +19,7 @@ final class PhpRenderer implements RendererInterface
     private $filter;
 
     public function __construct(
-        private readonly HelperPluginManager $pluginManager,
+        private readonly HelperPluginManagerInterface $pluginManager,
         private readonly ResolverInterface $templateResolver,
         private readonly bool $strictVariables = true,
     ) {
