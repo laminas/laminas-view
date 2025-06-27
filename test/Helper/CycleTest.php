@@ -99,4 +99,21 @@ final class CycleTest extends TestCase
             self::assertEquals($expected2[$i], (string) $this->helper->__invoke($expected2, 'cycle2')->next());
         }
     }
+
+    public function testResetStateClearsSetVariables(): void
+    {
+        $this->helper->__invoke(['a', 'b', 'c']);
+        $this->helper->resetState();
+
+        self::assertSame('', (string) $this->helper);
+        self::assertSame(0, $this->helper->key());
+        self::assertSame('', (string) $this->helper->next());
+        self::assertSame(0, $this->helper->key());
+    }
+
+    public function testPointerStartsAtZeroForCustomNamedCycles(): void
+    {
+        $this->helper->setName('foo');
+        self::assertSame(0, $this->helper->key());
+    }
 }

@@ -129,10 +129,11 @@ final class HtmlAttributesSetTest extends TestCase
     public function testBooleanFalseValuesAreOmitted(): void
     {
         $value = (string) new HtmlAttributesSet(new Escaper(), [
-            'some' => false,
+            'some'  => false,
+            'other' => 'foo',
         ]);
 
-        self::assertSame('', $value);
+        self::assertSame(' other="foo"', $value);
     }
 
     public function testBooleanTrueValuesUseNameAsValue(): void
@@ -167,5 +168,11 @@ final class HtmlAttributesSetTest extends TestCase
         $attributes = new ArrayObject(['foo' => 'bar']);
         $value      = (string) new HtmlAttributesSet(new Escaper(), $attributes);
         self::assertSame(' foo="bar"', $value);
+    }
+
+    public function testAttributeKeysAreNormalisedToLowercase(): void
+    {
+        $value = (string) new HtmlAttributesSet(new Escaper(), ['MUPPET' => 'Kermit']);
+        self::assertSame(' muppet="Kermit"', $value);
     }
 }

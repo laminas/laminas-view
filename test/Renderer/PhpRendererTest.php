@@ -97,6 +97,7 @@ final class PhpRendererTest extends TestCase
     public function testAccessToUndefinedVariablesIsExceptional(): void
     {
         $this->expectException(RenderingFailedException::class);
+        $this->expectExceptionCode(0);
         $this->expectExceptionMessage('Access to an undeclared variable "message" in the template');
         $this->renderer->render('variable-as-property');
     }
@@ -118,6 +119,7 @@ final class PhpRendererTest extends TestCase
     public function testCallsToUnknownHelpersAreExceptional(): void
     {
         $this->expectException(RenderingFailedException::class);
+        $this->expectExceptionCode(0);
         $this->expectExceptionMessage(
             'Access to an unknown view helper alias "notAKnownHelperAlias" from the template',
         );
@@ -127,6 +129,7 @@ final class PhpRendererTest extends TestCase
     public function testExceptionsThrownInViewHelpersAreWrapped(): void
     {
         $this->expectException(RenderingFailedException::class);
+        $this->expectExceptionCode(0);
         $this->expectExceptionMessage(
             'An exception occurred during execution of the plugin "exceptionalHelper". Message: A helper exception',
         );
@@ -187,6 +190,7 @@ final class PhpRendererTest extends TestCase
     {
         $model = new ViewModel();
         $this->expectException(RenderingFailedException::class);
+        $this->expectExceptionCode(0);
         $this->expectExceptionMessage(
             'A template must be specified during rendering, either as an argument or as a property of the view model',
         );
@@ -222,6 +226,7 @@ final class PhpRendererTest extends TestCase
         $model->setTemplate('local-exception');
 
         $this->expectException(RenderingFailedException::class);
+        $this->expectExceptionCode(0);
         $this->expectExceptionMessage('local-exception.phtml" with the message: I was thrown in the view');
         $this->renderer->render($model);
     }
@@ -229,6 +234,7 @@ final class PhpRendererTest extends TestCase
     public function testRendererRaisesExceptionIfResolverCannotResolveTemplate(): void
     {
         $this->expectException(RenderingFailedException::class);
+        $this->expectExceptionCode(0);
         $this->expectExceptionMessage(
             'Unable to render template "should-not-find-this"; resolver could not resolve to a file',
         );
@@ -302,6 +308,7 @@ final class PhpRendererTest extends TestCase
     public function testAnEmptyTemplateNameIsExceptional(): void
     {
         $this->expectException(RenderingFailedException::class);
+        $this->expectExceptionCode(0);
         $this->expectExceptionMessage(
             'A template must be specified during rendering, either as an argument or as a property of the view model',
         );
@@ -313,6 +320,7 @@ final class PhpRendererTest extends TestCase
     public function testThatInfiniteRenderLoopIsStoppedViaException(): void
     {
         $this->expectException(RenderingFailedException::class);
+        $this->expectExceptionCode(0);
         $this->expectExceptionMessage('A cyclic rendering dependency has been detected during render of the template');
 
         $this->renderer->render('infinite-render-loop.phtml');
@@ -321,6 +329,7 @@ final class PhpRendererTest extends TestCase
     public function testViewVariablePropertiesCannotBeMutatedInTheTemplate(): void
     {
         $this->expectException(RenderingFailedException::class);
+        $this->expectExceptionCode(0);
         $this->expectExceptionMessage('Attempt to mutate the variable "message" in the template');
         $this->renderer->render('variable-mutation', ['message' => 'Some Message']);
     }

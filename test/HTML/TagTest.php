@@ -58,4 +58,35 @@ final class TagTest extends TestCase
             ),
         );
     }
+
+    public function testAttributeKeysAreNormalisedToLowercase(): void
+    {
+        $tag = new Tag('foo', ['NUTS' => 'Macadamia']);
+
+        self::assertSame(['nuts' => 'Macadamia'], $tag->attributes);
+    }
+
+    public function testHasAttributeIsCaseInsensitive(): void
+    {
+        $tag = new Tag('foo', ['muppet' => 'Fozzy Bear']);
+
+        self::assertFalse($tag->hasAttribute('bing-bong'));
+        self::assertTrue($tag->hasAttribute('muppet'));
+        self::assertTrue($tag->hasAttribute('MUPPET'));
+    }
+
+    public function testAttributeRetrievalIsCaseInsensitive(): void
+    {
+        $tag = new Tag('foo', ['muppet' => 'Kermit']);
+
+        self::assertSame('Kermit', $tag->getAttribute('muppet'));
+        self::assertSame('Kermit', $tag->getAttribute('MUPPET'));
+    }
+
+    public function testUnknownAttributeRetrievalYieldsNull(): void
+    {
+        $tag = new Tag('foo');
+
+        self::assertNull($tag->getAttribute('anything'));
+    }
 }

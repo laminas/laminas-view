@@ -81,7 +81,7 @@ final class Cycle implements Stringable, StatefulHelperInterface
      */
     public function toString(): string
     {
-        return (string) $this->data[$this->name][$this->key()];
+        return (string) ($this->data[$this->name][$this->key()] ?? '');
     }
 
     /**
