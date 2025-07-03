@@ -48,9 +48,6 @@ Which would then render:
 >
 > - **`array`**: If an array is passed, it should be associative, as its key/value
 >   pairs are assigned to > the view with keys as view variables.
-> - **Object implementing `toArray(`) method**. If an object is passed an has a
->   `toArray()` method, the results of `toArray()` will be assigned to the view
->   object as view variables.
 > - **Standard object**. Any other object will assign the results of
 >   `get_object_vars()` (essentially all public properties of the object) to the
 >   view object.
