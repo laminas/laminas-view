@@ -274,6 +274,25 @@ The inheritance hierarchy has been removed from this helper and the following me
 
 The layout model accessor and layout template setter were infeasible to use because retrieving the instance from a view template context, required setting the layout template with `$this->layout('some-template')`, therefore, the `getLayout` and `setTemplate` methods were inaccessible in normal usage.
 
+#### `Partial`
+
+This helper no longer inherits from a base class, therefore the following methods have been removed:
+
+- `getView`
+- `setView`
+
+Additionally, the usage of non-iterable objects implementing a `toArray` method to represent the variables passed to the template is now deprecated.
+
+#### `PartialLoop`
+
+This helper no longer inherits from a base class, therefore the following methods have been removed:
+
+- `getView`
+- `setView`
+- `loop`
+
+Additionally, the usage of non-iterable objects implementing a `toArray` method to represent the variables passed to the template is now deprecated.
+
 #### `Placeholder`
 
 The inheritance hierarchy has been removed from this helper and the following methods have been removed:
