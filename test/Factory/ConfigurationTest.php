@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Factory;
+namespace LaminasTest\View\Factory;
 
 use Laminas\View\Factory\Configuration;
 use LaminasTest\View\TestAsset\InMemoryContainer;
