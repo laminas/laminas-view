@@ -46,8 +46,13 @@ Which would then render:
 >
 > A model used with the `Partial` view helper can be one of the following:
 >
+> - **`ModelInterface`**: If a model implementing the `ModelInterface` is passed,
+>   the view variables are set using the result of `ModelInterface::getVariables()`.
 > - **`array`**: If an array is passed, it should be associative, as its key/value
->   pairs are assigned to > the view with keys as view variables.
+>   pairs are assigned to the view with keys as view variables.
+> - **`Traversable`**: In case a `Traversable` object is passed (providing it is
+>   Traversable<string, mixed>), it will be converted to an array using
+>   `iterator_to_array()`, and then treated as an associative array.
 > - **Standard object**. Any other object will assign the results of
 >   `get_object_vars()` (essentially all public properties of the object) to the
 >   view object.
