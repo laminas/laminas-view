@@ -112,7 +112,7 @@ final class PhpRendererTest extends TestCase
 
         self::assertStringContainsString(
             '<p></p>',
-            $renderer->render('variable-as-property')
+            $renderer->render('variable-as-property'),
         );
     }
 
@@ -344,6 +344,32 @@ final class PhpRendererTest extends TestCase
         self::assertStringContainsString(
             '<p>Custom Message</p>',
             $this->renderer->render('undefined-variable-condition', ['message' => 'Custom Message']),
+        );
+    }
+
+    public function testThatInvokableObjectsAreNotInvokedOnAccess(): void
+    {
+        $invokable = new class {
+            public function __invoke(): string
+            {
+                return 'INVOKE';
+            }
+
+            public function __toString(): string
+            {
+                return 'STRING';
+            }
+        };
+
+        $content = $this->renderer->render('invokable-variable', ['item' => $invokable]);
+
+        self::assertStringContainsString(
+            '<cast-to-string>STRING</cast-to-string>',
+            $content,
+        );
+        self::assertStringContainsString(
+            '<invoke>INVOKE</invoke>',
+            $content,
         );
     }
 }
