@@ -18,11 +18,6 @@
         </ignoreFiles>
     </projectFiles>
 
-    <fileExtensions>
-        <extension name=".php"/>
-        <extension name=".phtml" checker="test/StaticAnalysis/TemplateAnalyzer.php" />
-    </fileExtensions>
-
     <issueHandlers>
         <UnusedClass>
             <!-- SA Test cases are never referenced -->
