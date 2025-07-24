@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Laminas\View\Helper\Service;
 
 use Laminas\View\ConfigProvider;
+use Laminas\View\Factory\Configuration;
 use Laminas\View\Helper\BasePath;
 use Psr\Container\ContainerInterface;
 

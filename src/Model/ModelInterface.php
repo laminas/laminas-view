@@ -46,85 +46,69 @@ interface ModelInterface extends Countable, IteratorAggregate
     /**
      * Set the template to be used by this model
      *
-     * @param  string $template
-     * @return ModelInterface
+     * @param non-empty-string $template
      */
-    public function setTemplate($template);
+    public function setTemplate(string $template): static;
 
     /**
      * Get the template to be used by this model
      *
-     * @return string
+     * Implementations should return an empty string when the template has not been set
      */
-    public function getTemplate();
+    public function getTemplate(): string;
 
     /**
      * Add a child model
      *
-     * @param  null|string $captureTo Optional; if specified, the "capture to" value to set on the child
-     * @param  null|bool $append Optional; if specified, append to child  with the same capture
-     * @return ModelInterface
+     * @param null|non-empty-string $captureTo Optional; if specified, the "capture to" value to set on the child.
+     *                                         When null, the default 'capture to' value is used.
+     * @param bool|null $append Optional; when true, the child model will be marked as an appending model.
      */
-    public function addChild(ModelInterface $child, $captureTo = null, $append = false);
+    public function addChild(ModelInterface $child, string|null $captureTo = null, bool|null $append = null): static;
 
     /**
      * Return all children.
      *
-     * Return specifies an array, but may be any iterable object.
-     *
      * @return list<ModelInterface>
      */
-    public function getChildren();
+    public function getChildren(): array;
 
     /**
      * Does the model have any children?
-     *
-     * @return bool
      */
-    public function hasChildren();
+    public function hasChildren(): bool;
 
     /**
      * Set the name of the variable to capture this model to, if it is a child model
      *
-     * @param  string $capture
-     * @return ModelInterface
+     * @param non-empty-string $capture
      */
-    public function setCaptureTo($capture);
+    public function setCaptureTo(string $capture): static;
 
     /**
      * Get the name of the variable to which to capture this model
      *
-     * @return string
+     * @return non-empty-string
      */
-    public function captureTo();
+    public function captureTo(): string;
 
     /**
-     * Set flag indicating whether or not this is considered a terminal or standalone model
-     *
-     * @param  bool $terminate
-     * @return ModelInterface
+     * Set flag indicating whether this is considered a terminal or standalone model
      */
-    public function setTerminal($terminate);
+    public function setTerminal(bool $terminate): static;
 
     /**
      * Is this considered a terminal or standalone model?
-     *
-     * @return bool
      */
-    public function terminate();
+    public function terminate(): bool;
 
     /**
-     * Set flag indicating whether or not append to child  with the same capture
-     *
-     * @param  bool $append
-     * @return ModelInterface
+     * Set flag indicating whether to append to child with the same capture
      */
-    public function setAppend($append);
+    public function setAppend(bool $append): static;
 
     /**
      * Is this append to child  with the same capture?
-     *
-     * @return bool
      */
-    public function isAppend();
+    public function isAppend(): bool;
 }

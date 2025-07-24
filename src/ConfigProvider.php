@@ -8,7 +8,6 @@ use Laminas\Escaper\Escaper;
 use Laminas\Escaper\EscaperInterface;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Helper\Doctype;
-use Laminas\View\Helper\Service\EscaperFactory;
 
 /**
  * @psalm-import-type DoctypeID from Doctype
@@ -24,7 +23,9 @@ use Laminas\View\Helper\Service\EscaperFactory;
  *     },
  *     view_manager?: array{
  *         base_path?: non-empty-string|null,
- *         strict_variables: bool,
+ *         strict_variables?: bool,
+ *         default_layout?: non-empty-string,
+ *         default_capture_to?: non-empty-string,
  *         doctype?: DoctypeID,
  *         encoding?: non-empty-string,
  *         template_map?: array<string, string>,
@@ -33,7 +34,10 @@ use Laminas\View\Helper\Service\EscaperFactory;
  *         default_template_suffix?: non-empty-string,
  *     },
  *     templates?: array{
+ *         strict_variables?: bool,
+ *         default_capture_to?: non-empty-string,
  *         extension?: non-empty-string,
+ *         default_layout?: non-empty-string,
  *         map?: array<string, string>,
  *     },
  * }
@@ -109,6 +113,11 @@ final class ConfigProvider
             ],
             'templates'          => [
                 /**
+                 * Strict variables controls whether an exception is thrown when a view template attempts to use a
+                 * variable that has not been defined.
+                 */
+                'strict_variables' => true,
+                /**
                  * Templates configured here will be provided to the TemplateMapResolver
                  * This is conventional for a Mezzio app
                  */
@@ -128,13 +137,14 @@ final class ConfigProvider
     {
         return [
             'factories' => [
-                HelperPluginManager::class              => HelperPluginManagerFactory::class,
-                Escaper::class                          => EscaperFactory::class,
                 Renderer\PhpRenderer::class             => Renderer\PhpRendererFactory::class,
                 Resolver\AggregateResolver::class       => Resolver\Factory\AggregateResolverFactory::class,
                 Resolver\PrefixPathStackResolver::class => Resolver\Factory\PrefixPathStackResolverFactory::class,
                 Resolver\TemplateMapResolver::class     => Resolver\Factory\TemplateMapResolverFactory::class,
                 Resolver\TemplatePathStack::class       => Resolver\Factory\TemplatePathStackResolverFactory::class,
+                Escaper::class                          => Factory\EscaperFactory::class,
+                HelperPluginManager::class              => Factory\HelperPluginManagerFactory::class,
+                View::class                             => Factory\ViewFactory::class,
             ],
             'aliases'   => [
                 EscaperInterface::class             => Escaper::class,

@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Laminas\View\Model;
 
 use ArrayIterator;
-use Laminas\View\Exception\UndefinedVariableException;
-use ReturnTypeWillChange;
 use Traversable;
 
 use function array_key_exists;
@@ -24,30 +22,21 @@ final class ViewModel implements ModelInterface, ClearableModelInterface, Retrie
     /**
      * What variable a parent model should capture this model to
      *
-     * @var string
+     * @var non-empty-string
      */
-    protected $captureTo = 'content';
+    private string $captureTo = 'content';
 
     /**
      * Child models
      *
      * @var list<ModelInterface>
      */
-    protected $children = [];
-
-    /**
-     * Template to use when rendering this model
-     *
-     * @var string
-     */
-    protected $template = '';
+    private array $children = [];
 
     /**
      * Is this a standalone, or terminal, model?
-     *
-     * @var bool
      */
-    protected $terminate = false;
+    private bool $terminate = false;
 
     /**
      * View variables
@@ -57,18 +46,16 @@ final class ViewModel implements ModelInterface, ClearableModelInterface, Retrie
     private array $variables;
 
     /**
-     * Is this append to child  with the same capture?
-     *
-     * @var bool
+     * Is this append to child with the same capture?
      */
-    protected $append = false;
+    private bool $append = false;
 
     /**
      * @param iterable<string, mixed> $variables
      */
     public function __construct(
         iterable $variables = [],
-        private readonly bool $strictVariables = true,
+        private string $template = '',
     ) {
         $this->variables = array_map(
             static fn (mixed $value): mixed => $value,
@@ -86,15 +73,9 @@ final class ViewModel implements ModelInterface, ClearableModelInterface, Retrie
 
     /**
      * Property overloading: get variable value
-     *
-     * @throws UndefinedVariableException
      */
     public function __get(string $name): mixed
     {
-        if (! isset($this->variables[$name]) && $this->strictVariables) {
-            throw UndefinedVariableException::forVariableName($name);
-        }
-
         return $this->variables[$name] ?? null;
     }
 
@@ -168,89 +149,48 @@ final class ViewModel implements ModelInterface, ClearableModelInterface, Retrie
         return $this;
     }
 
-    /**
-     * Set the template to be used by this model
-     *
-     * @param  string $template
-     * @return ViewModel
-     */
-    public function setTemplate($template)
+    public function setTemplate(string $template): static
     {
-        $this->template = (string) $template;
+        $this->template = $template;
         return $this;
     }
 
-    /**
-     * Get the template to be used by this model
-     *
-     * @return string
-     */
-    public function getTemplate()
+    public function getTemplate(): string
     {
         return $this->template;
     }
 
-    /**
-     * Add a child model
-     *
-     * @param  null|string $captureTo Optional; if specified, the "capture to" value to set on the child
-     * @param  null|bool $append Optional; if specified, append to child  with the same capture
-     * @return ViewModel
-     */
-    public function addChild(ModelInterface $child, $captureTo = null, $append = null)
+    public function addChild(ModelInterface $child, string|null $captureTo = null, bool|null $append = null): static
     {
         $this->children[] = $child;
-        if (null !== $captureTo) {
+        if ($captureTo !== null) {
             $child->setCaptureTo($captureTo);
         }
-        if (null !== $append) {
+
+        if ($append !== null) {
             $child->setAppend($append);
         }
 
         return $this;
     }
 
-    /**
-     * Return all children.
-     *
-     * Return specifies an array, but may be any iterable object.
-     *
-     * @return list<ModelInterface>
-     */
-    public function getChildren()
+    public function getChildren(): array
     {
         return $this->children;
     }
 
-    /**
-     * Does the model have any children?
-     *
-     * @return bool
-     */
-    public function hasChildren()
+    public function hasChildren(): bool
     {
-        return (bool) $this->children;
+        return $this->children !== [];
     }
 
-    /**
-     * Clears out all child models
-     *
-     * @return ViewModel
-     */
-    public function clearChildren()
+    public function clearChildren(): static
     {
         $this->children = [];
         return $this;
     }
 
-    /**
-     * Returns an array of Viewmodels with captureTo value $capture
-     *
-     * @param string $capture
-     * @param bool $recursive search recursive through children, default true
-     * @return list<ModelInterface>
-     */
-    public function getChildrenByCaptureTo($capture, $recursive = true)
+    public function getChildrenByCaptureTo(string $capture, bool $recursive = true): array
     {
         $children = [];
 
@@ -267,79 +207,40 @@ final class ViewModel implements ModelInterface, ClearableModelInterface, Retrie
         return $children;
     }
 
-    /**
-     * Set the name of the variable to capture this model to, if it is a child model
-     *
-     * @param  string $capture
-     * @return ViewModel
-     */
-    public function setCaptureTo($capture)
+    public function setCaptureTo(string $capture): static
     {
-        $this->captureTo = (string) $capture;
+        $this->captureTo = $capture;
         return $this;
     }
 
-    /**
-     * Get the name of the variable to which to capture this model
-     *
-     * @return string
-     */
-    public function captureTo()
+    public function captureTo(): string
     {
         return $this->captureTo;
     }
 
-    /**
-     * Set flag indicating whether or not this is considered a terminal or standalone model
-     *
-     * @param  bool $terminate
-     * @return ViewModel
-     */
-    public function setTerminal($terminate)
+    public function setTerminal(bool $terminate): static
     {
-        $this->terminate = (bool) $terminate;
+        $this->terminate = $terminate;
         return $this;
     }
 
-    /**
-     * Is this considered a terminal or standalone model?
-     *
-     * @return bool
-     */
-    public function terminate()
+    public function terminate(): bool
     {
         return $this->terminate;
     }
 
-    /**
-     * Set flag indicating whether or not append to child  with the same capture
-     *
-     * @param  bool $append
-     * @return ViewModel
-     */
-    public function setAppend($append)
+    public function setAppend(bool $append): static
     {
-        $this->append = (bool) $append;
+        $this->append = $append;
         return $this;
     }
 
-    /**
-     * Is this append to child  with the same capture?
-     *
-     * @return bool
-     */
-    public function isAppend()
+    public function isAppend(): bool
     {
         return $this->append;
     }
 
-    /**
-     * Return count of children
-     *
-     * @return int
-     */
-    #[ReturnTypeWillChange]
-    public function count()
+    public function count(): int
     {
         return count($this->children);
     }
@@ -349,8 +250,7 @@ final class ViewModel implements ModelInterface, ClearableModelInterface, Retrie
      *
      * @return Traversable<int, ModelInterface>
      */
-    #[ReturnTypeWillChange]
-    public function getIterator()
+    public function getIterator(): Traversable
     {
         return new ArrayIterator($this->children);
     }

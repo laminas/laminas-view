@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Laminas\View;
+namespace Laminas\View\Factory;
 
-use Laminas\View\Helper\Service\Configuration;
+use Laminas\View\ConfigProvider;
+use Laminas\View\HelperPluginManager;
 use Psr\Container\ContainerInterface;
 
 /**

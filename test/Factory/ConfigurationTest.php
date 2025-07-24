@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace LaminasTest\View\Helper\Service;
+namespace LaminasTest\View\Factory;
 
-use Laminas\View\Helper\Service\Configuration;
+use Laminas\View\Factory\Configuration;
 use LaminasTest\View\TestAsset\InMemoryContainer;
 use PHPUnit\Framework\TestCase;
 

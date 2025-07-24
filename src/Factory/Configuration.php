@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Laminas\View\Helper\Service;
+namespace Laminas\View\Factory;
 
 use Laminas\View\ConfigProvider;
 use Psr\Container\ContainerInterface;
 
 use function is_array;
+use function is_bool;
 use function is_string;
 
 /**
@@ -19,8 +20,11 @@ use function is_string;
  */
 final class Configuration
 {
-    private const DEFAULT_ENCODING        = 'utf-8';
-    private const DEFAULT_TEMPLATE_SUFFIX = 'phtml';
+    private const DEFAULT_ENCODING         = 'utf-8';
+    private const DEFAULT_TEMPLATE_SUFFIX  = 'phtml';
+    private const STRICT_VARIABLES_DEFAULT = true;
+    private const DEFAULT_LAYOUT_TEMPLATE  = 'layout::default';
+    private const DEFAULT_CAPTURE_TO       = 'content';
 
     /** @return array<array-key, mixed> */
     public static function get(ContainerInterface $container): array
@@ -60,7 +64,7 @@ final class Configuration
      * @return non-empty-string
      */
     public static function defaultTemplateSuffix(
-        ContainerInterface $container
+        ContainerInterface $container,
     ): string {
         /** @var ViewConfigShape $config */
         $config = self::get($container);
@@ -68,5 +72,54 @@ final class Configuration
         $suffix = $config['templates']['extension'] ?? $suffix;
 
         return is_string($suffix) ? $suffix : self::DEFAULT_TEMPLATE_SUFFIX;
+    }
+
+    /**
+     * Return the strict_variables configuration option
+     */
+    public static function strictVariables(
+        ContainerInterface $container,
+    ): bool {
+        /** @var ViewConfigShape $config */
+        $config = self::get($container);
+
+        $strict = $config['view_manager']['strict_variables'] ?? null;
+        $strict = $config['templates']['strict_variables'] ?? $strict;
+
+        return is_bool($strict) ? $strict : self::STRICT_VARIABLES_DEFAULT;
+    }
+
+    /**
+     * Retrieve the name of the default layout template
+     *
+     * @return non-empty-string
+     */
+    public static function defaultLayout(
+        ContainerInterface $container,
+    ): string {
+        /** @var ViewConfigShape $config */
+        $config = self::get($container);
+
+        $template = $config['view_manager']['default_layout'] ?? null;
+        $template = $config['templates']['default_layout'] ?? $template;
+
+        return is_string($template) ? $template : self::DEFAULT_LAYOUT_TEMPLATE;
+    }
+
+    /**
+     * Retrieve the default variable name that "child" templates will be captured or rendered to
+     *
+     * @return non-empty-string
+     */
+    public static function defaultCaptureTo(
+        ContainerInterface $container,
+    ): string {
+        /** @var ViewConfigShape $config */
+        $config = self::get($container);
+
+        $captureTo = $config['view_manager']['default_capture_to'] ?? null;
+        $captureTo = $config['templates']['default_capture_to'] ?? $captureTo;
+
+        return is_string($captureTo) ? $captureTo : self::DEFAULT_CAPTURE_TO;
     }
 }
