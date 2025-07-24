@@ -1,0 +1,16 @@
+<?php
+
+declare(strict_types=1);
+
+use function PHPUnit\Framework\assertIsCallable;
+use function PHPUnit\Framework\assertIsObject;
+
+$item = $this->item ?? null;
+
+assertIsObject($item);
+assertIsCallable($item);
+
+?>
+
+<cast-to-string><?= $item ?></cast-to-string>
+<invoke><?= $item() ?></invoke>
