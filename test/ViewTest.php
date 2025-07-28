@@ -113,6 +113,20 @@ final class ViewTest extends TestCase
         self::assertStringContainsString('<p>Hey There!</p>', $content);
     }
 
+    public function testLayoutIsDisabledWhenTheModelIsMarkedAsTerminal(): void
+    {
+        $view  = self::createView();
+        $model = new ViewModel(['message' => 'Hey There!']);
+        $model->setTemplate('single-variable');
+        $model->setTerminal(true);
+
+        $content = $view->render($model);
+
+        self::assertStringStartsNotWith('<default-layout>', $content);
+        self::assertStringEndsNotWith('</default-layout>', trim($content));
+        self::assertStringContainsString('<p>Hey There!</p>', $content);
+    }
+
     public function testLayoutCanBeChangedInsideTemplatesViaTheLayoutViewHelper(): void
     {
         $view    = self::createView();
