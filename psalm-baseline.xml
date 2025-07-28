@@ -1916,6 +1916,10 @@
     </PossiblyUnusedReturnValue>
   </file>
   <file src="src/Model/ViewModel.php">
+    <DeprecatedClass>
+      <code><![CDATA[new ViewVariables()]]></code>
+      <code><![CDATA[new ViewVariables()]]></code>
+    </DeprecatedClass>
     <DeprecatedMethod>
       <code><![CDATA[setOptions]]></code>
     </DeprecatedMethod>
@@ -2054,11 +2058,16 @@
   </file>
   <file src="src/Renderer/PhpRenderer.php">
     <DeprecatedClass>
+      <code><![CDATA[($key is null ? Variables : mixed)]]></code>
+      <code><![CDATA[Variables|null]]></code>
       <code><![CDATA[new Exception\UnexpectedValueException(sprintf(
                     '%s: Unable to render template "%s"; file include failed',
                     __METHOD__,
                     $this->__file
                 ))]]></code>
+      <code><![CDATA[new Variables($variablesAsArray)]]></code>
+      <code><![CDATA[new Variables()]]></code>
+      <code><![CDATA[new Variables()]]></code>
     </DeprecatedClass>
     <DeprecatedInterface>
       <code><![CDATA[PhpRenderer]]></code>
@@ -4117,6 +4126,7 @@
   </file>
   <file src="test/Model/JsonModelTest.php">
     <DeprecatedClass>
+      <code><![CDATA[Variables::class]]></code>
       <code><![CDATA[new JsonModel($array)]]></code>
       <code><![CDATA[new JsonModel($array)]]></code>
       <code><![CDATA[new JsonModel($array, ['prettyPrint' => true])]]></code>
@@ -4132,6 +4142,12 @@
     </MissingTemplateParam>
   </file>
   <file src="test/Model/ViewModelTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[ViewVariables::class]]></code>
+      <code><![CDATA[new ViewVariables()]]></code>
+      <code><![CDATA[new ViewVariables(['foo' => 'bar'])]]></code>
+      <code><![CDATA[new ViewVariables(['foo' => 'baz'])]]></code>
+    </DeprecatedClass>
     <DeprecatedMethod>
       <code><![CDATA[clearOptions]]></code>
       <code><![CDATA[getOptions]]></code>
@@ -4176,6 +4192,9 @@
   <file src="test/PhpRendererTest.php">
     <DeprecatedClass>
       <code><![CDATA[UnexpectedValueException::class]]></code>
+      <code><![CDATA[Variables::class]]></code>
+      <code><![CDATA[Variables::class]]></code>
+      <code><![CDATA[new Variables(['foo' => '<p>Bar</p>'])]]></code>
     </DeprecatedClass>
     <DeprecatedMethod>
       <code><![CDATA[canRenderTrees]]></code>
@@ -4511,6 +4530,12 @@
       <code><![CDATA[Helper]]></code>
     </DeprecatedClass>
   </file>
+  <file src="test/VariablesTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[Variables]]></code>
+      <code><![CDATA[new Variables()]]></code>
+    </DeprecatedClass>
+  </file>
   <file src="test/ViewEventTest.php">
     <DeprecatedClass>
       <code><![CDATA[ViewEvent]]></code>
@@ -4533,6 +4558,27 @@
       <code><![CDATA[new Renderer\JsonRenderer()]]></code>
       <code><![CDATA[new Renderer\JsonRenderer()]]></code>
       <code><![CDATA[new View()]]></code>
+      <code><![CDATA[new ViewVariables([
+            'parent' => 'node',
+            'child1' => var_export([
+                'foo'    => 'bar',
+                'child2' => var_export(['bar' => 'baz'], true),
+            ], true),
+        ])]]></code>
+      <code><![CDATA[new ViewVariables([
+            'parent' => 'node',
+            'child1' => var_export(['foo' => 'bar'], true),
+            'child2' => json_encode(['bar' => 'baz']),
+        ])]]></code>
+      <code><![CDATA[new ViewVariables([
+            'parent' => 'node',
+            'child1' => var_export(['foo' => 'bar'], true),
+            'child2' => var_export(['bar' => 'baz'], true),
+        ])]]></code>
+      <code><![CDATA[new ViewVariables([
+            'parent' => 'node',
+            'child1' => var_export(['foo' => 'bar'], true),
+        ])]]></code>
     </DeprecatedClass>
     <DeprecatedMethod>
       <code><![CDATA[setCanRenderTrees]]></code>
