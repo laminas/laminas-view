@@ -404,6 +404,12 @@ Containers, where used, are no longer exposed by the helper apis so the followin
 - `Laminas\View\Helper\Placeholder\Container\AbstractContainer`
 - `Laminas\View\Helper\Placeholder\Container\AbstractStandalone`
 
+### `Variables`
+
+`Laminas\View\Variables` acted as an intermediary container for assigned variables and is no longer necessary.
+Variables can be assigned to a `ViewModel` and passed to the View, or, an associative array can be used.
+`ViewModel` can also be used to add and remove variables in the same way that `Variables` allowed.
+
 ### Removed Helpers
 
 #### `DeclareVars`
