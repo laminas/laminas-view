@@ -4,67 +4,66 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper;
 
-use Laminas\View\Exception;
+use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Helper\Layout;
 use Laminas\View\Helper\ViewModel as ViewModelHelper;
 use Laminas\View\Model\ViewModel;
-use Laminas\View\Renderer\PhpRenderer;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutTest extends TestCase
 {
     private Layout $helper;
-    private ViewModel $parent;
+    private ViewModel $rootViewModel;
 
-    /**
-     * Sets up the fixture, for example, open a network connection.
-     * This method is called before a test is executed.
-     */
     protected function setUp(): void
     {
-        $renderer        = new PhpRenderer();
-        $viewModelHelper = $renderer->plugin(ViewModelHelper::class);
-        $helper          = $renderer->plugin(Layout::class);
+        $viewModelHelper = new ViewModelHelper();
 
-        $this->helper = $helper;
-        $this->parent = new ViewModel();
-        $this->parent->setTemplate('layout');
-        $viewModelHelper->setRoot($this->parent);
+        $this->helper = new Layout(
+            $viewModelHelper,
+        );
+
+        $this->rootViewModel = new ViewModel();
+        $this->rootViewModel->setTemplate('layout');
+        $viewModelHelper->setRoot($this->rootViewModel);
     }
 
-    public function testCallingSetTemplateAltersRootModelTemplate(): void
+    public function testExpectedDefaultLayoutValue(): void
     {
-        $this->helper->setTemplate('alternate/layout');
-        $this->assertEquals('alternate/layout', $this->parent->getTemplate());
+        self::assertSame('layout', $this->rootViewModel->getTemplate());
     }
 
-    public function testCallingGetLayoutReturnsRootModelTemplate(): void
+    public function testInvokingWithATemplateValueAltersRootModelTemplate(): void
     {
-        $this->assertEquals('layout', $this->helper->getLayout());
+        $returnValue = $this->helper->__invoke('alternate/layout');
+
+        self::assertSame('alternate/layout', $this->rootViewModel->getTemplate());
+        self::assertSame($this->helper, $returnValue);
     }
 
-    public function testCallingInvokeProxiesToSetTemplate(): void
+    public function testInvokingWithoutArgumentReturnsTheRootViewModel(): void
     {
-        $helper = $this->helper;
-        $helper('alternate/layout');
-        $this->assertEquals('alternate/layout', $this->parent->getTemplate());
+        self::assertSame(
+            $this->rootViewModel,
+            $this->helper->__invoke(),
+        );
     }
 
-    public function testCallingInvokeWithNoArgumentReturnsViewModel(): void
+    public function testExceptionThrownWhenTheRootViewModelIsNotAvailableWhenSettingTheTemplate(): void
     {
-        $helper = $this->helper;
-        $result = $helper();
-        $this->assertSame($this->parent, $result);
-    }
+        $helper = new Layout(new ViewModelHelper());
 
-    public function testRaisesExceptionIfViewModelHelperHasNoRoot(): void
-    {
-        $renderer = new PhpRenderer();
-        $renderer->plugin(ViewModelHelper::class);
-        $helper = $renderer->plugin(Layout::class);
-
-        $this->expectException(Exception\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('view model');
-        $helper->setTemplate('foo/bar');
+        $helper->__invoke('foo/bar');
+    }
+
+    public function testExceptionThrownWhenTheRootViewModelIsNotAvailableWithZeroArguments(): void
+    {
+        $helper = new Layout(new ViewModelHelper());
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('view model');
+        $helper->__invoke();
     }
 }

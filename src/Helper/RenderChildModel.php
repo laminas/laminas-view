@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Laminas\View\Helper;
 
-use Laminas\View\Exception;
+use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Model\ModelInterface as Model;
+use Laminas\View\Renderer\RendererInterface;
 
-use function method_exists;
+use function assert;
 use function sprintf;
 
 /**
@@ -15,67 +16,37 @@ use function sprintf;
  *
  * Finds children matching "capture-to" values, and renders them using the
  * composed view instance.
- *
- * @final
  */
-class RenderChildModel extends AbstractHelper
+final class RenderChildModel
 {
-    /**
-     * Current view model
-     *
-     * @deprecated This class will become final in 3.0 so this property will become inaccessible
-     *
-     * @var Model
-     */
-    protected $current;
-
-    /**
-     * View model helper instance
-     *
-     * @deprecated This class will become final in 3.0 so this property will become inaccessible
-     *
-     * @var ViewModel
-     */
-    protected $viewModelHelper;
-
-    /**
-     * Invoke as a function
-     *
-     * Proxies to {render()}.
-     *
-     * @param  string $child
-     * @return string
-     */
-    public function __invoke($child)
-    {
-        return $this->render($child);
+    public function __construct(
+        private readonly ViewModel $viewModelHelper,
+        private readonly RendererInterface $renderer,
+    ) {
     }
 
     /**
-     * Render a model
+     * Render the child model identified by $child
      *
-     * If a matching child model is found, it is rendered. If not, an empty
-     * string is returned.
+     * If a matching child model is found, it is rendered. If not, an empty string is returned.
      *
-     * @deprecated Since 2.40.0 This method will be removed in 3.0 in favour of calling __invoke directly
-     *
-     * @param  string $child
-     * @return string
+     * @param non-empty-string $child
      */
-    public function render($child)
+    public function __invoke(string $child): string
     {
         $model = $this->findChild($child);
-        if (! $model) {
+        if ($model === null) {
             return '';
         }
 
-        $current = $this->current;
-        $view    = $this->getView();
-        $return  = $view->render($model);
-        $helper  = $this->getViewModelHelper();
-        $helper->setCurrent($current);
+        $current = $this->viewModelHelper->getCurrent();
+        assert($current !== null);
 
-        return $return;
+        $content = $this->renderer->render($model);
+
+        $this->viewModelHelper->setCurrent($current);
+
+        return $content;
     }
 
     /**
@@ -85,61 +56,24 @@ class RenderChildModel extends AbstractHelper
      * has a captureTo value matching the requested $child. If found, that child
      * model is returned; otherwise, a boolean false is returned.
      *
-     * @deprecated This class will become final in 3.0 so this method will become inaccessible
-     *
-     * @param string $child
-     * @return false|Model
+     * @throws RuntimeException If no model is currently present.
      */
-    protected function findChild($child)
+    private function findChild(string $child): Model|null
     {
-        $this->current = $model = $this->getCurrent();
+        $model = $this->viewModelHelper->getCurrent();
+        if ($model === null) {
+            throw new RuntimeException(sprintf(
+                '%s: no view model currently registered in renderer; cannot query for children',
+                __METHOD__,
+            ));
+        }
+
         foreach ($model->getChildren() as $childModel) {
             if ($childModel->captureTo() === $child) {
                 return $childModel;
             }
         }
 
-        return false;
-    }
-
-    /**
-     * Get the current view model
-     *
-     * @deprecated This class will become final in 3.0 so this method will become inaccessible
-     *
-     * @return null|Model
-     * @throws Exception\RuntimeException
-     */
-    protected function getCurrent()
-    {
-        $helper = $this->getViewModelHelper();
-        if (! $helper->hasCurrent()) {
-            throw new Exception\RuntimeException(sprintf(
-                '%s: no view model currently registered in renderer; cannot query for children',
-                __METHOD__
-            ));
-        }
-
-        return $helper->getCurrent();
-    }
-
-    /**
-     * Retrieve the view model helper
-     *
-     * @deprecated This class will become final in 3.0 so this method will become inaccessible
-     *
-     * @return ViewModel
-     */
-    protected function getViewModelHelper()
-    {
-        if ($this->viewModelHelper) {
-            return $this->viewModelHelper;
-        }
-
-        if (method_exists($this->getView(), 'plugin')) {
-            $this->viewModelHelper = $this->view->plugin('view_model');
-        }
-
-        return $this->viewModelHelper;
+        return null;
     }
 }

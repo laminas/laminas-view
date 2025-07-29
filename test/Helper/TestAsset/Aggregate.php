@@ -12,7 +12,12 @@ final class Aggregate
         'bar' => 'baz',
     ];
 
-    /** @return array<string, string> */
+    /**
+     * @deprecated Remove in 4.0
+     *
+     * @return array<string, string>
+     * @psalm-api Used to test deprecated duck typing
+     */
     public function toArray(): array
     {
         return $this->vars;

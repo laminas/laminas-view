@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace LaminasTest\View\Helper\TestAsset;
 
 use Iterator;
-use ReturnTypeWillChange; // phpcs:ignore
 
 use function current;
 use function key;
@@ -30,41 +29,38 @@ final class PartialLoopIterator implements Iterator
     /**
      * @return T|null
      */
-    #[ReturnTypeWillChange]
-    public function current()
+    public function current(): mixed
     {
-        return current($this->items);
+        $item = current($this->items);
+
+        return $item === false ? null : $item;
     }
 
-    /**
-     * @return array-key|null
-     */
-    #[ReturnTypeWillChange]
-    public function key()
+    public function key(): int|string|null
     {
         return key($this->items);
     }
 
-    #[ReturnTypeWillChange]
     public function next(): void
     {
         next($this->items);
     }
 
-    #[ReturnTypeWillChange]
     public function rewind(): void
     {
         reset($this->items);
     }
 
-    #[ReturnTypeWillChange]
     public function valid(): bool
     {
         return current($this->items) !== false;
     }
 
     /**
+     * @deprecated To remove in 4.0
+     *
      * @return array<array-key, T>
+     * @psalm-api Used via duck-typing
      */
     public function toArray(): array
     {

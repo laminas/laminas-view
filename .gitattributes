@@ -10,3 +10,9 @@
 /psalm.xml.dist export-ignore
 /psalm-baseline.xml export-ignore
 /test/ export-ignore
+/Makefile export-ignore
+/composer.lock export-ignore
+/renovate.json export-ignore
+/.psr-container.php.stub export-ignore
+/tools/ export-ignore
+/.infection.json5.dist export-ignore

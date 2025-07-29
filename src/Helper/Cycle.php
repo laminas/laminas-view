@@ -4,103 +4,104 @@ declare(strict_types=1);
 
 namespace Laminas\View\Helper;
 
-use Iterator;
-use ReturnTypeWillChange; // phpcs:ignore
+use Stringable;
 
 use function count;
 
 /**
- * Helper for alternating between set of values
- *
- * @final
+ * Helper for alternating between a set of values
  */
-class Cycle extends AbstractHelper implements Iterator
+final class Cycle implements Stringable, StatefulHelperInterface
 {
     /**
      * Default name
-     *
-     * @internal This constant will become private in 3.0
      */
-    public const DEFAULT_NAME = 'default';
+    private const DEFAULT_NAME = 'default';
 
     /**
      * Array of values
      *
-     * @var array
+     * @var array<string, list<scalar|Stringable>>
      */
-    protected $data = [self::DEFAULT_NAME => []];
+    private array $data = [
+        self::DEFAULT_NAME => [],
+    ];
 
     /**
      * Actual name of cycle
-     *
-     * @var string
      */
-    protected $name = self::DEFAULT_NAME;
+    private string $name = self::DEFAULT_NAME;
 
     /**
      * Pointers
      *
-     * @var array
+     * @var array<string, int>
      */
-    protected $pointers = [self::DEFAULT_NAME => -1];
+    private array $pointers = [
+        self::DEFAULT_NAME => -1,
+    ];
+
+    public function resetState(): void
+    {
+        $this->name     = self::DEFAULT_NAME;
+        $this->pointers = [
+            self::DEFAULT_NAME => -1,
+        ];
+        $this->data     = [
+            self::DEFAULT_NAME => [],
+        ];
+    }
 
     /**
      * Add elements to alternate
      *
-     * @param  string $name
-     * @return Cycle
+     * @param list<scalar|Stringable> $data
      */
-    public function __invoke(array $data = [], $name = self::DEFAULT_NAME)
+    public function __invoke(array $data = [], string $name = self::DEFAULT_NAME): self
     {
-        if (! empty($data)) {
+        if ($data !== []) {
             $this->data[$name] = $data;
         }
 
         $this->setName($name);
+
         return $this;
     }
 
     /**
      * Cast to string
-     *
-     * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->toString();
     }
 
     /**
      * Turn helper into string
-     *
-     * @return string
      */
-    public function toString()
+    public function toString(): string
     {
-        return (string) $this->data[$this->name][$this->key()];
+        return (string) ($this->data[$this->name][$this->key()] ?? '');
     }
 
     /**
      * Add elements to alternate
      *
-     * @param  string $name
-     * @return Cycle
+     * @param list<scalar|Stringable> $data
      */
-    public function assign(array $data, $name = self::DEFAULT_NAME)
+    public function assign(array $data, string $name = self::DEFAULT_NAME): self
     {
         $this->setName($name);
         $this->data[$name] = $data;
         $this->rewind();
+
         return $this;
     }
 
     /**
      * Sets actual name of cycle
-     *
-     * @param  string $name
-     * @return Cycle
      */
-    public function setName($name = self::DEFAULT_NAME)
+    public function setName(string $name): self
     {
         $this->name = $name;
 
@@ -116,34 +117,16 @@ class Cycle extends AbstractHelper implements Iterator
     }
 
     /**
-     * Gets actual name of cycle
-     *
-     * @deprecated Since 2.40.0. This method will be removed in 3.0 without replacement
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
      * Return all elements
      *
-     * @return array
+     * @return list<scalar|Stringable>
      */
-    public function getAll()
+    public function getAll(): array
     {
         return $this->data[$this->name];
     }
 
-    /**
-     * Move to next value
-     *
-     * @return Cycle
-     */
-    #[ReturnTypeWillChange]
-    public function next()
+    public function next(): self
     {
         $count = count($this->data[$this->name]);
 
@@ -158,10 +141,8 @@ class Cycle extends AbstractHelper implements Iterator
 
     /**
      * Move to previous value
-     *
-     * @return Cycle
      */
-    public function prev()
+    public function prev(): self
     {
         $count = count($this->data[$this->name]);
 
@@ -176,11 +157,8 @@ class Cycle extends AbstractHelper implements Iterator
 
     /**
      * Return iteration number
-     *
-     * @return int
      */
-    #[ReturnTypeWillChange]
-    public function key()
+    public function key(): int
     {
         if ($this->pointers[$this->name] < 0) {
             return 0;
@@ -191,36 +169,16 @@ class Cycle extends AbstractHelper implements Iterator
 
     /**
      * Rewind pointer
-     *
-     * @return Cycle
      */
-    #[ReturnTypeWillChange]
-    public function rewind()
+    public function rewind(): void
     {
         $this->pointers[$this->name] = -1;
-        return $this;
     }
 
     /**
-     * Check if element is valid
-     *
-     * @deprecated Since 2.40.0. This method will be removed in 3.0 without replacement
-     *
-     * @return bool
+     * Return current element
      */
-    #[ReturnTypeWillChange]
-    public function valid()
-    {
-        return isset($this->data[$this->name][$this->key()]);
-    }
-
-    /**
-     * Return  current element
-     *
-     * @return mixed
-     */
-    #[ReturnTypeWillChange]
-    public function current()
+    public function current(): int|float|bool|string|Stringable
     {
         return $this->data[$this->name][$this->key()];
     }

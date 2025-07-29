@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Laminas\View\Helper;
 
-use Laminas\Escaper\Escaper;
+use Laminas\Escaper\EscaperInterface;
 use Laminas\View\Exception;
 use Laminas\View\HtmlAttributesSet;
 
@@ -19,25 +19,11 @@ use const PHP_EOL;
  * Helper for ordered and unordered lists
  *
  * @psalm-import-type AttributeSet from HtmlAttributesSet
- * @final
  */
-class HtmlList extends AbstractHtmlElement
+final class HtmlList
 {
-    use DeprecatedAbstractHelperHierarchyTrait;
-
-    private Escaper $escaper;
-
-    /**
-     * @deprecated since 2.20.x - There is no reason for this helper to extend AbstractHtmlElement.
-     *             The inheritance tree will be removed in version 3.0 of this component
-     *
-     * @var string
-     */
-    protected $closingBracket = '';
-
-    public function __construct(?Escaper $escaper = null)
+    public function __construct(private readonly EscaperInterface $escaper)
     {
-        $this->escaper = $escaper ?: new Escaper();
     }
 
     /**
@@ -50,9 +36,13 @@ class HtmlList extends AbstractHtmlElement
      * @throws Exception\InvalidArgumentException If $items is empty.
      * @return string The list XHTML.
      */
-    public function __invoke(array $items, $ordered = false, $attribs = null, $escape = true)
-    {
-        if (empty($items)) {
+    public function __invoke(
+        array $items,
+        bool $ordered = false,
+        array|null $attribs = null,
+        bool $escape = true,
+    ): string {
+        if ($items === []) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '$items array can not be empty in %s',
                 __METHOD__

@@ -4,17 +4,10 @@ declare(strict_types=1);
 
 namespace Laminas\View\Helper;
 
-/**
- * @final
- */
-class EscapeUrl extends Escaper\AbstractHelper
+final class EscapeUrl extends Escaper\AbstractHelper
 {
-    /**
-     * @param  string $value
-     * @return string
-     */
-    protected function escape($value)
+    protected function escape(string $value): string
     {
-        return $this->getEscaper()->escapeUrl($value);
+        return $this->escaper->escapeUrl($value);
     }
 }

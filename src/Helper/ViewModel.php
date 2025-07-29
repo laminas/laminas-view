@@ -4,29 +4,31 @@ declare(strict_types=1);
 
 namespace Laminas\View\Helper;
 
-use Laminas\View\Model\ModelInterface as Model;
+use Laminas\View\Model\ModelInterface;
 
 /**
  * Helper for storing and retrieving the root and current view model
- *
- * @final
  */
-class ViewModel extends AbstractHelper
+final class ViewModel implements StatefulHelperInterface
 {
-    use DeprecatedAbstractHelperHierarchyTrait;
+    private ModelInterface|null $current = null;
+    private ModelInterface|null $root    = null;
 
-    /** @var Model|null */
-    protected $current;
+    public function resetState(): void
+    {
+        $this->current = null;
+        $this->root    = null;
+    }
 
-    /** @var Model|null */
-    protected $root;
+    public function __invoke(): self
+    {
+        return $this;
+    }
 
     /**
      * Set the current view model
-     *
-     * @return $this
      */
-    public function setCurrent(Model $model)
+    public function setCurrent(ModelInterface $model): self
     {
         $this->current = $model;
         return $this;
@@ -34,30 +36,24 @@ class ViewModel extends AbstractHelper
 
     /**
      * Get the current view model
-     *
-     * @return Model|null
      */
-    public function getCurrent()
+    public function getCurrent(): ModelInterface|null
     {
         return $this->current;
     }
 
     /**
      * Is a current view model composed?
-     *
-     * @return bool
      */
-    public function hasCurrent()
+    public function hasCurrent(): bool
     {
-        return $this->current instanceof Model;
+        return $this->current instanceof ModelInterface;
     }
 
     /**
      * Set the root view model
-     *
-     * @return $this
      */
-    public function setRoot(Model $model)
+    public function setRoot(ModelInterface $model): self
     {
         $this->root = $model;
         return $this;
@@ -65,21 +61,17 @@ class ViewModel extends AbstractHelper
 
     /**
      * Get the root view model
-     *
-     * @return Model|null
      */
-    public function getRoot()
+    public function getRoot(): ModelInterface|null
     {
         return $this->root;
     }
 
     /**
      * Is a root view model composed?
-     *
-     * @return bool
      */
-    public function hasRoot()
+    public function hasRoot(): bool
     {
-        return $this->root instanceof Model;
+        return $this->root instanceof ModelInterface;
     }
 }

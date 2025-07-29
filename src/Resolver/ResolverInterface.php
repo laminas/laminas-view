@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Laminas\View\Resolver;
 
-use Laminas\View\Renderer\RendererInterface as Renderer;
-
 interface ResolverInterface
 {
     /**
      * Resolve a template/pattern name to a resource the renderer can consume
      *
-     * @param  string $name
-     * @return string|false
+     * @param non-empty-string $name
+     * @return non-empty-string|false
      */
-    public function resolve($name, ?Renderer $renderer = null);
+    public function resolve(string $name): string|false;
 }

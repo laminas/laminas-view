@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\StaticAnalysis;
 
+use Laminas\View\Helper\Asset;
 use Laminas\View\Helper\GravatarImage;
-use Laminas\View\Helper\Layout;
 use Laminas\View\HelperPluginManager;
 
 final class PluginRetrieval
@@ -25,8 +25,8 @@ final class PluginRetrieval
 
     public function retrievalByClassNameInfersKnownMethods(): string
     {
-        $helper = $this->pluginManager->get(Layout::class);
+        $helper = $this->pluginManager->get(Asset::class);
 
-        return $helper->getLayout();
+        return $helper->__invoke('foo');
     }
 }
