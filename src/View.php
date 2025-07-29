@@ -65,7 +65,7 @@ final class View
             $model = $modelOrTemplate;
         }
 
-        if ($enableLayout) {
+        if ($enableLayout && $model->terminate() !== true) {
             $layoutModel = new ViewModel([]);
             $layoutModel->setTemplate($this->defaultLayoutTemplate);
             $model->setCaptureTo($this->defaultCaptureTo);
