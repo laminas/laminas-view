@@ -6,7 +6,6 @@ namespace LaminasTest\View\Model;
 
 use ArrayObject;
 use Laminas\View\Model\ViewModel;
-use Laminas\View\Variables as ViewVariables;
 use LaminasTest\View\Model\TestAsset\Variable;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Depends;
@@ -194,11 +193,17 @@ final class ViewModelTest extends TestCase
         self::assertEquals('foo', $child->captureTo());
     }
 
-    public function testAllowsPassingViewVariablesContainerAsVariablesToConstructor(): void
+    public function testArbitraryIterablesCanBeUsedToSeedTheModel(): void
     {
-        $variables = new ViewVariables(['foo' => 'bar']);
-        $model     = new ViewModel($variables);
-        self::assertSame(['foo' => 'bar'], $model->getVariables());
+        $object = new ArrayObject([
+            'foo' => 'bar',
+            'baz' => 'bat',
+        ]);
+
+        $model = new ViewModel($object);
+
+        self::assertSame('bar', $model->foo);
+        self::assertSame('bat', $model->baz);
     }
 
     public function testPassingOverwriteFlagWhenSettingVariablesOverwritesContainer(): void
