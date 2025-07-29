@@ -23,6 +23,9 @@ use const E_USER_NOTICE;
 /**
  * Class for Laminas\View\Renderer\PhpRenderer to help enforce private constructs.
  *
+ * @deprecated Since 2.40.0 This class will be removed in 3.0. Variables can be assigned directly to models or during
+ *             rendering. It is unnecessary for another wrapper or intermediary object to exist.
+ *
  * @todo       Allow specifying string names for manager, filter chain, variables
  * @todo       Move escaping into variables object
  * @todo       Move strict variables into variables object
