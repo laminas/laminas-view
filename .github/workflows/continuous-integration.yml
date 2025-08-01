@@ -72,4 +72,4 @@ jobs:
           tools: composer
       - uses: ramsey/composer-install@v3
       - run: make install-tools
-      - run: make rector
+      - run: make rector-ci
