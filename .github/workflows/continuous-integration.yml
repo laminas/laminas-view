@@ -59,3 +59,16 @@ jobs:
       - uses: ramsey/composer-install@3.0.0
       - run: make install-tools
       - run: make mutants
+
+
+  rector:
+    name: "Rector on PHP ${{ env.default_php }}"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.2.2
+      - uses: shivammathur/setup-php@2.34.1
+        with:
+          php-version: ${{ env.default_php }}
+          tools: composer
+      - uses: ramsey/composer-install@v3
+      - run: make rector
