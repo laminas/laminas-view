@@ -62,7 +62,7 @@ jobs:
 
 
   rector:
-    name: "Rector on PHP ${{ env.default_php }}"
+    name: Rector on Default PHP
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.2.2
@@ -71,4 +71,5 @@ jobs:
           php-version: ${{ env.default_php }}
           tools: composer
       - uses: ramsey/composer-install@v3
+      - run: make install-tools
       - run: make rector
