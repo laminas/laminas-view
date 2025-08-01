@@ -10,11 +10,8 @@ use Laminas\View\HelperPluginManager;
 
 final class PluginRetrieval
 {
-    private HelperPluginManager $pluginManager;
-
-    public function __construct(HelperPluginManager $pluginManager)
+    public function __construct(private readonly HelperPluginManager $pluginManager)
     {
-        $this->pluginManager = $pluginManager;
     }
 
     /** @param non-empty-string $email */

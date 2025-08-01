@@ -14,15 +14,11 @@ use function sprintf;
  */
 final class Asset
 {
-    /** @var array<non-empty-string, non-empty-string> */
-    private array $resourceMap;
-
     /**
      * @param array<non-empty-string, non-empty-string> $resourceMap
      */
-    public function __construct(array $resourceMap = [])
+    public function __construct(private array $resourceMap = [])
     {
-        $this->resourceMap = $resourceMap;
     }
 
     /**

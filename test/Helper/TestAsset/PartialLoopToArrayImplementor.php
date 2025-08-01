@@ -8,11 +8,8 @@ use LaminasTest\View\Helper\PartialLoopTest;
 
 final class PartialLoopToArrayImplementor
 {
-    private array $data;
-
-    public function __construct(array $data)
+    public function __construct(private readonly array $data)
     {
-        $this->data = $data;
     }
 
     /**

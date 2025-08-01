@@ -41,7 +41,7 @@ final class TemplatePathStack implements ResolverInterface
      *
      * @var non-empty-string
      */
-    private string $defaultSuffix;
+    private readonly string $defaultSuffix;
 
     /** @var PathStack */
     private SplStack $paths;
@@ -49,7 +49,7 @@ final class TemplatePathStack implements ResolverInterface
     /**
      * Flag indicating whether LFI protection for rendering view scripts is enabled
      */
-    private bool $lfiProtectionOn;
+    private readonly bool $lfiProtectionOn;
 
     /** @param Options $options */
     public function __construct(array $options = [])

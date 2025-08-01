@@ -29,7 +29,7 @@ final class HelperPluginManagerTest extends TestCase
     {
         $helpers = new HelperPluginManager(new ServiceManager(), [
             'factories' => [
-                'test' => fn() => $this,
+                'test' => fn(): self => $this,
             ],
         ]);
         $this->expectException(InvalidServiceException::class);

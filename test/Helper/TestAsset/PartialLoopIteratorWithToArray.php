@@ -17,13 +17,9 @@ use function reset;
  */
 final class PartialLoopIteratorWithToArray implements Iterator
 {
-    /** @var array<array-key, T> */
-    public array $items;
-
-    /** @param array<array-key, T> $array */
-    public function __construct(array $array)
+    /** @param array<array-key, T> $items */
+    public function __construct(public array $items)
     {
-        $this->items = $array;
     }
 
     /**
