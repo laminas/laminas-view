@@ -78,7 +78,7 @@ final class Placeholder implements StatefulHelperInterface, Stringable
 
     private function name(string|null $name): string
     {
-        $name = $name ?? $this->currentContainer;
+        $name ??= $this->currentContainer;
         if ($name === null) {
             throw new RuntimeException('Cannot determine the name of the placeholder');
         }

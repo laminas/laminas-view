@@ -10,7 +10,7 @@ use AllowDynamicProperties;
 final class IteratorWithToArrayTestContainer
 {
     /** @var array<array-key, mixed> */
-    private $info;
+    private readonly array $info;
 
     /** @param array<array-key, mixed> $info */
     public function __construct(array $info)

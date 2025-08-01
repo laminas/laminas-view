@@ -44,8 +44,8 @@ final class PhpRendererTest extends TestCase
                     },
                 ],
                 'factories' => [
-                    'sharedInstance'    => fn () => new SharedInstance(),
-                    'nonSharedInstance' => fn () => new SharedInstance(),
+                    'sharedInstance'    => fn (): SharedInstance => new SharedInstance(),
+                    'nonSharedInstance' => fn (): SharedInstance => new SharedInstance(),
                 ],
                 'shared'    => [
                     'sharedInstance'    => true,
@@ -263,7 +263,7 @@ final class PhpRendererTest extends TestCase
 
         // @codingStandardsIgnoreStart
         /** @psalm-suppress UnusedClosureParam */
-        set_error_handler(static fn(int $errno, string $errstr) => true, E_WARNING);
+        set_error_handler(static fn(int $errno, string $errstr): bool => true, E_WARNING);
         // @codingStandardsIgnoreEnd
 
         try {

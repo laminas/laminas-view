@@ -80,7 +80,7 @@ final class GravatarImage
         string $rating = self::RATING_G
     ): string {
         $imageAttributes['width'] = $imageAttributes['height'] = $imageSize;
-        $imageAttributes['alt']   = $imageAttributes['alt'] ?? '';
+        $imageAttributes['alt'] ??= '';
         $imageAttributes['src']   = sprintf(
             '%s/%s?s=%d&r=%s&d=%s',
             self::GRAVATAR_URL,

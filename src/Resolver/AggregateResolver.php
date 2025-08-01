@@ -13,7 +13,7 @@ use Traversable;
 final class AggregateResolver implements Countable, IteratorAggregate, ResolverInterface
 {
     /** @var PriorityQueue<ResolverInterface, int> */
-    private PriorityQueue $queue;
+    private readonly PriorityQueue $queue;
 
     /**
      * @param list<ResolverInterface> $resolvers

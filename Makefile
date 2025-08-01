@@ -34,6 +34,7 @@ install: install-tools ## Install PHP dependencies
 install-tools: ## Install standalone dev tools
 	cd tools/crc && composer install
 	cd tools/infection && composer install
+	cd tools/rector && composer install
 .PHONY: install-tools
 
 update: ## Update PHP dependencies
@@ -47,6 +48,7 @@ bump: bump-tools ## Bump dev dependencies and update
 bump-tools: ## Bump and update standalone dev tools
 	cd tools/crc && composer update && composer bump -D && composer update
 	cd tools/infection && composer update && composer bump && composer update
+	cd tools/rector && composer update && composer bump && composer update
 .PHONY: bump-tools
 
 clean: ## Clear out caches and documentation assets
@@ -85,5 +87,17 @@ composer-require-checker: ## Check for symbols from un-declared dependencies
 	tools/crc/vendor/bin/composer-require-checker check --config-file=tools/crc/config.json
 .PHONY: composer-require-checker
 
-qa: composer-validate cs sa test composer-require-checker docs-lint ## Run all QA Checks
+qa: composer-validate cs sa test composer-require-checker docs-lint rector ## Run all QA Checks
 .PHONY: qa
+
+rector: ## Run Rector and show the diff
+	tools/rector/vendor/bin/rector process --dry-run -vv -c tools/rector/rector.php
+.PHONY: rector
+
+rector-ci: ## Run Rector and show the diff in GitHub format for CI
+	tools/rector/vendor/bin/rector process --dry-run --output-format=github -vv -c tools/rector/rector.php
+.PHONY: rector
+
+rector-fix: ## Apply Rector changes
+	tools/rector/vendor/bin/rector process -c tools/rector/rector.php
+.PHONY: rector-fix

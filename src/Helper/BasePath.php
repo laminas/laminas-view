@@ -16,7 +16,7 @@ use function sprintf;
 final class BasePath implements StatefulHelperInterface
 {
     private string|null $basePath;
-    private string|null $configuredBasePath;
+    private readonly string|null $configuredBasePath;
 
     public function __construct(string|null $basePath = null)
     {

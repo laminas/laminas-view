@@ -42,14 +42,12 @@ final class HtmlObject
     ): string {
         $attributes = array_merge(['data' => $data, 'type' => $type], $attributes);
         $parameters = implode(PHP_EOL, array_map(
-            function (string $name, int|float|bool|string $value): string {
-                return sprintf(
-                    '    <param name="%s" value="%s"%s>',
-                    $this->escaper->escapeHtmlAttr($name),
-                    $this->escaper->escapeHtmlAttr((string) $value),
-                    $this->doctype->isXhtml() ? ' /' : '',
-                );
-            },
+            fn(string $name, int|float|bool|string $value): string => sprintf(
+                '    <param name="%s" value="%s"%s>',
+                $this->escaper->escapeHtmlAttr($name),
+                $this->escaper->escapeHtmlAttr((string) $value),
+                $this->doctype->isXhtml() ? ' /' : '',
+            ),
             array_keys($params),
             array_values($params),
         ));

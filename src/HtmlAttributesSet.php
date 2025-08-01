@@ -7,6 +7,7 @@ namespace Laminas\View;
 use ArrayObject;
 use Laminas\Escaper\EscaperInterface;
 use Laminas\View\Exception\InvalidArgumentException;
+use Stringable;
 use Traversable;
 
 use function array_change_key_case;
@@ -39,7 +40,7 @@ use const JSON_THROW_ON_ERROR;
  * @psalm-type AttributeSet = array<string, scalar|array|null>
  * @extends ArrayObject<string, scalar|array|null>
  */
-final class HtmlAttributesSet extends ArrayObject
+final class HtmlAttributesSet extends ArrayObject implements Stringable
 {
     /**
      * These attributes can be arrays, and when encountered will be joined with the mapped separator character

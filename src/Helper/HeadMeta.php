@@ -75,9 +75,7 @@ final class HeadMeta implements StatefulHelperInterface, Stringable
         $indent   = $this->escaper->escapeHtml($indent);
 
         return implode($this->escaper->escapeHtml($this->separator), array_map(
-            function (Tag $tag) use ($indent): string {
-                return $indent . $this->itemToString($tag);
-            },
+            fn(Tag $tag): string => $indent . $this->itemToString($tag),
             $this->items,
         ));
     }
