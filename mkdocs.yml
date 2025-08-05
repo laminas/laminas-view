@@ -70,8 +70,6 @@ nav:
           - "Advanced usage of helpers": v3/helpers/advanced-usage.md
       - 'Application Integration':
           - 'Stand-Alone': v3/application-integration/stand-alone.md
-      - Cookbook:
-          - "Setting module-specific Layouts": v3/cookbook/setting-module-specific-layouts.md
       - Migration:
           - "Migration from Version 2 to 3": v3/migration/v2-to-v3.md
 site_name: laminas-view
@@ -119,4 +117,4 @@ plugins:
         helpers/placeholder.md: v3/helpers/placeholder.md
         helpers/advanced-usage.md: v3/helpers/advanced-usage.md
         application-integration/stand-alone.md: v3/application-integration/stand-alone.md
-        cookbook/setting-module-specific-layouts.md: v3/cookbook/setting-module-specific-layouts.md
+        cookbook/setting-module-specific-layouts.md: v2/cookbook/setting-module-specific-layouts.md
