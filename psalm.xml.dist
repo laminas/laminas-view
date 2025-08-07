@@ -19,14 +19,6 @@
     </projectFiles>
 
     <issueHandlers>
-        <RiskyTruthyFalsyComparison>
-            <!--
-            The navigation view helpers rely heavily on these sorts of comparisons. Fixing them is more risky
-            -->
-            <errorLevel type="suppress">
-                <directory name="src/Helper/Navigation" />
-            </errorLevel>
-        </RiskyTruthyFalsyComparison>
         <UnusedClass>
             <!-- SA Test cases are never referenced -->
             <errorLevel type="suppress">
@@ -39,11 +31,6 @@
                 <directory name="test" />
             </errorLevel>
         </MissingOverrideAttribute>
-        <ClassMustBeFinal>
-            <errorLevel type="suppress">
-                <directory name="src/Helper/Navigation" />
-            </errorLevel>
-        </ClassMustBeFinal>
     </issueHandlers>
     <plugins>
         <pluginClass class="Psalm\PhpUnitPlugin\Plugin"/>

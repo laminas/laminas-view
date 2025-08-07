@@ -4,39 +4,21 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Model\TestAsset;
 
-use Iterator;
-use ReturnTypeWillChange; // phpcs:ignore
+use ArrayIterator;
+use IteratorAggregate;
+use Traversable;
 
-final class Variable implements Iterator
+/** @implements IteratorAggregate<string, mixed> */
+final class Variable implements IteratorAggregate
 {
-    #[ReturnTypeWillChange]
-    /**
-     * @return void
-     */
-    public function current()
+    /** @param array<string, mixed> $data */
+    public function __construct(private readonly array $data = [])
     {
     }
 
-    #[ReturnTypeWillChange]
-    /**
-     * @return void
-     */
-    public function key()
+    /** @return Traversable<string, mixed> */
+    public function getIterator(): Traversable
     {
-    }
-
-    #[ReturnTypeWillChange]
-    public function next()
-    {
-    }
-
-    #[ReturnTypeWillChange]
-    public function rewind()
-    {
-    }
-
-    public function valid(): bool
-    {
-        return false;
+        return new ArrayIterator($this->data);
     }
 }

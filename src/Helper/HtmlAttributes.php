@@ -4,23 +4,16 @@ declare(strict_types=1);
 
 namespace Laminas\View\Helper;
 
-use Laminas\Escaper\Escaper;
+use Laminas\Escaper\EscaperInterface;
 use Laminas\View\HtmlAttributesSet;
 
 /**
  * Helper for creating HtmlAttributesSet objects
- *
- * @final
  */
-class HtmlAttributes extends AbstractHelper
+final class HtmlAttributes
 {
-    use DeprecatedAbstractHelperHierarchyTrait;
-
-    private Escaper $escaper;
-
-    public function __construct(?Escaper $escaper = null)
+    public function __construct(private readonly EscaperInterface $escaper)
     {
-        $this->escaper = $escaper ?: new Escaper();
     }
 
     /**

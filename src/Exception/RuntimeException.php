@@ -6,7 +6,6 @@ namespace Laminas\View\Exception;
 
 use RuntimeException as RuntimeError;
 
-/** @final */
 class RuntimeException extends RuntimeError implements ExceptionInterface
 {
 }

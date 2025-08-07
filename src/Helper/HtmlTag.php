@@ -4,138 +4,101 @@ declare(strict_types=1);
 
 namespace Laminas\View\Helper;
 
-use function array_merge;
-use function method_exists;
+use Laminas\Escaper\EscaperInterface;
+use Laminas\View\HtmlAttributesSet;
+
 use function sprintf;
 
 /**
  * Renders <html> tag (both opening and closing) of a web page, to which some custom
  * attributes can be added dynamically.
- *
- * @final
  */
-class HtmlTag extends AbstractHtmlElement
+final class HtmlTag implements StatefulHelperInterface
 {
     /**
      * Attributes for the <html> tag.
      *
-     * @var array
+     * @var array<string, scalar>
      */
-    protected $attributes = [];
+    private array $attributes = [];
 
     /**
-     * Whether to pre-set appropriate attributes in accordance
-     * with the currently set DOCTYPE.
-     *
-     * @var bool
+     * Whether to add the relevant namespaces depending on the doctype
      */
-    protected $useNamespaces = false;
+    private bool $addNamespace = false;
 
-    private bool $handledNamespaces = false;
+    public function __construct(
+        private readonly EscaperInterface $escaper,
+        private readonly Doctype $doctype,
+    ) {
+    }
+
+    public function resetState(): void
+    {
+        $this->attributes   = [];
+        $this->addNamespace = false;
+    }
 
     /**
      * Retrieve object instance; optionally add attributes.
      *
-     * @return self
+     * @param array<string, scalar> $attributes
      */
-    public function __invoke(array $attribs = [])
+    public function __invoke(array $attributes = []): self
     {
-        if (! empty($attribs)) {
-            $this->setAttributes($attribs);
+        if ($attributes !== []) {
+            $this->attributes = $attributes;
         }
 
         return $this;
     }
 
     /**
-     * Set new attribute.
-     *
-     * @param string $attrName
-     * @param string $attrValue
-     * @return self
+     * Add an attribute to the <html> tag
      */
-    public function setAttribute($attrName, $attrValue)
+    public function setAttribute(string $name, string $value): self
     {
-        $this->attributes[$attrName] = $attrValue;
+        $this->attributes[$name] = $value;
         return $this;
     }
 
     /**
      * Add new or overwrite the existing attributes.
      *
-     * @return self
+     * @param array<string, scalar> $attributes
      */
-    public function setAttributes(array $attribs)
+    public function setAttributes(array $attributes): self
     {
-        foreach ($attribs as $name => $value) {
-            $this->setAttribute($name, $value);
-        }
+        $this->attributes = $attributes;
+
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    public function getAttributes()
+    public function addXhtmlNamespace(bool $flag): self
     {
-        return $this->attributes;
-    }
+        $this->addNamespace = $flag;
 
-    /**
-     * @param bool $useNamespaces
-     * @return self
-     */
-    public function setUseNamespaces($useNamespaces)
-    {
-        $this->useNamespaces = (bool) $useNamespaces;
         return $this;
-    }
-
-    /**
-     * @return bool
-     */
-    public function getUseNamespaces()
-    {
-        return $this->useNamespaces;
     }
 
     /**
      * Render opening tag.
-     *
-     * @return string
      */
-    public function openTag()
+    public function openTag(): string
     {
-        $this->handleNamespaceAttributes();
+        $attributes = $this->attributes;
 
-        return sprintf('<html%s>', $this->htmlAttribs($this->attributes));
-    }
-
-    protected function handleNamespaceAttributes(): void
-    {
-        if ($this->useNamespaces && ! $this->handledNamespaces) {
-            if (method_exists($this->view, 'plugin')) {
-                $doctypeAttributes = [];
-
-                if ($this->view->plugin('doctype')->isXhtml()) {
-                    $doctypeAttributes = ['xmlns' => 'http://www.w3.org/1999/xhtml'];
-                }
-
-                if (! empty($doctypeAttributes)) {
-                    $this->attributes = array_merge($doctypeAttributes, $this->attributes);
-                }
-            }
-
-            $this->handledNamespaces = true;
+        if ($this->doctype->isXhtml() && $this->addNamespace) {
+            $attributes['xmlns'] = 'https://www.w3.org/1999/xhtml';
         }
+
+        return sprintf('<html%s>', new HtmlAttributesSet($this->escaper, $attributes));
     }
 
     /**
      * Render closing tag.
-     *
-     * @return string
      */
-    public function closeTag()
+    public function closeTag(): string
     {
         return '</html>';
     }
