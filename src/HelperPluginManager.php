@@ -30,7 +30,6 @@ use function sprintf;
  * Helper\HelperInterface. Additionally, it registers a number of default
  * helpers.
  *
- * @template InstanceType of HelperInterface|callable
  * @extends AbstractPluginManager<HelperInterface|callable>
  * @psalm-import-type ServiceManagerConfiguration from ServiceManager
  * @final

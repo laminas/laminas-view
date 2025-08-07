@@ -756,7 +756,6 @@
       <code><![CDATA[($strict is true ? NavigationHelper : NavigationHelper|false)]]></code>
       <code><![CDATA[Navigation]]></code>
       <code><![CDATA[NavigationHelper]]></code>
-      <code><![CDATA[Navigation\PluginManager]]></code>
     </DeprecatedInterface>
     <DeprecatedMethod>
       <code><![CDATA[setRenderer]]></code>
@@ -1206,7 +1205,6 @@
       <code><![CDATA[Menu::class]]></code>
       <code><![CDATA[Menu::class]]></code>
       <code><![CDATA[Menu::class]]></code>
-      <code><![CDATA[PluginManager]]></code>
       <code><![CDATA[Sitemap::class]]></code>
       <code><![CDATA[Sitemap::class]]></code>
       <code><![CDATA[Sitemap::class]]></code>
@@ -1817,7 +1815,6 @@
       <code><![CDATA[validatePlugin]]></code>
     </PossiblyUnusedMethod>
     <PropertyTypeCoercion>
-      <code><![CDATA[$this->initializers]]></code>
       <code><![CDATA[$this->initializers]]></code>
     </PropertyTypeCoercion>
     <UndefinedInterfaceMethod>

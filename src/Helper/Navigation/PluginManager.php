@@ -18,9 +18,7 @@ use Laminas\View\HelperPluginManager;
  *
  * @deprecated This class has been moved to the `Laminas\Navigation` component and will be removed in 3.0
  *
- * @template InstanceType of HelperInterface|AbstractHelper
  * @psalm-import-type ServiceManagerConfiguration from ServiceManager
- * @extends HelperPluginManager<InstanceType>
  */
 class PluginManager extends HelperPluginManager
 {
