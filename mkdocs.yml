@@ -45,7 +45,6 @@ nav:
       - "Rendering Views":
           - "The PhpRenderer": v3/php-renderer.md
           - "View Scripts": v3/view-scripts.md
-          - "The ViewEvent": v3/view-event.md
       - Helpers:
           - Introduction: v3/helpers/intro.md
           - Asset: v3/helpers/asset.md
@@ -95,7 +94,7 @@ plugins:
         quick-start.md: v3/quick-start.md
         php-renderer.md: v3/php-renderer.md
         view-scripts.md: v3/view-scripts.md
-        view-event.md: v3/view-event.md
+        view-event.md: v2/view-event.md
         helpers/intro.md: v3/helpers/intro.md
         helpers/asset.md: v3/helpers/asset.md
         helpers/base-path.md: v3/helpers/base-path.md
