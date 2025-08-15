@@ -12,124 +12,143 @@ use stdClass;
 use TypeError;
 
 use function array_reverse;
-use function array_unshift;
-use function realpath;
-
-use const DIRECTORY_SEPARATOR;
 
 /**
  * @psalm-import-type Options from TemplatePathStack
  */
 final class TemplatePathStackTest extends TestCase
 {
-    private TemplatePathStack $stack;
-
-    /** @var non-empty-string */
-    private string $baseDir;
-
-    protected function setUp(): void
-    {
-        $dir = realpath(__DIR__ . '/..');
-        self::assertNotFalse($dir);
-        $this->baseDir = $dir . '/';
-        $this->stack   = new TemplatePathStack();
-    }
-
     public function testAddPathAddsPathToStack(): void
     {
-        $this->stack->addPath($this->baseDir);
-        $paths = $this->stack->getPaths();
-        self::assertCount(1, $paths);
-        self::assertEquals($this->baseDir, $paths->pop());
+        $resolver = new TemplatePathStack([
+            'script_paths'   => [
+                __DIR__ . '/template-path-stack/a/',
+            ],
+            'default_suffix' => 'phtml',
+        ]);
+
+        $resolver->addPath(__DIR__ . '/template-path-stack/b/');
+        $paths = $resolver->getPaths()->toArray();
+
+        self::assertSame(
+            [
+                __DIR__ . '/template-path-stack/b/',
+                __DIR__ . '/template-path-stack/a/',
+            ],
+            $paths,
+        );
     }
 
     public function testPathsAreProcessedAsStack(): void
     {
-        $paths = [
-            $this->baseDir,
-            $this->baseDir . '_files/',
-        ];
-        foreach ($paths as $path) {
-            $this->stack->addPath($path);
-        }
-        $test = $this->stack->getPaths()->toArray();
-        self::assertEquals(array_reverse($paths), $test);
+        $resolver = new TemplatePathStack([
+            'script_paths'   => [
+                __DIR__ . '/template-path-stack/a',
+                __DIR__ . '/template-path-stack/b',
+            ],
+            'default_suffix' => 'phtml',
+        ]);
+
+        $path = $resolver->resolve('example');
+
+        self::assertSame(__DIR__ . '/template-path-stack/b/example.phtml', $path);
     }
 
     public function testAddPathsAddsPathsToStack(): void
     {
-        $this->stack->addPath($this->baseDir . 'Helper/');
         $paths = [
-            $this->baseDir,
-            $this->baseDir . '_files/',
+            __DIR__ . '/template-path-stack/a/',
+            __DIR__ . '/template-path-stack/b/',
         ];
-        $this->stack->addPaths($paths);
-        array_unshift($paths, $this->baseDir . 'Helper/');
-        self::assertEquals(array_reverse($paths), $this->stack->getPaths()->toArray());
+
+        $resolver = new TemplatePathStack([
+            'script_paths'   => [],
+            'default_suffix' => 'phtml',
+        ]);
+
+        $resolver->addPaths($paths);
+        self::assertEquals(array_reverse($paths), $resolver->getPaths()->toArray());
     }
 
     public function testSetPathsOverwritesStack(): void
     {
-        $this->stack->addPath($this->baseDir . 'Helper/');
         $paths = [
-            $this->baseDir,
-            $this->baseDir . '_files/',
+            __DIR__ . '/template-path-stack/a/',
+            __DIR__ . '/template-path-stack/b/',
         ];
-        $this->stack->setPaths($paths);
-        self::assertEquals(array_reverse($paths), $this->stack->getPaths()->toArray());
+
+        $resolver = new TemplatePathStack([
+            'script_paths'   => [
+                __DIR__ . '/template-path-stack/not-there/',
+            ],
+            'default_suffix' => 'phtml',
+        ]);
+
+        $resolver->setPaths($paths);
+        self::assertEquals(array_reverse($paths), $resolver->getPaths()->toArray());
     }
 
     public function testClearPathsClearsStack(): void
     {
-        $paths = [
-            $this->baseDir,
-            $this->baseDir . '_files/',
-        ];
-        $this->stack->setPaths($paths);
-        $this->stack->clearPaths();
-        self::assertEquals(0, $this->stack->getPaths()->count());
+        $resolver = new TemplatePathStack([
+            'script_paths'   => [
+                __DIR__ . '/template-path-stack/a/',
+                __DIR__ . '/template-path-stack/b/',
+            ],
+            'default_suffix' => 'phtml',
+        ]);
+
+        $resolver->clearPaths();
+        self::assertSame([], $resolver->getPaths()->toArray());
     }
 
     public function testDoesNotAllowParentDirectoryTraversalByDefault(): void
     {
-        $this->stack->addPath($this->baseDir . '_templates/');
+        $resolver = new TemplatePathStack([
+            'script_paths'   => [
+                __DIR__ . '/template-path-stack/a/',
+            ],
+            'default_suffix' => 'phtml',
+            'lfi_protection' => true,
+        ]);
 
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage('parent directory traversal');
-        $this->stack->resolve('../_stubs/scripts/LfiProtectionCheck.phtml');
+        $resolver->resolve('../traverse/example.phtml');
     }
 
     public function testDisablingLfiProtectionAllowsParentDirectoryTraversal(): void
     {
-        $stack = new TemplatePathStack([
-            'lfi_protection' => false,
+        $resolver = new TemplatePathStack([
             'script_paths'   => [
-                $this->baseDir . '_templates/',
+                __DIR__ . '/template-path-stack/a/',
             ],
+            'default_suffix' => 'phtml',
+            'lfi_protection' => false,
         ]);
 
-        $test = $stack->resolve('../_stubs/scripts/LfiProtectionCheck.phtml');
-        self::assertIsString($test);
-        self::assertStringContainsString('LfiProtectionCheck.phtml', $test);
+        $path = $resolver->resolve('../traverse/example.phtml');
+
+        self::assertSame(
+            __DIR__ . '/template-path-stack/traverse/example.phtml',
+            $path,
+        );
     }
 
     public function testReturnsFalseWhenRetrievingScriptIfNoPathsRegistered(): void
     {
-        self::assertFalse($this->stack->resolve('test.phtml'));
+        $resolver = new TemplatePathStack([]);
+        self::assertFalse($resolver->resolve('test.phtml'));
     }
 
     public function testReturnsFalseWhenUnableToResolveScriptToPath(): void
     {
-        $this->stack->addPath($this->baseDir . '_templates/');
-        self::assertFalse($this->stack->resolve('bogus-script.txt'));
-    }
-
-    public function testReturnsFullPathNameWhenAbleToResolveScriptPath(): void
-    {
-        $this->stack->addPath($this->baseDir . '_templates/');
-        $expected = realpath($this->baseDir . '_templates/test.phtml');
-        $test     = $this->stack->resolve('test.phtml');
-        self::assertSame($expected, $test);
+        $resolver = new TemplatePathStack([
+            'script_paths' => [
+                __DIR__ . '/template-path-stack/a/',
+            ],
+        ]);
+        self::assertFalse($resolver->resolve('bogus-script.txt'));
     }
 
     /**
@@ -156,17 +175,13 @@ final class TemplatePathStackTest extends TestCase
 
     public function testAllowsRelativePharPath(): void
     {
-        $path = 'phar://' . $this->baseDir
-            . '_templates'
-            . DIRECTORY_SEPARATOR . 'view.phar'
-            . DIRECTORY_SEPARATOR . 'start'
-            . DIRECTORY_SEPARATOR . '..'
-            . DIRECTORY_SEPARATOR . 'views'
-            . DIRECTORY_SEPARATOR;
+        $path     = __DIR__ . '/template-path-stack/a/view.phar/start/../views/';
+        $path     = 'phar://' . $path;
+        $resolver = new TemplatePathStack([]);
+        $resolver->addPath($path);
 
-        $this->stack->addPath($path);
-        $test = $this->stack->resolve('foo' . DIRECTORY_SEPARATOR . 'hello.phtml');
-        self::assertEquals($path . 'foo' . DIRECTORY_SEPARATOR . 'hello.phtml', $test);
+        $test = $resolver->resolve('foo/hello.phtml');
+        self::assertSame($path . 'foo/hello.phtml', $test);
     }
 
     public function testSettingDefaultSuffixStripsLeadingDot(): void
@@ -174,12 +189,38 @@ final class TemplatePathStackTest extends TestCase
         $stack = new TemplatePathStack([
             'default_suffix' => '.phtml',
             'script_paths'   => [
-                $this->baseDir . '_templates',
+                __DIR__ . '/template-path-stack/a/',
             ],
         ]);
 
-        $result = $stack->resolve('test');
+        $result = $stack->resolve('example');
         self::assertNotFalse($result);
-        self::assertStringEndsWith('test.phtml', $result);
+        self::assertStringEndsWith('example.phtml', $result);
+    }
+
+    public function testResolveFilesWithDifferentExtensions(): void
+    {
+        $resolver = new TemplatePathStack([
+            'default_suffix' => '.phtml',
+            'script_paths'   => [
+                __DIR__ . '/template-path-stack/a/',
+            ],
+        ]);
+
+        self::assertSame(__DIR__ . '/template-path-stack/a/example.phtml', $resolver->resolve('example'));
+        self::assertSame(__DIR__ . '/template-path-stack/a/example.txt', $resolver->resolve('example.txt'));
+    }
+
+    public function testResolveFilesInSubDirectories(): void
+    {
+        $resolver = new TemplatePathStack([
+            'default_suffix' => '.phtml',
+            'script_paths'   => [
+                __DIR__ . '/template-path-stack',
+            ],
+        ]);
+
+        self::assertSame(__DIR__ . '/template-path-stack/a/example.phtml', $resolver->resolve('a/example'));
+        self::assertSame(__DIR__ . '/template-path-stack/b/example.phtml', $resolver->resolve('b/example.phtml'));
     }
 }
