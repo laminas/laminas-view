@@ -44,6 +44,7 @@ nav:
       - "Quick Start": v3/quick-start.md
       - "Rendering Views":
           - "The PhpRenderer": v3/php-renderer.md
+          - "Template Resolvers": v3/template-resolvers.md
           - "View Scripts": v3/view-scripts.md
       - Helpers:
           - Introduction: v3/helpers/intro.md

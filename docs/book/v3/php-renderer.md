@@ -1,30 +1,61 @@
-# The PhpRenderer
+# The PhpRenderer for Direct Template Rendering
 
-`Laminas\View\Renderer\PhpRenderer` "renders" view scripts written in PHP,
-capturing and returning the output. It composes Variable containers and/or View
-Models, a helper plugin manager for [helpers](helpers/intro.md), and optional
-filtering of the captured output.
-
-The `PhpRenderer` is template-system agnostic; you may use PHP as your template
-language, or create instances of other template systems and manipulate them
-within your view script. Anything you can do with PHP is available to you.
+`Laminas\View\Renderer\PhpRenderer` is responsible for rendering individual templates.
+It composes a **View Helper Plugin Manager**, a **Template Resolver**, and optionally an arbitrary filter with which to perform post-rendering mutations on the output.
 
 ## Usage
 
-Basic usage consists of instantiating or otherwise obtaining an instance of the
-`PhpRenderer`, providing it with a resolver which will resolve templates to PHP
-view scripts, and then calling its `render()` method.
+Basic usage consists of obtaining an instance of the `PhpRenderer` and then calling its `render()` method.
 
-Instantiating a renderer:
+The `PhpRenderer` has constructor dependencies that, in an application using [`laminas-servicemanager`](https://docs.laminas.dev/laminas-servicemanager/) will already be resolved.
+
+### Fetch an Instance from `Laminas\ServiceManager`
 
 ```php
+use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Renderer\PhpRenderer;
 
-$renderer = new PhpRenderer();
+assert($container instanceof ServiceManager);
+
+$renderer = $container->get(PhpRenderer::class);
+
+$markup = $renderer->render('some-template-name', ['greeting' => 'Hi There']);
 ```
 
-laminas-view ships with several types of "resolvers", which are used to resolve a
-template name to a resource a renderer can consume. The ones we will usually use
+### Instantiate a Renderer
+
+```php
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\HelperPluginManager;
+use Laminas\View\Renderer\PhpRenderer;
+use Laminas\View\Resolver\TemplateMapResolver;
+
+// Instantiate a View Helper Plugin Manager
+$pluginManager = new HelperPluginManager(new ServiceManager());
+
+// Create a Template Resolver
+$resolver = new TemplateMapResolver([
+    'some-template' => __DIR__ . '/path/to/a/template.phtml',
+]);
+
+// Decide whether to use "Strict Variables" or not
+$strictVariables = true;
+
+// Instantiate the Renderer
+$renderer = new PhpRenderer(
+    $pluginManager,
+    $resolver,
+    $strictVariables,
+);
+
+// Render a template
+$markup = $renderer->render('some-template', ['greeting' => 'Hi There']);
+```
+
+`laminas-view` ships with several types of "template resolvers", which are used to resolve a template name to a resource a renderer can consume.
+[Template resolvers are described in depth here](./template-resolvers.md).
+
+The ones we will usually use
 with the `PhpRenderer` are:
 
 - `Laminas\View\Resolver\TemplateMapResolver`, which simply maps template names
@@ -298,77 +329,3 @@ separately, but instead pass the root view model directly to the `PhpRenderer`.
 It is then up to the developer to render the children from within the view
 script. This is typically done using the `RenderChildModel` helper:
 `$this->renderChildModel('child_name')`.
-
-## Additional Methods
-
-Typically, you'll only ever access variables and [helpers](helpers/intro.md)
-within your view scripts or when interacting with the `PhpRenderer`. However,
-there are a few additional methods you may be interested in.
-
-Unless otherwise noted, class names are relative to the `Laminas\View` namespace.
-
-### render
-
-```php
-render(
-    string|Model\ModelInterface $nameOrModel,
-    array|\Traversable $values = null
-) : string
-```
-
-Render a template/view model.
-
-If `$nameOrModel` is a string, it is assumed to be a template name. That
-template will be resolved using the current resolver, and then rendered.
-
-If `$values` is non-null, those values, and those values only, will be used
-during rendering, and will replace whatever variable container previously was in
-the renderer; however, the previous variable container will be reset when done.
-
-If `$values` is empty, the current variables container (see [setVars()](#setvars))
-will be injected when rendering.
-
-If `$nameOrModel` is a `ModelInterface` instance, the template name will be
-retrieved from it and used.  Additionally, if the model contains any variables,
-these will be used when rendering; otherwise, the variables container already
-present, if any, will be used.
-
-The method returns the script output.
-
-### resolver
-
-```php
-resolver() : Resolver\ResolverInterface
-```
-
-Retrieves the current `Resolver` instance.
-
-### vars
-
-```php
-vars(string $key = null) : mixed
-```
-
-Retrieve a single variable from the container if a key is provided; otherwise it
-will return the variables container.
-
-### plugin
-
-```php
-plugin(string $name, array $options = null) : Helper\HelperInterface
-```
-
-Retrieve a plugin/helper instance. Proxies to the plugin manager's `get()`
-method; as such, any `$options` you pass will be passed to the plugin's
-constructor if this is the first time the plugin has been retrieved. See the
-section on [helpers](helpers/intro.md) for more information.
-
-### addTemplate
-
-```php
-addTemplate(string $template) : void
-```
-
-Add a template to the stack. When used, the next call to `render()` will loop
-through all templates added using this method, rendering them one by one; the
-output of the last will be returned.
