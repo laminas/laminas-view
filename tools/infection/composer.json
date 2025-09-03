@@ -21,8 +21,8 @@
     },
     "require-dev": {
         "psalm/plugin-phpunit": "^0.19.5",
-        "roave/infection-static-analysis-plugin": "^1.38",
-        "vimeo/psalm": "^6.13.0"
+        "roave/infection-static-analysis-plugin": "^1.39",
+        "vimeo/psalm": "^6.13.1"
     },
     "autoload": {
         "psr-4": {
