@@ -1,99 +1,161 @@
-# View Scripts
+# Templates or "View Scripts"
 
-Once you call `render()`, `Laminas\View\Renderer\PhpRenderer` then `include()`s the
-requested view script and executes it "inside" the scope of the `PhpRenderer`
-instance. Therefore, in your view scripts, references to `$this` actually point
-to the `PhpRenderer` instance itself.
+As described in the [Template Resolvers documentation](template-resolvers.md), templates are typically PHP files stored in local directories.
+
+During rendering, these template files are processed by calling PHP's built-in [`include()`](https://www.php.net/manual/function.include.php) expression from the context of an object that is prepared with only the variables you wish to make available to the template.
 
 ## Variables
 
-Variables assigned to the view, either via a [View Model](quick-start.md#controllers-and-view-models),
-[Variables container](quick-start.md), or by passing an array of variables to
-`render()`, may be retrieved in three ways:
+Variables are assigned to the view, either by passing an associative array or a `ViewModel` to the `Laminas\View\View::render()` method.
 
-- Explicitly, by retrieving them from the `Variables` container composed in the
-  `PhpRenderer`: `$this->vars()->varname`.
-- As instance properties of the `PhpRenderer` instance: `$this->varname`. (In
-  this situation, instance property access is proxying to the composed
-  `Variables` instance.)
-- As local PHP variables: `$varname`. The `PhpRenderer` extracts the members of
-  the `Variables` container locally.
-
-We generally recommend using the second notation, as it's less verbose than the
-first, but differentiates between variables in the view script scope and those
-assigned to the renderer from elsewhere.
-
-By way of reminder, here is the example view script from the `PhpRenderer`
-introduction.
+Here's an example of how you would render the same template in each of these ways:
 
 ```php
-<?php if ($this->books): ?>
+use Laminas\View\Model\ViewModel;
+use Laminas\View\View;
 
-    <!-- A table of some books. -->
-    <table>
-        <tr>
-            <th>Author</th>
-            <th>Title</th>
-        </tr>
+/** @var View $view */
+$html = $view->render('my-template', [
+    'greeting' => 'Hello Fred 👋',
+]);
 
-        <?php foreach ($this->books as $key => $val): ?>
-        <tr>
-            <td><?= $this->escapeHtml($val['author']) ?></td>
-            <td><?= $this->escapeHtml($val['title']) ?></td>
-        </tr>
-        <?php endforeach; ?>
+// The above is equivalent to:
 
-    </table>
+$viewModel = new ViewModel([
+    'greeting' => 'Hello Fred 👋',
+], 'my-template');
 
-<?php else: ?>
-
-    <p>There are no books to display.</p>
-
-<?php endif;?>
+$html = $view->render($viewModel);
 ```
 
-> TIP: **IDE Auto-Completion in View Scripts**
-> The `Laminas\View\Renderer\PhpRenderer` class can be used to provide auto-completion for modern IDEs.
-> It defines the aliases of the view helpers in a DocBlock as `@method` tags.
->
-> ### Usage
->
-> In order to allow auto-completion in view scripts, `$this` variable should be type-hinted via a DocBlock at the top of a view script.
-> It is recommended that always the `Laminas\View\Renderer\PhpRenderer` is added as the first type, so that the IDE can auto-suggest the default view helpers from `laminas-view`:
->
-> ```php
-> /**
->  * @var Laminas\View\Renderer\PhpRenderer $this
->  */
-> ```
->
-> The different Laminas components that contain view helpers provide `HelperTrait` traits with more aliases of the view helpers.
-> These traits can be chained with a pipe symbol (a.k.a. vertical bar) `|` as many as needed, depending on which view helpers from the different Laminas component are used and where the auto-completion is to be made.
+Inside your template, you can access variables from the local scope, or as instance properties:
+
+```php
+// my-template.phtml
+
+echo $greeting;
+
+// is equivalent to:
+
+echo $this->greeting;
+```
+
+As a general rule, we recommend you use the instance property form because it is easier to differentiate between variables created within the view script scope and those assigned to it via the view model.
+Additionally, if you run a static analyser such as Psalm on your templates, the instance property form can be used to improve type inference, particularly if you are creating custom view model objects.
+
+### Strict Variables Configuration
+
+By default, accessing an undefined variable from a template context will cause an exception.
+You can disable this behaviour by explicitly setting `strict_variables` to `false`.
+
+```php
+// view-manager.global.php
+
+return [
+    'view_manager' => [
+        'strict_variables' => false,
+        // ... more configuration
+    ],
+];
+```
+
+## View Helpers
+
+The [quick start guide](quick-start.md#making-use-of-view-helpers) should provide sufficient information on how to _use_ view helpers from within template files.
+It's a good idea to look at the [list of shipped helpers](helpers/intro.md) and the individual documentation for those, and, the [chapter on writing and registering your own helpers](helpers/advanced-usage.md).
 
 ## Escaping Output
 
-One of the most important tasks to perform in a view script is to make sure that
-output is escaped properly; among other things, this helps to avoid cross-site
-scripting attacks. Unless you are using a function, method, or helper that does
-escaping on its own, you should always escape variables when you output them and
-pay careful attention to applying the correct escaping strategy to each HTML
-context you use.
+One of the most important tasks to perform in a view script is to make sure that output is escaped properly;
+among other things, this helps to avoid cross-site scripting attacks.
+Unless you are using a function, method, or helper that does escaping on its own, you should always escape variables when you output them and pay careful attention to applying the correct escaping strategy to each HTML context you use.
 
-The `PhpRenderer` includes a selection of helpers you can use for this purpose:
-`EscapeHtml`, `EscapeHtmlAttr`, `EscapeJs`, `EscapeCss`, and `EscapeUrl`.
-Matching the correct helper (or combination of helpers) to the context into
-which you are injecting untrusted variables will ensure that you are protected
-against Cross-Site Scripting (XSS) vulnerabilities.
+There are a [number of helpers available](helpers/escape.md) that you can use for this purpose:
 
-```php
-// bad view-script practice:
-echo $this->variable;
+- `$this->escapeHtml($value)`
+- `$this->escapeHtmlAttr($value)`
+- `$this->escapeJs($value)`
+- `$this->escapeCss($value)`
+- `$this->escapeUrl($value)`
 
-// good view-script practice:
-echo $this->escapeHtml($this->variable);
+Matching the correct helper (or combination of helpers) to the context into which you are injecting untrusted variables will ensure that you are protected against Cross-Site Scripting (XSS) vulnerabilities.
 
-// and remember context is always relevant!
+```html
+<!-- bad view-script practice: -->
+<h1><?= $this->variable ?></h1>
+
+<!-- good view-script practice: -->
+<h1><?= $this->escapeHtml($this->variable) ?></h1>
+
+<!-- and remember context is always relevant! -->
 <script type="text/javascript">
-    var foo = "<?= $this->escapeJs($variable) ?>";
+    const foo = '<?= $this->escapeJs($variable) ?>';
 </script>
 ```
+
+## IDE Auto-Completion in View Scripts
+
+We ship a helper interface that can be used and extended to aid auto-completion in most modern IDEs and editors.
+By documenting `$this` as a instance of `Laminas\View\TemplateInterface`, all the shipped view helper methods will be available as auto-completion targets:
+
+```php
+<?php
+declare(strict_types=1);
+
+use Laminas\View\TemplateInterface;
+
+/** @var TemplateInterface $this */
+?>
+<?= $this->doctype() ?>
+<html>
+    <head>
+        <?= $this->headTitle()->setPrefix('My App: ') ?>
+        <?= $this->headLink() ?>
+        <?= $this->headScript() ?>
+        <?= $this->headStyle() ?>
+    </head>
+    <body>
+        <?= $this->content ?>
+    </body>
+</html>
+```
+
+> DANGER: **Do not implement TemplateInterface**
+> The shipped `TemplateInterface` is purely for documentation of view helpers, it is not intended to be used beyond static analysis and will not keep BC over time.
+
+In your projects, it is very likely you will [write custom view helpers](helpers/advanced-usage.md), therefore you'll want these available to you too.
+This can be achieved by declaring your own interface along the lines of:
+
+```php
+namespace App;
+
+use Laminas\View\TemplateInterface;
+
+interface AppTemplate extends TemplateInterface
+{
+    /**
+     * Format N muppet names
+     * 
+     * @param positive-int $number
+     * @param non-empty-string $muppetName
+     * @return non-empty-string
+     */
+    public function customHelper(int $number, string $muppetName): string;
+}
+```
+
+You can then use this interface in your view scripts to gain auto-completion for your custom helpers:
+
+```php
+<?php
+declare(strict_types=1);
+
+use App\AppTemplate;
+
+/** @var AppTemplate $this */
+?>
+
+<h1><?= $this->customHelper(10, 'Miss Piggy') ?></h1>
+```
+
+Because interfaces can make use of multiple inheritance, this can be a good way of aggregating custom helpers registered across different modules in your app.
