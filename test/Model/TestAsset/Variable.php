@@ -8,15 +8,15 @@ use ArrayIterator;
 use IteratorAggregate;
 use Traversable;
 
-/** @implements IteratorAggregate<string, mixed> */
+/** @implements IteratorAggregate<non-empty-string, mixed> */
 final class Variable implements IteratorAggregate
 {
-    /** @param array<string, mixed> $data */
+    /** @param array<non-empty-string, mixed> $data */
     public function __construct(private readonly array $data = [])
     {
     }
 
-    /** @return Traversable<string, mixed> */
+    /** @return Traversable<non-empty-string, mixed> */
     public function getIterator(): Traversable
     {
         return new ArrayIterator($this->data);

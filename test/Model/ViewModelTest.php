@@ -155,8 +155,9 @@ final class ViewModelTest extends TestCase
      */
     public function testCanClearChildren(ViewModel $model): void
     {
-        $model->clearChildren();
+        $result = $model->clearChildren();
         self::assertCount(0, $model);
+        self::assertSame($model, $result);
     }
 
     public function testTemplateIsEmptyByDefault(): void
@@ -295,17 +296,17 @@ final class ViewModelTest extends TestCase
 
     /**
      * @psalm-return list<array{
-     *     0: iterable<string, mixed>,
+     *     0: iterable<non-empty-string, mixed>,
      *     1: null|string,
      *     2: null|string,
      * }>
      */
     public static function variableValue(): array
     {
-        /** @var ArrayObject<string, mixed> $arrayObject */
+        /** @var ArrayObject<non-empty-string, mixed> $arrayObject */
         $arrayObject = new ArrayObject(['foo' => 'bar']);
 
-        /** @var ArrayObject<string, mixed> $emptyObject */
+        /** @var ArrayObject<non-empty-string, mixed> $emptyObject */
         $emptyObject = new ArrayObject([]);
 
         return [
@@ -329,7 +330,7 @@ final class ViewModelTest extends TestCase
         ];
     }
 
-    /** @param iterable<string, mixed> $variables */
+    /** @param iterable<non-empty-string, mixed> $variables */
     #[DataProvider('variableValue')]
     public function testGetVariableSetByConstruct(
         iterable $variables,
