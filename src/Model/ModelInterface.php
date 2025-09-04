@@ -10,10 +10,9 @@ use IteratorAggregate;
 /**
  * Interface describing a view model.
  *
- * Extends "Countable"; count() should return the number of children attached
- * to the model.
- *
- * Extends "IteratorAggregate"; should allow iterating over children.
+ * Apart from being a container for view variables, view models also aggregate "child" or nested models.
+ * View models allow iteration over child models and they are also countable, yielding the number of child models
+ * attached.
  *
  * @extends IteratorAggregate<int, ModelInterface>
  */

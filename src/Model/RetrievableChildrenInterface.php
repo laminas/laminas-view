@@ -7,7 +7,7 @@ namespace Laminas\View\Model;
 /**
  * Interface describing a Retrievable Child Model
  *
- * Models implementing this interface provide a way to get there children by capture
+ * Models implementing this interface provide a way to get their children by capture
  */
 interface RetrievableChildrenInterface
 {
