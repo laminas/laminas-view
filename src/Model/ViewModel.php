@@ -51,16 +51,21 @@ final class ViewModel implements ModelInterface, ClearableModelInterface, Retrie
     private bool $append = false;
 
     /**
-     * @param iterable<string, mixed> $variables
+     * @param iterable<non-empty-string, mixed> $variables
      */
     public function __construct(
         iterable $variables = [],
         private string $template = '',
     ) {
-        $this->variables = array_map(
-            static fn (mixed $value): mixed => $value,
-            is_array($variables) ? $variables : iterator_to_array($variables)
-        );
+        $this->variables = [];
+        foreach ($variables as $name => $variable) {
+            if (! $variable instanceof ModelInterface) {
+                $this->variables[$name] = $variable;
+                continue;
+            }
+
+            $this->addChild($variable, $name, false);
+        }
     }
 
     /**

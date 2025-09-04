@@ -9,9 +9,11 @@ use Laminas\View\Model\ViewModel;
 use LaminasTest\View\Model\TestAsset\Variable;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Depends;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 use function count;
+use function iterator_to_array;
 
 final class ViewModelTest extends TestCase
 {
@@ -383,5 +385,23 @@ final class ViewModelTest extends TestCase
     {
         $model = new ViewModel();
         self::assertSame($model, $model->addChild(new ViewModel()));
+    }
+
+    #[Test]
+    public function whenViewModelsArePassedInViaTheConstructorTheyAreAddedAsChildren(): void
+    {
+        $child1 = new ViewModel();
+        $child2 = new ViewModel();
+
+        $model = new ViewModel([
+            'apples'  => $child1,
+            'oranges' => $child2,
+        ]);
+
+        self::assertSame([], $model->getVariables());
+        self::assertCount(2, $model);
+        self::assertSame([$child1, $child2], iterator_to_array($model, false));
+        self::assertSame('apples', $child1->captureTo());
+        self::assertSame('oranges', $child2->captureTo());
     }
 }
