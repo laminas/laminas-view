@@ -20,23 +20,54 @@ As a recap from the [templates and view scripts documentation](../view-scripts.m
 <h1>Hi there <?= $this->escapeHtml($this->name) ?></h1>
 ```
 
-In the above example, the [EscapeHtml helper](escape.md#escapehtml) is retrieved from the plugin manager, its `__invoke` method is called with the value to be escaped and it returns the escaped string for output in the rendered markup.
+In the above example, the [EscapeHtml helper](escape.md#escapehtml) is retrieved from the plugin manager, its `__invoke` method is called with the value to be escaped, and it returns the escaped string for output in the rendered markup.
 
 ## Accessing View Helpers Outside the Rendering Cycle
 
-The `HelperPluginManager` is available in the main ServiceManager.
+The `HelperPluginManager` should be available in your applications dependency injection container.
 To retrieve plugin instances, you must retrieve the plugin manager and then retrieve the helper from the plugin manager:
 
 ```php
-use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Helper\EscapeHtml;
 use Laminas\View\HelperPluginManager;
+use Psr\Container\ContainerInterface;
 
-/** @var ServiceManager $container */
+/** @var ContainerInterface $container */
 $plugins = $container->get(HelperPluginManager::class);
 $escaper = $plugins->get(EscapeHtml::class);
 $value = $escaper($someValueToEscape);
 ```
+
+Typically, [Mezzio](https://docs.mezzio.dev/) applications, or those that largely make use of Laminas components will use [Laminas Service Manager](https://docs.laminas.dev/laminas-servicemanager/) for dependency injection.
+However, your main DI container does not need to be a `ServiceManager` instance in order to use `laminas-view` and its plugin system.
+Any PSR-11 container can be used, but it will be your responsibility to ensure services are wired up appropriately when Laminas Service Manager is not in use.
+The `ConfigProvider` can be inspected to determine how the various services are identified and created.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details><summary>Example Manual ServiceManager Setup</summary>
+
+This example shows how to retrieve plugin instances in isolation without the benefits of using "Config Providers" to illustrate the steps that might be taken when using Laminas View with another PSR-11 DI container.
+
+```php
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\Factory\HelperPluginManagerFactory;
+use Laminas\View\Helper\HeadTitle;
+use Laminas\View\HelperPluginManager;
+
+// Our main application DI container
+$container = new ServiceManager();
+// Wire up the factory to create the plugin manager
+$container->setFactory(HelperPluginManager::class, HelperPluginManagerFactory::class);
+// Fetch a plugin manager instance
+$pluginManager = $container->get(HelperPluginManager::class);
+// Retrieve helpers
+$headTitleHelper = $pluginManager->get(HeadTitle::class);
+// Do things with the helper…
+$headTitleHelper->setPrefix('Title: ');
+```
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+</details>
 
 ## Included Helpers
 
