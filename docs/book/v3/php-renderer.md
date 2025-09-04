@@ -1,7 +1,10 @@
 # The PhpRenderer for Direct Template Rendering
 
 `Laminas\View\Renderer\PhpRenderer` is responsible for rendering individual templates.
-It composes a **View Helper Plugin Manager**, a **Template Resolver**, and optionally an arbitrary filter with which to perform post-rendering mutations on the output.
+It composes a **View Helper Plugin Manager**, a **Template Resolver**, and optionally an arbitrary filter with which to perform [post-rendering mutations](#filter-and-mutate-content-post-render) on the output.
+
+You will normally use `Laminas\View\View` for rendering as detailed in the [quick start](quick-start.md#rendering-a-template).
+The `PhpRenderer` is 'lower level', for example, the [Partial view helper](helpers/partial.md) is effectively a simple wrapper around the `PhpRenderer`.
 
 ## Usage
 
@@ -55,277 +58,35 @@ $markup = $renderer->render('some-template', ['greeting' => 'Hi There']);
 `laminas-view` ships with several types of "template resolvers", which are used to resolve a template name to a resource a renderer can consume.
 [Template resolvers are described in depth here](./template-resolvers.md).
 
-The ones we will usually use
-with the `PhpRenderer` are:
+> WARNING: **PhpRenderer Does Not Render Nested Models**
+> The PhpRenderer's sole responsibility is to render a _single_ template.
+> It cannot render nested templates in the way that the main `\Laminas\View\View` class does in order to produce complex layouts and view hierarchies.
 
-- `Laminas\View\Resolver\TemplateMapResolver`, which simply maps template names
-  directly to view scripts.
-- `Laminas\View\Resolver\TemplatePathStack`, which creates a LIFO stack of script
-  directories in which to search for a view script. By default, it appends the
-  suffix `.phtml` to the requested template name, and then loops through the
-  script directories; if it finds a file matching the requested template, it
-  returns the full file path.
-- `Laminas\View\Resolver\RelativeFallbackResolver`, which allows using short
-  template name into partial rendering. It is used as wrapper for each of two
-  aforesaid resolvers. For example, this allows usage of partial template paths
-  such as `my/module/script/path/my-view/some/partial.phtml`, while rendering
-  template `my/module/script/path/my-view` by short name `some/partial`.
-- `Laminas\View\Resolver\AggregateResolver`, which allows attaching a FIFO queue of
-  resolvers to consult.
+## Filter and Mutate Content Post-Render
 
-We suggest using the `AggregateResolver`, as it allows you to create a
-multi-tiered strategy for resolving template names.
-
-Programmatically, you would then do something like this:
+Sometimes it is necessary to post-process rendered markup as a string.
+PhpRenderer allows this by accepting a 'Filter' via its `setFilter()` method.
+The filter can be any callable that satisfies the signature `callable(string): string`.
+By way of a trivial example:
 
 ```php
-use Laminas\View\Renderer\PhpRenderer;
-use Laminas\View\Resolver;
+use Laminas\View\Renderer\PhpRenderer;use Psr\Container\ContainerInterface;
 
-$renderer = new PhpRenderer();
+assert($container instanceof ContainerInterface);
 
-$resolver = new Resolver\AggregateResolver();
+// Retrieve the PhpRenderer instance
+$renderer = $container->get(PhpRenderer::class);
 
-$renderer->setResolver($resolver);
+// Attach a filter
+$renderer->setFilter(static function (string $markup): string {
+    return strrev($markup);
+});
 
-$map = new Resolver\TemplateMapResolver([
-    'layout'      => __DIR__ . '/view/layout.phtml',
-    'index/index' => __DIR__ . '/view/index/index.phtml',
-]);
-$stack = new Resolver\TemplatePathStack([
-    'script_paths' => [
-        __DIR__ . '/view',
-        $someOtherPath
-    ],
-]);
+// Render Some content:
+$markup = $renderer->render('template-name', ['name' => 'Fred']);
 
-// Attach resolvers to the aggregate:
-$resolver
-    ->attach($map)    // this will be consulted first, and is the fastest lookup
-    ->attach($stack)  // filesystem-based lookup
-    ->attach(new Resolver\RelativeFallbackResolver($map)) // allow short template names
-    ->attach(new Resolver\RelativeFallbackResolver($stack));
+// Assuming the template content is '<p>Hello <?= $this->name ?\></p>'
+echo $markup;
+// Outputs '>p/<derF olleH>p<'
+
 ```
-
-You can also specify a specific priority value when registering resolvers, with
-high, positive integers getting higher priority, and low, negative integers
-getting low priority, when resolving.
-
-If you are started your application via the [laminas-mvc-skeleton](https://github.com/laminas/laminas-mvc-skeleton),
-you can provide the above via configuration:
-
-```php
-// In the Application module configuration
-// (module/Application/config/module.config.php):
-return [
-    'view_manager' => [
-        'template_map' => [
-            'layout'      => __DIR__ . '/../view/layout.phtml',
-            'index/index' => __DIR__ . '/../view/index/index.phtml',
-        ],
-        'template_path_stack' => [
-            'application' => __DIR__ . '/../view',
-        ],
-    ],
-];
-```
-
-If you did not begin with the skeleton application, you will need to write your
-own factories for creating each resolver and wiring them to the
-`AggregateResolver` and injecting into the `PhpRenderer`.
-
-Now that we have our `PhpRenderer` instance, and it can find templates, let's
-inject some variables. This can be done in 4 different ways.
-
-- Pass an associative array (or `ArrayAccess` instance, or `Laminas\View\Variables`
-  instance) of items as the second argument to `render()`:
-  `$renderer->render($templateName, ['foo' => 'bar'])`
-- Assign a `Laminas\View\Variables` instance, associative array, or `ArrayAccess`
-  instance to the `setVars()` method.
-- Assign variables as instance properties of the renderer: `$renderer->foo =
-  'bar'`. This essentially proxies to an instance of `Variables` composed
-  internally in the renderer by default.
-- Create a `ViewModel` instance, assign variables to that, and pass the
-  `ViewModel` to the `render()` method:
-
-As an example of the latter:
-
-```php
-use Laminas\View\Model\ViewModel;
-use Laminas\View\Renderer\PhpRenderer;
-
-$renderer = new PhpRenderer();
-
-$model    = new ViewModel();
-$model->setVariable('foo', 'bar');
-// or
-$model = new ViewModel(['foo' => 'bar']);
-
-$model->setTemplate($templateName);
-$renderer->render($model);
-```
-
-Now, let's render something. As an example, let us say you have a list of
-book data.
-
-```php
-// use a model to get the data for book authors and titles.
-$data = [
-    [
-        'author' => 'Hernando de Soto',
-        'title' => 'The Mystery of Capitalism',
-    ],
-    [
-        'author' => 'Henry Hazlitt',
-        'title' => 'Economics in One Lesson',
-    ],
-    [
-        'author' => 'Milton Friedman',
-        'title' => 'Free to Choose',
-    ],
-];
-
-// now assign the book data to a renderer instance
-$renderer->books = $data;
-
-// and render the template "booklist"
-echo $renderer->render('booklist');
-```
-
-More often than not, you'll likely be using the MVC layer. As such, you should
-be thinking in terms of view models. Let's consider the following code from
-within an action method of a controller.
-
-```php
-namespace Bookstore\Controller;
-
-use Laminas\Mvc\Controller\AbstractActionController;
-
-class BookController extends AbstractActionController
-{
-    public function listAction()
-    {
-        // do some work...
-
-        // Assume $data is the list of books from the previous example
-        $model = new ViewModel(['books' => $data]);
-
-        // Optionally specify a template; if we don't, by default it will be
-        // auto-determined based on the module name, controller name and this action.
-        // In this example, the template would resolve to "bookstore/book/list",
-        // and thus the file "bookstore/book/list.phtml"; the following overrides
-        // that to set the template to "booklist", and thus the file "booklist.phtml"
-        // (note the lack of directory preceding the filename).
-        $model->setTemplate('booklist');
-
-        return $model
-    }
-}
-```
-
-This will then be rendered as if the following were executed:
-
-```php
-$renderer->render($model);
-```
-
-Now we need the associated view script. At this point, we'll assume that the
-template `booklist` resolves to the file `booklist.phtml`. This is a PHP script
-like any other, with one exception: it executes inside the scope of the
-`PhpRenderer` instance, which means that references to `$this` point to the
-`PhpRenderer` instance properties and methods. Thus, a very basic view script
-could look like this:
-
-```php
-<?php if ($this->books): ?>
-
-    <!-- A table of some books. -->
-    <table>
-        <tr>
-            <th>Author</th>
-            <th>Title</th>
-        </tr>
-
-        <?php foreach ($this->books as $key => $val): ?>
-        <tr>
-            <td><?= $this->escapeHtml($val['author']) ?></td>
-            <td><?= $this->escapeHtml($val['title']) ?></td>
-        </tr>
-        <?php endforeach; ?>
-
-    </table>
-
-<?php else: ?>
-
-    <p>There are no books to display.</p>
-
-<?php endif;?>
-```
-
-NOTE: **Escape Output**
-The security mantra is "Filter input, escape output."
-If you are unsure of the source of a given variable &mdash; which is likely most of the time &mdash; you should escape it based on which HTML context it is being injected into.
-The primary contexts to be aware of are HTML Body, HTML Attribute, Javascript, CSS and URI.
-Each context has a dedicated helper available to apply the escaping strategy most appropriate to each context.
-You should be aware that escaping does vary significantly between contexts; there is no one single escaping strategy that can be globally applied.
-In the example above, there are calls to an `escapeHtml()` method.
-The method is actually [a helper](helpers/intro.md), a plugin available via method overloading.
-Additional escape helpers provide the `escapeHtmlAttr()`, `escapeJs()`, `escapeCss()`, and `escapeUrl()` methods for each of the HTML contexts you are most likely to encounter.
-By using the provided helpers and being aware of your variables' contexts, you will prevent your templates from running afoul of [Cross-Site Scripting (XSS)](http://en.wikipedia.org/wiki/Cross-site_scripting) vulnerabilities.
-
-We've now toured the basic usage of the `PhpRenderer`. By now you should know
-how to instantiate the renderer, provide it with a resolver, assign variables
-and/or create view models, create view scripts, and render view scripts.
-
-## Options and Configuration
-
-`Laminas\View\Renderer\PhpRenderer` utilizes several collaborators in order to do
-its work. Use the following methods to configure the renderer.
-
-Unless otherwise noted, class names are relative to the `Laminas\View` namespace.
-
-### setHelperPluginManager
-
-```php
-setHelperPluginManager(string|HelperPluginManager $helpers): void
-```
-
-Set the helper plugin manager instance used to load, register, and retrieve
-[helpers](helpers/intro.md).
-
-### setResolver
-
-```php
-setResolver(Resolver\\ResolverInterface $resolver) : void
-```
-
-Set the resolver instance.
-
-### setFilterChain
-
-```php
-setFilterChain(\Laminas\Filter\FilterChain $filters) : void
-```
-
-Set a filter chain to use as an output filter on rendered content.
-
-### setVars
-
-```php
-setVars(array|\ArrayAccess|Variables $variables) : void
-```
-
-Set the variables to use when rendering a view script/template.
-
-### setCanRenderTrees
-
-```php
-setCanRenderTrees(boolean $canRenderTrees) : void
-```
-
-Set the flag indicating whether or not we should render trees of view models. If
-set to true, the `Laminas\View\View` instance will not attempt to render children
-separately, but instead pass the root view model directly to the `PhpRenderer`.
-It is then up to the developer to render the children from within the view
-script. This is typically done using the `RenderChildModel` helper:
-`$this->renderChildModel('child_name')`.
