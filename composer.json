@@ -38,7 +38,6 @@
         "ext-filter": "*",
         "ext-json": "*",
         "laminas/laminas-escaper": "^2.17.0",
-        "laminas/laminas-eventmanager": "^3.4",
         "laminas/laminas-servicemanager": "^4.4.0",
         "laminas/laminas-stdlib": "^3.10.1",
         "laminas/laminas-translator": "^1.1",
@@ -46,9 +45,9 @@
     },
     "require-dev": {
         "laminas/laminas-coding-standard": "~3.1.0",
-        "phpunit/phpunit": "^10.5.48",
+        "phpunit/phpunit": "^10.5.53",
         "psalm/plugin-phpunit": "^0.19.5",
-        "vimeo/psalm": "^6.13.0"
+        "vimeo/psalm": "^6.13.1"
     },
     "conflict": {
         "amphp/dns": "<2.1.2",
