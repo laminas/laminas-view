@@ -162,14 +162,15 @@ final class ViewModel implements ModelInterface, ClearableModelInterface, Retrie
 
     public function addChild(ModelInterface $child, string|null $captureTo = null, bool|null $append = null): static
     {
-        $this->children[] = $child;
         if ($captureTo !== null) {
-            $child->setCaptureTo($captureTo);
+            $child = $child->setCaptureTo($captureTo);
         }
 
         if ($append !== null) {
-            $child->setAppend($append);
+            $child = $child->setAppend($append);
         }
+
+        $this->children[] = $child;
 
         return $this;
     }
