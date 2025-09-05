@@ -6,6 +6,7 @@ namespace Laminas\View;
 
 use Laminas\Escaper\Escaper;
 use Laminas\Escaper\EscaperInterface;
+use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Helper\Doctype;
 
@@ -40,6 +41,9 @@ use Laminas\View\Helper\Doctype;
  *         default_layout?: non-empty-string,
  *         map?: array<string, string>,
  *     },
+ *     laminas-cli: array{
+ *         commands: array<string, string>,
+ *     }
  * }
  */
 final class ConfigProvider
@@ -129,6 +133,11 @@ final class ConfigProvider
                  */
                 //'extension' => 'phtml',
             ],
+            'laminas-cli'        => [
+                'commands' => [
+                    Console\GenerateTemplateMapCommand::DEFAULT_NAME => Console\GenerateTemplateMapCommand::class,
+                ],
+            ],
         ];
     }
 
@@ -137,14 +146,15 @@ final class ConfigProvider
     {
         return [
             'factories' => [
-                Renderer\PhpRenderer::class             => Renderer\PhpRendererFactory::class,
-                Resolver\AggregateResolver::class       => Resolver\Factory\AggregateResolverFactory::class,
-                Resolver\PrefixPathStackResolver::class => Resolver\Factory\PrefixPathStackResolverFactory::class,
-                Resolver\TemplateMapResolver::class     => Resolver\Factory\TemplateMapResolverFactory::class,
-                Resolver\TemplatePathStack::class       => Resolver\Factory\TemplatePathStackResolverFactory::class,
-                Escaper::class                          => Factory\EscaperFactory::class,
-                HelperPluginManager::class              => Factory\HelperPluginManagerFactory::class,
-                View::class                             => Factory\ViewFactory::class,
+                Console\GenerateTemplateMapCommand::class => InvokableFactory::class,
+                Renderer\PhpRenderer::class               => Renderer\PhpRendererFactory::class,
+                Resolver\AggregateResolver::class         => Resolver\Factory\AggregateResolverFactory::class,
+                Resolver\PrefixPathStackResolver::class   => Resolver\Factory\PrefixPathStackResolverFactory::class,
+                Resolver\TemplateMapResolver::class       => Resolver\Factory\TemplateMapResolverFactory::class,
+                Resolver\TemplatePathStack::class         => Resolver\Factory\TemplatePathStackResolverFactory::class,
+                Escaper::class                            => Factory\EscaperFactory::class,
+                HelperPluginManager::class                => Factory\HelperPluginManagerFactory::class,
+                View::class                               => Factory\ViewFactory::class,
             ],
             'aliases'   => [
                 EscaperInterface::class             => Escaper::class,
