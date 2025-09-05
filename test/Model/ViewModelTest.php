@@ -394,12 +394,11 @@ final class ViewModelTest extends TestCase
         $child1 = new ViewModel();
         $child2 = new ViewModel();
 
-        $model = new ViewModel([
+        $model = new ViewModel([], '', [
             'apples'  => $child1,
             'oranges' => $child2,
         ]);
 
-        self::assertSame([], $model->getVariables());
         self::assertCount(2, $model);
         self::assertSame([$child1, $child2], iterator_to_array($model, false));
         self::assertSame('apples', $child1->captureTo());
