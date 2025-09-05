@@ -15,8 +15,8 @@ final class TemplateMapGeneratorTest extends TestCase
     public function testExpectedOutputWhenConfigIsNestedOutsideTemplateDirectory(): void
     {
         $generator = new TemplateMapGenerator(
-            __DIR__ . '/../bin/templates',
-            __DIR__ . '/config.php',
+            __DIR__ . '/templates',
+            __DIR__ . '/../../src/config.php',
         );
 
         $expect = <<<'PHP'
@@ -26,9 +26,9 @@ final class TemplateMapGeneratorTest extends TestCase
             return [
                 'templates' => [
                     'map' => [
-                        'one' => __DIR__ . '/../bin/templates/one.phtml',
-                        'sub/zero' => __DIR__ . '/../bin/templates/sub/zero.phtml',
-                        'two' => __DIR__ . '/../bin/templates/two.phtml',
+                        'one' => __DIR__ . '/../test/Console/templates/one.phtml',
+                        'sub/zero' => __DIR__ . '/../test/Console/templates/sub/zero.phtml',
+                        'two' => __DIR__ . '/../test/Console/templates/two.phtml',
                     ],
                 ],
             ];
@@ -43,8 +43,8 @@ final class TemplateMapGeneratorTest extends TestCase
     public function testExpectedOutputWhenConfigIsInsideTemplateDirectory(): void
     {
         $generator = new TemplateMapGenerator(
-            __DIR__ . '/../bin/templates',
-            __DIR__ . '/../bin/templates/config.php',
+            __DIR__ . '/templates',
+            __DIR__ . '/templates/config.php',
         );
 
         $expect = <<<'PHP'
@@ -71,8 +71,8 @@ final class TemplateMapGeneratorTest extends TestCase
     public function testExpectedOutputWhenConfigIsBelowTemplateDirectory(): void
     {
         $generator = new TemplateMapGenerator(
-            __DIR__ . '/../bin/templates',
-            __DIR__ . '/../bin/templates/ignored/config.php',
+            __DIR__ . '/templates',
+            __DIR__ . '/templates/ignored/config.php',
         );
 
         $expect = <<<'PHP'
@@ -106,7 +106,7 @@ final class TemplateMapGeneratorTest extends TestCase
 
         new TemplateMapGenerator(
             __DIR__ . '/not-there',
-            __DIR__ . '/../bin/templates/ignored/config.php',
+            __DIR__ . '/templates/ignored/config.php',
         );
     }
 

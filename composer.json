@@ -72,9 +72,6 @@
             "LaminasTest\\View\\": "test/"
         }
     },
-    "bin": [
-        "bin/templatemap_generator.php"
-    ],
     "scripts": {
         "check": [
             "@cs-check",
