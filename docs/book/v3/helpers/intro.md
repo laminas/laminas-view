@@ -1,53 +1,79 @@
 # Introduction
 
-In your view scripts, you'll perform certain complex functions over and over:
+In your [view scripts](../view-scripts.md), you'll perform certain complex functions over and over:
 e.g., formatting a date, generating form elements, or displaying action links.
-You can use helper, or plugin, classes to perform these behaviors for you.
+You can use helpers, or plugins to perform these behaviors for you.
 
-A helper is a class that implements `Laminas\View\Helper\HelperInterface`, which
-defines two methods, `setView()`, which accepts a
-`Laminas\View\Renderer\RendererInterface` instance/implementation, and `getView()`,
-used to retrieve that instance.  `Laminas\View\Renderer\PhpRenderer` composes a
-*plugin manager*, allowing you to retrieve helpers, and also provides some
-method overloading capabilities that allow proxying method calls to helpers.
+A helper is a class that will normally have an `__invoke()` method as the entry point to perform its function.
+For further details on creating your own custom helpers, take a look at the [advanced usage chapter](advanced-usage.md).
 
-As an example, let's say we have a helper class named
-`MyModule\View\Helper\LowerCase`, which we register in our plugin manager with
-the name `lowercase`. We can retrieve it in one of the following ways:
+Helpers are retrieved from the `HelperPluginManager` by their fully qualified class name or alias.
+It is the registered alias that we use inside [templates](../view-scripts.md) to call view helpers.
+
+## Fetching or Using Helpers from Within Templates
+
+As a recap from the [templates and view scripts documentation](../view-scripts.md), we call helpers by using their alias like a method name on the template instance:
 
 ```php
-// $view is a PhpRenderer instance
-
-// Via the plugin manager:
-$pluginManager = $view->getHelperPluginManager();
-$helper        = $pluginManager->get('lowercase');
-
-// Retrieve the helper instance, via the method "plugin",
-// which proxies to the plugin manager:
-$helper = $view->plugin('lowercase');
-
-// If the helper does not define __invoke(), the following also retrieves it:
-$helper = $view->lowercase();
-
-// If the helper DOES define __invoke, you can call the helper
-// as if it is a method:
-$filtered = $view->lowercase('some value');
+// some-template.phtml
+?>
+<h1>Hi there <?= $this->escapeHtml($this->name) ?></h1>
 ```
 
-The last two examples demonstrate how the `PhpRenderer` uses method overloading
-to retrieve and/or invoke helpers directly, offering a convenience API for end
-users.
+In the above example, the [EscapeHtml helper](escape.md#escapehtml) is retrieved from the plugin manager, its `__invoke` method is called with the value to be escaped, and it returns the escaped string for output in the rendered markup.
 
-A large number of helpers are provided by default with laminas-view.  You can also
-register helpers by adding them to the plugin manager.
+## Accessing View Helpers Outside the Rendering Cycle
+
+The `HelperPluginManager` should be available in your applications dependency injection container.
+To retrieve plugin instances, you must retrieve the plugin manager and then retrieve the helper from the plugin manager:
+
+```php
+use Laminas\View\Helper\EscapeHtml;
+use Laminas\View\HelperPluginManager;
+use Psr\Container\ContainerInterface;
+
+/** @var ContainerInterface $container */
+$plugins = $container->get(HelperPluginManager::class);
+$escaper = $plugins->get(EscapeHtml::class);
+$value = $escaper($someValueToEscape);
+```
+
+Typically, [Mezzio](https://docs.mezzio.dev/) applications, or those that largely make use of Laminas components will use [Laminas Service Manager](https://docs.laminas.dev/laminas-servicemanager/) for dependency injection.
+However, your main DI container does not need to be a `ServiceManager` instance in order to use `laminas-view` and its plugin system.
+Any PSR-11 container can be used, but it will be your responsibility to ensure services are wired up appropriately when Laminas Service Manager is not in use.
+The `ConfigProvider` can be inspected to determine how the various services are identified and created.
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+<details><summary>Example Manual ServiceManager Setup</summary>
+
+This example shows how to retrieve plugin instances in isolation without the benefits of using "Config Providers" to illustrate the steps that might be taken when using Laminas View with another PSR-11 DI container.
+
+```php
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\Factory\HelperPluginManagerFactory;
+use Laminas\View\Helper\HeadTitle;
+use Laminas\View\HelperPluginManager;
+
+// Our main application DI container
+$container = new ServiceManager();
+// Wire up the factory to create the plugin manager
+$container->setFactory(HelperPluginManager::class, HelperPluginManagerFactory::class);
+// Fetch a plugin manager instance
+$pluginManager = $container->get(HelperPluginManager::class);
+// Retrieve helpers
+$headTitleHelper = $pluginManager->get(HeadTitle::class);
+// Do things with the helper…
+$headTitleHelper->setPrefix('Title: ');
+```
+
+<!-- markdownlint-disable-next-line no-inline-html -->
+</details>
 
 ## Included Helpers
 
-Laminas comes with an initial set of helper classes. In particular, there
-are helpers for creating route-based URLs and HTML lists, as well as declaring
-variables. Additionally, there are a rich set of helpers for providing values
-for, and rendering, the various HTML `<head>` tags, such as `HeadTitle`,
-`HeadLink`, and `HeadScript`. The currently shipped helpers include:
+Laminas View comes with a number of helpers for easing the creation of markup in web applications.
+
+The currently shipped helpers include:
 
 - [Asset](asset.md)
 - [BasePath](base-path.md)
