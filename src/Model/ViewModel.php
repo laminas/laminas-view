@@ -51,16 +51,22 @@ final class ViewModel implements ModelInterface, ClearableModelInterface, Retrie
     private bool $append = false;
 
     /**
-     * @param iterable<string, mixed> $variables
+     * @param iterable<non-empty-string, mixed> $variables
+     * @param array<non-empty-string, ModelInterface> $children
      */
     public function __construct(
         iterable $variables = [],
         private string $template = '',
+        array $children = [],
     ) {
         $this->variables = array_map(
             static fn (mixed $value): mixed => $value,
             is_array($variables) ? $variables : iterator_to_array($variables)
         );
+
+        foreach ($children as $captureTo => $child) {
+            $this->addChild($child, $captureTo);
+        }
     }
 
     /**
@@ -162,14 +168,15 @@ final class ViewModel implements ModelInterface, ClearableModelInterface, Retrie
 
     public function addChild(ModelInterface $child, string|null $captureTo = null, bool|null $append = null): static
     {
-        $this->children[] = $child;
         if ($captureTo !== null) {
-            $child->setCaptureTo($captureTo);
+            $child = $child->setCaptureTo($captureTo);
         }
 
         if ($append !== null) {
-            $child->setAppend($append);
+            $child = $child->setAppend($append);
         }
+
+        $this->children[] = $child;
 
         return $this;
     }

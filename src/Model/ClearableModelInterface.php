@@ -12,7 +12,7 @@ namespace Laminas\View\Model;
  */
 interface ClearableModelInterface
 {
-    public function clearChildren();
+    public function clearChildren(): static;
 
     public function clearVariables(): static;
 }

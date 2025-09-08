@@ -9,9 +9,11 @@ use Laminas\View\Model\ViewModel;
 use LaminasTest\View\Model\TestAsset\Variable;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Depends;
+use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
 use function count;
+use function iterator_to_array;
 
 final class ViewModelTest extends TestCase
 {
@@ -153,8 +155,9 @@ final class ViewModelTest extends TestCase
      */
     public function testCanClearChildren(ViewModel $model): void
     {
-        $model->clearChildren();
+        $result = $model->clearChildren();
         self::assertCount(0, $model);
+        self::assertSame($model, $result);
     }
 
     public function testTemplateIsEmptyByDefault(): void
@@ -293,17 +296,17 @@ final class ViewModelTest extends TestCase
 
     /**
      * @psalm-return list<array{
-     *     0: iterable<string, mixed>,
+     *     0: iterable<non-empty-string, mixed>,
      *     1: null|string,
      *     2: null|string,
      * }>
      */
     public static function variableValue(): array
     {
-        /** @var ArrayObject<string, mixed> $arrayObject */
+        /** @var ArrayObject<non-empty-string, mixed> $arrayObject */
         $arrayObject = new ArrayObject(['foo' => 'bar']);
 
-        /** @var ArrayObject<string, mixed> $emptyObject */
+        /** @var ArrayObject<non-empty-string, mixed> $emptyObject */
         $emptyObject = new ArrayObject([]);
 
         return [
@@ -327,7 +330,7 @@ final class ViewModelTest extends TestCase
         ];
     }
 
-    /** @param iterable<string, mixed> $variables */
+    /** @param iterable<non-empty-string, mixed> $variables */
     #[DataProvider('variableValue')]
     public function testGetVariableSetByConstruct(
         iterable $variables,
@@ -383,5 +386,22 @@ final class ViewModelTest extends TestCase
     {
         $model = new ViewModel();
         self::assertSame($model, $model->addChild(new ViewModel()));
+    }
+
+    #[Test]
+    public function whenViewModelsArePassedInViaTheConstructorTheyAreAddedAsChildren(): void
+    {
+        $child1 = new ViewModel();
+        $child2 = new ViewModel();
+
+        $model = new ViewModel([], '', [
+            'apples'  => $child1,
+            'oranges' => $child2,
+        ]);
+
+        self::assertCount(2, $model);
+        self::assertSame([$child1, $child2], iterator_to_array($model, false));
+        self::assertSame('apples', $child1->captureTo());
+        self::assertSame('oranges', $child2->captureTo());
     }
 }

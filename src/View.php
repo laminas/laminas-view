@@ -48,7 +48,7 @@ final class View
 
     /**
      * @param non-empty-string|ModelInterface $modelOrTemplate
-     * @param iterable<string, mixed>|null|ModelInterface $variables
+     * @param iterable<non-empty-string, mixed>|null|ModelInterface $variables
      * @throws RenderingFailedException When any exception occurs during render.
      */
     public function render(
