@@ -9,6 +9,9 @@ use Laminas\Escaper\EscaperInterface;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Helper\Doctype;
+use Symfony\Component\Console\Command\Command;
+
+use function class_exists;
 
 /**
  * @psalm-import-type DoctypeID from Doctype
@@ -134,11 +137,21 @@ final class ConfigProvider
                 //'extension' => 'phtml',
             ],
             'laminas-cli'        => [
-                'commands' => [
-                    Console\GenerateTemplateMapCommand::DEFAULT_NAME => Console\GenerateTemplateMapCommand::class,
-                ],
+                'commands' => $this->cliCommands(),
             ],
         ];
+    }
+
+    /** @return array<string, class-string> */
+    private function cliCommands(): array
+    {
+        if (class_exists(Command::class)) {
+            return [
+                Console\GenerateTemplateMapCommand::DEFAULT_NAME => Console\GenerateTemplateMapCommand::class,
+            ];
+        }
+
+        return [];
     }
 
     /** @return ServiceManagerConfiguration */
