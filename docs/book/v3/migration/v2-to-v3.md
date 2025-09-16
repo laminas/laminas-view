@@ -47,8 +47,24 @@ The PhpRenderer has been refactored and a number of methods have been removed:
 
 - `init` - Because `PhpRenderer` is now final, the `init` method has no use-case
 - `setHelperPluginManager` and `getHelperPluginManager` - Now that the helper plugin manager is a required constructor dependency, the setter and getter are unnecessary
-- `setResolver` - The template resolver is a constructor dependency and can no longer be changed at runtime.
+- `setResolver` and `resolver` - The template resolver is a constructor dependency and can no longer be changed at runtime.
+  Retrieving the template resolver is no longer necessary as it can be found via the main DI container.
 - `setCanRenderTrees(bool $flag)` and `canRenderTrees(): bool` - The `PhpRenderer` never rendered trees of view models directly so these methods were superfluous. This also means that `PhpRenderer` no longer implements [the now removed `TreeRendererInterface`](#treerendererinterface).
+- All variable related setters and getters have been removed because the renderer no longer aggregates view variables at all.
+  Users should provide all variables to the view either as arguments to the `render` method, or by passing a `ViewModel` object containing them.
+  The removed variable related methods are:
+    - `setVars`
+    - `vars`
+    - `get`
+    - `__get`
+    - `__isset`
+    - `__set`
+    - `__unset`
+- It is no longer possible to retrieve plugins _(View Helpers)_ from the renderer instance. The methods `plugin` and `__call` have been removed.
+- The `addTemplate` method has been removed. In order to render nested templates, users should render via the new `View` class.
+
+Effectively, `PhpRenderer` can now only be used to render a single template to a string via its `render` method.
+With the exception of the `setFilter` method, all other methods have been removed.
 
 ### `ViewModel` and `ViewModelInterface`
 
