@@ -47,6 +47,7 @@
         "laminas/laminas-coding-standard": "~3.1.0",
         "phpunit/phpunit": "^10.5.53",
         "psalm/plugin-phpunit": "^0.19.5",
+        "symfony/console": "^6.4.25 || v7.3.3",
         "vimeo/psalm": "^6.13.1"
     },
     "conflict": {
@@ -54,6 +55,7 @@
         "amphp/socket": "<2.3.1"
     },
     "suggest": {
+        "laminas/laminas-cli": "Laminas\\Cli component to autowire the template map generator utility",
         "laminas/laminas-authentication": "Laminas\\Authentication component",
         "laminas/laminas-feed": "Laminas\\Feed component",
         "laminas/laminas-filter": "Laminas\\Filter component",
@@ -72,9 +74,6 @@
             "LaminasTest\\View\\": "test/"
         }
     },
-    "bin": [
-        "bin/templatemap_generator.php"
-    ],
     "scripts": {
         "check": [
             "@cs-check",
