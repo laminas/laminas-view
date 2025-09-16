@@ -50,6 +50,50 @@ The PhpRenderer has been refactored and a number of methods have been removed:
 - `setResolver` - The template resolver is a constructor dependency and can no longer be changed at runtime.
 - `setCanRenderTrees(bool $flag)` and `canRenderTrees(): bool` - The `PhpRenderer` never rendered trees of view models directly so these methods were superfluous. This also means that `PhpRenderer` no longer implements [the now removed `TreeRendererInterface`](#treerendererinterface).
 
+### Template Resolvers
+
+All template resolver implementations now have parameter, property and return types.
+Additionally, all implementations are now `final`.
+
+#### `ResolverInterface`
+
+The signature of `ResolverInterface`s only method `resolve` has changed from: `public function resolve($name, ?Renderer $renderer = null)` to `public function resolve(string $name): string|false`.
+
+It is no longer possible or necessary to pass a renderer as the second argument and the method guarantees to return either the on-disk path to a template or `false`.
+
+#### `AggregateResolver`
+
+The following methods have been removed:
+
+- `getLastSuccessfulResolver`
+- `getLastLookupFailure`
+
+The following constants have been removed:
+
+- `AggregateResolver::FAILURE_NO_RESOLVERS`
+- `AggregateResolver::FAILURE_NOT_FOUND`
+
+The aggregate resolver can now be constructed with a list of `ResolverInterface` implementors.
+
+#### `TemplatePathStack`
+
+All options should now be specified via constructor arguments.
+
+The following methods have been removed:
+
+- `setOptions`
+- `setDefaultSuffix`
+- `getDefaultSuffix`
+- `normalizePath`
+- `setLfiProtection`
+- `isLfiProtectionOn`
+- `getLastLookupFailure`
+
+The following constants have been removed:
+
+- `TemplatePathStack::FAILURE_NO_PATHS`
+- `TemplatePathStack::FAILURE_NOT_FOUND`
+
 ### `ViewModel` and `ViewModelInterface`
 
 #### Removal of Options
