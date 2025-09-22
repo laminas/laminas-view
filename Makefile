@@ -59,6 +59,7 @@ clean: ## Clear out caches and documentation assets
 	rm -f .phpcs-cache
 	vendor/bin/psalm --clear-cache
 	rm -f .markdownlint.json
+	rm -f vendor/bin/composer-unused
 .PHONY: clean
 
 sa: ## Run static analysis checks
@@ -101,3 +102,15 @@ rector-ci: ## Run Rector and show the diff in GitHub format for CI
 rector-fix: ## Apply Rector changes
 	tools/rector/vendor/bin/rector process -c tools/rector/rector.php
 .PHONY: rector-fix
+
+vendor/bin/composer-unused:
+	curl -sSL https://github.com/composer-unused/composer-unused/releases/latest/download/composer-unused.phar -o vendor/bin/composer-unused
+	chmod +x vendor/bin/composer-unused
+
+unused: vendor/bin/composer-unused
+	vendor/bin/composer-unused
+.PHONY: unused
+
+unused-ci: vendor/bin/composer-unused
+	vendor/bin/composer-unused --output-format=github
+.PHONY: unused-ci
