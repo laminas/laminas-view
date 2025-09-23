@@ -4,33 +4,31 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper;
 
+use Laminas\Escaper\Escaper;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\HtmlObject;
-use Laminas\View\Renderer\PhpRenderer as View;
-use Laminas\View\Renderer\RendererInterface;
 use PHPUnit\Framework\TestCase;
 
+/** @psalm-import-type DoctypeID from Doctype */
 final class HtmlObjectTest extends TestCase
 {
     private HtmlObject $helper;
-    private View $view;
 
-    /**
-     * Sets up the fixture, for example, open a network connection.
-     * This method is called before a test is executed.
-     *
-     * @access protected
-     */
     protected function setUp(): void
     {
-        $this->view   = new View();
-        $this->helper = new HtmlObject();
-        $this->helper->setView($this->view);
+        $this->helper = new HtmlObject(
+            new Escaper(),
+            new Doctype(),
+        );
     }
 
-    public function testViewObjectIsSet(): void
+    /** @param DoctypeID $doctype */
+    private function setDoctype(string $doctype): void
     {
-        $this->assertInstanceof(RendererInterface::class, $this->helper->getView());
+        $this->helper = new HtmlObject(
+            new Escaper(),
+            new Doctype($doctype),
+        );
     }
 
     public function testMakeHtmlObjectWithoutAttribsWithoutParams(): void
@@ -44,26 +42,26 @@ final class HtmlObjectTest extends TestCase
     public function testMakeHtmlObjectWithAttribsWithoutParams(): void
     {
         $attribs = [
-            'attribkey1' => 'attribvalue1',
-            'attribkey2' => 'attribvalue2',
+            'key1' => 'value1',
+            'key2' => 'value2',
         ];
 
         $htmlObject = $this->helper->__invoke('datastring', 'typestring', $attribs);
 
         $this->assertStringContainsString(
-            '<object data="datastring" type="typestring" attribkey1="attribvalue1" attribkey2="attribvalue2">',
-            $htmlObject
+            '<object data="datastring" key1="value1" key2="value2" type="typestring">',
+            $htmlObject,
         );
         $this->assertStringContainsString('</object>', $htmlObject);
     }
 
     public function testMakeHtmlObjectWithoutAttribsWithParamsHtml(): void
     {
-        $this->view->plugin(Doctype::class)->__invoke(Doctype::HTML4_STRICT);
+        $this->setDoctype(Doctype::HTML4_STRICT);
 
         $params = [
-            'paramname1' => 'paramvalue1',
-            'paramname2' => 'paramvalue2',
+            'name1' => 'value1',
+            'name2' => 'value2',
         ];
 
         $htmlObject = $this->helper->__invoke('datastring', 'typestring', [], $params);
@@ -80,7 +78,7 @@ final class HtmlObjectTest extends TestCase
 
     public function testMakeHtmlObjectWithoutAttribsWithParamsXhtml(): void
     {
-        $this->view->plugin(Doctype::class)->__invoke(Doctype::XHTML1_STRICT);
+        $this->setDoctype(Doctype::XHTML1_STRICT);
 
         $params = [
             'paramname1' => 'paramvalue1',
@@ -106,5 +104,11 @@ final class HtmlObjectTest extends TestCase
         $this->assertStringContainsString('<object data="datastring" type="typestring">', $htmlObject);
         $this->assertStringContainsString('testcontent', $htmlObject);
         $this->assertStringContainsString('</object>', $htmlObject);
+    }
+
+    public function testFallbackContentIsNotEscaped(): void
+    {
+        $html = $this->helper->__invoke('foo', 'bar', [], [], '<p>Baz</p>');
+        self::assertStringContainsString('<p>Baz</p>', $html);
     }
 }

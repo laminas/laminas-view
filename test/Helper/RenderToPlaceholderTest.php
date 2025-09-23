@@ -6,32 +6,44 @@ namespace LaminasTest\View\Helper;
 
 use Laminas\View\Helper\Placeholder;
 use Laminas\View\Helper\RenderToPlaceholder;
-use Laminas\View\Renderer\PhpRenderer as View;
-use Laminas\View\Resolver\TemplatePathStack;
+use Laminas\View\Renderer\PhpRenderer;
+use LaminasTest\View\GenerateServiceManager;
 use PHPUnit\Framework\TestCase;
-
-use function assert;
 
 final class RenderToPlaceholderTest extends TestCase
 {
-    private View $view;
     private RenderToPlaceholder $helper;
+    private Placeholder $placeholder;
 
     protected function setUp(): void
     {
-        $this->view = new View();
-        $resolver   = $this->view->resolver();
-        assert($resolver instanceof TemplatePathStack);
-        $resolver->addPath(__DIR__ . '/_files/scripts/');
-
-        $helper       = $this->view->plugin(RenderToPlaceholder::class);
-        $this->helper = $helper;
+        $container         = GenerateServiceManager::withConfig([
+            'view_manager' => [
+                'template_path_stack' => [
+                    __DIR__ . '/_files/scripts/',
+                ],
+            ],
+        ]);
+        $view              = $container->get(PhpRenderer::class);
+        $this->placeholder = new Placeholder();
+        $this->helper      = new RenderToPlaceholder($view, $this->placeholder);
     }
 
-    public function testDefaultEmpty(): void
+    public function testPlaceholderIsInitiallyEmpty(): void
     {
-        $this->helper->__invoke('rendertoplaceholderscript.phtml', 'fooPlaceholder');
-        $placeholder = $this->view->plugin(Placeholder::class);
-        $this->assertEquals("Foo Bar\n", $placeholder->__invoke('fooPlaceholder')->getValue());
+        self::assertSame('', $this->placeholder->__invoke('foo')->toString());
+    }
+
+    public function testPlaceholderWillContainTheContentsOfTheTemplateFile(): void
+    {
+        $this->helper->__invoke('rendertoplaceholderscript.phtml', 'foo');
+        $this->assertSame("Foo Bar\n", $this->placeholder->__invoke('foo')->toString());
+    }
+
+    public function testContentIsAggregatedWithAppend(): void
+    {
+        $this->helper->__invoke('rendertoplaceholderscript.phtml', 'foo');
+        $this->helper->__invoke('rendertoplaceholderscript.phtml', 'foo');
+        $this->assertSame("Foo Bar\nFoo Bar\n", $this->placeholder->__invoke('foo')->toString());
     }
 }

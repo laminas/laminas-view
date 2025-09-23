@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace LaminasTest\View\Resolver;
 
 use ArrayObject;
+use Laminas\View\Exception\InvalidArgumentException;
+use Laminas\View\Resolver\TemplateCannotBeFound;
 use Laminas\View\Resolver\TemplateMapResolver;
 use PHPUnit\Framework\TestCase;
 
@@ -171,11 +173,12 @@ final class TemplateMapResolverTest extends TestCase
         $this->assertEquals($map['foo/bar'], $resolver->get('foo/bar'));
     }
 
-    public function testGetReturnsFalseWhenNameHasNoMatch(): void
+    public function testGetThrowsExceptionWhenNameHasNoMatch(): void
     {
         $map      = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
-        $this->assertFalse($resolver->get('bar/baz'));
+        $this->expectException(TemplateCannotBeFound::class);
+        $resolver->get('bar/baz');
     }
 
     public function testResolveReturnsPathWhenNameHasMatch(): void
@@ -189,6 +192,23 @@ final class TemplateMapResolverTest extends TestCase
     {
         $map      = ['foo/bar' => __DIR__ . '/foo/bar.phtml'];
         $resolver = new TemplateMapResolver($map);
-        $this->assertFalse($resolver->resolve('bar/baz'));
+        self::assertFalse($resolver->resolve('bar/baz'));
+    }
+
+    public function testExceptionThrownAddingStringNameWithoutPath(): void
+    {
+        $resolver = new TemplateMapResolver();
+        $this->expectException(InvalidArgumentException::class);
+        $resolver->add('foo');
+    }
+
+    public function testInvalidHasMapsCauseExceptions(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+
+        /** @psalm-suppress InvalidArgument */
+        new TemplateMapResolver([
+            'foo' => 1,
+        ]);
     }
 }

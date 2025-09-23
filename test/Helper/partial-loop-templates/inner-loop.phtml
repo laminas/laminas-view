@@ -1,0 +1,10 @@
+<?php
+
+declare(strict_types=1);
+
+$object = $this->newKey ?? null;
+
+assert(is_object($object));
+assert(isset($object->message) && is_string($object->message));
+
+echo $object->message;

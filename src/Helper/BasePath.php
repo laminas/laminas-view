@@ -12,21 +12,25 @@ use function sprintf;
 
 /**
  * Helper for retrieving the base path.
- *
- * @final
  */
-class BasePath extends AbstractHelper
+final class BasePath implements StatefulHelperInterface
 {
-    use DeprecatedAbstractHelperHierarchyTrait;
+    private string|null $basePath;
+    private readonly string|null $configuredBasePath;
 
-    /** @var string|null */
-    protected $basePath;
-
-    public function __construct(?string $basePath = null)
+    public function __construct(string|null $basePath = null)
     {
         if ($basePath !== null) {
-            $this->setBasePath($basePath);
+            $basePath = rtrim($basePath, '/');
         }
+
+        $this->basePath           = $basePath;
+        $this->configuredBasePath = $basePath;
+    }
+
+    public function resetState(): void
+    {
+        $this->basePath = $this->configuredBasePath;
     }
 
     /**
@@ -34,11 +38,9 @@ class BasePath extends AbstractHelper
      *
      * $file is appended to the base path for simplicity.
      *
-     * @param  string|null $file
      * @throws RuntimeException
-     * @return string
      */
-    public function __invoke($file = null)
+    public function __invoke(string|null $file = null): string
     {
         if ($this->basePath === null) {
             throw new RuntimeException('No base path provided');
@@ -48,7 +50,7 @@ class BasePath extends AbstractHelper
             return sprintf(
                 '%s/%s',
                 $this->basePath,
-                ltrim($file, '/')
+                ltrim($file, '/'),
             );
         }
 
@@ -57,11 +59,8 @@ class BasePath extends AbstractHelper
 
     /**
      * Set the base path.
-     *
-     * @param  string $basePath
-     * @return self
      */
-    public function setBasePath($basePath)
+    public function setBasePath(string $basePath): self
     {
         $this->basePath = rtrim($basePath, '/');
         return $this;

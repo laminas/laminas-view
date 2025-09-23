@@ -1,0 +1,13 @@
+<?php
+
+foreach ($this as $name => $value) {
+    if (! is_string($name)) {
+        continue;
+    }
+
+    if (! is_scalar($value)) {
+        continue;
+    }
+
+    printf('<p>%s: %s</p>' . PHP_EOL, $name, (string) $value);
+}

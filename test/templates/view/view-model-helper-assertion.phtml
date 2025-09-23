@@ -1,0 +1,30 @@
+<?php
+
+declare(strict_types=1);
+
+use Laminas\View\Helper\ViewModel;
+use Laminas\View\Model\ModelInterface;
+
+use function PHPUnit\Framework\assertInstanceOf;
+use function PHPUnit\Framework\assertNotSame;
+use function PHPUnit\Framework\assertSame;
+
+$helper = $this->viewModel();
+
+assertInstanceOf(ViewModel::class, $helper);
+
+$current = $helper->getCurrent();
+assertInstanceOf(ModelInterface::class, $current);
+
+$layoutModel = $helper->getRoot();
+assertInstanceOf(ModelInterface::class, $layoutModel);
+
+assertNotSame($current, $layoutModel);
+
+$variable = $current->getVariable('message');
+
+assertSame('Message 1', $variable);
+
+?>
+
+<p><?= $this->message ?></p>

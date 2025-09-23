@@ -4,54 +4,49 @@ declare(strict_types=1);
 
 namespace Laminas\View\Resolver;
 
-use Laminas\View\Helper\ViewModel as ViewModelHelper;
+use Laminas\View\Helper\ViewModel;
 use Laminas\View\Model\ModelInterface;
-use Laminas\View\Renderer\RendererInterface;
-use Laminas\View\Resolver\ResolverInterface;
 
-use function call_user_func;
-use function is_callable;
 use function strrpos;
 use function substr;
 
 /**
  * Relative fallback resolver - resolves to view templates in a sub-path of the
- * currently set view model's template (if the current renderer has the `view_model` plugin set).
+ * currently set view model's template.
+ *
+ * The current view model is retrieved from the ViewModel view helper
  *
  * This allows for usage of partial template paths such as `some/partial`, resolving to
  * `my/module/script/path/some/partial.phtml`, while rendering template `my/module/script/path/my-view`
- *
- * @final
  */
-class RelativeFallbackResolver implements ResolverInterface
+final class RelativeFallbackResolver implements ResolverInterface
 {
     public const NS_SEPARATOR = '/';
 
-    private ResolverInterface $resolver;
+    public function __construct(
+        private readonly ResolverInterface $resolver,
+        private readonly ViewModel $viewModelHelper,
+    ) {
+    }
 
-    public function __construct(ResolverInterface $resolver)
+    /** @inheritDoc */
+    public function resolve(string $name): string|false
     {
-        $this->resolver = $resolver;
+        $template = $this->resolveTemplateName($name);
+        if ($template === false) {
+            return false;
+        }
+
+        return $this->resolver->resolve($template);
     }
 
     /**
-     * {@inheritDoc}
+     * @param non-empty-string $name
+     * @return non-empty-string|false
      */
-    public function resolve($name, ?RendererInterface $renderer = null)
+    private function resolveTemplateName(string $name): string|false
     {
-        $plugin = [$renderer, 'plugin'];
-
-        if (! is_callable($plugin)) {
-            return false;
-        }
-
-        $helper = call_user_func($plugin, 'view_model');
-
-        if (! $helper instanceof ViewModelHelper) {
-            return false;
-        }
-
-        $currentModel = $helper->getCurrent();
+        $currentModel = $this->viewModelHelper->getCurrent();
 
         if (! $currentModel instanceof ModelInterface) {
             return false;
@@ -64,6 +59,6 @@ class RelativeFallbackResolver implements ResolverInterface
             return false;
         }
 
-        return $this->resolver->resolve(substr($currentTemplate, 0, $position) . self::NS_SEPARATOR . $name, $renderer);
+        return substr($currentTemplate, 0, $position) . self::NS_SEPARATOR . $name;
     }
 }

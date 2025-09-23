@@ -5,28 +5,32 @@ declare(strict_types=1);
 namespace Laminas\View\Helper;
 
 use Laminas\View\Model\ModelInterface;
+use Laminas\View\Renderer\PhpRenderer;
 
 /**
  * Renders a template and stores the rendered output as a placeholder
  * variable for later use.
- *
- * @final
  */
-class RenderToPlaceholder extends AbstractHelper
+final class RenderToPlaceholder
 {
+    public function __construct(
+        private readonly PhpRenderer $renderer,
+        private readonly Placeholder $placeholder,
+    ) {
+    }
+
     /**
      * Renders a template and stores the rendered output as a placeholder
      * variable for later use.
      *
-     * @param string|ModelInterface $script      The template script to render
-     * @param string                $placeholder The placeholder variable name in which to store the rendered output
-     * @return void
+     * @param non-empty-string|ModelInterface $script The template script to render
+     * @param non-empty-string $placeholder The placeholder variable name in which to store the output
      */
-    public function __invoke($script, $placeholder)
+    public function __invoke(string|ModelInterface $script, string $placeholder): void
     {
-        $placeholderHelper = $this->view->plugin('placeholder');
-        $placeholderHelper($placeholder)->captureStart();
-        echo $this->view->render($script);
-        $placeholderHelper($placeholder)->captureEnd();
+        $this->placeholder->__invoke()->append(
+            $this->renderer->render($script),
+            $placeholder,
+        );
     }
 }

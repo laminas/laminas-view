@@ -4,175 +4,169 @@ declare(strict_types=1);
 
 namespace Laminas\View\Helper;
 
-use Laminas\View\Exception;
-use Laminas\View\Helper\Placeholder\Container\AbstractContainer;
-use Laminas\View\Helper\Placeholder\Container\AbstractStandalone;
+use Closure;
+use Laminas\Escaper\Escaper;
+use Laminas\Escaper\EscaperInterface;
+use Laminas\Translator\TranslatorInterface;
+use Stringable;
 
-use function assert;
+use function array_map;
+use function array_unshift;
 use function implode;
-use function in_array;
+use function is_int;
+use function sprintf;
+use function str_repeat;
 
 /**
  * Helper for setting and retrieving title element for HTML head.
- *
- * Duck-types against Laminas\I18n\Translator\TranslatorAwareInterface.
- *
- * @extends AbstractStandalone<int, string>
- * @method HeadTitle set(string $string)
- * @method HeadTitle prepend(string $string)
- * @method HeadTitle append(string $string)
- * @final
  */
-class HeadTitle extends AbstractStandalone
+final class HeadTitle implements Stringable, StatefulHelperInterface
 {
-    use TranslatorAwareTrait;
+    /** @var list<string> $items */
+    private array $items = [];
+    private readonly EscaperInterface $escaper;
+    private string|null $separator;
+    private string|null $indent;
+    private string|null $prefix;
+    private string|null $postfix;
 
     /**
-     * Default title rendering order (i.e. order in which each title attached)
-     *
-     * @deprecated Since 2.38.0 This property will be removed in 3.0 without replacement
-     *
-     * @var string|null
+     * @param non-empty-string $translatorTextDomain
      */
-    protected $defaultAttachOrder;
+    public function __construct(
+        EscaperInterface|null $escaper = null,
+        private readonly bool $autoEscape = true,
+        private readonly string $defaultSeparator = '',
+        private readonly string $defaultIndent = '',
+        private readonly string $defaultPrefix = '',
+        private readonly string $defaultPostfix = '',
+        private readonly TranslatorInterface|null $translator = null,
+        private readonly string $translatorTextDomain = 'default',
+    ) {
+        $this->escaper   = $escaper ?? new Escaper();
+        $this->separator = null;
+        $this->indent    = null;
+        $this->prefix    = null;
+        $this->postfix   = null;
+    }
 
-    /**
-     * Retrieve placeholder for title element and optionally set state
-     *
-     * @param  string|null $title
-     * @param  string|null $setType
-     * @return HeadTitle
-     */
-    public function __invoke($title = null, $setType = null)
+    public function resetState(): void
     {
-        if (null === $setType) {
-            $setType = $this->getDefaultAttachOrder()
-                ?? AbstractContainer::APPEND;
-        }
+        $this->items     = [];
+        $this->separator = null;
+        $this->indent    = null;
+        $this->prefix    = null;
+        $this->postfix   = null;
+    }
 
-        $title = (string) $title;
-        if ($title !== '') {
-            if ($setType === AbstractContainer::SET) {
-                $this->set($title);
-            } elseif ($setType === AbstractContainer::PREPEND) {
-                $this->prepend($title);
-            } else {
-                $this->append($title);
-            }
+    public function __invoke(string|null $title = null): self
+    {
+        if ($title !== null && $title !== '') {
+            $this->append($title);
         }
 
         return $this;
     }
 
-    /**
-     * Render title (wrapped by title tag)
-     *
-     * @param  string|null $indent
-     * @return string
-     */
-    public function toString($indent = null)
+    public function append(string $value): self
     {
-        $container = $this->getContainer();
-        $indent    = null !== $indent
-                ? $container->getWhitespace($indent)
-                : $container->getIndent();
-
-        $output = $this->renderTitle();
-
-        return $indent . '<title>' . $output . '</title>';
-    }
-
-    /**
-     * Render title string
-     *
-     * @return string
-     */
-    public function renderTitle()
-    {
-        $items = [];
-
-        $itemCallback = $this->getTitleItemCallback();
-        $container    = $this->getContainer();
-        foreach ($container as $item) {
-            $items[] = $itemCallback($item);
-        }
-
-        $separator = $container->getSeparator();
-        $output    = '';
-
-        $prefix = $container->getPrefix();
-        if ($prefix) {
-            $output .= $prefix;
-        }
-
-        $output .= implode($separator, $items);
-
-        $postfix = $container->getPostfix();
-        if ($postfix) {
-            $output .= $postfix;
-        }
-
-        return $this->autoEscape ? $this->escape($output) : $output;
-    }
-
-    /**
-     * Set a default order to add titles
-     *
-     * @deprecated Since 2.38.0 This method will be removed in 3.0. You should instead use the `append` or `prepend`
-     *             methods
-     *
-     * @param  string $setType
-     * @throws Exception\DomainException
-     * @return $this
-     */
-    public function setDefaultAttachOrder($setType)
-    {
-        if (
-            ! in_array($setType, [
-                AbstractContainer::APPEND,
-                AbstractContainer::SET,
-                AbstractContainer::PREPEND,
-            ], true)
-        ) {
-            throw new Exception\DomainException(
-                "You must use a valid attach order: 'PREPEND', 'APPEND' or 'SET'"
-            );
-        }
-        $this->defaultAttachOrder = $setType;
+        $this->items[] = $value;
 
         return $this;
     }
 
-    /**
-     * Get the default attach order, if any.
-     *
-     * @deprecated Since 2.38.0 This method will be removed in 3.0 without replacement
-     *
-     * @return string|null
-     */
-    public function getDefaultAttachOrder()
+    public function prepend(string $value): self
     {
-        return $this->defaultAttachOrder;
+        array_unshift($this->items, $value);
+
+        return $this;
+    }
+
+    public function set(string $value): self
+    {
+        $this->items = [$value];
+
+        return $this;
+    }
+
+    public function setIndent(string|int $indent): self
+    {
+        if (is_int($indent)) {
+            $indent = str_repeat(' ', $indent);
+        }
+
+        $this->indent = $indent;
+
+        return $this;
+    }
+
+    public function setSeparator(string $separator): self
+    {
+        $this->separator = $separator;
+
+        return $this;
+    }
+
+    public function setPrefix(string $prefix): self
+    {
+        $this->prefix = $prefix;
+
+        return $this;
+    }
+
+    public function setPostfix(string $postfix): self
+    {
+        $this->postfix = $postfix;
+
+        return $this;
+    }
+
+    public function toString(): string
+    {
+        return sprintf(
+            '%s<title>%s</title>',
+            $this->indent ?? $this->defaultIndent,
+            $this->renderTitle(),
+        );
+    }
+
+    public function __toString(): string
+    {
+        return $this->toString();
+    }
+
+    public function renderTitle(): string
+    {
+        $items = array_map(
+            ($this->translatorCallback())(...),
+            $this->items,
+        );
+
+        $content = sprintf(
+            '%s%s%s',
+            $this->prefix ?? $this->defaultPrefix,
+            implode($this->separator ?? $this->defaultSeparator, $items),
+            $this->postfix ?? $this->defaultPostfix,
+        );
+
+        return $this->autoEscape
+            ? $this->escaper->escapeHtml($content)
+            : $content;
     }
 
     /**
-     * Create and return a callback for normalizing title items.
+     * Create and return a callback for translation of the title items
      *
-     * If translation is not enabled, or no translator is present, returns a
-     * callable that simply returns the provided item; otherwise, returns a
-     * callable that returns a translation of the provided item.
-     *
-     * @return callable(string): string
+     * @return Closure(string): string
      */
-    private function getTitleItemCallback()
+    private function translatorCallback(): Closure
     {
-        if (! $this->isTranslatorEnabled() || ! $this->hasTranslator()) {
-            return static fn($item) => $item;
+        $translator = $this->translator;
+
+        if ($translator === null) {
+            return static fn (string $value): string => $value;
         }
 
-        $translator = $this->getTranslator();
-        assert($translator !== null);
-        $textDomain = $this->getTranslatorTextDomain();
-        return static fn($item) => $translator->translate($item, $textDomain);
+        return fn (string $value): string => $translator->translate($value, $this->translatorTextDomain);
     }
 }
