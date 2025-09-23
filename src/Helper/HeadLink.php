@@ -47,21 +47,28 @@ class HeadLink extends AbstractStandalone
      * @var string[]
      */
     protected $itemKeys = [
+        'as',
+        'blocking',
         'charset',
+        'crossorigin',
+        'disabled',
+        'extras',
+        'fetchpriority',
         'href',
         'hreflang',
         'id',
+        'imagesizes',
+        'imagesrcset',
+        'integrity',
+        'itemprop',
+        'lang',
         'media',
+        'referrerpolicy',
         'rel',
         'rev',
         'sizes',
-        'type',
         'title',
-        'extras',
-        'itemprop',
-        'crossorigin',
-        'integrity',
-        'as',
+        'type',
     ];
 
     /**

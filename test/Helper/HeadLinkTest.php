@@ -467,4 +467,15 @@ final class HeadLinkTest extends TestCase
         $this->helper->headLink(['as' => 'style', 'href' => '/foo/bar.css', 'rel' => 'preload']);
         $this->assertStringContainsString('as="style"', $this->helper->toString());
     }
+
+    public function testFetchPriorityAttributeIsSupported(): void
+    {
+        $this->helper->headLink([
+            'as'            => 'style',
+            'href'          => '/foo/bar.css',
+            'rel'           => 'preload',
+            'fetchpriority' => 'high',
+        ]);
+        $this->assertStringContainsString('fetchpriority="high"', $this->helper->toString());
+    }
 }
