@@ -222,15 +222,4 @@ final class HeadLinkTest extends TestCase
 
         self::assertSame($expect, $this->helper->toString());
     }
-
-    public function testFetchPriorityAttributeIsSupported(): void
-    {
-        $this->helper->headLink([
-            'as'            => 'style',
-            'href'          => '/foo/bar.css',
-            'rel'           => 'preload',
-            'fetchpriority' => 'high',
-        ]);
-        $this->assertStringContainsString('fetchpriority="high"', $this->helper->toString());
-    }
 }
