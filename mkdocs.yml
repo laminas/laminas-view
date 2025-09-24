@@ -2,6 +2,36 @@ docs_dir: docs/book
 site_dir: docs/html
 nav:
   - Home: index.md
+  - v3:
+      - "Quick Start": v3/quick-start.md
+      - "Rendering Views":
+          - "The PhpRenderer": v3/php-renderer.md
+          - "Template Resolvers": v3/template-resolvers.md
+          - "View Scripts": v3/view-scripts.md
+      - Helpers:
+          - Introduction: v3/helpers/intro.md
+          - Asset: v3/helpers/asset.md
+          - BasePath: v3/helpers/base-path.md
+          - Cycle: v3/helpers/cycle.md
+          - Doctype: v3/helpers/doctype.md
+          - Escape: v3/helpers/escape.md
+          - Gravatar: v3/helpers/gravatar-image.md
+          - HeadLink: v3/helpers/head-link.md
+          - HeadMeta: v3/helpers/head-meta.md
+          - HeadScript & InlineScript: v3/helpers/head-and-inline-script.md
+          - HeadStyle: v3/helpers/head-style.md
+          - HeadTitle: v3/helpers/head-title.md
+          - HtmlAttributes: v3/helpers/html-attributes.md
+          - HtmlList: v3/helpers/html-list.md
+          - HtmlObject: v3/helpers/html-object.md
+          - HtmlTag: v3/helpers/html-tag.md
+          - Layout: v3/helpers/layout.md
+          - Partial: v3/helpers/partial.md
+          - Placeholder: v3/helpers/placeholder.md
+          - RenderToPlaceholder: v3/helpers/render-to-placeholder.md
+          - "Advanced usage of helpers": v3/helpers/advanced-usage.md
+      - Migration:
+          - "Migration from Version 2 to 3": v3/migration/v2-to-v3.md
   - v2:
       - "Quick Start": v2/quick-start.md
       - "Rendering Views":
@@ -40,36 +70,6 @@ nav:
           - "Setting module-specific Layouts": v2/cookbook/setting-module-specific-layouts.md
       - Migration:
           - "Preparing for Version 3": v2/migration/preparing-for-v3.md
-  - v3:
-      - "Quick Start": v3/quick-start.md
-      - "Rendering Views":
-          - "The PhpRenderer": v3/php-renderer.md
-          - "Template Resolvers": v3/template-resolvers.md
-          - "View Scripts": v3/view-scripts.md
-      - Helpers:
-          - Introduction: v3/helpers/intro.md
-          - Asset: v3/helpers/asset.md
-          - BasePath: v3/helpers/base-path.md
-          - Cycle: v3/helpers/cycle.md
-          - Doctype: v3/helpers/doctype.md
-          - Escape: v3/helpers/escape.md
-          - Gravatar: v3/helpers/gravatar-image.md
-          - HeadLink: v3/helpers/head-link.md
-          - HeadMeta: v3/helpers/head-meta.md
-          - HeadScript & InlineScript: v3/helpers/head-and-inline-script.md
-          - HeadStyle: v3/helpers/head-style.md
-          - HeadTitle: v3/helpers/head-title.md
-          - HtmlAttributes: v3/helpers/html-attributes.md
-          - HtmlList: v3/helpers/html-list.md
-          - HtmlObject: v3/helpers/html-object.md
-          - HtmlTag: v3/helpers/html-tag.md
-          - Layout: v3/helpers/layout.md
-          - Partial: v3/helpers/partial.md
-          - Placeholder: v3/helpers/placeholder.md
-          - RenderToPlaceholder: v3/helpers/render-to-placeholder.md
-          - "Advanced usage of helpers": v3/helpers/advanced-usage.md
-      - Migration:
-          - "Migration from Version 2 to 3": v3/migration/v2-to-v3.md
 site_name: laminas-view
 site_description: 'Flexible view layer supporting and providing multiple view layers, helpers, and more.'
 repo_url: 'https://github.com/laminas/laminas-view'
