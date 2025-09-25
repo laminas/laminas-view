@@ -6,6 +6,7 @@ namespace LaminasTest\View;
 
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\ConfigProvider;
+use Laminas\View\Model\ModelInterface;
 use Laminas\View\Model\ViewModel;
 use Laminas\View\View;
 use PHPUnit\Framework\TestCase;
@@ -270,5 +271,35 @@ final class ViewTest extends TestCase
 
         self::assertStringContainsString('<p>Message 1</p>', $content);
         self::assertStringContainsString('<default-layout>', $content);
+    }
+
+    public function testThatArbitraryMutationsCanBeAppliedToTheViewModelPriorToRendering(): void
+    {
+        $view = self::createView();
+
+        $view->registerPreRenderHandler(static fn (ModelInterface $model): ModelInterface
+            => $model->setVariable('message', 'Tricked You!'));
+
+        $content = $view->render('single-variable', ['message' => 'Message 1']);
+
+        self::assertStringContainsString('<p>Tricked You!</p>', $content);
+        self::assertStringNotContainsString('Message 1', $content);
+    }
+
+    public function testThatViewModelMutationsAreAppliedInTheOrderOfRegistration(): void
+    {
+        $view = self::createView();
+
+        $view->registerPreRenderHandler(static fn (ModelInterface $model): ModelInterface =>
+            $model->setVariable('message', 'Kermit'));
+
+        $view->registerPreRenderHandler(static fn (ModelInterface $model): ModelInterface =>
+            $model->setVariable('message', 'Miss Piggy'));
+
+        $content = $view->render('single-variable', ['message' => 'Fozzy Bear']);
+
+        self::assertStringContainsString('<p>Miss Piggy</p>', $content);
+        self::assertStringNotContainsString('Fozzy Bear', $content);
+        self::assertStringNotContainsString('Kermit', $content);
     }
 }
