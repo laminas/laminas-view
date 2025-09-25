@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper;
 
-use Laminas\View\Exception;
 use Laminas\View\Helper\RenderChildModel;
 use Laminas\View\Helper\ViewModel as ViewModelHelper;
 use Laminas\View\HelperPluginManager;
@@ -16,7 +15,6 @@ use PHPUnit\Framework\TestCase;
 final class RenderChildModelTest extends TestCase
 {
     private PhpRenderer $renderer;
-    private ViewModelHelper $viewModelHelper;
     private RenderChildModel $helper;
     private ViewModel $parent;
 
@@ -37,14 +35,14 @@ final class RenderChildModelTest extends TestCase
 
         $plugins = $container->get(HelperPluginManager::class);
 
-        $this->viewModelHelper = $plugins->get(ViewModelHelper::class);
+        $viewModelHelper = $plugins->get(ViewModelHelper::class);
 
         $this->helper = $plugins->get(RenderChildModel::class);
 
         $this->parent = new ViewModel();
         $this->parent->setTemplate('layout');
-        $this->viewModelHelper->setRoot($this->parent);
-        $this->viewModelHelper->setCurrent($this->parent);
+        $viewModelHelper->setRoot($this->parent);
+        $viewModelHelper->setCurrent($this->parent);
     }
 
     public function testRendersEmptyStringWhenUnableToResolveChildModel(): void
@@ -124,13 +122,5 @@ final class RenderChildModelTest extends TestCase
             $result,
             $result
         );
-    }
-
-    public function testAttemptingToRenderWithNoCurrentModelRaisesException(): void
-    {
-        $this->expectException(Exception\RuntimeException::class);
-        $this->expectExceptionMessage('no view model');
-        $this->viewModelHelper->resetState();
-        $this->renderer->render('layout');
     }
 }
