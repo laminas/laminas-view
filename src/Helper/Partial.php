@@ -24,6 +24,8 @@ final class Partial implements StatefulHelperInterface
 {
     /**
      * Variable to which object will be assigned
+     *
+     * @var non-empty-string|null
      */
     private string|null $objectKey = null;
 
@@ -41,7 +43,7 @@ final class Partial implements StatefulHelperInterface
      * calling View object. It proxies to view's render function
      *
      * @param  non-empty-string|ModelInterface|null $name Name of view script, or a view model
-     * @param  iterable<string, mixed>|object|null $values Variables to populate in the view
+     * @param  iterable<non-empty-string, mixed>|object|null $values Variables to populate in the view
      * @return ($name is null ? self : string)
      * @throws RuntimeException
      */
@@ -62,8 +64,8 @@ final class Partial implements StatefulHelperInterface
     }
 
     /**
-     * @param iterable<string, mixed>|object|null $values
-     * @return iterable<string, mixed>
+     * @param iterable<non-empty-string, mixed>|object|null $values
+     * @return iterable<non-empty-string, mixed>
      */
     private function extractVariablesForRender(iterable|object|null $values): iterable
     {
@@ -98,15 +100,18 @@ final class Partial implements StatefulHelperInterface
             $variables = $values->toArray();
 
             if (is_array($variables)) {
-                return $variables; // We cannot guarantee iterable<string, mixed> here
+                return $variables; // We cannot guarantee iterable<non-empty-string, mixed> here
             }
         }
 
+        /** @psalm-var array<non-empty-string, mixed> */
         return get_object_vars($values);
     }
 
     /**
      * Set object key
+     *
+     * @param non-empty-string|null $key
      */
     public function setObjectKey(string|null $key): self
     {
@@ -120,6 +125,8 @@ final class Partial implements StatefulHelperInterface
      *
      * The objectKey is the variable to which an object in the iterator will be
      * assigned.
+     *
+     * @return non-empty-string|null
      */
     public function getObjectKey(): string|null
     {

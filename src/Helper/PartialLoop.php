@@ -35,7 +35,7 @@ final class PartialLoop implements StatefulHelperInterface
     /**
      * Stack with object keys for each nested level
      *
-     * @var array<int, string|null> indexed by nesting level
+     * @var array<int, non-empty-string|null> indexed by nesting level
      */
     private array $objectKeyStack = [
         0 => null,
@@ -112,6 +112,8 @@ final class PartialLoop implements StatefulHelperInterface
 
     /**
      * Set object key in this loop and any child loop
+     *
+     * @param non-empty-string|null $key
      */
     public function setObjectKey(string|null $key): self
     {
@@ -126,6 +128,7 @@ final class PartialLoop implements StatefulHelperInterface
         return $this;
     }
 
+    /** @return non-empty-string|null */
     public function getObjectKey(): string|null
     {
         return $this->partialHelper->getObjectKey();

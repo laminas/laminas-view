@@ -41,7 +41,7 @@ final class ViewModel implements ModelInterface, ClearableModelInterface, Retrie
     /**
      * View variables
      *
-     * @var array<string, mixed>
+     * @var array<non-empty-string, mixed>
      */
     private array $variables;
 
@@ -71,6 +71,8 @@ final class ViewModel implements ModelInterface, ClearableModelInterface, Retrie
 
     /**
      * Property overloading: set variable value
+     *
+     * @param non-empty-string $name
      */
     public function __set(string $name, mixed $value): void
     {
@@ -79,6 +81,8 @@ final class ViewModel implements ModelInterface, ClearableModelInterface, Retrie
 
     /**
      * Property overloading: get variable value
+     *
+     * @param non-empty-string $name
      */
     public function __get(string $name): mixed
     {
@@ -87,6 +91,8 @@ final class ViewModel implements ModelInterface, ClearableModelInterface, Retrie
 
     /**
      * Property overloading: do we have the requested variable value?
+     *
+     * @param non-empty-string $name
      */
     public function __isset(string $name): bool
     {
@@ -95,15 +101,15 @@ final class ViewModel implements ModelInterface, ClearableModelInterface, Retrie
 
     /**
      * Property overloading: unset the requested variable
+     *
+     * @param non-empty-string $name
      */
     public function __unset(string $name): void
     {
         unset($this->variables[$name]);
     }
 
-    /**
-     * Get a single view variable
-     */
+    /** @inheritDoc */
     public function getVariable(string $name, mixed $default = null): mixed
     {
         return array_key_exists($name, $this->variables)
@@ -111,9 +117,7 @@ final class ViewModel implements ModelInterface, ClearableModelInterface, Retrie
             : $default;
     }
 
-    /**
-     * Set view variable
-     */
+    /** @inheritDoc */
     public function setVariable(string $name, mixed $value): static
     {
         $this->{$name} = $value;
@@ -121,14 +125,7 @@ final class ViewModel implements ModelInterface, ClearableModelInterface, Retrie
         return $this;
     }
 
-    /**
-     * Set view variables en masse
-     *
-     * Can be an array or a Traversable + ArrayAccess object.
-     *
-     * @param iterable<string, mixed> $variables
-     * @param bool $overwrite Whether to overwrite existing variables
-     */
+    /** @inheritDoc */
     public function setVariables(iterable $variables, bool $overwrite = false): static
     {
         if ($overwrite) {
@@ -143,6 +140,7 @@ final class ViewModel implements ModelInterface, ClearableModelInterface, Retrie
         return $this;
     }
 
+    /** @inheritDoc */
     public function getVariables(): array
     {
         return $this->variables;
