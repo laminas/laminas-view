@@ -17,8 +17,8 @@ interface RendererInterface
      *
      * @param non-empty-string|ModelInterface $templateNameOrModel Either the name of a template to render (Not a path)
      *                                                             or a view model (Referencing a template name)
-     * @param iterable<string, mixed>|null $variables Variables to use during rendering, if a model is not passed as the
-     *                                                first argument.
+     * @param iterable<non-empty-string, mixed>|null $variables    Variables to use during rendering, if a model is not
+     *                                                             passed as the first argument.
      * @return string The rendered output
      * @throws RenderingFailedException When any issue occurs during rendering.
      */

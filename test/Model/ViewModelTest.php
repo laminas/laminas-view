@@ -342,7 +342,7 @@ final class ViewModelTest extends TestCase
         self::assertSame($expected, $model->getVariable('foo', $default));
     }
 
-    /** @param iterable<string, mixed> $variables */
+    /** @param iterable<non-empty-string, mixed> $variables */
     #[DataProvider('variableValue')]
     public function testGetVariableSetBySetter(iterable $variables, string|null $default, string|null $expected): void
     {

@@ -20,25 +20,29 @@ interface ModelInterface extends Countable, IteratorAggregate
 {
     /**
      * Get a single view variable
+     *
+     * @param non-empty-string $name
      */
     public function getVariable(string $name, mixed $default = null): mixed;
 
     /**
      * Set view variable
+     *
+     * @param non-empty-string $name
      */
     public function setVariable(string $name, mixed $value): static;
 
     /**
      * Set view variables en masse
      *
-     * @param iterable<string, mixed> $variables
+     * @param iterable<non-empty-string, mixed> $variables
      */
     public function setVariables(iterable $variables, bool $overwrite = false): static;
 
     /**
      * Get view variables
      *
-     * @return array<string, mixed>
+     * @return array<non-empty-string, mixed>
      */
     public function getVariables(): array;
 

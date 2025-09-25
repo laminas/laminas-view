@@ -136,7 +136,7 @@ final class PhpRendererTest extends TestCase
         $this->renderer->render('exceptional-helper');
     }
 
-    /** @return iterable<string, array{0: iterable<string, mixed>}> */
+    /** @return iterable<string, array{0: iterable<non-empty-string, mixed>}> */
     public static function possibleViewVariableTypes(): iterable
     {
         yield 'Basic Array' => [['message' => 'Example Message']];
@@ -144,7 +144,7 @@ final class PhpRendererTest extends TestCase
         yield 'Array Object' => [new ArrayObject(['message' => 'Example Message'])];
     }
 
-    /** @param iterable<string, mixed> $type */
+    /** @param iterable<non-empty-string, mixed> $type */
     #[DataProvider('possibleViewVariableTypes')]
     public function testViewVariablesArgumentWithPossibleTypes(iterable $type): void
     {

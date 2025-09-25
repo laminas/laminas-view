@@ -10,7 +10,7 @@
       <code><![CDATA[$variables]]></code>
     </InvalidReturnStatement>
     <InvalidReturnType>
-      <code><![CDATA[iterable<string, mixed>]]></code>
+      <code><![CDATA[iterable<non-empty-string, mixed>]]></code>
     </InvalidReturnType>
   </file>
   <file src="src/Helper/PartialLoop.php">
