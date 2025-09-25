@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Laminas\View;
 
+use Closure;
 use Laminas\View\Exception\RenderingFailedException;
 use Laminas\View\Helper\ViewModel as ViewModelHelper;
 use Laminas\View\Model\ModelInterface;
@@ -16,6 +17,9 @@ final class View
 {
     private readonly ViewModelHelper $viewModelHelper;
 
+    /** @var list<(Closure(ModelInterface): ModelInterface)> */
+    private array $preRenderHandlers;
+
     /**
      * @param non-empty-string $defaultLayoutTemplate
      * @param non-empty-string $defaultCaptureTo
@@ -26,7 +30,8 @@ final class View
         private readonly string $defaultLayoutTemplate,
         private readonly string $defaultCaptureTo,
     ) {
-        $this->viewModelHelper = $this->pluginManager->get(ViewModelHelper::class);
+        $this->viewModelHelper   = $this->pluginManager->get(ViewModelHelper::class);
+        $this->preRenderHandlers = [];
     }
 
     /**
@@ -101,6 +106,21 @@ final class View
 
         $this->viewModelHelper->setCurrent($model);
 
-        return $this->renderer->render($model);
+        return $this->renderer->render($this->beforeRender($model));
+    }
+
+    /** @param Closure(ModelInterface): ModelInterface $handler */
+    public function registerPreRenderHandler(Closure $handler): void
+    {
+        $this->preRenderHandlers[] = $handler;
+    }
+
+    private function beforeRender(ModelInterface $model): ModelInterface
+    {
+        foreach ($this->preRenderHandlers as $handler) {
+            $model = $handler($model);
+        }
+
+        return $model;
     }
 }
