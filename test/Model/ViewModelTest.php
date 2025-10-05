@@ -150,9 +150,7 @@ final class ViewModelTest extends TestCase
         self::assertEquals(3, $count);
     }
 
-    /**
-     * @depends testCanCountChildren
-     */
+    #[Depends('testCanCountChildren')]
     public function testCanClearChildren(ViewModel $model): void
     {
         $result = $model->clearChildren();

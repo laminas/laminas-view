@@ -6,6 +6,7 @@ namespace LaminasTest\View\Helper;
 
 use Laminas\Escaper\Escaper;
 use Laminas\View\Helper\GravatarImage;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\TestCase;
 
 use function md5;
@@ -45,7 +46,7 @@ final class GravatarImageTest extends TestCase
         );
     }
 
-    /** @depends testThatTheGivenEmailAddressWillBeHashed  */
+    #[Depends('testThatTheGivenEmailAddressWillBeHashed')]
     public function testTheRatingWillDefaultToG(string $markup): void
     {
         $expect = $this->escaper->escapeHtmlAttr(sprintf(
@@ -59,7 +60,7 @@ final class GravatarImageTest extends TestCase
         );
     }
 
-    /** @depends testThatTheGivenEmailAddressWillBeHashed  */
+    #[Depends('testThatTheGivenEmailAddressWillBeHashed')]
     public function testAnEmptyAltAttributeWillBeAddedByDefault(string $markup): void
     {
         self::assertStringContainsString(
@@ -68,7 +69,7 @@ final class GravatarImageTest extends TestCase
         );
     }
 
-    /** @depends testThatTheGivenEmailAddressWillBeHashed  */
+    #[Depends('testThatTheGivenEmailAddressWillBeHashed')]
     public function testTheImageSizeWillBe80(string $markup): void
     {
         $expect = $this->escaper->escapeHtmlAttr('s=80');
@@ -79,7 +80,7 @@ final class GravatarImageTest extends TestCase
         );
     }
 
-    /** @depends testThatTheGivenEmailAddressWillBeHashed  */
+    #[Depends('testThatTheGivenEmailAddressWillBeHashed')]
     public function testWidthAndHeightAttributesWillBePresent(string $markup): void
     {
         self::assertStringContainsString(
@@ -92,7 +93,7 @@ final class GravatarImageTest extends TestCase
         );
     }
 
-    /** @depends testThatTheGivenEmailAddressWillBeHashed  */
+    #[Depends('testThatTheGivenEmailAddressWillBeHashed')]
     public function testTheDefaultFallbackImageImageSizeWillBeMP(string $markup): void
     {
         $expect = $this->escaper->escapeHtmlAttr(sprintf(
@@ -128,7 +129,7 @@ final class GravatarImageTest extends TestCase
         return $image;
     }
 
-    /** @depends testThatTheImageSizeCanBeAltered  */
+    #[Depends('testThatTheImageSizeCanBeAltered')]
     public function testWidthAndHeightAttributesWillMatchCustomValue(string $markup): void
     {
         self::assertStringContainsString(
