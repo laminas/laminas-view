@@ -4,7 +4,7 @@
         "filter"
     ],
     "ignore_php_platform_requirements": {
-        "8.4": false
+        "8.5": true
     },
     "backwardCompatibilityCheck": true
 }
