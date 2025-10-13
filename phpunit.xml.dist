@@ -23,7 +23,7 @@
     <php>
         <ini name="date.timezone" value="UTC"/>
     </php>
-    <source>
+    <source restrictDeprecations="true">
         <include>
             <directory suffix=".php">./src</directory>
         </include>
