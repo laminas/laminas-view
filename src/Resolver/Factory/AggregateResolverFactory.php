@@ -17,7 +17,7 @@ use Psr\Container\ContainerInterface;
  * @psalm-internal Laminas\View
  * @psalm-internal LaminasTest\View
  */
-final class AggregateResolverFactory
+final readonly class AggregateResolverFactory
 {
     public function __invoke(ContainerInterface $container): AggregateResolver
     {

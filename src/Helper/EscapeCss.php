@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Laminas\View\Helper;
 
-final class EscapeCss extends Escaper\AbstractHelper
+final readonly class EscapeCss extends Escaper\AbstractHelper
 {
     protected function escape(string $value): string
     {

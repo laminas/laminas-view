@@ -13,7 +13,7 @@ use Psr\Container\ContainerInterface;
  * @psalm-internal Laminas\View
  * @psalm-internal LaminasTest\View
  */
-final class LayoutFactory
+final readonly class LayoutFactory
 {
     public function __invoke(ContainerInterface $container): Layout
     {

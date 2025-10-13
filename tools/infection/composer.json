@@ -12,7 +12,7 @@
         "ext-json": "*",
         "laminas/laminas-escaper": "^2.17.0",
         "laminas/laminas-servicemanager": "^4.4.0",
-        "laminas/laminas-stdlib": "^3.20.0",
+        "laminas/laminas-stdlib": "^3.21.0",
         "laminas/laminas-translator": "^1.1",
         "psr/container": "^1 || ^2.0.2"
     },

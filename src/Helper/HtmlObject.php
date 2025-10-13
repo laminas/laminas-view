@@ -16,11 +16,11 @@ use function sprintf;
 
 use const PHP_EOL;
 
-final class HtmlObject
+final readonly class HtmlObject
 {
     public function __construct(
-        private readonly EscaperInterface $escaper,
-        private readonly Doctype $doctype,
+        private EscaperInterface $escaper,
+        private Doctype $doctype,
     ) {
     }
 

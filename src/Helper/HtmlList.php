@@ -20,9 +20,9 @@ use const PHP_EOL;
  *
  * @psalm-import-type AttributeSet from HtmlAttributesSet
  */
-final class HtmlList
+final readonly class HtmlList
 {
-    public function __construct(private readonly EscaperInterface $escaper)
+    public function __construct(private EscaperInterface $escaper)
     {
     }
 

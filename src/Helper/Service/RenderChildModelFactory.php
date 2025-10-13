@@ -10,7 +10,7 @@ use Laminas\View\HelperPluginManager;
 use Laminas\View\Renderer\PhpRenderer;
 use Psr\Container\ContainerInterface;
 
-final class RenderChildModelFactory
+final readonly class RenderChildModelFactory
 {
     public function __invoke(ContainerInterface $container): RenderChildModel
     {

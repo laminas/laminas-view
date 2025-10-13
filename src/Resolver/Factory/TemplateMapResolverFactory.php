@@ -14,7 +14,7 @@ use Psr\Container\ContainerInterface;
  * @psalm-internal LaminasTest\View
  * @psalm-import-type ViewConfigShape from ConfigProvider
  */
-final class TemplateMapResolverFactory
+final readonly class TemplateMapResolverFactory
 {
     public function __invoke(ContainerInterface $container): TemplateMapResolver
     {

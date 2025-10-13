@@ -39,15 +39,15 @@ use const PHP_EOL;
  * @psalm-internal Laminas\View
  * @psalm-internal LaminasTest\View
  */
-final class TemplateMapGenerator
+final readonly class TemplateMapGenerator
 {
-    public readonly string $directoryToScan;
-    public readonly string $destinationFilePath;
+    public string $directoryToScan;
+    public string $destinationFilePath;
 
     public function __construct(
         string $directoryToScan,
         string $destinationFilePath,
-        public readonly string $fileSuffix = 'phtml',
+        public string $fileSuffix = 'phtml',
     ) {
         $directory = realpath($directoryToScan);
         if (! is_string($directory) || ! is_dir($directory) || ! is_readable($directory)) {

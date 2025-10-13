@@ -11,7 +11,7 @@ use Psr\Container\ContainerInterface;
  * @psalm-internal Laminas\View
  * @psalm-internal LaminasTest\View
  */
-final class EscaperFactory
+final readonly class EscaperFactory
 {
     public function __invoke(ContainerInterface $container): Escaper
     {

@@ -10,6 +10,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+use function assert;
 use function realpath;
 
 #[CoversClass(PrefixPathStackResolver::class)]
@@ -22,7 +23,7 @@ final class PrefixPathStackResolverTest extends TestCase
     {
         $realpath = realpath(__DIR__ . '/../_templates/prefix-path-stack-resolver');
         self::assertNotFalse($realpath);
-        self::assertNotEmpty($realpath);
+        assert($realpath !== '');
         $this->basePath = $realpath;
     }
 

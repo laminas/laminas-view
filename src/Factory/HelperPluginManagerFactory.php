@@ -13,7 +13,7 @@ use Psr\Container\ContainerInterface;
  * @psalm-internal Laminas\View
  * @psalm-internal LaminasTest\View
  */
-final class HelperPluginManagerFactory
+final readonly class HelperPluginManagerFactory
 {
     public function __invoke(ContainerInterface $container): HelperPluginManager
     {

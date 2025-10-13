@@ -9,10 +9,10 @@ use function str_starts_with;
 use function strlen;
 use function substr;
 
-final class PrefixPathStackResolver implements ResolverInterface
+final readonly class PrefixPathStackResolver implements ResolverInterface
 {
     /** @var array<non-empty-string, ResolverInterface> */
-    private readonly array $resolvers;
+    private array $resolvers;
 
     /**
      * @param array<non-empty-string, list<non-empty-string>|non-empty-string|ResolverInterface> $prefixes Set of path

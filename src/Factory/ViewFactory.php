@@ -9,7 +9,7 @@ use Laminas\View\Renderer\RendererInterface;
 use Laminas\View\View;
 use Psr\Container\ContainerInterface;
 
-final class ViewFactory
+final readonly class ViewFactory
 {
     public function __invoke(ContainerInterface $container): View
     {

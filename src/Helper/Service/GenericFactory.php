@@ -28,7 +28,7 @@ use function sprintf;
  * @psalm-internal Laminas\View
  * @psalm-internal LaminasTest\View
  */
-final class GenericFactory implements FactoryInterface
+final readonly class GenericFactory implements FactoryInterface
 {
     private const CAN_CREATE = [
         HeadLink::class     => HeadLink::class,

@@ -14,7 +14,7 @@ use function is_array;
 use function is_bool;
 use function is_string;
 
-final class HeadTitleFactory
+final readonly class HeadTitleFactory
 {
     public function __invoke(ContainerInterface $container): HeadTitle
     {

@@ -8,6 +8,8 @@ use Laminas\View\Resolver\AggregateResolver;
 use Laminas\View\Resolver\TemplateMapResolver;
 use PHPUnit\Framework\TestCase;
 
+use function iterator_to_array;
+
 final class AggregateResolverTest extends TestCase
 {
     public function testAggregateIsEmptyByDefault(): void
@@ -24,7 +26,7 @@ final class AggregateResolverTest extends TestCase
         $resolver->attach(new TemplateMapResolver());
         self::assertCount(2, $resolver);
 
-        self::assertContainsOnlyInstancesOf(TemplateMapResolver::class, $resolver);
+        self::assertContainsOnlyInstancesOf(TemplateMapResolver::class, iterator_to_array($resolver));
     }
 
     public function testSuccessfulResolution(): void
