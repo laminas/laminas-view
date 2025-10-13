@@ -4,326 +4,302 @@ declare(strict_types=1);
 
 namespace LaminasTest\View;
 
-use Laminas\Http\Request;
-use Laminas\Http\Response;
-use Laminas\View\Exception;
-use Laminas\View\Model\JsonModel;
+use Laminas\ServiceManager\ServiceManager;
+use Laminas\View\ConfigProvider;
+use Laminas\View\Model\ModelInterface;
 use Laminas\View\Model\ViewModel;
-use Laminas\View\Renderer;
-use Laminas\View\Renderer\PhpRenderer;
-use Laminas\View\Resolver;
-use Laminas\View\Variables as ViewVariables;
 use Laminas\View\View;
-use Laminas\View\ViewEvent;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 
-use function json_encode;
-use function sprintf;
-use function var_export;
+use function array_merge_recursive;
+use function preg_replace;
+use function trim;
 
+/** @psalm-import-type ViewConfigShape from ConfigProvider */
 final class ViewTest extends TestCase
 {
-    /** @var stdClass */
-    private $result;
-    private Request $request;
-    private Response $response;
-    private ViewModel $model;
-    private View $view;
-
-    protected function setUp(): void
+    /** @param ViewConfigShape|array<never, never> $config */
+    private static function createView(array $config = []): View
     {
-        $this->request  = new Request();
-        $this->response = new Response();
-        $this->model    = new ViewModel();
-        $this->view     = new View();
-
-        $this->view->setRequest($this->request);
-        $this->view->setResponse($this->response);
-    }
-
-    public function attachTestStrategies(): void
-    {
-        $this->view->addRenderingStrategy(static fn() => new TestAsset\Renderer\VarExportRenderer());
-        $this->result = $result = new stdClass();
-        $this->view->addResponseStrategy(function (ViewEvent $e) use ($result) {
-            $result->content = $e->getResult();
-        });
-    }
-
-    public function testRendersViewModelWithNoChildren(): void
-    {
-        $this->attachTestStrategies();
-        $variables = [
-            'foo' => 'bar',
-            'bar' => 'baz',
+        /** Default template directory for the majority of tests */
+        $defaults                           = [
+            'view_manager' => [
+                'template_path_stack' => [
+                    __DIR__ . '/templates/view',
+                ],
+                'template_map'        => [
+                    'layout::default' => __DIR__ . '/templates/view/default-layout.phtml',
+                    'layout::other'   => __DIR__ . '/templates/view/other-layout.phtml',
+                ],
+            ],
         ];
-        $this->model->setVariables($variables);
-        $this->view->render($this->model);
+        $config                             = array_merge_recursive(
+            (new ConfigProvider())->__invoke(),
+            $defaults,
+            $config,
+        );
+        $config['dependencies']['services'] = ['config' => $config];
+        $serviceManager                     = new ServiceManager($config['dependencies']);
 
-        foreach ($variables as $key => $value) {
-            $expect = sprintf("'%s' => '%s',", $key, $value);
-            $this->assertStringContainsString($expect, $this->result->content);
-        }
+        return $serviceManager->get(View::class);
     }
 
-    public function testRendersViewModelWithChildren(): void
+    public function testRenderWithDefaultLayoutAndStringTemplate(): void
     {
-        $this->attachTestStrategies();
+        $view    = self::createView();
+        $content = $view->render('single-variable', ['message' => 'Hey There!']);
 
-        $child1 = new ViewModel(['foo' => 'bar']);
-
-        $child2 = new ViewModel(['bar' => 'baz']);
-
-        $this->model->setVariable('parent', 'node');
-        $this->model->addChild($child1, 'child1');
-        $this->model->addChild($child2, 'child2');
-
-        $this->view->render($this->model);
-
-        $expected = var_export(new ViewVariables([
-            'parent' => 'node',
-            'child1' => var_export(['foo' => 'bar'], true),
-            'child2' => var_export(['bar' => 'baz'], true),
-        ]), true);
-        $this->assertEquals($expected, $this->result->content);
+        self::assertStringStartsWith('<default-layout>', $content);
+        self::assertStringEndsWith('</default-layout>', trim($content));
+        self::assertStringContainsString('<p>Hey There!</p>', $content);
     }
 
-    public function testRendersTreeOfModels(): void
+    public function testRenderWithSimplePreparedViewModelAndDefaultLayout(): void
     {
-        $this->attachTestStrategies();
+        $view  = self::createView();
+        $model = new ViewModel(['message' => 'Hey There!']);
+        $model->setTemplate('single-variable');
 
-        $child1 = new ViewModel(['foo' => 'bar']);
-        $child1->setCaptureTo('child1');
+        $content = $view->render($model);
 
-        $child2 = new ViewModel(['bar' => 'baz']);
-        $child2->setCaptureTo('child2');
-        $child1->addChild($child2);
-
-        $this->model->setVariable('parent', 'node');
-        $this->model->addChild($child1);
-
-        $this->view->render($this->model);
-
-        $expected = var_export(new ViewVariables([
-            'parent' => 'node',
-            'child1' => var_export([
-                'foo'    => 'bar',
-                'child2' => var_export(['bar' => 'baz'], true),
-            ], true),
-        ]), true);
-        $this->assertEquals($expected, $this->result->content);
+        self::assertStringStartsWith('<default-layout>', $content);
+        self::assertStringEndsWith('</default-layout>', trim($content));
+        self::assertStringContainsString('<p>Hey There!</p>', $content);
     }
 
-    public function testChildrenMayInvokeDifferentRenderingStrategiesThanParents(): void
+    public function testVariablesArgumentIsIgnoredWhenAModelIsGiven(): void
     {
-        $this->view->addRenderingStrategy(function (ViewEvent $e) {
-            $model = $e->getModel();
-            if (! $model instanceof ViewModel) {
-                return;
-            }
-            return new TestAsset\Renderer\VarExportRenderer();
-        });
-        $this->view->addRenderingStrategy(function (ViewEvent $e) {
-            $model = $e->getModel();
-            if (! $model instanceof JsonModel) {
-                return;
-            }
-            return new Renderer\JsonRenderer();
-        }, 10); // higher priority, so it matches earlier
-        $this->result = $result = new stdClass();
-        $this->view->addResponseStrategy(function (ViewEvent $e) use ($result) {
-            $result->content = $e->getResult();
-        });
+        $view  = self::createView();
+        $model = new ViewModel(['message' => 'Hey There!']);
+        $model->setTemplate('single-variable');
 
-        $child1 = new ViewModel(['foo' => 'bar']);
-        $child1->setCaptureTo('child1');
+        $content = $view->render($model, ['message' => 'Something else']);
 
-        $child2 = new JsonModel(['bar' => 'baz']);
-        $child2->setCaptureTo('child2');
-        $child2->setTerminal(false);
-
-        $this->model->setVariable('parent', 'node');
-        $this->model->addChild($child1);
-        $this->model->addChild($child2);
-
-        $this->view->render($this->model);
-
-        $expected = var_export(new ViewVariables([
-            'parent' => 'node',
-            'child1' => var_export(['foo' => 'bar'], true),
-            'child2' => json_encode(['bar' => 'baz']),
-        ]), true);
-        $this->assertEquals($expected, $this->result->content);
+        self::assertStringStartsWith('<default-layout>', $content);
+        self::assertStringEndsWith('</default-layout>', trim($content));
+        self::assertStringContainsString('<p>Hey There!</p>', $content);
     }
 
-    public function testTerminalChildRaisesException(): void
+    public function testStringTemplateWithModelAsVariablesWillOverrideTemplateInModel(): void
     {
-        $this->attachTestStrategies();
+        $view  = self::createView();
+        $model = new ViewModel(['message' => 'Hey There!']);
+        $model->setTemplate('does-not-exist');
 
-        $child1 = new ViewModel(['foo' => 'bar']);
-        $child1->setCaptureTo('child1');
-        $child1->setTerminal(true);
+        $content = $view->render('single-variable', $model);
 
-        $this->model->setVariable('parent', 'node');
-        $this->model->addChild($child1);
-
-        $this->expectException(Exception\DomainException::class);
-        $this->view->render($this->model);
+        self::assertStringContainsString('<p>Hey There!</p>', $content);
     }
 
-    public function testChildrenAreCapturedToParentVariables(): void
+    public function testLayoutCanBeDisabledWithStringTemplateArgument(): void
     {
-        // I wish there were a "markTestRedundant()" method in PHPUnit
-        $this->testRendersViewModelWithChildren();
+        $view    = self::createView();
+        $content = $view->render('single-variable', ['message' => 'Hey There!'], false);
+
+        self::assertStringStartsNotWith('<default-layout>', $content);
+        self::assertStringEndsNotWith('</default-layout>', trim($content));
+        self::assertStringContainsString('<p>Hey There!</p>', $content);
     }
 
-    public function testOmittingCaptureToValueInChildLeadsToOmissionInParent(): void
+    public function testLayoutCanBeDisabledWithViewModelArgument(): void
     {
-        $this->attachTestStrategies();
+        $view  = self::createView();
+        $model = new ViewModel(['message' => 'Hey There!']);
+        $model->setTemplate('single-variable');
 
-        $child1 = new ViewModel(['foo' => 'bar']);
-        $child1->setCaptureTo('child1');
+        $content = $view->render($model, null, false);
 
-        // Deliberately disable the "capture to" declaration
-        $child2 = new ViewModel(['bar' => 'baz']);
-        $child2->setCaptureTo(null);
-
-        $this->model->setVariable('parent', 'node');
-        $this->model->addChild($child1);
-        $this->model->addChild($child2);
-
-        $this->view->render($this->model);
-
-        $expected = var_export(new ViewVariables([
-            'parent' => 'node',
-            'child1' => var_export(['foo' => 'bar'], true),
-        ]), true);
-        $this->assertEquals($expected, $this->result->content);
+        self::assertStringStartsNotWith('<default-layout>', $content);
+        self::assertStringEndsNotWith('</default-layout>', trim($content));
+        self::assertStringContainsString('<p>Hey There!</p>', $content);
     }
 
-    public function testResponseStrategyIsTriggeredForParentModel(): void
+    public function testLayoutIsDisabledWhenTheModelIsMarkedAsTerminal(): void
     {
-        // I wish there were a "markTestRedundant()" method in PHPUnit
-        $this->testRendersViewModelWithChildren();
+        $view  = self::createView();
+        $model = new ViewModel(['message' => 'Hey There!']);
+        $model->setTemplate('single-variable');
+        $model->setTerminal(true);
+
+        $content = $view->render($model);
+
+        self::assertStringStartsNotWith('<default-layout>', $content);
+        self::assertStringEndsNotWith('</default-layout>', trim($content));
+        self::assertStringContainsString('<p>Hey There!</p>', $content);
     }
 
-    public function testResponseStrategyIsNotTriggeredForChildModel(): void
+    public function testLayoutCanBeChangedInsideTemplatesViaTheLayoutViewHelper(): void
     {
-        $this->view->addRenderingStrategy(static fn() => new Renderer\JsonRenderer());
+        $view    = self::createView();
+        $content = $view->render('switch-layout', ['message' => 'Hey There!']);
 
-        $result = [];
-        $this->view->addResponseStrategy(function (ViewEvent $e) use (&$result) {
-            /** @psalm-var mixed */
-            $result[] = $e->getResult();
-        });
-
-        $child1 = new ViewModel(['foo' => 'bar']);
-        $child1->setCaptureTo('child1');
-
-        $child2 = new ViewModel(['bar' => 'baz']);
-        $child2->setCaptureTo('child2');
-
-        $this->model->setVariable('parent', 'node');
-        $this->model->addChild($child1);
-        $this->model->addChild($child2);
-
-        $this->view->render($this->model);
-
-        self::assertCount(1, $result);
+        self::assertStringStartsWith('<other-layout>', $content);
+        self::assertStringEndsWith('</other-layout>', trim($content));
+        self::assertStringContainsString('<p>Hey There!</p>', $content);
     }
 
-    public function testUsesTreeRendererInterfaceToDetermineWhetherOrNotToPassOnlyRootViewModelToPhpRenderer(): void
+    public function testLayoutSwitchingInsideTemplatesDoesNotAffectSubsequentRendersUsingTheDefaultLayout(): void
     {
-        $resolver    = new Resolver\TemplateMapResolver([
-            'layout'  => __DIR__ . '/_templates/nested-view-model-layout.phtml',
-            'content' => __DIR__ . '/_templates/nested-view-model-content.phtml',
-        ]);
-        $phpRenderer = new PhpRenderer();
-        $phpRenderer->setCanRenderTrees(true);
-        $phpRenderer->setResolver($resolver);
+        $view          = self::createView();
+        $otherLayout   = $view->render('switch-layout', ['message' => 'Render 1']);
+        $defaultLayout = $view->render('single-variable', ['message' => 'Render 2']);
 
-        $this->view->addRenderingStrategy(static fn() => $phpRenderer);
+        self::assertStringStartsWith('<other-layout>', $otherLayout);
+        self::assertStringStartsWith('<default-layout>', $defaultLayout);
 
-        $result = new stdClass();
-        $this->view->addResponseStrategy(function (ViewEvent $e) use ($result) {
-            $result->content = $e->getResult();
-        });
-
-        $layout = new ViewModel();
-        $layout->setTemplate('layout');
-        $content = new ViewModel();
-        $content->setTemplate('content');
-        $content->setCaptureTo('content');
-        $layout->addChild($content);
-
-        $this->view->render($layout);
-
-        $this->assertStringContainsString('Layout start', $result->content);
-        $this->assertStringContainsString('Content for layout', $result->content, $result->content);
-        $this->assertStringContainsString('Layout end', $result->content);
+        self::assertStringContainsString('<p>Render 1</p>', $otherLayout);
+        self::assertStringContainsString('<p>Render 2</p>', $defaultLayout);
     }
 
-    public function testUsesTreeRendererInterfaceToDetermineWhetherOrNotToPassOnlyRootViewModelToJsonRenderer(): void
+    public function testBasicNestingOfViewModels(): void
     {
-        $jsonRenderer = new Renderer\JsonRenderer();
+        $level2 = (new ViewModel())->setTemplate('basic-nesting-level-2');
+        $level1 = (new ViewModel())->setTemplate('basic-nesting-level-1');
+        $level1->addChild($level2);
 
-        $this->view->addRenderingStrategy(static fn() => $jsonRenderer);
+        $view    = self::createView();
+        $content = $view->render($level1);
 
-        $result = new stdClass();
-        $this->view->addResponseStrategy(function (ViewEvent $e) use ($result) {
-            $result->content = $e->getResult();
-        });
-
-        $layout  = new ViewModel(['status' => 200]);
-        $content = new ViewModel(['foo' => 'bar']);
-        $content->setCaptureTo('response');
-        $layout->addChild($content);
-
-        $this->view->render($layout);
-
-        $expected = json_encode([
-            'status'   => 200,
-            'response' => ['foo' => 'bar'],
-        ]);
-
-        $this->assertEquals($expected, $result->content);
+        self::assertStringStartsWith('<default-layout>', $content);
+        self::assertStringContainsString('<level-one>', $content);
+        self::assertStringContainsString('<level-two>', $content);
     }
 
-    public function testCanTriggerPostRendererEvent(): void
+    public function testNestedAppendingViewModelsWillBeAggregated(): void
     {
-        $this->attachTestStrategies();
-        $flag = false;
-        $this->view->getEventManager()->attach(ViewEvent::EVENT_RENDERER_POST, function () use (&$flag) {
-            $flag = true;
-        });
-        $variables = [
-            'foo' => 'bar',
-            'bar' => 'baz',
-        ];
-        $this->model->setVariables($variables);
-        $this->view->render($this->model);
-        $this->assertTrue($flag);
+        $level1 = (new ViewModel())->setTemplate('basic-nesting-level-1');
+
+        $a = (new ViewModel(['message' => 'Message-A']))
+            ->setTemplate('single-variable')
+            ->setAppend(true);
+        $b = (new ViewModel(['message' => 'Message-B']))
+            ->setTemplate('single-variable')
+            ->setAppend(true);
+
+        $level1->addChild($a);
+        $level1->addChild($b);
+
+        $view    = self::createView();
+        $content = $view->render($level1);
+
+        $expect  = '<default-layout><level-one><p>Message-A</p><p>Message-B</p></level-one></default-layout>';
+        $content = preg_replace('/\s+/', '', $content);
+
+        self::assertSame($expect, $content);
     }
 
-    /**
-     * Test the view model can be swapped out
-     *
-     * @see https://github.com/zendframework/zf2/pull/4164
-     */
-    public function testModelFromEventIsUsedByRenderer(): void
+    public function testMutatingAppendDuringAddChild(): void
     {
-        $renderer = $this->createMock(PhpRenderer::class);
+        $level1 = (new ViewModel())->setTemplate('basic-nesting-level-1');
 
-        $model1 = new ViewModel();
-        $model2 = new ViewModel();
+        $a = (new ViewModel(['message' => 'Message-A']))
+            ->setTemplate('single-variable')
+            ->setAppend(true);
+        $b = (new ViewModel(['message' => 'Message-B']))
+            ->setTemplate('single-variable')
+            ->setAppend(true);
 
-        $renderer->expects($this->once())
-            ->method('render')
-            ->with($model2);
+        $level1->addChild($a, null, false);
+        $level1->addChild($b, null, false);
 
-        $this->view->addRenderingStrategy(static fn() => $renderer);
+        $view    = self::createView();
+        $content = $view->render($level1);
 
-        $this->view->render($model1);
+        $expect  = '<default-layout><level-one><p>Message-B</p></level-one></default-layout>';
+        $content = preg_replace('/\s+/', '', $content);
+
+        self::assertSame($expect, $content);
+    }
+
+    public function testNestedModelsClobberExistingValuesForCaptureToVariableName(): void
+    {
+        $level1 = (new ViewModel([
+            'content' => 'This should be over-written',
+        ]))->setTemplate('basic-nesting-level-1');
+        $a      = (new ViewModel(['message' => 'Message 1']))->setTemplate('single-variable');
+        $level1->addChild($a);
+
+        $view    = self::createView();
+        $content = $view->render($level1);
+
+        self::assertStringContainsString('<p>Message 1</p>', $content);
+        self::assertStringNotContainsString('This should be over-written', $content);
+    }
+
+    public function testExistingStringVariablesWillNotBeClobberedWhenTheChildIsAppending(): void
+    {
+        $level1 = (new ViewModel([
+            'content' => 'This should be retained',
+        ]))->setTemplate('basic-nesting-level-1');
+        $a      = (new ViewModel(['message' => 'Message 1']))->setTemplate('single-variable');
+        $level1->addChild($a, null, true);
+
+        $view    = self::createView();
+        $content = $view->render($level1);
+
+        self::assertStringContainsString('<p>Message 1</p>', $content);
+        self::assertStringContainsString('This should be retained', $content);
+    }
+
+    public function testExistingNonStringVariablesWillBeClobberedWhenTheChildIsAppending(): void
+    {
+        $level1 = (new ViewModel([
+            'content' => ['This array will be clobbered'],
+        ]))->setTemplate('basic-nesting-level-1');
+        $a      = (new ViewModel(['message' => 'Message 1']))->setTemplate('single-variable');
+        $level1->addChild($a, null, true);
+
+        $view    = self::createView();
+        $content = $view->render($level1);
+
+        $expect  = '<default-layout><level-one><p>Message1</p></level-one></default-layout>';
+        $content = preg_replace('/\s+/', '', $content);
+
+        self::assertSame($expect, $content);
+    }
+
+    public function testThatTheViewModelHelperIsMutatedWithTheCurrentModel(): void
+    {
+        /**
+         * This test performs assertions inside the template
+         *
+         * @see ./templates/view/view-model-helper-assertion.phtml
+         */
+
+        $view    = self::createView();
+        $content = $view->render('view-model-helper-assertion', ['message' => 'Message 1']);
+
+        self::assertStringContainsString('<p>Message 1</p>', $content);
+        self::assertStringContainsString('<default-layout>', $content);
+    }
+
+    public function testThatArbitraryMutationsCanBeAppliedToTheViewModelPriorToRendering(): void
+    {
+        $view = self::createView();
+
+        $view->registerPreRenderHandler(static fn (ModelInterface $model): ModelInterface
+            => $model->setVariable('message', 'Tricked You!'));
+
+        $content = $view->render('single-variable', ['message' => 'Message 1']);
+
+        self::assertStringContainsString('<p>Tricked You!</p>', $content);
+        self::assertStringNotContainsString('Message 1', $content);
+    }
+
+    public function testThatViewModelMutationsAreAppliedInTheOrderOfRegistration(): void
+    {
+        $view = self::createView();
+
+        $view->registerPreRenderHandler(static fn (ModelInterface $model): ModelInterface =>
+            $model->setVariable('message', 'Kermit'));
+
+        $view->registerPreRenderHandler(static fn (ModelInterface $model): ModelInterface =>
+            $model->setVariable('message', 'Miss Piggy'));
+
+        $content = $view->render('single-variable', ['message' => 'Fozzy Bear']);
+
+        self::assertStringContainsString('<p>Miss Piggy</p>', $content);
+        self::assertStringNotContainsString('Fozzy Bear', $content);
+        self::assertStringNotContainsString('Kermit', $content);
     }
 }

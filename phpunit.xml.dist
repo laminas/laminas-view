@@ -11,9 +11,11 @@
     displayDetailsOnTestsThatTriggerNotices="true"
     displayDetailsOnTestsThatTriggerWarnings="true"
     displayDetailsOnIncompleteTests="true"
+    displayDetailsOnPhpunitDeprecations="true"
     failOnWarning="true"
     failOnDeprecation="true"
     failOnNotice="true"
+    failOnPhpunitDeprecation="true"
 >
     <testsuites>
         <testsuite name="laminas-view Test Suite">

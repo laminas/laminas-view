@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper;
 
+use Laminas\Escaper\Escaper;
 use Laminas\View\Exception;
 use Laminas\View\Helper\HtmlList;
 use PHPUnit\Framework\TestCase;
@@ -18,7 +19,7 @@ final class HtmlListTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->helper = new HtmlList();
+        $this->helper = new HtmlList(new Escaper());
     }
 
     public function testMakeUnorderedList(): void
@@ -177,12 +178,13 @@ final class HtmlListTest extends TestCase
         $this->assertStringContainsString('<ul>', $list);
         $this->assertStringContainsString('</ul>', $list);
 
-        array_walk_recursive($items, [$this, 'validateItems'], $list);
-    }
-
-    public function validateItems(string $value, int $key, string $userdata): void
-    {
-        $this->assertStringContainsString('<li>' . $value, $userdata);
+        array_walk_recursive(
+            $items,
+            static function (string $value, int $_key, string $userdata): void { // phpcs:ignore
+                self::assertStringContainsString('<li>' . $value, $userdata);
+            },
+            $list,
+        );
     }
 
     public function testEmptyItems(): void
@@ -194,7 +196,7 @@ final class HtmlListTest extends TestCase
     public function testThatListAttributesHaveTheExpectedValue(): void
     {
         $result = ($this->helper)(['foo'], false, ['class' => 'jim', 'data-foo' => null, 'data-bar' => '&']);
-        $expect = '<ul class="jim" data-foo="" data-bar="&amp;">';
+        $expect = '<ul class="jim" data-bar="&amp;" data-foo="">';
         self::assertStringContainsString($expect, $result);
     }
 }

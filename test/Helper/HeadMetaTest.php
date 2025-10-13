@@ -5,280 +5,101 @@ declare(strict_types=1);
 namespace LaminasTest\View\Helper;
 
 use Laminas\Escaper\Escaper;
-use Laminas\View\Exception;
-use Laminas\View\Exception\ExceptionInterface as ViewException;
-use Laminas\View\Helper;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\HeadMeta;
-use Laminas\View\Renderer\PhpRenderer as View;
 use PHPUnit\Framework\TestCase;
 
-use function array_shift;
-use function restore_error_handler;
-use function set_error_handler;
-use function sprintf;
-use function str_replace;
 use function substr_count;
-use function ucwords;
 
-use const E_USER_WARNING;
 use const PHP_EOL;
 
+/** @psalm-import-type DoctypeID from Doctype */
 final class HeadMetaTest extends TestCase
 {
     private HeadMeta $helper;
     private Escaper $escaper;
-    private View $view;
 
-    /**
-     * Sets up the fixture, for example, open a network connection.
-     * This method is called before a test is executed.
-     */
     protected function setUp(): void
     {
-        Doctype::unsetDoctypeRegistry();
-        $this->view = new View();
-        $doctype    = $this->view->plugin(Doctype::class);
-        $doctype->__invoke('XHTML1_STRICT');
-        $this->helper = new HeadMeta();
-        $this->helper->setView($this->view);
         $this->escaper = new Escaper();
+        $this->helper  = new HeadMeta(
+            $this->escaper,
+            new Doctype(),
+        );
+    }
+
+    /** @param DoctypeID $doctype */
+    private function setDoctype(string $doctype): void
+    {
+        $this->helper = new HeadMeta(
+            $this->escaper,
+            new Doctype($doctype),
+        );
     }
 
     public function testHeadMetaReturnsObjectInstance(): void
     {
-        $placeholder = $this->helper->__invoke();
-        $this->assertInstanceOf(Helper\HeadMeta::class, $placeholder);
+        self::assertSame($this->helper, $this->helper->__invoke());
     }
 
-    public function testThatAppendThrowsExceptionWhenNonMetaValueIsProvided(): void
+    public function testBasicOperationOfNamedMeta(): void
     {
-        $this->expectException(Exception\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid value passed to append');
-        $this->helper->append('foo');
+        $this->helper->appendName('description', 'some description')
+            ->prependName('keywords', 'foo, bar')
+            ->setName('generator', 'laminas');
+
+        $expect = <<<'HTML'
+            <meta content="foo,&#x20;bar" name="keywords">
+            <meta content="some&#x20;description" name="description">
+            <meta content="laminas" name="generator">
+            HTML;
+
+        self::assertSame($expect, $this->helper->__toString());
     }
 
-    public function testThatOffsetSetThrowsExceptionWhenNonMetaValueIsProvided(): void
+    public function testBasicOperationOfHttpEquiv(): void
     {
-        $this->expectException(Exception\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid value passed to offsetSet');
-        $this->helper->offsetSet(3, 'foo');
+        $this->helper->appendHttpEquiv('Content-type', 'x-application/muppets')
+            ->setHttpEquiv('muppet', 'Miss Piggy')
+            ->prependHttpEquiv('refresh', '5; url=Kermit');
+
+        $expect = <<<'HTML'
+            <meta content="5&#x3B;&#x20;url&#x3D;Kermit" http-equiv="refresh">
+            <meta content="x-application&#x2F;muppets" http-equiv="Content-type">
+            <meta content="Miss&#x20;Piggy" http-equiv="muppet">
+            HTML;
+
+        self::assertSame($expect, $this->helper->__toString());
     }
 
-    public function testThatPrependThrowsExceptionWhenNonMetaValueIsProvided(): void
+    public function testBasicOperationOfItemprop(): void
     {
-        $this->expectException(Exception\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid value passed to prepend');
-        $this->helper->prepend('foo');
+        $this->helper->appendItemprop('name', 'Fred')
+            ->setItemprop('taxId', '123456')
+            ->prependItemprop('telephone', '+441234567890');
+
+        $expect = <<<'HTML'
+            <meta content="&#x2B;441234567890" itemprop="telephone">
+            <meta content="Fred" itemprop="name">
+            <meta content="123456" itemprop="taxId">
+            HTML;
+
+        self::assertSame($expect, $this->helper->toString());
     }
 
-    public function testThatSetThrowsExceptionWhenNonMetaValueIsProvided(): void
+    public function testBasicOperationOfProperty(): void
     {
-        $this->expectException(Exception\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid value passed to set');
-        $this->helper->set('foo');
-    }
+        $this->helper->appendProperty('og:title', 'Some Title')
+            ->setProperty('og:description', 'Some description')
+            ->prependProperty('og:image', 'https://example.com/foo.jpg');
 
-    private function inflectAction(string $type): string
-    {
-        $type = str_replace('-', ' ', $type);
-        $type = ucwords($type);
+        $expect = <<<'HTML'
+            <meta content="https&#x3A;&#x2F;&#x2F;example.com&#x2F;foo.jpg" property="og&#x3A;image">
+            <meta content="Some&#x20;Title" property="og&#x3A;title">
+            <meta content="Some&#x20;description" property="og&#x3A;description">
+            HTML;
 
-        return str_replace(' ', '', $type);
-    }
-
-    protected function executeOverloadAppend(string $type): void
-    {
-        $action = 'append' . $this->inflectAction($type);
-        $string = 'foo';
-        for ($i = 0; $i < 3; ++$i) {
-            $string .= ' foo';
-            $this->helper->$action('keywords', $string);
-            $values = $this->helper->getContainer()->getArrayCopy();
-            $this->assertCount($i + 1, $values);
-
-            $item = $values[$i];
-            $this->assertObjectHasProperty('type', $item);
-            $this->assertObjectHasProperty('modifiers', $item);
-            $this->assertObjectHasProperty('content', $item);
-            $this->assertObjectHasProperty($item->type, $item);
-            $this->assertEquals('keywords', $item->{$item->type});
-            $this->assertEquals($string, $item->content);
-        }
-    }
-
-    protected function executeOverloadPrepend(string $type): void
-    {
-        $action = 'prepend' . $this->inflectAction($type);
-        $string = 'foo';
-        for ($i = 0; $i < 3; ++$i) {
-            $string .= ' foo';
-            $this->helper->$action('keywords', $string);
-            $values = $this->helper->getContainer()->getArrayCopy();
-            self::assertCount($i + 1, $values);
-            $item = array_shift($values);
-            self::assertIsObject($item);
-            $this->assertObjectHasProperty('type', $item);
-            $this->assertObjectHasProperty('modifiers', $item);
-            $this->assertObjectHasProperty('content', $item);
-            $this->assertObjectHasProperty($item->type, $item);
-            $this->assertEquals('keywords', $item->{$item->type});
-            $this->assertEquals($string, $item->content);
-        }
-    }
-
-    protected function executeOverloadSet(string $type): void
-    {
-        $setAction    = 'set' . $this->inflectAction($type);
-        $appendAction = 'append' . $this->inflectAction($type);
-        $string       = 'foo';
-        for ($i = 0; $i < 3; ++$i) {
-            $this->helper->$appendAction('keywords', $string);
-            $string .= ' foo';
-        }
-        $this->helper->$setAction('keywords', $string);
-
-        $values = $this->helper->getContainer()->getArrayCopy();
-        $this->assertCount(1, $values);
-        $item = array_shift($values);
-        self::assertIsObject($item);
-
-        $this->assertObjectHasProperty('type', $item);
-        $this->assertObjectHasProperty('modifiers', $item);
-        $this->assertObjectHasProperty('content', $item);
-        $this->assertObjectHasProperty($item->type, $item);
-        $this->assertEquals('keywords', $item->{$item->type});
-        $this->assertEquals($string, $item->content);
-    }
-
-    public function testOverloadingAppendNameAppendsMetaTagToStack(): void
-    {
-        $this->executeOverloadAppend('name');
-    }
-
-    public function testOverloadingPrependNamePrependsMetaTagToStack(): void
-    {
-        $this->executeOverloadPrepend('name');
-    }
-
-    public function testOverloadingSetNameOverwritesMetaTagStack(): void
-    {
-        $this->executeOverloadSet('name');
-    }
-
-    public function testOverloadingAppendHttpEquivAppendsMetaTagToStack(): void
-    {
-        $this->executeOverloadAppend('http-equiv');
-    }
-
-    public function testOverloadingPrependHttpEquivPrependsMetaTagToStack(): void
-    {
-        $this->executeOverloadPrepend('http-equiv');
-    }
-
-    public function testOverloadingSetHttpEquivOverwritesMetaTagStack(): void
-    {
-        $this->executeOverloadSet('http-equiv');
-    }
-
-    public function testOverloadingThrowsExceptionWithFewerThanTwoArgs(): void
-    {
-        $this->expectException(Exception\ExceptionInterface::class);
-        /** @psalm-suppress TooFewArguments */
-        $this->helper->setName('foo');
-    }
-
-    public function testOverloadingThrowsExceptionWithInvalidMethodType(): void
-    {
-        $this->expectException(Exception\ExceptionInterface::class);
-        /** @psalm-suppress UndefinedMagicMethod */
-        $this->helper->setFoo('foo');
-    }
-
-    public function testCanBuildMetaTagsWithAttributes(): void
-    {
-        $this->helper->setName('keywords', 'foo bar', ['lang' => 'us_en', 'scheme' => 'foo', 'bogus' => 'unused']);
-        $value = $this->helper->getContainer()->getValue();
-        self::assertIsObject($value);
-        $this->assertObjectHasProperty('modifiers', $value);
-        $modifiers = $value->modifiers;
-        $this->assertArrayHasKey('lang', $modifiers);
-        $this->assertEquals('us_en', $modifiers['lang']);
-        $this->assertArrayHasKey('scheme', $modifiers);
-        $this->assertEquals('foo', $modifiers['scheme']);
-    }
-
-    public function testToStringReturnsValidHtml(): void
-    {
-        $this->helper->setName('keywords', 'foo bar', ['lang' => 'us_en', 'scheme' => 'foo', 'bogus' => 'unused'])
-                     ->prependName('title', 'boo bah')
-                     ->appendHttpEquiv('screen', 'projection');
-        $string = $this->helper->toString();
-
-        $metas = substr_count($string, '<meta ');
-        $this->assertEquals(3, $metas);
-        $metas = substr_count($string, '/>');
-        $this->assertEquals(3, $metas);
-        $metas = substr_count($string, 'name="');
-        $this->assertEquals(2, $metas);
-        $metas = substr_count($string, 'http-equiv="');
-        $this->assertEquals(1, $metas);
-
-        $this->assertStringContainsString('http-equiv="screen" content="projection"', $string);
-        $this->assertStringContainsString(
-            'name="keywords" content="' . $this->escaper->escapeHtmlAttr('foo bar') . '"',
-            $string,
-        );
-        $this->assertStringContainsString('lang="us_en"', $string);
-        $this->assertStringContainsString('scheme="foo"', $string);
-        $this->assertStringNotContainsString('bogus', $string);
-        $this->assertStringNotContainsString('unused', $string);
-        $this->assertStringContainsString(
-            'name="title" content="' . $this->escaper->escapeHtmlAttr('boo bah') . '"',
-            $string,
-        );
-    }
-
-    public function testToStringWhenInvalidKeyProvidedShouldConvertThrownException(): void
-    {
-        $this->helper->__invoke('some-content', 'tag value', 'not allowed key');
-        $error = null;
-        set_error_handler(function (int $code, string $message) use (&$error): bool {
-            self::assertSame(E_USER_WARNING, $code);
-            $error = $message;
-
-            return true;
-        }, E_USER_WARNING);
-        $string = $this->helper->toString();
-        self::assertEquals('', $string);
-        self::assertEquals(
-            'Invalid type "not allowed key" provided for meta',
-            $error,
-        );
-        restore_error_handler();
-    }
-
-    public function testHeadMetaHelperCreatesItemEntry(): void
-    {
-        $this->helper->__invoke('foo', 'keywords');
-        $values = $this->helper->getContainer()->getArrayCopy();
-        $this->assertCount(1, $values);
-        $item = array_shift($values);
-        $this->assertEquals('foo', $item->content);
-        $this->assertEquals('name', $item->type);
-        $this->assertEquals('keywords', $item->name);
-    }
-
-    public function testOverloadingOffsetInsertsAtOffset(): void
-    {
-        $this->helper->offsetSetName(100, 'keywords', 'foo');
-        $values = $this->helper->getContainer()->getArrayCopy();
-        $this->assertCount(1, $values);
-        $this->assertArrayHasKey(100, $values);
-        $item = $values[100];
-        $this->assertEquals('foo', $item->content);
-        $this->assertEquals('name', $item->type);
-        $this->assertEquals('keywords', $item->name);
+        self::assertSame($expect, $this->helper->toString());
     }
 
     public function testIndentationIsHonored(): void
@@ -288,273 +109,190 @@ final class HeadMetaTest extends TestCase
         $this->helper->appendName('seo', 'baz bat');
         $string = $this->helper->toString();
 
-        $scripts = substr_count($string, '    <meta name=');
+        $scripts = substr_count($string, '    <meta content=');
         $this->assertEquals(2, $scripts);
     }
 
-    public function testStringRepresentationReflectsDoctype(): void
+    public function testIndentationCanBeAString(): void
     {
-        $this->view->plugin(Doctype::class)->__invoke('HTML4_STRICT');
-        $this->helper->__invoke('some content', 'foo');
+        $this->helper->setIndent("\t\t");
+        $this->helper->appendName('keywords', 'foo bar');
+        $this->helper->appendName('seo', 'baz bat');
+        $string = $this->helper->toString();
 
-        $test = $this->helper->toString();
-
-        $this->assertStringNotContainsString('/>', $test);
-        $this->assertStringContainsString($this->escaper->escapeHtmlAttr('some content'), $test);
-        $this->assertStringContainsString('foo', $test);
+        $scripts = substr_count($string, "\t\t" . '<meta content=');
+        $this->assertEquals(2, $scripts);
     }
 
-    public function testSetNameDoesntClobber(): void
+    public function testSelfClosingTagForXmlBasedDoctypes(): void
     {
-        $this->helper->setName('keywords', 'foo');
-        $this->helper->appendHttpEquiv('pragma', 'bar');
-        $this->helper->appendHttpEquiv('Cache-control', 'baz');
-        $this->helper->setName('keywords', 'bat');
+        $this->setDoctype(Doctype::XHTML1_STRICT);
+        $this->helper->appendName('bar', 'foo');
+        $expect = <<<'HTML'
+            <meta content="foo" name="bar" />
+            HTML;
 
-        $this->assertEquals(
-            '<meta http-equiv="pragma" content="bar" />' . PHP_EOL . '<meta http-equiv="Cache-control" content="baz" />'
-            . PHP_EOL . '<meta name="keywords" content="bat" />',
-            $this->helper->toString()
-        );
+        self::assertSame($expect, $this->helper->toString());
     }
 
-    public function testSetNameDoesntClobberPart2(): void
+    public function testCharsetIsPrependedWhenSet(): void
     {
-        $this->helper->setName('keywords', 'foo');
+        $this->setDoctype(Doctype::HTML5);
         $this->helper->setName('description', 'foo');
-        $this->helper->appendHttpEquiv('pragma', 'baz');
-        $this->helper->appendHttpEquiv('Cache-control', 'baz');
-        $this->helper->setName('keywords', 'bar');
-
-        $expected = sprintf(
-            '<meta name="description" content="foo" />%1$s'
-            . '<meta http-equiv="pragma" content="baz" />%1$s'
-            . '<meta http-equiv="Cache-control" content="baz" />%1$s'
-            . '<meta name="keywords" content="bar" />',
-            PHP_EOL
-        );
-
-        $this->assertEquals($expected, $this->helper->toString());
-    }
-
-    public function testPlacesMetaTagsInProperOrder(): void
-    {
-        $this->helper->setName('keywords', 'foo');
-        $this->helper->__invoke(
-            'some content',
-            'bar',
-            'name',
-            [],
-            Helper\Placeholder\Container\AbstractContainer::PREPEND
-        );
-
-        $expected = sprintf(
-            '<meta name="bar" content="%s" />%s'
-            . '<meta name="keywords" content="foo" />',
-            $this->escaper->escapeHtmlAttr('some content'),
-            PHP_EOL
-        );
-        $this->assertEquals($expected, $this->helper->toString());
-    }
-
-    public function testContainerMaintainsCorrectOrderOfItems(): void
-    {
-        $this->helper->offsetSetName(1, 'keywords', 'foo');
-        $this->helper->offsetSetName(10, 'description', 'foo');
-        $this->helper->offsetSetHttpEquiv(20, 'pragma', 'baz');
-        $this->helper->offsetSetHttpEquiv(5, 'Cache-control', 'baz');
-
-        $test = $this->helper->toString();
-
-        $expected = sprintf(
-            '<meta name="keywords" content="foo" />%1$s'
-            . '<meta http-equiv="Cache-control" content="baz" />%1$s'
-            . '<meta name="description" content="foo" />%1$s'
-            . '<meta http-equiv="pragma" content="baz" />',
-            PHP_EOL
-        );
-
-        $this->assertEquals($expected, $test);
-    }
-
-    public function testCharsetValidateFail(): void
-    {
-        $view = new View();
-        $view->plugin(Doctype::class)->__invoke('HTML4_STRICT');
-
-        $this->expectException(Exception\ExceptionInterface::class);
         $this->helper->setCharset('utf-8');
+        $expect = <<<'HTML'
+            <meta charset="utf-8">
+            <meta content="foo" name="description">
+            HTML;
+
+        self::assertSame($expect, $this->helper->toString());
     }
 
-    public function testCharset(): void
+    public function testSetCharsetWillClearExistingCharset(): void
     {
-        $view = new View();
-        $view->plugin(Doctype::class)->__invoke('HTML5');
-
+        $this->setDoctype(Doctype::HTML5);
+        $this->helper->append(['charset' => 'foo']);
+        $this->helper->prepend(['charset' => 'bar']);
         $this->helper->setCharset('utf-8');
-        $this->assertEquals(
-            '<meta charset="utf-8">',
-            $this->helper->toString()
-        );
+        $expect = <<<'HTML'
+            <meta charset="utf-8">
+            HTML;
 
-        $view->plugin(Doctype::class)->__invoke('XHTML5');
-
-        $this->assertEquals(
-            '<meta charset="utf-8"/>',
-            $this->helper->toString()
-        );
+        self::assertSame($expect, $this->helper->toString());
     }
 
-    public function testCharsetPosition(): void
+    public function testMultipleCharsetIsPossibleUsingPrependAndAppend(): void
     {
-        $view = new View();
-        $view->plugin(Doctype::class)->__invoke('HTML5');
+        $this->helper->append(['charset' => 'foo']);
+        $this->helper->prepend(['charset' => 'bar']);
+        $expect = <<<'HTML'
+            <meta charset="bar">
+            <meta charset="foo">
+            HTML;
 
-        $this->helper
-            ->setProperty('description', 'foobar')
-            ->setCharset('utf-8');
-
-        $this->assertEquals(
-            '<meta charset="utf-8">' . PHP_EOL
-            . '<meta property="description" content="foobar">',
-            $this->helper->toString()
-        );
+        self::assertSame($expect, $this->helper->toString());
     }
 
-    public function testCharsetWithXhtmlDoctypeGotException(): void
+    public function testEmptyAttributeArraysAreIgnored(): void
     {
-        $this->expectException(Exception\InvalidArgumentException::class);
-        $this->expectExceptionMessage('XHTML* doctype has no attribute charset; please use appendHttpEquiv()');
+        $this->helper->__invoke(null, null, [])
+            ->append([])
+            ->prepend([]);
 
-        $view = new View();
-        $view->plugin(Doctype::class)->__invoke('XHTML1_RDFA');
-
-        $this->helper
-             ->setCharset('utf-8');
+        self::assertSame('', $this->helper->toString());
     }
 
-    public function testPropertyIsSupportedWithRdfaDoctype(): void
+    public function testInvokeReturnsSelf(): void
     {
-        $this->view->doctype('XHTML1_RDFA');
-        $this->helper->__invoke('foo', 'og:title', 'property');
-
-        $expected = sprintf('<meta property="%s" content="foo" />', $this->escaper->escapeHtmlAttr('og:title'));
-        $this->assertEquals($expected, $this->helper->toString());
+        self::assertSame($this->helper, $this->helper->__invoke());
     }
 
-    public function testPropertyIsNotSupportedByDefaultDoctype(): void
+    public function testInvokeWillAppendNameWithNonNullArguments(): void
     {
-        try {
-            $this->helper->__invoke('foo', 'og:title', 'property');
-            $this->fail('meta property attribute should not be supported on default doctype');
-        } catch (ViewException $e) {
-            $this->assertStringContainsString('Invalid value passed', $e->getMessage());
-        }
+        $this->helper->__invoke('foo', 'bar', ['baz' => 'bat']);
+        $expect = <<<'HTML'
+            <meta baz="bat" content="bar" name="foo">
+            HTML;
+        self::assertSame($expect, $this->helper->toString());
     }
 
-    /**
-     * @depends testPropertyIsSupportedWithRdfaDoctype
-     */
-    public function testOverloadingAppendPropertyAppendsMetaTagToStack(): void
+    public function testInvokeWillAppendAttributesWhenNameAndContentAreNull(): void
     {
-        $this->view->doctype('XHTML1_RDFA');
-        $this->executeOverloadAppend('property');
+        $this->helper->__invoke(null, null, ['baz' => 'bat']);
+        $expect = <<<'HTML'
+            <meta baz="bat">
+            HTML;
+        self::assertSame($expect, $this->helper->toString());
     }
 
-    /**
-     * @depends testPropertyIsSupportedWithRdfaDoctype
-     */
-    public function testOverloadingPrependPropertyPrependsMetaTagToStack(): void
+    public function testIdenticalItemsAreIgnoredWhenAppending(): void
     {
-        $this->view->doctype('XHTML1_RDFA');
-        $this->executeOverloadPrepend('property');
+        $this->helper->appendName('foo', 'bar');
+        $this->helper->appendName('foo', 'bar');
+        $expect = <<<'HTML'
+            <meta content="bar" name="foo">
+            HTML;
+        self::assertSame($expect, $this->helper->toString());
     }
 
-    /**
-     * @depends testPropertyIsSupportedWithRdfaDoctype
-     */
-    public function testOverloadingSetPropertyOverwritesMetaTagStack(): void
+    public function testIdenticalItemsAreIgnoredWhenPrepending(): void
     {
-        $this->view->doctype('XHTML1_RDFA');
-        $this->executeOverloadSet('property');
+        $this->helper->prependName('foo', 'bar');
+        $this->helper->prependName('foo', 'bar');
+        $expect = <<<'HTML'
+            <meta content="bar" name="foo">
+            HTML;
+        self::assertSame($expect, $this->helper->toString());
     }
 
-    public function testItempropIsSupportedWithHtml5Doctype(): void
+    public function testSeparatorCanBeChangedAndWillBeEscaped(): void
     {
-        $this->view->doctype('HTML5');
-        $this->helper->__invoke('HeadMeta with Microdata', 'description', 'itemprop');
-
-        $expected = sprintf(
-            '<meta itemprop="description" content="%s">',
-            $this->escaper->escapeHtmlAttr('HeadMeta with Microdata'),
-        );
-        $this->assertEquals($expected, $this->helper->toString());
+        $this->helper->prependName('foo', 'bar')
+            ->prependName('bar', 'baz')
+            ->setSeparator(PHP_EOL . '&');
+        $expect = <<<'HTML'
+            <meta content="baz" name="bar">
+            &amp;<meta content="bar" name="foo">
+            HTML;
+        self::assertSame($expect, $this->helper->toString());
     }
 
-    public function testItempropIsNotSupportedByDefaultDoctype(): void
+    public function testIndentWillBeEscaped(): void
     {
-        try {
-            $this->helper->__invoke('HeadMeta with Microdata', 'description', 'itemprop');
-            $this->fail('meta itemprop attribute should not be supported on default doctype');
-        } catch (ViewException $e) {
-            $this->assertStringContainsString('Invalid value passed', $e->getMessage());
-        }
+        $this->helper->prependName('foo', 'bar')
+            ->prependName('bar', 'baz')
+            ->setIndent('&');
+        $expect = <<<'HTML'
+            &amp;<meta content="baz" name="bar">
+            &amp;<meta content="bar" name="foo">
+            HTML;
+        self::assertSame($expect, $this->helper->toString());
     }
 
-    /**
-     * @depends testItempropIsSupportedWithHtml5Doctype
-     */
-    public function testOverloadingAppendItempropAppendsMetaTagToStack(): void
+    public function testAllMetaMutationMethodsReturnSelf(): void
     {
-        $this->view->doctype('HTML5');
-        $this->executeOverloadAppend('itemprop');
+        self::assertSame($this->helper, $this->helper->appendName('foo', 'bar'));
+        self::assertSame($this->helper, $this->helper->prependName('foo', 'bar'));
+        self::assertSame($this->helper, $this->helper->setName('foo', 'bar'));
+        self::assertSame($this->helper, $this->helper->appendProperty('foo', 'bar'));
+        self::assertSame($this->helper, $this->helper->prependProperty('foo', 'bar'));
+        self::assertSame($this->helper, $this->helper->setProperty('foo', 'bar'));
+        self::assertSame($this->helper, $this->helper->appendItemprop('foo', 'bar'));
+        self::assertSame($this->helper, $this->helper->prependItemprop('foo', 'bar'));
+        self::assertSame($this->helper, $this->helper->setItemprop('foo', 'bar'));
+        self::assertSame($this->helper, $this->helper->appendHttpEquiv('foo', 'bar'));
+        self::assertSame($this->helper, $this->helper->prependHttpEquiv('foo', 'bar'));
+        self::assertSame($this->helper, $this->helper->setHttpEquiv('foo', 'bar'));
+        self::assertSame($this->helper, $this->helper->setCharset('foo'));
+        self::assertSame($this->helper, $this->helper->append(['foo' => 'bar']));
+        self::assertSame($this->helper, $this->helper->prepend(['foo' => 'bar']));
     }
 
-    /**
-     * @depends testItempropIsSupportedWithHtml5Doctype
-     */
-    public function testOverloadingPrependItempropPrependsMetaTagToStack(): void
+    public function testResetStateClearsAllMutableProperties(): void
     {
-        $this->view->doctype('HTML5');
-        $this->executeOverloadPrepend('itemprop');
-    }
+        $this->helper->setSeparator('-')
+            ->setIndent(2)
+            ->append(['foo' => 'bar'])
+            ->append(['baz' => 'bat']);
 
-    /**
-     * @depends testItempropIsSupportedWithHtml5Doctype
-     */
-    public function testOverloadingSetItempropOverwritesMetaTagStack(): void
-    {
-        $this->view->doctype('HTML5');
-        $this->executeOverloadSet('itemprop');
-    }
+        $expect = <<<'HTML'
+              <meta foo="bar">-  <meta baz="bat">
+            HTML;
 
-    public function testConditional(): void
-    {
-        $html = $this->helper->appendHttpEquiv('foo', 'bar', ['conditional' => 'lt IE 7'])->toString();
+        self::assertSame($expect, $this->helper->toString());
 
-        $this->assertMatchesRegularExpression("|^<!--\[if lt IE 7\]>|", $html);
-        $this->assertMatchesRegularExpression("|<!\[endif\]-->$|", $html);
-    }
+        $this->helper->resetState();
 
-    public function testConditionalNoIE(): void
-    {
-        $html = $this->helper->appendHttpEquiv('foo', 'bar', ['conditional' => '!IE'])->toString();
+        self::assertSame('', $this->helper->toString());
 
-        $this->assertStringContainsString('<!--[if !IE]><!--><', $html);
-        $this->assertStringContainsString('<!--<![endif]-->', $html);
-    }
+        $this->helper->append(['foo' => 'bar'])
+            ->append(['baz' => 'bat']);
 
-    public function testConditionalNoIEWidthSpace(): void
-    {
-        $html = $this->helper->appendHttpEquiv('foo', 'bar', ['conditional' => '! IE'])->toString();
+        $expect = <<<'HTML'
+            <meta foo="bar">
+            <meta baz="bat">
+            HTML;
 
-        $this->assertStringContainsString('<!--[if ! IE]><!--><', $html);
-        $this->assertStringContainsString('<!--<![endif]-->', $html);
-    }
-
-    public function testTurnOffAutoEscapeDoesNotEncode(): void
-    {
-        $this->helper->setAutoEscape(false)->appendHttpEquiv('foo', 'bar=baz');
-        $this->assertEquals('<meta http-equiv="foo" content="bar=baz" />', $this->helper->toString());
+        self::assertSame($expect, $this->helper->toString());
     }
 }

@@ -6,58 +6,58 @@ namespace LaminasTest\View\Helper\Service;
 
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\Service\DoctypeFactory;
-use PHPUnit\Framework\MockObject\MockObject;
+use LaminasTest\View\TestAsset\InMemoryContainer;
 use PHPUnit\Framework\TestCase;
-use Psr\Container\ContainerInterface;
 
 final class DoctypeFactoryTest extends TestCase
 {
-    protected function setUp(): void
+    public function testServiceIsCreatedWithDefaultsWhenNoConfigurationIsAvailable(): void
     {
-        Doctype::unsetDoctypeRegistry();
-    }
-
-    public function testServiceIsCreatedOnInvocation(): void
-    {
-        $container = $this->createContainer();
+        $container = new InMemoryContainer();
 
         $factory = new DoctypeFactory();
         $service = $factory($container);
 
-        self::assertInstanceOf(Doctype::class, $service);
+        self::assertTrue($service->isHtml5());
     }
 
     public function testFactorySetsDoctypeBasedOnConfig(): void
     {
         $config    = ['view_helper_config' => ['doctype' => Doctype::XHTML1_STRICT]];
-        $container = $this->createContainer($config);
+        $container = new InMemoryContainer();
+        $container->set('config', $config);
 
         $factory = new DoctypeFactory();
         $service = $factory($container);
 
-        self::assertSame(Doctype::XHTML1_STRICT, $service->getDoctype());
+        self::assertTrue($service->isXhtml());
     }
 
-    public function testDefaultDoctypeIsUsedIfConfigIsMissing(): void
+    public function testFactorySetsDoctypeBasedOnMvcConfig(): void
     {
-        $config    = ['view_helper_config' => []];
-        $container = $this->createContainer($config);
+        $config    = ['view_manager' => ['doctype' => Doctype::XHTML1_STRICT]];
+        $container = new InMemoryContainer();
+        $container->set('config', $config);
 
         $factory = new DoctypeFactory();
         $service = $factory($container);
 
-        self::assertSame(Doctype::HTML4_LOOSE, $service->getDoctype());
+        self::assertTrue($service->isXhtml());
     }
 
-    /**
-     * @param array<string, mixed> $config
-     * @return ContainerInterface & MockObject
-     */
-    private function createContainer(array $config = [])
+    public function testMezzioConfigOverridesMvcConfig(): void
     {
-        $container = $this->createMock(ContainerInterface::class);
-        $container->method('has')->willReturn(true);
-        $container->method('get')->with('config')->willReturn($config);
-        return $container;
+        $config = [
+            'view_manager'       => ['doctype' => Doctype::XHTML1_STRICT],
+            'view_helper_config' => ['doctype' => Doctype::HTML5],
+        ];
+
+        $container = new InMemoryContainer();
+        $container->set('config', $config);
+
+        $factory = new DoctypeFactory();
+        $service = $factory($container);
+
+        self::assertFalse($service->isXhtml());
     }
 }

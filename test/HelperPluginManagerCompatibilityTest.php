@@ -5,51 +5,47 @@ declare(strict_types=1);
 namespace LaminasTest\View;
 
 use Generator;
-use Laminas\Mvc\Controller\PluginManager as ControllerPluginManager;
-use Laminas\Mvc\Plugin\FlashMessenger\FlashMessenger;
-use Laminas\ServiceManager\Config;
+use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\ServiceManager;
-use Laminas\ServiceManager\Test\CommonPluginManagerTrait;
-use Laminas\View\Exception\InvalidHelperException;
+use Laminas\View\ConfigProvider;
+use Laminas\View\Helper\HelperInterface;
 use Laminas\View\HelperPluginManager;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Psr\Container\ContainerInterface;
-use ReflectionProperty;
+use ReflectionClassConstant;
+use stdClass;
+use Throwable;
 
-use function class_exists;
-use function strpos;
+use function is_callable;
 
 final class HelperPluginManagerCompatibilityTest extends TestCase
 {
-    use CommonPluginManagerTrait;
-
-    protected static function getPluginManager(): HelperPluginManager
+    private static function getPluginManager(): HelperPluginManager
     {
-        $factories = [];
-
-        if (class_exists(ControllerPluginManager::class)) {
-            // @codingStandardsIgnoreLine
-            $factories['ControllerPluginManager'] = static fn(ContainerInterface $services): ControllerPluginManager => new ControllerPluginManager($services, [
-                'invokables' => [
-                    'flashmessenger' => FlashMessenger::class,
-                ],
-            ]);
-        }
-
-        $config  = new Config([
-            'services'  => [
-                'config' => [],
-            ],
-            'factories' => $factories,
-        ]);
-        $manager = new ServiceManager();
-        $config->configureServiceManager($manager);
-        return new HelperPluginManager($manager);
+        $provider                           = new ConfigProvider();
+        $config                             = $provider->__invoke();
+        $config['dependencies']['services'] = ['config' => $config];
+        $serviceManager                     = new ServiceManager($config['dependencies']);
+        return $serviceManager->get(HelperPluginManager::class);
     }
 
-    protected function getV2InvalidPluginException(): string
+    /**
+     * Psalm really cannot infer, or be told the shape of the reflected array constant
+     *
+     * @return array{
+     *     aliases: array<string, string>,
+     *     factories: array<string, string>,
+     * }
+     * @psalm-suppress InvalidReturnStatement,InvalidReturnType
+     */
+    private static function fetchDefaultConfig(): array
     {
-        return InvalidHelperException::class;
+        $r      = new ReflectionClassConstant(HelperPluginManager::class, 'CONFIG');
+        $config = $r->getValue();
+        self::assertNotNull($config);
+        self::assertIsArray($config);
+
+        return $config;
     }
 
     /**
@@ -57,36 +53,52 @@ final class HelperPluginManagerCompatibilityTest extends TestCase
      */
     public static function aliasProvider(): Generator
     {
-        $pluginManager = self::getPluginManager();
-        $r             = new ReflectionProperty($pluginManager, 'aliases');
-        $aliases       = $r->getValue($pluginManager);
-        self::assertIsArray($aliases);
+        $config = self::fetchDefaultConfig();
 
-        foreach ($aliases as $alias => $target) {
-            self::assertIsString($target);
-            // Skipping conditionally since it depends on laminas-mvc
-            if (! class_exists(ControllerPluginManager::class) && strpos($target, '\\FlashMessenger') !== false) {
-                continue;
-            }
+        foreach ($config['factories'] as $alias => $target) {
+            yield $alias => [$alias, $target];
+        }
 
-            // Skipping conditionally since it depends on laminas-mvc
-            if (! class_exists(ControllerPluginManager::class) && strpos($target, '\\Url') !== false) {
-                continue;
-            }
-
-            self::assertIsString($alias);
-
+        foreach ($config['aliases'] as $alias => $target) {
             yield $alias => [$alias, $target];
         }
     }
 
-    public function getInstanceOf(): void
+    public function testRegisteringInvalidElementRaisesException(): void
     {
-        // no-op; instanceof is not used in this implementation
+        $this->expectException($this->getServiceNotFoundException());
+        self::getPluginManager()->configure([
+            'services' => [
+                'test' => $this,
+            ],
+        ]);
     }
 
-    public function testInstanceOfMatches(): void
+    public function testLoadingInvalidElementRaisesException(): void
     {
-        $this->markTestSkipped('instanceOf is not used with this implementation');
+        $manager = self::getPluginManager();
+        $manager->configure([
+            'invokables' => [
+                'test' => stdClass::class,
+            ],
+        ]);
+        $this->expectException($this->getServiceNotFoundException());
+        $manager->get('test');
+    }
+
+    #[DataProvider('aliasProvider')]
+    public function testPluginAliasesResolve(string $alias): void
+    {
+        $instance = self::getPluginManager()->get($alias);
+
+        self::assertTrue(
+            is_callable($instance) || $instance instanceof HelperInterface,
+        );
+    }
+
+    /** @return class-string<Throwable> */
+    protected function getServiceNotFoundException(): string
+    {
+        return InvalidServiceException::class;
     }
 }

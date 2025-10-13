@@ -1,0 +1,13 @@
+<?php
+
+declare(strict_types=1);
+
+$object = $this->object ?? null;
+
+assert(is_object($object));
+assert(property_exists($object, 'items'));
+assert(is_array($object->items));
+assert(array_key_exists('message', $object->items));
+assert(is_string($object->items['message']));
+
+echo $object->items['message'];

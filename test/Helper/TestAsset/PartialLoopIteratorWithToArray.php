@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace LaminasTest\View\Helper\TestAsset;
 
 use Iterator;
-use ReturnTypeWillChange; // phpcs:ignore
 
 use function current;
 use function key;
@@ -18,48 +17,47 @@ use function reset;
  */
 final class PartialLoopIteratorWithToArray implements Iterator
 {
-    /** @var array<array-key, T> */
-    public array $items;
-
-    /** @param array<array-key, T> $array */
-    public function __construct(array $array)
+    /** @param array<array-key, T> $items */
+    public function __construct(public array $items)
     {
-        $this->items = $array;
     }
 
-    /** @return array<array-key, T> */
+    /**
+     * @deprecated This should be removed in 4.0
+     *
+     * @return array<array-key, T>
+     * @psalm-api Used in duck typing tests
+     */
     public function toArray(): array
     {
         return $this->items;
     }
 
     /**
-     * @return T
+     * @return T|null
      */
-    #[ReturnTypeWillChange]
-    public function current()
+    public function current(): mixed
     {
-        return current($this->items);
+        $item = current($this->items);
+
+        return $item === false ? null : $item;
     }
 
-    public function key(): int|string
+    public function key(): int|string|null
     {
         return key($this->items);
     }
 
-    #[ReturnTypeWillChange]
     public function next(): void
     {
         next($this->items);
     }
 
-    #[ReturnTypeWillChange]
     public function rewind(): void
     {
         reset($this->items);
     }
 
-    #[ReturnTypeWillChange]
     public function valid(): bool
     {
         return current($this->items) !== false;
