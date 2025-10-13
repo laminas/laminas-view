@@ -11,7 +11,7 @@ use Psr\Container\ContainerInterface;
  * @psalm-internal Laminas
  * @psalm-internal LaminasTest
  */
-final class FetchTranslatorFromContainer
+final readonly class FetchTranslatorFromContainer
 {
     public const SEARCH_ALIASES = [
         TranslatorInterface::class,

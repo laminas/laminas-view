@@ -27,7 +27,7 @@ use function sprintf;
  * @psalm-internal Laminas\View
  * @psalm-internal LaminasTest\View
  */
-final class EscapeHelperFactory implements FactoryInterface
+final readonly class EscapeHelperFactory implements FactoryInterface
 {
     private const CAN_CREATE = [
         EscapeCss::class      => EscapeCss::class,

@@ -14,7 +14,7 @@ use function is_array;
 use function iterator_to_array;
 use function sprintf;
 
-final class AssetFactory
+final readonly class AssetFactory
 {
     /**
      * @throws RuntimeException

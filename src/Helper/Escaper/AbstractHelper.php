@@ -19,13 +19,13 @@ use const E_USER_DEPRECATED;
  * @psalm-internal Laminas\View
  * @psalm-internal LaminasTest\View
  */
-abstract class AbstractHelper
+abstract readonly class AbstractHelper
 {
     public const RECURSE_NONE   = 0x00;
     public const RECURSE_ARRAY  = 0x01;
     public const RECURSE_OBJECT = 0x02;
 
-    public function __construct(protected readonly EscaperInterface $escaper)
+    public function __construct(protected EscaperInterface $escaper)
     {
     }
 

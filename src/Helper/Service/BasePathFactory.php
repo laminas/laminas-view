@@ -15,7 +15,7 @@ use function is_string;
 /**
  * @psalm-import-type ViewConfigShape from ConfigProvider
  */
-final class BasePathFactory
+final readonly class BasePathFactory
 {
     public function __invoke(ContainerInterface $container): BasePath
     {

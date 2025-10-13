@@ -49,7 +49,7 @@ use function class_exists;
  *     }
  * }
  */
-final class ConfigProvider
+final readonly class ConfigProvider
 {
     /** @return ViewConfigShape */
     public function __invoke(): array

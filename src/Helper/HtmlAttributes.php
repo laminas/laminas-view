@@ -10,9 +10,9 @@ use Laminas\View\HtmlAttributesSet;
 /**
  * Helper for creating HtmlAttributesSet objects
  */
-final class HtmlAttributes
+final readonly class HtmlAttributes
 {
-    public function __construct(private readonly EscaperInterface $escaper)
+    public function __construct(private EscaperInterface $escaper)
     {
     }
 

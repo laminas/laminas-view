@@ -17,19 +17,19 @@ use const CASE_LOWER;
  * @psalm-internal Laminas\View
  * @psalm-internal LaminasTest\View
  */
-final class Tag
+final readonly class Tag
 {
     /** @var array<string, scalar> */
-    public readonly array $attributes;
+    public array $attributes;
 
     /**
      * @param non-empty-string $tag
      * @param array<string, scalar> $attributes
      */
     public function __construct(
-        public readonly string $tag,
+        public string $tag,
         array $attributes = [],
-        public readonly string|null $content = null,
+        public string|null $content = null,
     ) {
         $attributes = array_change_key_case($attributes, CASE_LOWER);
         ksort($attributes);

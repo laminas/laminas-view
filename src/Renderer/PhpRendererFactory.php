@@ -13,7 +13,7 @@ use Psr\Container\ContainerInterface;
  * @psalm-internal Laminas
  * @psalm-internal LaminasTest
  */
-final class PhpRendererFactory
+final readonly class PhpRendererFactory
 {
     public function __invoke(ContainerInterface $container): PhpRenderer
     {

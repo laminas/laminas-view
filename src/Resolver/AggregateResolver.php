@@ -10,10 +10,10 @@ use Laminas\Stdlib\PriorityQueue;
 use Traversable;
 
 /** @implements IteratorAggregate<int, ResolverInterface> */
-final class AggregateResolver implements Countable, IteratorAggregate, ResolverInterface
+final readonly class AggregateResolver implements Countable, IteratorAggregate, ResolverInterface
 {
     /** @var PriorityQueue<ResolverInterface, int> */
-    private readonly PriorityQueue $queue;
+    private PriorityQueue $queue;
 
     /**
      * @param list<ResolverInterface> $resolvers

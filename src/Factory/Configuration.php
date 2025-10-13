@@ -18,7 +18,7 @@ use function is_string;
  * @psalm-internal LaminasTest\View
  * @psalm-import-type ViewConfigShape from ConfigProvider
  */
-final class Configuration
+final readonly class Configuration
 {
     private const DEFAULT_ENCODING         = 'utf-8';
     private const DEFAULT_TEMPLATE_SUFFIX  = 'phtml';

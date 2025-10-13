@@ -13,7 +13,7 @@ use Psr\Container\ContainerInterface;
  * @psalm-internal Laminas\View
  * @psalm-internal LaminasTest\View
  */
-final class PartialLoopFactory
+final readonly class PartialLoopFactory
 {
     public function __invoke(ContainerInterface $container): PartialLoop
     {

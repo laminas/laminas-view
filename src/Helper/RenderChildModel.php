@@ -17,11 +17,11 @@ use function sprintf;
  * Finds children matching "capture-to" values, and renders them using the
  * composed view instance.
  */
-final class RenderChildModel
+final readonly class RenderChildModel
 {
     public function __construct(
-        private readonly ViewModel $viewModelHelper,
-        private readonly RendererInterface $renderer,
+        private ViewModel $viewModelHelper,
+        private RendererInterface $renderer,
     ) {
     }
 

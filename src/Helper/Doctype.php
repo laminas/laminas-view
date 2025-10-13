@@ -15,7 +15,7 @@ use function stristr;
 /**
  * @psalm-type DoctypeID = key-of<Doctype::DOCTYPE_DECLARATIONS>
  */
-final class Doctype implements Stringable
+final readonly class Doctype implements Stringable
 {
     public const DEFAULT_DOCTYPE = self::HTML5;
 
@@ -59,7 +59,7 @@ final class Doctype implements Stringable
     ];
 
     /** @param DoctypeID $doctype */
-    public function __construct(private readonly string $doctype = self::DEFAULT_DOCTYPE)
+    public function __construct(private string $doctype = self::DEFAULT_DOCTYPE)
     {
     }
 

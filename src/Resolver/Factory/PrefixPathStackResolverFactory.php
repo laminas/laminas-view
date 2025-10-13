@@ -14,7 +14,7 @@ use Psr\Container\ContainerInterface;
  * @psalm-internal LaminasTest\View
  * @psalm-import-type ViewConfigShape from ConfigProvider
  */
-final class PrefixPathStackResolverFactory
+final readonly class PrefixPathStackResolverFactory
 {
     public function __invoke(ContainerInterface $container): PrefixPathStackResolver
     {

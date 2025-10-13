@@ -12,7 +12,7 @@ use function sprintf;
 /**
  * View helper plugin to fetch asset from resource map.
  */
-final class Asset
+final readonly class Asset
 {
     /**
      * @param array<non-empty-string, non-empty-string> $resourceMap

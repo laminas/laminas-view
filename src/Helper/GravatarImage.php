@@ -15,7 +15,7 @@ use function trim;
 /**
  * @psalm-import-type AttributeSet from HtmlAttributesSet
  */
-final class GravatarImage
+final readonly class GravatarImage
 {
     private const GRAVATAR_URL = '//www.gravatar.com/avatar';
 
@@ -61,7 +61,7 @@ final class GravatarImage
         self::DEFAULT_BLANK,
     ];
 
-    public function __construct(private readonly EscaperInterface $escaper)
+    public function __construct(private EscaperInterface $escaper)
     {
     }
 

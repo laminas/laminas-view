@@ -11,11 +11,11 @@ use Laminas\View\Renderer\PhpRenderer;
  * Renders a template and stores the rendered output as a placeholder
  * variable for later use.
  */
-final class RenderToPlaceholder
+final readonly class RenderToPlaceholder
 {
     public function __construct(
-        private readonly PhpRenderer $renderer,
-        private readonly Placeholder $placeholder,
+        private PhpRenderer $renderer,
+        private Placeholder $placeholder,
     ) {
     }
 

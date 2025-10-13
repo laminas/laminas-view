@@ -12,9 +12,9 @@ use function sprintf;
 /**
  * View helper for changing the layout template or retrieving the layout (root) view model
  */
-final class Layout
+final readonly class Layout
 {
-    public function __construct(private readonly ViewModel $viewModelHelper)
+    public function __construct(private ViewModel $viewModelHelper)
     {
     }
 
