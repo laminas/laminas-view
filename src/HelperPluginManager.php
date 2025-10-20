@@ -7,6 +7,7 @@ namespace Laminas\View;
 use Laminas\ServiceManager\AbstractPluginManager;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Factory\InvokableFactory;
+use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Helper\Service\EscapeHelperFactory;
 use Laminas\View\Helper\Service\GenericFactory;
@@ -25,6 +26,7 @@ use function sprintf;
  * Enforces that helpers retrieved are instances of HelperInterface, or callable.
  * Additionally, it registers a number of default helpers and tracks stateful helpers so that state can be reset.
  *
+ * @psalm-import-type ServiceManagerConfiguration from ServiceManager
  * @psalm-type InstanceType = HelperInterface|callable
  * @extends AbstractPluginManager<InstanceType>
  */
@@ -157,6 +159,7 @@ final class HelperPluginManager extends AbstractPluginManager implements HelperP
         ContainerInterface $creationContext,
         array $config = [],
     ) {
+        /** @psalm-var ServiceManagerConfiguration $config Psalm cannot infer this after merge */
         $config = array_replace_recursive(self::CONFIG, $config);
 
         parent::__construct($creationContext, $config);
