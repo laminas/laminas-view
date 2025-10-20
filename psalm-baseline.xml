@@ -764,9 +764,6 @@
     <InvalidFunctionCall>
       <code><![CDATA[call_user_func_array($helper, $arguments)]]></code>
     </InvalidFunctionCall>
-    <InvalidThrow>
-      <code><![CDATA[ExceptionInterface]]></code>
-    </InvalidThrow>
     <MoreSpecificImplementedParamType>
       <code><![CDATA[$container]]></code>
     </MoreSpecificImplementedParamType>
@@ -806,9 +803,6 @@
       <code><![CDATA[AbstractHelper]]></code>
       <code><![CDATA[null|EventManagerInterface]]></code>
     </ImplementedReturnTypeMismatch>
-    <InvalidThrow>
-      <code><![CDATA[Navigation\Exception\ExceptionInterface]]></code>
-    </InvalidThrow>
     <MissingConstructor>
       <code><![CDATA[$container]]></code>
       <code><![CDATA[$container]]></code>
