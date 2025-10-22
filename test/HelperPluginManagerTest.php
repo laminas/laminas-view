@@ -10,7 +10,6 @@ use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\Helper\Doctype;
 use Laminas\View\Helper\HeadStyle;
 use Laminas\View\Helper\HeadTitle;
-use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Helper\Partial;
 use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\TestCase;
@@ -45,10 +44,12 @@ final class HelperPluginManagerTest extends TestCase
 
     public function testCanOverrideAFactoryViaConfigurationPassedToConstructor(): void
     {
-        $helper  = $this->createMock(HelperInterface::class);
+        $helper = static function (): void {
+        };
+
         $helpers = new HelperPluginManager(new ServiceManager(), [
             'factories' => [
-                Partial::class => static fn(): HelperInterface => $helper,
+                Partial::class => static fn(): callable => $helper,
             ],
         ]);
         $this->assertSame($helper, $helpers->get(Partial::class));

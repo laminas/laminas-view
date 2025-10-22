@@ -8,7 +8,6 @@ use Laminas\ServiceManager\AbstractPluginManager;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\Factory\InvokableFactory;
 use Laminas\ServiceManager\ServiceManager;
-use Laminas\View\Helper\HelperInterface;
 use Laminas\View\Helper\Service\EscapeHelperFactory;
 use Laminas\View\Helper\Service\GenericFactory;
 use Laminas\View\Helper\StatefulHelperInterface;
@@ -23,12 +22,11 @@ use function sprintf;
 /**
  * Plugin manager implementation for view helpers
  *
- * Enforces that helpers retrieved are instances of HelperInterface, or callable.
+ * Enforces that helpers retrieved are callable.
  * Additionally, it registers a number of default helpers and tracks stateful helpers so that state can be reset.
  *
  * @psalm-import-type ServiceManagerConfiguration from ServiceManager
- * @psalm-type InstanceType = HelperInterface|callable
- * @extends AbstractPluginManager<InstanceType>
+ * @extends AbstractPluginManager<callable>
  */
 final class HelperPluginManager extends AbstractPluginManager implements HelperPluginManagerInterface
 {
@@ -166,16 +164,15 @@ final class HelperPluginManager extends AbstractPluginManager implements HelperP
      * Validates against callables and HelperInterface implementations.
      *
      * @throws InvalidServiceException
-     * @psalm-assert HelperInterface|callable $instance
+     * @psalm-assert callable $instance
      */
     public function validate(mixed $instance): void
     {
-        if (! is_callable($instance) && ! $instance instanceof HelperInterface) {
+        if (! is_callable($instance)) {
             throw new InvalidServiceException(
                 sprintf(
-                    '%s can only create instances of %s and/or callables; %s is invalid',
+                    '%s can only create callables; %s is invalid',
                     self::class,
-                    HelperInterface::class,
                     get_debug_type($instance),
                 ),
             );
@@ -183,13 +180,13 @@ final class HelperPluginManager extends AbstractPluginManager implements HelperP
     }
 
     /**
-     * @template InstanceParam of HelperInterface
+     * @template InstanceParam
      * @param class-string<InstanceParam>|string $id Service name of plugin to retrieve.
-     * @return ($id is class-string<InstanceParam> ? InstanceParam : InstanceType)
+     * @return ($id is class-string<InstanceParam> ? InstanceParam : callable)
      */
-    public function get(string $id): mixed
+    public function get(string $id): callable
     {
-        /** @psalm-var InstanceType $plugin Unfortunately this type needs forcing */
+        /** @psalm-var callable $plugin Unfortunately this type needs forcing */
         $plugin = parent::get($id);
         if ($plugin instanceof StatefulHelperInterface) {
             $this->statefulHelpers[spl_object_id($plugin)] = $plugin;

@@ -8,15 +8,12 @@ use Generator;
 use Laminas\ServiceManager\Exception\InvalidServiceException;
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\ConfigProvider;
-use Laminas\View\Helper\HelperInterface;
 use Laminas\View\HelperPluginManager;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use ReflectionClassConstant;
 use stdClass;
 use Throwable;
-
-use function is_callable;
 
 final class HelperPluginManagerCompatibilityTest extends TestCase
 {
@@ -91,9 +88,7 @@ final class HelperPluginManagerCompatibilityTest extends TestCase
     {
         $instance = self::getPluginManager()->get($alias);
 
-        self::assertTrue(
-            is_callable($instance) || $instance instanceof HelperInterface,
-        );
+        self::assertIsCallable($instance);
     }
 
     /** @return class-string<Throwable> */

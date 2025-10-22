@@ -8,7 +8,6 @@ use ArrayIterator;
 use IteratorAggregate;
 use Laminas\ServiceManager\Exception\ServiceNotFoundException;
 use Laminas\View\Exception\RenderingFailedException;
-use Laminas\View\Helper\HelperInterface;
 use Laminas\View\HelperPluginManagerInterface;
 use Throwable;
 use Traversable;
@@ -136,15 +135,10 @@ final class Template implements IteratorAggregate
             throw RenderingFailedException::becauseOfAnUnknownPlugin($method, $this->__template, $e);
         }
 
-        assert(is_callable($plugin) || $plugin instanceof HelperInterface);
+        assert(is_callable($plugin));
 
         try {
-            /** @psalm-var mixed $returnValue */
-            $returnValue = is_callable($plugin)
-                ? $plugin(...$args)
-                : $plugin;
-
-            return $returnValue;
+            return $plugin(...$args);
         } catch (Throwable $e) {
             throw RenderingFailedException::becauseOfAPluginException($method, $e);
         }

@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace Laminas\View;
 
 use Laminas\ServiceManager\PluginManagerInterface;
-use Laminas\View\Helper\HelperInterface;
 
-/** @extends PluginManagerInterface<HelperInterface|callable> */
+/** @extends PluginManagerInterface<callable> */
 interface HelperPluginManagerInterface extends PluginManagerInterface
 {
     /**

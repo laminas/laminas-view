@@ -16,7 +16,6 @@ use Laminas\View\Resolver\TemplateMapResolver;
 use LaminasTest\View\GenerateServiceManager;
 use LaminasTest\View\TestAsset\Invokable;
 use LaminasTest\View\TestAsset\SharedInstance;
-use LaminasTest\View\TestAsset\Uninvokable;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
@@ -37,7 +36,6 @@ final class PhpRendererTest extends TestCase
         $this->container = GenerateServiceManager::withConfig([
             'view_helpers' => [
                 'services'  => [
-                    'uninvokable'       => new Uninvokable(),
                     'invokable'         => new Invokable(),
                     'exceptionalHelper' => static function (): never {
                         throw new RuntimeException('A helper exception');
@@ -159,14 +157,6 @@ final class PhpRendererTest extends TestCase
         $this->renderer->setFilter($filter);
         $output = $this->renderer->render('static-content');
         self::assertSame('<p>Static Content</p>' . PHP_EOL . 'foo', $output);
-    }
-
-    public function testMethodOverloadingShouldReturnHelperInstanceIfNotInvokable(): void
-    {
-        self::assertStringContainsString(
-            '<p>' . (new Uninvokable())->value . '</p>',
-            $this->renderer->render('call-uninvokable-helper'),
-        );
     }
 
     public function testMethodOverloadingShouldInvokeHelperIfInvokable(): void
