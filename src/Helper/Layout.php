@@ -4,56 +4,92 @@ declare(strict_types=1);
 
 namespace Laminas\View\Helper;
 
-use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Model\ModelInterface;
-
-use function sprintf;
+use Laminas\View\Model\ViewModel;
 
 /**
  * View helper for changing the layout template or retrieving the layout (root) view model
  */
-final readonly class Layout
+final class Layout implements StatefulHelperInterface
 {
-    public function __construct(private ViewModel $viewModelHelper)
+    private bool $disabled;
+    private ModelInterface|null $model;
+
+    public function __construct()
     {
+        $this->disabled = false;
+        $this->model    = null;
+    }
+
+    public function resetState(): void
+    {
+        $this->disabled = false;
+        $this->model    = null;
     }
 
     /**
-     * Set layout template or retrieve "layout" view model
-     *
-     * If no arguments are given, grabs the "root" or "layout" view model.
-     * Otherwise, attempts to set the template for that view model.
+     * Return the layout helper instance, optionally setting the current layout
      *
      * @param null|non-empty-string $template Provide a template name to set that template as the current layout
-     * @return ($template is null ? ModelInterface : self)
      */
-    public function __invoke(string|null $template = null): ModelInterface|self
+    public function __invoke(string|null $template = null): self
     {
-        $rootModel = $this->getRoot();
-        if (null === $template) {
-            return $rootModel;
+        if ($template !== null) {
+            $this->setLayout($template);
         }
-
-        $rootModel->setTemplate($template);
 
         return $this;
     }
 
     /**
-     * Get the root view model
+     * Override the layout template in use for this rendering cycle
      *
-     * @throws RuntimeException
+     * @param non-empty-string $template
      */
-    private function getRoot(): ModelInterface
+    public function setLayout(string $template): void
     {
-        $root = $this->viewModelHelper->getRoot();
-        if (! $root instanceof ModelInterface) {
-            throw new RuntimeException(sprintf(
-                '%s: no view model currently registered as root in renderer',
-                __METHOD__
-            ));
+        $this->getModel()->setTemplate($template);
+    }
+
+    /**
+     * Return the current layout template, if it has been set
+     *
+     * @return non-empty-string|null
+     */
+    public function getLayoutTemplate(): string|null
+    {
+        $template = $this->getModel()->getTemplate();
+
+        return $template === '' ? null : $template;
+    }
+
+    /**
+     * Disable layout for this rendering cycle
+     */
+    public function disable(): void
+    {
+        $this->disabled = true;
+    }
+
+    /**
+     * Whether layout is disabled for this rendering cycle
+     */
+    public function isDisabled(): bool
+    {
+        return $this->disabled;
+    }
+
+    /**
+     * Return the layout model
+     *
+     * You may need the layout model so that you can set view variables in the layout template for example.
+     */
+    public function getModel(): ModelInterface
+    {
+        if (! $this->model instanceof ModelInterface) {
+            $this->model = new ViewModel();
         }
 
-        return $root;
+        return $this->model;
     }
 }

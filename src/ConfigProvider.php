@@ -174,6 +174,7 @@ final readonly class ConfigProvider
                 HelperPluginManagerInterface::class => HelperPluginManager::class,
                 Renderer\RendererInterface::class   => Renderer\PhpRenderer::class,
                 Resolver\ResolverInterface::class   => Resolver\AggregateResolver::class,
+                ViewInterface::class                => View::class,
             ],
         ];
     }

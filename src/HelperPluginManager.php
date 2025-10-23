@@ -54,7 +54,7 @@ final class HelperPluginManager extends AbstractPluginManager implements HelperP
             Helper\HtmlObject::class          => GenericFactory::class,
             Helper\HtmlTag::class             => GenericFactory::class,
             Helper\InlineScript::class        => GenericFactory::class,
-            Helper\Layout::class              => Helper\Service\LayoutFactory::class,
+            Helper\Layout::class              => InvokableFactory::class,
             Helper\PartialLoop::class         => Helper\Service\PartialLoopFactory::class,
             Helper\Partial::class             => Helper\Service\PartialFactory::class,
             Helper\Placeholder::class         => InvokableFactory::class,
