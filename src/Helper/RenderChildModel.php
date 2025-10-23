@@ -16,6 +16,9 @@ use function sprintf;
  * Finds children matching "capture-to" values, and renders them using the
  * composed view instance.
  *
+ * @deprecated Since 2.44.0. This helper will be removed in 3.0.0. Its functionality will be a default feature of nested
+ *             view rendering in 3.0.0 and is therefore no longer useful.
+ *
  * @final
  */
 class RenderChildModel extends AbstractHelper

@@ -3835,6 +3835,10 @@
     </DeprecatedMethod>
   </file>
   <file src="test/Helper/RenderChildModelTest.php">
+    <DeprecatedClass>
+      <code><![CDATA[RenderChildModel]]></code>
+      <code><![CDATA[RenderChildModel::class]]></code>
+    </DeprecatedClass>
     <DeprecatedMethod>
       <code><![CDATA[plugin]]></code>
       <code><![CDATA[plugin]]></code>
