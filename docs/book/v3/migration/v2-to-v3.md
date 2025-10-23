@@ -543,6 +543,12 @@ The deprecated navigation view helpers such as `Breadcrumbs`, and `Menu` etc hav
 
 As such, the namespace for these helpers has changed from `Laminas\View\Navigation` to `Laminas\Navigation\View\Helper`, so if you have referenced the FQCNs of these helpers in your code, you will need to update them accordingly.
 
+#### RenderChildModel
+
+The `RenderChildModel` helper never adequately rendered nested views, or took into account appending views.
+It was also un-documented, and not likely used very much.
+Possible use-cases were dubious at best and rendering view models can more easily be achieved by using the `Partial` view helper.
+
 #### ServerUrl
 
 The `ServerUrl` helper has been removed. Because this helper needs to be seeded with the current HTTP environment, its functionality is coupled to the framework you are using `Laminas\View` with, therefore, expect re-implementations of this helper in bridging libraries such as `mezzio-laminasviewrenderer`
