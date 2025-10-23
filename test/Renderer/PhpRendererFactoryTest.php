@@ -11,7 +11,6 @@ use Laminas\View\HelperPluginManagerInterface;
 use Laminas\View\Renderer\PhpRendererFactory;
 use Laminas\View\Resolver\ResolverInterface;
 use Laminas\View\Resolver\TemplatePathStack;
-use LaminasTest\View\TestAsset\InMemoryContainer;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 
@@ -22,13 +21,14 @@ final class PhpRendererFactoryTest extends TestCase
     private function containerWithConfig(array|null $config): ContainerInterface
     {
         $resolver = new TemplatePathStack(['script_paths' => [__DIR__ . '/templates']]);
-        $helpers  = new HelperPluginManager(new ServiceManager());
 
-        $container = new InMemoryContainer();
-        $container->set(ResolverInterface::class, $resolver);
-        $container->set(HelperPluginManagerInterface::class, $helpers);
+        $container = new ServiceManager();
+        $container->setService(ResolverInterface::class, $resolver);
+        $helpers = new HelperPluginManager($container);
+        $container->setService(HelperPluginManager::class, $helpers);
+        $container->setAlias(HelperPluginManagerInterface::class, HelperPluginManager::class);
         if (is_array($config)) {
-            $container->set('config', $config);
+            $container->setService('config', $config);
         }
 
         return $container;

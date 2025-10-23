@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Resolver;
 
+use Laminas\View\Helper\Layout;
 use Laminas\View\Helper\ViewModel as ViewModelHelper;
 use Laminas\View\Model\ViewModel;
 use Laminas\View\Resolver\AggregateResolver;
@@ -21,7 +22,7 @@ final class RelativeFallbackResolverTest extends TestCase
 {
     public function testReturnsResourceFromTheSameNameSpaceWithMapResolver(): void
     {
-        $helper         = new ViewModelHelper();
+        $helper         = new ViewModelHelper(new Layout());
         $tplMapResolver = new TemplateMapResolver([
             'foo/bar' => 'foo/baz',
         ]);
@@ -38,7 +39,7 @@ final class RelativeFallbackResolverTest extends TestCase
     {
         $view = new ViewModel();
         $view->setTemplate('name-space/any-view');
-        $helper = new ViewModelHelper();
+        $helper = new ViewModelHelper(new Layout());
         $helper->setCurrent($view);
 
         $pathStack = new TemplatePathStack();
@@ -53,7 +54,7 @@ final class RelativeFallbackResolverTest extends TestCase
     {
         $view = new ViewModel();
         $view->setTemplate('foo/zaz');
-        $helper = new ViewModelHelper();
+        $helper = new ViewModelHelper(new Layout());
         $helper->setCurrent($view);
 
         $tplMapResolver = new TemplateMapResolver([
@@ -74,7 +75,7 @@ final class RelativeFallbackResolverTest extends TestCase
         $baseResolver->expects(self::never())
             ->method('resolve');
 
-        $fallback = new RelativeFallbackResolver($baseResolver, new ViewModelHelper());
+        $fallback = new RelativeFallbackResolver($baseResolver, new ViewModelHelper(new Layout()));
 
         self::assertFalse($fallback->resolve('foo/bar'));
     }
@@ -83,7 +84,7 @@ final class RelativeFallbackResolverTest extends TestCase
     {
         $view = new ViewModel();
         $view->setTemplate('name-space/any-view');
-        $helper = new ViewModelHelper();
+        $helper = new ViewModelHelper(new Layout());
         $helper->setCurrent($view);
 
         $pathStack = new TemplatePathStack();
@@ -98,7 +99,7 @@ final class RelativeFallbackResolverTest extends TestCase
     {
         $view = new ViewModel();
         $view->setTemplate('empty'); // Known template in ../_templates/
-        $helper = new ViewModelHelper();
+        $helper = new ViewModelHelper(new Layout());
         $helper->setCurrent($view);
 
         $pathStack = new TemplatePathStack();

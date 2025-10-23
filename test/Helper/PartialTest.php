@@ -19,17 +19,19 @@ use stdClass;
 final class PartialTest extends TestCase
 {
     private Partial $helper;
-    private PhpRenderer $renderer;
 
     protected function setUp(): void
     {
-        $resolver       = new TemplatePathStack([
+        $resolver = new TemplatePathStack([
             'script_paths' => [
                 __DIR__ . '/partial-templates',
             ],
         ]);
-        $this->renderer = new PhpRenderer(new HelperPluginManager(new ServiceManager()), $resolver);
-        $this->helper   = new Partial($this->renderer);
+        $manager  = new ServiceManager();
+        $helpers  = new HelperPluginManager($manager);
+        $manager->setService(HelperPluginManager::class, $helpers);
+        $renderer     = new PhpRenderer($helpers, $resolver);
+        $this->helper = new Partial($renderer);
     }
 
     public function testPartialRendersScript(): void
