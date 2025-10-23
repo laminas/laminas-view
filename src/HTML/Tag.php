@@ -14,6 +14,8 @@ use const CASE_LOWER;
 /**
  * This class is not part of the public API and has no BC guarantees
  *
+ * @internal
+ *
  * @psalm-internal Laminas\View
  * @psalm-internal LaminasTest\View
  */

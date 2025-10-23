@@ -14,6 +14,8 @@ use function is_string;
 /**
  * Provides consistent retrieval of configuration and individual values based on historic conventions
  *
+ * @internal
+ *
  * @psalm-internal Laminas\View
  * @psalm-internal LaminasTest\View
  * @psalm-import-type ViewConfigShape from ConfigProvider

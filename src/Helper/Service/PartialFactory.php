@@ -9,6 +9,8 @@ use Laminas\View\Renderer\PhpRenderer;
 use Psr\Container\ContainerInterface;
 
 /**
+ * @internal
+ *
  * @psalm-internal Laminas\View
  * @psalm-internal LaminasTest\View
  */

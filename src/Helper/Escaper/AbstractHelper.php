@@ -16,6 +16,8 @@ use function trigger_error;
 use const E_USER_DEPRECATED;
 
 /**
+ * @internal
+ *
  * @psalm-internal Laminas\View
  * @psalm-internal LaminasTest\View
  */

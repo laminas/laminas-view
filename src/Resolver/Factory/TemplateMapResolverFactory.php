@@ -10,6 +10,8 @@ use Laminas\View\Resolver\TemplateMapResolver;
 use Psr\Container\ContainerInterface;
 
 /**
+ * @internal
+ *
  * @psalm-internal Laminas\View
  * @psalm-internal LaminasTest\View
  * @psalm-import-type ViewConfigShape from ConfigProvider

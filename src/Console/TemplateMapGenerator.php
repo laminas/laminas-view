@@ -36,6 +36,8 @@ use const DIRECTORY_SEPARATOR;
 use const PHP_EOL;
 
 /**
+ * @internal
+ *
  * @psalm-internal Laminas\View
  * @psalm-internal LaminasTest\View
  */

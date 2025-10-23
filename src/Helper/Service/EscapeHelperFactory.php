@@ -24,6 +24,8 @@ use function sprintf;
 /**
  * This factory is used to generate helpers that have a single constructor argument on an Escaper instance
  *
+ * @internal
+ *
  * @psalm-internal Laminas\View
  * @psalm-internal LaminasTest\View
  */

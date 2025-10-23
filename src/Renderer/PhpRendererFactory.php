@@ -10,6 +10,8 @@ use Laminas\View\Resolver\ResolverInterface;
 use Psr\Container\ContainerInterface;
 
 /**
+ * @internal
+ *
  * @psalm-internal Laminas
  * @psalm-internal LaminasTest
  */
