@@ -6,7 +6,7 @@ namespace Laminas\View;
 
 use Laminas\ServiceManager\PluginManagerInterface;
 
-/** @extends PluginManagerInterface<callable> */
+/** @extends PluginManagerInterface<callable|(object&callable)> */
 interface HelperPluginManagerInterface extends PluginManagerInterface
 {
     /**

@@ -26,7 +26,7 @@ use function sprintf;
  * Additionally, it registers a number of default helpers and tracks stateful helpers so that state can be reset.
  *
  * @psalm-import-type ServiceManagerConfiguration from ServiceManager
- * @extends AbstractPluginManager<callable>
+ * @extends AbstractPluginManager<callable|(object&callable)>
  */
 final class HelperPluginManager extends AbstractPluginManager implements HelperPluginManagerInterface
 {
@@ -164,7 +164,7 @@ final class HelperPluginManager extends AbstractPluginManager implements HelperP
      * Validates against callables and HelperInterface implementations.
      *
      * @throws InvalidServiceException
-     * @psalm-assert callable $instance
+     * @psalm-assert callable|(object&callable) $instance
      */
     public function validate(mixed $instance): void
     {
