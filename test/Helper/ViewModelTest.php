@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Helper;
 
+use Laminas\View\Helper\Layout;
 use Laminas\View\Helper\ViewModel;
 use Laminas\View\Model\ViewModel as Model;
 use PHPUnit\Framework\TestCase;
@@ -11,10 +12,12 @@ use PHPUnit\Framework\TestCase;
 final class ViewModelTest extends TestCase
 {
     private ViewModel $helper;
+    private Layout $layout;
 
     protected function setUp(): void
     {
-        $this->helper = new ViewModel();
+        $this->layout = new Layout();
+        $this->helper = new ViewModel($this->layout);
     }
 
     public function testInvokeReturnsSelf(): void
@@ -22,21 +25,18 @@ final class ViewModelTest extends TestCase
         self::assertSame($this->helper, $this->helper->__invoke());
     }
 
-    public function testThatNoModelsAreAvailableByDefault(): void
+    public function testTheCurrentModelIsNotAvailableByDefault(): void
     {
         self::assertNull($this->helper->getCurrent());
-        self::assertNull($this->helper->getRoot());
-
-        self::assertFalse($this->helper->hasRoot());
         self::assertFalse($this->helper->hasCurrent());
     }
 
-    public function testTheRootModelCanBeRetrievedWhenSet(): void
+    public function testTheRootModelIsRetrievedFromTheLayoutHelper(): void
     {
-        $model = new Model();
-        $this->helper->setRoot($model);
-        self::assertSame($model, $this->helper->getRoot());
-        self::assertTrue($this->helper->hasRoot());
+        self::assertSame(
+            $this->layout->getModel(),
+            $this->helper->getRoot(),
+        );
     }
 
     public function testTheCurrentModelCanBeRetrievedWhenSet(): void
@@ -47,13 +47,10 @@ final class ViewModelTest extends TestCase
         self::assertTrue($this->helper->hasCurrent());
     }
 
-    public function testModelsAreNullifiedWhenStateIsReset(): void
+    public function testTheCurrentModelIsNullifiedWhenStateIsReset(): void
     {
-        $this->helper->setRoot(new Model());
         $this->helper->setCurrent(new Model());
         $this->helper->resetState();
-
-        self::assertNull($this->helper->getRoot());
         self::assertNull($this->helper->getCurrent());
     }
 }

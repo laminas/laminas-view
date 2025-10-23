@@ -59,7 +59,7 @@ final class HelperPluginManager extends AbstractPluginManager implements HelperP
             Helper\Partial::class             => Helper\Service\PartialFactory::class,
             Helper\Placeholder::class         => InvokableFactory::class,
             Helper\RenderToPlaceholder::class => Helper\Service\RenderToPlaceholderFactory::class,
-            Helper\ViewModel::class           => InvokableFactory::class,
+            Helper\ViewModel::class           => Helper\Service\ViewModelFactory::class,
         ],
         'aliases'   => [
             'asset'               => Helper\Asset::class,

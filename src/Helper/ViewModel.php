@@ -12,12 +12,14 @@ use Laminas\View\Model\ModelInterface;
 final class ViewModel implements StatefulHelperInterface
 {
     private ModelInterface|null $current = null;
-    private ModelInterface|null $root    = null;
+
+    public function __construct(private readonly Layout $layoutHelper)
+    {
+    }
 
     public function resetState(): void
     {
         $this->current = null;
-        $this->root    = null;
     }
 
     public function __invoke(): self
@@ -51,27 +53,10 @@ final class ViewModel implements StatefulHelperInterface
     }
 
     /**
-     * Set the root view model
-     */
-    public function setRoot(ModelInterface $model): self
-    {
-        $this->root = $model;
-        return $this;
-    }
-
-    /**
      * Get the root view model
      */
-    public function getRoot(): ModelInterface|null
+    public function getRoot(): ModelInterface
     {
-        return $this->root;
-    }
-
-    /**
-     * Is a root view model composed?
-     */
-    public function hasRoot(): bool
-    {
-        return $this->root instanceof ModelInterface;
+        return $this->layoutHelper->getModel();
     }
 }
