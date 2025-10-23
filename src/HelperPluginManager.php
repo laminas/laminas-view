@@ -180,7 +180,7 @@ final class HelperPluginManager extends AbstractPluginManager implements HelperP
     }
 
     /**
-     * @template InstanceParam
+     * @template InstanceParam of object&callable
      * @param class-string<InstanceParam>|string $id Service name of plugin to retrieve.
      * @return ($id is class-string<InstanceParam> ? InstanceParam : callable)
      */

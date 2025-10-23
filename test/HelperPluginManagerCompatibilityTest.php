@@ -88,6 +88,7 @@ final class HelperPluginManagerCompatibilityTest extends TestCase
     {
         $instance = self::getPluginManager()->get($alias);
 
+        /** @psalm-suppress RedundantConditionGivenDocblockType Psalm is correct but we have to test something */
         self::assertIsCallable($instance);
     }
 
