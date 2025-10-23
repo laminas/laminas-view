@@ -25,7 +25,6 @@ final readonly class Configuration
     private const DEFAULT_ENCODING         = 'utf-8';
     private const DEFAULT_TEMPLATE_SUFFIX  = 'phtml';
     private const STRICT_VARIABLES_DEFAULT = true;
-    private const DEFAULT_LAYOUT_TEMPLATE  = 'layout::default';
     private const DEFAULT_CAPTURE_TO       = 'content';
 
     /** @return array<array-key, mixed> */
@@ -94,18 +93,18 @@ final readonly class Configuration
     /**
      * Retrieve the name of the default layout template
      *
-     * @return non-empty-string
+     * @return non-empty-string|null
      */
     public static function defaultLayout(
         ContainerInterface $container,
-    ): string {
+    ): string|null {
         /** @var ViewConfigShape $config */
         $config = self::get($container);
 
         $template = $config['view_manager']['default_layout'] ?? null;
         $template = $config['templates']['default_layout'] ?? $template;
 
-        return is_string($template) ? $template : self::DEFAULT_LAYOUT_TEMPLATE;
+        return is_string($template) ? $template : null;
     }
 
     /**
