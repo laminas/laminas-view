@@ -105,7 +105,7 @@ final class RenderingFailedException extends RuntimeException
     public static function becauseOfAmbiguousArgumentsToPhpRenderer(): self
     {
         return new self(
-            'Passing both view model view variables to render is ambiguous. '
+            'Passing both view model and view variables to render is ambiguous. '
             . 'Either provide just the model, or, a template name and the variables with '
             . 'which to create the model.'
         );
