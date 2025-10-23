@@ -217,7 +217,7 @@ final class ViewModel implements ModelInterface, ClearableModelInterface, Retrie
     {
         /** @psalm-suppress TypeDoesNotContainType Adding a defensive check here regardless of documented types */
         if ($capture === '') {
-            throw new InvalidArgumentException('The `capture` name cannot be an empty string');
+            throw new InvalidArgumentException('The `capture` target cannot be an empty string');
         }
 
         $this->captureTo = $capture;

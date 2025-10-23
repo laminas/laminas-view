@@ -408,7 +408,7 @@ final class ViewModelTest extends TestCase
     {
         $model = new ViewModel();
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('The `capture` name cannot be an empty string');
+        $this->expectExceptionMessage('The `capture` target cannot be an empty string');
         /** @psalm-suppress InvalidArgument */
         $model->setCaptureTo('');
     }
