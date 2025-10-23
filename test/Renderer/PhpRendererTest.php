@@ -281,12 +281,14 @@ final class PhpRendererTest extends TestCase
         ), $caught->getMessage());
     }
 
-    /** @return list<array{0: iterable<non-empty-string, mixed>}> */
+    /** @return array<string, array{0: iterable<non-empty-string, mixed>}> */
     public static function emptyVariablesArgumentsForAmbiguity(): array
     {
         return [
-            [['message' => 'Whatever']],
-            [new ArrayObject(['message' => 'Whatever'])],
+            'Non-empty array'    => [['message' => 'Whatever']],
+            'Non-empty iterable' => [new ArrayObject(['message' => 'Whatever'])],
+            'Empty array'        => [[]],
+            'Empty iterable'     => [new ArrayObject([])],
         ];
     }
 
