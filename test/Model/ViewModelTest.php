@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace LaminasTest\View\Model;
 
 use ArrayObject;
+use Laminas\View\Exception\InvalidArgumentException;
 use Laminas\View\Model\ViewModel;
 use LaminasTest\View\Model\TestAsset\Variable;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -401,5 +402,14 @@ final class ViewModelTest extends TestCase
         self::assertSame([$child1, $child2], iterator_to_array($model, false));
         self::assertSame('apples', $child1->captureTo());
         self::assertSame('oranges', $child2->captureTo());
+    }
+
+    public function testCaptureToCannotBeSetToAnEmptyString(): void
+    {
+        $model = new ViewModel();
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The `capture` name cannot be an empty string');
+        /** @psalm-suppress InvalidArgument */
+        $model->setCaptureTo('');
     }
 }
