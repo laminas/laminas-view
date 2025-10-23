@@ -30,7 +30,7 @@ final class ViewTest extends TestCase
                     'layout::default' => __DIR__ . '/templates/view/default-layout.phtml',
                     'layout::other'   => __DIR__ . '/templates/view/other-layout.phtml',
                 ],
-                'default_layout' => 'layout::default',
+                'default_layout'      => 'layout::default',
             ],
         ];
         $config                             = array_merge_recursive(
@@ -103,7 +103,7 @@ final class ViewTest extends TestCase
 
     public function testLayoutVarsCanBeMutatedFromTemplateContextViaLayoutHelper(): void
     {
-        $view = self::createView();
+        $view    = self::createView();
         $content = $view->renderTemplate('mutates-layout-vars');
 
         self::assertStringStartsWith('<layout>', $content);
