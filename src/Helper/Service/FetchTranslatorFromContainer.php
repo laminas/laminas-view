@@ -8,6 +8,8 @@ use Laminas\Translator\TranslatorInterface;
 use Psr\Container\ContainerInterface;
 
 /**
+ * @internal
+ *
  * @psalm-internal Laminas
  * @psalm-internal LaminasTest
  */

@@ -25,6 +25,8 @@ use function sprintf;
 /**
  * This factory is used to initialise helpers that have common constructor dependencies
  *
+ * @internal
+ *
  * @psalm-internal Laminas\View
  * @psalm-internal LaminasTest\View
  */

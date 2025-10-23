@@ -26,6 +26,8 @@ use function ob_start;
  * phpcs:disable WebimpressCodingStandard.NamingConventions.ValidVariableName
  * phpcs:disable PSR2.Classes.PropertyDeclaration.Underscore
  *
+ * @internal
+ *
  * @psalm-internal Laminas\View
  * @psalm-internal LaminasTest\View
  * @psalm-no-seal-properties Magic properties are retrieved from this class to fetch view variables

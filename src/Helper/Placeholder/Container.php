@@ -23,6 +23,8 @@ use function ob_start;
  *
  * This class is not part of the public API and has no BC guarantees
  *
+ * @internal
+ *
  * @template TValue
  * @implements IteratorAggregate<int, TValue>
  * @psalm-internal Laminas\View

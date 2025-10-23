@@ -9,6 +9,8 @@ use Laminas\View\HelperPluginManager;
 use Psr\Container\ContainerInterface;
 
 /**
+ * @internal
+ *
  * @psalm-import-type ViewConfigShape from ConfigProvider
  * @psalm-internal Laminas\View
  * @psalm-internal LaminasTest\View

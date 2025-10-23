@@ -8,6 +8,8 @@ use Laminas\Escaper\Escaper;
 use Psr\Container\ContainerInterface;
 
 /**
+ * @internal
+ *
  * @psalm-internal Laminas\View
  * @psalm-internal LaminasTest\View
  */
