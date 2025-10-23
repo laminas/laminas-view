@@ -40,6 +40,7 @@ use Stringable;
  *
  * @psalm-api
  * @psalm-import-type AttributeSet from HtmlAttributesSet
+ * @psalm-no-seal-properties
  */
 interface TemplateInterface
 {
@@ -249,10 +250,9 @@ interface TemplateInterface
      *
      * @see Layout
      *
-     * @param null|string $template Providing a template name will set that template as the current layout template
-     * @return ($template is null ? ModelInterface : Layout)
+     * @param null|non-empty-string $template Providing a template name will make it the current layout template
      */
-    public function layout(string|null $template = null): ModelInterface|Layout;
+    public function layout(string|null $template = null): Layout;
 
     /**
      * Renders a template fragment within a variable scope distinct from the
