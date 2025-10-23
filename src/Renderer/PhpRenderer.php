@@ -12,6 +12,8 @@ use Laminas\View\Model\ViewModel;
 use Laminas\View\Resolver\ResolverInterface;
 
 use function assert;
+use function is_object;
+use function iterator_to_array;
 
 final class PhpRenderer implements RendererInterface
 {
@@ -48,6 +50,13 @@ final class PhpRenderer implements RendererInterface
 
         if ($templateName === '') {
             throw RenderingFailedException::becauseATemplateWasNotSpecified();
+        }
+
+        $variablesEmpty = (is_object($variables) ? iterator_to_array($variables, false) : $variables) === []
+            || $variables === null;
+
+        if ($templateNameOrModel instanceof ModelInterface && ! $variablesEmpty) {
+            throw RenderingFailedException::becauseOfAmbiguousArgumentsToPhpRenderer();
         }
 
         $viewModel = $templateNameOrModel instanceof ModelInterface
