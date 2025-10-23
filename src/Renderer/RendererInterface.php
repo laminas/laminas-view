@@ -7,9 +7,6 @@ namespace Laminas\View\Renderer;
 use Laminas\View\Exception\RenderingFailedException;
 use Laminas\View\Model\ModelInterface;
 
-/**
- * Interface class for Laminas\View\Renderer\* compatible template engine implementations
- */
 interface RendererInterface
 {
     /**
@@ -26,4 +23,7 @@ interface RendererInterface
         string|ModelInterface $templateNameOrModel,
         iterable|null $variables = null,
     ): string;
+
+    /** @throws RenderingFailedException When any issue occurs during render. */
+    public function renderRecursively(ModelInterface $model): string;
 }

@@ -12,17 +12,20 @@ use Laminas\View\Model\ViewModel;
 use Laminas\View\Resolver\ResolverInterface;
 
 use function assert;
+use function is_string;
 
 final class PhpRenderer implements RendererInterface
 {
     /** @var (callable(string): string)|null */
     private $filter;
+    private readonly ViewModelHelper $viewModelHelper;
 
     public function __construct(
         private readonly HelperPluginManagerInterface $pluginManager,
         private readonly ResolverInterface $templateResolver,
         private readonly bool $strictVariables = true,
     ) {
+        $this->viewModelHelper = $this->pluginManager->get(ViewModelHelper::class);
     }
 
     /**
@@ -67,6 +70,27 @@ final class PhpRenderer implements RendererInterface
         return $content;
     }
 
+    public function renderRecursively(ModelInterface $model): string
+    {
+        foreach ($model->getChildren() as $child) {
+            $this->viewModelHelper->setCurrent($child);
+            $content = $this->renderRecursively($child);
+            if ($child->isAppend()) {
+                /** @psalm-var mixed $existingContent */
+                $existingContent = $model->getVariable($child->captureTo(), '');
+                $existingContent = is_string($existingContent)
+                    ? $existingContent
+                    : '';
+
+                $content = $existingContent . $content;
+            }
+
+            $model->setVariable($child->captureTo(), $content);
+        }
+
+        return $this->renderModel($model);
+    }
+
     private function renderModel(ModelInterface $model): string
     {
         $template = $model->getTemplate();
@@ -77,8 +101,7 @@ final class PhpRenderer implements RendererInterface
             throw RenderingFailedException::becauseTheTemplateCannotBeResolvedToAFile($template);
         }
 
-        $helper = $this->pluginManager->get(ViewModelHelper::class);
-        $helper->setCurrent($model);
+        $this->viewModelHelper->setCurrent($model);
 
         return (new Template(
             $filename,
