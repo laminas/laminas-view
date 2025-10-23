@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Laminas\View\Model;
 
 use ArrayIterator;
+use Laminas\View\Exception\InvalidArgumentException;
 use Traversable;
 
 use function array_key_exists;
@@ -214,6 +215,11 @@ final class ViewModel implements ModelInterface, ClearableModelInterface, Retrie
 
     public function setCaptureTo(string $capture): static
     {
+        /** @psalm-suppress TypeDoesNotContainType Adding a defensive check here regardless of documented types */
+        if ($capture === '') {
+            throw new InvalidArgumentException('The `capture` target cannot be an empty string');
+        }
+
         $this->captureTo = $capture;
         return $this;
     }
