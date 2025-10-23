@@ -281,15 +281,30 @@ final class PhpRendererTest extends TestCase
         ), $caught->getMessage());
     }
 
-    public function testVariablesArgumentIsIgnoredWhenAViewModelIsGiven(): void
+    /** @return array<string, array{0: iterable<non-empty-string, mixed>}> */
+    public static function emptyVariablesArgumentsForAmbiguity(): array
     {
-        $model = new ViewModel(['message' => 'View Model Variable']);
-        $model->setTemplate('variable-as-property');
+        return [
+            'Non-empty array'    => [['message' => 'Whatever']],
+            'Non-empty iterable' => [new ArrayObject(['message' => 'Whatever'])],
+            'Empty array'        => [[]],
+            'Empty iterable'     => [new ArrayObject([])],
+        ];
+    }
 
-        self::assertStringContainsString(
-            '<p>View Model Variable</p>',
-            $this->renderer->render($model, ['message' => 'Variable from arguments']),
+    /** @param iterable<non-empty-string, mixed> $variables */
+    #[DataProvider('emptyVariablesArgumentsForAmbiguity')]
+    public function testVariablesArgumentIsExceptionalWhenAViewModelIsGiven(iterable $variables): void
+    {
+        $model = new ViewModel(['message' => 'View Model Variable'], 'variable-as-property');
+
+        $this->expectException(RenderingFailedException::class);
+        $this->expectExceptionMessage(
+            'Passing both view model and view variables to render is ambiguous. '
+            . 'Either provide just the model, or, a template name and the variables with '
+            . 'which to create the model.',
         );
+        $this->renderer->render($model, $variables);
     }
 
     public function testSharedInstanceHelper(): void

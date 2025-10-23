@@ -50,6 +50,10 @@ final class PhpRenderer implements RendererInterface
             throw RenderingFailedException::becauseATemplateWasNotSpecified();
         }
 
+        if ($templateNameOrModel instanceof ModelInterface && $variables !== null) {
+            throw RenderingFailedException::becauseOfAmbiguousArgumentsToPhpRenderer();
+        }
+
         $viewModel = $templateNameOrModel instanceof ModelInterface
             ? $templateNameOrModel
             : new ViewModel($variables ?? [], $templateName);
