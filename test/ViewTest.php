@@ -6,7 +6,6 @@ namespace LaminasTest\View;
 
 use Laminas\ServiceManager\ServiceManager;
 use Laminas\View\ConfigProvider;
-use Laminas\View\Model\ModelInterface;
 use Laminas\View\Model\ViewModel;
 use Laminas\View\View;
 use PHPUnit\Framework\TestCase;
@@ -31,6 +30,7 @@ final class ViewTest extends TestCase
                     'layout::default' => __DIR__ . '/templates/view/default-layout.phtml',
                     'layout::other'   => __DIR__ . '/templates/view/other-layout.phtml',
                 ],
+                'default_layout' => 'layout::default',
             ],
         ];
         $config                             = array_merge_recursive(
@@ -47,7 +47,7 @@ final class ViewTest extends TestCase
     public function testRenderWithDefaultLayoutAndStringTemplate(): void
     {
         $view    = self::createView();
-        $content = $view->render('single-variable', ['message' => 'Hey There!']);
+        $content = $view->renderTemplate('single-variable', ['message' => 'Hey There!']);
 
         self::assertStringStartsWith('<default-layout>', $content);
         self::assertStringEndsWith('</default-layout>', trim($content));
@@ -64,53 +64,6 @@ final class ViewTest extends TestCase
 
         self::assertStringStartsWith('<default-layout>', $content);
         self::assertStringEndsWith('</default-layout>', trim($content));
-        self::assertStringContainsString('<p>Hey There!</p>', $content);
-    }
-
-    public function testVariablesArgumentIsIgnoredWhenAModelIsGiven(): void
-    {
-        $view  = self::createView();
-        $model = new ViewModel(['message' => 'Hey There!']);
-        $model->setTemplate('single-variable');
-
-        $content = $view->render($model, ['message' => 'Something else']);
-
-        self::assertStringStartsWith('<default-layout>', $content);
-        self::assertStringEndsWith('</default-layout>', trim($content));
-        self::assertStringContainsString('<p>Hey There!</p>', $content);
-    }
-
-    public function testStringTemplateWithModelAsVariablesWillOverrideTemplateInModel(): void
-    {
-        $view  = self::createView();
-        $model = new ViewModel(['message' => 'Hey There!']);
-        $model->setTemplate('does-not-exist');
-
-        $content = $view->render('single-variable', $model);
-
-        self::assertStringContainsString('<p>Hey There!</p>', $content);
-    }
-
-    public function testLayoutCanBeDisabledWithStringTemplateArgument(): void
-    {
-        $view    = self::createView();
-        $content = $view->render('single-variable', ['message' => 'Hey There!'], false);
-
-        self::assertStringStartsNotWith('<default-layout>', $content);
-        self::assertStringEndsNotWith('</default-layout>', trim($content));
-        self::assertStringContainsString('<p>Hey There!</p>', $content);
-    }
-
-    public function testLayoutCanBeDisabledWithViewModelArgument(): void
-    {
-        $view  = self::createView();
-        $model = new ViewModel(['message' => 'Hey There!']);
-        $model->setTemplate('single-variable');
-
-        $content = $view->render($model, null, false);
-
-        self::assertStringStartsNotWith('<default-layout>', $content);
-        self::assertStringEndsNotWith('</default-layout>', trim($content));
         self::assertStringContainsString('<p>Hey There!</p>', $content);
     }
 
@@ -131,18 +84,39 @@ final class ViewTest extends TestCase
     public function testLayoutCanBeChangedInsideTemplatesViaTheLayoutViewHelper(): void
     {
         $view    = self::createView();
-        $content = $view->render('switch-layout', ['message' => 'Hey There!']);
+        $content = $view->renderTemplate('switch-layout', ['message' => 'Hey There!']);
 
         self::assertStringStartsWith('<other-layout>', $content);
         self::assertStringEndsWith('</other-layout>', trim($content));
         self::assertStringContainsString('<p>Hey There!</p>', $content);
     }
 
+    public function testLayoutCanBeDisabledInsideTemplatesViaTheLayoutHelper(): void
+    {
+        $view    = self::createView();
+        $content = $view->renderTemplate('disable-layout', ['message' => 'Hey There!']);
+
+        self::assertStringStartsNotWith('<other-layout>', $content);
+        self::assertStringEndsNotWith('</other-layout>', trim($content));
+        self::assertStringContainsString('<p>Hey There!</p>', $content);
+    }
+
+    public function testLayoutVarsCanBeMutatedFromTemplateContextViaLayoutHelper(): void
+    {
+        $view = self::createView();
+        $content = $view->renderTemplate('mutates-layout-vars');
+
+        self::assertStringStartsWith('<layout>', $content);
+        self::assertStringEndsWith('</layout>', trim($content));
+        self::assertStringContainsString('EXAMPLE', $content);
+        self::assertStringContainsString('<content />', $content);
+    }
+
     public function testLayoutSwitchingInsideTemplatesDoesNotAffectSubsequentRendersUsingTheDefaultLayout(): void
     {
         $view          = self::createView();
-        $otherLayout   = $view->render('switch-layout', ['message' => 'Render 1']);
-        $defaultLayout = $view->render('single-variable', ['message' => 'Render 2']);
+        $otherLayout   = $view->renderTemplate('switch-layout', ['message' => 'Render 1']);
+        $defaultLayout = $view->renderTemplate('single-variable', ['message' => 'Render 2']);
 
         self::assertStringStartsWith('<other-layout>', $otherLayout);
         self::assertStringStartsWith('<default-layout>', $defaultLayout);
@@ -267,39 +241,9 @@ final class ViewTest extends TestCase
          */
 
         $view    = self::createView();
-        $content = $view->render('view-model-helper-assertion', ['message' => 'Message 1']);
+        $content = $view->renderTemplate('view-model-helper-assertion', ['message' => 'Message 1']);
 
         self::assertStringContainsString('<p>Message 1</p>', $content);
         self::assertStringContainsString('<default-layout>', $content);
-    }
-
-    public function testThatArbitraryMutationsCanBeAppliedToTheViewModelPriorToRendering(): void
-    {
-        $view = self::createView();
-
-        $view->registerPreRenderHandler(static fn (ModelInterface $model): ModelInterface
-            => $model->setVariable('message', 'Tricked You!'));
-
-        $content = $view->render('single-variable', ['message' => 'Message 1']);
-
-        self::assertStringContainsString('<p>Tricked You!</p>', $content);
-        self::assertStringNotContainsString('Message 1', $content);
-    }
-
-    public function testThatViewModelMutationsAreAppliedInTheOrderOfRegistration(): void
-    {
-        $view = self::createView();
-
-        $view->registerPreRenderHandler(static fn (ModelInterface $model): ModelInterface =>
-            $model->setVariable('message', 'Kermit'));
-
-        $view->registerPreRenderHandler(static fn (ModelInterface $model): ModelInterface =>
-            $model->setVariable('message', 'Miss Piggy'));
-
-        $content = $view->render('single-variable', ['message' => 'Fozzy Bear']);
-
-        self::assertStringContainsString('<p>Miss Piggy</p>', $content);
-        self::assertStringNotContainsString('Fozzy Bear', $content);
-        self::assertStringNotContainsString('Kermit', $content);
     }
 }

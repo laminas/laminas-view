@@ -5,9 +5,13 @@ declare(strict_types=1);
 use Laminas\View\Helper\ViewModel;
 use Laminas\View\Model\ModelInterface;
 
+use Laminas\View\TemplateInterface;
+
 use function PHPUnit\Framework\assertInstanceOf;
 use function PHPUnit\Framework\assertNotSame;
 use function PHPUnit\Framework\assertSame;
+
+/** @var TemplateInterface $this */
 
 $helper = $this->viewModel();
 

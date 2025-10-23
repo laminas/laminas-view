@@ -6,7 +6,7 @@ use Laminas\View\TemplateInterface;
 
 /** @var TemplateInterface $this */
 
-$this->layout('layout::other');
+$this->layout()->disable();
 
 ?>
 <p><?= $this->message ?></p>

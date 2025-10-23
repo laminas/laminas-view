@@ -4,123 +4,72 @@ declare(strict_types=1);
 
 namespace Laminas\View;
 
-use Closure;
-use Laminas\View\Exception\RenderingFailedException;
-use Laminas\View\Helper\ViewModel as ViewModelHelper;
+use Laminas\View\Helper\Layout;
 use Laminas\View\Model\ModelInterface;
 use Laminas\View\Model\ViewModel;
 use Laminas\View\Renderer\RendererInterface;
 
-use function is_string;
+use function assert;
 
-final class View
+final readonly class View implements ViewInterface
 {
-    private readonly ViewModelHelper $viewModelHelper;
-
-    /** @var list<(Closure(ModelInterface): ModelInterface)> */
-    private array $preRenderHandlers;
+    private Layout $layoutHelper;
 
     /**
-     * @param non-empty-string $defaultLayoutTemplate
+     * @param non-empty-string|null $defaultLayoutTemplate
      * @param non-empty-string $defaultCaptureTo
      */
     public function __construct(
-        private readonly RendererInterface $renderer,
-        private readonly HelperPluginManagerInterface $pluginManager,
-        private readonly string $defaultLayoutTemplate,
-        private readonly string $defaultCaptureTo,
+        private RendererInterface $renderer,
+        private HelperPluginManagerInterface $pluginManager,
+        private string|null $defaultLayoutTemplate,
+        private string $defaultCaptureTo,
     ) {
-        $this->viewModelHelper   = $this->pluginManager->get(ViewModelHelper::class);
-        $this->preRenderHandlers = [];
+        $this->layoutHelper = $this->pluginManager->get(Layout::class);
     }
 
-    /**
-     * Render a configured top-level layout view model
-     *
-     * It is expected that the given model will have a non-empty template configured and all necessary variables and
-     * child models set.
-     *
-     * @throws RenderingFailedException When any exception occurs during render.
-     */
-    public function renderLayout(ModelInterface $layout): string
+    public function renderTemplate(string $template, iterable|null $variables = null): string
     {
-        $this->viewModelHelper->setRoot($layout);
-        $content = $this->renderRecursively($layout);
+        return $this->render(new ViewModel($variables ?? [], $template));
+    }
+
+    public function render(ModelInterface $viewModel): string
+    {
+        $content = $this->renderer->renderRecursively($viewModel);
+
+        if (! $this->isLayoutEnabled($viewModel)) {
+            $this->pluginManager->resetState();
+
+            return $content;
+        }
+
+        $template = $this->layoutHelper->getLayoutTemplate() ?? $this->defaultLayoutTemplate;
+        assert($template !== null);
+
+        $layoutModel = $this->layoutHelper->getModel();
+        $layoutModel->setTemplate($template);
+        $layoutModel->setVariable($this->defaultCaptureTo, $content);
+        $content = $this->renderer->render($layoutModel);
         $this->pluginManager->resetState();
 
         return $content;
     }
 
-    /**
-     * @param non-empty-string|ModelInterface $modelOrTemplate
-     * @param iterable<non-empty-string, mixed>|null|ModelInterface $variables
-     * @throws RenderingFailedException When any exception occurs during render.
-     */
-    public function render(
-        string|ModelInterface $modelOrTemplate,
-        iterable|ModelInterface|null $variables = null,
-        bool $enableLayout = true,
-    ): string {
-        if (is_string($modelOrTemplate)) {
-            $model = $variables instanceof ModelInterface
-                ? $variables
-                : new ViewModel($variables ?? []);
-            $model->setTemplate($modelOrTemplate);
-        } else {
-            $model = $modelOrTemplate;
-        }
-
-        if ($enableLayout && $model->terminate() !== true) {
-            $layoutModel = new ViewModel([]);
-            $layoutModel->setTemplate($this->defaultLayoutTemplate);
-            $model->setCaptureTo($this->defaultCaptureTo);
-            $layoutModel->addChild($model);
-
-            return $this->renderLayout($layoutModel);
-        }
-
-        $content = $this->renderRecursively($model);
-        $this->pluginManager->resetState();
-
-        return $content;
-    }
-
-    /** @throws RenderingFailedException When any exception occurs during render. */
-    private function renderRecursively(ModelInterface $model): string
+    private function isLayoutEnabled(ModelInterface $contentModel): bool
     {
-        foreach ($model->getChildren() as $child) {
-            $this->viewModelHelper->setCurrent($child);
-            $content = $this->renderRecursively($child);
-            if ($child->isAppend()) {
-                /** @psalm-var mixed $existingContent */
-                $existingContent = $model->getVariable($child->captureTo(), '');
-                $existingContent = is_string($existingContent)
-                    ? $existingContent
-                    : '';
-
-                $content = $existingContent . $content;
-            }
-
-            $model->setVariable($child->captureTo(), $content);
+        /** View models marked as terminal should not be wrapped with a layout */
+        if ($contentModel->terminate()) {
+            return false;
         }
 
-        $this->viewModelHelper->setCurrent($model);
-
-        return $this->renderer->render($this->beforeRender($model));
-    }
-
-    /** @param Closure(ModelInterface): ModelInterface $handler */
-    public function registerPreRenderHandler(Closure $handler): void
-    {
-        $this->preRenderHandlers[] = $handler;
-    }
-
-    private function beforeRender(ModelInterface $model): ModelInterface
-    {
-        foreach ($this->preRenderHandlers as $handler) {
-            $model = $handler($model);
+        /** This indicates that the user has disabled layout from the template context */
+        if ($this->layoutHelper->isDisabled()) {
+            return false;
         }
 
-        return $model;
+        /** If a template can be resolved, layout is enabled */
+        $template = $this->defaultLayoutTemplate ?? $this->layoutHelper->getLayoutTemplate();
+
+        return $template !== null;
     }
 }

@@ -15,7 +15,7 @@ use Laminas\View\Model\ViewModel;
 use Laminas\View\View;
 
 /** @var View $view */
-$html = $view->render('my-template', [
+$html = $view->renderTemplate('my-template', [
     'greeting' => 'Hello Fred 👋',
 ]);
 
