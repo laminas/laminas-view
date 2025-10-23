@@ -127,7 +127,7 @@ final class ExamplePageHandler implements RequestHandlerInterface
             'greeting' => 'Hello',
             'name' => 'World',
         ];
-        $markup = $this->view->render($variables, 'pages/greeting');
+        $markup = $this->view->renderTemplate('pages/greeting', $variables);
         
         return new HtmlResponse($markup);
     }
@@ -302,7 +302,7 @@ The third argument to `Laminas\View\View::render()` is a boolean that you can se
 use Laminas\View\View;
 
 /** @var View $view */
-$view->render('template-name', ['some' => 'data'], false);
+$view->renderTemplate('template-name', ['some' => 'data'], false);
 ```
 
 ### Changing the Layout
