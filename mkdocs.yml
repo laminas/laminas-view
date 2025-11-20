@@ -27,6 +27,7 @@ nav:
           - HtmlTag: v3/helpers/html-tag.md
           - Layout: v3/helpers/layout.md
           - Partial: v3/helpers/partial.md
+          - PartialLoop: v3/helpers/partial-loop.md
           - Placeholder: v3/helpers/placeholder.md
           - RenderToPlaceholder: v3/helpers/render-to-placeholder.md
           - "Advanced usage of helpers": v3/helpers/advanced-usage.md
