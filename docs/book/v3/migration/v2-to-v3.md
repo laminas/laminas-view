@@ -17,6 +17,44 @@ The `ConfigProvider` also supports documentation on configuration options.
 
 The entire codebase has been updated with native parameter and return types, improving type safety and type inference.
 
+### Automatic Handling of State Buildup in Helpers
+
+In order to work well with modern runtimes such as Swoole, Franken PHP and Roadrunner, the main view renderer now resets state for each rendering cycle in any and all stateful plugins.
+
+This is [discussed in more detail here](../helpers/advanced-usage.md#dealing-with-state-buildup).
+
+### New Interfaces
+
+#### `HelperPluginManagerInterface`
+
+By using this interface for retrieving the plugin manager from the DI container, and for parameter and property types, you will be able to mock more easily in tests and more easily replace the implementation entirely if desired.
+
+#### `Helper\StatefulHelperInterface`
+
+This interface is explained in the ["Advanced Usage" chapter](../helpers/advanced-usage.md#dealing-with-state-buildup).
+
+#### `TemplateInterface`
+
+This interface exists purley to aid completion in supporting IDEs. Effectively, in your templates:
+
+```php
+// some-template.phtml
+use Laminas\View\TemplateInterface;
+
+/** @var TemplateInterface $this */
+
+// Now all helper calls are available to your ide:
+
+$this->escapeHtml($someVar);
+```
+
+Read more about this in the [view scripts chapter](../view-scripts.md#ide-auto-completion-in-view-scripts).
+
+#### `ViewInterface`
+
+This is object you will interact with to render templates to a string for output.
+Type hinting on `ViewInterface` rather than the `final` implementation `View` will make testing consumers easier, and replacement via DI possible.
+
 ## Signature Changes and Behaviour Changes
 
 ### HelperInterface no Longer Specifies any Methods
@@ -419,6 +457,8 @@ If you have custom helpers that require access to an event manager, you should i
 The plugin manager no longer attempts to inject a `Laminas\View\Renderer\PhpRenderer` into helper instances.
 If you have custom helpers that require access to the view renderer, you should inject one by creating a custom factory for your helper.
 
+Removal of these initializers impact custom view helpers. The chapter on [refactoring view helpers](refactoring-view-helpers.md) provides information on mitigating the impact.
+
 ## Removed Classes and Traits
 
 ### `AbstractHelper`
@@ -429,11 +469,15 @@ It's removal means that the `getView` and `setView` methods are gone, in line wi
 
 If your custom view helper needs an instance of the `PhpRenderer`, you should refactor your helper to use dependency injection and inject the `PhpRenderer` into the constructor of your class, and, remove the inheritance from `AbstractHelper`.
 
+For more information see the chapter on [refactoring view helpers](refactoring-view-helpers.md).
+
 ### `AbstractHtmlElement`
 
 This abstract base class is no longer used internally.
 
 If you have written custom view helpers that extend from this now removed class, you will need to refactor your helpers to use composition and/or dependency injection.
+
+Adding a dependency on the [HtmlAttributes helper](../helpers/html-attributes.md) and reviewing the [documentation on refactoring view helpers](refactoring-view-helpers.md) should help.
 
 ### `TranslatorAwareTrait`
 
