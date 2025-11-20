@@ -4,12 +4,8 @@ The `Partial` view helper is used to render a specified template within its own
 variable scope. The primary use is for reusable template fragments with which
 you do not need to worry about variable name clashes.
 
-A sibling to the `Partial`, the `PartialLoop` view helper allows you to pass
+A sibling to the `Partial`, the [`PartialLoop` view helper](partial-loop.md) allows you to pass
 iterable data, and render a partial for each item.
-
-NOTE: **PartialLoop Counter**
-The `PartialLoop` view helper gives access to the current position of the array within the view script via `$this->partialLoop()->getPartialCounter()`.
-This provides a way to have alternating colors on table rows, for example.
 
 ## Basic Usage
 
@@ -17,7 +13,9 @@ Basic usage of partials is to render a template fragment in its own view scope.
 Consider the following partial script:
 
 ```php
-<?php // partial.phtml ?>
+<?php
+// partial.phtml
+?>
 <ul>
     <li>From: <?= $this->escapeHtml($this->from) ?></li>
     <li>Subject: <?= $this->escapeHtml($this->subject) ?></li>
@@ -27,15 +25,23 @@ Consider the following partial script:
 You would then call it from your view script using the following:
 
 ```php
+<?php
+// main-template.phtml
+?>
+
+<h1>The main template</h1>
+
 <?= $this->partial('partial.phtml', [
     'from' => 'Team Framework',
     'subject' => 'view partials',
 ]); ?>
 ```
 
-Which would then render:
+Which would then render as:
 
 ```html
+<h1>The main template</h1>
+
 <ul>
     <li>From: Team Framework</li>
     <li>Subject: view partials</li>
@@ -69,65 +75,3 @@ Which would then render:
 > // in final partial view script:
 > $view->partialLoop()->setObjectKey('model');
 > ```
->
-> This technique is particularly useful when passing
-> `Laminas\Db\ResultSet\ResultSet`s to `partialLoop()`, as you then have full
-> access to your row objects within the view scripts, allowing you to call
-> methods on them (such as retrieving values from parent or dependent rows).
-
-## Using PartialLoop to Render Iterable Models
-
-Typically, you'll want to use partials in a loop, to render the same content
-fragment many times; this way you can put large blocks of repeated content or
-complex display logic into a single location. However this has a performance
-impact, as the partial helper needs to be invoked once for each iteration.
-
-The `PartialLoop` view helper helps solve this issue. It allows you to pass an
-iterable item (array or object implementing `Iterator`) as the model. It then
-iterates over this, passing, the items to the partial script as the model. Items
-in the iterator may be any model the `Partial` view helper allows.
-
-Let's assume the following partial view script:
-
-```php
-<?php // partialLoop.phtml ?>
-    <dt><?= $this->key ?></dt>
-    <dd><?= $this->value ?></dd>
-```
-
-And the following "model":
-
-```php
-$model = [
-    ['key' => 'Mammal', 'value' => 'Camel'],
-    ['key' => 'Bird', 'value' => 'Penguin'],
-    ['key' => 'Reptile', 'value' => 'Asp'],
-    ['key' => 'Fish', 'value' => 'Flounder'],
-];
-```
-
-In your view script, you could then invoke the `PartialLoop` helper:
-
-```php
-<dl>
-<?= $this->partialLoop('partialLoop.phtml', $model) ?>
-</dl>
-```
-
-Resulting in the following:
-
-```html
-<dl>
-    <dt>Mammal</dt>
-    <dd>Camel</dd>
-
-    <dt>Bird</dt>
-    <dd>Penguin</dd>
-
-    <dt>Reptile</dt>
-    <dd>Asp</dd>
-
-    <dt>Fish</dt>
-    <dd>Flounder</dd>
-</dl>
-```

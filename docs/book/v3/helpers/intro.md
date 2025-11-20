@@ -93,6 +93,7 @@ The currently shipped helpers include:
 - [InlineScript](head-and-inline-script.md)
 - [Layout](layout.md)
 - [Partial](partial.md)
+- [PartialLoop](partial-loop.md)
 - [Placeholder](placeholder.md)
 - [RenderToPlaceholder](render-to-placeholder.md)
 
