@@ -13,7 +13,7 @@ use Laminas\View\Renderer\RendererInterface;
 
 use function is_string;
 
-final class View
+final class View implements ViewInterface
 {
     private readonly ViewModelHelper $viewModelHelper;
 
@@ -34,14 +34,7 @@ final class View
         $this->preRenderHandlers = [];
     }
 
-    /**
-     * Render a configured top-level layout view model
-     *
-     * It is expected that the given model will have a non-empty template configured and all necessary variables and
-     * child models set.
-     *
-     * @throws RenderingFailedException When any exception occurs during render.
-     */
+    /** @inheritDoc */
     public function renderLayout(ModelInterface $layout): string
     {
         $this->viewModelHelper->setRoot($layout);
@@ -51,11 +44,7 @@ final class View
         return $content;
     }
 
-    /**
-     * @param non-empty-string|ModelInterface $modelOrTemplate
-     * @param iterable<non-empty-string, mixed>|null|ModelInterface $variables
-     * @throws RenderingFailedException When any exception occurs during render.
-     */
+    /** @inheritDoc */
     public function render(
         string|ModelInterface $modelOrTemplate,
         iterable|ModelInterface|null $variables = null,
