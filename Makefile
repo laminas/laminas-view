@@ -92,11 +92,11 @@ qa: composer-validate cs sa test composer-require-checker docs-lint rector ## Ru
 .PHONY: qa
 
 rector: ## Run Rector and show the diff
-	tools/rector/vendor/bin/rector process --dry-run -vv -c tools/rector/rector.php
+	tools/rector/vendor/bin/rector process --dry-run -c tools/rector/rector.php
 .PHONY: rector
 
 rector-ci: ## Run Rector and show the diff in GitHub format for CI
-	tools/rector/vendor/bin/rector process --dry-run --output-format=github -vv -c tools/rector/rector.php
+	tools/rector/vendor/bin/rector process --dry-run --output-format=github -c tools/rector/rector.php
 .PHONY: rector
 
 rector-fix: ## Apply Rector changes
