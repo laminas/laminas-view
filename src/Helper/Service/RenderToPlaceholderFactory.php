@@ -10,6 +10,12 @@ use Laminas\View\HelperPluginManager;
 use Laminas\View\Renderer\PhpRenderer;
 use Psr\Container\ContainerInterface;
 
+/**
+ * @internal
+ *
+ * @psalm-internal Laminas\View
+ * @psalm-internal LaminasTest\View
+ */
 final readonly class RenderToPlaceholderFactory
 {
     public function __invoke(ContainerInterface $container): RenderToPlaceholder
