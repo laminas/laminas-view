@@ -94,6 +94,10 @@ return [
 ];
 ```
 
+> NOTE:
+> The key defined under `aliases` is how you _access_ the helper from within view scripts.
+> See the [Advanced Usage chapter](../helpers/advanced-usage.md#writing--registering-custom-helpers) for further information.
+
 The refactored plugin is actually compatible with both `laminas-view` version 2 _and_ version 3.
 It has always been possible to use dependency injection with `laminas-view`, therefore refactoring of plugins can happen prior to upgrading.
 
