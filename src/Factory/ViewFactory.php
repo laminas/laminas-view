@@ -9,6 +9,12 @@ use Laminas\View\Renderer\RendererInterface;
 use Laminas\View\View;
 use Psr\Container\ContainerInterface;
 
+/**
+ * @internal
+ *
+ * @psalm-internal Laminas\View
+ * @psalm-internal LaminasTest\View
+ */
 final readonly class ViewFactory
 {
     public function __invoke(ContainerInterface $container): View

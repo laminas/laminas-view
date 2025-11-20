@@ -14,6 +14,12 @@ use function is_array;
 use function is_bool;
 use function is_string;
 
+/**
+ * @internal
+ *
+ * @psalm-internal Laminas\View
+ * @psalm-internal LaminasTest\View
+ */
 final readonly class HeadTitleFactory
 {
     public function __invoke(ContainerInterface $container): HeadTitle

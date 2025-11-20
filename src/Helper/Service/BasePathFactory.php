@@ -13,6 +13,10 @@ use function assert;
 use function is_string;
 
 /**
+ * @internal
+ *
+ * @psalm-internal Laminas\View
+ * @psalm-internal LaminasTest\View
  * @psalm-import-type ViewConfigShape from ConfigProvider
  */
 final readonly class BasePathFactory

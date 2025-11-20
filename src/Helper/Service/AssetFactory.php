@@ -14,6 +14,12 @@ use function is_array;
 use function iterator_to_array;
 use function sprintf;
 
+/**
+ * @internal
+ *
+ * @psalm-internal Laminas\View
+ * @psalm-internal LaminasTest\View
+ */
 final readonly class AssetFactory
 {
     /**
