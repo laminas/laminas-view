@@ -11,7 +11,7 @@
     
         
     
-    <meta name="docsearch:version" content="2.0.0,latest">
+    <meta name="docsearch:version" content="3.0.0,latest">
     <meta name="docsearch:language" content="en">
     <meta name="docsearch:component" content="laminas-view">
 
@@ -124,6 +124,14 @@
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
 
         <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                
             
 
                 
@@ -414,6 +422,35 @@
             <div class="col-4 text-right">
                 
                     
+<div class="version-selector">
+    <div class="btn-group">
+        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false" id="version-selector-dropdown">
+            
+                v2
+            
+        </button>
+        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="version-selector-dropdown">
+            
+                
+                    <a href="../../../v3/quick-start/" class="dropdown-item">
+                        
+                            v3 (latest)
+                        
+                    </a>
+                
+            
+                
+                    <a href="../../quick-start/" class="dropdown-item active">
+                        
+                            v2
+                        
+                    </a>
+                
+            
+        </div>
+    </div>
+</div>
+
 
                     <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
                         <i class="fa fa-search"></i> Search
@@ -498,6 +535,14 @@
 
 
 
+    <div class="alert alert-danger" role="alert">
+        <h4>Caution</h4>
+        <p>
+            The documentation you are viewing is for an older version of this component.<br>
+            <a href="../../..">Switch to the latest (v3) version.</a>
+        </p>
+    </div>
+
 
 
 
@@ -511,16 +556,14 @@
 <h2 id="signature-changes">Signature Changes</h2>
 <h3 id="template-resolvers">Template Resolvers</h3>
 <p>In version 2, template resolvers, which all implement the method <code>ResolverInterface::resolve()</code> have varying return types along with some undocumented or inconsistent behaviour, specifically concerned with error handling, for example, when a template cannot be found, or no templates have been configured.</p>
-<p>Version 3 will solve these issues by guaranteeing a string return type from <code>ResolverInterface::resolve()</code> or throw a <code>\Laminas\View\Exception\ExceptionInterface</code>.</p>
+<p>Version 3 will solve these issues by guaranteeing a return type of <code>string</code> or <code>false</code>.</p>
 <h4 id="before">Before</h4>
 <p>Before version 3 the return type can <code>null</code>, <code>false</code> or <code>string</code>:</p>
 <pre class="highlight"><code class="language-php">return $this-&gt;resolver-&gt;resolve($name, $this-&gt;renderer);</code></pre>
 <h4 id="after">After</h4>
-<p>If a template resolver is used as standalone, use a <code>try</code>-<code>catch</code> block to create a custom signal for a missing template in an application:</p>
-<pre class="highlight"><code class="language-php">try {
-    return $this-&gt;resolver-&gt;resolve($name, $this-&gt;renderer);
-} catch (\Laminas\View\Exception\ExceptionInterface $error) {
-    return null; // custom return type
+<pre class="highlight"><code class="language-php">$filePath = $this-&gt;resolver-&gt;resolve($name, $this-&gt;renderer);
+if ($filePath === false) {
+    // handle the failure to resolve
 }</code></pre>
 <h2 id="deprecations">Deprecations</h2>
 <h3 id="undocumented-behaviour">Undocumented Behaviour</h3>
@@ -536,7 +579,17 @@ This method has an undocumented feature where passing <code>null</code> to the <
 <ul>
 <li>The <a href="../../helpers/json/">Json View Helper</a></li>
 <li>The Navigation View Helper and all associated helpers, <code>Links</code>, <code>Menu</code>, <code>Sitemap</code>, <code>Breadcrumbs</code> along with its dedicated plugin manager will be removed in 3.0. These view helpers have been copied to the <code>laminas-navigation</code> component, and you can prepare for their removal by altering the namespace in your code from, for example <code>Laminas\View\Helper\Navigation\Menu</code> to <code>Laminas\Navigation\View\Helper\Menu</code></li>
+<li>The <em>(Un-documented)</em> <code>DeclareVars</code> helper</li>
+<li>The <code>FlashMessenger</code> helper, available in its own package <a href="https://docs.laminas.dev/laminas-mvc-plugin-flashmessenger/">laminas-mvc-plugin-flashmessenger</a></li>
+<li><code>HtmlFlash</code>, <code>HtmlPage</code> and <code>HtmlQuicktime</code> helpers</li>
+<li>The <code>Identity</code> helper</li>
+<li><code>Url</code> and <code>ServerUrl</code> are specific to <code>laminas-mvc</code> and will be removed</li>
+<li><code>Gravatar</code> will be replaced with <code>GravatarImage</code></li>
 </ul>
+<h3 id="fundamental-changes-to-custom-view-helpers">Fundamental Changes to Custom View Helpers</h3>
+<p>The <code>AbstractHelper</code> and <code>AbstractHtmnlElement</code> classes are being removed in 3.0 along with automatic injection of the <code>PhpRenderer</code>.
+This change forces custom helpers to use dependency injection for other plugin or service dependencies.</p>
+<p>There is a <a href="../../../v3/migration/refactoring-view-helpers/">chapter on refactoring view helpers</a> available to aid with this transition.</p>
 
 
 
@@ -598,6 +651,14 @@ This method has an undocumented feature where passing <code>null</code> to the <
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
 
         <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                
             
 
                 

@@ -1,0 +1,1353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Flexible view layer supporting and providing multiple view layers, helpers, and more."> 
+
+    
+    
+        
+    
+    <meta name="docsearch:version" content="3.0.0,latest">
+    <meta name="docsearch:language" content="en">
+    <meta name="docsearch:component" content="laminas-view">
+
+    <link rel="canonical" href="https://docs.laminas.dev/laminas-view/v3/migration/v2-to-v3/">
+    <link rel="shortcut icon" href="https://docs.laminas.dev/img/trademark-laminas-foundation-rgb.svg">
+
+    <title>Migration from Version 2 to 3 - laminas-view - Laminas Docs</title>
+
+    <link rel="stylesheet" href="https://docs.laminas.dev/css/styles.css">
+    
+</head>
+<body id="page-top" class="components" data-spy="scroll" data-target=".toc" data-offset="20">
+
+    
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+        
+        <a class="logo-link navbar-brand" href="https://getlaminas.org/" data-tooltip data-placement="bottom" title="Go to the Laminas homepage">
+            <img src="https://docs.laminas.dev/img/laminas-foundation-white.svg" height="28" alt="Laminas">
+        </a>
+        <a class="navbar-title" href="https://docs.laminas.dev/" data-tooltip data-placement="bottom" title="Go to the Laminas Documentation">
+            Documentation
+        </a>
+
+        
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+            
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <div class="dropdown sub-project-selector">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false">
+                            All Docs
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a href="https://docs.mezzio.dev/" class="dropdown-item">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4 col-sm-12">
+                                        <img src="https://docs.laminas.dev/img/laminas-mezzio-rgb.svg">
+                                    </div>
+                                    <div class="col-md-8 col-sm-12">
+                                        <strong>Mezzio</strong><br>
+                                        PSR-15 Middleware in Minutes
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="https://docs.laminas.dev/components/" class="dropdown-item">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4 col-sm-12">
+                                        <img src="https://docs.laminas.dev/img/laminas-components-rgb.svg">
+                                    </div>
+                                    <div class="col-md-8 col-sm-12">
+                                        <strong>Components</strong><br>
+                                        Components for Enterprise Applications
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="https://docs.laminas.dev/mvc" class="dropdown-item">
+                                <div class="row align-items-center">
+                                    <div class="col-md-4 col-sm-12">
+                                        <img src="https://docs.laminas.dev/img/laminas-mvc-rgb.svg">
+                                    </div>
+                                    <div class="col-md-8 col-sm-12">
+                                        <strong>MVC</strong><br>
+                                        MVC for Enterprise Applications
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item dropdown-item--secondardy" href="https://docs.laminas.dev/migration/">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8 offset-md-4 col-sm-12">
+                                        Migration to Laminas
+                                    </div>
+                                </div>
+                            </a>
+                            <a class="dropdown-item dropdown-item--secondardy" href="https://docs.laminas.dev/tutorials/">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8 offset-md-4 col-sm-12">
+                                        Tutorials
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="https://getlaminas.org/participate" class="nav-link">Community</a>
+                </li>
+            </ul>
+
+            
+            
+                <div class="d-block d-sm-none">
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../../..">
+                
+                
+    laminas-view
+
+            </a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+                    
+                        
+    <li class="subnavigation__list-item ">
+        <a href="../../quick-start/" class="subnavigation__link">Quick Start</a>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Rendering Views</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../php-renderer/" class="subnavigation__link">The PhpRenderer</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../template-resolvers/" class="subnavigation__link">Template Resolvers</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../view-scripts/" class="subnavigation__link">View Scripts</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Helpers</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/intro/" class="subnavigation__link">Introduction</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/asset/" class="subnavigation__link">Asset</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/base-path/" class="subnavigation__link">BasePath</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/cycle/" class="subnavigation__link">Cycle</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/doctype/" class="subnavigation__link">Doctype</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/escape/" class="subnavigation__link">Escape</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/gravatar-image/" class="subnavigation__link">Gravatar</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/head-link/" class="subnavigation__link">HeadLink</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/head-meta/" class="subnavigation__link">HeadMeta</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/head-and-inline-script/" class="subnavigation__link">HeadScript & InlineScript</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/head-style/" class="subnavigation__link">HeadStyle</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/head-title/" class="subnavigation__link">HeadTitle</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/html-attributes/" class="subnavigation__link">HtmlAttributes</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/html-list/" class="subnavigation__link">HtmlList</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/html-object/" class="subnavigation__link">HtmlObject</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/html-tag/" class="subnavigation__link">HtmlTag</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/layout/" class="subnavigation__link">Layout</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/partial/" class="subnavigation__link">Partial</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/partial-loop/" class="subnavigation__link">PartialLoop</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/placeholder/" class="subnavigation__link">Placeholder</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/render-to-placeholder/" class="subnavigation__link">RenderToPlaceholder</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/advanced-usage/" class="subnavigation__link">Advanced usage of helpers</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Migration</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Migration from Version 2 to 3</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../refactoring-view-helpers/" class="subnavigation__link">Refactoring View Helpers for Version 3</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                
+            
+        </ul>
+    </div>
+
+                </div>
+            
+
+            
+            <div class="d-block d-sm-none">
+                <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+    
+    <header class="header">
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="col-8">
+                <h1 class="header__title">
+                    Components
+
+                    
+                        <small class="header__subtitle">
+                            
+                            
+    laminas-view
+
+                        </small>
+                    
+                </h1>
+            </div>
+
+            
+            <div class="col-4 text-right">
+                
+                    
+<div class="version-selector">
+    <div class="btn-group">
+        <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false" id="version-selector-dropdown">
+            
+                v3
+            
+        </button>
+        <div class="dropdown-menu dropdown-menu-right dropdown-menu-lg-left" aria-labelledby="version-selector-dropdown">
+            
+                
+                    <a href="../../quick-start/" class="dropdown-item active">
+                        
+                            v3 (latest)
+                        
+                    </a>
+                
+            
+                
+                    <a href="../../../v2/quick-start/" class="dropdown-item">
+                        
+                            v2
+                        
+                    </a>
+                
+            
+        </div>
+    </div>
+</div>
+
+
+                    <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                    <a href="https://github.com/laminas/laminas-view" class="header__link header__link--github" title="Go to repository of laminas-view">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-sm-12 content" role="main">
+                
+                
+                    
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">On this page</h6>
+            <ul class="toc__list">
+                
+                    <li class="toc__entry">
+                        <a href="#new-features" class="toc__link nav-link">New Features</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#signature-changes-and-behaviour-changes" class="toc__link nav-link">Signature Changes and Behaviour Changes</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#removed-features" class="toc__link nav-link">Removed Features</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#removed-classes-and-traits" class="toc__link nav-link">Removed Classes and Traits</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+                
+
+                
+                    <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        
+            <li class="breadcrumb-item"><a href="https://docs.laminas.dev/">Overview</a></li>
+            <li class="breadcrumb-item"><a href="https://docs.laminas.dev/components/">Components</a></li>
+
+            
+                <li class="breadcrumb-item">
+                    <a href="../../..">
+                        
+    laminas-view
+
+                    </a>
+                </li>
+
+                
+                    
+                        
+                        
+                    
+                
+                    
+                        
+                        
+                            <li class="breadcrumb-item">Migration</li>
+                        
+                    
+                
+
+                <li class="breadcrumb-item active" aria-current="page">Migration from Version 2 to 3</li>
+            
+        
+    </ol>
+</nav>
+
+
+
+
+
+
+    
+    
+        <h2 class="chapter__headline">Migration</h2>
+    
+
+    <h1 id="migration-from-version-2-to-3">Migration from Version 2 to 3</h1>
+<p>Version 3 is the first major release of <code>laminas-view</code> and includes a number of backwards incompatible changes.</p>
+<h2 id="new-features">New Features</h2>
+<h3 id="config-provider">Config Provider</h3>
+<p>A config provider is now shipped with the library that wires up the following services to factories:</p>
+<ul>
+<li><code>HelperPluginManager</code></li>
+<li><code>Laminas\Escaper\Escaper</code></li>
+</ul>
+<p>The <code>ConfigProvider</code> also supports documentation on configuration options.</p>
+<h3 id="native-parameter-return-types-throughout">Native Parameter &amp; Return Types Throughout</h3>
+<p>The entire codebase has been updated with native parameter and return types, improving type safety and type inference.</p>
+<h3 id="automatic-handling-of-state-buildup-in-helpers">Automatic Handling of State Buildup in Helpers</h3>
+<p>In order to work well with modern runtimes such as Swoole, Franken PHP and Roadrunner, the main view renderer now resets state for each rendering cycle in any and all stateful plugins.</p>
+<p>This is <a href="../../helpers/advanced-usage/#dealing-with-state-buildup">discussed in more detail here</a>.</p>
+<h3 id="new-interfaces">New Interfaces</h3>
+<h4 id="helperpluginmanagerinterface"><code>HelperPluginManagerInterface</code></h4>
+<p>By using this interface for retrieving the plugin manager from the DI container, and for parameter and property types, you will be able to mock more easily in tests and more easily replace the implementation entirely if desired.</p>
+<h4 id="helperstatefulhelperinterface"><code>Helper\StatefulHelperInterface</code></h4>
+<p>This interface is explained in the <a href="../../helpers/advanced-usage/#dealing-with-state-buildup">"Advanced Usage" chapter</a>.</p>
+<h4 id="templateinterface"><code>TemplateInterface</code></h4>
+<p>This interface exists purley to aid completion in supporting IDEs. Effectively, in your templates:</p>
+<pre class="highlight"><code class="language-php">// some-template.phtml
+use Laminas\View\TemplateInterface;
+
+/** @var TemplateInterface $this */
+
+// Now all helper calls are available to your ide:
+
+$this-&gt;escapeHtml($someVar);</code></pre>
+<p>Read more about this in the <a href="../../view-scripts/#ide-auto-completion-in-view-scripts">view scripts chapter</a>.</p>
+<h4 id="viewinterface"><code>ViewInterface</code></h4>
+<p>This is object you will interact with to render templates to a string for output.
+Type hinting on <code>ViewInterface</code> rather than the <code>final</code> implementation <code>View</code> will make testing consumers easier, and replacement via DI possible.</p>
+<h2 id="signature-changes-and-behaviour-changes">Signature Changes and Behaviour Changes</h2>
+<h3 id="helperinterface-no-longer-specifies-any-methods">HelperInterface no Longer Specifies any Methods</h3>
+<p>Both <code>getView</code> and <code>setView</code> have been removed from <code>Laminas\View\Helper\HelperInterface</code> leaving it with no interface methods at all.
+It is only necessary to implement this interface in a custom view helper, if your view helper lacks an <code>__invoke</code> method.</p>
+<h3 id="legacy-zend-related-service-and-helper-names">Legacy Zend-Related Service and Helper Names</h3>
+<p>All helper aliases that referred to the <code>Zend</code> equivalent of a helper or service have been removed.
+Similarly, factories that previously searched for services in the container such as a Translator or Authentication Service for example, no longer check for the presence of the Zend equivalent.</p>
+<h3 id="placeholder-container">Placeholder "Container"</h3>
+<p>The <a href="#placeholder">Placeholder</a> view helper has been refactored to hide its container implementation, and the <a href="#other-placeholder-related-classes">inheritance hierarchy of the container has been removed</a>.</p>
+<p>Because of this, <code>laminas-view</code> no longer ships a 'Container' implementation for end users and the <code>Laminas\View\Helper\Placeholder\Container</code> class is no longer suitable for public use.
+It has been made final, and, marked as <code>@internal</code> and should not be used in consumer code.</p>
+<h3 id="rendererinterface"><code>RendererInterface</code></h3>
+<p>The method <code>setResolver</code> has been removed from <code>Laminas\View\Renderer\RendererInterface</code>.
+It was irrelevant to all but the <code>PhpRenderer</code> implementation which now requires a template resolver in its constructor instead.</p>
+<h3 id="phprenderer"><code>PhpRenderer</code></h3>
+<p>The PhpRenderer has been refactored and a number of methods have been removed:</p>
+<ul>
+<li><code>init</code> - Because <code>PhpRenderer</code> is now final, the <code>init</code> method has no use-case</li>
+<li><code>setHelperPluginManager</code> and <code>getHelperPluginManager</code> - Now that the helper plugin manager is a required constructor dependency, the setter and getter are unnecessary</li>
+<li><code>setResolver</code> and <code>resolver</code> - The template resolver is a constructor dependency and can no longer be changed at runtime.
+  Retrieving the template resolver is no longer necessary as it can be found via the main DI container.</li>
+<li><code>setCanRenderTrees(bool $flag)</code> and <code>canRenderTrees(): bool</code> - The <code>PhpRenderer</code> never rendered trees of view models directly so these methods were superfluous. This also means that <code>PhpRenderer</code> no longer implements <a href="#treerendererinterface">the now removed <code>TreeRendererInterface</code></a>.</li>
+<li>All variable related setters and getters have been removed because the renderer no longer aggregates view variables at all.
+  Users should provide all variables to the view either as arguments to the <code>render</code> method, or by passing a <code>ViewModel</code> object containing them.
+  The removed variable related methods are:<ul>
+<li><code>setVars</code></li>
+<li><code>vars</code></li>
+<li><code>get</code></li>
+<li><code>__get</code></li>
+<li><code>__isset</code></li>
+<li><code>__set</code></li>
+<li><code>__unset</code></li>
+</ul>
+</li>
+<li>It is no longer possible to retrieve plugins <em>(View Helpers)</em> from the renderer instance. The methods <code>plugin</code> and <code>__call</code> have been removed.</li>
+<li>The <code>addTemplate</code> method has been removed. In order to render nested templates, users should render via the new <code>View</code> class.</li>
+</ul>
+<p>Effectively, <code>PhpRenderer</code> can now only be used to render a single template to a string via its <code>render</code> method.
+With the exception of the <code>setFilter</code> method, all other methods have been removed.</p>
+<h3 id="template-resolvers">Template Resolvers</h3>
+<p>All template resolver implementations now have parameter, property and return types.
+Additionally, all implementations are now <code>final</code>.</p>
+<h4 id="resolverinterface"><code>ResolverInterface</code></h4>
+<p>The signature of <code>ResolverInterface</code>s only method <code>resolve</code> has changed from: <code>public function resolve($name, ?Renderer $renderer = null)</code> to <code>public function resolve(string $name): string|false</code>.</p>
+<p>It is no longer possible or necessary to pass a renderer as the second argument and the method guarantees to return either the on-disk path to a template or <code>false</code>.</p>
+<h4 id="aggregateresolver"><code>AggregateResolver</code></h4>
+<p>The following methods have been removed:</p>
+<ul>
+<li><code>getLastSuccessfulResolver</code></li>
+<li><code>getLastLookupFailure</code></li>
+</ul>
+<p>The following constants have been removed:</p>
+<ul>
+<li><code>AggregateResolver::FAILURE_NO_RESOLVERS</code></li>
+<li><code>AggregateResolver::FAILURE_NOT_FOUND</code></li>
+</ul>
+<p>The aggregate resolver can now be constructed with a list of <code>ResolverInterface</code> implementors.</p>
+<h4 id="templatepathstack"><code>TemplatePathStack</code></h4>
+<p>All options should now be specified via constructor arguments.</p>
+<p>The following methods have been removed:</p>
+<ul>
+<li><code>setOptions</code></li>
+<li><code>setDefaultSuffix</code></li>
+<li><code>getDefaultSuffix</code></li>
+<li><code>normalizePath</code></li>
+<li><code>setLfiProtection</code></li>
+<li><code>isLfiProtectionOn</code></li>
+<li><code>getLastLookupFailure</code></li>
+</ul>
+<p>The following constants have been removed:</p>
+<ul>
+<li><code>TemplatePathStack::FAILURE_NO_PATHS</code></li>
+<li><code>TemplatePathStack::FAILURE_NOT_FOUND</code></li>
+</ul>
+<h3 id="viewmodel-and-viewmodelinterface"><code>ViewModel</code> and <code>ViewModelInterface</code></h3>
+<h4 id="removal-of-options">Removal of Options</h4>
+<p>Conceptually, "options" have been removed from the view model interface and its concrete implementation meaning removal of the following methods:</p>
+<ul>
+<li><code>Laminas\View\Model\ViewModel::setOption()</code></li>
+<li><code>Laminas\View\Model\ViewModel::getOption()</code></li>
+<li><code>Laminas\View\Model\ViewModel::setOptions()</code></li>
+<li><code>Laminas\View\Model\ViewModel::getOptions()</code></li>
+<li><code>Laminas\View\Model\ViewModel::clearOptions()</code></li>
+<li><code>Laminas\View\Model\ModelInterface::setOption()</code></li>
+<li><code>Laminas\View\Model\ModelInterface::setOptions()</code></li>
+<li><code>Laminas\View\Model\ModelInterface::getOptions()</code></li>
+<li><code>Laminas\View\Model\ClearableModelInterface::clearOptions()</code></li>
+</ul>
+<h3 id="helpers">Helpers</h3>
+<h4 id="asset"><code>Asset</code></h4>
+<p>Previous versions of the asset helper permitted run-time modification and retrieval of the resource map with <code>Laminas\View\Helper\Asset::setResourceMap()</code> and <code>Laminas\View\Helper\Asset::getResourceMap()</code>.
+Both of these methods have been removed.
+Now, the only way to configure the resource map is via constructor injection.
+The method of configuring the resource map remains unchanged.</p>
+<h4 id="cycle"><code>Cycle</code></h4>
+<p>The <code>Cycle</code> helper no longer inherits from <code>AbstractHelper</code> meaning that the <code>getView</code> and <code>setView</code> methods no longer exist.</p>
+<p>This helper no longer implements <code>Iterator</code> which is unlikely to cause any issues because it was never intended to be iterated over, rather the methods it exposed have similarities to those in <code>Iterator</code>.</p>
+<p>The following additional methods have been removed:</p>
+<ul>
+<li><code>getName</code></li>
+<li><code>valid</code></li>
+</ul>
+<p>Along with adding native parameter and return types, the return type of <code>rewind</code> has changed from <code>self</code> to <code>void</code>.
+The helper is now also <code>final</code>.</p>
+<h4 id="doctype"><code>Doctype</code></h4>
+<p>The <code>Doctype</code> view helper no longer extends from <code>AbstractHelper</code> therefore the <code>getView</code> and <code>setView</code> methods no longer exist on the class.</p>
+<p>Additionally, runtime mutation of the configured doctype has been removed, i.e. it is no longer possible to call <code>setDoctype</code> on the helper and change the doctype declaration emitted.</p>
+<p>The only supported method of operation is to configure the doctype once in application configuration and use the helper to emit the doctype declaration in a template.</p>
+<p>The following methods have been removed:</p>
+<ul>
+<li><code>getView</code></li>
+<li><code>setView</code></li>
+<li><code>unsetDoctypeRegistry</code></li>
+<li><code>setDoctype</code></li>
+<li><code>getDoctype</code></li>
+<li><code>getDoctypes</code></li>
+</ul>
+<p>A new method <code>doctypeDeclaration</code> has been added that can be used to either retrieve the configured declaration, or by passing one of the doctype constants as an argument, it will return the corresponding declaration.</p>
+<p>The default doctype has now been changed to HTML 5.</p>
+<h4 id="escape-helpers-escapecss-escapehtml-escapehtmlattr-escapejs-and-escapeurl">Escape Helpers: <code>escapeCss</code>, <code>escapeHtml</code>, <code>escapeHtmlAttr</code>, <code>escapeJs</code>, and <code>escapeUrl</code></h4>
+<p>The methods <code>setEncoding()</code>, <code>getEncoding()</code>, <code>setView()</code>, <code>getView()</code>, <code>setEscaper()</code>, and <code>getEscaper()</code> have been removed from the escape helpers.
+These helpers now have constructors that expect an <a href="https://docs.laminas.dev/laminas-escaper/">Escaper</a> instance that has been configured with the encoding you expect to output in your view.</p>
+<p>The encoding defaults to UTF-8 as it has always done but can be overridden in configuration by setting <code>view_manager.encoding</code> to your preferred value.</p>
+<h4 id="identity"><code>Identity</code></h4>
+<p>The deprecated runtime retrieval and modification of the underlying authentication service has been removed and the service must be injected into the helper constructor.
+Specifically, the methods <code>Laminas\View\Helper\Identity::setAuthenticationService()</code> and <code>Laminas\View\Helper\Identity::getAuthenticationService()</code> have been removed.</p>
+<h4 id="headtitle"><code>HeadTitle</code></h4>
+<p>The <code>HeadTitle</code> helper's inheritance hierarchy has changed and it no longer extends from anything.
+This means that a number of methods no longer exist, including, but not limited to:</p>
+<ul>
+<li><code>getContainer</code></li>
+<li><code>setContainer</code></li>
+<li><code>getContainerClass</code></li>
+<li><code>setContainerClass</code></li>
+<li><code>getEscaper</code></li>
+<li><code>setEscaper</code></li>
+<li><code>getIndent</code></li>
+<li><code>getSeparator</code></li>
+<li><code>getPrefix</code></li>
+<li><code>getPostfix</code></li>
+<li><code>getView</code></li>
+<li><code>setView</code></li>
+<li><code>offsetGet|Set|Unset|Exists</code></li>
+<li><code>count</code> and more…</li>
+</ul>
+<p>Please consult the <a href="../../helpers/head-title/">updated documentation</a> for further information.</p>
+<h4 id="headlink"><code>HeadLink</code></h4>
+<p>The <code>HeadLink</code> helper's inheritance hierarchy has changed and it no longer extends from anything.
+This means that a number of methods no longer exist, including, but not limited to:</p>
+<ul>
+<li><code>getContainer</code></li>
+<li><code>setContainer</code></li>
+<li><code>getContainerClass</code></li>
+<li><code>setContainerClass</code></li>
+<li><code>getEscaper</code></li>
+<li><code>setEscaper</code></li>
+<li><code>getIndent</code></li>
+<li><code>getSeparator</code></li>
+<li><code>getPrefix</code></li>
+<li><code>getPostfix</code></li>
+<li><code>getView</code></li>
+<li><code>setView</code></li>
+<li><code>offsetGet|Set|Unset|Exists</code></li>
+<li><code>count</code> and many more…</li>
+</ul>
+<p>Please consult the <a href="../../helpers/head-link/">updated documentation</a> for further information.</p>
+<h4 id="headmeta"><code>HeadMeta</code></h4>
+<p>The <code>HeadMeta</code> helper's inheritance hierarchy has changed and it no longer extends from anything.
+This means that a number of methods no longer exist, including, but not limited to:</p>
+<ul>
+<li><code>getContainer</code></li>
+<li><code>setContainer</code></li>
+<li><code>getContainerClass</code></li>
+<li><code>setContainerClass</code></li>
+<li><code>getEscaper</code></li>
+<li><code>setEscaper</code></li>
+<li><code>getIndent</code></li>
+<li><code>getSeparator</code></li>
+<li><code>getPrefix</code></li>
+<li><code>getPostfix</code></li>
+<li><code>getView</code></li>
+<li><code>setView</code></li>
+<li><code>offsetGet|Set|Unset|Exists</code></li>
+<li><code>count</code> and many more…</li>
+</ul>
+<p>Please consult the <a href="../../helpers/head-meta/">updated documentation</a> for further information.</p>
+<h4 id="headscript-and-inlinescript"><code>HeadScript</code> and <code>InlineScript</code></h4>
+<p><code>HeadScript</code> and <code>InlineScript</code> no longer inherit from another class, they have become final, and the following methods have been removed:</p>
+<ul>
+<li><code>offsetSetScript</code></li>
+<li><code>offsetSetFile</code></li>
+<li><code>offsetSet</code></li>
+<li><code>createData</code></li>
+<li><code>itemToString</code></li>
+<li><code>append</code></li>
+<li><code>prepend</code></li>
+<li><code>set</code></li>
+<li><code>setView</code></li>
+<li><code>getView</code></li>
+<li><code>setAllowArbitraryAttributes</code></li>
+<li><code>arbitraryAttributesAllowed</code></li>
+<li>Any previously inherited methods from <code>Placeholder\AbstractStandalone</code>, <code>IteratorAggregate</code>, <code>Countable</code> and <code>ArrayAccess</code>.</li>
+</ul>
+<p>The helpers have been vastly simplified, allowing users to simply append, prepend or overwrite scripts via concrete methods and capture output as per the previous implementation.</p>
+<h4 id="headstyle"><code>HeadStyle</code></h4>
+<p><code>HeadStyle</code> no longer inherit from another class, it has become final, and the following methods have been removed:</p>
+<ul>
+<li><code>offsetSetStyle</code></li>
+<li><code>offsetSet</code></li>
+<li><code>createData</code></li>
+<li><code>itemToString</code></li>
+<li><code>append</code></li>
+<li><code>prepend</code></li>
+<li><code>set</code></li>
+<li><code>setView</code></li>
+<li><code>getView</code></li>
+<li>Any previously inherited methods from <code>Placeholder\AbstractStandalone</code>, <code>IteratorAggregate</code>, <code>Countable</code> and <code>ArrayAccess</code>.</li>
+</ul>
+<p>The helper has been vastly simplified, allowing users to simply append, prepend or overwrite styles via concrete methods and capture output as per the previous implementation.</p>
+<h4 id="htmlattributes"><code>HtmlAttributes</code></h4>
+<p>This helper no longer inherits from a base class, therefore the following methods have been removed</p>
+<ul>
+<li><code>getView</code></li>
+<li><code>setView</code></li>
+</ul>
+<h4 id="htmllist"><code>HtmlList</code></h4>
+<p>This helper no longer inherits from a base class, therefore the following methods have been removed</p>
+<ul>
+<li><code>getView</code></li>
+<li><code>setView</code></li>
+<li><code>getClosingBracket</code></li>
+</ul>
+<h4 id="htmlobject"><code>HtmlObject</code></h4>
+<p>This helper no longer inherits from a base class, therefore the following methods have been removed</p>
+<ul>
+<li><code>getView</code></li>
+<li><code>setView</code></li>
+<li><code>getClosingBracket</code></li>
+</ul>
+<h4 id="htmltag"><code>HtmlTag</code></h4>
+<p>This helper no longer inherits from a base class, therefore the following methods have been removed</p>
+<ul>
+<li><code>getView</code></li>
+<li><code>setView</code></li>
+<li><code>getClosingBracket</code></li>
+</ul>
+<p>Additionally, methods to introspect the internal attributes and flags have been removed:</p>
+<ul>
+<li><code>getAttributes</code></li>
+<li><code>getUseNamespaces</code></li>
+</ul>
+<p>The method to enable the addition of the <code>xmlns</code> attribute for XHTML doctypes has been renamed from <code>setUseNamespaces</code> to <code>addXhtmlNamespace</code> to better describe its behaviour.</p>
+<h4 id="layout"><code>Layout</code></h4>
+<p>The inheritance hierarchy has been removed from this helper and the following methods have been removed:</p>
+<ul>
+<li><code>getView</code></li>
+<li><code>setView</code></li>
+<li><code>getLayout</code></li>
+<li><code>setTemplate</code></li>
+</ul>
+<p>The layout model accessor and layout template setter were infeasible to use because retrieving the instance from a view template context, required setting the layout template with <code>$this-&gt;layout('some-template')</code>, therefore, the <code>getLayout</code> and <code>setTemplate</code> methods were inaccessible in normal usage.</p>
+<h4 id="partial"><code>Partial</code></h4>
+<p>This helper no longer inherits from a base class, therefore the following methods have been removed:</p>
+<ul>
+<li><code>getView</code></li>
+<li><code>setView</code></li>
+</ul>
+<p>Additionally, the usage of non-iterable objects implementing a <code>toArray</code> method to represent the variables passed to the template is now deprecated.</p>
+<h4 id="partialloop"><code>PartialLoop</code></h4>
+<p>This helper no longer inherits from a base class, therefore the following methods have been removed:</p>
+<ul>
+<li><code>getView</code></li>
+<li><code>setView</code></li>
+<li><code>loop</code></li>
+</ul>
+<p>Additionally, the usage of non-iterable objects implementing a <code>toArray</code> method to represent the variables passed to the template is now deprecated.</p>
+<h4 id="placeholder"><code>Placeholder</code></h4>
+<p>The inheritance hierarchy has been removed from this helper and the following methods have been removed:</p>
+<ul>
+<li><code>createContainer</code></li>
+<li><code>getContainer</code></li>
+<li><code>containerExists</code></li>
+<li><code>deleteContainer</code></li>
+<li><code>clearContainers</code></li>
+<li><code>getView</code></li>
+<li><code>setView</code></li>
+<li>Any previously inherited methods from <code>Placeholder\AbstractStandalone</code>, <code>IteratorAggregate</code>, <code>Countable</code> and <code>ArrayAccess</code>.</li>
+</ul>
+<p>You can now only interact with the view helper rather than the underlying 'Container' implementation.</p>
+<h4 id="rendertoplaceholder"><code>RenderToPlaceholder</code></h4>
+<p>The inheritance hierarchy has been removed from this helper and the following methods have been removed:</p>
+<ul>
+<li><code>getView</code></li>
+<li><code>setView</code></li>
+</ul>
+<h4 id="viewmodel"><code>ViewModel</code></h4>
+<p>This helper no longer inherits from <code>AbstractHelper</code> so the following methods have been removed:</p>
+<ul>
+<li><code>getView</code></li>
+<li><code>setView</code></li>
+</ul>
+<p>It can now be invoked, and as such it can be used in view scripts directly with <code>$this-&gt;viewModel()-&gt;getCurrent()</code> for example.</p>
+<h2 id="removed-features">Removed Features</h2>
+<h3 id="stream-wrapper-functionality">Stream Wrapper Functionality</h3>
+<p>In previous versions of laminas-view, it was possible to enable stream wrapper functionality in order to work around an inability to enable PHP's <code>short_open_tag</code> ini setting.
+This functionality has been removed in version 3.
+If you had not explicitly enabled this feature, this change will not affect your code.</p>
+<h3 id="laminas-console-integration">Laminas Console Integration</h3>
+<p><code>Laminas\View\RendererConsoleRenderer</code> and <code>Laminas\View\Model\ConsoleModel</code> have been removed effectively removing all support for the deprecated <code>laminas-console</code> component.</p>
+<h3 id="laminas-feed-integration">Laminas Feed Integration</h3>
+<p><code>Laminas\View\Strategy\FeedStrategy</code>, <code>Laminas\View\Renderer\FeedRenderer</code> and <code>Laminas\View\Model\FeedModel</code> have been removed to be integrated into a separate library for integration between <code>laminas-feed</code> and <code>laminas-view</code>.</p>
+<p>If you depend on the removed <code>laminas-feed</code> related classes, you will not be able to upgrade to version 3.0 until a replacement library has been published.</p>
+<h3 id="helper-plugin-manager-behaviour-changes">Helper Plugin Manager Behaviour Changes</h3>
+<h4 id="translator-initializers">Translator "Initializers"</h4>
+<p>The plugin manager no longer attempts to automatically inject a translator into any plugins or helpers.
+If you previously relied on this behaviour, you will need to instead register a factory for your custom helper that injects the translator manually.</p>
+<h4 id="event-manager-initializers">Event Manager "Initializers"</h4>
+<p>The plugin manager no longer attempts to retrieve a <code>Laminas\EventManager</code> instance from the container, nor inject an event manager, shared or otherwise into helper instances.
+If you have custom helpers that require access to an event manager, you should inject one by creating a custom factory for your helper.</p>
+<h4 id="view-renderer-initializers">View Renderer "Initializers"</h4>
+<p>The plugin manager no longer attempts to inject a <code>Laminas\View\Renderer\PhpRenderer</code> into helper instances.
+If you have custom helpers that require access to the view renderer, you should inject one by creating a custom factory for your helper.</p>
+<p>Removal of these initializers impact custom view helpers. The chapter on <a href="../refactoring-view-helpers/">refactoring view helpers</a> provides information on mitigating the impact.</p>
+<h2 id="removed-classes-and-traits">Removed Classes and Traits</h2>
+<h3 id="abstracthelper"><code>AbstractHelper</code></h3>
+<p>The removal of <code>AbstractHelper</code> will affect anyone who has created custom view helpers by extending from this class.</p>
+<p>It's removal means that the <code>getView</code> and <code>setView</code> methods are gone, in line with the <a href="#view-renderer-initializers">removal of initializers</a> from the helper plugin manager.</p>
+<p>If your custom view helper needs an instance of the <code>PhpRenderer</code>, you should refactor your helper to use dependency injection and inject the <code>PhpRenderer</code> into the constructor of your class, and, remove the inheritance from <code>AbstractHelper</code>.</p>
+<p>For more information see the chapter on <a href="../refactoring-view-helpers/">refactoring view helpers</a>.</p>
+<h3 id="abstracthtmlelement"><code>AbstractHtmlElement</code></h3>
+<p>This abstract base class is no longer used internally.</p>
+<p>If you have written custom view helpers that extend from this now removed class, you will need to refactor your helpers to use composition and/or dependency injection.</p>
+<p>Adding a dependency on the <a href="../../helpers/html-attributes/">HtmlAttributes helper</a> and reviewing the <a href="../refactoring-view-helpers/">documentation on refactoring view helpers</a> should help.</p>
+<h3 id="translatorawaretrait"><code>TranslatorAwareTrait</code></h3>
+<p>The <code>TranslatorAwareTrait</code> has been removed.
+It encouraged setter injection and runtime retrieval of a translator instance which is no longer supported.</p>
+<p>If you have a custom helper that requires a translator instance, you should instead inject the translator at construction time.
+This can be achieved by writing a custom factory for the helper.
+<a href="../../helpers/advanced-usage/">Further information on writing and registering helpers</a>.</p>
+<h3 id="treerendererinterface"><code>TreeRendererInterface</code></h3>
+<p><code>Laminas\View\Renderer\TreeRendererInterface</code> has been removed.
+The only implementor of this interface, <code>PhpRenderer</code>, has never rendered "trees" directly and as such this interface was superfluous.
+Requirements for rendering nested view models can be extracted from the models themselves.</p>
+<h3 id="placeholder-registry">Placeholder Registry</h3>
+<p>A very old and deprecated singleton registry <code>Laminas\View\Helper\Placeholder\Registry</code> has been removed.
+This registry was historically used to aggregate placeholder containers and had not been used internally for some time.
+Hopefully no one will notice that it's gone because there is no replacement for it.</p>
+<h3 id="other-placeholder-related-classes">Other Placeholder-Related Classes</h3>
+<p>The following classes represented 'containers' used for aggregating data and had a deep inheritance hierarchy yielding a huge api surface.
+Containers, where used, are no longer exposed by the helper apis so the following classes have been removed:</p>
+<ul>
+<li><code>Laminas\View\Helper\Placeholder\Container\AbstractContainer</code></li>
+<li><code>Laminas\View\Helper\Placeholder\Container\AbstractStandalone</code></li>
+</ul>
+<h3 id="variables"><code>Variables</code></h3>
+<p><code>Laminas\View\Variables</code> acted as an intermediary container for assigned variables and is no longer necessary.
+Variables can be assigned to a <code>ViewModel</code> and passed to the View, or, an associative array can be used.
+<code>ViewModel</code> can also be used to add and remove variables in the same way that <code>Variables</code> allowed.</p>
+<h3 id="removed-helpers">Removed Helpers</h3>
+<h4 id="declarevars"><code>DeclareVars</code></h4>
+<p>The "DeclareVars" helper has been removed without replacement. This helper was un-documented and allowed mutation/initialisation of view variables from the view layer, which is an ill-advised strategy.</p>
+<h4 id="flash-messenger">Flash Messenger</h4>
+<p>The flash messenger view helper is no longer present in version 3 and has been migrated to a separate package: <a href="https://docs.laminas.dev/laminas-mvc-plugin-flashmessenger/">laminas-mvc-plugin-flashmessenger</a>.
+In order to continue to use the flash messenger in your projects, you will need to explicitly require it in your composer dependencies.</p>
+<h4 id="flash-and-quicktime">Flash and Quicktime</h4>
+<p>The deprecated helpers <code>htmlFlash</code> and <code>htmlQuicktime</code> have been removed.
+If your project requires these helpers, you can make use of the <a href="../../helpers/html-object/">HtmlObject</a> view helper to achieve the same output.</p>
+<pre class="highlight"><code class="language-php">echo $this-&gt;htmlObject(
+    'path/to/flash.swf',
+    'application/x-shockwave-flash',
+    [
+        'width' =&gt; 640,
+        'height' =&gt; 480,
+        'id' =&gt; 'long-live-flash'
+    ],
+    [
+        'movie'   =&gt; 'path/to/flash.swf',
+        'quality' =&gt; 'high'
+    ],
+    'Fallback Text Content'
+);</code></pre>
+<h4 id="gravatar">Gravatar</h4>
+<p>The deprecated Gravatar view helper has been removed and replaced with a simplified version that doesn't store any state.
+The replacement helper is called <a href="../../helpers/gravatar-image/">GravatarImage</a> and has the following signature when accessed via view scripts:</p>
+<pre class="highlight"><code class="language-php">function gravatarImage(
+    string $email,
+    int $imageSize = 80,
+    array $imageAttributes = [],
+    string $defaultImage = 'mm',
+    string $rating = 'g'
+);</code></pre>
+<h4 id="htmlpage"><code>HtmlPage</code></h4>
+<p>This helper was a simple shortcut for adding HTML documents to the output as HTML <code>&lt;object&gt;</code> elements.
+Most of the features this helper assisted with are deprecated or obsolete.</p>
+<h4 id="identity_1"><code>Identity</code></h4>
+<p>The <code>Identity</code> view helper has been removed to ensure that Laminas\View can be used standalone with minimal un-related dependencies.</p>
+<p>Displaying the user identity in the view is specific to the authentication framework you are using, and we can't assume that <code>Laminas\Authentication</code> is in use everywhere <code>Laminas\View</code> is used.</p>
+<h4 id="json">Json</h4>
+<p>The deprecated Json view helper has been removed.
+To encode data to Json for output in a view, you can call <a href="https://www.php.net/json_encode"><code>json_encode</code></a> directly.</p>
+<p>If you were relying on behaviour that was previously available via <code>laminas-json</code>, for example, calling object methods <code>toArray</code> or <code>toJson</code> prior to encoding, you should make the relevant objects implement <code>JsonSerializable</code>.
+You can find documentation on the <code>JsonSerializable</code> interface <a href="https://www.php.net/manual/class.jsonserializable.php">on the PHP website</a>.</p>
+<h4 id="navigation">Navigation</h4>
+<p>The deprecated navigation view helpers such as <code>Breadcrumbs</code>, and <code>Menu</code> etc have been removed and can now be found in <a href="https://docs.laminas.dev/laminas-navigation/helpers/intro/">the <code>laminas-navigation-view</code> component</a>.</p>
+<p>As such, the namespace for these helpers has changed from <code>Laminas\View\Navigation</code> to <code>Laminas\Navigation\View\Helper</code>, so if you have referenced the FQCNs of these helpers in your code, you will need to update them accordingly.</p>
+<h4 id="renderchildmodel">RenderChildModel</h4>
+<p>The <code>RenderChildModel</code> helper never adequately rendered nested views, or took into account appending views.
+It was also un-documented, and not likely used very much.
+The original use-case was for manual rendering of nested view models with recursive tree rendering disabled.
+Due to a bug in the initial implementation it was never
+consistent with recursive tree rendering.</p>
+<p>Its functionality is entirely replaced with the regular capture functionality of nested view models which can no longer be disabled.</p>
+<h4 id="serverurl">ServerUrl</h4>
+<p>The <code>ServerUrl</code> helper has been removed. Because this helper needs to be seeded with the current HTTP environment, its functionality is coupled to the framework you are using <code>Laminas\View</code> with, therefore, expect re-implementations of this helper in bridging libraries such as <code>mezzio-laminasviewrenderer</code></p>
+
+
+
+
+    <nav>
+    <ul class="page-nav hidden-print">
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../../helpers/advanced-usage/">
+                    <small class="page-nav__label">Previous</small>
+                    <i class="fa fa-chevron-left"></i>
+                    Advanced usage of helpers
+                </a>
+            
+        </li>
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../refactoring-view-helpers/">
+                    <small class="page-nav__label">Next</small>
+                    Refactoring View Helpers for Version 3
+                    <i class="fa fa-chevron-right"></i>
+                </a>
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+                
+            </div>
+            <div class="col-md-3 col-sm-12 sidebar">
+                <div class="donation-banner">
+    <a href="https://getlaminas.org/support/">
+        <h2>Donate</h2>
+        <p>Support Laminas Developers Directly</p>
+        <img src="https://funding.communitybridge.org/assets/cb-f-horizontal-white.svg">
+    </a>
+</div>
+
+                
+                    <div class="component-selector">
+    
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../../..">
+                
+                
+    laminas-view
+
+            </a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+                    
+                        
+    <li class="subnavigation__list-item ">
+        <a href="../../quick-start/" class="subnavigation__link">Quick Start</a>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Rendering Views</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../php-renderer/" class="subnavigation__link">The PhpRenderer</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../template-resolvers/" class="subnavigation__link">Template Resolvers</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../view-scripts/" class="subnavigation__link">View Scripts</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Helpers</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/intro/" class="subnavigation__link">Introduction</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/asset/" class="subnavigation__link">Asset</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/base-path/" class="subnavigation__link">BasePath</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/cycle/" class="subnavigation__link">Cycle</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/doctype/" class="subnavigation__link">Doctype</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/escape/" class="subnavigation__link">Escape</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/gravatar-image/" class="subnavigation__link">Gravatar</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/head-link/" class="subnavigation__link">HeadLink</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/head-meta/" class="subnavigation__link">HeadMeta</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/head-and-inline-script/" class="subnavigation__link">HeadScript & InlineScript</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/head-style/" class="subnavigation__link">HeadStyle</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/head-title/" class="subnavigation__link">HeadTitle</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/html-attributes/" class="subnavigation__link">HtmlAttributes</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/html-list/" class="subnavigation__link">HtmlList</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/html-object/" class="subnavigation__link">HtmlObject</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/html-tag/" class="subnavigation__link">HtmlTag</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/layout/" class="subnavigation__link">Layout</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/partial/" class="subnavigation__link">Partial</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/partial-loop/" class="subnavigation__link">PartialLoop</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/placeholder/" class="subnavigation__link">Placeholder</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/render-to-placeholder/" class="subnavigation__link">RenderToPlaceholder</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../../helpers/advanced-usage/" class="subnavigation__link">Advanced usage of helpers</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                    
+                        
+    <li class="subnavigation__list-item">
+        <span class="subnavigation__headline">Migration</span>
+        <ul class="subnavigation__list">
+            
+                
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Migration from Version 2 to 3</a>
+    </li>
+
+            
+                
+    <li class="subnavigation__list-item ">
+        <a href="../refactoring-view-helpers/" class="subnavigation__link">Refactoring View Helpers for Version 3</a>
+    </li>
+
+            
+        </ul>
+    </li>
+
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                
+            
+        </ul>
+    </div>
+
+                    
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+    <div class="container">
+
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h5>Laminas</h5>
+                <ul>
+                    <li>Laminas Project <a href="https://getlaminas.org/">The new foundation for the community-supported, open source continuation of Zend Framework</a></li>
+                    <li>Laminas Components and MVC <a href="https://docs.laminas.dev/">Components and MVC for enterprise applications</a></li>
+                    <li>Mezzio <a href="https://docs.mezzio.dev/">PSR-15 middleware in minutes</a></li>
+                    <li>Maintenance Overview <a href="https://getlaminas.org/packages-maintenance-status/">Current maintenance status of Laminas &amp; Mezzio packages</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+
+                    
+                    <div class="col-md-4">
+                        <h4 class="footer__headline">Support</h4>
+                        <ul class="support__list">
+                            <li class="support__list-item">
+                                <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                            </li>
+                            <li class="support__list-item">
+                                <a href="https://laminas.dev/chat" class="support__link" title="Chat"><i class="fab fa-slack"></i></a>
+                            </li>
+                            <li class="support__list-item">
+                                <a href="https://github.com/laminas" class="support__link" title="Github"><i class="fab fa-github"></i></a>
+                            </li>
+                            <li class="support__list-item">
+                                <a href="https://phpc.social/@getlaminas" class="support__link" title="Mastodon"><i class="fab fa-mastodon"></i></a>
+                            </li>
+                            <li class="support__list-item">
+                                <a href="https://getlaminas.org/blog/rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                            </li>
+                            <li class="support__list-item">
+                                <a href="https://getlaminas.org/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    
+                    <div class="col-md-4">
+                        <h4 class="footer__headline">License</h4>
+                        <p>
+                            Code licensed under <a
+                                href="https://github.com/laminas/laminas-view/blob/-/LICENSE.md">BSD 3-Clause</a>.
+                        </p>
+                    </div>
+
+                    
+                    <div class="col-md-4">
+                        <h4 class="footer__headline">Copyright</h4>
+                        <p>
+                            <!--Built with love by the Laminas team with the help of our
+                            <a href="https://github.com/laminas/laminas-view/graphs/contributors">contributors</a>.<br>-->
+                            &copy; 2025 <a href="https://getlaminas.org/">Laminas Project</a> a Series of LF Projects, LLC.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        let base_url = '../../..',
+            project  = "components",
+            siteName = 'laminas-view';
+    </script>
+    <script src="https://docs.laminas.dev/js/scripts.js"></script>
+    
+        <script src="../../../search/main.js"></script>
+    
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Search</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search in laminas-view" id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+
+</html>
