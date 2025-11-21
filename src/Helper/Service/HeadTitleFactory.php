@@ -6,10 +6,10 @@ namespace Laminas\View\Helper\Service;
 
 use Laminas\Escaper\Escaper;
 use Laminas\Escaper\EscaperInterface;
+use Laminas\View\Factory\Configuration;
 use Laminas\View\Helper\HeadTitle;
 use Psr\Container\ContainerInterface;
 
-use function assert;
 use function is_array;
 use function is_bool;
 use function is_string;
@@ -24,11 +24,7 @@ final readonly class HeadTitleFactory
 {
     public function __invoke(ContainerInterface $container): HeadTitle
     {
-        $config = $container->has('config')
-            ? $container->get('config')
-            : [];
-
-        assert(is_array($config));
+        $config = Configuration::get($container);
 
         $options = $this->resolveOptions($config);
 
