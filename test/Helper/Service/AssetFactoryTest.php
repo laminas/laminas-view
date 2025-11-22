@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper\Service;
 
+use ArrayObject;
 use Laminas\View\Exception\RuntimeException;
 use Laminas\View\Helper\Asset;
 use Laminas\View\Helper\Service\AssetFactory;
@@ -86,19 +87,32 @@ final class AssetFactoryTest extends TestCase
         ];
     }
 
-    /** @param array<string, mixed> $config */
+    /** @return iterable<string, array{0: ArrayObject<string, mixed>}> */
+    public static function validConfigAsArrayObjectProvider(): iterable
+    {
+        foreach (self::validConfigProvider() as $key => $args) {
+            yield $key . ' (ArrayObject)' => [new ArrayObject($args[0])];
+        }
+    }
+
+    /** @param iterable<string, mixed> $config */
     #[DataProvider('validConfigProvider')]
-    public function testThatAnExceptionWillNotBeThrownWhenGivenUnsetOrEmptyArrayConfiguration(array $config): void
+    #[DataProvider('validConfigAsArrayObjectProvider')]
+    public function testThatAnExceptionWillNotBeThrownWhenGivenUnsetOrEmptyArrayConfiguration(iterable $config): void
     {
         $container = $this->getServices($config);
         (new AssetFactory())($container);
         self::assertTrue(true);
     }
 
-    /** @param array<string, mixed> $config */
-    private function getServices(array $config = []): ContainerInterface
+    /** @param iterable<string, mixed> $config */
+    private function getServices(iterable $config = []): ContainerInterface
     {
         $services = $this->createMock(ContainerInterface::class);
+        $services->expects(self::once())
+            ->method('has')
+            ->with('config')
+            ->willReturn(true);
         $services->expects(self::once())
             ->method('get')
             ->with('config')

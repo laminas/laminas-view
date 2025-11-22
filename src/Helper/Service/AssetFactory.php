@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Laminas\View\Helper\Service;
 
 use Laminas\View\Exception\RuntimeException;
+use Laminas\View\Factory\Configuration;
 use Laminas\View\Helper\Asset;
 use Psr\Container\ContainerInterface;
-use Traversable;
 
 use function gettype;
 use function is_array;
-use function iterator_to_array;
 use function sprintf;
 
 /**
@@ -27,11 +26,7 @@ final readonly class AssetFactory
      */
     public function __invoke(ContainerInterface $container): Asset
     {
-        /** @psalm-var mixed $config */
-        $config = $container->get('config');
-        /** @psalm-var mixed $config */
-        $config = $config instanceof Traversable ? iterator_to_array($config, true) : $config;
-        $config = is_array($config) ? $config : [];
+        $config = Configuration::get($container);
 
         $helperConfig = $this->assertArray('view_helper_config', $config);
         $helperConfig = $this->assertArray('asset', $helperConfig);

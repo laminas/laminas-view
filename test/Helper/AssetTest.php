@@ -76,6 +76,10 @@ final class AssetTest extends TestCase
     {
         $services = $this->createMock(ServiceManager::class);
         $services->expects(self::atLeast(1))
+            ->method('has')
+            ->with('config')
+            ->willReturn(true);
+        $services->expects(self::atLeast(1))
             ->method('get')
             ->with('config')
             ->willReturn($config);
