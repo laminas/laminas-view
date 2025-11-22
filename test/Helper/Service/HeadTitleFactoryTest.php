@@ -4,10 +4,13 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Helper\Service;
 
+use ArrayObject;
 use Laminas\View\Helper\Service\HeadTitleFactory;
 use LaminasTest\View\TestAsset\InMemoryContainer;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
+
+use function is_array;
 
 final class HeadTitleFactoryTest extends TestCase
 {
@@ -69,12 +72,25 @@ final class HeadTitleFactoryTest extends TestCase
         ];
     }
 
+    /** @return iterable<string, array{0: ArrayObject<array-key, mixed>|null, 1: list<string>, 2: string}> */
+    public static function configScenariosAsArrayObjects(): iterable
+    {
+        foreach (self::configScenarios() as $key => $args) {
+            yield $key . ' (ArrayObject)' => [
+                is_array($args[0]) ? new ArrayObject($args[0]) : $args[0],
+                $args[1],
+                $args[2],
+            ];
+        }
+    }
+
     /**
-     * @param array<array-key, mixed>|null $config
+     * @param iterable<array-key, mixed>|null $config
      * @param list<string> $append
      */
     #[DataProvider('configScenarios')]
-    public function testFactory(array|null $config, array $append, string $expect): void
+    #[DataProvider('configScenariosAsArrayObjects')]
+    public function testFactory(iterable|null $config, array $append, string $expect): void
     {
         $container = new InMemoryContainer();
         if ($config !== null) {

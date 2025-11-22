@@ -7,9 +7,10 @@ namespace Laminas\View\Factory;
 use Laminas\View\ConfigProvider;
 use Psr\Container\ContainerInterface;
 
-use function is_array;
 use function is_bool;
+use function is_iterable;
 use function is_string;
+use function iterator_to_array;
 
 /**
  * Provides consistent retrieval of configuration and individual values based on historic conventions
@@ -36,7 +37,7 @@ final readonly class Configuration
             ? $container->get('config')
             : [];
 
-        return is_array($config) ? $config : [];
+        return is_iterable($config) ? iterator_to_array($config) : [];
     }
 
     /**

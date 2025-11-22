@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace LaminasTest\View\Factory;
 
+use ArrayObject;
 use Laminas\View\Factory\Configuration;
 use LaminasTest\View\TestAsset\InMemoryContainer;
 use PHPUnit\Framework\TestCase;
@@ -14,6 +15,14 @@ final class ConfigurationTest extends TestCase
     {
         $container = new InMemoryContainer();
         $container->set('config', ['foo']);
+
+        self::assertSame(['foo'], Configuration::get($container));
+    }
+
+    public function testGetReturnsConfigWhenItIsAnObject(): void
+    {
+        $container = new InMemoryContainer();
+        $container->set('config', new ArrayObject(['foo']));
 
         self::assertSame(['foo'], Configuration::get($container));
     }
