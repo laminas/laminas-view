@@ -86,7 +86,7 @@ final class HelperPluginManagerCompatibilityTest extends TestCase
         $manager->get('test');
     }
 
-    #[DataProvider('aliasProvider')]
+    #[DataProvider('aliasProvider', false)]
     public function testPluginAliasesResolve(string $alias): void
     {
         $instance = self::getPluginManager()->get($alias);
