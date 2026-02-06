@@ -43,7 +43,7 @@
     },
     "require-dev": {
         "laminas/laminas-coding-standard": "~3.1.0",
-        "phpunit/phpunit": "^11.5.51 || ^12.5.9 || ^13.0.0",
+        "phpunit/phpunit": "^11.5.51 || ^12.5.9",
         "psalm/plugin-phpunit": "^0.19.5",
         "symfony/console": "v7.4.4",
         "vimeo/psalm": "^6.15.0",
