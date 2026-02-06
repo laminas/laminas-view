@@ -45,7 +45,7 @@ final class HelperPluginManagerTest extends TestCase
 
     public function testCanOverrideAFactoryViaConfigurationPassedToConstructor(): void
     {
-        $helper  = $this->createMock(HelperInterface::class);
+        $helper  = $this->createStub(HelperInterface::class);
         $helpers = new HelperPluginManager(new ServiceManager(), [
             'factories' => [
                 Partial::class => static fn(): HelperInterface => $helper,

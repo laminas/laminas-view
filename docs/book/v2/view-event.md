@@ -30,11 +30,11 @@ The methods it defines are:
 
 The following events are triggered, in the following order:
 
-Name            | Constant                         | Description
---------------- | -------------------------------- | -----------
-`renderer`      | `ViewEvent::EVENT_RENDERER`      | Render the view, with the help of renderers.
-`renderer.post` | `ViewEvent::EVENT_RENDERER_POST` | Triggers after the view is rendered.
-`response`      | `ViewEvent::EVENT_RESPONSE`      | Populate the response from the view.
+| Name            | Constant                         | Description                                  |
+|-----------------|----------------------------------|----------------------------------------------|
+| `renderer`      | `ViewEvent::EVENT_RENDERER`      | Render the view, with the help of renderers. |
+| `renderer.post` | `ViewEvent::EVENT_RENDERER_POST` | Triggers after the view is rendered.         |
+| `response`      | `ViewEvent::EVENT_RESPONSE`      | Populate the response from the view.         |
 
 Each is described in the following sections.
 
@@ -49,33 +49,33 @@ priority):
 
 This listener is added when the strategy used for rendering is `PhpStrategy`:
 
-Class                            | Priority | Method called    | Description
--------------------------------- | -------- | ---------------- | -----------
-`Laminas\View\Strategy\PhpStrategy` | 1        | `selectRenderer` | Return a `PhpRenderer`
+| Class                               | Priority | Method called    | Description            |
+|-------------------------------------|----------|------------------|------------------------|
+| `Laminas\View\Strategy\PhpStrategy` | 1        | `selectRenderer` | Return a `PhpRenderer` |
 
 #### For JsonStrategy
 
 This listener is added when the strategy used for rendering is `JsonStrategy`:
 
-Class                             | Priority | Method called    | Description
---------------------------------- | -------- | ---------------- | -----------
-`Laminas\View\Strategy\JsonStrategy` | 1        | `selectRenderer` | Return a `JsonRenderer`
+| Class                                | Priority | Method called    | Description             |
+|--------------------------------------|----------|------------------|-------------------------|
+| `Laminas\View\Strategy\JsonStrategy` | 1        | `selectRenderer` | Return a `JsonRenderer` |
 
 #### For FeedStrategy
 
 This listener is added when the strategy used for rendering is `FeedStrategy`:
 
-Class                             | Priority | Method called    | Description
---------------------------------- | -------- | ---------------- | -----------
-`Laminas\View\Strategy\FeedStrategy` | 1        | `selectRenderer` | Return a `FeedRenderer`
+| Class                                | Priority | Method called    | Description             |
+|--------------------------------------|----------|------------------|-------------------------|
+| `Laminas\View\Strategy\FeedStrategy` | 1        | `selectRenderer` | Return a `FeedRenderer` |
 
 ### Triggerers
 
 This event is triggered by the following classes:
 
-Class            | In method | Description
----------------- | --------- | -----------
-`Laminas\View\View` | `render`  | It has a short circuit callback that stops propagation once one result return an instance of a Renderer.
+| Class               | In method | Description                                                                                              |
+|---------------------|-----------|----------------------------------------------------------------------------------------------------------|
+| `Laminas\View\View` | `render`  | It has a short circuit callback that stops propagation once one result return an instance of a Renderer. |
 
 ## ViewEvent::EVENT\_RENDERER\_POST
 
@@ -87,9 +87,9 @@ There are currently no built-in listeners for this event.
 
 This event is triggered by the following classes:
 
-Class            | In method | Description
----------------- | --------- | -----------
-`Laminas\View\View` | `render`  | This event is triggered after `ViewEvent::EVENT_RENDERER` and before `ViewEvent::EVENT_RESPONSE`.
+| Class               | In method | Description                                                                                       |
+|---------------------|-----------|---------------------------------------------------------------------------------------------------|
+| `Laminas\View\View` | `render`  | This event is triggered after `ViewEvent::EVENT_RENDERER` and before `ViewEvent::EVENT_RESPONSE`. |
 
 ## ViewEvent::EVENT\_RESPONSE
 
@@ -102,30 +102,30 @@ priority):
 
 This listener is added when the strategy used for rendering is `PhpStrategy`:
 
-Class                            | Priority | Method called    | Description
--------------------------------- | -------- | ---------------- | -----------
-`Laminas\View\Strategy\PhpStrategy` | 1        | `injectResponse` | Populate the `Response` object from the rendered view.
+| Class                               | Priority | Method called    | Description                                            |
+|-------------------------------------|----------|------------------|--------------------------------------------------------|
+| `Laminas\View\Strategy\PhpStrategy` | 1        | `injectResponse` | Populate the `Response` object from the rendered view. |
 
 #### For JsonStrategy
 
 This listener is added when the strategy used for rendering is `JsonStrategy`:
 
-Class                             | Priority | Method called    | Description
---------------------------------- | -------- | ---------------- | -----------
-`Laminas\View\Strategy\JsonStrategy` | 1        | `injectResponse` | Populate the `Response` object with the serialized JSON content.
+| Class                                | Priority | Method called    | Description                                                      |
+|--------------------------------------|----------|------------------|------------------------------------------------------------------|
+| `Laminas\View\Strategy\JsonStrategy` | 1        | `injectResponse` | Populate the `Response` object with the serialized JSON content. |
 
 #### For FeedStrategy
 
 This listener is added when the strategy used for rendering is `FeedStrategy`:
 
-Class                             | Priority | Method called    | Description
---------------------------------- | -------- | ---------------- | -----------
-`Laminas\View\Strategy\FeedStrategy` | 1        | `injectResponse` | Populate the `Response` object with the rendered feed.
+| Class                                | Priority | Method called    | Description                                            |
+|--------------------------------------|----------|------------------|--------------------------------------------------------|
+| `Laminas\View\Strategy\FeedStrategy` | 1        | `injectResponse` | Populate the `Response` object with the rendered feed. |
 
 ### Triggerers
 
 This event is triggered by the following classes:
 
-Class            | In method | Description
----------------- | --------- | -----------
-`Laminas\View\View` | `render`  | This event is triggered after `ViewEvent::EVENT_RENDERER` and `ViewEvent::EVENT_RENDERER_POST`.
+| Class               | In method | Description                                                                                     |
+|---------------------|-----------|-------------------------------------------------------------------------------------------------|
+| `Laminas\View\View` | `render`  | This event is triggered after `ViewEvent::EVENT_RENDERER` and `ViewEvent::EVENT_RENDERER_POST`. |
