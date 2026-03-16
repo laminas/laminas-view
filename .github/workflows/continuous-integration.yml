@@ -27,7 +27,7 @@ jobs:
           php-version: ${{ env.default_php }}
           ini-values: memory_limit=-1
           extensions: ${{ env.php_extensions }}
-      - uses: ramsey/composer-install@3.2.1
+      - uses: ramsey/composer-install@4.0.0
       - run: make install-tools
       - run: make composer-require-checker
 
@@ -39,7 +39,7 @@ jobs:
       - uses: shivammathur/setup-php@2.37.0
         with:
           php-version: ${{ env.default_php }}
-      - uses: ramsey/composer-install@3.2.1
+      - uses: ramsey/composer-install@4.0.0
       - name: "Psalm"
         run: vendor/bin/psalm --report=results.sarif
       - name: "Upload Security Analysis results to GitHub"
@@ -56,7 +56,7 @@ jobs:
         with:
           php-version: ${{ env.default_php }}
           coverage: xdebug
-      - uses: ramsey/composer-install@3.2.1
+      - uses: ramsey/composer-install@4.0.0
       - run: make install-tools
       - run: make mutants
 
@@ -69,7 +69,7 @@ jobs:
         with:
           php-version: ${{ env.default_php }}
           tools: composer
-      - uses: ramsey/composer-install@3.2.1
+      - uses: ramsey/composer-install@4.0.0
       - run: make install-tools
       - run: make rector-ci
 
@@ -82,6 +82,6 @@ jobs:
         with:
           php-version: ${{ env.default_php }}
           tools: composer
-      - uses: ramsey/composer-install@3.2.1
+      - uses: ramsey/composer-install@4.0.0
       - run: make install-tools
       - run: make unused-ci
