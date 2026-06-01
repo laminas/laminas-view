@@ -44,7 +44,7 @@
     "require-dev": {
         "laminas/laminas-coding-standard": "~3.1.0",
         "phpunit/phpunit": "^11.5.55 || ^12.5.9",
-        "psalm/plugin-phpunit": "^0.19.7",
+        "psalm/plugin-phpunit": "^0.20.0",
         "symfony/console": "7.4.13",
         "vimeo/psalm": "^6.16.1",
         "amphp/dns": "^2.4.0",
