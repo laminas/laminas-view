@@ -11,15 +11,15 @@
         "php": "~8.2 || ~8.3 || ~8.4 || ~8.5",
         "ext-json": "*",
         "laminas/laminas-escaper": "^2.18.0",
-        "laminas/laminas-servicemanager": "^4.5.0",
+        "laminas/laminas-servicemanager": "^4.5.1",
         "laminas/laminas-stdlib": "^3.21.0",
         "laminas/laminas-translator": "^1.3",
         "psr/container": "^1 || ^2.0.2"
     },
     "require-dev": {
-        "psalm/plugin-phpunit": "^0.19.5",
+        "psalm/plugin-phpunit": "^0.19.7",
         "roave/infection-static-analysis-plugin": "^1.40",
-        "vimeo/psalm": "^6.15.0"
+        "vimeo/psalm": "^6.16.1"
     },
     "autoload": {
         "psr-4": {
