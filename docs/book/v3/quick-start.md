@@ -127,7 +127,7 @@ final class ExamplePageHandler implements RequestHandlerInterface
             'greeting' => 'Hello',
             'name' => 'World',
         ];
-        $markup = $this->view->render($variables, 'pages/greeting');
+        $markup = $this->view->render('pages/greeting', $variables);
         
         return new HtmlResponse($markup);
     }
