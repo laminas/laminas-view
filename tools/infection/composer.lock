@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "530d43a961798a243292ea4d1bd65cff",
+    "content-hash": "0a91659f08580ecb663d359ab05c50eb",
     "packages": [
         {
             "name": "brick/varexporter",
@@ -262,16 +262,16 @@
         },
         {
             "name": "laminas/laminas-translator",
-            "version": "1.3.0",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-translator.git",
-                "reference": "1d6bf7d857c3fc310a30f5ea028731b9bf8be9db"
+                "reference": "0169180f44f3d3273bd9a7b00e23ad6b0b870f17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laminas/laminas-translator/zipball/1d6bf7d857c3fc310a30f5ea028731b9bf8be9db",
-                "reference": "1d6bf7d857c3fc310a30f5ea028731b9bf8be9db",
+                "url": "https://api.github.com/repos/laminas/laminas-translator/zipball/0169180f44f3d3273bd9a7b00e23ad6b0b870f17",
+                "reference": "0169180f44f3d3273bd9a7b00e23ad6b0b870f17",
                 "shasum": ""
             },
             "require": {
@@ -279,8 +279,8 @@
             },
             "require-dev": {
                 "laminas/laminas-coding-standard": "~3.1.0",
-                "phpunit/phpunit": "^11.5.46",
-                "vimeo/psalm": "^6.14.3"
+                "phpunit/phpunit": "^11.5.55",
+                "vimeo/psalm": "^6.16.1"
             },
             "type": "library",
             "autoload": {
@@ -312,7 +312,7 @@
                     "type": "community_bridge"
                 }
             ],
-            "time": "2025-12-30T14:26:45+00:00"
+            "time": "2026-06-02T11:36:39+00:00"
         },
         {
             "name": "nikic/php-parser",
