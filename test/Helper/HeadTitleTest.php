@@ -6,6 +6,7 @@ namespace LaminasTest\View\Helper;
 
 use Laminas\Translator\TranslatorInterface;
 use Laminas\View\Helper\HeadTitle;
+use LaminasTest\View\TestAsset\TranslatorStubFactory;
 use PHPUnit\Framework\TestCase;
 
 final class HeadTitleTest extends TestCase
@@ -128,24 +129,13 @@ final class HeadTitleTest extends TestCase
 
     private function getTranslator(): TranslatorInterface
     {
-        return new class implements TranslatorInterface
-        {
-            /** @inheritDoc */
-            public function translate($message, $textDomain = 'default', $locale = null)
-            {
-                return match ($message) {
-                    'Foo' => 'Kermit',
-                    'Bar' => 'Fozzy Bear',
-                    default => 'Gonzo',
-                };
-            }
-
-            /** @inheritDoc */
-            public function translatePlural($singular, $plural, $number, $textDomain = 'default', $locale = null)
-            {
-                return 'Unused Method';
-            }
+        $matcher = fn (string $message): string => match ($message) {
+            'Foo' => 'Kermit',
+            'Bar' => 'Fozzy Bear',
+            default => 'Gonzo',
         };
+
+        return (new TranslatorStubFactory())->getTranslator($matcher);
     }
 
     public function testCanTranslateTitle(): void

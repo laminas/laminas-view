@@ -13,6 +13,7 @@ return RectorConfig::configure()
         __DIR__ . '/../../src',
         __DIR__ . '/../../test',
     ])
+    ->withSkipPath(__DIR__ . '/../../test/TestAsset/TranslatorStubFactory.php')
     ->withPreparedSets(
         typeDeclarations: true,
     )->withSkip([

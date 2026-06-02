@@ -7,6 +7,7 @@ namespace LaminasTest\View\Helper\Service;
 use Laminas\Translator\TranslatorInterface;
 use Laminas\View\Helper\Service\FetchTranslatorFromContainer;
 use LaminasTest\View\TestAsset\InMemoryContainer;
+use LaminasTest\View\TestAsset\TranslatorStubFactory;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use stdClass;
@@ -17,18 +18,7 @@ final class FetchTranslatorFromContainerTest extends TestCase
 {
     private static function makeTranslator(): TranslatorInterface
     {
-        return new class implements TranslatorInterface
-        {
-            public function translate($message, $textDomain = 'default', $locale = null) // phpcs:ignore
-            {
-                return $message;
-            }
-
-            public function translatePlural($singular, $plural, $number, $textDomain = 'default', $locale = null) // phpcs:ignore
-            {
-                return $singular;
-            }
-        };
+        return (new TranslatorStubFactory())->getTranslator();
     }
 
     /** @return iterable<string, array{0: array<string, object>, 1: TranslatorInterface|null}> */
