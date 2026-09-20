@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Helper;
+namespace LaminasTest\View\Helper;
 
 use Laminas\View\Helper\ViewModel;
 use Laminas\View\Model\ViewModel as Model;

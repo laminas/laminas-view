@@ -42,13 +42,14 @@
         "psr/container": "^1 || ^2"
     },
     "require-dev": {
+        "amphp/dns": "^2.4.0",
+        "amphp/socket": "^2.4.0",
+        "boundwize/structarmed": "^0.17.11",
         "laminas/laminas-coding-standard": "~3.1.0",
         "phpunit/phpunit": "^11.5.55 || ^12.5.9",
         "psalm/plugin-phpunit": "^0.19.7",
         "symfony/console": "7.4.13",
-        "vimeo/psalm": "^6.16.1",
-        "amphp/dns": "^2.4.0",
-        "amphp/socket": "^2.4.0"
+        "vimeo/psalm": "^6.16.1"
     },
     "suggest": {
         "laminas/laminas-cli": "Laminas\\Cli component to autowire the template map generator utility",

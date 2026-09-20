@@ -129,7 +129,7 @@ final class HeadTitleTest extends TestCase
 
     private function getTranslator(): TranslatorInterface
     {
-        $matcher = fn (string $message): string => match ($message) {
+        $matcher = static fn (string $message): string => match ($message) {
             'Foo' => 'Kermit',
             'Bar' => 'Fozzy Bear',
             default => 'Gonzo',

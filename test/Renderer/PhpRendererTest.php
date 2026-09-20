@@ -44,8 +44,8 @@ final class PhpRendererTest extends TestCase
                     },
                 ],
                 'factories' => [
-                    'sharedInstance'    => fn (): SharedInstance => new SharedInstance(),
-                    'nonSharedInstance' => fn (): SharedInstance => new SharedInstance(),
+                    'sharedInstance'    => static fn (): SharedInstance => new SharedInstance(),
+                    'nonSharedInstance' => static fn (): SharedInstance => new SharedInstance(),
                 ],
                 'shared'    => [
                     'sharedInstance'    => true,

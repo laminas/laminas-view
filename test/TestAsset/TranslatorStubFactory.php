@@ -16,7 +16,7 @@ final readonly class TranslatorStubFactory
     /** @param (Closure(string):string)|null $messageMatcher */
     public function getTranslator(Closure|null $messageMatcher = null): TranslatorInterface
     {
-        $messageMatcher ??= fn (string $message): string => $message;
+        $messageMatcher ??= static fn (string $message): string => $message;
         $reflection       = new ReflectionClass(TranslatorInterface::class);
         $method           = $reflection->getMethod('translate');
         $parameter        = $method->getParameters()[0] ?? null;
