@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "45b9656a08a4cc7f6a9ad68f165b56e8",
+    "content-hash": "43b0ffc3fd58025213504a3b17239134",
     "packages": [
         {
             "name": "brick/varexporter",
@@ -369,7 +369,8 @@
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
                 "source": "https://github.com/nikic/PHP-Parser/tree/v5.9.0"
             },
-            "time": "2026-09-13T18:51:52+00:00"
+            "time": "2026-09-13T18:51:52+00:00",
+            "published-time": "2026-09-13T18:53:16+00:00"
         },
         {
             "name": "psr/container",
@@ -1310,26 +1311,27 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-08-15T00:35:36+00:00"
+            "time": "2026-08-15T00:35:36+00:00",
+            "published-time": "2026-08-15T00:36:16+00:00"
         },
         {
             "name": "boundwize/structarmed",
-            "version": "0.18.0",
+            "version": "0.21.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/boundwize/structarmed.git",
-                "reference": "f2728fead5f561ad91aead1a985728403678c88d"
+                "reference": "aceafaded72331ef1754b16f5dea34834f6be4a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/boundwize/structarmed/zipball/f2728fead5f561ad91aead1a985728403678c88d",
-                "reference": "f2728fead5f561ad91aead1a985728403678c88d",
+                "url": "https://api.github.com/repos/boundwize/structarmed/zipball/aceafaded72331ef1754b16f5dea34834f6be4a3",
+                "reference": "aceafaded72331ef1754b16f5dea34834f6be4a3",
                 "shasum": ""
             },
             "require": {
                 "boundwize/jsonrecast": "^1.0",
                 "composer-runtime-api": "^2.0",
-                "fidry/cpu-core-counter": "^1.3",
+                "fidry/cpu-core-counter": "^1.4",
                 "nikic/php-parser": "^5.9",
                 "php": "^8.2"
             },
@@ -1380,7 +1382,7 @@
             ],
             "support": {
                 "issues": "https://github.com/boundwize/structarmed/issues",
-                "source": "https://github.com/boundwize/structarmed/tree/0.18.0"
+                "source": "https://github.com/boundwize/structarmed/tree/0.21.8"
             },
             "funding": [
                 {
@@ -1388,7 +1390,8 @@
                     "type": "github"
                 }
             ],
-            "time": "2026-09-24T03:45:31+00:00"
+            "time": "2026-11-08T23:46:25+00:00",
+            "published-time": "2026-11-08T23:46:55+00:00"
         },
         {
             "name": "composer/pcre",
@@ -1944,23 +1947,23 @@
         },
         {
             "name": "fidry/cpu-core-counter",
-            "version": "1.3.0",
+            "version": "1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/theofidry/cpu-core-counter.git",
-                "reference": "db9508f7b1474469d9d3c53b86f817e344732678"
+                "reference": "d384a7d0d6e67aa497327260ca95023e92dc2032"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/theofidry/cpu-core-counter/zipball/db9508f7b1474469d9d3c53b86f817e344732678",
-                "reference": "db9508f7b1474469d9d3c53b86f817e344732678",
+                "url": "https://api.github.com/repos/theofidry/cpu-core-counter/zipball/d384a7d0d6e67aa497327260ca95023e92dc2032",
+                "reference": "d384a7d0d6e67aa497327260ca95023e92dc2032",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.2 || ^8.0"
             },
             "require-dev": {
-                "fidry/makefile": "^0.2.0",
+                "fidry/makefile": "^0.2.0 || ^1.1.2",
                 "fidry/php-cs-fixer-config": "^1.1.2",
                 "phpstan/extension-installer": "^1.2.0",
                 "phpstan/phpstan": "^2.0",
@@ -1968,6 +1971,7 @@
                 "phpstan/phpstan-phpunit": "^2.0",
                 "phpstan/phpstan-strict-rules": "^2.0",
                 "phpunit/phpunit": "^8.5.31 || ^9.5.26",
+                "symfony/polyfill-mbstring": "^1.33",
                 "webmozarts/strict-phpunit": "^7.5"
             },
             "type": "library",
@@ -1993,7 +1997,7 @@
             ],
             "support": {
                 "issues": "https://github.com/theofidry/cpu-core-counter/issues",
-                "source": "https://github.com/theofidry/cpu-core-counter/tree/1.3.0"
+                "source": "https://github.com/theofidry/cpu-core-counter/tree/1.4.1"
             },
             "funding": [
                 {
@@ -2001,7 +2005,8 @@
                     "type": "github"
                 }
             ],
-            "time": "2025-08-14T07:29:31+00:00"
+            "time": "2026-09-29T22:11:39+00:00",
+            "published-time": "2026-09-29T22:12:43+00:00"
         },
         {
             "name": "kelunik/certificate",
@@ -3191,33 +3196,31 @@
         },
         {
             "name": "psalm/plugin-phpunit",
-            "version": "0.19.7",
+            "version": "0.22.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/psalm/psalm-plugin-phpunit.git",
-                "reference": "143f9d5e049fffcdbc0da3fbb99f6149f9d3e2dc"
+                "reference": "6e5ca7dd019e502f24824c138cb54fc8f485d2e2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/psalm/psalm-plugin-phpunit/zipball/143f9d5e049fffcdbc0da3fbb99f6149f9d3e2dc",
-                "reference": "143f9d5e049fffcdbc0da3fbb99f6149f9d3e2dc",
+                "url": "https://api.github.com/repos/psalm/psalm-plugin-phpunit/zipball/6e5ca7dd019e502f24824c138cb54fc8f485d2e2",
+                "reference": "6e5ca7dd019e502f24824c138cb54fc8f485d2e2",
                 "shasum": ""
             },
             "require": {
                 "ext-simplexml": "*",
                 "php": ">=8.1",
-                "vimeo/psalm": "dev-master || ^6.10.0"
+                "vimeo/psalm": "^6 || ^7.2 || dev-master"
             },
             "conflict": {
                 "phpspec/prophecy": "<1.20.0",
-                "phpspec/prophecy-phpunit": "<2.3.0",
-                "phpunit/phpunit": "<8.5.1"
+                "phpspec/prophecy-phpunit": "<2.3.0"
             },
             "require-dev": {
-                "php": "^7.3 || ^8.0",
-                "phpunit/phpunit": "^10.0 || ^11.0 || ^12.0",
-                "squizlabs/php_codesniffer": "^3.3.1",
-                "weirdan/prophecy-shim": "^1.0 || ^2.0"
+                "phpspec/prophecy-phpunit": "^2.3",
+                "phpunit/phpunit": "^10.0 || ^11.0 || ^12.0 || ^13.0",
+                "squizlabs/php_codesniffer": "^3.3.1"
             },
             "type": "psalm-plugin",
             "extra": {
@@ -3243,9 +3246,10 @@
             "description": "Psalm plugin for PHPUnit",
             "support": {
                 "issues": "https://github.com/psalm/psalm-plugin-phpunit/issues",
-                "source": "https://github.com/psalm/psalm-plugin-phpunit/tree/0.19.7"
+                "source": "https://github.com/psalm/psalm-plugin-phpunit/tree/0.22.2"
             },
-            "time": "2025-03-31T18:49:55+00:00"
+            "time": "2026-11-09T20:48:04+00:00",
+            "published-time": "2026-11-09T20:55:42+00:00"
         },
         {
             "name": "psr/http-factory",
@@ -4729,16 +4733,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v7.4.13",
+            "version": "v7.4.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "85095d2573eaefaf35e40b9513a9bf09f72cd217"
+                "reference": "81957c2440c05c962fe8291f318de6e85f8db330"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/85095d2573eaefaf35e40b9513a9bf09f72cd217",
-                "reference": "85095d2573eaefaf35e40b9513a9bf09f72cd217",
+                "url": "https://api.github.com/repos/symfony/console/zipball/81957c2440c05c962fe8291f318de6e85f8db330",
+                "reference": "81957c2440c05c962fe8291f318de6e85f8db330",
                 "shasum": ""
             },
             "require": {
@@ -4803,7 +4807,7 @@
                 "terminal"
             ],
             "support": {
-                "source": "https://github.com/symfony/console/tree/v7.4.13"
+                "source": "https://github.com/symfony/console/tree/v7.4.23"
             },
             "funding": [
                 {
@@ -4823,7 +4827,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-24T08:56:14+00:00"
+            "time": "2026-11-03T21:47:07+00:00",
+            "published-time": "2026-11-04T11:27:31+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -4894,7 +4899,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-06-05T06:23:12+00:00"
+            "time": "2026-06-05T06:23:12+00:00",
+            "published-time": "2026-06-27T21:46:34+00:00"
         },
         {
             "name": "symfony/filesystem",
@@ -5047,7 +5053,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-04-10T16:19:22+00:00"
+            "time": "2026-04-10T16:19:22+00:00",
+            "published-time": "2026-04-26T14:44:50+00:00"
         },
         {
             "name": "symfony/polyfill-intl-grapheme",
@@ -5129,7 +5136,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-28T08:25:59+00:00"
+            "time": "2026-07-28T08:25:59+00:00",
+            "published-time": "2026-07-28T08:42:22+00:00"
         },
         {
             "name": "symfony/polyfill-intl-normalizer",
@@ -5214,7 +5222,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-08-07T06:33:24+00:00"
+            "time": "2026-08-07T06:33:24+00:00",
+            "published-time": "2026-08-24T11:45:16+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -5299,7 +5308,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-05-27T06:59:30+00:00"
+            "time": "2026-05-27T06:59:30+00:00",
+            "published-time": "2026-06-09T06:07:20+00:00"
         },
         {
             "name": "symfony/polyfill-php84",
@@ -5466,7 +5476,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-07-27T15:39:01+00:00"
+            "time": "2026-07-27T15:39:01+00:00",
+            "published-time": "2026-08-30T19:56:37+00:00"
         },
         {
             "name": "symfony/string",
@@ -5557,7 +5568,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-09-11T14:46:58+00:00"
+            "time": "2026-09-11T14:46:58+00:00",
+            "published-time": "2026-09-15T07:11:35+00:00"
         },
         {
             "name": "theseer/tokenizer",
@@ -5862,5 +5874,5 @@
     "platform-overrides": {
         "php": "8.2.99"
     },
-    "plugin-api-version": "2.9.0"
+    "plugin-api-version": "2.11.0"
 }
