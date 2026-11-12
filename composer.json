@@ -21,7 +21,7 @@
     "config": {
         "sort-packages": true,
         "platform": {
-            "php": "8.2.99"
+            "php": "8.3.99"
         },
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true
@@ -33,7 +33,7 @@
         }
     },
     "require": {
-        "php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
+        "php": "~8.3.0 || ~8.4.0 || ~8.5.0 || ~8.6.0",
         "ext-json": "*",
         "laminas/laminas-escaper": "^2.17.0",
         "laminas/laminas-servicemanager": "^4.4.0",
@@ -42,14 +42,15 @@
         "psr/container": "^1 || ^2"
     },
     "require-dev": {
-        "amphp/dns": "^2.4.0",
-        "amphp/socket": "^2.4.0",
-        "boundwize/structarmed": "^0.21.0",
+        "amphp/dns": "^2.4.2",
+        "amphp/socket": "^2.4.2",
+        "boundwize/structarmed": "^0.21.8",
+        "laminas/internal-tooling": "^1.2",
         "laminas/laminas-coding-standard": "~3.1.0",
-        "phpunit/phpunit": "^11.5.55 || ^12.5.9",
-        "psalm/plugin-phpunit": "^0.22.0",
+        "phpunit/phpunit": "^11.5.55 || ^12.5.43",
+        "psalm/plugin-phpunit": "^0.22.2",
         "symfony/console": "7.4.23",
-        "vimeo/psalm": "^6.16.1"
+        "vimeo/psalm": "^6.20.11"
     },
     "suggest": {
         "laminas/laminas-cli": "Laminas\\Cli component to autowire the template map generator utility",
