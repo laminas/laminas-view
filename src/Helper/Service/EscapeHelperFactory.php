@@ -31,7 +31,7 @@ use function sprintf;
  */
 final readonly class EscapeHelperFactory implements FactoryInterface
 {
-    private const CAN_CREATE = [
+    private const array CAN_CREATE = [
         EscapeCss::class      => EscapeCss::class,
         EscapeHtml::class     => EscapeHtml::class,
         EscapeHtmlAttr::class => EscapeHtmlAttr::class,

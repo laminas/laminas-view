@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 final class AssetTest extends TestCase
 {
-    private const RESOURCE_MAP = [
+    private const array RESOURCE_MAP = [
         'css/style.css' => 'css/style-3a97ff4ee3.css',
         'js/vendor.js'  => 'js/vendor-a507086eba.js',
     ];
@@ -22,8 +22,6 @@ final class AssetTest extends TestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
-
         $this->asset = new Asset(self::RESOURCE_MAP);
     }
 

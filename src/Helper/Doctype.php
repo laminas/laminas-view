@@ -17,23 +17,23 @@ use function stristr;
  */
 final readonly class Doctype implements Stringable
 {
-    public const DEFAULT_DOCTYPE = self::HTML5;
+    public const string DEFAULT_DOCTYPE = self::HTML5;
 
-    public const XHTML11             = 'XHTML11';
-    public const XHTML1_STRICT       = 'XHTML1_STRICT';
-    public const XHTML1_TRANSITIONAL = 'XHTML1_TRANSITIONAL';
-    public const XHTML1_FRAMESET     = 'XHTML1_FRAMESET';
-    public const XHTML1_RDFA         = 'XHTML1_RDFA';
-    public const XHTML1_RDFA11       = 'XHTML1_RDFA11';
-    public const XHTML_BASIC1        = 'XHTML_BASIC1';
-    public const XHTML5              = 'XHTML5';
-    public const HTML4_STRICT        = 'HTML4_STRICT';
-    public const HTML4_LOOSE         = 'HTML4_LOOSE';
-    public const HTML4_FRAMESET      = 'HTML4_FRAMESET';
-    public const HTML5               = 'HTML5';
+    public const string XHTML11             = 'XHTML11';
+    public const string XHTML1_STRICT       = 'XHTML1_STRICT';
+    public const string XHTML1_TRANSITIONAL = 'XHTML1_TRANSITIONAL';
+    public const string XHTML1_FRAMESET     = 'XHTML1_FRAMESET';
+    public const string XHTML1_RDFA         = 'XHTML1_RDFA';
+    public const string XHTML1_RDFA11       = 'XHTML1_RDFA11';
+    public const string XHTML_BASIC1        = 'XHTML_BASIC1';
+    public const string XHTML5              = 'XHTML5';
+    public const string HTML4_STRICT        = 'HTML4_STRICT';
+    public const string HTML4_LOOSE         = 'HTML4_LOOSE';
+    public const string HTML4_FRAMESET      = 'HTML4_FRAMESET';
+    public const string HTML5               = 'HTML5';
 
     /** @var array<string, non-empty-string> */
-    private const DOCTYPE_DECLARATIONS = [
+    private const array DOCTYPE_DECLARATIONS = [
         self::XHTML11             => '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" '
             . '"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">',
         self::XHTML1_STRICT       => '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" '

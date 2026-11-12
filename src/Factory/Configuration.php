@@ -23,11 +23,11 @@ use function iterator_to_array;
  */
 final readonly class Configuration
 {
-    private const DEFAULT_ENCODING         = 'utf-8';
-    private const DEFAULT_TEMPLATE_SUFFIX  = 'phtml';
-    private const STRICT_VARIABLES_DEFAULT = true;
-    private const DEFAULT_LAYOUT_TEMPLATE  = 'layout::default';
-    private const DEFAULT_CAPTURE_TO       = 'content';
+    private const string DEFAULT_ENCODING         = 'utf-8';
+    private const string DEFAULT_TEMPLATE_SUFFIX  = 'phtml';
+    private const bool STRICT_VARIABLES_DEFAULT = true;
+    private const string DEFAULT_LAYOUT_TEMPLATE  = 'layout::default';
+    private const string DEFAULT_CAPTURE_TO       = 'content';
 
     /** @return array<array-key, mixed> */
     public static function get(ContainerInterface $container): array

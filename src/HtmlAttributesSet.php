@@ -45,7 +45,7 @@ final class HtmlAttributesSet extends ArrayObject implements Stringable
     /**
      * These attributes can be arrays, and when encountered will be joined with the mapped separator character
      */
-    private const ARRAY_VALUES = [
+    private const array ARRAY_VALUES = [
         'accept'    => ',',
         'allow'     => ' ',
         'class'     => ' ',
@@ -59,7 +59,7 @@ final class HtmlAttributesSet extends ArrayObject implements Stringable
     /**
      * For array attributes that are not mapped to a separator, this character is the default
      */
-    private const DEFAULT_SEPARATOR = ' ';
+    private const string DEFAULT_SEPARATOR = ' ';
 
     /** @param iterable<string, scalar|array|null> $attributes */
     public function __construct(private readonly EscaperInterface $escaper, iterable $attributes = [])

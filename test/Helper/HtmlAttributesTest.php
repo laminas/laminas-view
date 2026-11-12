@@ -14,8 +14,6 @@ final class HtmlAttributesTest extends TestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
-
         $this->helper = new HtmlAttributes(new Escaper());
     }
 

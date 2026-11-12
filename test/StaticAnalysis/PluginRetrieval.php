@@ -8,9 +8,9 @@ use Laminas\View\Helper\Asset;
 use Laminas\View\Helper\GravatarImage;
 use Laminas\View\HelperPluginManager;
 
-final class PluginRetrieval
+final readonly class PluginRetrieval
 {
-    public function __construct(private readonly HelperPluginManager $pluginManager)
+    public function __construct(private HelperPluginManager $pluginManager)
     {
     }
 

@@ -6,9 +6,9 @@ namespace LaminasTest\View\Helper\TestAsset;
 
 use LaminasTest\View\Helper\PartialLoopTest;
 
-final class PartialLoopToArrayImplementor
+final readonly class PartialLoopToArrayImplementor
 {
-    public function __construct(private readonly array $data)
+    public function __construct(private array $data)
     {
     }
 

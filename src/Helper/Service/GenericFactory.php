@@ -32,7 +32,7 @@ use function sprintf;
  */
 final readonly class GenericFactory implements FactoryInterface
 {
-    private const CAN_CREATE = [
+    private const array CAN_CREATE = [
         HeadLink::class     => HeadLink::class,
         HeadMeta::class     => HeadMeta::class,
         HeadScript::class   => HeadScript::class,
