@@ -63,8 +63,11 @@ final class Placeholder implements StatefulHelperInterface, Stringable
     private function container(string $name): Container
     {
         $this->currentContainer = $name;
-        /** @psalm-var Container<string> */
-        $this->items[$name] ??= new Container();
+        if (! isset($this->items[$name])) {
+            /** @psalm-var Container<string> */
+            $container          = new Container();
+            $this->items[$name] = $container;
+        }
 
         return $this->items[$name];
     }
