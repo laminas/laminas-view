@@ -7,9 +7,9 @@ namespace LaminasTest\View\TestAsset;
 use Laminas\View\Helper\HelperInterface;
 use Stringable;
 
-final class Uninvokable implements HelperInterface, Stringable
+final readonly class Uninvokable implements HelperInterface, Stringable
 {
-    public readonly string $value;
+    public string $value;
 
     public function __construct()
     {

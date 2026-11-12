@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="6.15.0@204d06619833a297b402cbc66be7f2df74437db4">
   <file src="src/Helper/Escaper/AbstractHelper.php">
+    <MissingClassConstType>
+      <code><![CDATA[RECURSE_ARRAY  = 0x01]]></code>
+      <code><![CDATA[RECURSE_NONE   = 0x00]]></code>
+      <code><![CDATA[RECURSE_OBJECT = 0x02]]></code>
+    </MissingClassConstType>
     <MixedAssignment>
       <code><![CDATA[$value[$k]]]></code>
     </MixedAssignment>
@@ -27,10 +32,5 @@
     <MethodSignatureMismatch>
       <code><![CDATA[$id]]></code>
     </MethodSignatureMismatch>
-  </file>
-  <file src="test/HelperPluginManagerCompatibilityTest.php">
-    <TooManyArguments>
-      <code><![CDATA[DataProvider('aliasProvider', false)]]></code>
-    </TooManyArguments>
   </file>
 </files>

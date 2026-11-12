@@ -21,7 +21,7 @@ use function substr;
  */
 final readonly class RelativeFallbackResolver implements ResolverInterface
 {
-    public const NS_SEPARATOR = '/';
+    public const string NS_SEPARATOR = '/';
 
     public function __construct(
         private ResolverInterface $resolver,

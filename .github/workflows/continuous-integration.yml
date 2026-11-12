@@ -1,13 +1,13 @@
 name: "Continuous Integration"
 
 on:
-  pull_request:
+  pull_request: null
   push:
-    branches:
-    tags:
+    branches: null
+    tags: null
 
 env:
-  default_php: 8.2
+  default_php: '8.3'
   php_extensions: dom,filter
 
 

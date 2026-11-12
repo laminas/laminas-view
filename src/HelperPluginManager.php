@@ -32,7 +32,7 @@ use function sprintf;
  */
 final class HelperPluginManager extends AbstractPluginManager implements HelperPluginManagerInterface
 {
-    private const CONFIG = [
+    private const array CONFIG = [
         'factories' => [
             Helper\Asset::class               => Helper\Service\AssetFactory::class,
             Helper\BasePath::class            => Helper\Service\BasePathFactory::class,

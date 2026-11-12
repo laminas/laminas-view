@@ -9,10 +9,10 @@ use IteratorAggregate;
 use Traversable;
 
 /** @implements IteratorAggregate<non-empty-string, mixed> */
-final class Variable implements IteratorAggregate
+final readonly class Variable implements IteratorAggregate
 {
     /** @param array<non-empty-string, mixed> $data */
-    public function __construct(private readonly array $data = [])
+    public function __construct(private array $data = [])
     {
     }
 

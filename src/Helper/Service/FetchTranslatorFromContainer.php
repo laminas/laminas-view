@@ -15,7 +15,7 @@ use Psr\Container\ContainerInterface;
  */
 final readonly class FetchTranslatorFromContainer
 {
-    public const SEARCH_ALIASES = [
+    public const array SEARCH_ALIASES = [
         TranslatorInterface::class,
         'MvcTranslator',
         'Laminas\I18n\Translator\TranslatorInterface', // phpcs:ignore

@@ -16,7 +16,7 @@ final class Cycle implements Stringable, StatefulHelperInterface
     /**
      * Default name
      */
-    private const DEFAULT_NAME = 'default';
+    private const string DEFAULT_NAME = 'default';
 
     /**
      * Array of values
@@ -105,9 +105,7 @@ final class Cycle implements Stringable, StatefulHelperInterface
     {
         $this->name = $name;
 
-        if (! isset($this->data[$this->name])) {
-            $this->data[$this->name] = [];
-        }
+        $this->data[$this->name] ??= [];
 
         if (! isset($this->pointers[$this->name])) {
             $this->rewind();

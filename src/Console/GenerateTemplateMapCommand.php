@@ -18,7 +18,7 @@ use function trim;
 
 final class GenerateTemplateMapCommand extends Command
 {
-    public const DEFAULT_NAME = 'generate-template-map';
+    public const string DEFAULT_NAME = 'generate-template-map';
 
     public function __construct()
     {

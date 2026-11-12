@@ -6,9 +6,9 @@ namespace LaminasTest\View\Helper\TestAsset;
 
 use Stringable;
 
-final class StringableObject implements Stringable
+final readonly class StringableObject implements Stringable
 {
-    public function __construct(public readonly string $value = self::class)
+    public function __construct(public string $value = self::class)
     {
     }
 

@@ -8,7 +8,7 @@ use Rector\Config\RectorConfig;
 use Rector\TypeDeclaration\Rector\ClassMethod\NarrowObjectReturnTypeRector;
 
 return RectorConfig::configure()
-    ->withPhpSets(php81: true)
+    ->withPhpSets(php83: true)
     ->withPaths([
         __DIR__ . '/../../src',
         __DIR__ . '/../../test',
