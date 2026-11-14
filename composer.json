@@ -50,7 +50,7 @@
         "phpunit/phpunit": "^11.5.55 || ^12.5.43",
         "psalm/plugin-phpunit": "^0.22.2",
         "symfony/console": "7.4.23",
-        "vimeo/psalm": "^6.20.11"
+        "vimeo/psalm": "^7.0.0"
     },
     "suggest": {
         "laminas/laminas-cli": "Laminas\\Cli component to autowire the template map generator utility",
