@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "003295f3845fb72cf2f22943829a726e",
+    "content-hash": "7bb4910114b0d309571fa4afa4af642b",
     "packages": [
         {
             "name": "brick/varexporter",
@@ -5020,16 +5020,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v7.4.23",
+            "version": "v7.4.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "81957c2440c05c962fe8291f318de6e85f8db330"
+                "reference": "542ec4ffb13541c31917ba720a2204f23c8e8d08"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/81957c2440c05c962fe8291f318de6e85f8db330",
-                "reference": "81957c2440c05c962fe8291f318de6e85f8db330",
+                "url": "https://api.github.com/repos/symfony/console/zipball/542ec4ffb13541c31917ba720a2204f23c8e8d08",
+                "reference": "542ec4ffb13541c31917ba720a2204f23c8e8d08",
                 "shasum": ""
             },
             "require": {
@@ -5094,7 +5094,7 @@
                 "terminal"
             ],
             "support": {
-                "source": "https://github.com/symfony/console/tree/v7.4.23"
+                "source": "https://github.com/symfony/console/tree/v7.4.24"
             },
             "funding": [
                 {
@@ -5114,8 +5114,8 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2026-11-03T21:47:07+00:00",
-            "published-time": "2026-11-04T11:27:31+00:00"
+            "time": "2026-11-24T15:38:27+00:00",
+            "published-time": "2026-11-25T09:25:19+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
